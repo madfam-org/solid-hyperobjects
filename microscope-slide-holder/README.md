@@ -5,7 +5,7 @@ Parametric microscope slide retention system — trays, boxes, staining racks, a
 *Sistema paramétrico de retención de portaobjetos de microscopio — bandejas, cajas, bastidores de tinción y gabinetes archivadores*
 
 **Version**: 2.0.0  
-**Slug**: `slide-holder`  
+**Slug**: `microscope-slide-holder`  
 **Difficulty**: intermediate
 
 ## Modes

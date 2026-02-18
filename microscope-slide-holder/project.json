@@ -1,13 +1,13 @@
 {
   "project": {
     "name": "Microscope Slide Holder",
-    "slug": "slide-holder",
+    "slug": "microscope-slide-holder",
     "version": "2.0.0",
     "description": {
       "es": "Sistema paramétrico de retención de portaobjetos de microscopio — bandejas, cajas, bastidores de tinción y gabinetes archivadores",
       "en": "Parametric microscope slide retention system — trays, boxes, staining racks, and archival cabinets"
     },
-    "thumbnail": "/projects/slide-holder.webp",
+    "thumbnail": "/projects/microscope-slide-holder.webp",
     "tags": [
       "lab",
       "microscope",
