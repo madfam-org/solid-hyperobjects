@@ -109,82 +109,84 @@ _lip_w = 1.5;
 // box_base — Slotted trough with ribs
 // ---------------------------------------------------------------------------
 module box_base() {
-  difference() {
-    union() {
-      // Outer shell
-      cube([_body_x, _body_y, _body_z]);
+  union() {
+    difference() {
+      union() {
+        // Outer shell
+        cube([_body_x, _body_y, _body_z]);
 
-      // Stacking lip on top perimeter
-      if (stackable == 1) {
-        translate([0, 0, _body_z - EPSILON])
-          stacking_lip(_body_x, _body_y, _lip_h + EPSILON, _lip_w);
+        // Stacking lip on top perimeter
+        if (stackable == 1) {
+          translate([0, 0, _body_z - EPSILON])
+            stacking_lip(_body_x, _body_y, _lip_h + EPSILON, _lip_w);
+        }
       }
-    }
 
-    // Hollow interior
-    translate([wall_thickness, wall_thickness, floor_thickness])
-      cube(
-        [
-          _body_x - 2 * wall_thickness,
-          _body_y - 2 * wall_thickness,
-          _rib_height + 1, // cut above rib height
-        ]
-      );
+      // Hollow interior
+      translate([wall_thickness, wall_thickness, floor_thickness])
+        cube(
+          [
+            _body_x - 2 * wall_thickness,
+            _body_y - 2 * wall_thickness,
+            _rib_height + 1, // cut above rib height
+          ]
+        );
 
-    // Label recess on front face
-    if (label_area == 1) {
-      _label_w = min(40, _body_x * 0.5);
-      _label_h = min(12, _body_z * 0.4);
-      translate([(_body_x - _label_w) / 2, -EPSILON, (_body_z - _label_h) / 2])
-        rotate([90, 0, 0])
-          translate([0, 0, -LABEL_DEPTH])
-            label_recess(_label_w, _label_h, 0.5);
-      // 0.5 is depth+epsilon
-    }
-
-    // Debossed slot numbers (suppress when fn=0 for draft speed)
-    if (numbering_start >= 0 && fn > 0) {
-      for (i = [0:num_slots - 1]) {
-        _num = numbering_start + i;
-        _x = wall_thickness + (i * _pitch) + _pitch / 2;
-        translate([_x, _body_y - EPSILON, floor_thickness + 2])
+      // Label recess on front face
+      if (label_area == 1) {
+        _label_w = min(40, _body_x * 0.5);
+        _label_h = min(12, _body_z * 0.4);
+        translate([(_body_x - _label_w) / 2, -EPSILON, (_body_z - _label_h) / 2])
           rotate([90, 0, 0])
-            linear_extrude(height=0.5)
-              text(
-                str(_num), size=min(3, _pitch * 0.7),
-                halign="center", valign="bottom",
-                font="Liberation Sans:style=Bold"
-              );
+            translate([0, 0, -LABEL_DEPTH])
+              label_recess(_label_w, _label_h, 0.5);
+        // 0.5 is depth+epsilon
+      }
+
+      // Debossed slot numbers (suppress when fn=0 for draft speed)
+      if (numbering_start >= 0 && fn > 0) {
+        for (i = [0:num_slots - 1]) {
+          _num = numbering_start + i;
+          _x = wall_thickness + (i * _pitch) + _pitch / 2;
+          translate([_x, _body_y - EPSILON, floor_thickness + 2])
+            rotate([90, 0, 0])
+              linear_extrude(height=0.5)
+                text(
+                  str(_num), size=min(3, _pitch * 0.7),
+                  halign="center", valign="bottom",
+                  font="Liberation Sans:style=Bold"
+                );
+        }
       }
     }
-  }
 
-  // Rib array inside the box
-  translate([wall_thickness, wall_thickness - 0.25, floor_thickness - RIB_OVERLAP]) {
-    _tapered = rib_profile == 0 ? true : false;
-    // Rotate ribs so they extrude along Y (slide length direction)
-    rotate([0, 0, 0])
-      slot_array(
-        count=num_slots,
-        pitch=_pitch,
-        height=_rib_height + RIB_OVERLAP,
-        depth=_body_y - 2 * wall_thickness + RIB_OVERLAP,
-        root_w=_rib_w,
-        tip_w=_rib_tip_w,
-        chamfer_h=_chamfer_h,
-        tapered=_tapered
-      );
-  }
+    // Rib array inside the box
+    translate([wall_thickness, wall_thickness - 0.25, floor_thickness - RIB_OVERLAP]) {
+      _tapered = rib_profile == 0 ? true : false;
+      // Rotate ribs so they extrude along Y (slide length direction)
+      rotate([0, 0, 0])
+        slot_array(
+          count=num_slots,
+          pitch=_pitch,
+          height=_rib_height + RIB_OVERLAP,
+          depth=_body_y - 2 * wall_thickness + RIB_OVERLAP,
+          root_w=_rib_w,
+          tip_w=_rib_tip_w,
+          chamfer_h=_chamfer_h,
+          tapered=_tapered
+        );
+    }
 
-  // Snap latch catches on base (one per long side)
-  if (lid_latch == 0) {
-    // Front catch
-    translate([_body_x / 2 - _latch_arm_w / 2, -EPSILON, _body_z - _latch_hook_h - 1])
-      snap_latch_catch(_latch_arm_w, _latch_hook_h, wall_thickness + _latch_hook_d);
+    // Snap latch catches on base (one per long side)
+    if (lid_latch == 0) {
+      // Front catch
+      translate([_body_x / 2 - _latch_arm_w / 2, -EPSILON, _body_z - _latch_hook_h - 1])
+        snap_latch_catch(_latch_arm_w, _latch_hook_h, wall_thickness + _latch_hook_d);
 
-    // Back catch
-    translate([_body_x / 2 - _latch_arm_w / 2, _body_y - wall_thickness - _latch_hook_d + EPSILON, _body_z - _latch_hook_h - 1])
-      snap_latch_catch(_latch_arm_w, _latch_hook_h, wall_thickness + _latch_hook_d);
+      // Back catch
+      translate([_body_x / 2 - _latch_arm_w / 2, _body_y - wall_thickness - _latch_hook_d + EPSILON, _body_z - _latch_hook_h - 1])
+        snap_latch_catch(_latch_arm_w, _latch_hook_h, wall_thickness + _latch_hook_d);
+    }
   }
 }
 
