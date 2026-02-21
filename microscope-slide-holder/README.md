@@ -118,7 +118,7 @@ Parametric microscope slide retention system — trays, boxes, staining racks, a
 | Field | Value |
 |---|---|
 | **Domain** | Medical |
-| **License** | CERN-OHL-S-2.0 |
+| **License** | CERN-OHL-W-2.0 |
 | **Material Awareness** | Tolerance-by-material ✅, Shrinkage compensation ✗, Recycled material ✗ |
 
 ### Common Denominator Geometry (CDG) Interfaces

@@ -90,7 +90,7 @@
       "en": "Enables laboratories and pathology departments to fabricate precision slide retention systems for histology, cytology, and archival workflows \u2014 independent of commercial supply chains.",
       "es": "Permite a laboratorios y departamentos de patolog\u00eda fabricar sistemas de retenci\u00f3n de laminillas de precisi\u00f3n para flujos de trabajo de histolog\u00eda, citolog\u00eda y archivo \u2014 independiente de cadenas de suministro comerciales."
     },
-    "commons_license": "CERN-OHL-S-2.0",
+    "commons_license": "CERN-OHL-W-2.0",
     "oep8_features": [
       "object_dicts",
       "material_structs"
