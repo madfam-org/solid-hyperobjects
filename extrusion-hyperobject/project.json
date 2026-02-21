@@ -1,275 +1,280 @@
 {
-    "project": {
-        "name": "Extrusion Hyperobject",
-        "slug": "extrusion-hyperobject",
-        "version": "1.0.0",
-        "engine": "cadquery",
-        "description": {
-            "es": "Visualización paramétrica del Hiperobjeto Extruido: Rieles de acero, marcos de aluminio y polímeros modulares.",
-            "en": "Parametric visualization of the Extrusion Hyperobject: Steel rails, aluminum frames, and modular polymers."
-        },
-        "thumbnail": "/projects/extrusion-hyperobject.webp",
-        "tags": [
-            "hyperobject",
-            "commons",
-            "infrastructure",
-            "architecture",
-            "extrusion",
-            "post-human",
-            "cdg",
-            "bosl2"
-        ],
-        "difficulty": "advanced"
+  "project": {
+    "name": "Extrusion Hyperobject",
+    "slug": "extrusion-hyperobject",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "es": "Visualizaci\u00f3n param\u00e9trica del Hiperobjeto Extruido: Rieles de acero, marcos de aluminio y pol\u00edmeros modulares.",
+      "en": "Parametric visualization of the Extrusion Hyperobject: Steel rails, aluminum frames, and modular polymers."
     },
-    "hyperobject": {
-        "domain": "infrastructure",
-        "cdg_interfaces": [
-            {
-                "id": "rail_profile",
-                "label": {
-                    "en": "Railway Profile",
-                    "es": "Perfil de Ferrocarril"
-                },
-                "geometry_type": "profile",
-                "standard": "internal",
-                "parameters": [
-                    "extrusion_length",
-                    "profile_scale",
-                    "degradation_state"
-                ]
-            },
-            {
-                "id": "curtain_wall_mullion",
-                "label": {
-                    "en": "Aluminum Mullion",
-                    "es": "Montante de Aluminio"
-                },
-                "geometry_type": "profile",
-                "standard": "internal",
-                "parameters": [
-                    "extrusion_length",
-                    "wall_thickness"
-                ]
-            }
-        ],
-        "material_awareness": {
-            "shrinkage_compensation": false,
-            "recycled_material_toggle": false,
-            "tolerance_by_material": false
+    "thumbnail": "/projects/extrusion-hyperobject.webp",
+    "tags": [
+      "hyperobject",
+      "commons",
+      "infrastructure",
+      "architecture",
+      "extrusion",
+      "post-human",
+      "cdg",
+      "bosl2"
+    ],
+    "difficulty": "advanced"
+  },
+  "hyperobject": {
+    "domain": "infrastructure",
+    "cdg_interfaces": [
+      {
+        "id": "rail_profile",
+        "label": {
+          "en": "Railway Profile",
+          "es": "Perfil de Ferrocarril"
         },
-        "societal_benefit": {
-            "en": "Reveals the massive ontological weight and deep-time structural impact of the globally distributed family of extruded shapes (metals and polymers).",
-            "es": "Revela el masivo peso ontológico y el impacto estructural en el tiempo profundo de la familia globalmente distribuida de formas extruidas (metales y polímeros)."
-        },
-        "commons_license": "CERN-OHL-W-2.0",
-        "oep8_features": [
-            "object_dicts",
-            "material_structs"
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "extrusion_length",
+          "profile_scale",
+          "degradation_state"
         ]
+      },
+      {
+        "id": "curtain_wall_mullion",
+        "label": {
+          "en": "Aluminum Mullion",
+          "es": "Montante de Aluminio"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "extrusion_length",
+          "wall_thickness"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
     },
-    "modes": [
-        {
-            "id": "rail",
-            "scad_file": "rail.py",
-            "label": {
-                "es": "Riel Ferroviario",
-                "en": "Railway Track"
-            },
-            "parts": [
-                "rail_body"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        },
-        {
-            "id": "frame",
-            "scad_file": "frame.py",
-            "label": {
-                "es": "Marco de Aluminio",
-                "en": "Aluminum Frame"
-            },
-            "parts": [
-                "frame_body"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        },
-        {
-            "id": "module_track",
-            "scad_file": "module_track.py",
-            "label": {
-                "es": "Pista Modular (Polímero)",
-                "en": "Modular Track (Polymer)"
-            },
-            "parts": [
-                "track_body"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        }
-    ],
-    "parts": [
-        {
-            "id": "rail_body",
-            "render_mode": 0,
-            "label": {
-                "es": "Cuerpo del Riel",
-                "en": "Rail Body"
-            },
-            "default_color": "#757575"
-        },
-        {
-            "id": "frame_body",
-            "render_mode": 0,
-            "label": {
-                "es": "Cuerpo del Marco",
-                "en": "Frame Body"
-            },
-            "default_color": "#C0C0C0"
-        },
-        {
-            "id": "track_body",
-            "render_mode": 0,
-            "label": {
-                "es": "Cuerpo de la Pista",
-                "en": "Track Body"
-            },
-            "default_color": "#1C1C1C"
-        }
-    ],
-    "presets": [
-        {
-            "id": "standard_rail",
-            "label": {
-                "es": "Riel Estándar",
-                "en": "Standard Rail"
-            },
-            "values": {
-                "extrusion_length": 150,
-                "profile_scale": 1.0,
-                "degradation_state": 0
-            }
-        },
-        {
-            "id": "decaying_rail",
-            "label": {
-                "es": "Riel en Decadencia",
-                "en": "Decaying Rail"
-            },
-            "values": {
-                "extrusion_length": 100,
-                "profile_scale": 1.0,
-                "degradation_state": 5
-            }
-        },
-        {
-            "id": "curtain_wall",
-            "label": {
-                "es": "Muro Cortina",
-                "en": "Curtain Wall"
-            },
-            "values": {
-                "extrusion_length": 200,
-                "profile_scale": 0.8,
-                "wall_thickness": 2.5,
-                "degradation_state": 0
-            }
-        }
-    ],
-    "parameters": [
-        {
-            "id": "extrusion_length",
-            "type": "slider",
-            "default": 100,
-            "min": 10,
-            "max": 500,
-            "step": 10,
-            "label": {
-                "es": "Longitud de Extrusión",
-                "en": "Extrusion Length"
-            },
-            "tooltip": {
-                "es": "La longitud de la tajada del hiperobjeto a renderizar",
-                "en": "The length of the hyperobject slice to render"
-            },
-            "visible_in_modes": [
-                "rail",
-                "frame",
-                "module_track"
-            ],
-            "group": "geometry"
-        },
-        {
-            "id": "profile_scale",
-            "type": "slider",
-            "default": 1.0,
-            "min": 0.5,
-            "max": 3.0,
-            "step": 0.1,
-            "label": {
-                "es": "Escala del Perfil",
-                "en": "Profile Scale"
-            },
-            "tooltip": {
-                "es": "Escala general de la sección transversal",
-                "en": "Overall scale of the cross-section"
-            },
-            "visible_in_modes": [
-                "rail",
-                "frame",
-                "module_track"
-            ],
-            "group": "geometry"
-        },
-        {
-            "id": "degradation_state",
-            "type": "slider",
-            "default": 0,
-            "min": 0,
-            "max": 10,
-            "step": 1,
-            "label": {
-                "es": "Estado de Degradación",
-                "en": "Degradation State"
-            },
-            "tooltip": {
-                "es": "Simula el desgaste/oxidación a lo largo del tiempo profundo (El 'Phasing' del objeto)",
-                "en": "Simulates decay/oxidation over deep time (The object's 'Phasing')"
-            },
-            "visible_in_modes": [
-                "rail",
-                "frame",
-                "module_track"
-            ],
-            "group": "ontology"
-        },
-        {
-            "id": "wall_thickness",
-            "type": "slider",
-            "default": 2.0,
-            "min": 1.0,
-            "max": 5.0,
-            "step": 0.5,
-            "label": {
-                "es": "Grosor de Pared",
-                "en": "Wall Thickness"
-            },
-            "tooltip": {
-                "es": "Grosor para perfiles huecos (ej. Marcos de Aluminio)",
-                "en": "Thickness for hollow profiles (e.g. Aluminum Frames)"
-            },
-            "visible_in_modes": [
-                "frame",
-                "module_track"
-            ],
-            "group": "geometry",
-            "visibility_level": "advanced"
-        }
+    "societal_benefit": {
+      "en": "Reveals the massive ontological weight and deep-time structural impact of the globally distributed family of extruded shapes (metals and polymers).",
+      "es": "Revela el masivo peso ontol\u00f3gico y el impacto estructural en el tiempo profundo de la familia globalmente distribuida de formas extruidas (metales y pol\u00edmeros)."
+    },
+    "commons_license": "CERN-OHL-W-2.0",
+    "oep8_features": [
+      "object_dicts",
+      "material_structs"
     ]
+  },
+  "modes": [
+    {
+      "id": "rail",
+      "scad_file": "rail.py",
+      "label": {
+        "es": "Riel Ferroviario",
+        "en": "Railway Track"
+      },
+      "parts": [
+        "rail_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "frame",
+      "scad_file": "frame.py",
+      "label": {
+        "es": "Marco de Aluminio",
+        "en": "Aluminum Frame"
+      },
+      "parts": [
+        "frame_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "module_track",
+      "scad_file": "module_track.py",
+      "label": {
+        "es": "Pista Modular (Pol\u00edmero)",
+        "en": "Modular Track (Polymer)"
+      },
+      "parts": [
+        "track_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "rail_body",
+      "render_mode": 0,
+      "label": {
+        "es": "Cuerpo del Riel",
+        "en": "Rail Body"
+      },
+      "default_color": "#757575"
+    },
+    {
+      "id": "frame_body",
+      "render_mode": 0,
+      "label": {
+        "es": "Cuerpo del Marco",
+        "en": "Frame Body"
+      },
+      "default_color": "#C0C0C0"
+    },
+    {
+      "id": "track_body",
+      "render_mode": 0,
+      "label": {
+        "es": "Cuerpo de la Pista",
+        "en": "Track Body"
+      },
+      "default_color": "#1C1C1C"
+    }
+  ],
+  "presets": [
+    {
+      "id": "standard_rail",
+      "label": {
+        "es": "Riel Est\u00e1ndar",
+        "en": "Standard Rail"
+      },
+      "values": {
+        "extrusion_length": 150,
+        "profile_scale": 1.0,
+        "degradation_state": 0
+      }
+    },
+    {
+      "id": "decaying_rail",
+      "label": {
+        "es": "Riel en Decadencia",
+        "en": "Decaying Rail"
+      },
+      "values": {
+        "extrusion_length": 100,
+        "profile_scale": 1.0,
+        "degradation_state": 5
+      }
+    },
+    {
+      "id": "curtain_wall",
+      "label": {
+        "es": "Muro Cortina",
+        "en": "Curtain Wall"
+      },
+      "values": {
+        "extrusion_length": 200,
+        "profile_scale": 0.8,
+        "wall_thickness": 2.5,
+        "degradation_state": 0
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "extrusion_length",
+      "type": "slider",
+      "default": 100,
+      "min": 10,
+      "max": 500,
+      "step": 10,
+      "label": {
+        "es": "Longitud de Extrusi\u00f3n",
+        "en": "Extrusion Length"
+      },
+      "tooltip": {
+        "es": "La longitud de la tajada del hiperobjeto a renderizar",
+        "en": "The length of the hyperobject slice to render"
+      },
+      "visible_in_modes": [
+        "rail",
+        "frame",
+        "module_track"
+      ],
+      "group": "geometry"
+    },
+    {
+      "id": "profile_scale",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.1,
+      "label": {
+        "es": "Escala del Perfil",
+        "en": "Profile Scale"
+      },
+      "tooltip": {
+        "es": "Escala general de la secci\u00f3n transversal",
+        "en": "Overall scale of the cross-section"
+      },
+      "visible_in_modes": [
+        "rail",
+        "frame",
+        "module_track"
+      ],
+      "group": "geometry"
+    },
+    {
+      "id": "degradation_state",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": {
+        "es": "Estado de Degradaci\u00f3n",
+        "en": "Degradation State"
+      },
+      "tooltip": {
+        "es": "Simula el desgaste/oxidaci\u00f3n a lo largo del tiempo profundo (El 'Phasing' del objeto)",
+        "en": "Simulates decay/oxidation over deep time (The object's 'Phasing')"
+      },
+      "visible_in_modes": [
+        "rail",
+        "frame",
+        "module_track"
+      ],
+      "group": "ontology"
+    },
+    {
+      "id": "wall_thickness",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.0,
+      "max": 5.0,
+      "step": 0.5,
+      "label": {
+        "es": "Grosor de Pared",
+        "en": "Wall Thickness"
+      },
+      "tooltip": {
+        "es": "Grosor para perfiles huecos (ej. Marcos de Aluminio)",
+        "en": "Thickness for hollow profiles (e.g. Aluminum Frames)"
+      },
+      "visible_in_modes": [
+        "frame",
+        "module_track"
+      ],
+      "group": "geometry",
+      "visibility_level": "advanced"
+    }
+  ],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 5
+  }
 }
