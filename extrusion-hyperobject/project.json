@@ -3,6 +3,7 @@
         "name": "Extrusion Hyperobject",
         "slug": "extrusion-hyperobject",
         "version": "1.0.0",
+        "engine": "cadquery",
         "description": {
             "es": "Visualización paramétrica del Hiperobjeto Extruido: Rieles de acero, marcos de aluminio y polímeros modulares.",
             "en": "Parametric visualization of the Extrusion Hyperobject: Steel rails, aluminum frames, and modular polymers."
@@ -69,7 +70,7 @@
     "modes": [
         {
             "id": "rail",
-            "scad_file": "rail.scad",
+            "scad_file": "rail.py",
             "label": {
                 "es": "Riel Ferroviario",
                 "en": "Railway Track"
@@ -84,7 +85,7 @@
         },
         {
             "id": "frame",
-            "scad_file": "frame.scad",
+            "scad_file": "frame.py",
             "label": {
                 "es": "Marco de Aluminio",
                 "en": "Aluminum Frame"
@@ -99,7 +100,7 @@
         },
         {
             "id": "module_track",
-            "scad_file": "module_track.scad",
+            "scad_file": "module_track.py",
             "label": {
                 "es": "Pista Modular (Polímero)",
                 "en": "Modular Track (Polymer)"
