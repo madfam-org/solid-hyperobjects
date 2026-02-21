@@ -9,6 +9,8 @@
 // identified in the research analysis.
 // ============================================================================
 
+include <../microscope-slide-hyperobject/slide.scad>
+
 // ---------------------------------------------------------------------------
 // 1. Slide Standard Lookup (RESEARCH §2)
 // ---------------------------------------------------------------------------
@@ -37,27 +39,15 @@ DENSITY_RIB_WIDTHS = [1.0, 1.5, 2.0, 3.0];
 function density_rib_width(idx) = DENSITY_RIB_WIDTHS[idx];
 
 // Compute slot width from slide thickness + tolerances + waviness
-// RESEARCH §2.1.2: 0.2mm waviness compensation for ISO 8037 planarity spec
-function slot_width(slide_thick, tol_z) =
-  slide_thick + tol_z + 0.2;
+function slot_width(slide_thick, tol_z) = slide_slot_width(slide_thick, tol_z);
 
 // Compute pitch (center-to-center distance between slides)
-function pitch(slot_w, rib_w) = slot_w + rib_w;
+function pitch(slot_w, rib_w) = slide_pitch(slot_w, rib_w);
 
 // ---------------------------------------------------------------------------
 // 3. Slide Bounding Box (RESEARCH §8.2)
 // ---------------------------------------------------------------------------
-// The keep-out zone for a single slide including clearances.
-// Used for Boolean subtraction in all retention classes.
-module slide_bounding_box(length, width, thickness, tol_xy, tol_z) {
-  cube(
-    [
-      thickness + tol_z + 0.2, // waviness compensation
-      length + tol_xy,
-      width + tol_xy,
-    ]
-  );
-}
+// Now inherited natively via `slide_bounding_box` from the CDG hyperobject.
 
 // ---------------------------------------------------------------------------
 // 4. Retention Rib — Tapered with Chamfered Lead-In (RESEARCH §5.1.1)
@@ -75,43 +65,7 @@ module slide_bounding_box(length, width, thickness, tol_xy, tol_z) {
 //    root_width        ← base
 //
 module retention_rib(height, depth, root_w, tip_w, chamfer_h) {
-  _chamfer = min(chamfer_h, height * 0.25);
-  _body_h = height - _chamfer;
-  _taper_offset = (root_w - tip_w) / 2;
-
-  // Profile is drawn in XY then rotated so:
-  //   X → rib width (pitch direction)
-  //   Y → rib height, rotated to Z (vertical)
-  //   extrusion → rotated from Z to Y (slide-insertion direction)
-  translate([0, depth, 0]) // Shift from -Y to +Y range
-    rotate([-90, 0, 0])
-      translate([0, -height, 0]) {
-        // Main tapered body
-        linear_extrude(height=depth)
-          polygon(
-            [
-              [0, 0],
-              [root_w, 0],
-              [root_w - _taper_offset, _body_h],
-              [_taper_offset, _body_h],
-            ]
-          );
-
-        // Chamfered lead-in at top
-        if (_chamfer > 0) {
-          _cw = (root_w - 2 * _taper_offset); // width at body top = tip_w
-          translate([_taper_offset, 0, 0])
-            linear_extrude(height=depth)
-              polygon(
-                [
-                  [0, _body_h - 0.01],
-                  [_cw, _body_h - 0.01],
-                  [_cw / 2 + _cw * 0.3, _body_h + _chamfer],
-                  [_cw / 2 - _cw * 0.3, _body_h + _chamfer],
-                ]
-              );
-        }
-      }
+  slide_retention_rib(height, depth, root_w, tip_w, chamfer_h);
 }
 
 // Rectangular rib (simpler, for archival density)
@@ -125,15 +79,7 @@ module rectangular_rib(height, depth, width) {
 // Linear array of ribs along the X axis at the computed pitch.
 // Uses additive (union) approach — cleaner for tapered ribs per RESEARCH §8.2.
 module slot_array(count, pitch, height, depth, root_w, tip_w, chamfer_h, tapered) {
-  for (i = [0:count]) {
-    translate([i * pitch, 0, 0]) {
-      if (tapered) {
-        retention_rib(height, depth, root_w, tip_w, chamfer_h);
-      } else {
-        rectangular_rib(height, depth, root_w);
-      }
-    }
-  }
+  slide_slot_array(count, pitch, height, depth, root_w, tip_w, chamfer_h, tapered);
 }
 
 // ---------------------------------------------------------------------------
