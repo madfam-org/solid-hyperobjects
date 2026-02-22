@@ -1,0 +1,3 @@
+[submodule "libs/microscope-slide-hyperobject"]
+	path = libs/microscope-slide-hyperobject
+	url = https://github.com/madfam-org/microscope-slide-hyperobject.git
