@@ -9,7 +9,7 @@
 // identified in the research analysis.
 // ============================================================================
 
-include <../microscope-slide-hyperobject/slide.scad>
+include <libs/slide.scad>
 
 // ---------------------------------------------------------------------------
 // 1. Slide Standard Lookup (RESEARCH §2)
