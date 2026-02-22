@@ -1,0 +1,133 @@
+{
+    "project": {
+        "name": "Microscope Slide Hyperobject",
+        "slug": "microscope-slide-hyperobject",
+        "version": "1.0.0",
+        "description": {
+            "en": "Core parametric geometry and standards for microscope slides (ISO 8037).",
+            "es": "Geometría paramétrica central y estándares para portaobjetos de microscopio (ISO 8037)."
+        },
+        "thumbnail": "/projects/microscope-slide.webp",
+        "tags": [
+            "lab",
+            "microscope",
+            "science",
+            "cdg",
+            "hyperobject"
+        ],
+        "difficulty": "beginner"
+    },
+    "hyperobject": {
+        "domain": "medical",
+        "cdg_interfaces": [
+            {
+                "id": "iso_8037_standard",
+                "label": {
+                    "en": "ISO 8037 Microscope Slide Standard",
+                    "es": "Estándar ISO 8037 Laminillas de Microscopio"
+                },
+                "geometry_type": "pocket",
+                "standard": "ISO 8037-1:2003",
+                "parameters": [
+                    "slide_standard",
+                    "custom_slide_length",
+                    "custom_slide_width",
+                    "custom_slide_thickness"
+                ]
+            }
+        ],
+        "material_awareness": {
+            "shrinkage_compensation": false,
+            "recycled_material_toggle": false,
+            "tolerance_by_material": true
+        },
+        "societal_benefit": {
+            "en": "Provides the foundational geometric primitive for all microscope slide retention systems.",
+            "es": "Proporciona la primitiva geométrica fundamental para todos los sistemas de retención de portaobjetos de microscopio."
+        },
+        "commons_license": "CERN-OHL-W-2.0",
+        "pilot_hyperobject": true
+    },
+    "modes": [
+        {
+            "id": "default",
+            "scad_file": "slide.scad",
+            "label": {
+                "en": "Single Slide",
+                "es": "Laminilla Única"
+            },
+            "parts": [
+                "main"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
+        }
+    ],
+    "parts": [
+        {
+            "id": "main",
+            "render_mode": 0,
+            "label": {
+                "en": "Slide",
+                "es": "Laminilla"
+            },
+            "default_color": "#ffffff"
+        }
+    ],
+    "parameters": [
+        {
+            "id": "slide_standard",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 4,
+            "step": 1,
+            "label": {
+                "es": "Estándar de Laminilla",
+                "en": "Slide Standard"
+            },
+            "group": "slide"
+        },
+        {
+            "id": "custom_slide_length",
+            "type": "slider",
+            "default": 76,
+            "min": 40,
+            "max": 100,
+            "step": 0.1,
+            "label": {
+                "es": "Largo de Laminilla (mm)",
+                "en": "Slide Length (mm)"
+            },
+            "group": "slide"
+        },
+        {
+            "id": "custom_slide_width",
+            "type": "slider",
+            "default": 26,
+            "min": 15,
+            "max": 55,
+            "step": 0.1,
+            "label": {
+                "es": "Ancho de Laminilla (mm)",
+                "en": "Slide Width (mm)"
+            },
+            "group": "slide"
+        },
+        {
+            "id": "custom_slide_thickness",
+            "type": "slider",
+            "default": 1.0,
+            "min": 0.5,
+            "max": 2.0,
+            "step": 0.1,
+            "label": {
+                "es": "Grosor de Laminilla (mm)",
+                "en": "Slide Thickness (mm)"
+            },
+            "group": "slide"
+        }
+    ]
+}
