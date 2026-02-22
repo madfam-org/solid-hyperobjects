@@ -1,0 +1,3 @@
+[submodule "gridfinity_extended"]
+	path = gridfinity_extended
+	url = https://github.com/madfam-org/gridfinity_extended_openscad.git
