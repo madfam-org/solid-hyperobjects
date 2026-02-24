@@ -11,6 +11,7 @@
     "tags": [
       "culture",
       "hyperobject",
+      "commons",
       "framing",
       "display"
     ],
@@ -389,5 +390,56 @@
     "base_time": 5,
     "per_unit": 1,
     "per_part": 8
+  },
+  "export_formats": ["stl", "3mf"],
+  "hyperobject": {
+    "domain": "infrastructure",
+    "cdg_interfaces": [
+      {
+        "id": "rabbet_joint",
+        "label": {"en": "Rabbet Joint", "es": "Junta de Rebaje"},
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": ["mat_width", "glazing_thickness"]
+      },
+      {
+        "id": "seg_channel",
+        "label": {"en": "T-Slot Extrusion Channel", "es": "Canal de Extrusión en T"},
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": []
+      },
+      {
+        "id": "snap_profile",
+        "label": {"en": "Snap-Fit Interface", "es": "Interfaz de Encaje"},
+        "geometry_type": "snap",
+        "standard": "internal",
+        "parameters": []
+      },
+      {
+        "id": "vesa_pattern",
+        "label": {"en": "VESA Mount Pattern", "es": "Patrón de Montaje VESA"},
+        "geometry_type": "bolt_pattern",
+        "standard": "VESA 75/100",
+        "parameters": ["mounting_style"]
+      },
+      {
+        "id": "french_cleat",
+        "label": {"en": "French Cleat Profile", "es": "Perfil de Listón Francés"},
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": ["mounting_style"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "Modular framing and containment systems enable reuse via standardized mechanical interfaces",
+      "es": "Los sistemas modulares de enmarcado y contención permiten la reutilización mediante interfaces mecánicas estandarizadas"
+    },
+    "commons_license": "CERN-OHL-W-2.0"
   }
 }
