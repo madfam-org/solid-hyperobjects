@@ -162,5 +162,27 @@
     "fn_factor": 32,
     "wasm_multiplier": 3,
     "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "domain": "household",
+    "cdg_interfaces": [
+      {
+        "id": "pco_1881_thread",
+        "label": {"en": "PCO-1881 Bottle Thread", "es": "Rosca de Botella PCO-1881"},
+        "geometry_type": "thread",
+        "standard": "PCO-1881",
+        "parameters": ["housing_od_mm"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "Open-source water filtration from PET bottles — clean water access without commercial dependency",
+      "es": "Filtración de agua de código abierto con botellas PET — acceso a agua limpia sin dependencia comercial"
+    },
+    "commons_license": "CERN-OHL-W-2.0"
   }
 }
