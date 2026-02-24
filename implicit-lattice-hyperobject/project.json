@@ -12,7 +12,9 @@
             "implicit",
             "tpms",
             "lattice",
-            "tda"
+            "tda",
+            "hyperobject",
+            "commons"
         ],
         "difficulty": "advanced",
         "hyperobject": {
@@ -36,11 +38,31 @@
         {
             "id": "single",
             "scad_file": "tpms.scad",
+            "label": {
+                "en": "Single TPMS Lattice",
+                "es": "Retícula TPMS Única"
+            },
             "parts": [
                 "lattice"
-            ]
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
         }
     ],
+    "parts": [
+        {
+            "id": "lattice",
+            "render_mode": 0,
+            "label": {
+                "en": "Lattice",
+                "es": "Retícula"
+            },
+            "default_color": "#6366f1"
+        }
+    ],
+    "export_formats": ["stl", "3mf"],
     "parameters": [
         {
             "id": "target_material",
@@ -67,7 +89,7 @@
             "id": "topology_type",
             "type": "slider",
             "widget": {
-                "type": "tpms-topology"
+                "type": "custom"
             },
             "min": 0,
             "max": 2,
@@ -82,5 +104,31 @@
             "default": 5,
             "label": "Spatial Frequency"
         }
-    ]
+    ],
+    "hyperobject": {
+        "domain": "industrial",
+        "parity_status": "scad_only",
+        "cdg_interfaces": [
+            {
+                "id": "lattice_boundary",
+                "label": {
+                    "en": "TPMS Lattice Boundary",
+                    "es": "Frontera de Retícula TPMS"
+                },
+                "geometry_type": "surface",
+                "standard": "internal",
+                "parameters": ["topology_type", "frequency"]
+            }
+        ],
+        "material_awareness": {
+            "shrinkage_compensation": false,
+            "recycled_material_toggle": false,
+            "tolerance_by_material": false
+        },
+        "societal_benefit": {
+            "en": "Field-driven TPMS lattices for lightweight structural components and biomedical scaffolds",
+            "es": "Retículas TPMS por campos para componentes estructurales ligeros y andamios biomédicos"
+        },
+        "commons_license": "CERN-OHL-W-2.0"
+    }
 }
