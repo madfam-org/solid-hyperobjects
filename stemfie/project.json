@@ -12,7 +12,9 @@
       "education",
       "construction",
       "modular",
-      "stem"
+      "stem",
+      "hyperobject",
+      "commons"
     ],
     "difficulty": "advanced",
     "hyperobject": {
@@ -511,8 +513,8 @@
       "tolerance_by_material": false
     },
     "societal_benefit": {
-      "en": "Open-source construction kit for STEM education \u2014 enables schools to fabricate their own learning tools",
-      "es": "Kit de construcci\u00f3n de c\u00f3digo abierto para educaci\u00f3n STEM \u2014 permite a escuelas fabricar sus propias herramientas de aprendizaje"
+      "en": "Open-source construction kit for STEM education — enables schools to fabricate their own learning tools",
+      "es": "Kit de construcción de código abierto para educación STEM — permite a escuelas fabricar sus propias herramientas de aprendizaje"
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
