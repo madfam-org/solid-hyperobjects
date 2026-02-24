@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "engine": "cadquery",
     "description": {
-      "es": "Visualizaci\u00f3n param\u00e9trica del Hiperobjeto Extruido: Rieles de acero, marcos de aluminio y pol\u00edmeros modulares.",
+      "es": "Visualización paramétrica del Hiperobjeto Extruido: Rieles de acero, marcos de aluminio y polímeros modulares.",
       "en": "Parametric visualization of the Extrusion Hyperobject: Steel rails, aluminum frames, and modular polymers."
     },
     "thumbnail": "/projects/extrusion-hyperobject.webp",
@@ -20,7 +20,12 @@
       "bosl2"
     ],
     "difficulty": "advanced",
-    "export_formats": ["stl", "step", "glb", "3mf"]
+    "export_formats": [
+      "stl",
+      "step",
+      "glb",
+      "3mf"
+    ]
   },
   "hyperobject": {
     "domain": "infrastructure",
@@ -60,7 +65,7 @@
     },
     "societal_benefit": {
       "en": "Reveals the massive ontological weight and deep-time structural impact of the globally distributed family of extruded shapes (metals and polymers).",
-      "es": "Revela el masivo peso ontol\u00f3gico y el impacto estructural en el tiempo profundo de la familia globalmente distribuida de formas extruidas (metales y pol\u00edmeros)."
+      "es": "Revela el masivo peso ontológico y el impacto estructural en el tiempo profundo de la familia globalmente distribuida de formas extruidas (metales y polímeros)."
     },
     "commons_license": "CERN-OHL-W-2.0",
     "oep8_features": [
@@ -82,7 +87,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "rail.py"
     },
     {
       "id": "frame",
@@ -97,13 +103,14 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "frame.py"
     },
     {
       "id": "module_track",
       "scad_file": "module_track.py",
       "label": {
-        "es": "Pista Modular (Pol\u00edmero)",
+        "es": "Pista Modular (Polímero)",
         "en": "Modular Track (Polymer)"
       },
       "parts": [
@@ -112,7 +119,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "module_track.py"
     }
   ],
   "parts": [
@@ -148,7 +156,7 @@
     {
       "id": "standard_rail",
       "label": {
-        "es": "Riel Est\u00e1ndar",
+        "es": "Riel Estándar",
         "en": "Standard Rail"
       },
       "values": {
@@ -192,7 +200,7 @@
       "max": 500,
       "step": 10,
       "label": {
-        "es": "Longitud de Extrusi\u00f3n",
+        "es": "Longitud de Extrusión",
         "en": "Extrusion Length"
       },
       "tooltip": {
@@ -218,7 +226,7 @@
         "en": "Profile Scale"
       },
       "tooltip": {
-        "es": "Escala general de la secci\u00f3n transversal",
+        "es": "Escala general de la sección transversal",
         "en": "Overall scale of the cross-section"
       },
       "visible_in_modes": [
@@ -236,11 +244,11 @@
       "max": 10,
       "step": 1,
       "label": {
-        "es": "Estado de Degradaci\u00f3n",
+        "es": "Estado de Degradación",
         "en": "Degradation State"
       },
       "tooltip": {
-        "es": "Simula el desgaste/oxidaci\u00f3n a lo largo del tiempo profundo (El 'Phasing' del objeto)",
+        "es": "Simula el desgaste/oxidación a lo largo del tiempo profundo (El 'Phasing' del objeto)",
         "en": "Simulates decay/oxidation over deep time (The object's 'Phasing')"
       },
       "visible_in_modes": [
@@ -277,5 +285,9 @@
     "base_time": 5,
     "per_unit": 1,
     "per_part": 5
-  }
+  },
+  "export_formats": [
+    "stl",
+    "3mf"
+  ]
 }
