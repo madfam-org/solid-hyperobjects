@@ -2,6 +2,7 @@
   "project": {
     "name": "Chronos-SCARA",
     "slug": "scara-robotics",
+    "author": "Yantra4D",
     "version": "2.0.0",
     "description": {
       "en": "The Chronos-SCARA: a 4D Bounded Hyperobject robotic arm system.\n\nThis is not a simple CAD model — it is a parametric instantiation of a full robotic system-of-systems. Inspired by the open-source lineage of PyBot, RepRap Morgan, and ROS2-based projects, the Chronos-SCARA treats the SCARA arm as a distributed, temporal, relational entity: a Hyperobject in the sense defined by Timothy Morton.\n\nThe architecture is a hierarchy of three layers:\n1. Kinetic Layer — Aluminum-frame SCARA linkages with Strain Wave (Harmonic) Gear joints. Commercial harmonic drives maintain zero-backlash, preserving the integrity of the 4D bounded manifold.\n2. Sensory Layer (Panopticon) — Endstop anchors and Z-probe for proprioception, vision integration hooks for Visual Servoing.\n3. Kinematic Engine — Inverse Kinematics (IK) solver outputs, Singularity Manifold visualization, and a Bounded C-Space workspace envelope.\n\nOfficial Visualizer and Configurator: Yantra4D",
@@ -15,6 +16,7 @@
       "harmonic-drive",
       "kinematics",
       "hyperobject",
+      "commons",
       "precision",
       "4d",
       "chronos"
@@ -72,6 +74,8 @@
       ]
     },
     "attribution": {
+      "author": "Yantra4D",
+      "license": "CERN-OHL-W-2.0",
       "lineage": [
         {
           "project": "PyBot (JJRobots)",
@@ -138,6 +142,7 @@
     {
       "id": "sensorium",
       "scad_file": "robot.scad",
+      "cq_file": "robot.py",
       "label": {
         "en": "Sensorium (Panopticon Layer)",
         "es": "Sensorium (Capa Panóptico)"
@@ -462,13 +467,67 @@
   "export_formats": [
     "stl",
     "step",
-    "3mf",
-    "urdf"
+    "3mf"
   ],
   "estimate_constants": {
     "base_time": 8,
     "per_unit": 1,
     "per_part": 6,
     "wasm_multiplier": 1.5
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "nema17_mount",
+        "label": {
+          "en": "NEMA 17 Stepper Motor Mount",
+          "es": "Montaje de Motor Paso a Paso NEMA 17"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA 17/23",
+        "parameters": ["motor_frame_size"]
+      },
+      {
+        "id": "harmonic_output_flange",
+        "label": {
+          "en": "Harmonic Drive Output Flange",
+          "es": "Brida de Salida de Harmonic Drive"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": ["bore_diameter", "harmonic_ratio"]
+      },
+      {
+        "id": "linear_rail_carriage",
+        "label": {
+          "en": "MGN12 Linear Rail Carriage",
+          "es": "Carro de Guía Lineal MGN12"
+        },
+        "geometry_type": "profile",
+        "standard": "MGN9/12/15",
+        "parameters": ["rail_width"]
+      },
+      {
+        "id": "endstop_mount",
+        "label": {
+          "en": "Endstop / Limit Switch Mount",
+          "es": "Montaje de Final de Carrera"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": []
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Democratizes precision robotic manipulation for open-source R&D and educational contexts",
+      "es": "Democratiza la manipulación robótica de precisión para I+D de código abierto y contextos educativos"
+    },
+    "commons_license": "CERN-OHL-W-2.0"
   }
 }
