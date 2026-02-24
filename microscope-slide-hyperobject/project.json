@@ -13,7 +13,8 @@
             "microscope",
             "science",
             "cdg",
-            "hyperobject"
+            "hyperobject",
+            "commons"
         ],
         "difficulty": "beginner"
     },
@@ -136,5 +137,6 @@
             },
             "group": "slide"
         }
-    ]
+    ],
+    "export_formats": ["stl", "3mf"]
 }
