@@ -173,5 +173,34 @@
     "fn_factor": 32,
     "wasm_multiplier": 3,
     "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "domain": "medical",
+    "cdg_interfaces": [
+      {
+        "id": "diaphragm_housing",
+        "label": {"en": "Stethoscope Diaphragm Housing", "es": "Carcasa de Diafragma de Estetoscopio"},
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": ["diaphragm_size_mm"]
+      },
+      {
+        "id": "speculum_tip",
+        "label": {"en": "Otoscope Speculum Tip", "es": "Punta de Espéculo de Otoscopio"},
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": ["speculum_size_mm"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "Open-source diagnostic tools for healthcare — reduces cost barriers to medical equipment access",
+      "es": "Herramientas de diagnóstico de código abierto para salud — reduce barreras de costo al acceso de equipamiento médico"
+    },
+    "commons_license": "CC-BY-SA-4.0"
   }
 }
