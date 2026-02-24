@@ -19,7 +19,8 @@
       "cdg",
       "bosl2"
     ],
-    "difficulty": "advanced"
+    "difficulty": "advanced",
+    "export_formats": ["stl", "step", "glb", "3mf"]
   },
   "hyperobject": {
     "domain": "infrastructure",
