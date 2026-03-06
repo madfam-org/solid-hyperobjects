@@ -479,7 +479,11 @@
   "export_formats": [
     "stl",
     "3mf",
-    "step"
+    "off",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
   ],
   "print_estimation": {
     "default_material": "pla",
