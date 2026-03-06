@@ -159,7 +159,8 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "estimate_constants": {
     "base_time": 5,
