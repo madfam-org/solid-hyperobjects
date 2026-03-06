@@ -43,7 +43,7 @@
         "es": "Jarr\u00f3n"
       },
       "render_mode": 0,
-      "color": "#8b5cf6"
+      "default_color": "#8b5cf6"
     }
   ],
   "parameters": [
