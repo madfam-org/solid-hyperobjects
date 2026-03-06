@@ -282,7 +282,8 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "hyperobject": {
     "domain": "medical",
@@ -293,7 +294,7 @@
           "en": "Limb Scan Interface",
           "es": "Interfaz de Escaneo de Miembro"
         },
-        "geometry_type": "mesh_boolean",
+        "geometry_type": "surface",
         "standard": "DICOM / STL",
         "parameters": [
           "circumference_top",
