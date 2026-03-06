@@ -400,7 +400,8 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "camera_views": [
     {
