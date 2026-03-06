@@ -18,9 +18,6 @@
       "commons"
     ],
     "difficulty": "intermediate",
-    "hyperobject": {
-      "is_hyperobject": true
-    },
     "is_demo": true
   },
   "modes": [
