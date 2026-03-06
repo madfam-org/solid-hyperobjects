@@ -352,7 +352,11 @@
   "export_formats": [
     "stl",
     "3mf",
-    "step"
+    "off",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
   ],
   "estimate_constants": {
     "base_time": 6,
