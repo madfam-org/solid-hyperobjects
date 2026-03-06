@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Universal connector system for PVC, Bamboo, and Wood Dowels\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Sistema de conectores universales para PVC, Bamb\u00fa y Espigas de Madera\n\nVisualizador y configurador oficial: Yantra4D"
+      "es": "Sistema de conectores universales para PVC, Bambú y Espigas de Madera\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/parametric-connector.png",
     "tags": [
@@ -16,12 +16,7 @@
       "hyperobject",
       "commons"
     ],
-    "difficulty": "beginner",
-    "hyperobject": {
-      "is_hyperobject": true,
-      "domain": "household",
-      "cdg_interface": "pipe_od_standards"
-    }
+    "difficulty": "beginner"
   },
   "modes": [
     {
@@ -30,7 +25,7 @@
       "cq_file": "connector.py",
       "label": {
         "en": "Pipe Connector",
-        "es": "Conector de Tuber\u00eda"
+        "es": "Conector de Tubería"
       },
       "parts": [
         "connector_body"
@@ -79,7 +74,7 @@
       "id": "furniture_corner",
       "label": {
         "en": "Furniture 3-Way Corner (1\")",
-        "es": "Esquina de Mueble 3 V\u00edas (1\")"
+        "es": "Esquina de Mueble 3 Vías (1\")"
       },
       "values": {
         "pipe_od_mm": 33.4,
@@ -97,11 +92,11 @@
       "step": 0.1,
       "label": {
         "en": "Pipe OD (mm)",
-        "es": "OD Tuber\u00eda (mm)"
+        "es": "OD Tubería (mm)"
       },
       "tooltip": {
         "en": "Outer diameter of the pipe/dowel",
-        "es": "Di\u00e1metro exterior del tubo/espiga"
+        "es": "Diámetro exterior del tubo/espiga"
       },
       "visible_in_modes": [
         "Standard"
@@ -117,49 +112,49 @@
           "value": "elbow",
           "label": {
             "en": "Elbow (2-way)",
-            "es": "Codo (2 v\u00edas)"
+            "es": "Codo (2 vías)"
           }
         },
         {
           "value": "tee",
           "label": {
             "en": "Tee (3-way flat)",
-            "es": "Tee (3 v\u00edas plano)"
+            "es": "Tee (3 vías plano)"
           }
         },
         {
           "value": "cross",
           "label": {
             "en": "Cross (4-way flat)",
-            "es": "Cruz (4 v\u00edas plano)"
+            "es": "Cruz (4 vías plano)"
           }
         },
         {
           "value": "3-way-corner",
           "label": {
             "en": "Corner (3-way)",
-            "es": "Esquina (3 v\u00edas)"
+            "es": "Esquina (3 vías)"
           }
         },
         {
           "value": "4-way-corner",
           "label": {
             "en": "Corner (4-way)",
-            "es": "Esquina (4 v\u00edas)"
+            "es": "Esquina (4 vías)"
           }
         },
         {
           "value": "5-way",
           "label": {
             "en": "5-Way Center",
-            "es": "Centro 5 V\u00edas"
+            "es": "Centro 5 Vías"
           }
         },
         {
           "value": "6-way",
           "label": {
             "en": "6-Way Hub",
-            "es": "Hub 6 V\u00edas"
+            "es": "Hub 6 Vías"
           }
         }
       ],
@@ -197,7 +192,7 @@
       "step": 1,
       "label": {
         "en": "Insertion Depth (mm)",
-        "es": "Profundidad de Inserci\u00f3n (mm)"
+        "es": "Profundidad de Inserción (mm)"
       },
       "visible_in_modes": [
         "Standard"
@@ -227,14 +222,14 @@
       "id": "dimensions",
       "label": {
         "en": "Pipe Size",
-        "es": "Tama\u00f1o de Tuber\u00eda"
+        "es": "Tamaño de Tubería"
       }
     },
     {
       "id": "geometry",
       "label": {
         "en": "Topology",
-        "es": "Topolog\u00eda"
+        "es": "Topología"
       }
     },
     {
@@ -269,10 +264,17 @@
     "cdg_interfaces": [
       {
         "id": "pipe_socket",
-        "label": {"en": "Pipe/Dowel Socket", "es": "Enchufe de Tubo/Espiga"},
+        "label": {
+          "en": "Pipe/Dowel Socket",
+          "es": "Enchufe de Tubo/Espiga"
+        },
         "geometry_type": "socket",
         "standard": "internal",
-        "parameters": ["pipe_od_mm", "insertion_depth_mm", "wall_thickness_mm"]
+        "parameters": [
+          "pipe_od_mm",
+          "insertion_depth_mm",
+          "wall_thickness_mm"
+        ]
       }
     ],
     "material_awareness": {
