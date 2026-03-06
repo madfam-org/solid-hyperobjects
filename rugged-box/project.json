@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "description": {
       "en": "Parametric hinged rugged case with latches, gasket seals, dividers, and feet",
-      "es": "Caja resistente param\u00e9trica con bisagras, pestillos, juntas, divisores y pies"
+      "es": "Caja resistente paramétrica con bisagras, pestillos, juntas, divisores y pies"
     },
     "tags": [
       "case",
@@ -328,11 +328,11 @@
       "name": "boxChamferRadiusMm",
       "label": {
         "en": "Chamfer Radius",
-        "es": "Radio de chafl\u00e1n"
+        "es": "Radio de chaflán"
       },
       "tooltip": {
         "en": "Corner chamfer radius in mm",
-        "es": "Radio de chafl\u00e1n de esquinas en mm"
+        "es": "Radio de chaflán de esquinas en mm"
       },
       "type": "slider",
       "default": 4,
@@ -489,7 +489,7 @@
       },
       "tooltip": {
         "en": "Number of reinforcement ribs on each side",
-        "es": "N\u00famero de costillas de refuerzo en cada lado"
+        "es": "Número de costillas de refuerzo en cada lado"
       },
       "type": "slider",
       "default": 2,
@@ -560,7 +560,7 @@
       },
       "tooltip": {
         "en": "Number of horizontal sections (dividers = sections - 1)",
-        "es": "N\u00famero de secciones horizontales (divisores = secciones - 1)"
+        "es": "Número de secciones horizontales (divisores = secciones - 1)"
       },
       "type": "slider",
       "default": 1,
@@ -583,7 +583,7 @@
       },
       "tooltip": {
         "en": "Number of vertical sections (dividers = sections - 1)",
-        "es": "N\u00famero de secciones verticales (divisores = secciones - 1)"
+        "es": "Número de secciones verticales (divisores = secciones - 1)"
       },
       "type": "slider",
       "default": 1,
@@ -606,7 +606,7 @@
       },
       "tooltip": {
         "en": "Number of X dividers to skip (creates larger first section)",
-        "es": "N\u00famero de divisores X a saltar (crea una primera secci\u00f3n m\u00e1s grande)"
+        "es": "Número de divisores X a saltar (crea una primera sección más grande)"
       },
       "type": "slider",
       "default": 0,
@@ -630,7 +630,7 @@
       },
       "tooltip": {
         "en": "Number of Y dividers to skip (creates larger first section)",
-        "es": "N\u00famero de divisores Y a saltar (crea una primera secci\u00f3n m\u00e1s grande)"
+        "es": "Número de divisores Y a saltar (crea una primera sección más grande)"
       },
       "type": "slider",
       "default": 0,
@@ -654,7 +654,7 @@
       },
       "tooltip": {
         "en": "Number of hinges",
-        "es": "N\u00famero de bisagras"
+        "es": "Número de bisagras"
       },
       "type": "slider",
       "default": 2,
@@ -748,7 +748,7 @@
       },
       "tooltip": {
         "en": "Number of latches",
-        "es": "N\u00famero de pestillos"
+        "es": "Número de pestillos"
       },
       "type": "slider",
       "default": 2,
@@ -811,11 +811,11 @@
       "name": "latchClipCutoutAngle",
       "label": {
         "en": "Clip Angle",
-        "es": "\u00c1ngulo del clip"
+        "es": "Ángulo del clip"
       },
       "tooltip": {
         "en": "Latch clip angle (10=tight, 50=loose)",
-        "es": "\u00c1ngulo del clip (10=apretado, 50=suelto)"
+        "es": "Ángulo del clip (10=apretado, 50=suelto)"
       },
       "type": "slider",
       "default": 25,
@@ -837,7 +837,7 @@
       },
       "tooltip": {
         "en": "Latch opener tab length multiplier (1=short, 2=long)",
-        "es": "Multiplicador de largo de la pesta\u00f1a (1=corto, 2=largo)"
+        "es": "Multiplicador de largo de la pestaña (1=corto, 2=largo)"
       },
       "type": "slider",
       "default": 1.4,
@@ -856,7 +856,7 @@
       "name": "isFeetAdded",
       "label": {
         "en": "Add Feet",
-        "es": "A\u00f1adir pies"
+        "es": "Añadir pies"
       },
       "tooltip": {
         "en": "Enable stackable feet and cutouts",
@@ -950,7 +950,7 @@
       },
       "tooltip": {
         "en": "Polygon quality level",
-        "es": "Nivel de calidad de pol\u00edgonos"
+        "es": "Nivel de calidad de polígonos"
       },
       "type": "select",
       "default": 2,
@@ -959,14 +959,14 @@
           "value": 1,
           "label": {
             "en": "Extra Low Poly",
-            "es": "Pol\u00edgonos extra bajos"
+            "es": "Polígonos extra bajos"
           }
         },
         {
           "value": 2,
           "label": {
             "en": "Low Poly",
-            "es": "Pol\u00edgonos bajos"
+            "es": "Polígonos bajos"
           }
         },
         {
@@ -1001,7 +1001,7 @@
       "id": "wall",
       "label": {
         "en": "Wall & Chamfer",
-        "es": "Pared y chafl\u00e1n"
+        "es": "Pared y chaflán"
       }
     },
     {
@@ -1100,7 +1100,7 @@
       "slug": "tiny-20x20",
       "label": {
         "en": "Tiny (20x20)",
-        "es": "Peque\u00f1a (20x20)"
+        "es": "Pequeña (20x20)"
       },
       "values": {
         "internalBoxWidthXMm": 20,
@@ -1141,7 +1141,7 @@
       "slug": "small-rounded-50x30",
       "label": {
         "en": "Small Rounded (50x30)",
-        "es": "Peque\u00f1a redondeada (50x30)"
+        "es": "Pequeña redondeada (50x30)"
       },
       "values": {
         "internalBoxWidthXMm": 50,
@@ -1744,7 +1744,7 @@
       "quantity_formula": "1",
       "conditional": {
         "en": "Only if feet are enabled",
-        "es": "Solo si los pies est\u00e1n habilitados"
+        "es": "Solo si los pies están habilitados"
       }
     }
   ],
@@ -1755,11 +1755,11 @@
     },
     {
       "en": "Insert M3 screws through hinge barrels (outer holes self-thread)",
-      "es": "Insertar tornillos M3 a trav\u00e9s de los cilindros de bisagra (agujeros exteriores autoroscantes)"
+      "es": "Insertar tornillos M3 a través de los cilindros de bisagra (agujeros exteriores autoroscantes)"
     },
     {
       "en": "Insert M3 screws through latch pivots",
-      "es": "Insertar tornillos M3 a trav\u00e9s de los pivotes de pestillo"
+      "es": "Insertar tornillos M3 a través de los pivotes de pestillo"
     },
     {
       "en": "If using gasket seal, print gasket in TPU and press-fit into slot",
@@ -1775,7 +1775,7 @@
       "id": "iso",
       "label": {
         "en": "Isometric",
-        "es": "Isom\u00e9trico"
+        "es": "Isométrico"
       },
       "position": [
         200,
@@ -1842,7 +1842,10 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "off",
+    "glb",
+    "obj"
   ],
   "estimate_constants": {
     "base_time": 8,
