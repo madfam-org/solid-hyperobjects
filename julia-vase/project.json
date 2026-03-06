@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Parametric twisted vase with sinusoidal profile modulation inspired by Julia set fractals",
-      "es": "Jarr\u00f3n param\u00e9trico con torsi\u00f3n y modulaci\u00f3n sinusoidal inspirado en fractales de conjuntos de Julia"
+      "es": "Jarrón paramétrico con torsión y modulación sinusoidal inspirado en fractales de conjuntos de Julia"
     },
     "thumbnail": "/projects/julia-vase.webp",
     "tags": [
@@ -22,7 +22,7 @@
       "id": "vase",
       "label": {
         "en": "Vase",
-        "es": "Jarr\u00f3n"
+        "es": "Jarrón"
       },
       "scad_file": "vase.scad",
       "render_mode": 0,
@@ -32,7 +32,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "vase.py"
     }
   ],
   "parts": [
@@ -40,7 +41,7 @@
       "id": "vase",
       "label": {
         "en": "Vase",
-        "es": "Jarr\u00f3n"
+        "es": "Jarrón"
       },
       "render_mode": 0,
       "default_color": "#8b5cf6"
@@ -56,7 +57,7 @@
       },
       "tooltip": {
         "en": "Total vase height",
-        "es": "Altura total del jarr\u00f3n"
+        "es": "Altura total del jarrón"
       },
       "default": 150,
       "min": 50,
@@ -76,7 +77,7 @@
       },
       "tooltip": {
         "en": "Radius at the base of the vase",
-        "es": "Radio en la base del jarr\u00f3n"
+        "es": "Radio en la base del jarrón"
       },
       "default": 40,
       "min": 15,
@@ -92,11 +93,11 @@
       "type": "slider",
       "label": {
         "en": "Twist Angle",
-        "es": "\u00c1ngulo de Torsi\u00f3n"
+        "es": "Ángulo de Torsión"
       },
       "tooltip": {
         "en": "Total rotation angle from base to top",
-        "es": "\u00c1ngulo de rotaci\u00f3n total de base a cima"
+        "es": "Ángulo de rotación total de base a cima"
       },
       "default": 360,
       "min": 0,
@@ -116,7 +117,7 @@
       },
       "tooltip": {
         "en": "Number of wave lobes around perimeter",
-        "es": "N\u00famero de l\u00f3bulos de onda alrededor del per\u00edmetro"
+        "es": "Número de lóbulos de onda alrededor del perímetro"
       },
       "default": 5,
       "min": 1,
@@ -136,7 +137,7 @@
       },
       "tooltip": {
         "en": "Depth of wave modulation",
-        "es": "Profundidad de la modulaci\u00f3n de onda"
+        "es": "Profundidad de la modulación de onda"
       },
       "default": 10,
       "min": 0,
@@ -156,7 +157,7 @@
       },
       "tooltip": {
         "en": "Vase wall thickness",
-        "es": "Grosor de pared del jarr\u00f3n"
+        "es": "Grosor de pared del jarrón"
       },
       "default": 2,
       "min": 0.8,
@@ -172,11 +173,11 @@
       "type": "slider",
       "label": {
         "en": "Resolution ($fn)",
-        "es": "Resoluci\u00f3n ($fn)"
+        "es": "Resolución ($fn)"
       },
       "tooltip": {
         "en": "Angular resolution for curves",
-        "es": "Resoluci\u00f3n angular para curvas"
+        "es": "Resolución angular para curvas"
       },
       "default": 64,
       "min": 0,
@@ -192,11 +193,11 @@
       "type": "slider",
       "label": {
         "en": "Layer Resolution",
-        "es": "Resoluci\u00f3n de Capas"
+        "es": "Resolución de Capas"
       },
       "tooltip": {
         "en": "Number of vertical layers in the mesh",
-        "es": "N\u00famero de capas verticales en la malla"
+        "es": "Número de capas verticales en la malla"
       },
       "default": 100,
       "min": 20,
@@ -259,7 +260,7 @@
       "id": "ripple_vase",
       "label": {
         "en": "Ripple Vase",
-        "es": "Jarr\u00f3n Ondulado"
+        "es": "Jarrón Ondulado"
       },
       "values": {
         "twist_angle": 90,
@@ -288,7 +289,7 @@
       "severity": "error",
       "message": {
         "en": "Wall thickness must be at least 0.8mm for printability",
-        "es": "El grosor de pared debe ser al menos 0.8mm para impresi\u00f3n"
+        "es": "El grosor de pared debe ser al menos 0.8mm para impresión"
       }
     },
     {
@@ -299,7 +300,7 @@
       "severity": "warning",
       "message": {
         "en": "Wave amplitude should be less than 1/3 of base radius to avoid self-intersection",
-        "es": "La amplitud de onda debe ser menor a 1/3 del radio base para evitar auto-intersecci\u00f3n"
+        "es": "La amplitud de onda debe ser menor a 1/3 del radio base para evitar auto-intersección"
       }
     }
   ],
@@ -308,7 +309,7 @@
       "id": "iso",
       "label": {
         "en": "Isometric",
-        "es": "Isom\u00e9trico"
+        "es": "Isométrico"
       },
       "position": [
         100,
@@ -355,7 +356,8 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "estimate_constants": {
     "base_time": 10,
