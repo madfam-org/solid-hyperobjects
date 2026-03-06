@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Modular wall-mounted storage system with hexagonal peg pattern",
-      "es": "Sistema modular de almacenamiento de pared con patr\u00f3n de pines hexagonales"
+      "es": "Sistema modular de almacenamiento de pared con patrón de pines hexagonales"
     },
     "thumbnail": "/projects/multiboard.webp",
     "tags": [
@@ -59,7 +59,7 @@
       "id": "small_panel",
       "label": {
         "en": "Small Panel (4x4)",
-        "es": "Panel Peque\u00f1o (4x4)"
+        "es": "Panel Pequeño (4x4)"
       },
       "values": {
         "x_cells": 4,
@@ -103,7 +103,7 @@
       },
       "tooltip": {
         "en": "Number of cells along the X axis",
-        "es": "N\u00famero de celdas en el eje X"
+        "es": "Número de celdas en el eje X"
       },
       "group": "grid",
       "visible_in_modes": [
@@ -123,7 +123,7 @@
       },
       "tooltip": {
         "en": "Number of cells along the Y axis",
-        "es": "N\u00famero de celdas en el eje Y"
+        "es": "Número de celdas en el eje Y"
       },
       "group": "grid",
       "visible_in_modes": [
@@ -139,7 +139,7 @@
       "step": 1,
       "label": {
         "en": "Cell Size (mm)",
-        "es": "Tama\u00f1o de Celda (mm)"
+        "es": "Tamaño de Celda (mm)"
       },
       "tooltip": {
         "en": "Center-to-center distance between pegs",
@@ -181,11 +181,11 @@
       "step": 8,
       "label": {
         "en": "Resolution ($fn)",
-        "es": "Resoluci\u00f3n ($fn)"
+        "es": "Resolución ($fn)"
       },
       "tooltip": {
-        "en": "Circle resolution \u2014 0 uses default (32). Higher = smoother but slower",
-        "es": "Resoluci\u00f3n de c\u00edrculos \u2014 0 usa valor por defecto (32). Mayor = m\u00e1s suave pero m\u00e1s lento"
+        "en": "Circle resolution — 0 uses default (32). Higher = smoother but slower",
+        "es": "Resolución de círculos — 0 usa valor por defecto (32). Mayor = más suave pero más lento"
       },
       "group": "quality",
       "visible_in_modes": [
@@ -208,7 +208,7 @@
       "id": "iso",
       "label": {
         "en": "Isometric",
-        "es": "Isom\u00e9trico"
+        "es": "Isométrico"
       },
       "position": [
         120,
@@ -258,7 +258,7 @@
       "id": "grid",
       "label": {
         "en": "Grid",
-        "es": "Cuadr\u00edcula"
+        "es": "Cuadrícula"
       }
     },
     {
@@ -271,7 +271,10 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "off",
+    "glb",
+    "obj"
   ],
   "estimate_constants": {
     "base_time": 5,
