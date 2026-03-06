@@ -478,7 +478,8 @@
   "export_formats": [
     "stl",
     "3mf",
-    "off"
+    "off",
+    "step"
   ],
   "print_estimation": {
     "default_material": "petg",
