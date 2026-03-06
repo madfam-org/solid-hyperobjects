@@ -29,7 +29,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "maze_coaster.py"
     },
     {
       "id": "cube",
@@ -44,7 +45,8 @@
       "estimate": {
         "base_units": 2,
         "formula": "constant"
-      }
+      },
+      "cq_file": "maze_cube.py"
     },
     {
       "id": "cylinder",
@@ -59,7 +61,8 @@
       "estimate": {
         "base_units": 2,
         "formula": "constant"
-      }
+      },
+      "cq_file": "maze_cylinder.py"
     }
   ],
   "parts": [
@@ -643,7 +646,8 @@
   "export_formats": [
     "stl",
     "3mf",
-    "off"
+    "off",
+    "step"
   ],
   "print_estimation": {
     "default_material": "pla",
