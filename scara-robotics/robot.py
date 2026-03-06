@@ -5,7 +5,10 @@ import argparse
 
 def add_discrete_teeth(base, n, r, w, h, t):
     """Add box teeth around a circle."""
+    arc_gap = 2 * math.pi * r / n if n > 0 else 0
     for i in range(n):
+        if w > arc_gap * 0.95:
+            continue  # skip tooth if it would overlap adjacent teeth
         angle = i * (360.0 / n)
         rad = math.radians(angle)
         x = r * math.cos(rad)

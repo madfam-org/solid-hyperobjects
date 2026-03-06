@@ -23,55 +23,7 @@
     ],
     "difficulty": "advanced",
     "hyperobject": {
-      "is_hyperobject": true,
-      "domain": "industrial",
-      "commons_license": "cdg-open",
-      "material_awareness": true,
-      "societal_benefit": "Democratizes precision robotic manipulation for open-source R&D and educational contexts, enabling closed-loop SCARA arms to be fabricated and maintained without commercial IP dependencies.",
-      "ontological_framework": "4D Bounded Hyperobject — Chronos-SCARA exists as a distributed, temporal, relational entity across repositories, supply chains, and firmware histories. Its physical footprint is merely a local phase of a massively distributed robotic hyperobject.",
-      "layers": {
-        "cloud": "Git repository (URDF, Firmware Config, Vision Models) — Immortal, Non-local Memory.",
-        "compute": "Raspberry Pi 5 + ROS2 Humble + Klipper Host — 4D Trajectory Planner and IK Solver.",
-        "kinetic": "Aluminum-frame SCARA with commercial harmonic drives and closed-loop steppers (STM32 MCU).",
-        "sensory": "Endstops, Z-probe, and vision integration hooks — the Panopticon Sensorium."
-      },
-      "cdg_interfaces": [
-        {
-          "id": "nema17_mount",
-          "label": "NEMA 17 Stepper Motor Mount",
-          "geometry_type": "bolt_pattern",
-          "standard": "cdg-bolt_pattern-v1",
-          "parameters": [
-            "motor_frame_size"
-          ]
-        },
-        {
-          "id": "harmonic_output_flange",
-          "label": "Harmonic Drive Output Flange",
-          "geometry_type": "socket",
-          "standard": "cdg-socket-v1",
-          "parameters": [
-            "bore_diameter",
-            "harmonic_ratio"
-          ]
-        },
-        {
-          "id": "linear_rail_carriage",
-          "label": "MGN12 Linear Rail Carriage",
-          "geometry_type": "profile",
-          "standard": "cdg-profile-v1",
-          "parameters": [
-            "rail_width"
-          ]
-        },
-        {
-          "id": "endstop_mount",
-          "label": "Endstop / Limit Switch Mount",
-          "geometry_type": "socket",
-          "standard": "cdg-socket-v1",
-          "parameters": []
-        }
-      ]
+      "is_hyperobject": true
     },
     "attribution": {
       "author": "Yantra4D",
@@ -528,6 +480,13 @@
       "en": "Democratizes precision robotic manipulation for open-source R&D and educational contexts",
       "es": "Democratiza la manipulación robótica de precisión para I+D de código abierto y contextos educativos"
     },
-    "commons_license": "CERN-OHL-W-2.0"
+    "commons_license": "CERN-OHL-W-2.0",
+    "ontological_framework": "4D Bounded Hyperobject — Chronos-SCARA exists as a distributed, temporal, relational entity across repositories, supply chains, and firmware histories. Its physical footprint is merely a local phase of a massively distributed robotic hyperobject.",
+    "layers": {
+      "cloud": "Git repository (URDF, Firmware Config, Vision Models) — Immortal, Non-local Memory.",
+      "compute": "Raspberry Pi 5 + ROS2 Humble + Klipper Host — 4D Trajectory Planner and IK Solver.",
+      "kinetic": "Aluminum-frame SCARA with commercial harmonic drives and closed-loop steppers (STM32 MCU).",
+      "sensory": "Endstops, Z-probe, and vision integration hooks — the Panopticon Sensorium."
+    }
   }
 }
