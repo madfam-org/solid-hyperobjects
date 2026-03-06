@@ -382,7 +382,10 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "off",
+    "glb",
+    "obj"
   ],
   "camera_views": [
     {
