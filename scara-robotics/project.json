@@ -418,8 +418,12 @@
   ],
   "export_formats": [
     "stl",
+    "3mf",
+    "off",
     "step",
-    "3mf"
+    "glb",
+    "gltf",
+    "obj"
   ],
   "estimate_constants": {
     "base_time": 8,
@@ -438,7 +442,9 @@
         },
         "geometry_type": "bolt_pattern",
         "standard": "NEMA 17/23",
-        "parameters": ["motor_frame_size"]
+        "parameters": [
+          "motor_frame_size"
+        ]
       },
       {
         "id": "harmonic_output_flange",
@@ -448,7 +454,10 @@
         },
         "geometry_type": "socket",
         "standard": "internal",
-        "parameters": ["bore_diameter", "harmonic_ratio"]
+        "parameters": [
+          "bore_diameter",
+          "harmonic_ratio"
+        ]
       },
       {
         "id": "linear_rail_carriage",
@@ -458,7 +467,9 @@
         },
         "geometry_type": "profile",
         "standard": "MGN9/12/15",
-        "parameters": ["rail_width"]
+        "parameters": [
+          "rail_width"
+        ]
       },
       {
         "id": "endstop_mount",
