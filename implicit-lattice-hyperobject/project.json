@@ -17,6 +17,7 @@
             "commons"
         ],
         "difficulty": "advanced",
+        "engine": "implicit",
         "hyperobject": {
             "is_hyperobject": true,
             "material_awareness": true,
