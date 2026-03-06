@@ -334,7 +334,11 @@
   "export_formats": [
     "stl",
     "3mf",
-    "step"
+    "off",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
   ],
   "hyperobject": {
     "domain": "infrastructure",
