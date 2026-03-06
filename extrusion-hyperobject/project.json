@@ -67,11 +67,7 @@
       "en": "Reveals the massive ontological weight and deep-time structural impact of the globally distributed family of extruded shapes (metals and polymers).",
       "es": "Revela el masivo peso ontológico y el impacto estructural en el tiempo profundo de la familia globalmente distribuida de formas extruidas (metales y polímeros)."
     },
-    "commons_license": "CERN-OHL-W-2.0",
-    "oep8_features": [
-      "object_dicts",
-      "material_structs"
-    ]
+    "commons_license": "CERN-OHL-W-2.0"
   },
   "modes": [
     {
