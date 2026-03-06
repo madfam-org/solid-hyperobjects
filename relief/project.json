@@ -29,7 +29,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "plaque.py"
     },
     {
       "id": "tag",
@@ -44,7 +45,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "tag.py"
     },
     {
       "id": "sign",
@@ -59,7 +61,8 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "cq_file": "sign.py"
     }
   ],
   "parts": [
@@ -697,7 +700,8 @@
   "export_formats": [
     "stl",
     "3mf",
-    "off"
+    "off",
+    "step"
   ],
   "print_estimation": {
     "default_material": "pla",
