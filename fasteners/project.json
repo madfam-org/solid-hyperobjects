@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Parametric bolts and nuts with real threads\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Tornillos y tuercas paramétricas con roscas reales\n\nVisualizador y configurador oficial: Yantra4D"
+      "es": "Tornillos y tuercas param\u00e9tricas con roscas reales\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/fasteners.webp",
     "tags": [
@@ -24,7 +24,6 @@
   },
   "modes": [
     {
-      "slug": "bolt",
       "label": {
         "en": "Bolt",
         "es": "Tornillo"
@@ -38,10 +37,10 @@
         "base_time": 8,
         "per_unit": 2,
         "per_part": 10
-      }
+      },
+      "id": "bolt"
     },
     {
-      "slug": "nut",
       "label": {
         "en": "Nut",
         "es": "Tuerca"
@@ -55,64 +54,65 @@
         "base_time": 8,
         "per_unit": 2,
         "per_part": 10
-      }
+      },
+      "id": "nut"
     }
   ],
   "parts": [
     {
-      "slug": "bolt",
       "label": {
         "en": "Bolt",
         "es": "Tornillo"
       },
       "render_mode": 0,
-      "color": "#71717a"
+      "color": "#71717a",
+      "id": "bolt"
     },
     {
-      "slug": "nut",
       "label": {
         "en": "Nut",
         "es": "Tuerca"
       },
       "render_mode": 0,
-      "color": "#a1a1aa"
+      "color": "#a1a1aa",
+      "id": "nut"
     }
   ],
   "parameter_groups": [
     {
-      "slug": "dimensions",
       "label": {
         "en": "Dimensions",
         "es": "Dimensiones"
-      }
+      },
+      "id": "dimensions"
     },
     {
-      "slug": "head_style",
       "label": {
         "en": "Head Style",
         "es": "Estilo de Cabeza"
-      }
+      },
+      "id": "head_style"
     },
     {
-      "slug": "nut_style",
       "label": {
         "en": "Nut Style",
         "es": "Estilo de Tuerca"
-      }
+      },
+      "id": "nut_style"
     },
     {
-      "slug": "thread",
       "label": {
         "en": "Thread",
         "es": "Rosca"
-      }
+      },
+      "id": "thread"
     },
     {
-      "slug": "quality",
       "label": {
         "en": "Quality",
         "es": "Calidad"
-      }
+      },
+      "id": "quality"
     }
   ],
   "parameters": [
@@ -124,7 +124,7 @@
       },
       "tooltip": {
         "en": "Nominal thread diameter",
-        "es": "Diámetro nominal de la rosca"
+        "es": "Di\u00e1metro nominal de la rosca"
       },
       "type": "slider",
       "default": 5,
@@ -145,7 +145,7 @@
       },
       "tooltip": {
         "en": "Bolt shaft length excluding head",
-        "es": "Largo del vástago excluyendo cabeza"
+        "es": "Largo del v\u00e1stago excluyendo cabeza"
       },
       "type": "slider",
       "default": 20,
@@ -207,7 +207,7 @@
       },
       "tooltip": {
         "en": "Override head diameter (0=auto)",
-        "es": "Diámetro de cabeza manual (0=auto)"
+        "es": "Di\u00e1metro de cabeza manual (0=auto)"
       },
       "type": "slider",
       "default": 0,
@@ -311,7 +311,7 @@
       },
       "tooltip": {
         "en": "Generate real threads (slower)",
-        "es": "Generar roscas reales (más lento)"
+        "es": "Generar roscas reales (m\u00e1s lento)"
       },
       "type": "checkbox",
       "default": true,
@@ -329,7 +329,7 @@
       },
       "tooltip": {
         "en": "Circle smoothness (0=auto)",
-        "es": "Suavidad de círculos (0=auto)"
+        "es": "Suavidad de c\u00edrculos (0=auto)"
       },
       "type": "slider",
       "default": 0,
@@ -345,7 +345,6 @@
   ],
   "presets": [
     {
-      "slug": "m3_socket_20",
       "label": {
         "en": "M3 Socket 20mm",
         "es": "M3 Allen 20mm"
@@ -356,10 +355,10 @@
         "length": 20,
         "pitch": 0.5,
         "head_style_id": 1
-      }
+      },
+      "id": "m3_socket_20"
     },
     {
-      "slug": "m5_hex_25",
       "label": {
         "en": "M5 Hex 25mm",
         "es": "M5 Hex 25mm"
@@ -370,10 +369,10 @@
         "length": 25,
         "pitch": 0.8,
         "head_style_id": 0
-      }
+      },
+      "id": "m5_hex_25"
     },
     {
-      "slug": "m8_button_30",
       "label": {
         "en": "M8 Button 30mm",
         "es": "M8 Boton 30mm"
@@ -384,7 +383,8 @@
         "length": 30,
         "pitch": 1.25,
         "head_style_id": 2
-      }
+      },
+      "id": "m8_button_30"
     }
   ],
   "constraints": [
@@ -410,7 +410,7 @@
       "id": "iso",
       "label": {
         "en": "Isometric",
-        "es": "Isométrico"
+        "es": "Isom\u00e9trico"
       },
       "position": [
         40,
@@ -474,7 +474,7 @@
         "id": "iso_metric_thread",
         "label": {
           "en": "ISO Metric Thread",
-          "es": "Rosca Métrica ISO"
+          "es": "Rosca M\u00e9trica ISO"
         },
         "geometry_type": "thread",
         "standard": "ISO 261 / ISO 965",
@@ -519,8 +519,8 @@
       "tolerance_by_material": true
     },
     "societal_benefit": {
-      "en": "On-demand fabrication of standard fasteners — enables prototyping and repair without hardware store dependency",
-      "es": "Fabricación bajo demanda de tornillería estándar — permite prototipado y reparación sin depender de ferreterías"
+      "en": "On-demand fabrication of standard fasteners \u2014 enables prototyping and repair without hardware store dependency",
+      "es": "Fabricaci\u00f3n bajo demanda de torniller\u00eda est\u00e1ndar \u2014 permite prototipado y reparaci\u00f3n sin depender de ferreter\u00edas"
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
