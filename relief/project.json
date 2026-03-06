@@ -701,7 +701,10 @@
     "stl",
     "3mf",
     "off",
-    "step"
+    "step",
+    "glb",
+    "gltf",
+    "obj"
   ],
   "print_estimation": {
     "default_material": "pla",
