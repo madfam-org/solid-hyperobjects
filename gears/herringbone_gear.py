@@ -44,10 +44,7 @@ def build(params):
     bottom = profile.twistExtrude(half_t, twist_deg)
     
     # Top half (twisted negative)
-    # To ensure it matches the bottom, we translate the original profile to Z=half_t,
-    # rotate it by twist_deg, and then twistExtrude with -twist_deg.
-    profile.workplane(offset=half_t)
-    # Re-draw the profile rotated
+    # Re-draw the profile rotated at Z=half_t, twist in opposite direction
     rot_pts = []
     for (x,y) in pts:
         r = math.hypot(x,y)
