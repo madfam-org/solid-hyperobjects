@@ -8,13 +8,15 @@
       "es": "Mecanismos de bloqueo paramétricos para carcasas impresas en 3D — pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/locking-mechanism-hyperobject.webp",
-    "tags": ["mechanical", "locking", "snap-fit", "security", "hyperobject", "commons"],
-    "difficulty": "intermediate",
-    "hyperobject": {
-      "is_hyperobject": true,
-      "domain": "industrial",
-      "cdg_interface": "latch_hook"
-    }
+    "tags": [
+      "mechanical",
+      "locking",
+      "snap-fit",
+      "security",
+      "hyperobject",
+      "commons"
+    ],
+    "difficulty": "intermediate"
   },
   "modes": [
     {
@@ -24,7 +26,10 @@
         "en": "Snap-Fit Latch",
         "es": "Pestillo Snap-Fit"
       },
-      "parts": ["latch_arm", "striker_plate"],
+      "parts": [
+        "latch_arm",
+        "striker_plate"
+      ],
       "estimate": {
         "base_units": 1,
         "formula": "constant"
@@ -37,7 +42,10 @@
         "en": "Over-Center Lock",
         "es": "Cierre de Palanca"
       },
-      "parts": ["lever_assembly", "hook_catch"],
+      "parts": [
+        "lever_assembly",
+        "hook_catch"
+      ],
       "estimate": {
         "base_units": 1,
         "formula": "constant"
@@ -50,7 +58,9 @@
         "en": "Compliant Bistable Lock",
         "es": "Cerradura Biestable Flexible"
       },
-      "parts": ["compliant_body"],
+      "parts": [
+        "compliant_body"
+      ],
       "estimate": {
         "base_units": 1,
         "formula": "constant"
@@ -154,7 +164,11 @@
         "en": "Latch Width (mm)",
         "es": "Ancho del Pestillo (mm)"
       },
-      "visible_in_modes": ["snap_latch", "over_center", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "over_center",
+        "compliant_lock"
+      ],
       "group": "dimensions"
     },
     {
@@ -168,7 +182,10 @@
         "en": "Hook Depth (mm)",
         "es": "Profundidad del Gancho (mm)"
       },
-      "visible_in_modes": ["snap_latch", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "compliant_lock"
+      ],
       "group": "mechanism"
     },
     {
@@ -186,7 +203,9 @@
         "en": "Cantilever deflection angle — higher values increase retention force",
         "es": "Ángulo de deflexión del voladizo — valores más altos aumentan la fuerza de retención"
       },
-      "visible_in_modes": ["snap_latch"],
+      "visible_in_modes": [
+        "snap_latch"
+      ],
       "group": "mechanism"
     },
     {
@@ -204,7 +223,9 @@
         "en": "Distance past center-point for locking — larger values increase holding force",
         "es": "Distancia más allá del punto central para bloqueo — valores mayores aumentan la fuerza de retención"
       },
-      "visible_in_modes": ["over_center"],
+      "visible_in_modes": [
+        "over_center"
+      ],
       "group": "mechanism"
     },
     {
@@ -218,7 +239,11 @@
         "en": "Clearance (mm)",
         "es": "Holgura (mm)"
       },
-      "visible_in_modes": ["snap_latch", "over_center", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "over_center",
+        "compliant_lock"
+      ],
       "group": "mechanism"
     },
     {
@@ -232,7 +257,11 @@
         "en": "Wall Thickness (mm)",
         "es": "Grosor de Pared (mm)"
       },
-      "visible_in_modes": ["snap_latch", "over_center", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "over_center",
+        "compliant_lock"
+      ],
       "group": "dimensions"
     },
     {
@@ -246,7 +275,9 @@
         "en": "Lever Length (mm)",
         "es": "Longitud de Palanca (mm)"
       },
-      "visible_in_modes": ["over_center"],
+      "visible_in_modes": [
+        "over_center"
+      ],
       "group": "dimensions"
     },
     {
@@ -260,7 +291,11 @@
         "en": "Base Length (mm)",
         "es": "Longitud de Base (mm)"
       },
-      "visible_in_modes": ["snap_latch", "over_center", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "over_center",
+        "compliant_lock"
+      ],
       "group": "dimensions"
     },
     {
@@ -274,7 +309,11 @@
         "en": "Quality ($fn)",
         "es": "Calidad ($fn)"
       },
-      "visible_in_modes": ["snap_latch", "over_center", "compliant_lock"],
+      "visible_in_modes": [
+        "snap_latch",
+        "over_center",
+        "compliant_lock"
+      ],
       "group": "quality",
       "visibility_level": "advanced"
     }
@@ -302,7 +341,10 @@
       }
     }
   ],
-  "export_formats": ["stl", "3mf"],
+  "export_formats": [
+    "stl",
+    "3mf"
+  ],
   "estimate_constants": {
     "base_time": 5,
     "per_unit": 2,
@@ -322,7 +364,10 @@
         },
         "geometry_type": "profile",
         "standard": "internal",
-        "parameters": ["latch_width", "hook_depth"]
+        "parameters": [
+          "latch_width",
+          "hook_depth"
+        ]
       },
       {
         "id": "striker_plate",
@@ -332,7 +377,10 @@
         },
         "geometry_type": "bolt_pattern",
         "standard": "internal",
-        "parameters": ["base_length", "latch_width"]
+        "parameters": [
+          "base_length",
+          "latch_width"
+        ]
       },
       {
         "id": "actuation_lever",
@@ -342,7 +390,9 @@
         },
         "geometry_type": "rail",
         "standard": "internal",
-        "parameters": ["lever_length"]
+        "parameters": [
+          "lever_length"
+        ]
       }
     ],
     "material_awareness": {
