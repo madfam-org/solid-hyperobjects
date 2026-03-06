@@ -15,12 +15,7 @@
       "hyperobject",
       "commons"
     ],
-    "difficulty": "intermediate",
-    "hyperobject": {
-      "is_hyperobject": true,
-      "domain": "industrial",
-      "cdg_interface": "revolute_joint"
-    }
+    "difficulty": "intermediate"
   },
   "modes": [
     {
