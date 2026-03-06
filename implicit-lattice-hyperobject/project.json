@@ -1,135 +1,142 @@
 {
-    "project": {
-        "name": "Maths: TPMS Implicit Lattice",
-        "slug": "implicit-lattice-hyperobject",
-        "description": "A field-driven Triply Periodic Minimal Surface (TPMS). Uses continuous Signed Distance Fields rather than explicit BSP trees.",
-        "version": "1.0.0",
-        "author": "Yantra4D",
-        "license": "CERN-OHL-W-2.0",
-        "thumbnail": "thumbnail.png",
-        "tags": [
-            "math",
-            "implicit",
-            "tpms",
-            "lattice",
-            "tda",
-            "hyperobject",
-            "commons"
-        ],
-        "difficulty": "advanced",
-        "engine": "implicit",
-        "hyperobject": {
-            "is_hyperobject": true,
-            "material_awareness": true,
-            "implicit_field": {
-                "type": "tpms",
-                "topology": "gyroid",
-                "base_frequency": 5.0,
-                "resolution": 48
-            }
-        }
-    },
-    "estimate_constants": {
-        "base_time": 1,
-        "per_unit": 0,
-        "per_part": 1,
-        "wasm_multiplier": 1
-    },
-    "modes": [
-        {
-            "id": "single",
-            "scad_file": "tpms.scad",
-            "label": {
-                "en": "Single TPMS Lattice",
-                "es": "Retícula TPMS Única"
-            },
-            "parts": [
-                "lattice"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        }
+  "project": {
+    "name": "Maths: TPMS Implicit Lattice",
+    "slug": "implicit-lattice-hyperobject",
+    "description": "A field-driven Triply Periodic Minimal Surface (TPMS). Uses continuous Signed Distance Fields rather than explicit BSP trees.",
+    "version": "1.0.0",
+    "author": "Yantra4D",
+    "license": "CERN-OHL-W-2.0",
+    "thumbnail": "thumbnail.png",
+    "tags": [
+      "math",
+      "implicit",
+      "tpms",
+      "lattice",
+      "tda",
+      "hyperobject",
+      "commons"
     ],
-    "parts": [
-        {
-            "id": "lattice",
-            "render_mode": 0,
-            "label": {
-                "en": "Lattice",
-                "es": "Retícula"
-            },
-            "default_color": "#6366f1"
-        }
-    ],
-    "export_formats": ["stl", "3mf"],
-    "parameters": [
-        {
-            "id": "target_material",
-            "type": "select",
-            "default": "polymaker-polylite-pla",
-            "options": [
-                {
-                    "value": "polymaker-polylite-pla",
-                    "label": "Polymaker PolyLite PLA"
-                },
-                {
-                    "value": "formlabs-clear-v4",
-                    "label": "Formlabs Clear V4"
-                },
-                {
-                    "value": "pet-cf",
-                    "label": "PETG Carbon Fiber"
-                }
-            ],
-            "label": "Target Material",
-            "hidden": true
-        },
-        {
-            "id": "topology_type",
-            "type": "slider",
-            "widget": {
-                "type": "custom"
-            },
-            "min": 0,
-            "max": 2,
-            "default": 0,
-            "label": "Topology: 0=Gyroid, 1=Diamond, 2=Schwarz P"
-        },
-        {
-            "id": "frequency",
-            "type": "slider",
-            "min": 1,
-            "max": 20,
-            "default": 5,
-            "label": "Spatial Frequency"
-        }
-    ],
+    "difficulty": "advanced",
+    "engine": "implicit",
     "hyperobject": {
-        "domain": "industrial",
-        "parity_status": "scad_only",
-        "cdg_interfaces": [
-            {
-                "id": "lattice_boundary",
-                "label": {
-                    "en": "TPMS Lattice Boundary",
-                    "es": "Frontera de Retícula TPMS"
-                },
-                "geometry_type": "surface",
-                "standard": "internal",
-                "parameters": ["topology_type", "frequency"]
-            }
-        ],
-        "material_awareness": {
-            "shrinkage_compensation": false,
-            "recycled_material_toggle": false,
-            "tolerance_by_material": false
-        },
-        "societal_benefit": {
-            "en": "Field-driven TPMS lattices for lightweight structural components and biomedical scaffolds",
-            "es": "Retículas TPMS por campos para componentes estructurales ligeros y andamios biomédicos"
-        },
-        "commons_license": "CERN-OHL-W-2.0"
+      "is_hyperobject": true,
+      "implicit_field": {
+        "type": "tpms",
+        "topology": "gyroid",
+        "base_frequency": 5.0,
+        "resolution": 48
+      }
     }
+  },
+  "estimate_constants": {
+    "base_time": 1,
+    "per_unit": 0,
+    "per_part": 1,
+    "wasm_multiplier": 1
+  },
+  "modes": [
+    {
+      "id": "single",
+      "scad_file": "tpms.scad",
+      "label": {
+        "en": "Single TPMS Lattice",
+        "es": "Retícula TPMS Única"
+      },
+      "parts": [
+        "lattice"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "cq_file": "tpms.py"
+    }
+  ],
+  "parts": [
+    {
+      "id": "lattice",
+      "render_mode": 0,
+      "label": {
+        "en": "Lattice",
+        "es": "Retícula"
+      },
+      "default_color": "#6366f1"
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step"
+  ],
+  "parameters": [
+    {
+      "id": "target_material",
+      "type": "select",
+      "default": "polymaker-polylite-pla",
+      "options": [
+        {
+          "value": "polymaker-polylite-pla",
+          "label": "Polymaker PolyLite PLA"
+        },
+        {
+          "value": "formlabs-clear-v4",
+          "label": "Formlabs Clear V4"
+        },
+        {
+          "value": "pet-cf",
+          "label": "PETG Carbon Fiber"
+        }
+      ],
+      "label": "Target Material",
+      "hidden": true
+    },
+    {
+      "id": "topology_type",
+      "type": "slider",
+      "widget": {
+        "type": "custom"
+      },
+      "min": 0,
+      "max": 2,
+      "default": 0,
+      "label": "Topology: 0=Gyroid, 1=Diamond, 2=Schwarz P"
+    },
+    {
+      "id": "frequency",
+      "type": "slider",
+      "min": 1,
+      "max": 20,
+      "default": 5,
+      "label": "Spatial Frequency"
+    }
+  ],
+  "hyperobject": {
+    "domain": "industrial",
+    "parity_status": "scad_only",
+    "cdg_interfaces": [
+      {
+        "id": "lattice_boundary",
+        "label": {
+          "en": "TPMS Lattice Boundary",
+          "es": "Frontera de Retícula TPMS"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "topology_type",
+          "frequency"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": false
+    },
+    "societal_benefit": {
+      "en": "Field-driven TPMS lattices for lightweight structural components and biomedical scaffolds",
+      "es": "Retículas TPMS por campos para componentes estructurales ligeros y andamios biomédicos"
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  }
 }
