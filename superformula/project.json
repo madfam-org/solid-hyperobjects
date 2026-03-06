@@ -30,7 +30,8 @@
       "estimate": {
         "base_units": 3,
         "formula": "constant"
-      }
+      },
+      "cq_file": "superformula.py"
     }
   ],
   "parts": [
@@ -179,8 +180,8 @@
         "en": "N1"
       },
       "tooltip": {
-        "es": "Parametro N1 de la superformula \u2014 controla la curvatura",
-        "en": "Superformula N1 parameter \u2014 controls curvature"
+        "es": "Parametro N1 de la superformula — controla la curvatura",
+        "en": "Superformula N1 parameter — controls curvature"
       },
       "visible_in_modes": [
         "vase"
@@ -477,7 +478,8 @@
   },
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "print_estimation": {
     "default_material": "pla",
