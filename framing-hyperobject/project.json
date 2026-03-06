@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Parametric framing and containment systems (Hyperobject)\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Sistemas param\u00e9tricos de enmarcado y contenci\u00f3n (Hiperobjeto)\n\nVisualizador y configurador oficial: Yantra4D"
+      "es": "Sistemas paramétricos de enmarcado y contención (Hiperobjeto)\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "docs/images/thumbnail.png",
     "tags": [
@@ -61,7 +61,7 @@
       "render_mode": 0,
       "label": {
         "en": "Glazing",
-        "es": "Vidrio/Acr\u00edlico"
+        "es": "Vidrio/Acrílico"
       },
       "default_color": "#add8e6"
     }
@@ -132,7 +132,7 @@
           "value": "ogee",
           "label": {
             "en": "Ogee (Classic)",
-            "es": "Ogee (Cl\u00e1sico)"
+            "es": "Ogee (Clásico)"
           }
         },
         {
@@ -214,7 +214,7 @@
           "value": "french_cleat",
           "label": {
             "en": "French Cleat",
-            "es": "List\u00f3n Franc\u00e9s"
+            "es": "Listón Francés"
           }
         },
         {
@@ -275,14 +275,14 @@
           "value": "Silver Eagle",
           "label": {
             "en": "Silver Eagle Capsule",
-            "es": "C\u00e1psula Silver Eagle"
+            "es": "Cápsula Silver Eagle"
           }
         },
         {
           "value": "Small Dollar",
           "label": {
             "en": "Small Dollar Capsule",
-            "es": "C\u00e1psula D\u00f3lar Peq."
+            "es": "Cápsula Dólar Peq."
           }
         },
         {
@@ -308,7 +308,7 @@
       "step": 1,
       "label": {
         "en": "Mat Width (mm)",
-        "es": "Ancho Paspart\u00fa (mm)"
+        "es": "Ancho Paspartú (mm)"
       },
       "group": "components"
     },
@@ -331,51 +331,82 @@
     "per_unit": 1,
     "per_part": 8
   },
-  "export_formats": ["stl", "3mf"],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step"
+  ],
   "hyperobject": {
     "domain": "infrastructure",
     "cdg_interfaces": [
       {
         "id": "rabbet_joint",
-        "label": {"en": "Rabbet Joint", "es": "Junta de Rebaje"},
+        "label": {
+          "en": "Rabbet Joint",
+          "es": "Junta de Rebaje"
+        },
         "geometry_type": "pocket",
         "standard": "internal",
-        "parameters": ["mat_width", "glazing_thickness"]
+        "parameters": [
+          "mat_width",
+          "glazing_thickness"
+        ]
       },
       {
         "id": "seg_channel",
-        "label": {"en": "T-Slot Extrusion Channel", "es": "Canal de Extrusión en T"},
+        "label": {
+          "en": "T-Slot Extrusion Channel",
+          "es": "Canal de Extrusión en T"
+        },
         "geometry_type": "profile",
         "standard": "internal",
         "parameters": []
       },
       {
         "id": "snap_profile",
-        "label": {"en": "Snap-Fit Interface", "es": "Interfaz de Encaje"},
+        "label": {
+          "en": "Snap-Fit Interface",
+          "es": "Interfaz de Encaje"
+        },
         "geometry_type": "snap",
         "standard": "internal",
         "parameters": []
       },
       {
         "id": "vesa_pattern",
-        "label": {"en": "VESA Mount Pattern", "es": "Patrón de Montaje VESA"},
+        "label": {
+          "en": "VESA Mount Pattern",
+          "es": "Patrón de Montaje VESA"
+        },
         "geometry_type": "bolt_pattern",
         "standard": "VESA 75/100",
-        "parameters": ["mounting_style"]
+        "parameters": [
+          "mounting_style"
+        ]
       },
       {
         "id": "french_cleat",
-        "label": {"en": "French Cleat Profile", "es": "Perfil de Listón Francés"},
+        "label": {
+          "en": "French Cleat Profile",
+          "es": "Perfil de Listón Francés"
+        },
         "geometry_type": "profile",
         "standard": "internal",
-        "parameters": ["mounting_style"]
+        "parameters": [
+          "mounting_style"
+        ]
       },
       {
         "id": "standoff_bore",
-        "label": {"en": "Threaded Standoff", "es": "Separador Roscado"},
+        "label": {
+          "en": "Threaded Standoff",
+          "es": "Separador Roscado"
+        },
         "geometry_type": "socket",
         "standard": "internal",
-        "parameters": ["mounting_style"]
+        "parameters": [
+          "mounting_style"
+        ]
       }
     ],
     "material_awareness": {
