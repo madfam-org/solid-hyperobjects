@@ -4,8 +4,8 @@
     "slug": "faircap-filter",
     "version": "1.0.0",
     "description": {
-      "en": "Open-source parametric water filter that screws onto standard PET bottles \u2014 clean water from plastic waste\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Filtro de agua param\u00e9trico de c\u00f3digo abierto que se enrosca en botellas PET est\u00e1ndar \u2014 agua limpia a partir de residuos pl\u00e1sticos\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "Open-source parametric water filter that screws onto standard PET bottles — clean water from plastic waste\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Filtro de agua paramétrico de código abierto que se enrosca en botellas PET estándar — agua limpia a partir de residuos plásticos\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/faircap-filter.png",
     "tags": [
@@ -18,12 +18,7 @@
       "commons",
       "cdg"
     ],
-    "difficulty": "intermediate",
-    "hyperobject": {
-      "is_hyperobject": true,
-      "domain": "household",
-      "cdg_interface": "pco_1881_thread"
-    }
+    "difficulty": "intermediate"
   },
   "modes": [
     {
@@ -32,7 +27,7 @@
       "cq_file": "faircap.py",
       "label": {
         "en": "Standard Filter",
-        "es": "Filtro Est\u00e1ndar"
+        "es": "Filtro Estándar"
       },
       "parts": [
         "filter_housing"
@@ -59,7 +54,7 @@
       "id": "charcoal_standard",
       "label": {
         "en": "Charcoal Filter (Standard)",
-        "es": "Filtro de Carb\u00f3n (Est\u00e1ndar)"
+        "es": "Filtro de Carbón (Estándar)"
       },
       "values": {
         "filter_type": "charcoal",
@@ -70,7 +65,7 @@
       "id": "ceramic_long",
       "label": {
         "en": "Ceramic Filter (Long)",
-        "es": "Filtro Cer\u00e1mico (Largo)"
+        "es": "Filtro Cerámico (Largo)"
       },
       "values": {
         "filter_type": "ceramic",
@@ -95,7 +90,7 @@
       },
       "tooltip": {
         "en": "Internal structure for filtration",
-        "es": "Estructura interna para filtraci\u00f3n"
+        "es": "Estructura interna para filtración"
       },
       "visible_in_modes": [
         "Standard"
@@ -111,7 +106,7 @@
       "step": 1,
       "label": {
         "en": "Housing Diameter (mm)",
-        "es": "Di\u00e1metro de Carcasa (mm)"
+        "es": "Diámetro de Carcasa (mm)"
       },
       "visible_in_modes": [
         "Standard"
@@ -140,7 +135,7 @@
       "id": "filtration",
       "label": {
         "en": "Filtration Settings",
-        "es": "Configuraci\u00f3n de Filtrado"
+        "es": "Configuración de Filtrado"
       }
     },
     {
@@ -168,10 +163,15 @@
     "cdg_interfaces": [
       {
         "id": "pco_1881_thread",
-        "label": {"en": "PCO-1881 Bottle Thread", "es": "Rosca de Botella PCO-1881"},
+        "label": {
+          "en": "PCO-1881 Bottle Thread",
+          "es": "Rosca de Botella PCO-1881"
+        },
         "geometry_type": "thread",
         "standard": "PCO-1881",
-        "parameters": ["housing_od_mm"]
+        "parameters": [
+          "housing_od_mm"
+        ]
       }
     ],
     "material_awareness": {
