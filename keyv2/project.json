@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": {
       "en": "Customizable mechanical keyboard keycaps with multiple profiles and stems",
-      "es": "Teclas personalizables para teclados mec\u00e1nicos con m\u00faltiples perfiles y v\u00e1stagos"
+      "es": "Teclas personalizables para teclados mecánicos con múltiples perfiles y vástagos"
     },
     "thumbnail": "/projects/keyv2.webp",
     "tags": [
@@ -73,7 +73,7 @@
       },
       "tooltip": {
         "en": "Sculpted row number (affects tilt)",
-        "es": "N\u00famero de fila esculpida (afecta inclinaci\u00f3n)"
+        "es": "Número de fila esculpida (afecta inclinación)"
       },
       "modes": [
         "keycap"
@@ -93,7 +93,7 @@
       },
       "tooltip": {
         "en": "Keycap width in standard units",
-        "es": "Ancho de tecla en unidades est\u00e1ndar"
+        "es": "Ancho de tecla en unidades estándar"
       },
       "modes": [
         "keycap"
@@ -113,7 +113,7 @@
       },
       "tooltip": {
         "en": "Switch stem type",
-        "es": "Tipo de v\u00e1stago del switch"
+        "es": "Tipo de vástago del switch"
       },
       "modes": [
         "keycap"
@@ -148,7 +148,7 @@
       },
       "tooltip": {
         "en": "Character or text for the legend",
-        "es": "Car\u00e1cter o texto para la leyenda"
+        "es": "Carácter o texto para la leyenda"
       },
       "modes": [
         "keycap"
@@ -169,7 +169,7 @@
       },
       "tooltip": {
         "en": "Legend font size in mm",
-        "es": "Tama\u00f1o de fuente de leyenda en mm"
+        "es": "Tamaño de fuente de leyenda en mm"
       },
       "modes": [
         "keycap"
@@ -190,7 +190,7 @@
       },
       "tooltip": {
         "en": "Depth of the concave top dish",
-        "es": "Profundidad del plato c\u00f3ncavo superior"
+        "es": "Profundidad del plato cóncavo superior"
       },
       "modes": [
         "keycap"
@@ -253,7 +253,7 @@
       },
       "tooltip": {
         "en": "Extra clearance for stem fit",
-        "es": "Holgura extra para ajuste del v\u00e1stago"
+        "es": "Holgura extra para ajuste del vástago"
       },
       "modes": [
         "keycap"
@@ -273,7 +273,7 @@
       },
       "tooltip": {
         "en": "Circle smoothness (0=auto)",
-        "es": "Suavidad de c\u00edrculos (0=auto)"
+        "es": "Suavidad de círculos (0=auto)"
       },
       "modes": [
         "keycap"
@@ -360,7 +360,7 @@
       "id": "iso",
       "label": {
         "en": "Isometric",
-        "es": "Isom\u00e9trico"
+        "es": "Isométrico"
       },
       "position": [
         25,
@@ -407,7 +407,10 @@
   ],
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "off",
+    "glb",
+    "obj"
   ],
   "parts": [
     {
