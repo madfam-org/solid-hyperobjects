@@ -31,7 +31,8 @@
       "estimate": {
         "base_units": 2,
         "formula": "constant"
-      }
+      },
+      "cq_file": "spiral_planter.py"
     }
   ],
   "parts": [
@@ -538,7 +539,8 @@
   },
   "export_formats": [
     "stl",
-    "3mf"
+    "3mf",
+    "step"
   ],
   "print_estimation": {
     "default_material": "petg",
