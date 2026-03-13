@@ -2,7 +2,7 @@
   "project": {
     "name": "Spiral Planter",
     "slug": "spiral-planter",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Maceta espiral generativa con drenaje parametrico usando dotSCAD",
       "en": "Generative spiral planter with parametric drainage using dotSCAD"
