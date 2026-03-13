@@ -222,7 +222,13 @@
         "gasket",
         "feet",
         "closed-view"
-      ]
+      ],
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "x",
+        "scale_factor": 1,
+        "affected_parts": ["bottom", "top", "latches", "gasket", "feet"]
+      }
     },
     {
       "name": "internalboxLengthYMm",
