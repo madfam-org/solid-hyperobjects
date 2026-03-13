@@ -2,7 +2,7 @@
   "project": {
     "name": "Torus Knot Sculpture",
     "slug": "torus-knot",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Esculturas de nudos toroidales generativas usando dotSCAD y BOSL2",
       "en": "Generative torus knot sculptures using dotSCAD and BOSL2"
