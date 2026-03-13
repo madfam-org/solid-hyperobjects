@@ -2,7 +2,7 @@
   "project": {
     "name": "Maze Generator",
     "slug": "maze",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Generador de laberintos para posavasos, cubos y cilindros",
       "en": "Maze generator for coasters, cubes, and cylinders"
