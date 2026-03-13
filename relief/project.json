@@ -2,7 +2,7 @@
   "project": {
     "name": "Text Relief Generator",
     "slug": "relief",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Generador de placas, etiquetas y letreros con texto en relieve",
       "en": "Generator for plaques, tags, and signs with embossed text"
