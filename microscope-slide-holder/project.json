@@ -447,7 +447,12 @@
         "staining_rack",
         "cabinet_drawer"
       ],
-      "group": "architecture"
+      "group": "architecture",
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "y",
+        "affected_parts": ["box", "lid"]
+      }
     },
     {
       "id": "tolerance_xy",
