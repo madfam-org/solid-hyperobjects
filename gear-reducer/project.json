@@ -2,7 +2,7 @@
   "project": {
     "name": "Parametric Gear Reducer",
     "slug": "gear-reducer",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Reductor de engranajes parametrico con BOSL2 — ratio configurable, tamano de motor y diametro de eje",
       "en": "Parametric gear reducer with BOSL2 — configurable ratio, motor size, and shaft diameter"
