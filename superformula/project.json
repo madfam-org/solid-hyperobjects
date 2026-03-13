@@ -2,7 +2,7 @@
   "project": {
     "name": "Superformula Vase",
     "slug": "superformula",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": {
       "es": "Jarrones generativos basados en superformulas matematicas usando dotSCAD",
       "en": "Generative vases based on mathematical superformulas using dotSCAD"
