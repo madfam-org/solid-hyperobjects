@@ -1,0 +1,979 @@
+{
+  "project": {
+    "name": "Custom MSH (AOCL)",
+    "slug": "custom-msh",
+    "version": "2.4.0",
+    "description": {
+      "en": "Custom substrate holder system for 1×1 inch substrates (AOCL) — holder, 10-slot rack, multi-rack joined body, 3-rack storage box, and assembly views.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Sistema portamuestras para sustratos de 1×1 pulgada (AOCL) — soporte individual, rack de 10 ranuras, cuerpo multi-rack unido, caja para 3 racks y vistas de ensamblaje.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/custom-msh.webp",
+    "tags": [
+      "lab",
+      "custom",
+      "aocl",
+      "substrate",
+      "microscope",
+      "hyperobject",
+      "commons"
+    ],
+    "difficulty": "intermediate",
+    "force_backend": true
+  },
+  "hyperobject": {
+    "domain": "medical",
+    "cdg_interfaces": [
+      {
+        "id": "aocl_substrate_pocket",
+        "label": {
+          "en": "AOCL 1\"×1\" Substrate Pocket",
+          "es": "Bolsillo para Sustrato AOCL 1\"×1\""
+        },
+        "geometry_type": "pocket",
+        "standard": "internal/aocl",
+        "parameters": [
+          "substrate_length",
+          "substrate_width",
+          "tolerance_xy",
+          "tolerance_z"
+        ]
+      }
+    ],
+    "commons_license": "CERN-OHL-W-2.0",
+    "societal_benefit": {
+      "en": "Enables fabrication of a precision substrate retention system for AOCL laboratory workflows — independent of commercial supply chains.",
+      "es": "Permite fabricar un sistema de retención de sustratos de precisión para flujos de trabajo de laboratorio AOCL — independiente de cadenas de suministro comerciales."
+    }
+  },
+  "modes": [
+    {
+      "id": "holder",
+      "scad_file": "holder.scad",
+      "label": {
+        "en": "Single Holder",
+        "es": "Soporte Individual"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2v20\"/><path d=\"M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          14.5,
+          14.5,
+          5.0
+        ],
+        "max_dim_mm": 36
+      },
+      "parts": [
+        "holder_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "rack",
+      "scad_file": "rack.scad",
+      "label": {
+        "en": "Staining Rack",
+        "es": "Rack de Tinción"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6h16\"/><path d=\"M4 12h16\"/><path d=\"M4 18h16\"/><path d=\"M8 4v16\"/><path d=\"M16 4v16\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          24.5,
+          15.0,
+          22.0
+        ],
+        "max_dim_mm": 50
+      },
+      "parts": [
+        "rack"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "multi_rack",
+      "scad_file": "multi_rack.scad",
+      "label": {
+        "en": "Multi-Rack",
+        "es": "Multi-Rack"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6h16\"/><path d=\"M4 12h16\"/><path d=\"M4 18h16\"/><path d=\"M7 4v16\"/><path d=\"M12 4v16\"/><path d=\"M17 4v16\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          24.5,
+          47.0,
+          14.0
+        ],
+        "max_dim_mm": 100
+      },
+      "parts": [
+        "multi_rack_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "base",
+      "scad_file": "box.scad",
+      "label": {
+        "en": "Box Base",
+        "es": "Base de Caja"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M9 21V9\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          76.0,
+          17.5,
+          24.0
+        ],
+        "max_dim_mm": 155
+      },
+      "parts": [
+        "box_base"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "lid",
+      "scad_file": "box.scad",
+      "label": {
+        "en": "Box Lid",
+        "es": "Tapa de Caja"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M9 21V9\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          76.0,
+          17.5,
+          12.0
+        ],
+        "max_dim_mm": 155
+      },
+      "parts": [
+        "box_lid"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "assembly",
+      "scad_file": "assembly.scad",
+      "label": {
+        "en": "Assembly",
+        "es": "Ensamblaje"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m21 16-9 5-9-5\"/><path d=\"m21 8-9 5-9-5\"/><path d=\"m12 18-9-5 9-5 9 5z\"/></svg>",
+      "initial_bbox": {
+        "center_mm": [
+          77.5,
+          21.0,
+          33.0
+        ],
+        "max_dim_mm": 160
+      },
+      "parts": [
+        "rack",
+        "box_base",
+        "box_lid",
+        "slides"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "holder_body",
+      "render_mode": 0,
+      "label": {
+        "en": "Holder Body",
+        "es": "Cuerpo del Soporte"
+      },
+      "default_color": "#4a90d9"
+    },
+    {
+      "id": "rack",
+      "render_mode": 1,
+      "label": {
+        "en": "Rack",
+        "es": "Rack"
+      },
+      "default_color": "#e5e7eb"
+    },
+    {
+      "id": "multi_rack_body",
+      "render_mode": 5,
+      "label": {
+        "en": "Multi-Rack Body",
+        "es": "Cuerpo Multi-Rack"
+      },
+      "default_color": "#e5e7eb"
+    },
+    {
+      "id": "box_base",
+      "render_mode": 2,
+      "label": {
+        "en": "Box Base",
+        "es": "Base de Caja"
+      },
+      "default_color": "#4a90d9"
+    },
+    {
+      "id": "box_lid",
+      "render_mode": 3,
+      "label": {
+        "en": "Box Lid",
+        "es": "Tapa de Caja"
+      },
+      "default_color": "#6b7280"
+    },
+    {
+      "id": "slides",
+      "render_mode": 4,
+      "label": {
+        "en": "Slides",
+        "es": "Sustratos"
+      },
+      "default_color": "#cce8f4",
+      "glass": true
+    }
+  ],
+  "presets": [
+    {
+      "id": "default_holder",
+      "visible_in_modes": [
+        "holder"
+      ],
+      "label": {
+        "en": "Default Holder",
+        "es": "Soporte Predeterminado"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2v20\"/><path d=\"M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg>",
+      "values": {
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "holder_thickness": 2.0,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "label_area": 1,
+        "chamfer_pocket": 1
+      }
+    },
+    {
+      "id": "default_rack",
+      "visible_in_modes": [
+        "rack"
+      ],
+      "label": {
+        "en": "Default Staining Rack",
+        "es": "Rack de Tinción Predeterminado"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6h16\"/><path d=\"M4 12h16\"/><path d=\"M4 18h16\"/><path d=\"M8 4v16\"/><path d=\"M16 4v16\"/></svg>",
+      "values": {
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "num_slots": 10,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "handle": 1,
+        "open_bottom": 1,
+        "drainage_angle": 5,
+        "numbering_start": 1,
+        "divider_style": 1,
+        "frame_base_grid": 1,
+        "side_guards": 1
+      }
+    },
+    {
+      "id": "default_multi_rack",
+      "visible_in_modes": [
+        "multi_rack"
+      ],
+      "label": {
+        "en": "Default Multi-Rack (3 Joined)",
+        "es": "Multi-Rack Predeterminado (3 Unidos)"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6h16\"/><path d=\"M4 12h16\"/><path d=\"M4 18h16\"/><path d=\"M7 4v16\"/><path d=\"M12 4v16\"/><path d=\"M17 4v16\"/></svg>",
+      "values": {
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "multi_num_racks": 3,
+        "multi_stack_y": 1,
+        "num_slots": 10,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "handle": 1,
+        "open_bottom": 1,
+        "numbering_start": 1,
+        "divider_style": 1,
+        "frame_base_grid": 1,
+        "label_area": 1
+      }
+    },
+    {
+      "id": "default_box",
+      "visible_in_modes": [
+        "base",
+        "lid"
+      ],
+      "label": {
+        "en": "Default Racks Box",
+        "es": "Caja para Racks Predeterminada"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M9 21V9\"/></svg>",
+      "values": {
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "num_racks": 3,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "label_area": 1,
+        "stack_along_y": 1
+      }
+    },
+    {
+      "id": "assembly_rack_slides",
+      "visible_in_modes": [
+        "assembly"
+      ],
+      "label": {
+        "en": "Staining rack WITH corresponding slides",
+        "es": "Rack de tinción CON sustratos correspondientes"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m21 16-9 5-9-5\"/><path d=\"m21 8-9 5-9-5\"/><path d=\"m12 18-9-5 9-5 9 5z\"/></svg>",
+      "values": {
+        "assembly_level": 1,
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "num_slots": 10,
+        "num_racks": 3,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "handle": 1,
+        "open_bottom": 1,
+        "stack_along_y": 1,
+        "divider_style": 1,
+        "frame_base_grid": 1,
+        "side_guards": 1
+      }
+    },
+    {
+      "id": "assembly_box_nolid",
+      "visible_in_modes": [
+        "assembly"
+      ],
+      "label": {
+        "en": "Racks box WITH corresponding staining rack & slides (no lid)",
+        "es": "Caja de racks CON rack de tinción y sustratos (sin tapa)"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M9 21V9\"/></svg>",
+      "values": {
+        "assembly_level": 2,
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "num_slots": 10,
+        "num_racks": 3,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "handle": 1,
+        "open_bottom": 1,
+        "stack_along_y": 1,
+        "frame_base_grid": 1,
+        "side_guards": 1
+      }
+    },
+    {
+      "id": "assembly_box_lid",
+      "visible_in_modes": [
+        "assembly"
+      ],
+      "label": {
+        "en": "Racks box WITH corresponding staining rack & slides (with lid)",
+        "es": "Caja de racks CON rack de tinción y sustratos (con tapa)"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M9 21V9\"/></svg>",
+      "values": {
+        "assembly_level": 3,
+        "substrate_length": 25.4,
+        "substrate_width": 25.4,
+        "num_slots": 10,
+        "num_racks": 3,
+        "tolerance_xy": 0.4,
+        "tolerance_z": 0.2,
+        "wall_thickness": 2.0,
+        "handle": 1,
+        "open_bottom": 1,
+        "stack_along_y": 1,
+        "frame_base_grid": 1,
+        "side_guards": 1
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "assembly_level",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": {
+        "en": "Assembly Detail Level",
+        "es": "Nivel de Detalle del Ensamblaje"
+      },
+      "tooltip": {
+        "en": "Controls which structural mockups are actively populated in the scene",
+        "es": "Controla cuáles modelos estructurales se pueblan activamente en la escena"
+      },
+      "visible_in_modes": [],
+      "group": "system",
+      "visibility_level": "hidden"
+    },
+    {
+      "id": "substrate_length",
+      "type": "slider",
+      "default": 25.4,
+      "min": 15.0,
+      "max": 76.0,
+      "step": 0.1,
+      "label": {
+        "en": "Substrate Length (mm)",
+        "es": "Largo del Sustrato (mm)"
+      },
+      "tooltip": {
+        "en": "Substrate dimension along the rack's Y-axis (front-to-back). AOCL square spec: 25.4 mm (1 inch). Standard microscope slide: 76 mm.",
+        "es": "Dimensión del sustrato en el eje Y del rack (frente-fondo). Especificación AOCL cuadrado: 25.4 mm (1 pulgada). Portaobjetos estándar: 76 mm."
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "substrate"
+    },
+    {
+      "id": "substrate_width",
+      "type": "slider",
+      "default": 25.4,
+      "min": 15.0,
+      "max": 52.0,
+      "step": 0.1,
+      "label": {
+        "en": "Substrate Width (mm)",
+        "es": "Ancho del Sustrato (mm)"
+      },
+      "tooltip": {
+        "en": "Substrate dimension along the rack's Z-axis (slot depth). AOCL square spec: 25.4 mm (1 inch). Standard microscope slide: 26 mm.",
+        "es": "Dimensión del sustrato en el eje Z del rack (profundidad de ranura). Especificación AOCL cuadrado: 25.4 mm (1 pulgada). Portaobjetos estándar: 26 mm."
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "substrate"
+    },
+    {
+      "id": "stack_along_y",
+      "type": "checkbox",
+      "default": 1,
+      "label": {
+        "en": "Stack Racks Along Y-Axis",
+        "es": "Apilar Racks a lo Largo del Eje Y"
+      },
+      "tooltip": {
+        "en": "If disabled, racks are arranged side-by-side along the X-axis (front faces together). If enabled, they are arranged side-by-side along the Y-axis (side faces together).",
+        "es": "Si está deshabilitado, los racks se ordenan lado a lado en el eje X (caras frontales juntas). Si está habilitado, se ordenan en el eje Y (caras laterales juntas)."
+      },
+      "visible_in_modes": [
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "system"
+    },
+    {
+      "id": "tolerance_xy",
+      "type": "slider",
+      "default": 0.4,
+      "min": 0.1,
+      "max": 0.8,
+      "step": 0.05,
+      "label": {
+        "en": "XY Tolerance (mm)",
+        "es": "Tolerancia XY (mm)"
+      },
+      "tooltip": {
+        "en": "Horizontal clearance added to pocket/slot openings for FDM shrinkage compensation",
+        "es": "Holgura horizontal añadida a bolsillos y ranuras para compensación de contracción FDM"
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "tolerance",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "tolerance_z",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0.05,
+      "max": 0.5,
+      "step": 0.05,
+      "label": {
+        "en": "Z Tolerance (mm)",
+        "es": "Tolerancia Z (mm)"
+      },
+      "tooltip": {
+        "en": "Slot width clearance over substrate thickness (waviness + layer offset)",
+        "es": "Holgura de ranura sobre el grosor del sustrato (ondulación + desfase de capa)"
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "tolerance",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "wall_thickness",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.2,
+      "max": 4.0,
+      "step": 0.2,
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Outer wall and pillar thickness",
+        "es": "Grosor de paredes y pilares exteriores"
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "structure"
+    },
+    {
+      "id": "holder_thickness",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.0,
+      "max": 30.0,
+      "step": 0.5,
+      "label": {
+        "en": "Holder Thickness (mm)",
+        "es": "Grosor del Soporte (mm)"
+      },
+      "tooltip": {
+        "en": "Total Z height of the solid block",
+        "es": "Altura total Z del bloque sólido"
+      },
+      "visible_in_modes": [
+        "holder"
+      ],
+      "group": "structure"
+    },
+    {
+      "id": "label_area",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Label Recess",
+        "es": "Rebaje para Etiqueta"
+      },
+      "tooltip": {
+        "en": "Debossed recess for handwritten or adhesive label",
+        "es": "Rebaje para etiqueta manuscrita o adhesiva"
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "base",
+        "lid"
+      ],
+      "group": "features"
+    },
+    {
+      "id": "chamfer_pocket",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Chamfer Pocket Entry",
+        "es": "Chaflán de Entrada al Bolsillo"
+      },
+      "tooltip": {
+        "en": "45° chamfer at pocket entry to guide substrate insertion",
+        "es": "Chaflán 45° en la entrada del bolsillo para guiar la inserción del sustrato"
+      },
+      "visible_in_modes": [
+        "holder"
+      ],
+      "group": "features"
+    },
+    {
+      "id": "num_slots",
+      "type": "slider",
+      "default": 10,
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "label": {
+        "en": "Slots per Rack",
+        "es": "Ranuras por Rack"
+      },
+      "tooltip": {
+        "en": "Number of substrate positions per rack. AOCL spec: 10",
+        "es": "Cantidad de posiciones de sustrato por rack. Especificación AOCL: 10"
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "handle",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Carry Handle",
+        "es": "Asa de Transporte"
+      },
+      "tooltip": {
+        "en": "Integrated handle arch for carrying the rack",
+        "es": "Arco asa integrado para transportar el rack"
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "open_bottom",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Open-Frame Base",
+        "es": "Base de Marco Abierto"
+      },
+      "tooltip": {
+        "en": "Open crossbar base (less material, easier cleaning) vs. solid floor",
+        "es": "Base de travesañas abiertas (menos material, limpieza más fácil) vs. piso sólido"
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "drainage_angle",
+      "type": "slider",
+      "default": 5,
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "label": {
+        "en": "Drainage Angle (°)",
+        "es": "Ángulo de Drenaje (°)"
+      },
+      "tooltip": {
+        "en": "Slope for fluid runoff (0 = flat). Reserved for future use.",
+        "es": "Pendiente para escurrimiento de líquidos (0 = plano). Reservado para uso futuro."
+      },
+      "visible_in_modes": [
+        "rack"
+      ],
+      "group": "rack",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "show_numbers",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Show Slot Numbers",
+        "es": "Mostrar Números de Ranura"
+      },
+      "tooltip": {
+        "en": "Engrave slot identification numbers on the front face of the rack. Also requires Quality ($fn) > 0.",
+        "es": "Grabar números de identificación de ranura en la cara frontal del rack. También requiere Calidad ($fn) > 0."
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "numbering_start",
+      "type": "slider",
+      "default": 1,
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "label": {
+        "en": "Numbering Start",
+        "es": "Numeración Inicial"
+      },
+      "tooltip": {
+        "en": "First slot number engraved on the rack. Requires Show Slot Numbers ON and Quality ($fn) > 0.",
+        "es": "Primer número de ranura grabado en el rack. Requiere Mostrar Números activado y Calidad ($fn) > 0."
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "divider_style",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Full-Depth Fins",
+        "es": "Aletas de Profundidad Completa"
+      },
+      "tooltip": {
+        "en": "ON = full-depth fin dividers spanning the entire rack cavity (true slide separation, preferred for staining). OFF = shallow stub ribs at front+back rails only (faster print, less material).",
+        "es": "Activado = aletas divisorias de profundidad completa (separación real de sustratos). Desactivado = nervios cortos en rieles frontal y trasero (impresión más rápida, menos material)."
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "num_racks",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": {
+        "en": "Number of Racks",
+        "es": "Número de Racks"
+      },
+      "tooltip": {
+        "en": "How many racks the box accommodates. AOCL spec: 3",
+        "es": "Cuántos racks aloja la caja. Especificación AOCL: 3"
+      },
+      "visible_in_modes": [
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "box"
+    },
+    {
+      "id": "multi_num_racks",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": {
+        "en": "Number of Joined Racks",
+        "es": "Número de Racks Unidos"
+      },
+      "tooltip": {
+        "en": "How many racks are joined with shared diamond grid guards (2-5). Direction controlled by Stack Along Y-Axis setting.",
+        "es": "Cuántos racks se unen con guardas de rejilla compartidas (2-5). La dirección se controla con el ajuste Apilar a lo Largo del Eje Y."
+      },
+      "visible_in_modes": [
+        "multi_rack"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "multi_stack_y",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Stack Along Y-Axis",
+        "es": "Apilar a lo Largo del Eje Y"
+      },
+      "tooltip": {
+        "en": "ON = racks joined front-to-back (Y-axis, default). OFF = racks joined side-by-side (X-axis).",
+        "es": "Activado = racks unidos de frente a fondo (eje Y, predeterminado). Desactivado = racks unidos lado a lado (eje X)."
+      },
+      "visible_in_modes": [
+        "multi_rack"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 32,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Quality ($fn)",
+        "es": "Calidad ($fn)"
+      },
+      "tooltip": {
+        "en": "0 = auto (fast draft); higher = more detail + slot numbers engraved, but slower render",
+        "es": "0 = automático (borrador rápido); mayor = más detalle + números de ranura grabados, pero renderizado más lento"
+      },
+      "visible_in_modes": [
+        "holder",
+        "rack",
+        "multi_rack",
+        "assembly",
+        "base",
+        "lid"
+      ],
+      "group": "quality",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "frame_base_grid",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Frame-Base Grid",
+        "es": "Rejilla Base de Marco"
+      },
+      "tooltip": {
+        "en": "Make the division fins go all the way to the Z floor",
+        "es": "Hacer que las aletas de división vayan hasta el piso Z"
+      },
+      "visible_in_modes": [
+        "rack",
+        "multi_rack",
+        "assembly"
+      ],
+      "group": "rack"
+    },
+    {
+      "id": "side_guards",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "en": "Diamond Grid Side Guards",
+        "es": "Guardas Laterales de Rejilla de Diamante"
+      },
+      "tooltip": {
+        "en": "Mid-height 45-degree diamond grid walls on the sides to prevent substrates from falling out",
+        "es": "Paredes laterales de media altura con rejilla de diamante a 45 grados para evitar que los sustratos se caigan"
+      },
+      "visible_in_modes": [
+        "rack",
+        "assembly"
+      ],
+      "group": "rack"
+    }
+  ],
+  "assembly_steps": [
+    {
+      "step": 1,
+      "label": {
+        "en": "Load substrates into staining rack",
+        "es": "Cargar sustratos en el rack de tinción"
+      },
+      "visible_parts": ["rack", "slides"],
+      "notes": {
+        "en": "Insert up to 10 substrates into the rack slots.",
+        "es": "Inserte hasta 10 sustratos en las ranuras del rack."
+      }
+    },
+    {
+      "step": 2,
+      "label": {
+        "en": "Place racks into storage box",
+        "es": "Colocar racks en la caja de almacenamiento"
+      },
+      "visible_parts": ["rack", "slides", "box_base"],
+      "notes": {
+        "en": "Slide 1-3 loaded racks into the box base. Guide rails keep racks aligned.",
+        "es": "Deslice 1-3 racks cargados en la base de la caja. Los rieles guía mantienen los racks alineados."
+      }
+    },
+    {
+      "step": 3,
+      "label": {
+        "en": "Close with snap-fit lid",
+        "es": "Cerrar con tapa a presión"
+      },
+      "visible_parts": ["rack", "slides", "box_base", "box_lid"],
+      "notes": {
+        "en": "Press lid onto box base. Snap-fit latches lock automatically.",
+        "es": "Presione la tapa sobre la base de la caja. Los pestillos a presión se bloquean automáticamente."
+      }
+    }
+  ],
+  "bom": {
+    "hardware": [
+      {
+        "id": "aocl_substrate",
+        "label": {
+          "en": "Glass Substrate (default 25.4×25.4 mm, 1 mm thick borosilicate). Supports rectangular slides.",
+          "es": "Sustrato de Vidrio (predeterminado 25.4×25.4 mm, 1 mm de grosor, borosilicato). Soporta sustratos rectangulares."
+        },
+        "quantity_formula": "num_slots * num_racks"
+      }
+    ]
+  },
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 8
+  },
+  "export_formats": [
+    "stl",
+    "3mf",
+    "off",
+    "glb",
+    "obj"
+  ]
+}
