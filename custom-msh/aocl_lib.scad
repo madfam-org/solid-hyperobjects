@@ -18,6 +18,24 @@
 // Import the BOSL2 standard library for advanced 3D geometry manipulation
 include <../../libs/BOSL2/std.scad>
 
+// --- AOCL Standard Defaults ---
+// Shared constants as functions so `use <aocl_lib.scad>` imports them.
+// OpenSCAD `use` imports modules and functions but NOT variables —
+// wrapping defaults as zero-arg functions is the canonical DRY pattern.
+// Each consuming file still declares a top-level variable (e.g.
+//   substrate_length = aocl_substrate_length();
+// ) so OpenSCAD CLI `-D` overrides continue to work.
+function aocl_substrate_length()       = 25.4;
+function aocl_substrate_width()        = 25.4;
+function aocl_slide_thickness()        = 1.0;
+function aocl_tolerance_xy()           = 0.4;
+function aocl_tolerance_z()            = 0.2;
+function aocl_wall_thickness()         = 2.0;
+function aocl_num_slots()              = 10;
+function aocl_min_rib_w()              = 2.75;
+function aocl_crossbar_h()             = 2.5;
+function aocl_fn()                     = 32;
+
 // --- CDG Math Functions ---
 function slide_slot_width(thickness, tolerance) = thickness + 2 * tolerance;
 function slide_pitch(slot_w, rib_w) = slot_w + rib_w;

@@ -40,21 +40,22 @@ stack_along_y = 0; // If 1, expand box along the Y-axis instead of the X-axis
 // Note: We redefine the core measurements here so that our assembly math perfectly 
 // aligns with the separate source files without having to pass variables around globally.
 
-substrate_length = 25.4; // Standard AOCL slide length (25.4mm = 1 inch)
-substrate_width = 25.4; // Standard AOCL slide width
-custom_slide_thickness = 1.0; // Standard AOCL glass slide thickness
-tolerance_xy = 0.4; // Wiggle room left and right to allow for 3D printer imprecision
-tolerance_z = 0.2; // Wiggle room top and bottom
-num_slots = 10; // How many slides fit into one rack
+// Defaults sourced from aocl_lib.scad; CLI -D overrides still work.
+substrate_length = aocl_substrate_length(); // Standard AOCL slide length (25.4mm = 1 inch)
+substrate_width = aocl_substrate_width(); // Standard AOCL slide width
+custom_slide_thickness = aocl_slide_thickness(); // Standard AOCL glass slide thickness
+tolerance_xy = aocl_tolerance_xy(); // Wiggle room left and right to allow for 3D printer imprecision
+tolerance_z = aocl_tolerance_z(); // Wiggle room top and bottom
+num_slots = aocl_num_slots(); // How many slides fit into one rack
 num_racks = 3; // How many racks fit into one box
-wall_thickness = 2.0; // Thickness of the standard plastic walls
+wall_thickness = aocl_wall_thickness(); // Thickness of the standard plastic walls
 
 // --- Math & Alignment Variables ---
 // We calculate the exact footprint of the objects so we know where to place them.
 
 // 1. Rack Footprint Math
-_crossbar_h = 2.5; // Height of the bottom floor/crossbars in the rack
-_min_rib_w = 2.75; // Width of the plastic separators (ribs) holding the slides
+_crossbar_h = aocl_crossbar_h(); // Height of the bottom floor/crossbars in the rack
+_min_rib_w = aocl_min_rib_w(); // Width of the plastic separators (ribs) holding the slides
 _slot_w = slide_slot_width(custom_slide_thickness, tolerance_z); // Use aocl_lib function
 _pitch = slide_pitch(_slot_w, _min_rib_w); // Use aocl_lib function
 _base_h = _crossbar_h; // Where the slide sits vertically in the rack (on top of the crossbars)
@@ -96,7 +97,7 @@ _o_y = _box_y + _lid_clearance * 2 + _lid_wall * 2; // Outer dimension for the l
 // If box.scad changes any of these, update here too.
 snap_lid = 1; // Creates locking latch hooks (1 = True)
 label_area = 1; // Indents a space for writing labels
-fn = 32;
+fn = aocl_fn();
 $fn = fn > 0 ? fn : 32;
 
 // Guide rail dimensions

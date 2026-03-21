@@ -17,19 +17,20 @@ include <../../libs/BOSL2/std.scad>
 
 // --- Configuration Parameters ---
 // These variables act as the control panel for the 3D model.
+// Defaults sourced from aocl_lib.scad; CLI -D overrides still work.
 
 // Standard slide dimensions (25.4mm = 1 inch)
-substrate_length = 25.4;
-substrate_width = 25.4;
-custom_slide_thickness = 1.0;
+substrate_length = aocl_substrate_length();
+substrate_width = aocl_substrate_width();
+custom_slide_thickness = aocl_slide_thickness();
 
 // Clearances and walls for 3D printing tolerances
-tolerance_xy = 0.4; // Horizontal wiggle room
-tolerance_z = 0.2; // Vertical wiggle room
-wall_thickness = 2.0; // Standard thickness of the outer frame walls
+tolerance_xy = aocl_tolerance_xy(); // Horizontal wiggle room
+tolerance_z = aocl_tolerance_z(); // Vertical wiggle room
+wall_thickness = aocl_wall_thickness(); // Standard thickness of the outer frame walls
 
 // Features and capacities
-num_slots = 10; // Number of substrate slots in the rack
+num_slots = aocl_num_slots(); // Number of substrate slots in the rack
 handle = 1; // 1 = True (add carrying handle), 0 = False
 open_bottom = 1; // 1 = True (base is open gaps to let liquids drain), 0 = solid floor
 drainage_angle = 5; // Tilt angle (reserved for future fluid drainage features)
@@ -39,13 +40,13 @@ divider_style = 1; // 0 = stub ribs (2mm front+back rails only, faster print); 1
 show_numbers = 1; // 1 = True (engrave slot numbers on front face), 0 = False
 frame_base_grid = 1; // 1 = True (fins start from Z=0 floor), 0 = False
 side_guards = 1; // 1 = True (adds 45-degree mid-height diamond grid to side walls), 0 = False
-fn = 32; // Curved geometry quality. Defaults to 32.
+fn = aocl_fn(); // Curved geometry quality. Defaults to 32.
 $fn = fn > 0 ? fn : 32;
 
 // --- Derived Geometry / Math ---
 // These equations figure out how big the rack needs to be based on the number of slots and tolerances.
 
-_min_rib_w = 2.75; // The minimum thickness of the plastic dividers holding slides (forced to match AOCL spec)
+_min_rib_w = aocl_min_rib_w(); // The minimum thickness of the plastic dividers holding slides (forced to match AOCL spec)
 
 // Calculate precise slot width and overall pitch (distance from slot to slot)
 _slot_w = slide_slot_width(custom_slide_thickness, tolerance_z); // Gap width
@@ -60,7 +61,7 @@ _chamfer_h = min(1.5, _rib_height * 0.15); // Slope at the top of the rib for gu
 // Structural elements sizing (the skeleton framework)
 _pillar_w = wall_thickness;
 _crossbar_w = 3.0; // Base crossbar width if open_bottom is enabled
-_crossbar_h = 2.5; // Base crossbar height
+_crossbar_h = aocl_crossbar_h(); // Base crossbar height
 
 // Overall bounding box of the main lattice frame
 // The X axis spans all slots + all ribs + the two end walls

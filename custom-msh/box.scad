@@ -16,22 +16,23 @@ use <aocl_lib.scad>
 include <../../libs/BOSL2/std.scad>
 
 // --- Configuration Parameters ---
+// Defaults sourced from aocl_lib.scad; CLI -D overrides still work.
 
 // Accommodated slide dimensions (Standard 1 inch AOCL slides)
-substrate_length = 25.4;
-substrate_width = 25.4;
-custom_slide_thickness = 1.0;
+substrate_length = aocl_substrate_length();
+substrate_width = aocl_substrate_width();
+custom_slide_thickness = aocl_slide_thickness();
 
 // Fits and Tolerances (Wiggle room for 3D printing accuracy)
-tolerance_xy = 0.4;
-tolerance_z = 0.2;
-wall_thickness = 2.0;
+tolerance_xy = aocl_tolerance_xy();
+tolerance_z = aocl_tolerance_z();
+wall_thickness = aocl_wall_thickness();
 
 // Global Setup Configuration
 num_racks = 3; // Determines how wide the box should be to fit this many racks
 label_area = 1; // Indents a space for writing labels
 stack_along_y = 1; // If 1, expand box along the Y-axis instead of the X-axis
-fn = 32; // Smoothness curve quality. (Default to 32)
+fn = aocl_fn(); // Smoothness curve quality. (Default to 32)
 $fn = fn > 0 ? fn : 32;
 
 // Part renderer (0 = Draw Base, 1 = Draw Lid)
@@ -41,16 +42,16 @@ render_mode = 0;
 // Recalculating the exact physical footprint of the inner `rack.scad` objects 
 // here so the box can dynamically scale to fit them perfectly without importing them.
 
-_min_rib_w = 2.75;
+_min_rib_w = aocl_min_rib_w();
 _slot_w = slide_slot_width(custom_slide_thickness, tolerance_z); // Gap width
 _pitch = slide_pitch(_slot_w, _min_rib_w); // Centre-to-centre distance between adjacent slots
-num_slots = 10; // Substrate slots per rack (matches rack.scad default)
+num_slots = aocl_num_slots(); // Substrate slots per rack (matches rack.scad default)
 _pillar_w = wall_thickness;
 
 _rack_x = (num_slots * _pitch) + _min_rib_w + (2 * _pillar_w); // Total Rack Width
 _rack_y = substrate_length + (2 * _pillar_w) + tolerance_xy; // Total Rack Length
 _slot_depth = substrate_width + tolerance_xy;
-_crossbar_h = 2.5;
+_crossbar_h = aocl_crossbar_h();
 
 _rack_z = _slot_depth + _crossbar_h; // Height without handle
 _handle_h = 0; // Handle is an internal arch (no protrusion above _rack_z)

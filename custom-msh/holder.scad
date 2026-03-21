@@ -19,23 +19,25 @@ include <../../libs/BOSL2/std.scad>
 // These variables act as the control panel for the 3D model.
 // Changing them alters how the model looks and prints.
 
-// Substrate physical dimensions (AOCL standard is 25.4mm, or 1 inch)
-substrate_length = 25.4;
-substrate_width = 25.4;
+// Defaults sourced from aocl_lib.scad; CLI -D overrides still work.
 
-// FDM 3D printing clearances. Plastic shrinks and layers bulge, so we add 
+// Substrate physical dimensions (AOCL standard is 25.4mm, or 1 inch)
+substrate_length = aocl_substrate_length();
+substrate_width = aocl_substrate_width();
+
+// FDM 3D printing clearances. Plastic shrinks and layers bulge, so we add
 // a small "wiggle room" gap to the holes so parts fit together smoothly.
-tolerance_xy = 0.4; // Clearance on the sides (X and Y axes)
-tolerance_z = 0.2; // Clearance top to bottom (Z axis)
+tolerance_xy = aocl_tolerance_xy(); // Clearance on the sides (X and Y axes)
+tolerance_z = aocl_tolerance_z(); // Clearance top to bottom (Z axis)
 
 // Structural thickness for robust parts. How thick the walls of the holder are.
-wall_thickness = 2.0;
+wall_thickness = aocl_wall_thickness();
 holder_thickness = 2.0; // Total Z-axis thickness of the solid holder block
 
 // Feature toggles (1 = True/On, 0 = False/Off)
 label_area = 1; // Controls whether to cut a shallow dent to stick a label onto
 chamfer_pocket = 1; // Controls whether the top edge of the hole should be sloped to guide the slide in easily
-fn = 32; // Geometry curve quality ($fn). Higher = smoother curves but slower rendering. Defaults to 32.
+fn = aocl_fn(); // Geometry curve quality ($fn). Higher = smoother curves but slower rendering. Defaults to 32.
 
 $fn = fn > 0 ? fn : 32; // Set global quality. If it's 0 (auto), force to 32.
 
