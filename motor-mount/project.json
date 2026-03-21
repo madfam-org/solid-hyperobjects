@@ -53,7 +53,6 @@
         {
             "id": "nema_reference",
             "render_mode": 1,
-            "static_stl": "exports/nema17_reference.stl",
             "label": {
                 "es": "Motor NEMA (referencia)",
                 "en": "NEMA Motor (reference)"

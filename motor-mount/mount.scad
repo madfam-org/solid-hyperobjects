@@ -77,4 +77,20 @@ if (render_mode == 0) {
         l_bracket();
     }
 }
-// render_mode == 1 is for static_stl (NEMA reference) — handled by platform
+// render_mode == 1: simplified NEMA motor reference body
+if (render_mode == 1) {
+    color("#34495e")
+    translate([0, 0, base_thickness])
+    union() {
+        // Motor body (square with rounded edges approximated as cube)
+        translate([0, 0, body_len/2])
+            cube([face_w, face_w, body_len], center=true);
+
+        // Front face plate (circular boss)
+        cylinder(d=shaft_hole_d + 2, h=2, $fn=$fn);
+
+        // Shaft
+        translate([0, 0, -10])
+            cylinder(d=5, h=10 + body_len + 5, $fn=$fn);
+    }
+}
