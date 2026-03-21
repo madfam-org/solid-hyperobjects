@@ -1,8 +1,6 @@
 // Yantra4D Superformula Vase
-// Uses dotSCAD shape_superformula for cross-section generation
+// Generates cross-sections using Gielis superformula
 // Extrudes with varying parameters along height for vase shape
-
-use <dotSCAD/src/shape_superformula.scad>
 
 // --- Parameters (overridden by platform) ---
 m1 = 5;
@@ -19,9 +17,22 @@ render_mode = 0;
 $fn = fn > 0 ? fn : 48;
 steps = max(20, floor(height / 3));
 
-// Generate a superformula cross-section at given scale
+// Gielis superformula: compute radius at angle phi
+// r(phi) = ( |cos(m*phi/4)/a|^n2 + |sin(m*phi/4)/b|^n3 ) ^ (-1/n1)
+function sf_r(phi, m, n1_v, n2_v, n3_v, a=1, b=1) =
+    let(
+        t1 = abs(cos(m * phi / 4) / a),
+        t2 = abs(sin(m * phi / 4) / b)
+    )
+    pow(pow(t1, n2_v) + pow(t2, n3_v), -1 / n1_v);
+
+// Generate superformula cross-section points at given scale
 function sf_shape(r, m, n1_v, n2_v, n3_v, pts=64) =
-    shape_superformula(phi_step=360/pts, m1=m, m2=m, n1=n1_v, n2=n2_v, n3=n3_v) * r;
+    [for (i = [0:pts-1])
+        let(phi = i * 360 / pts,
+            sr = sf_r(phi, m, n1_v, n2_v, n3_v))
+        [r * sr * cos(phi), r * sr * sin(phi)]
+    ];
 
 // Vase profile: taper from narrow base to wider body, then narrow at top
 function vase_radius(z, h, r) =
@@ -29,7 +40,7 @@ function vase_radius(z, h, r) =
     r * (0.4 + 0.6 * sin(t * 180));  // sinusoidal taper
 
 module vase_body() {
-    // Stack cross-sections with linear_extrude approximation
+    // Stack cross-sections with hull approximation
     for (i = [0 : steps - 1]) {
         z0 = i * height / steps;
         z1 = (i + 1) * height / steps;
