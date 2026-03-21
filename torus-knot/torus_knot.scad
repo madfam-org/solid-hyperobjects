@@ -1,10 +1,9 @@
 // Yantra4D Torus Knot Sculpture
-// Uses dotSCAD torus_knot path + BOSL2 sweep for solid geometry
+// Uses BOSL2 sweep for solid geometry along a torus knot path.
 //
 // A torus knot is defined by integers (p, q) that describe how the
 // curve winds around the torus surface.
 
-use <dotSCAD/src/torus_knot.scad>
 include <../../libs/BOSL2/std.scad>
 include <../../libs/BOSL2/skin.scad>
 
@@ -20,11 +19,20 @@ render_mode = 0;
 
 $fn = fn > 0 ? fn : 24;
 
-// Generate the torus knot path using dotSCAD
-knot_path = torus_knot(p, q, phi_step = 360 / segments);
+// Torus knot parametric curve:
+//   x(t) = (R + r*cos(q*t)) * cos(p*t)
+//   y(t) = (R + r*cos(q*t)) * sin(p*t)
+//   z(t) = r * sin(q*t)
+// where R is the major radius and r is the minor radius of the torus.
+_R = torus_radius * scale_factor;
+_r = _R * 0.4;  // minor radius proportional to major
 
-// Scale the path to desired torus radius
-scaled_path = [for (pt = knot_path) pt * torus_radius / 10 * scale_factor];
+knot_path = [for (i = [0:segments-1])
+    let(t = i * 360 / segments)
+    [(_R + _r * cos(q * t)) * cos(p * t),
+     (_R + _r * cos(q * t)) * sin(p * t),
+     _r * sin(q * t)]
+];
 
 // Create circular cross-section profile
 function circle_profile(r, n=16) =
@@ -32,7 +40,7 @@ function circle_profile(r, n=16) =
 
 // Sweep a circular profile along the knot path
 module knot_body() {
-    path_sweep(circle_profile(tube_radius, $fn), scaled_path, closed=true);
+    path_sweep(circle_profile(tube_radius, $fn), knot_path, closed=true);
 }
 
 // --- Render ---
