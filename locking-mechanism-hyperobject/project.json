@@ -1,411 +1,412 @@
 {
-  "project": {
-    "name": "Parametric Locking Mechanism",
-    "slug": "locking-mechanism-hyperobject",
-    "version": "1.0.0",
-    "description": {
-      "en": "Parametric locking mechanisms for 3D-printed enclosures — snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Mecanismos de bloqueo paramétricos para carcasas impresas en 3D — pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
+    "project": {
+        "name": "Parametric Locking Mechanism",
+        "slug": "locking-mechanism-hyperobject",
+        "version": "1.0.0",
+        "description": {
+            "en": "Parametric locking mechanisms for 3D-printed enclosures — snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
+            "es": "Mecanismos de bloqueo paramétricos para carcasas impresas en 3D — pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
+        },
+        "thumbnail": "/projects/locking-mechanism-hyperobject.webp",
+        "tags": [
+            "mechanical",
+            "locking",
+            "snap-fit",
+            "security",
+            "hyperobject",
+            "commons"
+        ],
+        "difficulty": "intermediate",
+        "force_backend": true
     },
-    "thumbnail": "/projects/locking-mechanism-hyperobject.webp",
-    "tags": [
-      "mechanical",
-      "locking",
-      "snap-fit",
-      "security",
-      "hyperobject",
-      "commons"
+    "modes": [
+        {
+            "id": "snap_latch",
+            "scad_file": "snap_latch.scad",
+            "label": {
+                "en": "Snap-Fit Latch",
+                "es": "Pestillo Snap-Fit"
+            },
+            "parts": [
+                "latch_arm",
+                "striker_plate"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
+        },
+        {
+            "id": "over_center",
+            "scad_file": "over_center.scad",
+            "label": {
+                "en": "Over-Center Lock",
+                "es": "Cierre de Palanca"
+            },
+            "parts": [
+                "lever_assembly",
+                "hook_catch"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
+        },
+        {
+            "id": "compliant_lock",
+            "scad_file": "compliant_lock.scad",
+            "label": {
+                "en": "Compliant Bistable Lock",
+                "es": "Cerradura Biestable Flexible"
+            },
+            "parts": [
+                "compliant_body"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
+        }
     ],
-    "difficulty": "intermediate"
-  },
-  "modes": [
-    {
-      "id": "snap_latch",
-      "scad_file": "snap_latch.scad",
-      "label": {
-        "en": "Snap-Fit Latch",
-        "es": "Pestillo Snap-Fit"
-      },
-      "parts": [
-        "latch_arm",
-        "striker_plate"
-      ],
-      "estimate": {
-        "base_units": 1,
-        "formula": "constant"
-      }
-    },
-    {
-      "id": "over_center",
-      "scad_file": "over_center.scad",
-      "label": {
-        "en": "Over-Center Lock",
-        "es": "Cierre de Palanca"
-      },
-      "parts": [
-        "lever_assembly",
-        "hook_catch"
-      ],
-      "estimate": {
-        "base_units": 1,
-        "formula": "constant"
-      }
-    },
-    {
-      "id": "compliant_lock",
-      "scad_file": "compliant_lock.scad",
-      "label": {
-        "en": "Compliant Bistable Lock",
-        "es": "Cerradura Biestable Flexible"
-      },
-      "parts": [
-        "compliant_body"
-      ],
-      "estimate": {
-        "base_units": 1,
-        "formula": "constant"
-      }
-    }
-  ],
-  "parts": [
-    {
-      "id": "latch_arm",
-      "render_mode": 0,
-      "label": {
-        "en": "Latch Arm",
-        "es": "Brazo del Pestillo"
-      },
-      "default_color": "#3a7d44"
-    },
-    {
-      "id": "striker_plate",
-      "render_mode": 1,
-      "label": {
-        "en": "Striker Plate",
-        "es": "Placa Receptora"
-      },
-      "default_color": "#2d2d2d"
-    },
-    {
-      "id": "lever_assembly",
-      "render_mode": 0,
-      "label": {
-        "en": "Lever Assembly",
-        "es": "Conjunto de Palanca"
-      },
-      "default_color": "#c45b28"
-    },
-    {
-      "id": "hook_catch",
-      "render_mode": 1,
-      "label": {
-        "en": "Hook Catch",
-        "es": "Gancho Receptor"
-      },
-      "default_color": "#2d2d2d"
-    },
-    {
-      "id": "compliant_body",
-      "render_mode": 0,
-      "label": {
-        "en": "Compliant Lock Body",
-        "es": "Cuerpo de Cerradura Flexible"
-      },
-      "default_color": "#4a6fa5"
-    }
-  ],
-  "presets": [
-    {
-      "id": "enclosure_clip",
-      "label": {
-        "en": "Enclosure Clip",
-        "es": "Clip de Carcasa"
-      },
-      "values": {
-        "latch_width": 12,
-        "hook_depth": 1.5,
-        "wall_thickness": 1.5
-      }
-    },
-    {
-      "id": "toolbox_latch",
-      "label": {
-        "en": "Toolbox Latch",
-        "es": "Pestillo de Caja de Herramientas"
-      },
-      "values": {
-        "latch_width": 25,
-        "lever_length": 40,
-        "over_center_offset": 3
-      }
-    },
-    {
-      "id": "battery_cover",
-      "label": {
-        "en": "Battery Cover",
-        "es": "Tapa de Batería"
-      },
-      "values": {
-        "latch_width": 8,
-        "hook_depth": 1,
-        "spring_angle": 20
-      }
-    }
-  ],
-  "parameters": [
-    {
-      "id": "latch_width",
-      "type": "slider",
-      "default": 15,
-      "min": 5,
-      "max": 40,
-      "step": 1,
-      "label": {
-        "en": "Latch Width (mm)",
-        "es": "Ancho del Pestillo (mm)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "over_center",
-        "compliant_lock"
-      ],
-      "group": "dimensions"
-    },
-    {
-      "id": "hook_depth",
-      "type": "slider",
-      "default": 2,
-      "min": 1,
-      "max": 5,
-      "step": 0.5,
-      "label": {
-        "en": "Hook Depth (mm)",
-        "es": "Profundidad del Gancho (mm)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "compliant_lock"
-      ],
-      "group": "mechanism"
-    },
-    {
-      "id": "spring_angle",
-      "type": "slider",
-      "default": 30,
-      "min": 15,
-      "max": 60,
-      "step": 1,
-      "label": {
-        "en": "Spring Angle (deg)",
-        "es": "Ángulo de Resorte (grados)"
-      },
-      "tooltip": {
-        "en": "Cantilever deflection angle — higher values increase retention force",
-        "es": "Ángulo de deflexión del voladizo — valores más altos aumentan la fuerza de retención"
-      },
-      "visible_in_modes": [
-        "snap_latch"
-      ],
-      "group": "mechanism"
-    },
-    {
-      "id": "over_center_offset",
-      "type": "slider",
-      "default": 2,
-      "min": 0.5,
-      "max": 5,
-      "step": 0.5,
-      "label": {
-        "en": "Over-Center Offset (mm)",
-        "es": "Desplazamiento Sobre-Centro (mm)"
-      },
-      "tooltip": {
-        "en": "Distance past center-point for locking — larger values increase holding force",
-        "es": "Distancia más allá del punto central para bloqueo — valores mayores aumentan la fuerza de retención"
-      },
-      "visible_in_modes": [
-        "over_center"
-      ],
-      "group": "mechanism"
-    },
-    {
-      "id": "clearance",
-      "type": "slider",
-      "default": 0.3,
-      "min": 0.2,
-      "max": 1.0,
-      "step": 0.1,
-      "label": {
-        "en": "Clearance (mm)",
-        "es": "Holgura (mm)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "over_center",
-        "compliant_lock"
-      ],
-      "group": "mechanism"
-    },
-    {
-      "id": "wall_thickness",
-      "type": "slider",
-      "default": 2,
-      "min": 1,
-      "max": 5,
-      "step": 0.5,
-      "label": {
-        "en": "Wall Thickness (mm)",
-        "es": "Grosor de Pared (mm)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "over_center",
-        "compliant_lock"
-      ],
-      "group": "dimensions"
-    },
-    {
-      "id": "lever_length",
-      "type": "slider",
-      "default": 30,
-      "min": 15,
-      "max": 60,
-      "step": 1,
-      "label": {
-        "en": "Lever Length (mm)",
-        "es": "Longitud de Palanca (mm)"
-      },
-      "visible_in_modes": [
-        "over_center"
-      ],
-      "group": "dimensions"
-    },
-    {
-      "id": "base_length",
-      "type": "slider",
-      "default": 40,
-      "min": 20,
-      "max": 80,
-      "step": 1,
-      "label": {
-        "en": "Base Length (mm)",
-        "es": "Longitud de Base (mm)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "over_center",
-        "compliant_lock"
-      ],
-      "group": "dimensions"
-    },
-    {
-      "id": "fn",
-      "type": "slider",
-      "default": 0,
-      "min": 0,
-      "max": 64,
-      "step": 8,
-      "label": {
-        "en": "Quality ($fn)",
-        "es": "Calidad ($fn)"
-      },
-      "visible_in_modes": [
-        "snap_latch",
-        "over_center",
-        "compliant_lock"
-      ],
-      "group": "quality",
-      "visibility_level": "advanced"
-    }
-  ],
-  "parameter_groups": [
-    {
-      "id": "dimensions",
-      "label": {
-        "en": "Dimensions",
-        "es": "Dimensiones"
-      }
-    },
-    {
-      "id": "mechanism",
-      "label": {
-        "en": "Mechanism",
-        "es": "Mecanismo"
-      }
-    },
-    {
-      "id": "quality",
-      "label": {
-        "en": "Quality",
-        "es": "Calidad"
-      }
-    }
-  ],
-  "export_formats": [
-    "stl",
-    "3mf",
-    "off",
-    "glb",
-    "obj"
-  ],
-  "estimate_constants": {
-    "base_time": 5,
-    "per_unit": 2,
-    "per_part": 8,
-    "fn_factor": 32,
-    "wasm_multiplier": 3,
-    "warning_threshold_seconds": 60
-  },
-  "hyperobject": {
-    "domain": "industrial",
-    "cdg_interfaces": [
-      {
-        "id": "latch_hook",
-        "label": {
-          "en": "Latch Hook Profile",
-          "es": "Perfil de Gancho del Pestillo"
+    "parts": [
+        {
+            "id": "latch_arm",
+            "render_mode": 0,
+            "label": {
+                "en": "Latch Arm",
+                "es": "Brazo del Pestillo"
+            },
+            "default_color": "#3a7d44"
         },
-        "geometry_type": "profile",
-        "standard": "internal",
-        "parameters": [
-          "latch_width",
-          "hook_depth"
-        ]
-      },
-      {
-        "id": "striker_plate",
-        "label": {
-          "en": "Striker Plate Bolt Pattern",
-          "es": "Patrón de Tornillos de Placa Receptora"
+        {
+            "id": "striker_plate",
+            "render_mode": 1,
+            "label": {
+                "en": "Striker Plate",
+                "es": "Placa Receptora"
+            },
+            "default_color": "#2d2d2d"
         },
-        "geometry_type": "bolt_pattern",
-        "standard": "internal",
-        "parameters": [
-          "base_length",
-          "latch_width"
-        ]
-      },
-      {
-        "id": "actuation_lever",
-        "label": {
-          "en": "Actuation Lever Rail",
-          "es": "Riel de Palanca de Accionamiento"
+        {
+            "id": "lever_assembly",
+            "render_mode": 0,
+            "label": {
+                "en": "Lever Assembly",
+                "es": "Conjunto de Palanca"
+            },
+            "default_color": "#c45b28"
         },
-        "geometry_type": "rail",
-        "standard": "internal",
-        "parameters": [
-          "lever_length"
-        ]
-      }
+        {
+            "id": "hook_catch",
+            "render_mode": 1,
+            "label": {
+                "en": "Hook Catch",
+                "es": "Gancho Receptor"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "compliant_body",
+            "render_mode": 0,
+            "label": {
+                "en": "Compliant Lock Body",
+                "es": "Cuerpo de Cerradura Flexible"
+            },
+            "default_color": "#4a6fa5"
+        }
     ],
-    "material_awareness": {
-      "shrinkage_compensation": true,
-      "tolerance_by_material": true
+    "presets": [
+        {
+            "id": "enclosure_clip",
+            "label": {
+                "en": "Enclosure Clip",
+                "es": "Clip de Carcasa"
+            },
+            "values": {
+                "latch_width": 12,
+                "hook_depth": 1.5,
+                "wall_thickness": 1.5
+            }
+        },
+        {
+            "id": "toolbox_latch",
+            "label": {
+                "en": "Toolbox Latch",
+                "es": "Pestillo de Caja de Herramientas"
+            },
+            "values": {
+                "latch_width": 25,
+                "lever_length": 40,
+                "over_center_offset": 3
+            }
+        },
+        {
+            "id": "battery_cover",
+            "label": {
+                "en": "Battery Cover",
+                "es": "Tapa de Batería"
+            },
+            "values": {
+                "latch_width": 8,
+                "hook_depth": 1,
+                "spring_angle": 20
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "id": "latch_width",
+            "type": "slider",
+            "default": 15,
+            "min": 5,
+            "max": 40,
+            "step": 1,
+            "label": {
+                "en": "Latch Width (mm)",
+                "es": "Ancho del Pestillo (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "hook_depth",
+            "type": "slider",
+            "default": 2,
+            "min": 1,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Hook Depth (mm)",
+                "es": "Profundidad del Gancho (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "compliant_lock"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "spring_angle",
+            "type": "slider",
+            "default": 30,
+            "min": 15,
+            "max": 60,
+            "step": 1,
+            "label": {
+                "en": "Spring Angle (deg)",
+                "es": "Ángulo de Resorte (grados)"
+            },
+            "tooltip": {
+                "en": "Cantilever deflection angle — higher values increase retention force",
+                "es": "Ángulo de deflexión del voladizo — valores más altos aumentan la fuerza de retención"
+            },
+            "visible_in_modes": [
+                "snap_latch"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "over_center_offset",
+            "type": "slider",
+            "default": 2,
+            "min": 0.5,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Over-Center Offset (mm)",
+                "es": "Desplazamiento Sobre-Centro (mm)"
+            },
+            "tooltip": {
+                "en": "Distance past center-point for locking — larger values increase holding force",
+                "es": "Distancia más allá del punto central para bloqueo — valores mayores aumentan la fuerza de retención"
+            },
+            "visible_in_modes": [
+                "over_center"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "clearance",
+            "type": "slider",
+            "default": 0.3,
+            "min": 0.2,
+            "max": 1.0,
+            "step": 0.1,
+            "label": {
+                "en": "Clearance (mm)",
+                "es": "Holgura (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "wall_thickness",
+            "type": "slider",
+            "default": 2,
+            "min": 1,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Wall Thickness (mm)",
+                "es": "Grosor de Pared (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "lever_length",
+            "type": "slider",
+            "default": 30,
+            "min": 15,
+            "max": 60,
+            "step": 1,
+            "label": {
+                "en": "Lever Length (mm)",
+                "es": "Longitud de Palanca (mm)"
+            },
+            "visible_in_modes": [
+                "over_center"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "base_length",
+            "type": "slider",
+            "default": 40,
+            "min": 20,
+            "max": 80,
+            "step": 1,
+            "label": {
+                "en": "Base Length (mm)",
+                "es": "Longitud de Base (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "fn",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 64,
+            "step": 8,
+            "label": {
+                "en": "Quality ($fn)",
+                "es": "Calidad ($fn)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "quality",
+            "visibility_level": "advanced"
+        }
+    ],
+    "parameter_groups": [
+        {
+            "id": "dimensions",
+            "label": {
+                "en": "Dimensions",
+                "es": "Dimensiones"
+            }
+        },
+        {
+            "id": "mechanism",
+            "label": {
+                "en": "Mechanism",
+                "es": "Mecanismo"
+            }
+        },
+        {
+            "id": "quality",
+            "label": {
+                "en": "Quality",
+                "es": "Calidad"
+            }
+        }
+    ],
+    "export_formats": [
+        "stl",
+        "3mf",
+        "off",
+        "glb",
+        "obj"
+    ],
+    "estimate_constants": {
+        "base_time": 5,
+        "per_unit": 2,
+        "per_part": 8,
+        "fn_factor": 32,
+        "wasm_multiplier": 3,
+        "warning_threshold_seconds": 60
     },
-    "societal_benefit": {
-      "en": "Open-source parametric locking mechanisms for enclosures, tools, and devices — reduces reliance on proprietary fasteners",
-      "es": "Mecanismos de bloqueo paramétricos de código abierto para carcasas, herramientas y dispositivos — reduce la dependencia de sujetadores propietarios"
-    },
-    "commons_license": "CERN-OHL-W-2.0"
-  }
+    "hyperobject": {
+        "domain": "industrial",
+        "cdg_interfaces": [
+            {
+                "id": "latch_hook",
+                "label": {
+                    "en": "Latch Hook Profile",
+                    "es": "Perfil de Gancho del Pestillo"
+                },
+                "geometry_type": "profile",
+                "standard": "internal",
+                "parameters": [
+                    "latch_width",
+                    "hook_depth"
+                ]
+            },
+            {
+                "id": "striker_plate",
+                "label": {
+                    "en": "Striker Plate Bolt Pattern",
+                    "es": "Patrón de Tornillos de Placa Receptora"
+                },
+                "geometry_type": "bolt_pattern",
+                "standard": "internal",
+                "parameters": [
+                    "base_length",
+                    "latch_width"
+                ]
+            },
+            {
+                "id": "actuation_lever",
+                "label": {
+                    "en": "Actuation Lever Rail",
+                    "es": "Riel de Palanca de Accionamiento"
+                },
+                "geometry_type": "rail",
+                "standard": "internal",
+                "parameters": [
+                    "lever_length"
+                ]
+            }
+        ],
+        "material_awareness": {
+            "shrinkage_compensation": true,
+            "tolerance_by_material": true
+        },
+        "societal_benefit": {
+            "en": "Open-source parametric locking mechanisms for enclosures, tools, and devices — reduces reliance on proprietary fasteners",
+            "es": "Mecanismos de bloqueo paramétricos de código abierto para carcasas, herramientas y dispositivos — reduce la dependencia de sujetadores propietarios"
+        },
+        "commons_license": "CERN-OHL-W-2.0"
+    }
 }
