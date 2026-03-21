@@ -13,7 +13,8 @@
       "organic",
       "decorative"
     ],
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "force_backend": true
   },
   "modes": [
     {
