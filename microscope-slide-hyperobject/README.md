@@ -6,7 +6,7 @@ A standardized, parametric OpenSCAD library for microscope slide retention geome
 
 # Yantra4D: Microscope Slide Hyperobject
 
-![Slide Thumb](https://4d-app.madfam.io/projects/microscope-slide.webp)
+![Slide Thumb](https://app.yantra4d.com/projects/microscope-slide.webp)
 
 **The fundamental 4D Bounded Cartridge for optical microscopy.**
 
