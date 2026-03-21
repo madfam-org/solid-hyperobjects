@@ -1,4 +1,3 @@
-include <PolyDiceGenerator.scad>
 // Yantra4D wrapper — PolyDiceGenerator
 // render_mode: 0=d4, 1=d6, 2=d8, 3=d12, 4=d20
 
@@ -11,14 +10,18 @@ render_mode = 0;
 fn = 0;
 
 // Override library toggles — only the selected die is enabled
-d2_die = false;
-d4_die = (render_mode == 0);
-d6_die = (render_mode == 1);
-d8_die = (render_mode == 2);
-d10_die = false;
-d00_die = false;
-d12_die = (render_mode == 3);
-d20_die = (render_mode == 4);
+d2 = false;
+d3 = false;
+d4 = (render_mode == 0);
+d4p = false;
+d6 = (render_mode == 1);
+d8 = (render_mode == 2);
+d10 = false;
+d00 = false;
+d12 = (render_mode == 3);
+d12r = false;
+d16 = false;
+d20 = (render_mode == 4);
 
 // Size overrides — uniform across all die types
 d4_size = die_size;
@@ -42,4 +45,4 @@ edge_rounding = rounding_edge;
 // Quality override
 $fn = fn > 0 ? fn : 32;
 
-
+include <PolyDiceGenerator.scad>
