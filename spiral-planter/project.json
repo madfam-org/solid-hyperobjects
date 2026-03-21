@@ -14,7 +14,8 @@
       "spiral",
       "dotSCAD"
     ],
-    "difficulty": "beginner"
+    "difficulty": "beginner",
+    "force_backend": true
   },
   "modes": [
     {
