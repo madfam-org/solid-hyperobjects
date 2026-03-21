@@ -30,10 +30,7 @@
                 "bottom",
                 "top",
                 "latches",
-                "gasket",
-                "feet",
-                "tpu-bottom-insert",
-                "tpu-top-insert"
+                "gasket"
             ],
             "estimate": {
                 "base_time": 12,
@@ -200,7 +197,6 @@
     ],
     "parameters": [
         {
-            "name": "internalBoxWidthXMm",
             "label": {
                 "en": "Internal Width (X)",
                 "es": "Ancho interno (X)"
@@ -235,10 +231,10 @@
                     "gasket",
                     "feet"
                 ]
-            }
+            },
+            "id": "internalBoxWidthXMm"
         },
         {
-            "name": "internalboxLengthYMm",
             "label": {
                 "en": "Internal Length (Y)",
                 "es": "Largo interno (Y)"
@@ -261,10 +257,10 @@
                 "gasket",
                 "feet",
                 "closed-view"
-            ]
+            ],
+            "id": "internalboxLengthYMm"
         },
         {
-            "name": "internalBoxTopHeightZMm",
             "label": {
                 "en": "Lid Height (Z)",
                 "es": "Altura tapa (Z)"
@@ -285,10 +281,10 @@
                 "latches",
                 "gasket",
                 "closed-view"
-            ]
+            ],
+            "id": "internalBoxTopHeightZMm"
         },
         {
-            "name": "internalboxBottomHeightZMm",
             "label": {
                 "en": "Base Height (Z)",
                 "es": "Altura base (Z)"
@@ -309,10 +305,10 @@
                 "latches",
                 "gasket",
                 "closed-view"
-            ]
+            ],
+            "id": "internalboxBottomHeightZMm"
         },
         {
-            "name": "boxWallWidthMm",
             "label": {
                 "en": "Wall Thickness",
                 "es": "Grosor de pared"
@@ -335,10 +331,10 @@
                 "gasket",
                 "feet",
                 "closed-view"
-            ]
+            ],
+            "id": "boxWallWidthMm"
         },
         {
-            "name": "boxChamferRadiusMm",
             "label": {
                 "en": "Chamfer Radius",
                 "es": "Radio de chaflán"
@@ -361,10 +357,10 @@
                 "gasket",
                 "feet",
                 "closed-view"
-            ]
+            ],
+            "id": "boxChamferRadiusMm"
         },
         {
-            "name": "boxSealType",
             "label": {
                 "en": "Seal Type",
                 "es": "Tipo de sello"
@@ -398,10 +394,10 @@
                 "top",
                 "gasket",
                 "closed-view"
-            ]
+            ],
+            "id": "boxSealType"
         },
         {
-            "name": "gasketSlotWidth",
             "label": {
                 "en": "Gasket Slot Width",
                 "es": "Ancho ranura junta"
@@ -421,10 +417,10 @@
                 "bottom",
                 "gasket",
                 "closed-view"
-            ]
+            ],
+            "id": "gasketSlotWidth"
         },
         {
-            "name": "gasketSlotDepth",
             "label": {
                 "en": "Gasket Slot Depth",
                 "es": "Profundidad ranura junta"
@@ -444,10 +440,10 @@
                 "bottom",
                 "gasket",
                 "closed-view"
-            ]
+            ],
+            "id": "gasketSlotDepth"
         },
         {
-            "name": "rimWidthMm",
             "label": {
                 "en": "Rim Width",
                 "es": "Ancho del borde"
@@ -468,10 +464,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "rimWidthMm"
         },
         {
-            "name": "rimHeightMm",
             "label": {
                 "en": "Rim Height",
                 "es": "Altura del borde"
@@ -492,10 +488,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "rimHeightMm"
         },
         {
-            "name": "numSideSupportRibs",
             "label": {
                 "en": "Support Ribs",
                 "es": "Costillas de soporte"
@@ -515,10 +511,10 @@
                 "bottom",
                 "top",
                 "closed-view"
-            ]
+            ],
+            "id": "numSideSupportRibs"
         },
         {
-            "name": "supportRibThickness",
             "label": {
                 "en": "Rib Thickness",
                 "es": "Grosor de costilla"
@@ -539,10 +535,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "supportRibThickness"
         },
         {
-            "name": "supportRibWidth",
             "label": {
                 "en": "Rib Width",
                 "es": "Ancho de costilla"
@@ -563,10 +559,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "supportRibWidth"
         },
         {
-            "name": "countainerWidthXSections",
             "label": {
                 "en": "X Sections",
                 "es": "Secciones X"
@@ -586,10 +582,10 @@
                 "bottom",
                 "top",
                 "closed-view"
-            ]
+            ],
+            "id": "countainerWidthXSections"
         },
         {
-            "name": "boxLengthYSections",
             "label": {
                 "en": "Y Sections",
                 "es": "Secciones Y"
@@ -609,10 +605,10 @@
                 "bottom",
                 "top",
                 "closed-view"
-            ]
+            ],
+            "id": "boxLengthYSections"
         },
         {
-            "name": "numCountainerWidthXSectionsToSkip",
             "label": {
                 "en": "Skip X Sections",
                 "es": "Saltar secciones X"
@@ -633,10 +629,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "numCountainerWidthXSectionsToSkip"
         },
         {
-            "name": "numBoxLengthYSectionsToSkip",
             "label": {
                 "en": "Skip Y Sections",
                 "es": "Saltar secciones Y"
@@ -657,10 +653,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "numBoxLengthYSectionsToSkip"
         },
         {
-            "name": "numberOfHinges",
             "label": {
                 "en": "Hinges",
                 "es": "Bisagras"
@@ -680,10 +676,10 @@
                 "bottom",
                 "top",
                 "closed-view"
-            ]
+            ],
+            "id": "numberOfHinges"
         },
         {
-            "name": "hingeTotalWidthMm",
             "label": {
                 "en": "Hinge Width",
                 "es": "Ancho bisagra"
@@ -703,10 +699,10 @@
                 "bottom",
                 "top",
                 "closed-view"
-            ]
+            ],
+            "id": "hingeTotalWidthMm"
         },
         {
-            "name": "hingeRadiusMm",
             "label": {
                 "en": "Hinge Radius",
                 "es": "Radio bisagra"
@@ -727,10 +723,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "hingeRadiusMm"
         },
         {
-            "name": "hingeCenterOffsetMm",
             "label": {
                 "en": "Hinge Offset",
                 "es": "Desplazamiento bisagra"
@@ -751,10 +747,10 @@
                 "top",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "hingeCenterOffsetMm"
         },
         {
-            "name": "numberOfLatches",
             "label": {
                 "en": "Latches",
                 "es": "Pestillos"
@@ -773,10 +769,10 @@
                 "complete",
                 "latches",
                 "closed-view"
-            ]
+            ],
+            "id": "numberOfLatches"
         },
         {
-            "name": "latchSupportTotalWidth",
             "label": {
                 "en": "Latch Width",
                 "es": "Ancho pestillo"
@@ -795,10 +791,10 @@
                 "complete",
                 "latches",
                 "closed-view"
-            ]
+            ],
+            "id": "latchSupportTotalWidth"
         },
         {
-            "name": "latchCenterOffsetMm",
             "label": {
                 "en": "Latch Offset",
                 "es": "Desplazamiento pestillo"
@@ -818,10 +814,10 @@
                 "latches",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "latchCenterOffsetMm"
         },
         {
-            "name": "latchClipCutoutAngle",
             "label": {
                 "en": "Clip Angle",
                 "es": "Ángulo del clip"
@@ -840,10 +836,10 @@
                 "complete",
                 "latches",
                 "closed-view"
-            ]
+            ],
+            "id": "latchClipCutoutAngle"
         },
         {
-            "name": "latchOpenerLengthMultiplier",
             "label": {
                 "en": "Opener Length",
                 "es": "Largo del abridor"
@@ -863,10 +859,10 @@
                 "latches",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "latchOpenerLengthMultiplier"
         },
         {
-            "name": "isFeetAdded",
             "label": {
                 "en": "Add Feet",
                 "es": "Añadir pies"
@@ -884,10 +880,10 @@
                 "top",
                 "feet",
                 "closed-view"
-            ]
+            ],
+            "id": "isFeetAdded"
         },
         {
-            "name": "feetwidthMm",
             "label": {
                 "en": "Foot Width",
                 "es": "Ancho del pie"
@@ -907,10 +903,10 @@
                 "feet",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "feetwidthMm"
         },
         {
-            "name": "feetLengthMm",
             "label": {
                 "en": "Foot Length",
                 "es": "Largo del pie"
@@ -930,10 +926,10 @@
                 "feet",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "feetLengthMm"
         },
         {
-            "name": "boxGapMm",
             "label": {
                 "en": "Stacking Gap",
                 "es": "Espacio de apilamiento"
@@ -953,10 +949,10 @@
                 "feet",
                 "closed-view"
             ],
-            "advanced": true
+            "advanced": true,
+            "id": "boxGapMm"
         },
         {
-            "name": "BoxPolygonStyle",
             "label": {
                 "en": "Quality",
                 "es": "Calidad"
@@ -999,7 +995,8 @@
                 "gasket",
                 "feet",
                 "closed-view"
-            ]
+            ],
+            "id": "BoxPolygonStyle"
         }
     ],
     "parameter_groups": [
