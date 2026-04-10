@@ -65,6 +65,11 @@
                 "flexspline",
                 "circular_spline"
             ],
+            "part_quantities": {
+                "wave_generator": 1,
+                "flexspline": 1,
+                "circular_spline": 1
+            },
             "estimate": {
                 "base_units": 3,
                 "formula": "per_part"
@@ -87,6 +92,12 @@
                 "z_spindle",
                 "end_effector_mount"
             ],
+            "part_quantities": {
+                "shoulder_link": 1,
+                "elbow_link": 1,
+                "z_spindle": 1,
+                "end_effector_mount": 1
+            },
             "estimate": {
                 "base_units": 4,
                 "formula": "per_part"
@@ -108,6 +119,11 @@
                 "endstop_bracket_y",
                 "z_probe_mount"
             ],
+            "part_quantities": {
+                "endstop_bracket_x": 1,
+                "endstop_bracket_y": 1,
+                "z_probe_mount": 1
+            },
             "estimate": {
                 "base_units": 3,
                 "formula": "per_part"
