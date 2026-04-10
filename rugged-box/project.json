@@ -32,6 +32,12 @@
                 "latches",
                 "gasket"
             ],
+            "part_quantities": {
+                "bottom": 1,
+                "top": 1,
+                "latches": 1,
+                "gasket": 1
+            },
             "estimate": {
                 "base_time": 12,
                 "per_part": 4
@@ -124,6 +130,11 @@
                 "top",
                 "latches"
             ],
+            "part_quantities": {
+                "bottom": 1,
+                "top": 1,
+                "latches": 1
+            },
             "estimate": {
                 "base_time": 10,
                 "per_part": 4
