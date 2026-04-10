@@ -32,6 +32,13 @@
                 "output_gear",
                 "shaft"
             ],
+            "part_quantities": {
+                "housing_bottom": 1,
+                "housing_top": 1,
+                "input_gear": 1,
+                "output_gear": 1,
+                "shaft": 1
+            },
             "estimate": {
                 "base_units": 5,
                 "formula": "constant"
@@ -48,6 +55,10 @@
                 "housing_bottom",
                 "housing_top"
             ],
+            "part_quantities": {
+                "housing_bottom": 1,
+                "housing_top": 1
+            },
             "estimate": {
                 "base_units": 3,
                 "formula": "constant"
@@ -64,6 +75,10 @@
                 "input_gear",
                 "output_gear"
             ],
+            "part_quantities": {
+                "input_gear": 1,
+                "output_gear": 1
+            },
             "estimate": {
                 "base_units": 4,
                 "formula": "constant"
