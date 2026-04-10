@@ -31,6 +31,14 @@
         "cable_clip",
         "label_plate"
       ],
+      "part_quantities": {
+        "tray_base": 1,
+        "pen_holder": "pen_count",
+        "phone_stand": 1,
+        "card_slot": 1,
+        "cable_clip": "clip_count",
+        "label_plate": 1
+      },
       "estimate": {
         "base_units": 1,
         "formula": "constant"
@@ -51,6 +59,14 @@
         "cable_clip",
         "label_plate"
       ],
+      "part_quantities": {
+        "tray_base": 1,
+        "pen_holder": "pen_count",
+        "phone_stand": 1,
+        "card_slot": 1,
+        "cable_clip": "clip_count",
+        "label_plate": 1
+      },
       "estimate": {
         "base_units": 6,
         "formula": "constant"
