@@ -34,6 +34,10 @@
                 "mount",
                 "nema_reference"
             ],
+            "part_quantities": {
+                "mount": 1,
+                "nema_reference": 1
+            },
             "estimate": {
                 "base_units": 2,
                 "formula": "constant"
