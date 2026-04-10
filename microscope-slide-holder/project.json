@@ -112,6 +112,10 @@
         "box_base",
         "box_lid"
       ],
+      "part_quantities": {
+        "box_base": 1,
+        "box_lid": 1
+      },
       "estimate": {
         "base_units": 1,
         "formula": "constant"
@@ -158,6 +162,10 @@
         "drawer",
         "shell"
       ],
+      "part_quantities": {
+        "drawer": 1,
+        "shell": 1
+      },
       "estimate": {
         "base_units": 1,
         "formula": "constant"
