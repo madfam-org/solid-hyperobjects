@@ -32,6 +32,11 @@
                 "back_panel",
                 "glazing"
             ],
+            "part_quantities": {
+                "frame_assembly": 1,
+                "back_panel": 1,
+                "glazing": 1
+            },
             "estimate": {
                 "base_units": 1,
                 "formula": "constant"
