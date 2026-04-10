@@ -31,6 +31,10 @@
                 "latch_arm",
                 "striker_plate"
             ],
+            "part_quantities": {
+                "latch_arm": 1,
+                "striker_plate": 1
+            },
             "estimate": {
                 "base_units": 1,
                 "formula": "constant"
@@ -47,6 +51,10 @@
                 "lever_assembly",
                 "hook_catch"
             ],
+            "part_quantities": {
+                "lever_assembly": 1,
+                "hook_catch": 1
+            },
             "estimate": {
                 "base_units": 1,
                 "formula": "constant"
