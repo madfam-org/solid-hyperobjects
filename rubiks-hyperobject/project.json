@@ -32,15 +32,15 @@
         "en": "Parametric Rubik's Cube"
       },
       "body": {
-        "es": "Un cubo de Rubik completamente parametrico: elige el tamano de cuadricula (2x2 a 5x5), rota capas individuales y explora la vista explosionada.",
-        "en": "A fully parametric Rubik's Cube: choose grid size (2x2 to 5x5), rotate individual layers, and explore the exploded assembly view."
+        "es": "Un cubo de Rubik completamente parametrico: elige el tamano de cuadricula (2x2 a 9x9), rota capas individuales (incluidas capas medias) y explora la vista explosionada.",
+        "en": "A fully parametric Rubik's Cube: choose grid size (2x2 to 9x9), rotate individual layers (including middle layers), and explore the exploded assembly view."
       },
       "features": [
         {
           "icon": "grid_view",
           "text": {
-            "es": "Escala de 2x2 (Pocket) a 5x5 (Professor) con un solo control",
-            "en": "Scale from 2x2 (Pocket) to 5x5 (Professor) with a single slider"
+            "es": "Escala de 2x2 (Pocket) a 9x9 con un solo control",
+            "en": "Scale from 2x2 (Pocket) to 9x9 with a single slider"
           }
         },
         {
@@ -79,7 +79,9 @@
           "N",
           "size",
           "clearance",
-          "corner_rounding"
+          "corner_rounding",
+          "insert_pocket_depth",
+          "insert_pin_dia"
         ]
       },
       {
@@ -205,6 +207,21 @@
         "base_units": 1,
         "formula": "constant"
       }
+    },
+    {
+      "id": "insert",
+      "scad_file": "insert.scad",
+      "label": {
+        "es": "Inserto CDG",
+        "en": "CDG Insert Tile"
+      },
+      "parts": [
+        "insert"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
     }
   ],
   "parts": [
@@ -261,6 +278,15 @@
         "en": "Bands"
       },
       "default_color": "#1f1f1f"
+    },
+    {
+      "id": "insert",
+      "render_mode": 0,
+      "label": {
+        "es": "Inserto",
+        "en": "Insert Tile"
+      },
+      "default_color": "#e5e7eb"
     }
   ],
   "presets": [
@@ -371,6 +397,43 @@
         "rotate_left": 0,
         "rotate_right": 0
       }
+    },
+    {
+      "id": "colorblind_deutan",
+      "label": { "en": "\u267f Deuteranopia Safe", "es": "\u267f Deuteranop\u00eda Seguro" },
+      "values": {
+        "color_top": "#FFFFFF",
+        "color_bottom": "#FFD700",
+        "color_front": "#0072B2",
+        "color_back": "#E69F00",
+        "color_left": "#56B4E9",
+        "color_right": "#CC79A7"
+      }
+    },
+    {
+      "id": "high_contrast",
+      "label": { "en": "\ud83d\udd32 High Contrast", "es": "\ud83d\udd32 Alto Contraste" },
+      "values": {
+        "color_top": "#FFFFFF",
+        "color_bottom": "#000000",
+        "color_front": "#FF0000",
+        "color_back": "#0000FF",
+        "color_left": "#FFFF00",
+        "color_right": "#00FF00"
+      }
+    },
+    {
+      "id": "monochrome_tactile",
+      "label": { "en": "\ud83e\udd1a Monochrome Tactile", "es": "\ud83e\udd1a Monocrom\u00e1tico T\u00e1ctil" },
+      "values": {
+        "color_top": "#808080",
+        "color_bottom": "#808080",
+        "color_front": "#808080",
+        "color_back": "#808080",
+        "color_left": "#808080",
+        "color_right": "#808080",
+        "sticker_style": "tactile"
+      }
     }
   ],
   "parameters": [
@@ -379,15 +442,15 @@
       "type": "slider",
       "default": 3,
       "min": 2,
-      "max": 5,
+      "max": 9,
       "step": 1,
       "label": {
         "es": "Tamano de Cuadricula (NxN)",
         "en": "Grid Size (NxN)"
       },
       "tooltip": {
-        "es": "2=Pocket, 3=Estandar, 4=Revenge, 5=Professor",
-        "en": "2=Pocket, 3=Standard, 4=Revenge, 5=Professor"
+        "es": "2=Pocket, 3=Estandar, 4=Revenge, 5=Professor ... 9x9",
+        "en": "2=Pocket, 3=Standard, 4=Revenge, 5=Professor ... 9x9"
       },
       "visible_in_modes": [
         "cube",
@@ -616,6 +679,279 @@
       "group": "rotation"
     },
     {
+      "id": "rotate_x_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 2", "es": "Capa X 2" },
+      "tooltip": { "en": "Rotation of X-axis layer 2 (inner)", "es": "Rotacion de capa 2 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 3", "es": "Capa X 3" },
+      "tooltip": { "en": "Rotation of X-axis layer 3 (inner)", "es": "Rotacion de capa 3 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 4", "es": "Capa X 4" },
+      "tooltip": { "en": "Rotation of X-axis layer 4 (inner)", "es": "Rotacion de capa 4 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 5", "es": "Capa X 5" },
+      "tooltip": { "en": "Rotation of X-axis layer 5 (inner)", "es": "Rotacion de capa 5 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 6", "es": "Capa X 6" },
+      "tooltip": { "en": "Rotation of X-axis layer 6 (inner)", "es": "Rotacion de capa 6 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 7", "es": "Capa X 7" },
+      "tooltip": { "en": "Rotation of X-axis layer 7 (inner)", "es": "Rotacion de capa 7 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_x_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "X Layer 8", "es": "Capa X 8" },
+      "tooltip": { "en": "Rotation of X-axis layer 8 (inner)", "es": "Rotacion de capa 8 del eje X (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 2", "es": "Capa Y 2" },
+      "tooltip": { "en": "Rotation of Y-axis layer 2 (inner)", "es": "Rotacion de capa 2 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 3", "es": "Capa Y 3" },
+      "tooltip": { "en": "Rotation of Y-axis layer 3 (inner)", "es": "Rotacion de capa 3 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 4", "es": "Capa Y 4" },
+      "tooltip": { "en": "Rotation of Y-axis layer 4 (inner)", "es": "Rotacion de capa 4 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 5", "es": "Capa Y 5" },
+      "tooltip": { "en": "Rotation of Y-axis layer 5 (inner)", "es": "Rotacion de capa 5 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 6", "es": "Capa Y 6" },
+      "tooltip": { "en": "Rotation of Y-axis layer 6 (inner)", "es": "Rotacion de capa 6 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 7", "es": "Capa Y 7" },
+      "tooltip": { "en": "Rotation of Y-axis layer 7 (inner)", "es": "Rotacion de capa 7 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_y_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Y Layer 8", "es": "Capa Y 8" },
+      "tooltip": { "en": "Rotation of Y-axis layer 8 (inner)", "es": "Rotacion de capa 8 del eje Y (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 2", "es": "Capa Z 2" },
+      "tooltip": { "en": "Rotation of Z-axis layer 2 (inner)", "es": "Rotacion de capa 2 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 3", "es": "Capa Z 3" },
+      "tooltip": { "en": "Rotation of Z-axis layer 3 (inner)", "es": "Rotacion de capa 3 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 4", "es": "Capa Z 4" },
+      "tooltip": { "en": "Rotation of Z-axis layer 4 (inner)", "es": "Rotacion de capa 4 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 5", "es": "Capa Z 5" },
+      "tooltip": { "en": "Rotation of Z-axis layer 5 (inner)", "es": "Rotacion de capa 5 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 6", "es": "Capa Z 6" },
+      "tooltip": { "en": "Rotation of Z-axis layer 6 (inner)", "es": "Rotacion de capa 6 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 7", "es": "Capa Z 7" },
+      "tooltip": { "en": "Rotation of Z-axis layer 7 (inner)", "es": "Rotacion de capa 7 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
+      "id": "rotate_z_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": { "en": "Z Layer 8", "es": "Capa Z 8" },
+      "tooltip": { "en": "Rotation of Z-axis layer 8 (inner)", "es": "Rotacion de capa 8 del eje Z (interior)" },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
       "id": "color_top",
       "type": "text",
       "default": "#FFFFFF",
@@ -803,6 +1139,74 @@
       "visible_in_modes": ["cube", "exploded", "cubie"]
     },
     {
+      "id": "show_sockets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "es": "Mostrar Cavidades de Inserto",
+        "en": "Show Insert Sockets"
+      },
+      "tooltip": {
+        "es": "Muestra las cavidades CDG para insertos intercambiables en cada cara expuesta",
+        "en": "Show CDG socket pockets for interchangeable inserts on every exposed face"
+      },
+      "group": "visibility",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "cubie"]
+    },
+    {
+      "id": "insert_pocket_depth",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.1,
+      "label": {
+        "es": "Profundidad de Cavidad (mm)",
+        "en": "Insert Pocket Depth (mm)"
+      },
+      "tooltip": {
+        "es": "Profundidad de la cavidad para insertos CDG en cada cara",
+        "en": "Depth of the CDG insert pocket on each cubie face"
+      },
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "cubie", "insert"]
+    },
+    {
+      "id": "insert_pin_dia",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "step": 0.1,
+      "label": {
+        "es": "Diametro de Pin de Alineacion (mm)",
+        "en": "Alignment Pin Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro de los pines de alineacion en las cavidades de inserto",
+        "en": "Diameter of alignment pins in the insert socket pockets"
+      },
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "cubie", "insert"]
+    },
+    {
+      "id": "show_notation",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "es": "Notacion de Caras (U/D/F/B/L/R)",
+        "en": "Face Notation (U/D/F/B/L/R)"
+      },
+      "tooltip": {
+        "es": "Muestra letras de notacion Rubik embosadas en los cubies centrales",
+        "en": "Show embossed Rubik notation letters on center cubies"
+      },
+      "group": "visibility",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube"]
+    },
+    {
       "id": "show_cubies",
       "type": "checkbox",
       "default": true,
@@ -922,6 +1326,13 @@
         "es": "Colores de Caras",
         "en": "Face Colors"
       }
+    },
+    {
+      "id": "cdg",
+      "label": {
+        "es": "Sistema CDG",
+        "en": "CDG System"
+      }
     }
   ],
   "camera_views": [
@@ -1010,11 +1421,11 @@
     {
       "id": "morph",
       "label": {
-        "en": "Scale 2x2 \u2192 5x5",
-        "es": "Escala 2x2 \u2192 5x5"
+        "en": "Scale 2x2 \u2192 9x9",
+        "es": "Escala 2x2 \u2192 9x9"
       },
       "from_state": { "N": 2, "size": 40 },
-      "to_state": { "N": 5, "size": 80 },
+      "to_state": { "N": 9, "size": 100 },
       "frames": 4,
       "duration_ms": 4000,
       "easing": "linear",

@@ -27,6 +27,33 @@ rotate_bottom = is_undef(rotate_bottom) ? 0 : rotate_bottom;
 rotate_back = is_undef(rotate_back) ? 0 : rotate_back;
 rotate_left = is_undef(rotate_left) ? 0 : rotate_left;
 
+/* [Middle Layer Rotations — X axis, layers 1-7] */
+rotate_x_1 = is_undef(rotate_x_1) ? 0 : rotate_x_1;
+rotate_x_2 = is_undef(rotate_x_2) ? 0 : rotate_x_2;
+rotate_x_3 = is_undef(rotate_x_3) ? 0 : rotate_x_3;
+rotate_x_4 = is_undef(rotate_x_4) ? 0 : rotate_x_4;
+rotate_x_5 = is_undef(rotate_x_5) ? 0 : rotate_x_5;
+rotate_x_6 = is_undef(rotate_x_6) ? 0 : rotate_x_6;
+rotate_x_7 = is_undef(rotate_x_7) ? 0 : rotate_x_7;
+
+/* [Middle Layer Rotations — Y axis, layers 1-7] */
+rotate_y_1 = is_undef(rotate_y_1) ? 0 : rotate_y_1;
+rotate_y_2 = is_undef(rotate_y_2) ? 0 : rotate_y_2;
+rotate_y_3 = is_undef(rotate_y_3) ? 0 : rotate_y_3;
+rotate_y_4 = is_undef(rotate_y_4) ? 0 : rotate_y_4;
+rotate_y_5 = is_undef(rotate_y_5) ? 0 : rotate_y_5;
+rotate_y_6 = is_undef(rotate_y_6) ? 0 : rotate_y_6;
+rotate_y_7 = is_undef(rotate_y_7) ? 0 : rotate_y_7;
+
+/* [Middle Layer Rotations — Z axis, layers 1-7] */
+rotate_z_1 = is_undef(rotate_z_1) ? 0 : rotate_z_1;
+rotate_z_2 = is_undef(rotate_z_2) ? 0 : rotate_z_2;
+rotate_z_3 = is_undef(rotate_z_3) ? 0 : rotate_z_3;
+rotate_z_4 = is_undef(rotate_z_4) ? 0 : rotate_z_4;
+rotate_z_5 = is_undef(rotate_z_5) ? 0 : rotate_z_5;
+rotate_z_6 = is_undef(rotate_z_6) ? 0 : rotate_z_6;
+rotate_z_7 = is_undef(rotate_z_7) ? 0 : rotate_z_7;
+
 /* [Face Colors] */
 color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
 color_bottom = is_undef(color_bottom) ? "#FFD900" : color_bottom;
@@ -129,8 +156,19 @@ if (show_cubies && (render_mode == 0 || render_mode == 1)) {
                     ex = (explode_factor / 100) * base_x * 0.6;
                     ey = (explode_factor / 100) * base_y * 0.6;
                     ez = (explode_factor / 100) * base_z * 0.6;
+
+                    // Layer rotation lookup arrays (indices 0..8, supporting up to 9x9)
+                    z_rotations = [rotate_bottom, rotate_z_1, rotate_z_2, rotate_z_3, rotate_z_4, rotate_z_5, rotate_z_6, rotate_z_7, rotate_top];
+                    y_rotations = [-rotate_front, rotate_y_1, rotate_y_2, rotate_y_3, rotate_y_4, rotate_y_5, rotate_y_6, rotate_y_7, rotate_back];
+                    x_rotations = [-rotate_left, rotate_x_1, rotate_x_2, rotate_x_3, rotate_x_4, rotate_x_5, rotate_x_6, rotate_x_7, rotate_right];
+
+                    rot_z = (gz < len(z_rotations)) ? z_rotations[gz] : 0;
+                    rot_y = (gy < len(y_rotations)) ? y_rotations[gy] : 0;
+                    rot_x = (gx < len(x_rotations)) ? x_rotations[gx] : 0;
+
                     translate([base_x + ex, base_y + ey, base_z + ez])
-                        cubie(gx, gy, gz);
+                        rotate([rot_x, rot_y, rot_z])
+                            cubie(gx, gy, gz);
                 }
 }
 

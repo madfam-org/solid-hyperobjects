@@ -2,14 +2,14 @@
 // Yantra4D Hyperobject — CERN-OHL-W-2.0
 //
 // A fully parametric Rubik's puzzle cube using BOSL2 for rounding
-// and primitive geometry. Supports 2x2 through 5x5, layer rotations,
-// exploded views, and separate core/cubie rendering.
+// and primitive geometry. Supports 2x2 through 9x9, layer rotations
+// (including middle layers), exploded views, and separate core/cubie rendering.
 
 include <../../libs/BOSL2/std.scad>
 
 /* [Puzzle Grid] */
-// Grid size: 2=Pocket, 3=Standard, 4=Revenge, 5=Professor
-N = is_undef(N) ? 3 : N;
+// Grid size: 2=Pocket, 3=Standard, 4=Revenge, 5=Professor ... 9x9
+N = is_undef(N) ? 3 : N; // [2:1:9]
 // Overall cube dimension (mm)
 size = is_undef(size) ? 57 : size;
 // Gap between cubies (mm)
@@ -36,6 +36,47 @@ rotate_bottom = is_undef(rotate_bottom) ? 0 : rotate_bottom;
 rotate_back = is_undef(rotate_back) ? 0 : rotate_back;
 // Left layer rotation (degrees): 0, 90, 180, 270
 rotate_left = is_undef(rotate_left) ? 0 : rotate_left;
+
+/* [Middle Layer Rotations — X axis, layers 1-7] */
+rotate_x_1 = is_undef(rotate_x_1) ? 0 : rotate_x_1;
+rotate_x_2 = is_undef(rotate_x_2) ? 0 : rotate_x_2;
+rotate_x_3 = is_undef(rotate_x_3) ? 0 : rotate_x_3;
+rotate_x_4 = is_undef(rotate_x_4) ? 0 : rotate_x_4;
+rotate_x_5 = is_undef(rotate_x_5) ? 0 : rotate_x_5;
+rotate_x_6 = is_undef(rotate_x_6) ? 0 : rotate_x_6;
+rotate_x_7 = is_undef(rotate_x_7) ? 0 : rotate_x_7;
+
+/* [Middle Layer Rotations — Y axis, layers 1-7] */
+rotate_y_1 = is_undef(rotate_y_1) ? 0 : rotate_y_1;
+rotate_y_2 = is_undef(rotate_y_2) ? 0 : rotate_y_2;
+rotate_y_3 = is_undef(rotate_y_3) ? 0 : rotate_y_3;
+rotate_y_4 = is_undef(rotate_y_4) ? 0 : rotate_y_4;
+rotate_y_5 = is_undef(rotate_y_5) ? 0 : rotate_y_5;
+rotate_y_6 = is_undef(rotate_y_6) ? 0 : rotate_y_6;
+rotate_y_7 = is_undef(rotate_y_7) ? 0 : rotate_y_7;
+
+/* [Middle Layer Rotations — Z axis, layers 1-7] */
+rotate_z_1 = is_undef(rotate_z_1) ? 0 : rotate_z_1;
+rotate_z_2 = is_undef(rotate_z_2) ? 0 : rotate_z_2;
+rotate_z_3 = is_undef(rotate_z_3) ? 0 : rotate_z_3;
+rotate_z_4 = is_undef(rotate_z_4) ? 0 : rotate_z_4;
+rotate_z_5 = is_undef(rotate_z_5) ? 0 : rotate_z_5;
+rotate_z_6 = is_undef(rotate_z_6) ? 0 : rotate_z_6;
+rotate_z_7 = is_undef(rotate_z_7) ? 0 : rotate_z_7;
+
+/* [CDG Insert System] */
+// Show insert pockets on cubie faces
+show_sockets = is_undef(show_sockets) ? false : show_sockets;
+// Depth of insert pocket (mm)
+insert_pocket_depth = is_undef(insert_pocket_depth) ? 1.5 : insert_pocket_depth;
+// Alignment pin diameter (mm)
+insert_pin_dia = is_undef(insert_pin_dia) ? 1.0 : insert_pin_dia;
+// Alignment pin protrusion (mm)
+insert_pin_height = is_undef(insert_pin_height) ? 1.0 : insert_pin_height;
+
+/* [Notation Overlay] */
+// Show U/D/F/B/L/R on center cubies
+show_notation = is_undef(show_notation) ? false : show_notation;
 
 /* [Exploded View] */
 // Explosion percentage: 0=assembled, 100=fully exploded, 200=max
@@ -227,13 +268,81 @@ module face_sticker(axis, sign, fc, face_index=0) {
     }
 }
 
+// Render a CDG socket pocket (negative shape) for one cubie face.
+// cubie_s: the cubie edge length
+module cubie_socket(cubie_s) {
+    pocket_size = cubie_s * 0.78;
+    // Rectangular pocket
+    cube([pocket_size, pocket_size, insert_pocket_depth * 2], center=true);
+    // Two alignment pin holes (diagonal corners)
+    pin_offset = pocket_size * 0.35;
+    for (pos = [[-pin_offset, -pin_offset], [pin_offset, pin_offset]]) {
+        translate([pos[0], pos[1], 0])
+            cylinder(r=insert_pin_dia/2 + 0.1, h=insert_pocket_depth * 3, center=true, $fn=16);
+    }
+}
+
+// Render an embossed notation letter on a face.
+// letter: single character string (U/D/F/B/L/R)
+module notation_letter(letter) {
+    notation_depth = 0.3;
+    notation_size = cubie_size * 0.4;
+    linear_extrude(notation_depth)
+        text(letter, size=notation_size, halign="center", valign="center",
+             font="Liberation Sans:style=Bold");
+}
+
 // Render a single cubie at grid position (gx, gy, gz).
 // Grid indices run from 0 to N-1.
 module cubie(gx, gy, gz) {
-    // Body
-    color(body_color)
-        cuboid([cubie_size, cubie_size, cubie_size],
-               rounding=safe_rounding);
+    // Determine center cubie status (exactly one axis at extremity, others in middle)
+    is_center_z = (gz == 0 || gz == N-1) && (gx > 0 && gx < N-1) && (gy > 0 && gy < N-1);
+    is_center_y = (gy == 0 || gy == N-1) && (gx > 0 && gx < N-1) && (gz > 0 && gz < N-1);
+    is_center_x = (gx == 0 || gx == N-1) && (gy > 0 && gy < N-1) && (gz > 0 && gz < N-1);
+
+    // Body — use difference() when sockets are enabled to subtract pockets
+    if (show_sockets) {
+        difference() {
+            color(body_color)
+                cuboid([cubie_size, cubie_size, cubie_size],
+                       rounding=safe_rounding);
+
+            // Subtract socket pockets from each exposed face
+            // Top face: gz == N-1
+            if (gz == N - 1)
+                translate([0, 0, cubie_size/2])
+                    cubie_socket(cubie_size);
+            // Bottom face: gz == 0
+            if (gz == 0)
+                translate([0, 0, -cubie_size/2])
+                    cubie_socket(cubie_size);
+            // Front face: gy == 0
+            if (gy == 0)
+                translate([0, -cubie_size/2, 0])
+                    rotate([90, 0, 0])
+                        cubie_socket(cubie_size);
+            // Back face: gy == N-1
+            if (gy == N - 1)
+                translate([0, cubie_size/2, 0])
+                    rotate([90, 0, 0])
+                        cubie_socket(cubie_size);
+            // Left face: gx == 0
+            if (gx == 0)
+                translate([-cubie_size/2, 0, 0])
+                    rotate([0, 90, 0])
+                        cubie_socket(cubie_size);
+            // Right face: gx == N-1
+            if (gx == N - 1)
+                translate([cubie_size/2, 0, 0])
+                    rotate([0, 90, 0])
+                        cubie_socket(cubie_size);
+        }
+    } else {
+        // No sockets — render body normally
+        color(body_color)
+            cuboid([cubie_size, cubie_size, cubie_size],
+                   rounding=safe_rounding);
+    }
 
     // Stickers on exposed faces only
     // Top face: gz == N-1
@@ -254,6 +363,42 @@ module cubie(gx, gy, gz) {
     // Right face: gx == N-1
     if (gx == N - 1)
         face_sticker(0, 1, face_colors[5], face_index=5);
+
+    // Notation overlay on center cubies (requires N >= 3)
+    if (show_notation && N >= 3) {
+        notation_offset = cubie_size / 2 + 0.01;
+
+        // Top center → "U"
+        if (is_center_z && gz == N - 1)
+            translate([0, 0, notation_offset])
+                notation_letter("U");
+        // Bottom center → "D"
+        if (is_center_z && gz == 0)
+            translate([0, 0, -notation_offset])
+                rotate([180, 0, 0])
+                    notation_letter("D");
+        // Front center → "F"
+        if (is_center_y && gy == 0)
+            translate([0, -notation_offset, 0])
+                rotate([90, 0, 0])
+                    rotate([0, 0, 180])
+                        notation_letter("F");
+        // Back center → "B"
+        if (is_center_y && gy == N - 1)
+            translate([0, notation_offset, 0])
+                rotate([-90, 0, 0])
+                    notation_letter("B");
+        // Left center → "L"
+        if (is_center_x && gx == 0)
+            translate([-notation_offset, 0, 0])
+                rotate([0, -90, 0])
+                    notation_letter("L");
+        // Right center → "R"
+        if (is_center_x && gx == N - 1)
+            translate([notation_offset, 0, 0])
+                rotate([0, 90, 0])
+                    notation_letter("R");
+    }
 }
 
 // Central core mechanism: sphere + 6 axle cylinders.
@@ -296,13 +441,17 @@ module rubiks_cube() {
                         ey = (explode_factor / 100) * base_y * 0.6;
                         ez = (explode_factor / 100) * base_z * 0.6;
 
-                        // Determine layer rotation for this cubie
-                        // Top layer: gz == N-1, Bottom layer: gz == 0, rotate around Z
-                        rot_z = (gz == N - 1) ? rotate_top : (gz == 0) ? rotate_bottom : 0;
-                        // Front layer: gy == 0, Back layer: gy == N-1, rotate around Y
-                        rot_y = (gy == 0) ? -rotate_front : (gy == N - 1) ? rotate_back : 0;
-                        // Right layer: gx == N-1, Left layer: gx == 0, rotate around X
-                        rot_x = (gx == N - 1) ? rotate_right : (gx == 0) ? -rotate_left : 0;
+                        // Layer rotation lookup arrays (indices 0..8, supporting up to 9x9)
+                        // Z-axis: [bottom, z_1..z_7, top]
+                        z_rotations = [rotate_bottom, rotate_z_1, rotate_z_2, rotate_z_3, rotate_z_4, rotate_z_5, rotate_z_6, rotate_z_7, rotate_top];
+                        // Y-axis: [front(negated), y_1..y_7, back]
+                        y_rotations = [-rotate_front, rotate_y_1, rotate_y_2, rotate_y_3, rotate_y_4, rotate_y_5, rotate_y_6, rotate_y_7, rotate_back];
+                        // X-axis: [left(negated), x_1..x_7, right]
+                        x_rotations = [-rotate_left, rotate_x_1, rotate_x_2, rotate_x_3, rotate_x_4, rotate_x_5, rotate_x_6, rotate_x_7, rotate_right];
+
+                        rot_z = (gz < len(z_rotations)) ? z_rotations[gz] : 0;
+                        rot_y = (gy < len(y_rotations)) ? y_rotations[gy] : 0;
+                        rot_x = (gx < len(x_rotations)) ? x_rotations[gx] : 0;
 
                         translate([base_x + ex, base_y + ey, base_z + ez])
                             rotate([rot_x, rot_y, rot_z])
