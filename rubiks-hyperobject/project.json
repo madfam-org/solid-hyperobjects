@@ -131,7 +131,8 @@
         "en": "Cube"
       },
       "parts": [
-        "main"
+        "cubies",
+        "stickers"
       ],
       "part_quantities": {
         "cubies": "N * N * N - (N - 2) * (N - 2) * (N - 2)",
@@ -255,7 +256,7 @@
         "es": "Cubies",
         "en": "Cubies"
       },
-      "default_color": "#808080"
+      "default_color": "#2c2c2c"
     },
     {
       "id": "core",
@@ -264,7 +265,7 @@
         "es": "Mecanismo Central",
         "en": "Core Mechanism"
       },
-      "default_color": "#d0d0d0"
+      "default_color": "#808080"
     },
     {
       "id": "stickers",
@@ -273,7 +274,7 @@
         "es": "Stickers",
         "en": "Stickers"
       },
-      "default_color": "#ffffff"
+      "default_color": "#f8f8f8"
     },
     {
       "id": "frame",
@@ -282,7 +283,7 @@
         "es": "Marco",
         "en": "Frame"
       },
-      "default_color": "#707070"
+      "default_color": "#2c2c2c"
     },
     {
       "id": "segments",
