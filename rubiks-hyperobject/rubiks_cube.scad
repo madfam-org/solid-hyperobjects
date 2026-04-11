@@ -20,6 +20,8 @@ clearance = is_undef(clearance) ? 0.3 : clearance;
 corner_rounding = is_undef(corner_rounding) ? 1.5 : corner_rounding;
 // Face color inset depth (mm)
 sticker_depth = is_undef(sticker_depth) ? 0.3 : sticker_depth;
+// Sticker style: "color" or "tactile"
+sticker_style = is_undef(sticker_style) ? "color" : sticker_style;
 
 /* [Layer Rotation] */
 // Top layer rotation (degrees): 0, 90, 180, 270
@@ -106,11 +108,56 @@ body_color = [0.12, 0.12, 0.12];
 
 /* ─── Modules ─── */
 
+// Render raised tactile dots on one face of a cubie.
+// face_index: 0=Top(1 dot), 1=Bottom(2 dots), 2=Front(3 dots),
+//             3=Back(4 dots), 4=Left(5 dots), 5=Right(6 dots)
+module tactile_dots(face_index) {
+    dot_r = cubie_size * 0.06;
+    dot_h = sticker_depth * 2;
+    spread = cubie_size * 0.2;  // dot spacing from center
+
+    color([0.85, 0.85, 0.85])
+    if (face_index == 0) {
+        // Top: 1 dot center
+        sphere(r=dot_r, $fn=16);
+    } else if (face_index == 1) {
+        // Bottom: 2 dots vertical
+        for (dy = [-1, 1])
+            translate([0, dy * spread, 0])
+                sphere(r=dot_r, $fn=16);
+    } else if (face_index == 2) {
+        // Front: 3 dots diagonal
+        for (k = [-1, 0, 1])
+            translate([k * spread, k * spread, 0])
+                sphere(r=dot_r, $fn=16);
+    } else if (face_index == 3) {
+        // Back: 4 dots square
+        for (dx = [-1, 1])
+            for (dy = [-1, 1])
+                translate([dx * spread * 0.7, dy * spread * 0.7, 0])
+                    sphere(r=dot_r, $fn=16);
+    } else if (face_index == 4) {
+        // Left: 5 dots X pattern
+        sphere(r=dot_r, $fn=16);
+        for (dx = [-1, 1])
+            for (dy = [-1, 1])
+                translate([dx * spread, dy * spread, 0])
+                    sphere(r=dot_r, $fn=16);
+    } else {
+        // Right: 6 dots 2x3 grid
+        for (dx = [-1, 1])
+            for (dy = [-1, 0, 1])
+                translate([dx * spread * 0.7, dy * spread, 0])
+                    sphere(r=dot_r, $fn=16);
+    }
+}
+
 // Render a single face sticker on one side of a cubie.
 // axis: 0=X, 1=Y, 2=Z
 // sign: +1 or -1 (which face along that axis)
 // fc: color as [r,g,b]
-module face_sticker(axis, sign, fc) {
+// face_index: 0-5 face identifier (used for tactile dot pattern)
+module face_sticker(axis, sign, fc, face_index=0) {
     sticker_size = cubie_size * 0.82;
     sticker_thick = sticker_depth;
     sticker_rounding = min(safe_rounding * 0.6, sticker_size / 2 - 0.01);
@@ -118,24 +165,65 @@ module face_sticker(axis, sign, fc) {
     // Position: offset from cubie center to just outside the face
     offset_dist = cubie_size / 2 + sticker_thick / 2 - 0.01;
 
-    color(fc)
-    if (axis == 0) {
-        translate([sign * offset_dist, 0, 0])
-            rotate([0, 90, 0])
+    if (sticker_style == "tactile") {
+        // Tactile mode: raised dot patterns instead of colored stickers
+        // Still render a dark base sticker for contrast
+        color(body_color)
+        if (axis == 0) {
+            translate([sign * offset_dist, 0, 0])
+                rotate([0, 90, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding,
+                           edges="Z");
+        } else if (axis == 1) {
+            translate([0, sign * offset_dist, 0])
+                rotate([90, 0, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding,
+                           edges="Z");
+        } else {
+            translate([0, 0, sign * offset_dist])
                 cuboid([sticker_size, sticker_size, sticker_thick],
                        rounding=sticker_rounding,
                        edges="Z");
-    } else if (axis == 1) {
-        translate([0, sign * offset_dist, 0])
-            rotate([90, 0, 0])
-                cuboid([sticker_size, sticker_size, sticker_thick],
-                       rounding=sticker_rounding,
-                       edges="Z");
+        }
+
+        // Render raised dots on top of the sticker
+        dot_offset = cubie_size / 2 + sticker_thick;
+        if (axis == 0) {
+            translate([sign * dot_offset, 0, 0])
+                rotate([0, sign * 90, 0])
+                    tactile_dots(face_index);
+        } else if (axis == 1) {
+            translate([0, sign * dot_offset, 0])
+                rotate([sign * -90, 0, 0])
+                    tactile_dots(face_index);
+        } else {
+            translate([0, 0, sign * dot_offset])
+                rotate([sign > 0 ? 0 : 180, 0, 0])
+                    tactile_dots(face_index);
+        }
     } else {
-        translate([0, 0, sign * offset_dist])
-            cuboid([sticker_size, sticker_size, sticker_thick],
-                   rounding=sticker_rounding,
-                   edges="Z");
+        // Color mode: original colored sticker
+        color(fc)
+        if (axis == 0) {
+            translate([sign * offset_dist, 0, 0])
+                rotate([0, 90, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding,
+                           edges="Z");
+        } else if (axis == 1) {
+            translate([0, sign * offset_dist, 0])
+                rotate([90, 0, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding,
+                           edges="Z");
+        } else {
+            translate([0, 0, sign * offset_dist])
+                cuboid([sticker_size, sticker_size, sticker_thick],
+                       rounding=sticker_rounding,
+                       edges="Z");
+        }
     }
 }
 
@@ -150,22 +238,22 @@ module cubie(gx, gy, gz) {
     // Stickers on exposed faces only
     // Top face: gz == N-1
     if (gz == N - 1)
-        face_sticker(2, 1, face_colors[0]);
+        face_sticker(2, 1, face_colors[0], face_index=0);
     // Bottom face: gz == 0
     if (gz == 0)
-        face_sticker(2, -1, face_colors[1]);
+        face_sticker(2, -1, face_colors[1], face_index=1);
     // Front face: gy == 0
     if (gy == 0)
-        face_sticker(1, -1, face_colors[2]);
+        face_sticker(1, -1, face_colors[2], face_index=2);
     // Back face: gy == N-1
     if (gy == N - 1)
-        face_sticker(1, 1, face_colors[3]);
+        face_sticker(1, 1, face_colors[3], face_index=3);
     // Left face: gx == 0
     if (gx == 0)
-        face_sticker(0, -1, face_colors[4]);
+        face_sticker(0, -1, face_colors[4], face_index=4);
     // Right face: gx == N-1
     if (gx == N - 1)
-        face_sticker(0, 1, face_colors[5]);
+        face_sticker(0, 1, face_colors[5], face_index=5);
 }
 
 // Central core mechanism: sphere + 6 axle cylinders.

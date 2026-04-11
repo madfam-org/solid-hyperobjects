@@ -19,6 +19,16 @@ clearance = 0.3;
 // Number of horizontal rotation bands
 sphere_band_count = 4;
 
+/* [Band Rotation] */
+// Band 1 rotation (degrees): 0, 90, 180, 270
+rotate_band_1 = 0;
+// Band 2 rotation (degrees): 0, 90, 180, 270
+rotate_band_2 = 0;
+// Band 3 rotation (degrees): 0, 90, 180, 270
+rotate_band_3 = 0;
+// Band 4 rotation (degrees): 0, 90, 180, 270
+rotate_band_4 = 0;
+
 /* [Visibility] */
 show_segments = true;
 show_core = true;
@@ -106,7 +116,12 @@ module rubiks_sphere() {
         for (i = [0 : sphere_band_count - 1]) {
             z_lo = -sphere_r + i * band_height + (i > 0 ? clearance / 2 : 0);
             z_hi = -sphere_r + (i + 1) * band_height - (i < sphere_band_count - 1 ? clearance / 2 : 0);
-            sphere_band(z_lo, z_hi, i);
+            band_angle = (i == 0) ? rotate_band_1
+                       : (i == 1) ? rotate_band_2
+                       : (i == 2) ? rotate_band_3
+                       : rotate_band_4;
+            rotate([0, 0, band_angle])
+                sphere_band(z_lo, z_hi, i);
         }
     }
 

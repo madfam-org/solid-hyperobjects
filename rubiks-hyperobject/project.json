@@ -733,6 +733,76 @@
       ]
     },
     {
+      "id": "rotate_band_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 1",
+        "en": "Rotate Band 1"
+      },
+      "group": "rotation",
+      "visible_in_modes": ["sphere"]
+    },
+    {
+      "id": "rotate_band_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 2",
+        "en": "Rotate Band 2"
+      },
+      "group": "rotation",
+      "visible_in_modes": ["sphere"]
+    },
+    {
+      "id": "rotate_band_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 3",
+        "en": "Rotate Band 3"
+      },
+      "group": "rotation",
+      "visible_in_modes": ["sphere"]
+    },
+    {
+      "id": "rotate_band_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 4",
+        "en": "Rotate Band 4"
+      },
+      "group": "rotation",
+      "visible_in_modes": ["sphere"]
+    },
+    {
+      "id": "sticker_style",
+      "type": "select",
+      "default": "color",
+      "options": [
+        { "value": "color", "label": { "en": "Color Stickers", "es": "Adhesivos de Color" } },
+        { "value": "tactile", "label": { "en": "Tactile Dots", "es": "Puntos Tactiles" } }
+      ],
+      "label": {
+        "es": "Estilo de Adhesivo",
+        "en": "Sticker Style"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"]
+    },
+    {
       "id": "show_cubies",
       "type": "checkbox",
       "default": true,
@@ -896,51 +966,126 @@
     "wasm_multiplier": 4,
     "warning_threshold_seconds": 90
   },
+  "animations": [
+    {
+      "id": "solve",
+      "label": {
+        "en": "Solve (Checkerboard \u2192 Solved)",
+        "es": "Resolver (Tablero \u2192 Resuelto)"
+      },
+      "from_state": {
+        "rotate_top": 90,
+        "rotate_bottom": 90,
+        "rotate_front": 90,
+        "rotate_back": 90,
+        "rotate_left": 90,
+        "rotate_right": 90
+      },
+      "to_state": {
+        "rotate_top": 0,
+        "rotate_bottom": 0,
+        "rotate_front": 0,
+        "rotate_back": 0,
+        "rotate_left": 0,
+        "rotate_right": 0
+      },
+      "frames": 10,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "cube"
+    },
+    {
+      "id": "explode",
+      "label": {
+        "en": "Explode Assembly",
+        "es": "Vista Explosionada"
+      },
+      "from_state": { "explode_factor": 0 },
+      "to_state": { "explode_factor": 150 },
+      "frames": 8,
+      "duration_ms": 2000,
+      "easing": "ease-out",
+      "mode": "cube"
+    },
+    {
+      "id": "morph",
+      "label": {
+        "en": "Scale 2x2 \u2192 5x5",
+        "es": "Escala 2x2 \u2192 5x5"
+      },
+      "from_state": { "N": 2, "size": 40 },
+      "to_state": { "N": 5, "size": 80 },
+      "frames": 4,
+      "duration_ms": 4000,
+      "easing": "linear",
+      "mode": "cube"
+    }
+  ],
   "assembly_steps": [
     {
       "step": 1,
       "label": {
-        "es": "Imprime los cubies",
-        "en": "Print the cubies"
-      },
-      "notes": {
-        "es": "Imprime todos los cubies exteriores. PLA, 0.2mm capas, 20% relleno. Los stickers de color se imprimen por separado o se pintan.",
-        "en": "Print all exterior cubies. PLA, 0.2mm layers, 20% infill. Color stickers are printed separately or painted."
+        "en": "Print Cubies",
+        "es": "Imprimir Cubies"
       },
       "visible_parts": ["cubies"],
-      "highlight_parts": ["cubies"],
       "camera": [80, -80, 60],
-      "camera_target": [0, 0, 0]
+      "notes": {
+        "en": "Print all 26 cubies (for 3x3). Use 0.2mm layer height, 30% infill.",
+        "es": "Imprime los 26 cubies (para 3x3). Usa 0.2mm de capa, 30% relleno."
+      }
     },
     {
       "step": 2,
       "label": {
-        "es": "Imprime el mecanismo central",
-        "en": "Print the core mechanism"
+        "en": "Print Core Mechanism",
+        "es": "Imprimir Mecanismo Central"
       },
-      "notes": {
-        "es": "Imprime la esfera central y los ejes. Usa soportes para la esfera. PETG recomendado para resistencia.",
-        "en": "Print the central sphere and axles. Use supports for the sphere. PETG recommended for durability."
-      },
-      "visible_parts": ["cubies", "core"],
-      "highlight_parts": ["core"],
+      "visible_parts": ["core"],
       "camera": [60, -60, 40],
-      "camera_target": [0, 0, 0]
+      "notes": {
+        "en": "Print the central sphere and 6 axle cylinders. Use 100% infill for strength.",
+        "es": "Imprime la esfera central y 6 cilindros de eje. Usa 100% relleno para resistencia."
+      }
     },
     {
       "step": 3,
       "label": {
-        "es": "Ensambla el cubo",
-        "en": "Assemble the cube"
+        "en": "Insert Springs & Attach Centers",
+        "es": "Insertar Resortes y Centros"
       },
+      "visible_parts": ["core", "cubies"],
+      "camera": [50, -50, 30],
       "notes": {
-        "es": "Inserta los ejes en la esfera central. Desliza los cubies sobre los ejes, capa por capa. Aplica lubricante de silicona en las superficies de contacto.",
-        "en": "Insert axles into the central sphere. Slide cubies onto axles, layer by layer. Apply silicone lubricant on contact surfaces."
+        "en": "Place springs on axles, then slide center cubies onto each axle.",
+        "es": "Coloca resortes en los ejes, luego desliza los cubies centrales."
+      }
+    },
+    {
+      "step": 4,
+      "label": {
+        "en": "Place Edge & Corner Cubies",
+        "es": "Colocar Aristas y Esquinas"
       },
       "visible_parts": ["cubies", "core"],
-      "highlight_parts": ["cubies", "core"],
-      "camera": [50, -50, 35],
-      "camera_target": [0, 0, 0]
+      "camera": [70, -70, 50],
+      "notes": {
+        "en": "Snap edge cubies into tracks, then press corner cubies into place.",
+        "es": "Encaja los cubies de arista en rieles, luego presiona las esquinas."
+      }
+    },
+    {
+      "step": 5,
+      "label": {
+        "en": "Apply Stickers or Paint",
+        "es": "Aplicar Adhesivos o Pintar"
+      },
+      "visible_parts": ["cubies", "core"],
+      "camera": [80, -80, 60],
+      "notes": {
+        "en": "Apply colored stickers or paint each face. Verify smooth rotation.",
+        "es": "Aplica adhesivos de colores o pinta cada cara. Verifica rotacion suave."
+      }
     }
   ],
   "print_estimation": {
