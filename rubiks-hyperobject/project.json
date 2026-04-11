@@ -256,7 +256,7 @@
         "es": "Cubies",
         "en": "Cubies"
       },
-      "default_color": "#2c2c2c"
+      "default_color": "#b0b0b0"
     },
     {
       "id": "core",
@@ -265,7 +265,7 @@
         "es": "Mecanismo Central",
         "en": "Core Mechanism"
       },
-      "default_color": "#808080"
+      "default_color": "#e0e0e0"
     },
     {
       "id": "stickers",
@@ -274,7 +274,7 @@
         "es": "Stickers",
         "en": "Stickers"
       },
-      "default_color": "#f8f8f8"
+      "default_color": "#ffffff"
     },
     {
       "id": "frame",
@@ -283,7 +283,7 @@
         "es": "Marco",
         "en": "Frame"
       },
-      "default_color": "#2c2c2c"
+      "default_color": "#a0a0a0"
     },
     {
       "id": "segments",
