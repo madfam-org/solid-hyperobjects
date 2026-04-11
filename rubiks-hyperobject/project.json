@@ -261,7 +261,7 @@
         "es": "Cubies",
         "en": "Cubies"
       },
-      "default_color": "#b0b0b0"
+      "default_color": "#c8c8c8"
     },
     {
       "id": "core",
@@ -365,7 +365,7 @@
     {
       "id": "stickers_bottom",
       "render_mode": 4,
-      "default_color": "#FFD900",
+      "default_color": "#FFEE00",
       "label": {
         "en": "Bottom Face",
         "es": "Cara Inferior"
@@ -374,7 +374,7 @@
     {
       "id": "stickers_front",
       "render_mode": 5,
-      "default_color": "#CC0000",
+      "default_color": "#FF2020",
       "label": {
         "en": "Front Face",
         "es": "Cara Frontal"
@@ -383,7 +383,7 @@
     {
       "id": "stickers_back",
       "render_mode": 6,
-      "default_color": "#FF8000",
+      "default_color": "#FF9920",
       "label": {
         "en": "Back Face",
         "es": "Cara Posterior"
@@ -392,7 +392,7 @@
     {
       "id": "stickers_left",
       "render_mode": 7,
-      "default_color": "#0000CC",
+      "default_color": "#2040FF",
       "label": {
         "en": "Left Face",
         "es": "Cara Izquierda"
@@ -401,7 +401,7 @@
     {
       "id": "stickers_right",
       "render_mode": 8,
-      "default_color": "#009900",
+      "default_color": "#00DD00",
       "label": {
         "en": "Right Face",
         "es": "Cara Derecha"

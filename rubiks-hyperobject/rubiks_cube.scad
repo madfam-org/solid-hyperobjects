@@ -806,5 +806,7 @@ module rubiks_cube() {
 /* ─── Top-level render ─── */
 
 if (is_library == 0) {
-    rubiks_cube();
+    // Shift entire cube into the positive quadrant (X+, Y+, Z+)
+    translate([half_extent, half_extent, half_extent])
+        rubiks_cube();
 }
