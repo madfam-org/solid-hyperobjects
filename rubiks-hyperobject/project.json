@@ -352,7 +352,12 @@
     },
     {
       "id": "main",
-      "default_color": "#E63946"
+      "default_color": "#E63946",
+      "render_mode": 0,
+      "label": {
+        "en": "Complete Assembly",
+        "es": "Ensamble Completo"
+      }
     }
   ],
   "presets": [
