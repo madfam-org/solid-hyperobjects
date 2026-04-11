@@ -28,6 +28,12 @@ rotate_top = is_undef(rotate_top) ? 0 : rotate_top;
 rotate_front = is_undef(rotate_front) ? 0 : rotate_front;
 // Right layer rotation (degrees): 0, 90, 180, 270
 rotate_right = is_undef(rotate_right) ? 0 : rotate_right;
+// Bottom layer rotation (degrees): 0, 90, 180, 270
+rotate_bottom = is_undef(rotate_bottom) ? 0 : rotate_bottom;
+// Back layer rotation (degrees): 0, 90, 180, 270
+rotate_back = is_undef(rotate_back) ? 0 : rotate_back;
+// Left layer rotation (degrees): 0, 90, 180, 270
+rotate_left = is_undef(rotate_left) ? 0 : rotate_left;
 
 /* [Exploded View] */
 // Explosion percentage: 0=assembled, 100=fully exploded, 200=max
@@ -68,18 +74,31 @@ axle_len = size * 0.48;
 // Safe rounding: cannot exceed half cubie size
 safe_rounding = min(corner_rounding, cubie_size / 2 - 0.01);
 
-/* ─── Standard Rubik's face colors ─── */
+/* [Face Colors] */
+// Top face color (hex string)
+color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
+// Bottom face color (hex string)
+color_bottom = is_undef(color_bottom) ? "#FFD900" : color_bottom;
+// Front face color (hex string)
+color_front = is_undef(color_front) ? "#CC0000" : color_front;
+// Back face color (hex string)
+color_back = is_undef(color_back) ? "#FF8000" : color_back;
+// Left face color (hex string)
+color_left = is_undef(color_left) ? "#0000CC" : color_left;
+// Right face color (hex string)
+color_right = is_undef(color_right) ? "#009900" : color_right;
+
+/* ─── Face color array (derived from parameters) ─── */
 
 // Face colors indexed by face ID:
-// 0=Top(white), 1=Bottom(yellow), 2=Front(red),
-// 3=Back(orange), 4=Left(blue), 5=Right(green)
+// 0=Top, 1=Bottom, 2=Front, 3=Back, 4=Left, 5=Right
 face_colors = [
-    [1.0, 1.0, 1.0],   // 0: Top — White
-    [1.0, 0.85, 0.0],   // 1: Bottom — Yellow
-    [0.8, 0.0, 0.0],    // 2: Front — Red
-    [1.0, 0.5, 0.0],    // 3: Back — Orange
-    [0.0, 0.0, 0.8],    // 4: Left — Blue
-    [0.0, 0.6, 0.0]     // 5: Right — Green
+    color_top,      // 0: Top
+    color_bottom,   // 1: Bottom
+    color_front,    // 2: Front
+    color_back,     // 3: Back
+    color_left,     // 4: Left
+    color_right     // 5: Right
 ];
 
 // Body color (black plastic)
@@ -190,12 +209,12 @@ module rubiks_cube() {
                         ez = (explode_factor / 100) * base_z * 0.6;
 
                         // Determine layer rotation for this cubie
-                        // Top layer: gz == N-1, rotate around Z
-                        rot_z = (gz == N - 1) ? rotate_top : 0;
-                        // Front layer: gy == 0, rotate around Y (negative for standard orientation)
-                        rot_y = (gy == 0) ? -rotate_front : 0;
-                        // Right layer: gx == N-1, rotate around X
-                        rot_x = (gx == N - 1) ? rotate_right : 0;
+                        // Top layer: gz == N-1, Bottom layer: gz == 0, rotate around Z
+                        rot_z = (gz == N - 1) ? rotate_top : (gz == 0) ? rotate_bottom : 0;
+                        // Front layer: gy == 0, Back layer: gy == N-1, rotate around Y
+                        rot_y = (gy == 0) ? -rotate_front : (gy == N - 1) ? rotate_back : 0;
+                        // Right layer: gx == N-1, Left layer: gx == 0, rotate around X
+                        rot_x = (gx == N - 1) ? rotate_right : (gx == 0) ? -rotate_left : 0;
 
                         translate([base_x + ex, base_y + ey, base_z + ez])
                             rotate([rot_x, rot_y, rot_z])

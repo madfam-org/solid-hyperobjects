@@ -19,6 +19,22 @@ clearance = is_undef(clearance) ? 0.3 : clearance;
 corner_rounding = is_undef(corner_rounding) ? 1.5 : corner_rounding;
 sticker_depth = is_undef(sticker_depth) ? 0.3 : sticker_depth;
 
+/* [Layer Rotation] */
+rotate_top = is_undef(rotate_top) ? 0 : rotate_top;
+rotate_front = is_undef(rotate_front) ? 0 : rotate_front;
+rotate_right = is_undef(rotate_right) ? 0 : rotate_right;
+rotate_bottom = is_undef(rotate_bottom) ? 0 : rotate_bottom;
+rotate_back = is_undef(rotate_back) ? 0 : rotate_back;
+rotate_left = is_undef(rotate_left) ? 0 : rotate_left;
+
+/* [Face Colors] */
+color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
+color_bottom = is_undef(color_bottom) ? "#FFD900" : color_bottom;
+color_front = is_undef(color_front) ? "#CC0000" : color_front;
+color_back = is_undef(color_back) ? "#FF8000" : color_back;
+color_left = is_undef(color_left) ? "#0000CC" : color_left;
+color_right = is_undef(color_right) ? "#009900" : color_right;
+
 /* [Exploded View] */
 explode_factor = is_undef(explode_factor) ? 100 : explode_factor;
 
@@ -40,12 +56,12 @@ axle_len = size * 0.48;
 safe_rounding = min(corner_rounding, cubie_size / 2 - 0.01);
 
 face_colors = [
-    [1.0, 1.0, 1.0],
-    [1.0, 0.85, 0.0],
-    [0.8, 0.0, 0.0],
-    [1.0, 0.5, 0.0],
-    [0.0, 0.0, 0.8],
-    [0.0, 0.6, 0.0]
+    color_top,      // 0: Top
+    color_bottom,   // 1: Bottom
+    color_front,    // 2: Front
+    color_back,     // 3: Back
+    color_left,     // 4: Left
+    color_right     // 5: Right
 ];
 
 body_color = [0.12, 0.12, 0.12];

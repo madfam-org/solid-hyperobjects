@@ -46,8 +46,8 @@
         {
           "icon": "rotate_right",
           "text": {
-            "es": "Rota capas individuales (superior, frontal, derecha) para visualizar estados del puzzle",
-            "en": "Rotate individual layers (top, front, right) to visualize puzzle states"
+            "es": "Rota las 6 capas individuales para visualizar estados del puzzle",
+            "en": "Rotate all 6 individual layers to visualize puzzle states"
           }
         },
         {
@@ -331,6 +331,46 @@
         "size": 57,
         "sphere_band_count": 4
       }
+    },
+    {
+      "id": "checkerboard",
+      "label": {
+        "es": "Tablero",
+        "en": "Checkerboard"
+      },
+      "values": {
+        "rotate_top": 90,
+        "rotate_bottom": 90,
+        "rotate_front": 90,
+        "rotate_back": 90,
+        "rotate_left": 90,
+        "rotate_right": 90
+      }
+    },
+    {
+      "id": "t_pattern",
+      "label": {
+        "es": "Patron T",
+        "en": "T-Pattern"
+      },
+      "values": {
+        "rotate_front": 90
+      }
+    },
+    {
+      "id": "solved",
+      "label": {
+        "es": "Resuelto",
+        "en": "Solved"
+      },
+      "values": {
+        "rotate_top": 0,
+        "rotate_bottom": 0,
+        "rotate_front": 0,
+        "rotate_back": 0,
+        "rotate_left": 0,
+        "rotate_right": 0
+      }
     }
   ],
   "parameters": [
@@ -516,6 +556,144 @@
       "group": "rotation"
     },
     {
+      "id": "rotate_bottom",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Inferior",
+        "en": "Rotate Bottom"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa inferior (grados)",
+        "en": "Bottom layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_back",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Posterior",
+        "en": "Rotate Back"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa posterior (grados)",
+        "en": "Back layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_left",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Izquierda",
+        "en": "Rotate Left"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa izquierda (grados)",
+        "en": "Left layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "color_top",
+      "type": "text",
+      "default": "#FFFFFF",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Superior",
+        "en": "Top Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_bottom",
+      "type": "text",
+      "default": "#FFD900",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Inferior",
+        "en": "Bottom Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_front",
+      "type": "text",
+      "default": "#CC0000",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Frontal",
+        "en": "Front Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_back",
+      "type": "text",
+      "default": "#FF8000",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Posterior",
+        "en": "Back Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_left",
+      "type": "text",
+      "default": "#0000CC",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Izquierda",
+        "en": "Left Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_right",
+      "type": "text",
+      "default": "#009900",
+      "widget": { "type": "color" },
+      "label": {
+        "es": "Color Cara Derecha",
+        "en": "Right Face Color"
+      },
+      "visible_in_modes": ["cube", "exploded", "cubie"],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
       "id": "explode_factor",
       "type": "slider",
       "default": 0,
@@ -667,6 +845,13 @@
           }
         }
       ]
+    },
+    {
+      "id": "colors",
+      "label": {
+        "es": "Colores de Caras",
+        "en": "Face Colors"
+      }
     }
   ],
   "camera_views": [
