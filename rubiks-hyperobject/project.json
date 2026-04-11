@@ -56,7 +56,9 @@
         "es": "Comenzar",
         "en": "Get Started"
       }
-    }
+    },
+    "guest_render_limit": 100,
+    "force_backend": true
   },
   "hyperobject": {
     "domain": "hybrid",
@@ -2076,7 +2078,5 @@
   ],
   "viewer": {
     "default_color": "#1f1f1f"
-  },
-  "guest_render_limit": 100,
-  "force_backend": true
+  }
 }
