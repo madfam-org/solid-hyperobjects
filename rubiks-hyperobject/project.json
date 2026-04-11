@@ -132,7 +132,12 @@
       },
       "parts": [
         "cubies",
-        "stickers"
+        "stickers_top",
+        "stickers_bottom",
+        "stickers_front",
+        "stickers_back",
+        "stickers_left",
+        "stickers_right"
       ],
       "part_quantities": {
         "cubies": "N * N * N - (N - 2) * (N - 2) * (N - 2)",
@@ -268,15 +273,6 @@
       "default_color": "#e0e0e0"
     },
     {
-      "id": "stickers",
-      "render_mode": 1,
-      "label": {
-        "es": "Stickers",
-        "en": "Stickers"
-      },
-      "default_color": "#ffffff"
-    },
-    {
       "id": "frame",
       "render_mode": 0,
       "label": {
@@ -355,6 +351,60 @@
       "label": {
         "en": "Complete Assembly",
         "es": "Ensamble Completo"
+      }
+    },
+    {
+      "id": "stickers_top",
+      "render_mode": 3,
+      "default_color": "#FFFFFF",
+      "label": {
+        "en": "Top Face",
+        "es": "Cara Superior"
+      }
+    },
+    {
+      "id": "stickers_bottom",
+      "render_mode": 4,
+      "default_color": "#FFD900",
+      "label": {
+        "en": "Bottom Face",
+        "es": "Cara Inferior"
+      }
+    },
+    {
+      "id": "stickers_front",
+      "render_mode": 5,
+      "default_color": "#CC0000",
+      "label": {
+        "en": "Front Face",
+        "es": "Cara Frontal"
+      }
+    },
+    {
+      "id": "stickers_back",
+      "render_mode": 6,
+      "default_color": "#FF8000",
+      "label": {
+        "en": "Back Face",
+        "es": "Cara Posterior"
+      }
+    },
+    {
+      "id": "stickers_left",
+      "render_mode": 7,
+      "default_color": "#0000CC",
+      "label": {
+        "en": "Left Face",
+        "es": "Cara Izquierda"
+      }
+    },
+    {
+      "id": "stickers_right",
+      "render_mode": 8,
+      "default_color": "#009900",
+      "label": {
+        "en": "Right Face",
+        "es": "Cara Derecha"
       }
     }
   ],

@@ -709,46 +709,93 @@ module core_mechanism() {
     }
 }
 
-// Full Rubik's cube assembly with layer rotations and explosion.
-module rubiks_cube() {
-    // Render cubies
-    if (show_cubies && (render_mode == 0 || render_mode == 1)) {
-        for (gx = [0 : N-1])
-            for (gy = [0 : N-1])
-                for (gz = [0 : N-1]) {
-                    // Skip purely interior cubies (not visible)
-                    if (gx == 0 || gx == N-1 ||
-                        gy == 0 || gy == N-1 ||
-                        gz == 0 || gz == N-1) {
+// Shared grid traversal: positions and rotates a child at each visible cubie location.
+module for_each_cubie() {
+    for (gx = [0 : N-1])
+        for (gy = [0 : N-1])
+            for (gz = [0 : N-1]) {
+                if (gx == 0 || gx == N-1 ||
+                    gy == 0 || gy == N-1 ||
+                    gz == 0 || gz == N-1) {
 
-                        // Base position in grid
-                        base_x = grid_offset + gx * pitch;
-                        base_y = grid_offset + gy * pitch;
-                        base_z = grid_offset + gz * pitch;
+                    base_x = grid_offset + gx * pitch;
+                    base_y = grid_offset + gy * pitch;
+                    base_z = grid_offset + gz * pitch;
 
-                        // Explosion: move outward from center
-                        ex = (explode_factor / 100) * base_x * 0.6;
-                        ey = (explode_factor / 100) * base_y * 0.6;
-                        ez = (explode_factor / 100) * base_z * 0.6;
+                    ex = (explode_factor / 100) * base_x * 0.6;
+                    ey = (explode_factor / 100) * base_y * 0.6;
+                    ez = (explode_factor / 100) * base_z * 0.6;
 
-                        // Layer rotation lookup arrays (indices 0..8, supporting up to 9x9)
-                        // Z-axis: [bottom, z_1..z_7, top]
-                        z_rotations = [rotate_bottom, rotate_z_1, rotate_z_2, rotate_z_3, rotate_z_4, rotate_z_5, rotate_z_6, rotate_z_7, rotate_top];
-                        // Y-axis: [front(negated), y_1..y_7, back]
-                        y_rotations = [-rotate_front, rotate_y_1, rotate_y_2, rotate_y_3, rotate_y_4, rotate_y_5, rotate_y_6, rotate_y_7, rotate_back];
-                        // X-axis: [left(negated), x_1..x_7, right]
-                        x_rotations = [-rotate_left, rotate_x_1, rotate_x_2, rotate_x_3, rotate_x_4, rotate_x_5, rotate_x_6, rotate_x_7, rotate_right];
+                    z_rotations = [rotate_bottom, rotate_z_1, rotate_z_2, rotate_z_3, rotate_z_4, rotate_z_5, rotate_z_6, rotate_z_7, rotate_top];
+                    y_rotations = [-rotate_front, rotate_y_1, rotate_y_2, rotate_y_3, rotate_y_4, rotate_y_5, rotate_y_6, rotate_y_7, rotate_back];
+                    x_rotations = [-rotate_left, rotate_x_1, rotate_x_2, rotate_x_3, rotate_x_4, rotate_x_5, rotate_x_6, rotate_x_7, rotate_right];
 
-                        rot_z = (gz < len(z_rotations)) ? z_rotations[gz] : 0;
-                        rot_y = (gy < len(y_rotations)) ? y_rotations[gy] : 0;
-                        rot_x = (gx < len(x_rotations)) ? x_rotations[gx] : 0;
+                    rot_z = (gz < len(z_rotations)) ? z_rotations[gz] : 0;
+                    rot_y = (gy < len(y_rotations)) ? y_rotations[gy] : 0;
+                    rot_x = (gx < len(x_rotations)) ? x_rotations[gx] : 0;
 
-                        translate([base_x + ex, base_y + ey, base_z + ez])
-                            rotate([rot_x, rot_y, rot_z])
-                                cubie(gx, gy, gz);
-                    }
+                    translate([base_x + ex, base_y + ey, base_z + ez])
+                        rotate([rot_x, rot_y, rot_z])
+                            cubie(gx, gy, gz);
                 }
+            }
+}
+
+// Render stickers for a single face across all cubies.
+// face_id: 0=top, 1=bottom, 2=front, 3=back, 4=left, 5=right
+module face_stickers_layer(face_id) {
+    fc = face_colors[face_id];
+    for (gx = [0 : N-1])
+        for (gy = [0 : N-1])
+            for (gz = [0 : N-1]) {
+                if (gx == 0 || gx == N-1 ||
+                    gy == 0 || gy == N-1 ||
+                    gz == 0 || gz == N-1) {
+
+                    base_x = grid_offset + gx * pitch;
+                    base_y = grid_offset + gy * pitch;
+                    base_z = grid_offset + gz * pitch;
+                    ex = (explode_factor / 100) * base_x * 0.6;
+                    ey = (explode_factor / 100) * base_y * 0.6;
+                    ez = (explode_factor / 100) * base_z * 0.6;
+
+                    z_rotations = [rotate_bottom, rotate_z_1, rotate_z_2, rotate_z_3, rotate_z_4, rotate_z_5, rotate_z_6, rotate_z_7, rotate_top];
+                    y_rotations = [-rotate_front, rotate_y_1, rotate_y_2, rotate_y_3, rotate_y_4, rotate_y_5, rotate_y_6, rotate_y_7, rotate_back];
+                    x_rotations = [-rotate_left, rotate_x_1, rotate_x_2, rotate_x_3, rotate_x_4, rotate_x_5, rotate_x_6, rotate_x_7, rotate_right];
+
+                    rot_z = (gz < len(z_rotations)) ? z_rotations[gz] : 0;
+                    rot_y = (gy < len(y_rotations)) ? y_rotations[gy] : 0;
+                    rot_x = (gx < len(x_rotations)) ? x_rotations[gx] : 0;
+
+                    translate([base_x + ex, base_y + ey, base_z + ez])
+                        rotate([rot_x, rot_y, rot_z]) {
+                            if (face_id == 0 && gz == N-1) face_sticker(2, 1, fc, face_index=0);
+                            if (face_id == 1 && gz == 0)   face_sticker(2, -1, fc, face_index=1);
+                            if (face_id == 2 && gy == 0)   face_sticker(1, -1, fc, face_index=2);
+                            if (face_id == 3 && gy == N-1) face_sticker(1, 1, fc, face_index=3);
+                            if (face_id == 4 && gx == 0)   face_sticker(0, -1, fc, face_index=4);
+                            if (face_id == 5 && gx == N-1) face_sticker(0, 1, fc, face_index=5);
+                        }
+                }
+            }
+}
+
+// Full Rubik's cube assembly with layer rotations and explosion.
+// render_mode: 0=all, 1=cubies+stickers, 2=core,
+//              3=top stickers, 4=bottom, 5=front, 6=back, 7=left, 8=right
+module rubiks_cube() {
+    // Render cubies (body only when face-split modes 3-8 are active)
+    if (show_cubies && (render_mode == 0 || render_mode == 1)) {
+        for_each_cubie();
     }
+
+    // Render individual face sticker layers (render_modes 3-8)
+    if (render_mode == 3) face_stickers_layer(0);  // Top
+    if (render_mode == 4) face_stickers_layer(1);  // Bottom
+    if (render_mode == 5) face_stickers_layer(2);  // Front
+    if (render_mode == 6) face_stickers_layer(3);  // Back
+    if (render_mode == 7) face_stickers_layer(4);  // Left
+    if (render_mode == 8) face_stickers_layer(5);  // Right
 
     // Render core
     if (show_core && (render_mode == 0 || render_mode == 2)) {
