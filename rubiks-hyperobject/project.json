@@ -106,7 +106,12 @@
         "standard": "internal",
         "parameters": [
           "N",
-          "size"
+          "size",
+          "mechanism_detail",
+          "spring_dia",
+          "spring_length",
+          "screw_dia",
+          "mechanism_clearance"
         ]
       }
     ],
@@ -222,6 +227,30 @@
         "base_units": 1,
         "formula": "constant"
       }
+    },
+    {
+      "id": "mechanism",
+      "scad_file": "mechanism.scad",
+      "label": {
+        "es": "Mecanismo Funcional",
+        "en": "Functional Mechanism"
+      },
+      "parts": [
+        "mechanism_core",
+        "mechanism_center",
+        "mechanism_edge",
+        "mechanism_corner"
+      ],
+      "part_quantities": {
+        "mechanism_core": 1,
+        "mechanism_center": 6,
+        "mechanism_edge": "12",
+        "mechanism_corner": "8"
+      },
+      "estimate": {
+        "base_units": 4,
+        "formula": "constant"
+      }
     }
   ],
   "parts": [
@@ -287,6 +316,42 @@
         "en": "Insert Tile"
       },
       "default_color": "#e5e7eb"
+    },
+    {
+      "id": "mechanism_core",
+      "render_mode": 1,
+      "label": {
+        "es": "Nucleo Funcional",
+        "en": "Functional Core"
+      },
+      "default_color": "#4d4d4d"
+    },
+    {
+      "id": "mechanism_center",
+      "render_mode": 2,
+      "label": {
+        "es": "Cubie Centro (Mecanismo)",
+        "en": "Center Cubie (Mechanism)"
+      },
+      "default_color": "#1f1f1f"
+    },
+    {
+      "id": "mechanism_edge",
+      "render_mode": 3,
+      "label": {
+        "es": "Cubie Arista (Mecanismo)",
+        "en": "Edge Cubie (Mechanism)"
+      },
+      "default_color": "#1f1f1f"
+    },
+    {
+      "id": "mechanism_corner",
+      "render_mode": 4,
+      "label": {
+        "es": "Cubie Esquina (Mecanismo)",
+        "en": "Corner Cubie (Mechanism)"
+      },
+      "default_color": "#1f1f1f"
     }
   ],
   "presets": [
@@ -433,6 +498,39 @@
         "color_left": "#808080",
         "color_right": "#808080",
         "sticker_style": "tactile"
+      }
+    },
+    {
+      "id": "functional_3x3",
+      "label": {
+        "es": "Funcional 3x3 (Imprimible)",
+        "en": "Functional 3x3 (Printable)"
+      },
+      "values": {
+        "N": 3,
+        "size": 57,
+        "clearance": 0.3,
+        "mechanism_detail": "functional",
+        "spring_dia": 5,
+        "spring_length": 8,
+        "screw_dia": 3,
+        "mechanism_clearance": 0.2
+      }
+    },
+    {
+      "id": "mechanism_exploded",
+      "label": {
+        "es": "Mecanismo Explosionado",
+        "en": "Mechanism Exploded"
+      },
+      "mode": "mechanism",
+      "values": {
+        "N": 3,
+        "size": 57,
+        "spring_dia": 5,
+        "spring_length": 8,
+        "screw_dia": 3,
+        "mechanism_clearance": 0.2
       }
     }
   ],
@@ -1139,6 +1237,101 @@
       "visible_in_modes": ["cube", "exploded", "cubie"]
     },
     {
+      "id": "mechanism_detail",
+      "type": "select",
+      "default": "decorative",
+      "options": [
+        { "value": "decorative", "label": { "en": "Decorative", "es": "Decorativo" } },
+        { "value": "functional", "label": { "en": "Functional (Printable)", "es": "Funcional (Imprimible)" } }
+      ],
+      "label": {
+        "es": "Detalle del Mecanismo",
+        "en": "Mechanism Detail"
+      },
+      "tooltip": {
+        "es": "Decorativo: esfera + ejes simples. Funcional: mecanismo imprimible con rieles T, cavidades de resorte y geometria interna de cubies.",
+        "en": "Decorative: simple sphere + axles. Functional: printable mechanism with T-track rails, spring cavities, and cubie internal geometry."
+      },
+      "group": "mechanism",
+      "visible_in_modes": ["cube", "exploded", "mechanism"]
+    },
+    {
+      "id": "spring_dia",
+      "type": "slider",
+      "default": 5,
+      "min": 3,
+      "max": 8,
+      "step": 0.5,
+      "label": {
+        "es": "Diametro del Resorte (mm)",
+        "en": "Spring Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro del resorte de compresion que mantiene los cubies centrales contra el nucleo",
+        "en": "Compression spring diameter that holds center cubies against the core"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "mechanism"]
+    },
+    {
+      "id": "spring_length",
+      "type": "slider",
+      "default": 8,
+      "min": 4,
+      "max": 15,
+      "step": 0.5,
+      "label": {
+        "es": "Longitud de Cavidad del Resorte (mm)",
+        "en": "Spring Cavity Length (mm)"
+      },
+      "tooltip": {
+        "es": "Longitud de la cavidad interna para el resorte de compresion",
+        "en": "Length of the internal cavity for the compression spring"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "mechanism"]
+    },
+    {
+      "id": "screw_dia",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "label": {
+        "es": "Diametro del Tornillo (mm)",
+        "en": "Screw Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro del tornillo del eje (M3 por defecto)",
+        "en": "Axle screw diameter (M3 default)"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "mechanism"]
+    },
+    {
+      "id": "mechanism_clearance",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.05,
+      "label": {
+        "es": "Holgura del Mecanismo (mm)",
+        "en": "Mechanism Clearance (mm)"
+      },
+      "tooltip": {
+        "es": "Holgura interna entre piezas moviles del mecanismo — aumentar si las piezas se atascan",
+        "en": "Internal clearance between moving mechanism parts — increase if pieces bind"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": ["cube", "exploded", "mechanism"]
+    },
+    {
       "id": "show_sockets",
       "type": "checkbox",
       "default": false,
@@ -1332,6 +1525,13 @@
       "label": {
         "es": "Sistema CDG",
         "en": "CDG System"
+      }
+    },
+    {
+      "id": "mechanism",
+      "label": {
+        "es": "Mecanismo Interno",
+        "en": "Internal Mechanism"
       }
     }
   ],
