@@ -255,7 +255,7 @@
         "es": "Cubies",
         "en": "Cubies"
       },
-      "default_color": "#1f1f1f"
+      "default_color": "#2d2d2d"
     },
     {
       "id": "core",
@@ -264,7 +264,7 @@
         "es": "Mecanismo Central",
         "en": "Core Mechanism"
       },
-      "default_color": "#4d4d4d"
+      "default_color": "#666666"
     },
     {
       "id": "stickers",
@@ -273,7 +273,7 @@
         "es": "Stickers",
         "en": "Stickers"
       },
-      "default_color": "#e5e7eb"
+      "default_color": "#f5f5f5"
     },
     {
       "id": "frame",
@@ -282,7 +282,7 @@
         "es": "Marco",
         "en": "Frame"
       },
-      "default_color": "#1f1f1f"
+      "default_color": "#2d2d2d"
     },
     {
       "id": "segments",
@@ -318,7 +318,7 @@
         "es": "Nucleo Funcional",
         "en": "Functional Core"
       },
-      "default_color": "#4d4d4d"
+      "default_color": "#888888"
     },
     {
       "id": "mechanism_center",
@@ -327,7 +327,7 @@
         "es": "Cubie Centro (Mecanismo)",
         "en": "Center Cubie (Mechanism)"
       },
-      "default_color": "#1f1f1f"
+      "default_color": "#555555"
     },
     {
       "id": "mechanism_edge",
@@ -336,7 +336,7 @@
         "es": "Cubie Arista (Mecanismo)",
         "en": "Edge Cubie (Mechanism)"
       },
-      "default_color": "#1f1f1f"
+      "default_color": "#555555"
     },
     {
       "id": "mechanism_corner",
@@ -345,7 +345,7 @@
         "es": "Cubie Esquina (Mecanismo)",
         "en": "Corner Cubie (Mechanism)"
       },
-      "default_color": "#1f1f1f"
+      "default_color": "#555555"
     }
   ],
   "presets": [
@@ -2076,5 +2076,6 @@
   ],
   "viewer": {
     "default_color": "#1f1f1f"
-  }
+  },
+  "guest_render_limit": 100
 }
