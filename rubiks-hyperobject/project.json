@@ -1228,7 +1228,10 @@
       "default": "color",
       "options": [
         { "value": "color", "label": { "en": "Color Stickers", "es": "Adhesivos de Color" } },
-        { "value": "tactile", "label": { "en": "Tactile Dots", "es": "Puntos Tactiles" } }
+        { "value": "tactile", "label": { "en": "Tactile Dots", "es": "Puntos Táctiles" } },
+        { "value": "stripes", "label": { "en": "Stripe Pattern", "es": "Patrón de Rayas" } },
+        { "value": "checkers", "label": { "en": "Checkerboard", "es": "Tablero de Ajedrez" } },
+        { "value": "concentric", "label": { "en": "Concentric Squares", "es": "Cuadrados Concéntricos" } }
       ],
       "label": {
         "es": "Estilo de Adhesivo",

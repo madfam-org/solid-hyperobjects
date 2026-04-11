@@ -205,6 +205,54 @@ module tactile_dots(face_index) {
     }
 }
 
+// Render raised stripe pattern on one face.
+// face_index determines stripe count: 1-6 stripes per face.
+module stripe_pattern(face_index) {
+    sticker_s = cubie_size * 0.78;
+    stripe_count = face_index + 1;
+    stripe_h = sticker_depth * 1.5;
+    stripe_w = sticker_s / (stripe_count * 2 + 1);
+    for (i = [0 : stripe_count - 1]) {
+        y_pos = -sticker_s/2 + stripe_w + i * (sticker_s / stripe_count);
+        translate([0, y_pos, 0])
+            cube([sticker_s * 0.8, stripe_w * 0.7, stripe_h], center=true);
+    }
+}
+
+// Render raised checkerboard pattern on one face.
+// face_index determines grid density: 2x2 to 4x4.
+module checker_pattern(face_index) {
+    sticker_s = cubie_size * 0.78;
+    grid_n = (face_index < 2) ? 2 : (face_index < 4) ? 3 : 4;
+    cell = sticker_s / grid_n;
+    checker_h = sticker_depth * 1.5;
+    for (gx = [0 : grid_n - 1])
+        for (gy = [0 : grid_n - 1])
+            if ((gx + gy) % 2 == 0)
+                translate([
+                    -sticker_s/2 + cell/2 + gx * cell,
+                    -sticker_s/2 + cell/2 + gy * cell,
+                    0
+                ])
+                    cube([cell * 0.85, cell * 0.85, checker_h], center=true);
+}
+
+// Render concentric square pattern on one face.
+// face_index determines ring count: 1-3 rings.
+module concentric_pattern(face_index) {
+    sticker_s = cubie_size * 0.78;
+    ring_count = min(face_index + 1, 3);
+    ring_h = sticker_depth * 1.5;
+    ring_w = sticker_depth * 0.8;
+    for (i = [0 : ring_count - 1]) {
+        ring_size = sticker_s * (1 - i * 0.3);
+        difference() {
+            cube([ring_size, ring_size, ring_h], center=true);
+            cube([ring_size - ring_w * 2, ring_size - ring_w * 2, ring_h + 1], center=true);
+        }
+    }
+}
+
 // Render a single face sticker on one side of a cubie.
 // axis: 0=X, 1=Y, 2=Z
 // sign: +1 or -1 (which face along that axis)
@@ -256,8 +304,52 @@ module face_sticker(axis, sign, fc, face_index=0) {
                 rotate([sign > 0 ? 0 : 180, 0, 0])
                     tactile_dots(face_index);
         }
+    } else if (sticker_style == "stripes" || sticker_style == "checkers" || sticker_style == "concentric") {
+        // Pattern modes: colored base sticker + raised pattern overlay
+        color(fc)
+        if (axis == 0) {
+            translate([sign * offset_dist, 0, 0])
+                rotate([0, 90, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding, edges="Z");
+        } else if (axis == 1) {
+            translate([0, sign * offset_dist, 0])
+                rotate([90, 0, 0])
+                    cuboid([sticker_size, sticker_size, sticker_thick],
+                           rounding=sticker_rounding, edges="Z");
+        } else {
+            translate([0, 0, sign * offset_dist])
+                cuboid([sticker_size, sticker_size, sticker_thick],
+                       rounding=sticker_rounding, edges="Z");
+        }
+        // Raised pattern on top
+        dot_offset = cubie_size / 2 + sticker_thick;
+        pattern_module = sticker_style;
+        color(body_color)
+        if (axis == 0) {
+            translate([sign * dot_offset, 0, 0])
+                rotate([0, sign * 90, 0]) {
+                    if (pattern_module == "stripes") stripe_pattern(face_index);
+                    else if (pattern_module == "checkers") checker_pattern(face_index);
+                    else concentric_pattern(face_index);
+                }
+        } else if (axis == 1) {
+            translate([0, sign * dot_offset, 0])
+                rotate([sign * -90, 0, 0]) {
+                    if (pattern_module == "stripes") stripe_pattern(face_index);
+                    else if (pattern_module == "checkers") checker_pattern(face_index);
+                    else concentric_pattern(face_index);
+                }
+        } else {
+            translate([0, 0, sign * dot_offset])
+                rotate([sign > 0 ? 0 : 180, 0, 0]) {
+                    if (pattern_module == "stripes") stripe_pattern(face_index);
+                    else if (pattern_module == "checkers") checker_pattern(face_index);
+                    else concentric_pattern(face_index);
+                }
+        }
     } else {
-        // Color mode: original colored sticker
+        // Color mode (default): original colored sticker
         color(fc)
         if (axis == 0) {
             translate([sign * offset_dist, 0, 0])
