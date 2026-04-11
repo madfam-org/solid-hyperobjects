@@ -131,10 +131,7 @@
         "en": "Cube"
       },
       "parts": [
-        "cubies",
-        "core",
-        "stickers",
-        "frame"
+        "main"
       ],
       "part_quantities": {
         "cubies": "N * N * N - (N - 2) * (N - 2) * (N - 2)",
