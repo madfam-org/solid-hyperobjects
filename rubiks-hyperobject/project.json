@@ -2077,5 +2077,6 @@
   "viewer": {
     "default_color": "#1f1f1f"
   },
-  "guest_render_limit": 100
+  "guest_render_limit": 100,
+  "force_backend": true
 }
