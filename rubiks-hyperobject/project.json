@@ -232,10 +232,7 @@
         "en": "Functional Mechanism"
       },
       "parts": [
-        "mechanism_core",
-        "mechanism_center",
-        "mechanism_edge",
-        "mechanism_corner"
+        "main"
       ],
       "part_quantities": {
         "mechanism_core": 1,
@@ -246,6 +243,10 @@
       "estimate": {
         "base_units": 4,
         "formula": "constant"
+      },
+      "default_params": {
+        "render_mode": 0,
+        "mechanism_detail": "functional"
       }
     }
   ],
@@ -348,6 +349,10 @@
         "en": "Corner Cubie (Mechanism)"
       },
       "default_color": "#E9C46A"
+    },
+    {
+      "id": "main",
+      "default_color": "#E63946"
     }
   ],
   "presets": [
