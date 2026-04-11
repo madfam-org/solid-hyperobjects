@@ -595,6 +595,75 @@
         "screw_dia": 3,
         "mechanism_clearance": 0.2
       }
+    },
+    {
+      "label": {
+        "en": "Original Rubik (1974)",
+        "es": "Rubik Original (1974)"
+      },
+      "params": {
+        "mechanism_detail": "decorative",
+        "enable_torpedoes": false,
+        "enable_magnets": false,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "DaYan Era (2011)",
+        "es": "Era DaYan (2011)"
+      },
+      "params": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": false,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Magnetic Revolution (2016)",
+        "es": "Revolución Magnética (2016)"
+      },
+      "params": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Gan Premium (2018)",
+        "es": "Gan Premium (2018)"
+      },
+      "params": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": true,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Modern Flagship (2024)",
+        "es": "Buque Insignia Moderno (2024)"
+      },
+      "params": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": true,
+        "enable_maglev": true
+      }
     }
   ],
   "parameters": [
@@ -1838,6 +1907,278 @@
       "visibility_level": "basic",
       "visible_in_modes": [
         "sphere"
+      ]
+    },
+    {
+      "id": "enable_torpedoes",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Anti-Pop Torpedoes",
+        "es": "Torpedos Anti-Pop"
+      },
+      "tooltip": {
+        "en": "DaYan 2011: Plastic fins on edges prevent pieces from popping",
+        "es": "DaYan 2011: Aletas plásticas en aristas previenen que las piezas salten"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "torpedo_length",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "label": {
+        "en": "Torpedo Length (mm)",
+        "es": "Longitud del Torpedo (mm)"
+      },
+      "parent": "enable_torpedoes",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "torpedo_thickness",
+      "type": "slider",
+      "default": 0.8,
+      "min": 0.4,
+      "max": 1.5,
+      "step": 0.1,
+      "label": {
+        "en": "Torpedo Thickness (mm)",
+        "es": "Grosor del Torpedo (mm)"
+      },
+      "parent": "enable_torpedoes",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_corner_cutting",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Corner Cutting Bevels",
+        "es": "Biseles de Corte de Esquina"
+      },
+      "tooltip": {
+        "en": "DaYan 2010: Beveled track entries allow misaligned turning",
+        "es": "DaYan 2010: Entradas biseladas permiten giro desalineado"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "corner_cut_angle",
+      "type": "slider",
+      "default": 35,
+      "min": 10,
+      "max": 45,
+      "step": 5,
+      "label": {
+        "en": "Corner Cut Angle (°)",
+        "es": "Ángulo de Corte (°)"
+      },
+      "parent": "enable_corner_cutting",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "track_bevel",
+      "type": "slider",
+      "default": 1,
+      "min": 0.5,
+      "max": 2,
+      "step": 0.25,
+      "label": {
+        "en": "Track Bevel (mm)",
+        "es": "Bisel de Riel (mm)"
+      },
+      "parent": "enable_corner_cutting",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_magnets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Edge-Corner Magnets",
+        "es": "Imanes Arista-Esquina"
+      },
+      "tooltip": {
+        "en": "2016 Chris Tran: Neodymium magnets snap cube into alignment",
+        "es": "2016 Chris Tran: Imanes de neodimio alinean el cubo"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "magnet_dia",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "label": {
+        "en": "Magnet Diameter (mm)",
+        "es": "Diámetro del Imán (mm)"
+      },
+      "parent": "enable_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "magnet_depth",
+      "type": "slider",
+      "default": 1.5,
+      "min": 1,
+      "max": 3,
+      "step": 0.25,
+      "label": {
+        "en": "Magnet Depth (mm)",
+        "es": "Profundidad del Imán (mm)"
+      },
+      "parent": "enable_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_core_magnets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Corner-Core Magnets",
+        "es": "Imanes Esquina-Núcleo"
+      },
+      "tooltip": {
+        "en": "Gan 2018: Secondary magnets between corners and core sphere",
+        "es": "Gan 2018: Imanes secundarios entre esquinas y esfera central"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "core_magnet_dia",
+      "type": "slider",
+      "default": 4,
+      "min": 2,
+      "max": 6,
+      "step": 0.5,
+      "label": {
+        "en": "Core Magnet Diameter (mm)",
+        "es": "Diámetro Imán Central (mm)"
+      },
+      "parent": "enable_core_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "core_magnet_depth",
+      "type": "slider",
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "label": {
+        "en": "Core Magnet Depth (mm)",
+        "es": "Profundidad Imán Central (mm)"
+      },
+      "parent": "enable_core_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_maglev",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Maglev Tensioning",
+        "es": "Tensionado Maglev"
+      },
+      "tooltip": {
+        "en": "2020s: Repelling ring magnets replace springs (frictionless)",
+        "es": "2020s: Imanes de anillo repelentes reemplazan resortes (sin fricción)"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_ring_dia",
+      "type": "slider",
+      "default": 6,
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "label": {
+        "en": "Maglev Ring Diameter (mm)",
+        "es": "Diámetro Anillo Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_ring_height",
+      "type": "slider",
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "label": {
+        "en": "Maglev Ring Height (mm)",
+        "es": "Altura Anillo Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_gap",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.5,
+      "max": 4,
+      "step": 0.25,
+      "label": {
+        "en": "Maglev Gap (mm)",
+        "es": "Separación Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
       ]
     }
   ],

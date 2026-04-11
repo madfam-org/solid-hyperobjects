@@ -90,6 +90,31 @@ screw_dia = is_undef(screw_dia) ? 3 : screw_dia;
 // Internal clearance for moving parts (mm)
 mechanism_clearance = is_undef(mechanism_clearance) ? 0.2 : mechanism_clearance;
 
+/* [Anti-Pop Torpedoes (DaYan 2011)] */
+torpedo_length = is_undef(torpedo_length) ? 3 : torpedo_length;
+torpedo_thickness = is_undef(torpedo_thickness) ? 0.8 : torpedo_thickness;
+enable_torpedoes = is_undef(enable_torpedoes) ? false : enable_torpedoes;
+
+/* [Corner Cutting (DaYan 2010)] */
+corner_cut_angle = is_undef(corner_cut_angle) ? 35 : corner_cut_angle;
+track_bevel = is_undef(track_bevel) ? 1 : track_bevel;
+enable_corner_cutting = is_undef(enable_corner_cutting) ? false : enable_corner_cutting;
+
+/* [Magnets (2016+)] */
+magnet_dia = is_undef(magnet_dia) ? 3 : magnet_dia;
+magnet_depth = is_undef(magnet_depth) ? 1.5 : magnet_depth;
+enable_magnets = is_undef(enable_magnets) ? false : enable_magnets;
+// Corner-core magnets (Gan 2018)
+core_magnet_dia = is_undef(core_magnet_dia) ? 4 : core_magnet_dia;
+core_magnet_depth = is_undef(core_magnet_depth) ? 2 : core_magnet_depth;
+enable_core_magnets = is_undef(enable_core_magnets) ? false : enable_core_magnets;
+
+/* [Maglev Tensioning (2020s)] */
+enable_maglev = is_undef(enable_maglev) ? false : enable_maglev;
+maglev_ring_dia = is_undef(maglev_ring_dia) ? 6 : maglev_ring_dia;
+maglev_ring_height = is_undef(maglev_ring_height) ? 2 : maglev_ring_height;
+maglev_gap = is_undef(maglev_gap) ? 1.5 : maglev_gap;
+
 /* [Exploded View] */
 // Explosion percentage: 0=assembled, 100=fully exploded, 200=max
 explode_factor = is_undef(explode_factor) ? 0 : explode_factor;
@@ -112,6 +137,9 @@ cubie_size = (size - (N + 1) * clearance) / N;
 
 // Half the grid extent for centering
 half_extent = size / 2;
+
+// Core sphere radius (used by maglev, core magnets)
+core_radius = cubie_size * 0.45;
 
 // Pitch: center-to-center distance between adjacent cubies
 pitch = cubie_size + clearance;
@@ -663,6 +691,140 @@ module center_cubie_internal(face_axis, face_sign) {
     }
 }
 
+// ── Anti-Pop Torpedo fin (DaYan 2011) ──
+// Extends from each side of an edge piece, slides under adjacent corners.
+// Called additively (not in difference) on edge cubies.
+module torpedo_fin(direction) {
+    if (enable_torpedoes) {
+        fin_w = torpedo_thickness;
+        fin_l = torpedo_length;
+        fin_h = cubie_size * 0.3;
+        translate([direction * (cubie_size / 2 - 0.1), 0, -cubie_size / 2 + fin_h / 2])
+            cube([fin_w, fin_l, fin_h], center=true);
+    }
+}
+
+// Torpedo slot in corner cubies — groove where the torpedo fin slides.
+module torpedo_slot() {
+    if (enable_torpedoes) {
+        slot_w = torpedo_thickness + mechanism_clearance * 2;
+        slot_l = torpedo_length + mechanism_clearance * 2;
+        slot_h = cubie_size * 0.35;
+        // Slots on each internal face where an edge torpedo would engage
+        for (angle = [0, 90, 180, 270]) {
+            rotate([0, 0, angle])
+                translate([cubie_size / 2 - 0.5, 0, -cubie_size / 2 + slot_h / 2])
+                    cube([slot_w + 1, slot_l, slot_h], center=true);
+        }
+    }
+}
+
+// ── Corner Cutting bevels (DaYan 2010) ──
+// Beveled entries on T-track rails allow misaligned turning.
+module corner_cut_bevel(track_w, track_d, axis) {
+    if (enable_corner_cutting) {
+        bevel = track_bevel;
+        // Add chamfered entries at both ends of the track slot
+        for (end_sign = [-1, 1]) {
+            if (axis == 0) {
+                translate([0, end_sign * track_w * 0.4, 0])
+                    rotate([0, 0, 45])
+                        cube([bevel, bevel, track_d * 2], center=true);
+            } else if (axis == 1) {
+                translate([end_sign * track_w * 0.4, 0, 0])
+                    rotate([0, 0, 45])
+                        cube([bevel, bevel, track_d * 2], center=true);
+            } else {
+                translate([end_sign * track_w * 0.4, 0, 0])
+                    rotate([45, 0, 0])
+                        cube([track_d * 2, bevel, bevel], center=true);
+            }
+        }
+    }
+}
+
+// ── Magnet cavities (2016+) ──
+// Cylindrical pocket for a neodymium disc magnet.
+module magnet_cavity() {
+    if (enable_magnets) {
+        cylinder(d=magnet_dia, h=magnet_depth + 0.2, $fn=20);
+    }
+}
+
+// Edge magnet cavities — 2 magnets per edge (one toward each adjacent corner).
+module edge_magnet_cavities() {
+    if (enable_magnets) {
+        mag_offset = cubie_size / 2 - magnet_depth / 2;
+        // Magnets on the two internal faces (toward corners)
+        for (angle = [45, -45]) {
+            rotate([0, 0, angle])
+                translate([mag_offset, 0, 0])
+                    rotate([0, 90, 0])
+                        magnet_cavity();
+        }
+    }
+}
+
+// Corner magnet cavities — 3 magnets per corner (one toward each adjacent edge).
+module corner_magnet_cavities() {
+    if (enable_magnets) {
+        mag_offset = cubie_size / 2 - magnet_depth / 2;
+        // Magnets on the three internal faces
+        for (axis = [0, 1, 2]) {
+            if (axis == 0) {
+                translate([0, 0, -mag_offset])
+                    magnet_cavity();
+            } else if (axis == 1) {
+                translate([0, -mag_offset, 0])
+                    rotate([90, 0, 0])
+                        magnet_cavity();
+            } else {
+                translate([-mag_offset, 0, 0])
+                    rotate([0, 90, 0])
+                        magnet_cavity();
+            }
+        }
+    }
+}
+
+// Core-corner magnet cavities (Gan 2018) — on the core sphere at 8 corner positions.
+module core_corner_magnet_cavities() {
+    if (enable_core_magnets) {
+        core_r = cubie_size * 0.45;
+        for (dx = [-1, 1])
+            for (dy = [-1, 1])
+                for (dz = [-1, 1]) {
+                    dir = [dx, dy, dz] / norm([dx, dy, dz]);
+                    translate(dir * core_r)
+                        rotate([0, acos(dz), atan2(dy, dx)])
+                            cylinder(d=core_magnet_dia, h=core_magnet_depth, $fn=16);
+                }
+    }
+}
+
+// ── Maglev ring magnets (2020s) ──
+// Ring magnet on center post — replaces spring.
+module maglev_rings(post_length) {
+    if (enable_maglev) {
+        ring_r = maglev_ring_dia / 2;
+        ring_ir = screw_dia / 2 + 0.5;  // inner radius (screw clearance)
+        // Fixed ring at core end
+        translate([0, 0, 0])
+            difference() {
+                cylinder(r=ring_r, h=maglev_ring_height, $fn=20);
+                translate([0, 0, -0.5])
+                    cylinder(r=ring_ir, h=maglev_ring_height + 1, $fn=16);
+            }
+        // Floating ring (pushed by repulsion)
+        translate([0, 0, maglev_ring_height + maglev_gap])
+            difference() {
+                cylinder(r=ring_r, h=maglev_ring_height, $fn=20);
+                translate([0, 0, -0.5])
+                    cylinder(r=ring_ir, h=maglev_ring_height + 1, $fn=16);
+            }
+    }
+}
+
 // Internal geometry for edge cubies (2 exposed faces).
 // Subtractive shape: spherical pocket that rides on core surface + foot slots.
 module edge_cubie_internal() {
@@ -680,6 +842,9 @@ module edge_cubie_internal() {
             translate([0, 0, -cubie_size / 2 + foot_depth / 2])
                 cube([foot_width, foot_length, foot_depth], center=true);
     }
+
+    // Magnet cavities (2016+ magnetic cubes)
+    edge_magnet_cavities();
 }
 
 // Internal geometry for corner cubies (3 exposed faces).
@@ -698,12 +863,42 @@ module corner_cubie_internal() {
                 cube([foot_size, foot_size, foot_size * 0.8], center=true);
         }
     }
+
+    // Magnet cavities (2016+ magnetic cubes)
+    corner_magnet_cavities();
+
+    // Torpedo slots (DaYan 2011 anti-pop)
+    torpedo_slot();
 }
 
 // Dispatches to decorative or functional core.
 module core_mechanism() {
     if (mechanism_detail == "functional") {
-        core_functional();
+        difference() {
+            core_functional();
+            // Subtract core-corner magnet cavities (Gan 2018)
+            core_corner_magnet_cavities();
+        }
+        // Add maglev ring magnets on center posts (2020s)
+        if (enable_maglev) {
+            post_length = cubie_size * 0.4;
+            for (axis = [0, 1, 2]) {
+                for (sign = [-1, 1]) {
+                    if (axis == 0)
+                        translate([sign * (core_radius + 0.5), 0, 0])
+                            rotate([0, sign * 90, 0])
+                                maglev_rings(post_length);
+                    else if (axis == 1)
+                        translate([0, sign * (core_radius + 0.5), 0])
+                            rotate([sign * -90, 0, 0])
+                                maglev_rings(post_length);
+                    else
+                        translate([0, 0, sign * (core_radius + 0.5)])
+                            rotate([sign > 0 ? 0 : 180, 0, 0])
+                                maglev_rings(post_length);
+                }
+            }
+        }
     } else {
         core_decorative();
     }
