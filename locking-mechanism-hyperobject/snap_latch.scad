@@ -10,12 +10,16 @@ wall_thickness = 2;
 base_length = 40;
 clearance = 0.3;
 fn = 0;
+material_modulus = 1.5;
+shrinkage_factor = 0.0;
 
 // Derived
 $fn = fn > 0 ? fn : $preview ? 32 : 64;
 
+// Modulus tuning: stiffer material (higher modulus) gets thinner arm
+modulus_modifier = pow(1.5 / max(material_modulus, 0.05), 0.3);
 arm_length = base_length * 0.7;
-arm_thickness = wall_thickness * 0.8;
+arm_thickness = wall_thickness * 0.8 * modulus_modifier;
 base_height = wall_thickness * 2.5;
 fillet_r = arm_thickness * 1.5;
 
@@ -25,6 +29,7 @@ retention_angle = 85;
 // render_mode: 0 = latch_arm, 1 = striker_plate
 render_mode = 0;
 
+scale([1 + shrinkage_factor/100, 1 + shrinkage_factor/100, 1 + shrinkage_factor/100]) {
 if (render_mode == 0) {
     // --- Base Mount ---
     base_l = base_length - arm_length;
@@ -93,4 +98,5 @@ if (render_mode == 1) {
         rotate([0, entry_angle, 0])
         cuboid([plate_l*1.5, slot_w, plate_h], anchor=BOTTOM);
     }
+}
 }

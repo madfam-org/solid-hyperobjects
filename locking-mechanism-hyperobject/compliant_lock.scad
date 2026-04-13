@@ -9,15 +9,19 @@ base_length = 40;
 hook_depth = 2;
 clearance = 0.3;
 fn = 0;
+material_modulus = 1.5;
+shrinkage_factor = 0.0;
 
 $fn = fn > 0 ? fn : $preview ? 32 : 64;
 
 // Mechanics for Elastomeric/PP/PETG Printing
-hinge_t = 0.8; 
+modulus_modifier = pow(1.5 / max(material_modulus, 0.05), 0.3);
+hinge_t = 0.8 * modulus_modifier; 
 hinge_l = 1.5;
 
 render_mode = 0;
 
+scale([1 + shrinkage_factor/100, 1 + shrinkage_factor/100, 1 + shrinkage_factor/100]) {
 if (render_mode == 0) {
     // --- Rigid Outer Frame Constraint ---
     base_h = wall_thickness * 3;
@@ -75,4 +79,5 @@ if (render_mode == 0) {
     stop_h = (base_h/2) - arch_h*0.5; 
     translate([0, 0, wall_thickness])
     cuboid([wall_thickness*3, latch_width, max(0.5, stop_h)], anchor=BOTTOM);
+}
 }

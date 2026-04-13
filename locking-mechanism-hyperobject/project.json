@@ -4,8 +4,8 @@
         "slug": "locking-mechanism-hyperobject",
         "version": "1.0.0",
         "description": {
-            "en": "Parametric locking mechanisms for 3D-printed enclosures — snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
-            "es": "Mecanismos de bloqueo paramétricos para carcasas impresas en 3D — pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
+            "en": "Parametric locking mechanisms for 3D-printed enclosures \u2014 snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
+            "es": "Mecanismos de bloqueo param\u00e9tricos para carcasas impresas en 3D \u2014 pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
         },
         "thumbnail": "/projects/locking-mechanism-hyperobject.webp",
         "tags": [
@@ -74,6 +74,55 @@
                 "base_units": 1,
                 "formula": "constant"
             }
+        },
+        {
+            "id": "pin_tumbler",
+            "scad_file": "pin_tumbler.scad",
+            "label": {
+                "en": "Pin-Tumbler Core",
+                "es": "N\u00facleo de Pines"
+            },
+            "parts": [
+                "plug",
+                "stator",
+                "keys"
+            ],
+            "estimate": {
+                "base_units": 2,
+                "formula": "constant"
+            }
+        },
+        {
+            "id": "topological_interlock",
+            "scad_file": "topological_interlock.scad",
+            "label": {
+                "en": "Topological Interlock",
+                "es": "Entrelazado Topol\u00f3gico"
+            },
+            "parts": [
+                "interlocking_blocks",
+                "peripheral_frame"
+            ],
+            "estimate": {
+                "base_units": 3,
+                "formula": "constant"
+            }
+        },
+        {
+            "id": "slip_joint",
+            "scad_file": "slip_joint.scad",
+            "label": {
+                "en": "Friction Slip Joint",
+                "es": "Articulaci\u00f3n Deslizante"
+            },
+            "parts": [
+                "slip_housing",
+                "slip_blade"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
         }
     ],
     "parts": [
@@ -121,6 +170,69 @@
                 "es": "Cuerpo de Cerradura Flexible"
             },
             "default_color": "#4a6fa5"
+        },
+        {
+            "id": "plug",
+            "render_mode": 0,
+            "label": {
+                "en": "Cylinder Plug",
+                "es": "Cilindro Interno"
+            },
+            "default_color": "#c45b28"
+        },
+        {
+            "id": "stator",
+            "render_mode": 1,
+            "label": {
+                "en": "Lock Stator",
+                "es": "Est\u00e1tor"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "keys",
+            "render_mode": 2,
+            "label": {
+                "en": "Keys & Pins",
+                "es": "Llave y Pines"
+            },
+            "default_color": "#3a7d44"
+        },
+        {
+            "id": "interlocking_blocks",
+            "render_mode": 0,
+            "label": {
+                "en": "Blocks Matrix",
+                "es": "Matriz de Bloques"
+            },
+            "default_color": "#4a6fa5"
+        },
+        {
+            "id": "peripheral_frame",
+            "render_mode": 1,
+            "label": {
+                "en": "Peripheral Frame",
+                "es": "Marco Perif\u00e9rico"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "slip_housing",
+            "render_mode": 0,
+            "label": {
+                "en": "Spring Housing",
+                "es": "Carcasa del Resorte"
+            },
+            "default_color": "#4a6fa5"
+        },
+        {
+            "id": "slip_blade",
+            "render_mode": 1,
+            "label": {
+                "en": "Blade/Arm",
+                "es": "Hoja/Brazo"
+            },
+            "default_color": "#c45b28"
         }
     ],
     "presets": [
@@ -152,7 +264,7 @@
             "id": "battery_cover",
             "label": {
                 "en": "Battery Cover",
-                "es": "Tapa de Batería"
+                "es": "Tapa de Bater\u00eda"
             },
             "values": {
                 "latch_width": 8,
@@ -206,11 +318,11 @@
             "step": 1,
             "label": {
                 "en": "Spring Angle (deg)",
-                "es": "Ángulo de Resorte (grados)"
+                "es": "\u00c1ngulo de Resorte (grados)"
             },
             "tooltip": {
-                "en": "Cantilever deflection angle — higher values increase retention force",
-                "es": "Ángulo de deflexión del voladizo — valores más altos aumentan la fuerza de retención"
+                "en": "Cantilever deflection angle \u2014 higher values increase retention force",
+                "es": "\u00c1ngulo de deflexi\u00f3n del voladizo \u2014 valores m\u00e1s altos aumentan la fuerza de retenci\u00f3n"
             },
             "visible_in_modes": [
                 "snap_latch"
@@ -229,8 +341,8 @@
                 "es": "Desplazamiento Sobre-Centro (mm)"
             },
             "tooltip": {
-                "en": "Distance past center-point for locking — larger values increase holding force",
-                "es": "Distancia más allá del punto central para bloqueo — valores mayores aumentan la fuerza de retención"
+                "en": "Distance past center-point for locking \u2014 larger values increase holding force",
+                "es": "Distancia m\u00e1s all\u00e1 del punto central para bloqueo \u2014 valores mayores aumentan la fuerza de retenci\u00f3n"
             },
             "visible_in_modes": [
                 "over_center"
@@ -325,6 +437,82 @@
             ],
             "group": "quality",
             "visibility_level": "advanced"
+        },
+        {
+            "id": "material_modulus",
+            "type": "slider",
+            "default": 1.5,
+            "min": 0.05,
+            "max": 10.0,
+            "step": 0.05,
+            "label": {
+                "en": "Flexural Modulus (GPa)",
+                "es": "M\u00f3dulo de Flexi\u00f3n (GPa)"
+            },
+            "tooltip": {
+                "en": "Rigidity of intended polymer (TPU ~0.05, PETG ~2.0, PA-CF ~6.0)",
+                "es": "Rigidez del pol\u00edmero"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "compliant_lock",
+                "slip_joint"
+            ],
+            "group": "material"
+        },
+        {
+            "id": "shrinkage_factor",
+            "type": "slider",
+            "default": 0.0,
+            "min": -5.0,
+            "max": 10.0,
+            "step": 0.1,
+            "label": {
+                "en": "Thermal Shrinkage (%)",
+                "es": "Contracci\u00f3n T\u00e9rmica (%)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock",
+                "pin_tumbler",
+                "topological_interlock",
+                "slip_joint"
+            ],
+            "group": "material",
+            "visibility_level": "advanced"
+        },
+        {
+            "id": "num_pins",
+            "type": "slider",
+            "default": 5,
+            "min": 2,
+            "max": 8,
+            "step": 1,
+            "label": {
+                "en": "Number of Pins",
+                "es": "N\u00famero de Pines"
+            },
+            "visible_in_modes": [
+                "pin_tumbler"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "matrix_size",
+            "type": "slider",
+            "default": 3,
+            "min": 2,
+            "max": 5,
+            "step": 1,
+            "label": {
+                "en": "Matrix Grid Size",
+                "es": "Tama\u00f1o de Cuadr\u00edcula"
+            },
+            "visible_in_modes": [
+                "topological_interlock"
+            ],
+            "group": "dimensions"
         }
     ],
     "parameter_groups": [
@@ -347,6 +535,13 @@
             "label": {
                 "en": "Quality",
                 "es": "Calidad"
+            }
+        },
+        {
+            "id": "material",
+            "label": {
+                "en": "Material Science",
+                "es": "Ciencia de Materiales"
             }
         }
     ],
@@ -385,7 +580,7 @@
                 "id": "striker_plate",
                 "label": {
                     "en": "Striker Plate Bolt Pattern",
-                    "es": "Patrón de Tornillos de Placa Receptora"
+                    "es": "Patr\u00f3n de Tornillos de Placa Receptora"
                 },
                 "geometry_type": "bolt_pattern",
                 "standard": "internal",
@@ -412,8 +607,8 @@
             "tolerance_by_material": true
         },
         "societal_benefit": {
-            "en": "Open-source parametric locking mechanisms for enclosures, tools, and devices — reduces reliance on proprietary fasteners",
-            "es": "Mecanismos de bloqueo paramétricos de código abierto para carcasas, herramientas y dispositivos — reduce la dependencia de sujetadores propietarios"
+            "en": "Open-source parametric locking mechanisms for enclosures, tools, and devices \u2014 reduces reliance on proprietary fasteners",
+            "es": "Mecanismos de bloqueo param\u00e9tricos de c\u00f3digo abierto para carcasas, herramientas y dispositivos \u2014 reduce la dependencia de sujetadores propietarios"
         },
         "commons_license": "CERN-OHL-W-2.0"
     }
