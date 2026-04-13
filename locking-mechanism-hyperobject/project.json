@@ -41,7 +41,8 @@
                 "formula_vars": [
                     "base_length"
                 ]
-            }
+            },
+            "cq_file": "snap_latch.py"
         },
         {
             "id": "over_center",
@@ -64,7 +65,8 @@
                 "formula_vars": [
                     "base_length"
                 ]
-            }
+            },
+            "cq_file": "over_center.py"
         },
         {
             "id": "compliant_lock",
@@ -82,7 +84,8 @@
                 "formula_vars": [
                     "base_length"
                 ]
-            }
+            },
+            "cq_file": "compliant_lock.py"
         },
         {
             "id": "pin_tumbler",
@@ -102,7 +105,8 @@
                 "formula_vars": [
                     "num_pins"
                 ]
-            }
+            },
+            "cq_file": "pin_tumbler.py"
         },
         {
             "id": "topological_interlock",
@@ -118,7 +122,8 @@
             "estimate": {
                 "base_units": 3,
                 "formula": "constant"
-            }
+            },
+            "cq_file": "topological_interlock.py"
         },
         {
             "id": "slip_joint",
@@ -137,7 +142,8 @@
                 "formula_vars": [
                     "base_length"
                 ]
-            }
+            },
+            "cq_file": "slip_joint.py"
         },
         {
             "id": "tolerance_calibration",
@@ -622,7 +628,9 @@
         "stl",
         "3mf",
         "off",
+        "step",
         "glb",
+        "gltf",
         "obj"
     ],
     "estimate_constants": {
