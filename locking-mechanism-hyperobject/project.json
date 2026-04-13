@@ -644,6 +644,24 @@
                 "slip_joint"
             ],
             "group": "dimensions"
+        },
+        {
+            "id": "kinematic_value",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": {
+                "en": "Actuation Slider",
+                "es": "Deslizador de Actuaci\u00f3n"
+            },
+            "visible_in_modes": [
+                "slip_joint",
+                "over_center",
+                "snap_latch"
+            ],
+            "group": "mechanism"
         }
     ],
     "parameter_groups": [
@@ -760,6 +778,71 @@
             },
             "density_g_cm3": 1.21,
             "cost_per_kg": 35
+        }
+    ],
+    "kinematics": [
+        {
+            "part": "blade",
+            "modes": [
+                "slip_joint"
+            ],
+            "type": "rotation",
+            "axis": [
+                1,
+                0,
+                0
+            ],
+            "origin": [
+                0,
+                30,
+                0
+            ],
+            "range": [
+                0,
+                -75
+            ]
+        },
+        {
+            "part": "lever_assembly",
+            "modes": [
+                "over_center"
+            ],
+            "type": "rotation",
+            "axis": [
+                1,
+                0,
+                0
+            ],
+            "origin": [
+                0,
+                0,
+                0
+            ],
+            "range": [
+                0,
+                60
+            ]
+        },
+        {
+            "part": "latch_arm",
+            "modes": [
+                "snap_latch"
+            ],
+            "type": "rotation",
+            "axis": [
+                0,
+                0,
+                1
+            ],
+            "origin": [
+                0,
+                0,
+                0
+            ],
+            "range": [
+                0,
+                -15
+            ]
         }
     ]
 }
