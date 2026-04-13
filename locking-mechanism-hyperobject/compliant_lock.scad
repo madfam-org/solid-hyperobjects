@@ -20,7 +20,6 @@ modulus_modifier = pow(1.5 / max(material_modulus, 0.05), 0.3);
 hinge_t = 0.8 * modulus_modifier; 
 hinge_l = 1.5;
 
-
 module apply_cdg(base_x) {
     if (cdg_mount_type == 1) { // M3 Hex Nut Trap
         difference() {
@@ -44,43 +43,38 @@ module apply_cdg(base_x) {
     }
 }
 
-render_mode = 0;
-
-scale([1 + shrinkage_factor/100, 1 + shrinkage_factor/100, 1 + shrinkage_factor/100]) {
-if (render_mode == 0) {
-    // --- Rigid Outer Frame Constraint ---
+module rigid_frame() {
     base_h = wall_thickness * 3;
-    
     difference() {
-        cuboid([base_length, latch_width, base_h], anchor=BOTTOM);
-        // Interior relief channel
+        apply_cdg(base_length) {
+            cuboid([base_length, latch_width, base_h], anchor=BOTTOM);
+        }
         translate([0, 0, wall_thickness])
         cuboid([base_length - wall_thickness*2, latch_width+1, base_h], anchor=BOTTOM);
     }
-    
-    // --- Compliant Bistable Energy Beam ---
     arch_len = base_length - wall_thickness*2 - hinge_l*2;
-    arch_h = arch_len * 0.15; // Deflection height barrier
+    arch_h = arch_len * 0.15;
+    stop_h = (base_h/2) - arch_h*0.5; 
+    translate([0, 0, wall_thickness])
+    cuboid([wall_thickness*3, latch_width, max(0.5, stop_h)], anchor=BOTTOM);
+}
+
+module flex_spline() {
+    base_h = wall_thickness * 3;
+    arch_len = base_length - wall_thickness*2 - hinge_l*2;
+    arch_h = arch_len * 0.15;
     
-    // Left living hinge
     translate([-arch_len/2 - hinge_l/2, 0, base_h/2])
     cuboid([hinge_l, latch_width, hinge_t], anchor=CENTER);
     
-    // Right living hinge
     translate([arch_len/2 + hinge_l/2, 0, base_h/2])
     cuboid([hinge_l, latch_width, hinge_t], anchor=CENTER);
     
-    // Continuous Sine Arch (Euler Mode)
     steps = 40;
     for(i=[0:steps-1]) {
-        t0 = i/steps;
-        t1 = (i+1)/steps;
-        
-        x0 = -arch_len/2 + (arch_len) * t0;
-        x1 = -arch_len/2 + (arch_len) * t1;
-        z0 = arch_h * sin(t0 * 180);
-        z1 = arch_h * sin(t1 * 180);
-        
+        t0 = i/steps; t1 = (i+1)/steps;
+        x0 = -arch_len/2 + (arch_len) * t0; x1 = -arch_len/2 + (arch_len) * t1;
+        z0 = arch_h * sin(t0 * 180); z1 = arch_h * sin(t1 * 180);
         hull() {
             translate([x0, 0, base_h/2 + z0])
             cuboid([arch_len/steps*0.6, latch_width, wall_thickness*0.6], anchor=CENTER);
@@ -89,20 +83,18 @@ if (render_mode == 0) {
         }
     }
     
-    // --- Actuation Catch & Hook ---
     translate([0, 0, base_h/2 + arch_h])
     union() {
-        // Actuator boss
         cuboid([wall_thickness*2, latch_width*0.6, wall_thickness*1.5], anchor=BOTTOM);
-        // Hook
         translate([0, 0, wall_thickness*1.5])
         prismoid(size1=[wall_thickness*2, latch_width*0.6], size2=[wall_thickness, latch_width*0.6], h=hook_depth, shift=[wall_thickness/2, 0], anchor=BOTTOM);
     }
-    
-    // --- Yield Limit Stop ---
-    // Mathematically positioned to prevent irreversible plastic deformation of the beam
-    stop_h = (base_h/2) - arch_h*0.5; 
-    translate([0, 0, wall_thickness])
-    cuboid([wall_thickness*3, latch_width, max(0.5, stop_h)], anchor=BOTTOM);
 }
+
+render_mode = 0;
+
+scale([1 + shrinkage_factor/100, 1 + shrinkage_factor/100, 1 + shrinkage_factor/100]) {
+    if (render_mode == 0) { rigid_frame(); }
+    else if (render_mode == 1) { flex_spline(); }
+    else if (render_mode == 2) { rigid_frame(); color("orange") flex_spline(); }
 }

@@ -22,20 +22,24 @@ def generate():
     hinge_t = 0.8 * ((1.5 / max(material_modulus, 0.05)) ** 0.3)
     hinge_l = 1.5
     base_h = wall_thickness * 3
+    arch_l = base_length - wall_thickness*2 - hinge_l*2
+    arch_h = arch_l * 0.15
     
-    if render_mode == 0:
+    if render_mode == 0 or render_mode == 2:
         base = cq.Workplane("XY").box(base_length, latch_width, base_h).translate((0,0,base_h/2))
         base = apply_cdg(base)
         relief = cq.Workplane("XY").box(base_length - wall_thickness*2, latch_width+1, base_h).translate((0,0,base_h/2 + wall_thickness))
         frame = base.cut(relief)
         
-        arch_l = base_length - wall_thickness*2 - hinge_l*2
-        arch_h = arch_l * 0.15
+        stop_h = base_h/2 - arch_h*0.5
+        stop = cq.Workplane("XY").box(wall_thickness*3, latch_width, max(0.5, stop_h)).translate((0,0,max(0.25, stop_h/2) + wall_thickness))
+
+        rigid = frame.union(stop)
         
+    if render_mode == 1 or render_mode == 2:
         lh1 = cq.Workplane("XY").box(hinge_l, latch_width, hinge_t).translate((-arch_l/2 - hinge_l/2, 0, base_h/2))
         lh2 = cq.Workplane("XY").box(hinge_l, latch_width, hinge_t).translate((arch_l/2 + hinge_l/2, 0, base_h/2))
         
-        # B-rep compliant arc via spline
         pts = []
         steps = 10
         for i in range(steps+1):
@@ -45,7 +49,6 @@ def generate():
             pts.append((x, z))
         
         arch = cq.Workplane("XZ").spline(pts).extrude(latch_width, both=True)
-        # Give it thickness
         arch = cq.Workplane("XZ").polyline([(p[0], p[1]-wall_thickness*0.3) for p in pts] + [(p[0], p[1]+wall_thickness*0.3) for p in pts[::-1]]).close().extrude(latch_width/2, both=True)
         
         boss = cq.Workplane("XY").box(wall_thickness*2, latch_width*0.6, wall_thickness*1.5).translate((0,0,base_h/2 + arch_h + wall_thickness*0.75))
@@ -53,12 +56,12 @@ def generate():
             (boss.val().BoundingBox().xmin+wall_thickness/2, boss.val().BoundingBox().zmax+hook_depth),
             (boss.val().BoundingBox().xmax, boss.val().BoundingBox().zmax)]).close().extrude(latch_width*0.3, both=True)
             
-        stop_h = base_h/2 - arch_h*0.5
-        stop = cq.Workplane("XY").box(wall_thickness*3, latch_width, max(0.5, stop_h)).translate((0,0,max(0.25, stop_h/2) + wall_thickness))
+        flex = lh1.union(lh2).union(arch).union(boss).union(hook)
         
-        result = frame.union(lh1).union(lh2).union(arch).union(boss).union(hook).union(stop)
-    else:
-        result = cq.Workplane("XY").box(1,1,1)
+    if render_mode == 0: result = rigid
+    elif render_mode == 1: result = flex
+    elif render_mode == 2: result = rigid.union(flex)
+    else: result = cq.Workplane("XY").box(1,1,1)
         
     return result.scale(1 + shrinkage_factor/100.0)
 

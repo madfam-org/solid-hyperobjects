@@ -76,7 +76,9 @@
                 "es": "Cerradura Biestable Flexible"
             },
             "parts": [
-                "compliant_body"
+                "housing",
+                "spring_t1",
+                "assembly_compliant"
             ],
             "estimate": {
                 "base_units": 1,
@@ -133,8 +135,10 @@
                 "es": "Articulaci\u00f3n Deslizante"
             },
             "parts": [
-                "slip_housing",
-                "slip_blade"
+                "housing",
+                "blade",
+                "spring_t2",
+                "assembly_slip"
             ],
             "estimate": {
                 "base_units": 1,
@@ -288,6 +292,54 @@
                 "es": "Pesta\u00f1as"
             },
             "default_color": "#c45b28"
+        },
+        {
+            "id": "housing",
+            "render_mode": 0,
+            "label": {
+                "en": "Rigid Housing"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "spring_t1",
+            "render_mode": 1,
+            "label": {
+                "en": "Flexible Arch"
+            },
+            "default_color": "#1f8fff"
+        },
+        {
+            "id": "assembly_compliant",
+            "render_mode": 2,
+            "label": {
+                "en": "Preview Overlay"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "blade",
+            "render_mode": 1,
+            "label": {
+                "en": "Rotating Blade"
+            },
+            "default_color": "#aaaaaa"
+        },
+        {
+            "id": "spring_t2",
+            "render_mode": 2,
+            "label": {
+                "en": "Leaf Spring"
+            },
+            "default_color": "#1f8fff"
+        },
+        {
+            "id": "assembly_slip",
+            "render_mode": 3,
+            "label": {
+                "en": "Preview Overlay"
+            },
+            "default_color": "#2d2d2d"
         }
     ],
     "presets": [
