@@ -37,7 +37,10 @@
             },
             "estimate": {
                 "base_units": 1,
-                "formula": "constant"
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
             }
         },
         {
@@ -57,7 +60,10 @@
             },
             "estimate": {
                 "base_units": 1,
-                "formula": "constant"
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
             }
         },
         {
@@ -72,7 +78,10 @@
             ],
             "estimate": {
                 "base_units": 1,
-                "formula": "constant"
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
             }
         },
         {
@@ -88,8 +97,11 @@
                 "keys"
             ],
             "estimate": {
-                "base_units": 2,
-                "formula": "constant"
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "num_pins"
+                ]
             }
         },
         {
@@ -118,6 +130,25 @@
             "parts": [
                 "slip_housing",
                 "slip_blade"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
+            }
+        },
+        {
+            "id": "tolerance_calibration",
+            "scad_file": "tolerance_calibration.scad",
+            "label": {
+                "en": "Tolerance Gauge",
+                "es": "Calibrador de Tolerancia"
+            },
+            "parts": [
+                "gauge",
+                "slider"
             ],
             "estimate": {
                 "base_units": 1,
@@ -231,6 +262,24 @@
             "label": {
                 "en": "Blade/Arm",
                 "es": "Hoja/Brazo"
+            },
+            "default_color": "#c45b28"
+        },
+        {
+            "id": "gauge",
+            "render_mode": 0,
+            "label": {
+                "en": "Comb Frame",
+                "es": "Marco"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "slider",
+            "render_mode": 1,
+            "label": {
+                "en": "Slider Tabs",
+                "es": "Pesta\u00f1as"
             },
             "default_color": "#c45b28"
         }
@@ -513,6 +562,30 @@
                 "topological_interlock"
             ],
             "group": "dimensions"
+        },
+        {
+            "id": "cdg_mount_type",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "label": {
+                "en": "CDG Mount Standard",
+                "es": "Est\u00e1ndar de Montaje CDG"
+            },
+            "tooltip": {
+                "en": "0: None, 1: M3 Flanges, 2: Gridfinity",
+                "es": "0: Ninguno, 1: Bridas M3, 2: Gridfinity"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock",
+                "pin_tumbler",
+                "slip_joint"
+            ],
+            "group": "dimensions"
         }
     ],
     "parameter_groups": [
@@ -561,44 +634,30 @@
         "warning_threshold_seconds": 60
     },
     "hyperobject": {
-        "domain": "industrial",
+        "domain": "hybrid",
         "cdg_interfaces": [
             {
-                "id": "latch_hook",
+                "id": "iso_m3_standard",
                 "label": {
-                    "en": "Latch Hook Profile",
-                    "es": "Perfil de Gancho del Pestillo"
-                },
-                "geometry_type": "profile",
-                "standard": "internal",
-                "parameters": [
-                    "latch_width",
-                    "hook_depth"
-                ]
-            },
-            {
-                "id": "striker_plate",
-                "label": {
-                    "en": "Striker Plate Bolt Pattern",
-                    "es": "Patr\u00f3n de Tornillos de Placa Receptora"
+                    "en": "ISO Metric M3 Fasteners",
+                    "es": "Fijaciones ISO M\u00e9tricas M3"
                 },
                 "geometry_type": "bolt_pattern",
-                "standard": "internal",
+                "standard": "ISO 4032",
                 "parameters": [
-                    "base_length",
-                    "latch_width"
+                    "cdg_mount_type"
                 ]
             },
             {
-                "id": "actuation_lever",
+                "id": "gridfinity_base",
                 "label": {
-                    "en": "Actuation Lever Rail",
-                    "es": "Riel de Palanca de Accionamiento"
+                    "en": "Gridfinity 42mm Base",
+                    "es": "Base Gridfinity 42mm"
                 },
-                "geometry_type": "rail",
-                "standard": "internal",
+                "geometry_type": "profile",
+                "standard": "Voidstar Gridfinity",
                 "parameters": [
-                    "lever_length"
+                    "cdg_mount_type"
                 ]
             }
         ],
@@ -611,5 +670,36 @@
             "es": "Mecanismos de bloqueo param\u00e9tricos de c\u00f3digo abierto para carcasas, herramientas y dispositivos \u2014 reduce la dependencia de sujetadores propietarios"
         },
         "commons_license": "CERN-OHL-W-2.0"
-    }
+    },
+    "print_estimation": {
+        "enabled": true,
+        "default_material": "petg",
+        "default_infill": 0.2
+    },
+    "materials": [
+        {
+            "id": "pla",
+            "label": {
+                "en": "PLA"
+            },
+            "density_g_cm3": 1.24,
+            "cost_per_kg": 20
+        },
+        {
+            "id": "petg",
+            "label": {
+                "en": "PETG"
+            },
+            "density_g_cm3": 1.27,
+            "cost_per_kg": 25
+        },
+        {
+            "id": "tpu",
+            "label": {
+                "en": "TPU"
+            },
+            "density_g_cm3": 1.21,
+            "cost_per_kg": 35
+        }
+    ]
 }

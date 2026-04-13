@@ -7,6 +7,7 @@ material_modulus = 1.5;
 shrinkage_factor = 0.0;
 clearance = 0.3;
 fn = 0;
+cdg_mount_type = 0;
 
 $fn = fn > 0 ? fn : $preview ? 32 : 64;
 
@@ -14,6 +15,30 @@ $fn = fn > 0 ? fn : $preview ? 32 : 64;
 modulus_modifier = pow(1.5 / max(material_modulus, 0.05), 0.3);
 hinge_t = 2.5 * modulus_modifier;
 pin_d = 4;
+
+
+module apply_cdg(base_x) {
+    if (cdg_mount_type == 1) { // M3 Hex Nut Trap
+        difference() {
+            union() {
+                children();
+                translate([-base_x/2 - 8, 0, 0]) cuboid([16, 15, 5], anchor=BOTTOM);
+                translate([base_x/2 + 8, 0, 0]) cuboid([16, 15, 5], anchor=BOTTOM);
+            }
+            translate([-base_x/2 - 8, 0, 0]) cyl(d=3.4, h=15);
+            translate([-base_x/2 - 8, 0, 2]) cyl(d=6.2, h=10, $fn=6);
+            translate([base_x/2 + 8, 0, 0]) cyl(d=3.4, h=15);
+            translate([base_x/2 + 8, 0, 2]) cyl(d=6.2, h=10, $fn=6);
+        }
+    } else if (cdg_mount_type == 2) { // Gridfinity 42mm
+        union() {
+            children();
+            translate([0, 0, -4.5]) prismoid(size1=[41.5, 41.5], size2=[42, 42], h=4.5, anchor=BOTTOM);
+        }
+    } else {
+        children();
+    }
+}
 
 render_mode = 0;
 
