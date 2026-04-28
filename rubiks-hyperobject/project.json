@@ -601,7 +601,7 @@
         "en": "Original Rubik (1974)",
         "es": "Rubik Original (1974)"
       },
-      "params": {
+      "values": {
         "mechanism_detail": "decorative",
         "enable_torpedoes": false,
         "enable_magnets": false,
@@ -614,7 +614,7 @@
         "en": "DaYan Era (2011)",
         "es": "Era DaYan (2011)"
       },
-      "params": {
+      "values": {
         "mechanism_detail": "functional",
         "enable_torpedoes": true,
         "enable_corner_cutting": true,
@@ -628,7 +628,7 @@
         "en": "Magnetic Revolution (2016)",
         "es": "Revolución Magnética (2016)"
       },
-      "params": {
+      "values": {
         "mechanism_detail": "functional",
         "enable_torpedoes": true,
         "enable_corner_cutting": true,
@@ -642,7 +642,7 @@
         "en": "Gan Premium (2018)",
         "es": "Gan Premium (2018)"
       },
-      "params": {
+      "values": {
         "mechanism_detail": "functional",
         "enable_torpedoes": true,
         "enable_corner_cutting": true,
@@ -656,7 +656,7 @@
         "en": "Modern Flagship (2024)",
         "es": "Buque Insignia Moderno (2024)"
       },
-      "params": {
+      "values": {
         "mechanism_detail": "functional",
         "enable_torpedoes": true,
         "enable_corner_cutting": true,
@@ -690,7 +690,7 @@
       ],
       "preview_hint": {
         "type": "axis_scale",
-        "axis": "xyz",
+        "axis": "radial",
         "affected_parts": [
           "cubies",
           "core"
@@ -720,7 +720,7 @@
       ],
       "preview_hint": {
         "type": "axis_scale",
-        "axis": "xyz",
+        "axis": "radial",
         "affected_parts": [
           "cubies",
           "core"
