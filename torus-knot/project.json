@@ -4,15 +4,15 @@
         "slug": "torus-knot",
         "version": "1.0.0",
         "description": {
-            "es": "Esculturas de nudos toroidales generativas usando dotSCAD y BOSL2",
-            "en": "Generative torus knot sculptures using dotSCAD and BOSL2"
+            "es": "Esculturas de nudos toroidales generativas usando BOSL2 (curva del nudo integrada, anteriormente dotSCAD)",
+            "en": "Generative torus knot sculptures using BOSL2 (knot curve inlined, formerly dotSCAD)"
         },
         "thumbnail": "/projects/torus-knot.webp",
         "tags": [
             "generative",
             "art",
             "mathematical",
-            "dotSCAD"
+            "BOSL2"
         ],
         "difficulty": "intermediate",
         "force_backend": true

@@ -1,8 +1,8 @@
 # Torus Knot Sculpture
 
-Generative torus knot sculptures using dotSCAD and BOSL2
+Generative torus knot sculptures using BOSL2 (knot curve inlined, formerly dotSCAD)
 
-*Esculturas de nudos toroidales generativas usando dotSCAD y BOSL2*
+*Esculturas de nudos toroidales generativas usando BOSL2 (curva del nudo integrada, anteriormente dotSCAD)*
 
 **Version**: 0.1.0  
 **Slug**: `torus-knot`
