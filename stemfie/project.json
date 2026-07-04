@@ -23,7 +23,7 @@
         "attribution": {
             "author": "Paulo Kiefe",
             "url": "https://stemfie.org/",
-            "license": "CC-BY-SA 4.0"
+            "license": "GPL-3.0-or-later"
         },
         "force_backend": true
     },
@@ -522,7 +522,7 @@
             "en": "Open-source construction kit for STEM education — enables schools to fabricate their own learning tools",
             "es": "Kit de construcción de código abierto para educación STEM — permite a escuelas fabricar sus propias herramientas de aprendizaje"
         },
-        "commons_license": "CERN-OHL-W-2.0"
+        "commons_license": "GPL-3.0-or-later"
     },
     "tags": [
         "stemfie",
