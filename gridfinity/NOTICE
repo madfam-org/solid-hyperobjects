@@ -1,0 +1,32 @@
+NOTICE — third-party attributions
+=================================
+
+Gridfinity Extended (Yantra4D project)
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE), except as noted below.
+
+Upstream projects:
+
+gridfinity_extended_openscad
+  Author:    ostat
+  Source:    https://github.com/ostat/gridfinity_extended_openscad
+             (consumed via the fork
+             https://github.com/madfam-org/gridfinity_extended_openscad)
+  License:   GNU General Public License v3.0 (GPL-3.0)
+  Usage:     Included as the `gridfinity_extended` git submodule; fetched at
+             build time, not copied into this repository. The submodule's
+             contents remain under GPL-3.0.
+
+Gridfinity
+  Author:    Zack Freedman (Voidstar Lab)
+  Source:    https://gridfinity.xyz/ , https://www.voidstarlab.com/
+  License:   MIT License
+  Usage:     The modular storage-system standard (42mm grid, 7mm height
+             units, stacking lip, magnet holes) implemented by this project.
+
+gridfinity_openscad
+  Author:    vector76 (Copyright (c) 2022 Jamie)
+  Source:    https://github.com/vector76/gridfinity_openscad
+  License:   MIT License
+  Usage:     Ancestor implementation on which gridfinity_extended_openscad
+             is based.
