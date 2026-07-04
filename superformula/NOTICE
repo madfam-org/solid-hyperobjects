@@ -1,0 +1,15 @@
+NOTICE
+
+This project's superformula geometry was originally built on top of
+dotSCAD (https://github.com/JustinSDK/dotSCAD), an OpenSCAD library by
+Justin Lin, licensed under the GNU Lesser General Public License v3.0
+(LGPL-3.0).
+
+The dotSCAD dependency was later removed: superformula.scad now contains
+an independent inline implementation of the Gielis superformula and no
+longer includes or uses any dotSCAD source. The previously vendored
+dotSCAD tree was deleted from this repository (internal-devops RFC 0024
+P4.4). This notice is retained to acknowledge the project's lineage.
+
+dotSCAD copyright (c) Justin Lin, LGPL-3.0. See the upstream repository
+for the full license text.
