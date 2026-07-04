@@ -1,9 +1,9 @@
 // ============================================================================
 // tile.scad — Multiboard Tile (NATIVE)
 // ============================================================================
-// Copyright (c) 2026 madfam-org
-// Licensed under the CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN-OHL-W-2.0).
-// 
+// Based on Multiboard by Jonathan (Keep Making) — https://www.multiboard.io/
+// Licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International).
+//
 // Native BOSL2 implementation of the Multiboard 25mm octagonal grid.
 
 include <../../libs/BOSL2/std.scad>

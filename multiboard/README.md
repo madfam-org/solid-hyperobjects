@@ -19,3 +19,11 @@ multiboard_side(3, 2);
 ```
 
 If you use it, you'll please me if you let me know.
+
+## License & attribution
+
+This project is based on **Multiboard** by **Jonathan (Keep Making)** — https://www.multiboard.io/ and https://thangs.com/designer/Keep%20Making — a modular wall-storage system built on a 25mm octagonal grid.
+
+The upstream models are published under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** license. This repository — including the native BOSL2 reimplementation and Yantra4D wrapper files — is distributed as a whole under CC BY-NC-SA 4.0 (see [LICENSE](./LICENSE)).
+
+Non-commercial community pack — excluded from any paid MADFAM/Yantra4D catalog per RFC 0024 P1.1.
