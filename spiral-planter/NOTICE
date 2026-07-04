@@ -1,0 +1,19 @@
+NOTICE — third-party attributions
+=================================
+
+Spiral Planter
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+This project uses the following third-party library:
+
+dotSCAD
+  Source:    https://github.com/JustinSDK/dotSCAD
+  Author:    Justin Lin (@JustinSDK)
+  License:   GNU Lesser General Public License v3.0 (LGPL-3.0)
+  Usage:     `use <dotSCAD/src/archimedean_spiral.scad>` and
+             `use <dotSCAD/src/archimedean_spiral_extrude.scad>` in
+             spiral_planter.scad (spiral wall path generation).
+  Form:      Not vendored. dotSCAD is resolved at render time from the
+             OpenSCAD library path (OPENSCADPATH); no dotSCAD source code
+             is distributed in this repository.
