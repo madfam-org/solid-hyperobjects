@@ -57,5 +57,20 @@ Parametric twisted vase with sinusoidal profile modulation inspired by Julia set
 - **wasm_multiplier**: 5
 - **warning_threshold_seconds**: 120
 
+## License
+
+This project is licensed under the **CERN Open Hardware Licence Version 2 —
+Weakly Reciprocal (CERN-OHL-W-2.0)**. See [LICENSE](../LICENSE) for the full
+text.
+
+> **Correction (2026-07-04):** `project.json` previously declared
+> `CC-BY-SA-4.0` while the repository's `LICENSE` file was CERN-OHL-W v2.
+> This is an original in-house parametric design (no CC-BY-SA upstream), and
+> CERN-OHL-W-2.0 matches both the shipped LICENSE file and the license used
+> across the sibling parametric design projects, so the manifest has been
+> corrected to CERN-OHL-W-2.0. The LICENSE file has also been replaced with
+> the unmodified canonical CERN-OHL-W v2 text, as CERN requires the licence
+> text to be used in unmodified form.
+
 ---
 *Auto-generated from `project.json` by `scripts/generate-project-docs.py`*
