@@ -134,6 +134,17 @@ Parametric microscope slide retention system — trays, boxes, staining racks, a
 
 Enables laboratories and pathology departments to fabricate precision slide retention systems for histology, cytology, and archival workflows — independent of commercial supply chains.
 
+## Vendored Dependencies
+
+Core slide geometry (`libs/microscope-slide-hyperobject/slide.scad`) is a
+**vendored copy** of
+[madfam-org/microscope-slide-hyperobject](https://github.com/madfam-org/microscope-slide-hyperobject)
+at upstream commit `3e6f99d` (CERN-OHL-W-2.0, see `NOTICE`). It was
+previously a git submodule, which broke builds cloned without
+`--recurse-submodules`; the files are now committed directly at the same
+path (internal-devops RFC 0024 P4.4). To update, re-copy from upstream and
+record the new commit hash in `NOTICE`.
+
 ## Engineering Reference
 
 Design based on `docs/RESEARCH.pdf` (*Parametric Architectures for Microscope Slide Retention*) covering ISO 8037 slide standards, tolerance engineering, and retention class taxonomy.

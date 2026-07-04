@@ -1,0 +1,16 @@
+NOTICE
+
+Vendored dependency: libs/microscope-slide-hyperobject
+
+The directory libs/microscope-slide-hyperobject contains a vendored copy
+of madfam-org/microscope-slide-hyperobject
+(https://github.com/madfam-org/microscope-slide-hyperobject), previously
+consumed as a git submodule. The content is vendored at upstream commit
+3e6f99db4d5a212de863dae2e0752abd98b6b198 so the repository builds without
+--recurse-submodules (internal-devops RFC 0024 P4.4). Upstream CI
+configuration (.github/) is intentionally omitted.
+
+The vendored code is licensed under the CERN Open Hardware Licence
+Version 2 - Weakly Reciprocal (CERN-OHL-W-2.0); the upstream LICENSE file
+is preserved at libs/microscope-slide-hyperobject/LICENSE. Copyright
+remains with the upstream authors (MADFAM / Yantra4D Commons).
