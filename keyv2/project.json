@@ -15,7 +15,12 @@
             "cherry-mx"
         ],
         "difficulty": "intermediate",
-        "commons_license": "CERN-OHL-W-2.0",
+        "commons_license": "GPL-3.0",
+        "attribution": {
+            "author": "rsheldiii",
+            "url": "https://github.com/rsheldiii/KeyV2",
+            "license": "GPL-3.0"
+        },
         "force_backend": true
     },
     "modes": [

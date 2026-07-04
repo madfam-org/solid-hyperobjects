@@ -203,3 +203,9 @@ moved to [TODO doc](./TODO.md)
 ## Contributions welcome
 
  My lists of key profiles and layouts are not exhaustive at all, if you want to contribute feel free to make a PR with your changes and we can work together on getting it merged!
+
+## License & attribution
+
+This project vendors **KeyV2: Parametric Mechanical Keycap Library** by **rsheldiii** — https://github.com/rsheldiii/KeyV2 (also on Thingiverse: https://www.thingiverse.com/thing:2783650).
+
+The upstream library is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. This repository — including the Yantra4D wrapper files — is distributed as a whole under GPL-3.0 (see [LICENSE](./LICENSE)).
