@@ -100,6 +100,27 @@ Fully parametric, hinged rugged case with snap-fit latches, optional gasket seal
 5. If using feet, glue feet into the cutouts on the top and bottom shells
 6. Use the gasket test objects to verify TPU tolerances before printing a full gasket
 
-## License
+## License & attribution
 
-Original design by the Rugged Box author. Parametric OpenSCAD source.
+This repository is licensed under the CERN Open Hardware Licence Version 2 —
+Weakly Reciprocal (CERN-OHL-W-2.0). See [LICENSE](LICENSE).
+
+Upstream attribution:
+
+- **"Super Customizable Rugged Box in OpenSCAD" by Iceman** — the original
+  parametric rugged box design this project is based on, published on
+  [Printables (model 1073708)](https://www.printables.com/model/1073708-super-customizable-rugged-box-in-openscad)
+  and [MakerWorld (model 788747)](https://makerworld.com/en/models/788747-super-customizable-rugged-box-in-openscad)
+  under the **Creative Commons Attribution-NonCommercial-ShareAlike
+  (CC BY-NC-SA 4.0)** license.
+  - `RuggedBoxV1.scad` and the `RuggedBoxV1.txt` parameter sets (including the
+    "Golden Benchy Case" preset, Iceman's companion proof-of-concept model)
+    are the vendored upstream source and remain under the upstream
+    CC BY-NC-SA license terms.
+  - The modular `rugged_*.scad` files are derived from that design;
+    `rugged_core.scad` is a native BOSL2 rewrite by madfam-org.
+- **[BOSL2](https://github.com/BelfrySCAD/BOSL2)** by Revar Desmera and
+  contributors — BSD 2-Clause License. Used by `rugged_core.scad`; not
+  vendored (resolved from the build environment's library path).
+
+See [NOTICE](NOTICE) for the full third-party attribution list.
