@@ -1,68 +1,37 @@
 # Fastener Generator
 
-Parametric bolts and nuts with real threads
+Parametric ISO metric hardware — bolts, nuts and washers sized to mate real M-series fasteners. Major diameter equals the nominal (M5 = 5 mm), pitch is the real coarse-series value, and head/nut across-flats follow the ISO wrench envelope. Threads default to a fast cosmetic profile with an opt-in real helical thread.
 
-Official Visualizer and Configurator: Yantra4D
+A **dual-engine** hyperobject: exact new **CadQuery** B-Rep modes alongside the original **OpenSCAD** modes. Un hiperobjeto de doble kernel: modos nuevos en CadQuery B-Rep junto a los modos originales de OpenSCAD.
 
-*Tornillos y tuercas paramétricas con roscas reales
-
-Visualizador y configurador oficial: Yantra4D*
-
-**Version**: 1.0.0  
-**Slug**: `fasteners`
+Part of the **Yantra4D Hyperobjects Commons** · Official visualizer: [Yantra4D](https://app.yantra4d.com)
 
 ## Modes
 
-| ID | Label | SCAD File | Parts |
-|---|---|---|---|
-| `` | Bolt | `bolt.scad` | bolt |
-| `` | Nut | `nut.scad` | nut |
+| Mode | Label | Engine | File |
+| :--- | :--- | :--- | :--- |
+| `bolt_cq` | Bolt | CadQuery B-Rep | `main.py` |
+| `nut_cq` | Nut | CadQuery B-Rep | `main.py` |
+| `washer` | Washer | CadQuery B-Rep | `main.py` |
+| `bolt` | Bolt (OpenSCAD) | OpenSCAD | `bolt.scad` |
+| `nut` | Nut (OpenSCAD) | OpenSCAD | `nut.scad` |
+
+The CadQuery modes render watertight and export STEP. The legacy OpenSCAD modes carry an explicit per-mode `engine: openscad` override (the platform resolves the render engine per mode).
 
 ## Parameters
 
-| Name | Type | Default | Range | Description |
-|---|---|---|---|---|
-| `diameter` | slider | 5 | 2–20 (step 0.5) | Nominal thread diameter |
-| `length` | slider | 20 | 5–80 | Bolt shaft length excluding head |
-| `pitch` | slider | 0.8 | 0.25–3 (step 0.05) | Distance between thread crests |
-| `head_style_id` | slider | 0 | 0–2 | Bolt head shape |
-| `head_diameter` | slider | 0 | 0–30 (step 0.5) | Override head diameter (0=auto) |
-| `head_height` | slider | 0 | 0–15 (step 0.5) | Override head height (0=auto) |
-| `nut_style_id` | slider | 0 | 0–2 | Nut shape |
-| `width` | slider | 0 | 0–30 (step 0.5) | Override nut width (0=auto) |
-| `height` | slider | 0 | 0–15 (step 0.5) | Override nut height (0=auto) |
-| `thread_enabled` | checkbox | Yes |  | Generate real threads (slower) |
-| `fn` | slider | 0 | 0–64 (step 8) | Circle smoothness (0=auto) |
+The CadQuery modes expose the core parametric controls (see `project.json` → `parameters`). The OpenSCAD-extended modes add their own legacy parameters, grouped in the manifest and visible only in those modes.
 
-## Presets
+## Hyperobject Profile
 
-- **M3 Socket 20mm**
-  `diameter`=3, `length`=20, `pitch`=0.5, `head_style_id`=1
-- **M5 Hex 25mm**
-  `diameter`=5, `length`=25, `pitch`=0.8, `head_style_id`=0
-- **M8 Button 30mm**
-  `diameter`=8, `length`=30, `pitch`=1.25, `head_style_id`=2
+- **Domain:** industrial
+- **CDG interfaces:**
+- **ISO Metric Thread** (`thread`, ISO 261 / ISO 965)
+- **Bolt Head Wrench Interface** (`profile`, ISO 4014 / ISO 4762 / ISO 7380)
+- **Nut Wrench Interface** (`profile`, ISO 4032 / ISO 4033)
+- **Societal benefit:** On-demand fabrication of standard ISO metric fasteners — enables prototyping and repair without hardware-store dependency, and lets a bolt, nut and washer be printed to mate real hardware.
+- **License:** CERN-OHL-W-2.0
 
-## Parts
+## Engines
 
-| ID | Label | Default Color |
-|---|---|---|
-| `` | Bolt | `` |
-| `` | Nut | `` |
-
-## Constraints
-
-- `` — Pitch must be less than diameter (error)
-- `` — Length should be at least 1x diameter (warning)
-
-## Render Estimates
-
-- **base_time**: 8
-- **per_unit**: 2
-- **per_part**: 10
-- **fn_factor**: 64
-- **wasm_multiplier**: 4
-- **warning_threshold_seconds**: 90
-
----
-*Auto-generated from `project.json` by `scripts/generate-project-docs.py`*
+Default engine is **CadQuery**; the original OpenSCAD modes are preserved with a per-mode `engine: openscad` override. All CadQuery modes are verified watertight through the render sandbox and render distinctly.
