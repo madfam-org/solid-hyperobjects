@@ -1,355 +1,869 @@
 {
-    "project": {
-        "name": "Parametric Prosthetic Socket",
-        "slug": "prosthetic-socket",
-        "version": "1.0.0",
-        "description": {
-            "en": "Customizable socket for lower-limb prosthetics — Voronoi patterns for breathability and light weight\n\nOfficial Visualizer and Configurator: Yantra4D",
-            "es": "Socket personalizable para prótesis de miembro inferior — patrones Voronoi para transpirabilidad y ligereza\n\nVisualizador y configurador oficial: Yantra4D"
-        },
-        "thumbnail": "/projects/prosthetic-socket.webp",
-        "tags": [
-            "medical",
-            "prosthetic",
-            "assistive",
-            "voronoi",
-            "hyperobject",
-            "commons",
-            "cdg"
-        ],
-        "difficulty": "advanced",
-        "force_backend": true
+  "project": {
+    "name": "Parametric Prosthetic Socket",
+    "slug": "prosthetic-socket",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A printable, fully customizable lower-limb prosthetic socket blank — a tapered elliptical cup parameterized by the residual-limb proximal/distal diameters, length and wall thickness, with a distal e-NABLE / Open Source Leg 4-bolt pyramid adapter so any compatible foot or knee bolts on. Transtibial, transfemoral, and a ventilated check-socket for trial fitting. A clinician must measure, fit and approve the socket before use — this is a fabrication blank, not a certified clinical device.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un socket protésico de miembro inferior imprimible y totalmente personalizable — una copa elíptica cónica parametrizada por los diámetros proximal/distal del miembro residual, la longitud y el grosor de pared, con un adaptador piramidal distal de 4 pernos e-NABLE / Open Source Leg para acoplar cualquier pie o rodilla compatible. Transtibial, transfemoral y un socket de prueba ventilado para ajuste. Un clínico debe medir, ajustar y aprobar el socket antes de usarlo — es un blank de fabricación, no un dispositivo clínico certificado.\n\nVisualizador y configurador oficial: Yantra4D"
     },
-    "modes": [
-        {
-            "id": "transtibial_socket",
-            "scad_file": "socket.scad",
-            "cq_file": "socket.py",
-            "label": {
-                "en": "Transtibial Socket",
-                "es": "Socket Transtibial"
-            },
-            "parts": [
-                "socket_shell"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "complex"
-            }
-        },
-        {
-            "id": "transfemoral_socket",
-            "scad_file": "socket.scad",
-            "cq_file": "socket.py",
-            "label": {
-                "en": "Transfemoral Socket",
-                "es": "Socket Transfemoral"
-            },
-            "parts": [
-                "socket_shell"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "complex"
-            }
-        }
-    ],
-    "parts": [
-        {
-            "id": "socket_shell",
-            "render_mode": 0,
-            "label": {
-                "en": "Socket Shell",
-                "es": "Carcasa del Socket"
-            },
-            "default_color": "#fcd34d"
-        }
-    ],
-    "presets": [
-        {
-            "id": "child_bk",
-            "label": {
-                "en": "Child Below-Knee (Small)",
-                "es": "Niño Bajo-Rodilla (Pequeño)"
-            },
-            "values": {
-                "amputation_level": 0,
-                "circumference_top": 280,
-                "circumference_bottom": 200,
-                "length": 200
-            }
-        },
-        {
-            "id": "adult_bk",
-            "label": {
-                "en": "Adult Below-Knee (Medium)",
-                "es": "Adulto Bajo-Rodilla (Medio)"
-            },
-            "values": {
-                "amputation_level": 0,
-                "circumference_top": 350,
-                "circumference_bottom": 250,
-                "length": 300
-            }
-        },
-        {
-            "id": "adult_ak",
-            "label": {
-                "en": "Adult Above-Knee (Large)",
-                "es": "Adulto Sobre-Rodilla (Grande)"
-            },
-            "values": {
-                "amputation_level": 1,
-                "circumference_top": 450,
-                "circumference_bottom": 350,
-                "length": 400
-            }
-        }
-    ],
-    "parameters": [
-        {
-            "id": "amputation_level",
-            "type": "slider",
-            "default": 0,
-            "min": 0,
-            "max": 1,
-            "step": 1,
-            "label": {
-                "en": "Amputation Level",
-                "es": "Nivel de Amputación"
-            },
-            "tooltip": {
-                "en": "0=Below Knee (Transtibial), 1=Above Knee (Transfemoral)",
-                "es": "0=Bajo Rodilla (Transtibial), 1=Sobre Rodilla (Transfemoral)"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "geometry"
-        },
-        {
-            "id": "circumference_top",
-            "type": "slider",
-            "default": 350,
-            "min": 200,
-            "max": 600,
-            "step": 10,
-            "label": {
-                "en": "Top Circumference (mm)",
-                "es": "Circunferencia Superior (mm)"
-            },
-            "tooltip": {
-                "en": "Proximal circumference of the residual limb",
-                "es": "Circunferencia proximal del miembro residual"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "circumference_bottom",
-            "type": "slider",
-            "default": 250,
-            "min": 150,
-            "max": 500,
-            "step": 10,
-            "label": {
-                "en": "Bottom Circumference (mm)",
-                "es": "Circunferencia Inferior (mm)"
-            },
-            "tooltip": {
-                "en": "Distal circumference of the residual limb",
-                "es": "Circunferencia distal del miembro residual"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "length",
-            "type": "slider",
-            "default": 300,
-            "min": 150,
-            "max": 500,
-            "step": 10,
-            "label": {
-                "en": "Socket Length (mm)",
-                "es": "Largo del Socket (mm)"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "voronoi_density",
-            "type": "slider",
-            "default": 10,
-            "min": 5,
-            "max": 20,
-            "step": 1,
-            "label": {
-                "en": "Voronoi Density",
-                "es": "Densidad Voronoi"
-            },
-            "tooltip": {
-                "en": "Higher = more, smaller holes; Lower = fewer, larger holes",
-                "es": "Mayor = más agujeros pequeños; Menor = menos agujeros grandes"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "pattern"
-        },
-        {
-            "id": "wall_thickness",
-            "type": "slider",
-            "default": 4,
-            "min": 3,
-            "max": 8,
-            "step": 0.5,
-            "label": {
-                "en": "Wall Thickness (mm)",
-                "es": "Grosor de Pared (mm)"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "structure"
-        },
-        {
-            "id": "fn",
-            "type": "slider",
-            "default": 0,
-            "min": 0,
-            "max": 64,
-            "step": 8,
-            "label": {
-                "en": "Quality ($fn)",
-                "es": "Calidad ($fn)"
-            },
-            "visible_in_modes": [
-                "transtibial_socket",
-                "transfemoral_socket"
-            ],
-            "group": "quality",
-            "visibility_level": "advanced"
-        }
-    ],
-    "parameter_groups": [
-        {
-            "id": "geometry",
-            "label": {
-                "en": "Limb Type",
-                "es": "Tipo de Miembro"
-            }
-        },
-        {
-            "id": "dimensions",
-            "label": {
-                "en": "Measurements",
-                "es": "Medidas"
-            }
-        },
-        {
-            "id": "pattern",
-            "label": {
-                "en": "Pattern",
-                "es": "Patrón"
-            }
-        },
-        {
-            "id": "structure",
-            "label": {
-                "en": "Structure",
-                "es": "Estructura"
-            }
-        },
-        {
-            "id": "quality",
-            "label": {
-                "en": "Quality",
-                "es": "Calidad"
-            }
-        }
-    ],
-    "export_formats": [
-        "stl",
-        "3mf",
-        "off",
-        "step",
-        "glb",
-        "gltf",
-        "obj"
+    "thumbnail": "/projects/prosthetic-socket.webp",
+    "difficulty": "advanced",
+    "tags": [
+      "medical",
+      "prosthetic",
+      "assistive",
+      "socket",
+      "e-nable",
+      "osl",
+      "hyperobject",
+      "commons",
+      "voronoi",
+      "cdg"
     ],
     "hyperobject": {
-        "domain": "medical",
-        "cdg_interfaces": [
-            {
-                "id": "limb_scan_interface",
-                "label": {
-                    "en": "Limb Scan Interface",
-                    "es": "Interfaz de Escaneo de Miembro"
-                },
-                "geometry_type": "surface",
-                "standard": "DICOM / STL",
-                "parameters": [
-                    "circumference_top",
-                    "circumference_bottom",
-                    "length"
-                ]
-            },
-            {
-                "id": "distal_interface_standard",
-                "label": {
-                    "en": "Distal Hardware Interface",
-                    "es": "Interfaz de Hardware Distal"
-                },
-                "geometry_type": "bolt_pattern",
-                "standard": "Euro 4-hole / Pyramid",
-                "parameters": []
-            }
-        ],
-        "material_awareness": {
-            "shrinkage_compensation": true,
-            "recycled_material_toggle": false,
-            "tolerance_by_material": true
-        },
-        "societal_benefit": {
-            "en": "Scalable, localized production of prosthetic sockets — reduces cost from $5000+ to <$50. Voronoi pattern improves hygiene in hot climates.",
-            "es": "Producción escalable y localizada de sockets protésicos — reduce el costo de $5000+ a <$50. El patrón Voronoi mejora la higiene en climas cálidos."
-        },
-        "commons_license": "CERN-OHL-W-2.0",
-        "bosl2_modules_used": [
-            "hull",
-            "cyl",
-            "diff",
-            "sphere",
-            "skin"
-        ],
-        "oep8_features": [
-            "object_dicts",
-            "geometry_as_data"
-        ],
-        "cdg_registry_refs": [
-            "limb_scan_interface",
-            "distal_interface_standard"
-        ]
+      "is_hyperobject": true
     },
-    "estimate_constants": {
-        "base_time": 5,
-        "per_unit": 2,
-        "per_part": 8,
-        "fn_factor": 32,
-        "wasm_multiplier": 3,
-        "warning_threshold_seconds": 60
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "transtibial",
+      "label": {
+        "en": "Transtibial (Below-Knee)",
+        "es": "Transtibial (Bajo Rodilla)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "transtibial"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 4,
+        "per_part": 16
+      }
+    },
+    {
+      "id": "transfemoral",
+      "label": {
+        "en": "Transfemoral (Above-Knee)",
+        "es": "Transfemoral (Sobre Rodilla)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "transfemoral"
+      ],
+      "estimate": {
+        "base_time": 16,
+        "per_unit": 4,
+        "per_part": 18
+      }
+    },
+    {
+      "id": "check_socket",
+      "label": {
+        "en": "Check Socket (Test Fit)",
+        "es": "Socket de Prueba (Ajuste)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "check_socket"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 4,
+        "per_part": 16
+      }
+    },
+    {
+      "id": "transtibial_socket",
+      "scad_file": "socket.scad",
+      "cq_file": "socket.py",
+      "label": {
+        "en": "Transtibial Socket (OpenSCAD)",
+        "es": "Socket Transtibial (OpenSCAD)"
+      },
+      "parts": [
+        "socket_shell"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "complex"
+      },
+      "engine": "openscad"
+    },
+    {
+      "id": "transfemoral_socket",
+      "scad_file": "socket.scad",
+      "cq_file": "socket.py",
+      "label": {
+        "en": "Transfemoral Socket (OpenSCAD)",
+        "es": "Socket Transfemoral (OpenSCAD)"
+      },
+      "parts": [
+        "socket_shell"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "complex"
+      },
+      "engine": "openscad"
     }
+  ],
+  "parts": [
+    {
+      "id": "transtibial",
+      "label": {
+        "en": "Transtibial Socket",
+        "es": "Socket Transtibial"
+      },
+      "render_mode": 0,
+      "color": "#fcd34d"
+    },
+    {
+      "id": "transfemoral",
+      "label": {
+        "en": "Transfemoral Socket",
+        "es": "Socket Transfemoral"
+      },
+      "render_mode": 0,
+      "color": "#f59e0b"
+    },
+    {
+      "id": "check_socket",
+      "label": {
+        "en": "Check Socket",
+        "es": "Socket de Prueba"
+      },
+      "render_mode": 0,
+      "color": "#93c5fd"
+    },
+    {
+      "id": "socket_shell",
+      "render_mode": 0,
+      "label": {
+        "en": "Socket Shell",
+        "es": "Carcasa del Socket"
+      },
+      "default_color": "#fcd34d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "limb",
+      "label": {
+        "en": "Limb Measurements",
+        "es": "Medidas del Miembro"
+      }
+    },
+    {
+      "id": "structure",
+      "label": {
+        "en": "Structure",
+        "es": "Estructura"
+      }
+    },
+    {
+      "id": "shape",
+      "label": {
+        "en": "Cup Shape",
+        "es": "Forma de la Copa"
+      }
+    },
+    {
+      "id": "adapter",
+      "label": {
+        "en": "Distal Adapter",
+        "es": "Adaptador Distal"
+      }
+    },
+    {
+      "id": "breathability",
+      "label": {
+        "en": "Breathability",
+        "es": "Transpirabilidad"
+      }
+    },
+    {
+      "id": "geometry",
+      "label": {
+        "en": "Limb Type",
+        "es": "Tipo de Miembro"
+      }
+    },
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Measurements",
+        "es": "Medidas"
+      }
+    },
+    {
+      "id": "pattern",
+      "label": {
+        "en": "Pattern",
+        "es": "Patrón"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "proximal_dia",
+      "type": "slider",
+      "default": 95,
+      "min": 50,
+      "max": 220,
+      "step": 1,
+      "group": "limb",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Proximal Diameter (mm)",
+        "es": "Diámetro Proximal (mm)"
+      },
+      "tooltip": {
+        "en": "Top opening — the residual limb diameter at the socket brim",
+        "es": "Abertura superior — diámetro del miembro residual en el borde del socket"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 0.5
+      }
+    },
+    {
+      "id": "distal_dia",
+      "type": "slider",
+      "default": 62,
+      "min": 35,
+      "max": 180,
+      "step": 1,
+      "group": "limb",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Distal Diameter (mm)",
+        "es": "Diámetro Distal (mm)"
+      },
+      "tooltip": {
+        "en": "Bottom diameter — the limb end that seats over the adapter",
+        "es": "Diámetro inferior — el extremo del miembro que asienta sobre el adaptador"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 0.5
+      }
+    },
+    {
+      "id": "socket_len",
+      "type": "slider",
+      "default": 180,
+      "min": 80,
+      "max": 420,
+      "step": 5,
+      "group": "limb",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Socket Length (mm)",
+        "es": "Largo del Socket (mm)"
+      },
+      "tooltip": {
+        "en": "Cup length along the limb axis",
+        "es": "Largo de la copa a lo largo del eje del miembro"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "structure",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Shell wall thickness (the check socket auto-thins to <=3.5)",
+        "es": "Grosor de la pared (el socket de prueba se adelgaza automáticamente a <=3.5)"
+      }
+    },
+    {
+      "id": "floor",
+      "type": "slider",
+      "default": 6.0,
+      "min": 4.0,
+      "max": 14.0,
+      "step": 0.5,
+      "group": "structure",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Distal Floor Thickness (mm)",
+        "es": "Grosor del Piso Distal (mm)"
+      },
+      "tooltip": {
+        "en": "Closed bottom thickness under the adapter seat",
+        "es": "Grosor del fondo cerrado bajo el asiento del adaptador"
+      }
+    },
+    {
+      "id": "ovality",
+      "type": "slider",
+      "default": 1.18,
+      "min": 1.0,
+      "max": 1.5,
+      "step": 0.02,
+      "group": "shape",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Cross-Section Ovality",
+        "es": "Ovalidad de la Sección"
+      },
+      "tooltip": {
+        "en": "1.0 = round; higher flattens antero-posteriorly for an anatomical fit",
+        "es": "1.0 = redondo; mayor aplana antero-posteriormente para un ajuste anatómico"
+      }
+    },
+    {
+      "id": "brim_flare",
+      "type": "slider",
+      "default": 1.12,
+      "min": 1.0,
+      "max": 1.35,
+      "step": 0.01,
+      "group": "shape",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Brim Flare",
+        "es": "Ensanche del Borde"
+      },
+      "tooltip": {
+        "en": "Outward flare of the top rim for comfort (1.0 = straight)",
+        "es": "Ensanche hacia afuera del borde superior para comodidad (1.0 = recto)"
+      }
+    },
+    {
+      "id": "adapter_plate_dia",
+      "type": "slider",
+      "default": 58,
+      "min": 40,
+      "max": 90,
+      "step": 1,
+      "group": "adapter",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Adapter Plate Diameter (mm)",
+        "es": "Diámetro de Placa del Adaptador (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the solid distal seat that carries the bolt pattern",
+        "es": "Diámetro del asiento distal sólido que porta el patrón de pernos"
+      }
+    },
+    {
+      "id": "bolt_circle_dia",
+      "type": "slider",
+      "default": 40,
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "group": "adapter",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Bolt Circle Diameter (mm)",
+        "es": "Diámetro del Círculo de Pernos (mm)"
+      },
+      "tooltip": {
+        "en": "Pitch circle of the 4-bolt pyramid adapter (e-NABLE / OSL)",
+        "es": "Círculo primitivo del adaptador piramidal de 4 pernos (e-NABLE / OSL)"
+      }
+    },
+    {
+      "id": "bolt_dia",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "adapter",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Bolt Clearance Diameter (mm)",
+        "es": "Diámetro de Holgura de Perno (mm)"
+      },
+      "tooltip": {
+        "en": "Through-hole size for the mounting bolts (5.5 = M5 clearance)",
+        "es": "Tamaño del agujero pasante para los pernos (5.5 = holgura M5)"
+      }
+    },
+    {
+      "id": "pyramid",
+      "type": "checkbox",
+      "default": true,
+      "group": "adapter",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Male Pyramid Boss",
+        "es": "Pirámide Macho"
+      },
+      "tooltip": {
+        "en": "Add the male 4-sided pyramid boss under the plate",
+        "es": "Añadir la pirámide macho de 4 caras bajo la placa"
+      }
+    },
+    {
+      "id": "ventilation",
+      "type": "checkbox",
+      "default": false,
+      "group": "breathability",
+      "modes": [
+        "transtibial",
+        "transfemoral"
+      ],
+      "label": {
+        "en": "Ventilation Holes",
+        "es": "Agujeros de Ventilación"
+      },
+      "tooltip": {
+        "en": "Ring pattern of breathability holes (always on for the check socket)",
+        "es": "Patrón anular de agujeros de transpirabilidad (siempre activo en el socket de prueba)"
+      }
+    },
+    {
+      "id": "vent_density",
+      "type": "slider",
+      "default": 8,
+      "min": 4,
+      "max": 14,
+      "step": 1,
+      "group": "breathability",
+      "modes": [
+        "transtibial",
+        "transfemoral",
+        "check_socket"
+      ],
+      "label": {
+        "en": "Holes per Ring",
+        "es": "Agujeros por Anillo"
+      },
+      "tooltip": {
+        "en": "How many ventilation holes around each ring",
+        "es": "Cuántos agujeros de ventilación por anillo"
+      }
+    },
+    {
+      "id": "amputation_level",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "label": {
+        "en": "Amputation Level",
+        "es": "Nivel de Amputación"
+      },
+      "tooltip": {
+        "en": "0=Below Knee (Transtibial), 1=Above Knee (Transfemoral)",
+        "es": "0=Bajo Rodilla (Transtibial), 1=Sobre Rodilla (Transfemoral)"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "geometry"
+    },
+    {
+      "id": "circumference_top",
+      "type": "slider",
+      "default": 350,
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "label": {
+        "en": "Top Circumference (mm)",
+        "es": "Circunferencia Superior (mm)"
+      },
+      "tooltip": {
+        "en": "Proximal circumference of the residual limb",
+        "es": "Circunferencia proximal del miembro residual"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "dimensions"
+    },
+    {
+      "id": "circumference_bottom",
+      "type": "slider",
+      "default": 250,
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "label": {
+        "en": "Bottom Circumference (mm)",
+        "es": "Circunferencia Inferior (mm)"
+      },
+      "tooltip": {
+        "en": "Distal circumference of the residual limb",
+        "es": "Circunferencia distal del miembro residual"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "dimensions"
+    },
+    {
+      "id": "length",
+      "type": "slider",
+      "default": 300,
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "label": {
+        "en": "Socket Length (mm)",
+        "es": "Largo del Socket (mm)"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "dimensions"
+    },
+    {
+      "id": "voronoi_density",
+      "type": "slider",
+      "default": 10,
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "label": {
+        "en": "Voronoi Density",
+        "es": "Densidad Voronoi"
+      },
+      "tooltip": {
+        "en": "Higher = more, smaller holes; Lower = fewer, larger holes",
+        "es": "Mayor = más agujeros pequeños; Menor = menos agujeros grandes"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "pattern"
+    },
+    {
+      "id": "wall_thickness",
+      "type": "slider",
+      "default": 4,
+      "min": 3,
+      "max": 8,
+      "step": 0.5,
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "structure"
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Quality ($fn)",
+        "es": "Calidad ($fn)"
+      },
+      "visible_in_modes": [
+        "transtibial_socket",
+        "transfemoral_socket"
+      ],
+      "group": "quality",
+      "visibility_level": "advanced"
+    }
+  ],
+  "presets": [
+    {
+      "id": "adult_transtibial",
+      "mode": "transtibial",
+      "label": {
+        "en": "Adult Below-Knee",
+        "es": "Adulto Bajo Rodilla"
+      },
+      "values": {
+        "proximal_dia": 100,
+        "distal_dia": 68,
+        "socket_len": 175,
+        "wall": 4.0,
+        "ovality": 1.2
+      }
+    },
+    {
+      "id": "adult_transfemoral",
+      "mode": "transfemoral",
+      "label": {
+        "en": "Adult Above-Knee",
+        "es": "Adulto Sobre Rodilla"
+      },
+      "values": {
+        "proximal_dia": 150,
+        "distal_dia": 110,
+        "socket_len": 300,
+        "wall": 5.0,
+        "ovality": 1.1,
+        "brim_flare": 1.15
+      }
+    },
+    {
+      "id": "child_check",
+      "mode": "check_socket",
+      "label": {
+        "en": "Child Check Socket",
+        "es": "Socket de Prueba Infantil"
+      },
+      "values": {
+        "proximal_dia": 78,
+        "distal_dia": 52,
+        "socket_len": 130,
+        "wall": 3.0,
+        "ventilation": true,
+        "vent_density": 8
+      }
+    },
+    {
+      "id": "child_bk_scad",
+      "label": {
+        "en": "Child Below-Knee (Small)",
+        "es": "Niño Bajo-Rodilla (Pequeño)"
+      },
+      "values": {
+        "amputation_level": 0,
+        "circumference_top": 280,
+        "circumference_bottom": 200,
+        "length": 200
+      }
+    },
+    {
+      "id": "adult_bk_scad",
+      "label": {
+        "en": "Adult Below-Knee (Medium)",
+        "es": "Adulto Bajo-Rodilla (Medio)"
+      },
+      "values": {
+        "amputation_level": 0,
+        "circumference_top": 350,
+        "circumference_bottom": 250,
+        "length": 300
+      }
+    },
+    {
+      "id": "adult_ak_scad",
+      "label": {
+        "en": "Adult Above-Knee (Large)",
+        "es": "Adulto Sobre-Rodilla (Grande)"
+      },
+      "values": {
+        "amputation_level": 1,
+        "circumference_top": 450,
+        "circumference_bottom": 350,
+        "length": 400
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "distal_dia < proximal_dia",
+      "severity": "error",
+      "message": {
+        "en": "Distal diameter must be smaller than proximal (the cup tapers inward)",
+        "es": "El diámetro distal debe ser menor que el proximal (la copa se estrecha)"
+      }
+    },
+    {
+      "expression": "bolt_circle_dia + 10 <= adapter_plate_dia",
+      "severity": "warning",
+      "message": {
+        "en": "Bolt circle is large relative to the adapter plate",
+        "es": "El círculo de pernos es grande respecto a la placa del adaptador"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        220,
+        200
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -320,
+        120
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        360
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "off",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 14,
+    "per_unit": 4,
+    "per_part": 16,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "medical",
+    "cdg_interfaces": [
+      {
+        "id": "distal_pyramid_adapter",
+        "label": {
+          "en": "Distal Pyramid Adapter",
+          "es": "Adaptador Piramidal Distal"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "e-NABLE / OSL 4-bolt",
+        "parameters": [
+          "bolt_circle_dia",
+          "bolt_dia",
+          "adapter_plate_dia",
+          "pyramid"
+        ]
+      },
+      {
+        "id": "limb_socket_contour",
+        "label": {
+          "en": "Limb Socket Contour",
+          "es": "Contorno del Socket del Miembro"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "proximal_dia",
+          "distal_dia",
+          "socket_len",
+          "ovality",
+          "brim_flare"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": true,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Accessible, custom-fit prosthetic care — a socket blank sized to any limb from four field-measurable dimensions and printed locally for a fraction of clinical cost, with a check-socket workflow for iterative fitting. Uses the open e-NABLE / Open Source Leg 4-bolt interface so components interoperate across the humanitarian-prosthetics commons.",
+      "es": "Atención protésica accesible y a medida — un blank de socket dimensionado a cualquier miembro a partir de cuatro medidas de campo e impreso localmente por una fracción del costo clínico, con un flujo de socket de prueba para ajuste iterativo. Usa la interfaz abierta de 4 pernos e-NABLE / Open Source Leg para que los componentes sean interoperables en el commons de prótesis humanitarias."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "medical",
+    "prosthetic",
+    "assistive",
+    "socket",
+    "e-nable",
+    "hyperobject",
+    "commons"
+  ]
 }
