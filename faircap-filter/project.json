@@ -1,194 +1,605 @@
 {
-    "project": {
-        "name": "Faircap Water Filter",
-        "slug": "faircap-filter",
-        "version": "1.0.0",
-        "description": {
-            "en": "Open-source parametric water filter that screws onto standard PET bottles — clean water from plastic waste\n\nOfficial Visualizer and Configurator: Yantra4D",
-            "es": "Filtro de agua paramétrico de código abierto que se enrosca en botellas PET estándar — agua limpia a partir de residuos plásticos\n\nVisualizador y configurador oficial: Yantra4D"
-        },
-        "thumbnail": "/projects/faircap-filter.png",
-        "tags": [
-            "water",
-            "filter",
-            "humanitarian",
-            "upcycling",
-            "bottle",
-            "hyperobject",
-            "commons",
-            "cdg"
-        ],
-        "difficulty": "intermediate",
-        "force_backend": true
+  "project": {
+    "name": "Faircap Water Filter",
+    "slug": "faircap-filter",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Open-source, print-at-home water filter that screws onto a standard PET bottle neck (PCO-1881) and houses a filter medium — activated charcoal, a hollow-fiber membrane, or a ceramic disc. Screw the cap onto a bottle of raw water, invert, and drink filtered water from the nozzle. Clean water from plastic waste, no commercial dependency.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Filtro de agua de código abierto e imprimible en casa que se enrosca en el cuello de una botella PET estándar (PCO-1881) y aloja un medio filtrante — carbón activado, membrana de fibra hueca o disco cerámico. Enrosca la tapa en una botella con agua cruda, inviértela y bebe agua filtrada por la boquilla. Agua limpia a partir de residuos plásticos, sin dependencia comercial.\n\nVisualizador y configurador oficial: Yantra4D"
     },
-    "modes": [
-        {
-            "id": "Standard",
-            "scad_file": "faircap.scad",
-            "cq_file": "faircap.py",
-            "label": {
-                "en": "Standard Filter",
-                "es": "Filtro Estándar"
-            },
-            "parts": [
-                "filter_housing"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        }
+    "thumbnail": "/projects/faircap-filter.png",
+    "difficulty": "advanced",
+    "tags": [
+      "water",
+      "filter",
+      "humanitarian",
+      "upcycling",
+      "bottle",
+      "pco-1881",
+      "hyperobject",
+      "commons",
+      "cdg"
     ],
-    "parts": [
-        {
-            "id": "filter_housing",
-            "render_mode": 0,
-            "label": {
-                "en": "Filter Housing",
-                "es": "Carcasa del Filtro"
-            },
-            "default_color": "#06b6d4"
-        }
-    ],
-    "presets": [
-        {
-            "id": "charcoal_standard",
-            "label": {
-                "en": "Charcoal Filter (Standard)",
-                "es": "Filtro de Carbón (Estándar)"
-            },
-            "values": {
-                "filter_type": "charcoal",
-                "housing_length_mm": 80
-            }
-        },
-        {
-            "id": "ceramic_long",
-            "label": {
-                "en": "Ceramic Filter (Long)",
-                "es": "Filtro Cerámico (Largo)"
-            },
-            "values": {
-                "filter_type": "ceramic",
-                "housing_length_mm": 120
-            }
-        }
-    ],
-    "parameters": [
-        {
-            "id": "filter_type",
-            "type": "text",
-            "default": "charcoal",
-            "enum": [
-                "charcoal",
-                "ceramic",
-                "mesh",
-                "empty"
-            ],
-            "label": {
-                "en": "Filter Media Type",
-                "es": "Tipo de Medio Filtrante"
-            },
-            "tooltip": {
-                "en": "Internal structure for filtration",
-                "es": "Estructura interna para filtración"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "filtration"
-        },
-        {
-            "id": "housing_od_mm",
-            "type": "slider",
-            "default": 40,
-            "min": 30,
-            "max": 60,
-            "step": 1,
-            "label": {
-                "en": "Housing Diameter (mm)",
-                "es": "Diámetro de Carcasa (mm)"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "housing_length_mm",
-            "type": "slider",
-            "default": 80,
-            "min": 40,
-            "max": 150,
-            "step": 5,
-            "label": {
-                "en": "Housing Length (mm)",
-                "es": "Largo de Carcasa (mm)"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "dimensions"
-        }
-    ],
-    "parameter_groups": [
-        {
-            "id": "filtration",
-            "label": {
-                "en": "Filtration Settings",
-                "es": "Configuración de Filtrado"
-            }
-        },
-        {
-            "id": "dimensions",
-            "label": {
-                "en": "Dimensions",
-                "es": "Dimensiones"
-            }
-        }
-    ],
-    "export_formats": [
-        "stl",
-        "3mf",
-        "off",
-        "step",
-        "glb",
-        "gltf",
-        "obj"
-    ],
-    "estimate_constants": {
-        "base_time": 5,
-        "per_unit": 2,
-        "per_part": 8,
-        "fn_factor": 32,
-        "wasm_multiplier": 3,
-        "warning_threshold_seconds": 60
-    },
     "hyperobject": {
-        "domain": "household",
-        "cdg_interfaces": [
-            {
-                "id": "pco_1881_thread",
-                "label": {
-                    "en": "PCO-1881 Bottle Thread",
-                    "es": "Rosca de Botella PCO-1881"
-                },
-                "geometry_type": "thread",
-                "standard": "PCO-1881",
-                "parameters": [
-                    "housing_od_mm"
-                ]
-            }
-        ],
-        "material_awareness": {
-            "shrinkage_compensation": false,
-            "recycled_material_toggle": false,
-            "tolerance_by_material": false
-        },
-        "societal_benefit": {
-            "en": "Open-source water filtration from PET bottles — clean water access without commercial dependency",
-            "es": "Filtración de agua de código abierto con botellas PET — acceso a agua limpia sin dependencia comercial"
-        },
-        "commons_license": "CERN-OHL-W-2.0"
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "cap",
+      "label": {
+        "en": "Bottle Cap Filter",
+        "es": "Tapa Filtrante"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "cap"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 2,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "housing",
+      "label": {
+        "en": "Cartridge Housing",
+        "es": "Carcasa de Cartucho"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "housing"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    },
+    {
+      "id": "membrane_holder",
+      "label": {
+        "en": "Membrane / Disc Holder",
+        "es": "Portamembrana / Portadisco"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "membrane_holder"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "Standard",
+      "scad_file": "faircap.scad",
+      "cq_file": "faircap.py",
+      "label": {
+        "en": "Standard Filter (OpenSCAD)",
+        "es": "Filtro Estándar (OpenSCAD)"
+      },
+      "parts": [
+        "filter_housing"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "engine": "openscad"
     }
+  ],
+  "parts": [
+    {
+      "id": "cap",
+      "label": {
+        "en": "Bottle Cap Filter",
+        "es": "Tapa Filtrante"
+      },
+      "render_mode": 0,
+      "color": "#06b6d4"
+    },
+    {
+      "id": "housing",
+      "label": {
+        "en": "Cartridge Housing",
+        "es": "Carcasa de Cartucho"
+      },
+      "render_mode": 0,
+      "color": "#0891b2"
+    },
+    {
+      "id": "membrane_holder",
+      "label": {
+        "en": "Membrane / Disc Holder",
+        "es": "Portamembrana / Portadisco"
+      },
+      "render_mode": 0,
+      "color": "#22d3ee"
+    },
+    {
+      "id": "filter_housing",
+      "render_mode": 0,
+      "label": {
+        "en": "Filter Housing",
+        "es": "Carcasa del Filtro"
+      },
+      "default_color": "#06b6d4"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "filtration",
+      "label": {
+        "en": "Filtration",
+        "es": "Filtración"
+      }
+    },
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Dimensions",
+        "es": "Dimensiones"
+      }
+    },
+    {
+      "id": "fit",
+      "label": {
+        "en": "Thread Fit & Walls",
+        "es": "Ajuste de Rosca y Paredes"
+      }
+    },
+    {
+      "id": "nozzle",
+      "label": {
+        "en": "Drink Nozzle",
+        "es": "Boquilla de Bebida"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "filter_type",
+      "type": "select",
+      "default": "charcoal",
+      "group": "filtration",
+      "modes": [
+        "cap",
+        "housing",
+        "membrane_holder"
+      ],
+      "label": {
+        "en": "Filter Media Type",
+        "es": "Tipo de Medio Filtrante"
+      },
+      "tooltip": {
+        "en": "Filter medium the housing is built for: activated charcoal, a hollow-fiber membrane, or a ceramic disc. Sets the retaining-grille spacing and the disc-holder standoff.",
+        "es": "Medio filtrante para el que se construye la carcasa: carbón activado, membrana de fibra hueca o disco cerámico. Ajusta el espaciado de la rejilla de retención y el soporte del disco."
+      },
+      "options": [
+        {
+          "value": "charcoal",
+          "label": {
+            "en": "Activated Charcoal — granular adsorption",
+            "es": "Carbón Activado — adsorción granular"
+          }
+        },
+        {
+          "value": "membrane",
+          "label": {
+            "en": "Hollow-Fiber Membrane — 0.1 µm ultrafiltration",
+            "es": "Membrana de Fibra Hueca — ultrafiltración 0.1 µm"
+          }
+        },
+        {
+          "value": "ceramic",
+          "label": {
+            "en": "Ceramic Disc — micro-porous",
+            "es": "Disco Cerámico — microporoso"
+          }
+        }
+      ]
+    },
+    {
+      "id": "housing_od",
+      "type": "slider",
+      "default": 40,
+      "min": 30,
+      "max": 60,
+      "step": 1,
+      "group": "dimensions",
+      "modes": [
+        "housing",
+        "membrane_holder"
+      ],
+      "label": {
+        "en": "Housing Diameter (mm)",
+        "es": "Diámetro de Carcasa (mm)"
+      },
+      "tooltip": {
+        "en": "Outer diameter of the cartridge housing chamber",
+        "es": "Diámetro exterior de la cámara de la carcasa"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "housing_length",
+      "type": "slider",
+      "default": 80,
+      "min": 40,
+      "max": 150,
+      "step": 5,
+      "group": "dimensions",
+      "modes": [
+        "housing",
+        "membrane_holder"
+      ],
+      "label": {
+        "en": "Housing Length (mm)",
+        "es": "Largo de Carcasa (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the cartridge housing — more length holds more medium",
+        "es": "Largo de la carcasa — más largo aloja más medio"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "clearance",
+      "type": "slider",
+      "default": 0.4,
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "group": "fit",
+      "modes": [
+        "cap",
+        "housing",
+        "membrane_holder"
+      ],
+      "label": {
+        "en": "Thread Clearance (mm)",
+        "es": "Holgura de Rosca (mm)"
+      },
+      "tooltip": {
+        "en": "Per-side gap added to the female PCO-1881 thread so it screws onto the bottle despite print tolerances (0.3-0.5 typical)",
+        "es": "Espacio por lado añadido a la rosca hembra PCO-1881 para que enrosque en la botella pese a las tolerancias de impresión (0.3-0.5 típico)"
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 2.6,
+      "min": 1.6,
+      "max": 6.0,
+      "step": 0.2,
+      "group": "fit",
+      "modes": [
+        "cap",
+        "housing",
+        "membrane_holder"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Radial wall around the thread and chamber",
+        "es": "Pared radial alrededor de la rosca y la cámara"
+      }
+    },
+    {
+      "id": "seat_lip",
+      "type": "slider",
+      "default": 2.4,
+      "min": 1.0,
+      "max": 5.0,
+      "step": 0.2,
+      "group": "fit",
+      "modes": [
+        "cap"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Filter Seat Lip (mm)",
+        "es": "Reborde del Asiento (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the internal ledge that retains the filter medium in the cap",
+        "es": "Ancho de la repisa interna que retiene el medio filtrante en la tapa"
+      }
+    },
+    {
+      "id": "nozzle_bore",
+      "type": "slider",
+      "default": 6.0,
+      "min": 2.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "nozzle",
+      "modes": [
+        "cap",
+        "housing"
+      ],
+      "label": {
+        "en": "Nozzle / Outlet Bore (mm)",
+        "es": "Boquilla / Salida Interior (mm)"
+      },
+      "tooltip": {
+        "en": "Inner diameter of the drink nozzle (cap) or outlet spigot (housing)",
+        "es": "Diámetro interior de la boquilla de bebida (tapa) o del pico de salida (carcasa)"
+      }
+    },
+    {
+      "id": "nozzle_len",
+      "type": "slider",
+      "default": 16.0,
+      "min": 6.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "nozzle",
+      "modes": [
+        "cap"
+      ],
+      "label": {
+        "en": "Nozzle Length (mm)",
+        "es": "Largo de Boquilla (mm)"
+      },
+      "tooltip": {
+        "en": "How far the drink nozzle rises above the cap",
+        "es": "Cuánto sobresale la boquilla de bebida por encima de la tapa"
+      }
+    },
+    {
+      "id": "housing_od_mm",
+      "type": "slider",
+      "default": 40,
+      "min": 30,
+      "max": 60,
+      "step": 1,
+      "label": {
+        "en": "Housing Diameter (mm)",
+        "es": "Diámetro de Carcasa (mm)"
+      },
+      "visible_in_modes": [
+        "Standard"
+      ],
+      "group": "dimensions"
+    },
+    {
+      "id": "housing_length_mm",
+      "type": "slider",
+      "default": 80,
+      "min": 40,
+      "max": 150,
+      "step": 5,
+      "label": {
+        "en": "Housing Length (mm)",
+        "es": "Largo de Carcasa (mm)"
+      },
+      "visible_in_modes": [
+        "Standard"
+      ],
+      "group": "dimensions"
+    }
+  ],
+  "presets": [
+    {
+      "id": "charcoal_standard",
+      "mode": "housing",
+      "label": {
+        "en": "Charcoal Cartridge (Standard)",
+        "es": "Cartucho de Carbón (Estándar)"
+      },
+      "values": {
+        "filter_type": "charcoal",
+        "housing_od": 40,
+        "housing_length": 80
+      }
+    },
+    {
+      "id": "ceramic_long",
+      "mode": "housing",
+      "label": {
+        "en": "Ceramic Cartridge (Long)",
+        "es": "Cartucho Cerámico (Largo)"
+      },
+      "values": {
+        "filter_type": "ceramic",
+        "housing_od": 44,
+        "housing_length": 120
+      }
+    },
+    {
+      "id": "membrane_cap",
+      "mode": "cap",
+      "label": {
+        "en": "Hollow-Fiber Bottle Cap",
+        "es": "Tapa con Fibra Hueca"
+      },
+      "values": {
+        "filter_type": "membrane",
+        "clearance": 0.4,
+        "nozzle_bore": 6,
+        "nozzle_len": 16
+      }
+    },
+    {
+      "id": "ceramic_disc_holder",
+      "mode": "membrane_holder",
+      "label": {
+        "en": "Ceramic Disc Holder",
+        "es": "Portadisco Cerámico"
+      },
+      "values": {
+        "filter_type": "ceramic",
+        "housing_od": 44
+      }
+    },
+    {
+      "id": "charcoal_standard_scad",
+      "label": {
+        "en": "Charcoal Filter (Standard)",
+        "es": "Filtro de Carbón (Estándar)"
+      },
+      "values": {
+        "filter_type": "charcoal",
+        "housing_length_mm": 80
+      }
+    },
+    {
+      "id": "ceramic_long_scad",
+      "label": {
+        "en": "Ceramic Filter (Long)",
+        "es": "Filtro Cerámico (Largo)"
+      },
+      "values": {
+        "filter_type": "ceramic",
+        "housing_length_mm": 120
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "clearance <= 1.0",
+      "severity": "warning",
+      "message": {
+        "en": "Large clearance may make the thread leak or spin loose",
+        "es": "Una holgura grande puede hacer que la rosca gotee o gire floja"
+      }
+    },
+    {
+      "expression": "wall >= 1.6",
+      "severity": "error",
+      "message": {
+        "en": "Wall must be at least 1.6 mm around the thread",
+        "es": "La pared debe ser de al menos 1.6 mm alrededor de la rosca"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        90,
+        80
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        150
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -150,
+        30
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 10,
+    "per_unit": 3,
+    "per_part": 12,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "domain": "household",
+    "cdg_interfaces": [
+      {
+        "id": "pet_bottle_neck_thread",
+        "label": {
+          "en": "PET Bottle Neck Thread",
+          "es": "Rosca de Cuello de Botella PET"
+        },
+        "geometry_type": "thread",
+        "standard": "PCO 1881",
+        "parameters": [
+          "clearance",
+          "wall"
+        ],
+        "compatible_with": [
+          "bottle-thread"
+        ]
+      },
+      {
+        "id": "filter_medium_housing",
+        "label": {
+          "en": "Filter Medium Housing",
+          "es": "Alojamiento del Medio Filtrante"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "filter_type",
+          "housing_od",
+          "housing_length",
+          "seat_lip"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A discarded PET bottle plus a printed cap becomes a working water filter. Anyone with a printer and a filter medium can make safe drinking water from questionable sources — no proprietary cartridges, no supply chain, no commercial dependency. Water sovereignty and plastic upcycling in one object; the output side of the bottle-thread ecosystem.",
+      "es": "Una botella PET desechada más una tapa impresa se convierte en un filtro de agua funcional. Cualquiera con una impresora y un medio filtrante puede obtener agua potable de fuentes dudosas — sin cartuchos propietarios, sin cadena de suministro, sin dependencia comercial. Soberanía del agua y aprovechamiento de plástico en un solo objeto; el lado de salida del ecosistema bottle-thread."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "water",
+    "filter",
+    "humanitarian",
+    "upcycling",
+    "bottle",
+    "household",
+    "hyperobject",
+    "commons"
+  ]
 }
