@@ -1,113 +1,142 @@
 # Microscope Slide Holder
 
-Parametric microscope slide retention system — trays, boxes, staining racks, and archival cabinets
+A parametric microscope-slide retention system — a **dual-kernel** hyperobject
+that renders on **CadQuery (B-Rep)** by default and keeps its original **OpenSCAD**
+modes. All classes share one Central Design Geometry (CDG): the **standard slide
+pocket** — a 25.4 × 76.2 mm (1" × 3") slide, ~1 mm thick, per **ISO 8037-1** / the
+US "3×1" convention — plus a per-side printable clearance so the printed slot
+actually accepts a real slide.
 
-Official Visualizer and Configurator: Yantra4D
+*Sistema paramétrico de retención de portaobjetos de microscopio — un hiperobjeto
+de **doble núcleo** que renderiza en **CadQuery (B-Rep)** por defecto y conserva
+sus modos **OpenSCAD** originales. Todas las clases comparten una Geometría de
+Diseño Central: el **bolsillo estándar de laminilla** de 25.4 × 76.2 mm según
+ISO 8037-1, más una holgura imprimible por lado.*
 
-*Sistema paramétrico de retención de portaobjetos de microscopio — bandejas, cajas, bastidores de tinción y gabinetes archivadores
+Part of the **Yantra4D Hyperobjects Commons**. Official visualizer and
+configurator: [Yantra4D](https://app.yantra4d.com).
 
-Visualizador y configurador oficial: Yantra4D*
+> ⚠️ **Not a certified clinical device.** These are open hardware lab-organizer
+> blanks for histology/cytology/archival workflows. They are not diagnostic
+> instruments; validation for any clinical or laboratory-accredited use is the
+> user's responsibility.
 
-**Version**: 2.0.0  
-**Slug**: `microscope-slide-holder`
+**Version**: 3.1.0 · **Slug**: `microscope-slide-holder`
 
 ## Modes
 
-| ID | Label | SCAD File | Parts |
-|---|---|---|---|
-| `box` | Storage Box | `box.scad` | box_base, box_lid |
-| `tray` | Horizontal Tray | `tray.scad` | tray |
-| `staining_rack` | Staining Rack | `staining_rack.scad` | rack |
-| `cabinet_drawer` | Cabinet Drawer | `cabinet_drawer.scad` | drawer, shell |
+The default kernel is **CadQuery (B-Rep)**; every legacy OpenSCAD mode carries an
+explicit `engine: openscad`. The CadQuery re-author uses distinct mode ids
+(`slide_box`, `slide_tray`, `staining_rack_cq`) so they do not collide with the
+OpenSCAD mode ids in the dual-engine manifest.
+
+| Mode id | Label (en) | Engine | File |
+| :--- | :--- | :--- | :--- |
+| `slide_box` | Storage Box | CadQuery B-Rep | `main.py` |
+| `slide_tray` | Horizontal Tray | CadQuery B-Rep | `main.py` |
+| `staining_rack_cq` | Staining Rack | CadQuery B-Rep | `main.py` |
+| `box` | Storage Box (OpenSCAD) | OpenSCAD | `box.scad` |
+| `tray` | Horizontal Tray (OpenSCAD) | OpenSCAD | `tray.scad` |
+| `staining_rack` | Staining Rack (OpenSCAD) | OpenSCAD | `staining_rack.scad` |
+| `cabinet_drawer` | Cabinet Drawer (OpenSCAD) | OpenSCAD | `cabinet_drawer.scad` |
+
+**CadQuery modes** — `slide_box`, `slide_tray`, `staining_rack_cq`:
+
+- **Storage Box** (`slide_box`, parts `slide_box` + `slide_box_lid`) — covered box
+  holding N slides on edge in a comb of parallel slots, with a matching skirt lid
+  (optional inner snap lip).
+- **Horizontal Tray** (`slide_tray`) — flat tray with a `columns × rows` grid of
+  slide-shaped pockets; optional finger notch cut through each pocket for removal.
+- **Staining Rack** (`staining_rack_cq`) — open skeletonised frame that holds
+  slides on edge for dipping in reagent; open crossbar bottom (fluid circulation)
+  or a drainage-sloped solid floor, optional carrying handle.
+
+**OpenSCAD modes** — `box` (parts `box_base` + `box_lid`), `tray` (`tray`),
+`staining_rack` (`rack`), and `cabinet_drawer` (parts `drawer` + `shell`): the
+original four retention classes. The **Cabinet Drawer** class exists **only** on
+the OpenSCAD engine — it was not re-authored in CadQuery.
+
+Each CadQuery mode dispatches on the `target_part` global injected by the
+platform, and the manifest's `parts[]` ids equal those dispatch keys.
 
 ## Parameters
 
-| Name | Type | Default | Range | Description |
-|---|---|---|---|---|
-| `slide_standard` | slider | 0 | 0–4 | 0=ISO 76×26, 1=US 76.2×25.4, 2=Petrographic 46×27, 3=Supa Mega 75×50, 4=Custom |
-| `custom_slide_length` | slider | 76 | 40–100 (step 0.1) | Only used when Standard = 4 (Custom) |
-| `custom_slide_width` | slider | 26 | 15–55 (step 0.1) | Only used when Standard = 4 (Custom) |
-| `custom_slide_thickness` | slider | 1.0 | 0.5–2.0 (step 0.1) | Only used when Standard = 4 (Custom) |
-| `num_slots` | slider | 25 | 1–100 | Number of slide positions |
-| `tolerance_xy` | slider | 0.4 | 0.1–1.0 (step 0.05) | Horizontal clearance for FDM printing |
-| `tolerance_z` | slider | 0.2 | 0.05–0.5 (step 0.05) | Slide thickness clearance |
-| `wall_thickness` | slider | 2.0 | 1.2–4.0 (step 0.2) | Outer wall thickness |
-| `label_area` | checkbox | Yes |  | Generate debossed label recess |
-| `fn` | slider | 0 | 0–64 (step 8) | 0 = auto; higher = more detail but slower |
-| `rib_profile` | slider | 0 | 0–1 | 0=tapered (guides insertion), 1=rectangular (simpler) |
-| `rib_width` | slider | 1.8 | 0.8–3.0 (step 0.1) | Rib root width |
-| `density` | slider | 1 | 0–3 | 0=archival (2.6mm), 1=working (3.5mm), 2=staining (5mm), 3=mailer (6mm) |
-| `lid_latch` | slider | 0 | 0–2 | 0=snap-fit, 1=magnetic, 2=none |
-| `stackable` | checkbox | Yes |  | Generate stacking lip and groove |
-| `numbering_start` | slider | 1 | 0–999 | First slot number for debossed labels (requires $fn > 0) |
-| `tray_columns` | slider | 5 | 1–10 | Columns of slide pockets |
-| `tray_rows` | slider | 2 | 1–5 | Rows of slide pockets |
-| `finger_notch` | checkbox | Yes |  | Cylindrical notch for easy slide removal |
-| `anti_capillary` | checkbox | Yes |  | Floor rails to break vacuum seal under slide |
-| `handle` | checkbox | Yes |  | Generate carrying handle on rack |
-| `drainage_angle` | slider | 5 | 0–15 | Slope for fluid runoff |
-| `open_bottom` | checkbox | Yes |  | Crossbar floor instead of solid (better fluid circulation) |
-| `rail_profile` | slider | 0 | 0–1 | 0=T-slot (more secure), 1=L-rail (simpler) |
-| `backstop` | checkbox | Yes |  | Flexible tab prevents full drawer extraction |
-| `drawers_per_shell` | slider | 5 | 1–10 | Number of drawer slots in the shell |
+### CadQuery parameters (main modes)
+
+| Group | Parameter | Default | Notes |
+| :--- | :--- | :--- | :--- |
+| Slide | `slide_standard` | US 3"×1" (1) | ISO / US / Petrographic / Supa Mega / Custom. |
+| Slide | `custom_slide_length` / `_width` / `_thickness` | 76.2 / 25.4 / 1.0 mm | Used only when Standard = Custom. |
+| Architecture | `num_slots` | 20 | Slide capacity (box + rack). |
+| Structure | `wall` | 2.0 mm | Outer wall / floor thickness. |
+| Tolerance | `tolerance_xy` / `tolerance_z` | 0.4 / 0.2 mm | In-plane and thickness clearance for FDM fit. |
+| Box | `density` | Working (1) | Rib width between slots → slot pitch. |
+| Box | `lid_snap` | on | Inner retention lip on the lid. |
+| Tray | `tray_columns` / `tray_rows` | 5 / 2 | Pocket grid. |
+| Tray | `finger_notch` | on | Removal notch per pocket. |
+| Rack | `handle` | on | Carrying handle. |
+| Rack | `open_bottom` | on | Crossbars vs. solid drainage floor. |
+| Rack | `drainage_angle` | 5° | Floor runoff slope (solid floor only). |
+
+### OpenSCAD-extended parameters
+
+The legacy OpenSCAD modes (`box`, `tray`, `staining_rack`, `cabinet_drawer`) add
+their own parameters by group on top of the shared `slide_standard` / slide
+envelope, including:
+
+- **Structure / Features / Quality** — `wall_thickness`, `label_area`, `fn` ($fn).
+- **Box — Architecture** — `rib_profile`, `rib_width`, `lid_latch` (snap /
+  magnetic / none), `stackable`, `numbering_start`.
+- **Tray — Features** — `anti_capillary`.
+- **Cabinet — Features** — `rail_profile` (T-slot / L-rail), `backstop`,
+  `drawers_per_shell`.
+
+Only the OpenSCAD modes expose these legacy rows.
 
 ## Presets
 
-- **Standard 25-Place Box**
-  `slide_standard`=0, `num_slots`=25, `density`=1, `lid_latch`=0, `stackable`=Yes
-- **100-Place Archival Box**
-  `slide_standard`=0, `num_slots`=100, `density`=0, `stackable`=Yes, `lid_latch`=0
-- **Petrographic Box (20)**
-  `slide_standard`=2, `num_slots`=20, `density`=1
-- **Drying Tray (5×2)**
-  `slide_standard`=0, `num_slots`=10, `tray_columns`=5, `tray_rows`=2, `anti_capillary`=Yes, `finger_notch`=Yes
-- **20-Slide Staining Rack**
-  `slide_standard`=0, `num_slots`=20, `handle`=Yes, `drainage_angle`=5
-- **Compact 5-Slide Box**
-  `slide_standard`=1, `num_slots`=5, `density`=1, `stackable`=No
-- **Supa Mega Tray (2×2)**
-  `slide_standard`=3, `num_slots`=4, `tray_columns`=2, `tray_rows`=2, `finger_notch`=Yes
-- **Cabinet Unit (5 drawers)**
-  `slide_standard`=0, `num_slots`=25, `drawers_per_shell`=5, `rail_profile`=0
+- **Standard 20-Place Box** — US slides, working density, snap lid (`slide_box`).
+- **100-Place Archival Box** — ISO slides at archival density (`slide_box`).
+- **Drying Tray (5×2)** — 10 pockets, finger notches (`slide_tray`).
+- **20-Slide Staining Rack** — open bottom, 5° drainage, handle (`staining_rack_cq`).
+- Legacy OpenSCAD presets — **Standard 25-Place Box**, **100-Place Archival Box**,
+  **Petrographic Box (20)**, **Drying Tray (5×2)**, **20-Slide Staining Rack**,
+  **Compact 5-Slide Box**, **Supa Mega Tray (2×2)**, **Cabinet Unit (5 drawers)** —
+  target the OpenSCAD modes.
 
-## Parts
+## Hyperobject Profile
 
-| ID | Label | Default Color |
-|---|---|---|
-| `box_base` | Box Base | `#4a90d9` |
-| `box_lid` | Box Lid | `#6b7280` |
-| `tray` | Tray | `#4a90d9` |
-| `rack` | Rack | `#e5e7eb` |
-| `drawer` | Drawer | `#4a90d9` |
-| `shell` | Shell | `#2d2d2d` |
+- **Domain:** medical
+- **CDG interfaces:**
+  - **Microscope Slide Slot** (`pocket`, *ISO 8037-1 (25.4×76.2mm)*) — the shared
+    slide envelope. Driven by `slide_standard` (or the `custom_slide_*` trio) plus
+    `tolerance_xy` / `tolerance_z` and `num_slots`. Every mode's retaining
+    geometry derives its slot/pocket from this one interface, so a slide that
+    fits one fits all.
+  - **Retention Pitch System** (`rail`, internal) — `density`, `num_slots`; the
+    rib width between slots sets the box slot pitch.
+  - **Press-Fit Lid Seam** (`snap`, internal) — `lid_snap`, `wall`, `num_slots`;
+    the lid skirt is sized from the same envelope as the box so it always caps
+    its base.
+- **Material awareness:** clearance is exposed (`tolerance_xy`, `tolerance_z`) so
+  the fit can be tuned per material/printer; `tolerance_by_material` is declared.
+- **Societal benefit:** lets laboratories and pathology departments fabricate
+  precision slide retention for histology, cytology, and archival workflows,
+  independent of commercial supply chains.
+- **License:** CERN-OHL-W-2.0
 
-## Constraints
+## Engines
 
-- `num_slots >= 1` — At least 1 slide slot required (error)
-- `custom_slide_thickness > 0` — Slide thickness must be positive (error)
-- `custom_slide_length > custom_slide_width` — Length must exceed width (error)
-- `wall_thickness >= 1.2` — Walls below 1.2mm may not print reliably (3 perimeters at 0.4mm nozzle) (warning)
-- `num_slots <= 50` — More than 50 slots may exceed typical print bed width (warning)
-- `tolerance_xy >= 0.2` — Tolerance below 0.2mm may cause insertion difficulty (warning)
-- `!(slide_standard == 3 && density == 0)` — Supa Mega slides at archival density require very wide print bed (warning)
-
-## Assembly Steps
-
-1. **Print the parts**
-   0.2mm layers, 20–30% infill. PLA for dry storage, PETG for staining
-2. **Attach lid (box mode)**
-   Align lid snap-fit latches with base catches
-3. **Insert microscope slides**
-   Slide microscope slides in from the top into the slots
-
-## Render Estimates
-
-- **base_time**: 5
-- **per_unit**: 2
-- **per_part**: 8
-- **fn_factor**: 32
-- **wasm_multiplier**: 3
-- **warning_threshold_seconds**: 60
-
----
-*Auto-generated from `project.json` by `scripts/generate-project-docs.py`*
+- **Default engine: CadQuery (B-Rep).** `slide_box`, `slide_tray`, and
+  `staining_rack_cq` render on CadQuery; every shipped preset and default renders
+  **watertight** and exports **STEP** (alongside STL / 3MF / GLB / GLTF / OBJ).
+- **Legacy engine: OpenSCAD.** `box`, `tray`, `staining_rack`, and `cabinet_drawer`
+  each carry an explicit per-mode `engine: openscad` and render their respective
+  `.scad` files through the OpenSCAD kernel. The **Cabinet Drawer** class is
+  available only here.
+- The CadQuery script is **self-contained** (sandbox-safe): parameters are read via
+  a `PARAM(lambda: name, default)` guard because the render sandbox exposes neither
+  `globals()` nor `eval` / `getattr`; the final solid is assigned to `result`.
+- Repeated features (slot combs, pocket grids, rib rails) are built as a single
+  `pushPoints` / `eachpoint` compound so each becomes one boolean, keeping every
+  variant (including the 100-slot box and 10×5 tray) watertight and fast.

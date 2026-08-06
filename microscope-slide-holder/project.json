@@ -2,12 +2,14 @@
   "project": {
     "name": "Microscope Slide Holder",
     "slug": "microscope-slide-holder",
-    "version": "2.0.0",
+    "version": "3.1.0",
+    "engine": "cadquery",
     "description": {
-      "es": "Sistema paramétrico de retención de portaobjetos de microscopio — bandejas, cajas, bastidores de tinción y gabinetes archivadores\n\nVisualizador y configurador oficial: Yantra4D",
-      "en": "Parametric microscope slide retention system — trays, boxes, staining racks, and archival cabinets\n\nOfficial Visualizer and Configurator: Yantra4D"
+      "en": "Parametric microscope slide retention system (B-Rep / CadQuery) — a covered slotted storage box with lid, a flat multi-pocket tray, and an open staining rack that holds slides on edge for reagent dipping. Built around the standard 25.4 x 76.2 mm (1\" x 3\") slide pocket per ISO 8037-1.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Sistema paramétrico de retención de portaobjetos de microscopio (B-Rep / CadQuery) — una caja de almacenamiento ranurada con tapa, una bandeja plana multi-bolsillo y un bastidor de tinción abierto que sostiene las laminillas de canto para inmersión en reactivo. Construido en torno al bolsillo estándar de 25.4 x 76.2 mm (1\" x 3\") según ISO 8037-1.\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/microscope-slide-holder.webp",
+    "difficulty": "intermediate",
     "tags": [
       "lab",
       "microscope",
@@ -17,96 +19,81 @@
       "histology",
       "pathology",
       "archival",
+      "medical",
       "hyperobject",
       "commons",
       "cdg",
       "bosl2",
       "pilot"
     ],
-    "difficulty": "intermediate"
-  },
-  "hyperobject": {
-    "domain": "medical",
-    "cdg_interfaces": [
-      {
-        "id": "iso_8037_standard",
-        "label": {
-          "en": "ISO 8037 Microscope Slide Standard",
-          "es": "Estándar ISO 8037 Laminillas de Microscopio"
-        },
-        "geometry_type": "pocket",
-        "standard": "ISO 8037-1:2003",
-        "parameters": [
-          "slide_standard",
-          "custom_slide_length",
-          "custom_slide_width",
-          "custom_slide_thickness"
-        ]
-      },
-      {
-        "id": "density_pitch_system",
-        "label": {
-          "en": "Retention Pitch System",
-          "es": "Sistema de Paso de Retención"
-        },
-        "geometry_type": "rail",
-        "standard": "internal",
-        "parameters": [
-          "density",
-          "num_slots"
-        ]
-      },
-      {
-        "id": "stacking_interface",
-        "label": {
-          "en": "Stacking Lip/Groove Interface",
-          "es": "Interfaz de Labio/Ranura de Apilamiento"
-        },
-        "geometry_type": "snap",
-        "standard": "internal",
-        "parameters": [
-          "stackable"
-        ]
-      },
-      {
-        "id": "snap_latch_interface",
-        "label": {
-          "en": "Snap-Fit Lid Latch",
-          "es": "Pestillo de Tapa a Presión"
-        },
-        "geometry_type": "snap",
-        "standard": "internal",
-        "parameters": [
-          "lid_latch"
-        ]
-      }
-    ],
-    "material_awareness": {
-      "shrinkage_compensation": false,
-      "recycled_material_toggle": false,
-      "tolerance_by_material": true
+    "hyperobject": {
+      "is_hyperobject": true
     },
-    "societal_benefit": {
-      "en": "Enables laboratories and pathology departments to fabricate precision slide retention systems for histology, cytology, and archival workflows — independent of commercial supply chains.",
-      "es": "Permite a laboratorios y departamentos de patología fabricar sistemas de retención de laminillas de precisión para flujos de trabajo de histología, citología y archivo — independiente de cadenas de suministro comerciales."
-    },
-    "commons_license": "CERN-OHL-W-2.0",
-    "oep8_features": [
-      "object_dicts",
-      "material_structs"
-    ],
-    "cdg_registry_refs": [
-      "iso_8037_slide"
-    ],
-    "pilot_hyperobject": true
+    "force_backend": true
   },
   "modes": [
+    {
+      "id": "slide_box",
+      "label": {
+        "en": "Storage Box",
+        "es": "Caja de Almacenamiento"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "slide_box",
+        "slide_box_lid"
+      ],
+      "part_quantities": {
+        "slide_box": 1,
+        "slide_box_lid": 1
+      },
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "slide_tray",
+      "label": {
+        "en": "Horizontal Tray",
+        "es": "Bandeja Horizontal"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "slide_tray"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_unit": 2,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "staining_rack_cq",
+      "label": {
+        "en": "Staining Rack",
+        "es": "Bastidor de Tinción"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "staining_rack_cq"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
     {
       "id": "box",
       "scad_file": "box.scad",
       "label": {
-        "es": "Caja de Almacenamiento",
-        "en": "Storage Box"
+        "es": "Caja de Almacenamiento (OpenSCAD)",
+        "en": "Storage Box (OpenSCAD)"
       },
       "parts": [
         "box_base",
@@ -119,14 +106,15 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "engine": "openscad"
     },
     {
       "id": "tray",
       "scad_file": "tray.scad",
       "label": {
-        "es": "Bandeja Horizontal",
-        "en": "Horizontal Tray"
+        "es": "Bandeja Horizontal (OpenSCAD)",
+        "en": "Horizontal Tray (OpenSCAD)"
       },
       "parts": [
         "tray"
@@ -134,14 +122,15 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "engine": "openscad"
     },
     {
       "id": "staining_rack",
       "scad_file": "staining_rack.scad",
       "label": {
-        "es": "Bastidor de Tinción",
-        "en": "Staining Rack"
+        "es": "Bastidor de Tinción (OpenSCAD)",
+        "en": "Staining Rack (OpenSCAD)"
       },
       "parts": [
         "rack"
@@ -149,14 +138,15 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "engine": "openscad"
     },
     {
       "id": "cabinet_drawer",
       "scad_file": "cabinet_drawer.scad",
       "label": {
-        "es": "Cajón de Gabinete",
-        "en": "Cabinet Drawer"
+        "es": "Cajón de Gabinete (OpenSCAD)",
+        "en": "Cabinet Drawer (OpenSCAD)"
       },
       "parts": [
         "drawer",
@@ -169,10 +159,47 @@
       "estimate": {
         "base_units": 1,
         "formula": "constant"
-      }
+      },
+      "engine": "openscad"
     }
   ],
   "parts": [
+    {
+      "id": "slide_box",
+      "label": {
+        "en": "Box Base",
+        "es": "Base de Caja"
+      },
+      "render_mode": 0,
+      "color": "#4a90d9"
+    },
+    {
+      "id": "slide_box_lid",
+      "label": {
+        "en": "Box Lid",
+        "es": "Tapa de Caja"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "slide_tray",
+      "label": {
+        "en": "Tray",
+        "es": "Bandeja"
+      },
+      "render_mode": 0,
+      "color": "#4a90d9"
+    },
+    {
+      "id": "staining_rack_cq",
+      "label": {
+        "en": "Rack",
+        "es": "Bastidor"
+      },
+      "render_mode": 0,
+      "color": "#e5e7eb"
+    },
     {
       "id": "box_base",
       "render_mode": 0,
@@ -228,187 +255,194 @@
       "default_color": "#2d2d2d"
     }
   ],
-  "presets": [
+  "parameter_groups": [
     {
-      "id": "standard_25_box",
+      "id": "slide",
       "label": {
-        "es": "Caja Estándar 25 Laminillas",
-        "en": "Standard 25-Place Box"
-      },
-      "values": {
-        "slide_standard": 0,
-        "num_slots": 25,
-        "density": 1,
-        "lid_latch": 0,
-        "stackable": true
+        "en": "Slide",
+        "es": "Laminilla"
       }
     },
     {
-      "id": "archival_100_box",
+      "id": "architecture",
       "label": {
-        "es": "Caja Archivadora 100 Laminillas",
-        "en": "100-Place Archival Box"
-      },
-      "values": {
-        "slide_standard": 0,
-        "num_slots": 100,
-        "density": 0,
-        "stackable": true,
-        "lid_latch": 0
+        "en": "Architecture",
+        "es": "Arquitectura"
       }
     },
     {
-      "id": "petrographic_box",
+      "id": "tolerance",
       "label": {
-        "es": "Caja Petrográfica (20)",
-        "en": "Petrographic Box (20)"
-      },
-      "values": {
-        "slide_standard": 2,
-        "num_slots": 20,
-        "density": 1
+        "en": "Tolerance",
+        "es": "Tolerancia"
       }
     },
     {
-      "id": "drying_tray_10",
+      "id": "structure",
       "label": {
-        "es": "Bandeja de Secado (5×2)",
-        "en": "Drying Tray (5×2)"
-      },
-      "values": {
-        "slide_standard": 0,
-        "num_slots": 10,
-        "tray_columns": 5,
-        "tray_rows": 2,
-        "anti_capillary": true,
-        "finger_notch": true
+        "en": "Structure",
+        "es": "Estructura"
       }
     },
     {
-      "id": "staining_rack_20",
+      "id": "box_architecture",
       "label": {
-        "es": "Bastidor de Tinción (20)",
-        "en": "20-Slide Staining Rack"
-      },
-      "values": {
-        "slide_standard": 0,
-        "num_slots": 20,
-        "handle": true,
-        "drainage_angle": 5
+        "en": "Box — Architecture",
+        "es": "Caja — Arquitectura"
       }
     },
     {
-      "id": "compact_5_box",
+      "id": "tray_layout",
       "label": {
-        "es": "Caja Compacta (5)",
-        "en": "Compact 5-Slide Box"
-      },
-      "values": {
-        "slide_standard": 1,
-        "num_slots": 5,
-        "density": 1,
-        "stackable": false
+        "en": "Tray — Layout",
+        "es": "Bandeja — Disposición"
       }
     },
     {
-      "id": "supa_mega_tray",
+      "id": "rack_features",
       "label": {
-        "es": "Bandeja Supa Mega (2×2)",
-        "en": "Supa Mega Tray (2×2)"
-      },
-      "values": {
-        "slide_standard": 3,
-        "num_slots": 4,
-        "tray_columns": 2,
-        "tray_rows": 2,
-        "finger_notch": true
+        "en": "Rack — Features",
+        "es": "Bastidor — Características"
       }
     },
     {
-      "id": "cabinet_unit_5",
+      "id": "features",
       "label": {
-        "es": "Unidad de Gabinete (5 cajones)",
-        "en": "Cabinet Unit (5 drawers)"
-      },
-      "values": {
-        "slide_standard": 0,
-        "num_slots": 25,
-        "drawers_per_shell": 5,
-        "rail_profile": 0
+        "es": "Características",
+        "en": "Features"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "es": "Calidad",
+        "en": "Quality"
+      }
+    },
+    {
+      "id": "tray_features",
+      "label": {
+        "es": "Bandeja — Características",
+        "en": "Tray — Features"
+      }
+    },
+    {
+      "id": "cabinet_features",
+      "label": {
+        "es": "Gabinete — Características",
+        "en": "Cabinet — Features"
+      }
+    },
+    {
+      "id": "colors",
+      "label": {
+        "es": "Colores",
+        "en": "Colors"
       }
     }
   ],
   "parameters": [
     {
       "id": "slide_standard",
-      "type": "slider",
-      "default": 0,
-      "min": 0,
-      "max": 4,
-      "step": 1,
+      "type": "select",
+      "default": 1,
+      "group": "slide",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
       "label": {
-        "es": "Estándar de Laminilla",
-        "en": "Slide Standard"
+        "en": "Slide Standard",
+        "es": "Estándar de Laminilla"
       },
       "tooltip": {
-        "es": "0=ISO 76×26, 1=US 76.2×25.4, 2=Petrográfico 46×27, 3=Supa Mega 75×50, 4=Personalizado",
-        "en": "0=ISO 76×26, 1=US 76.2×25.4, 2=Petrographic 46×27, 3=Supa Mega 75×50, 4=Custom"
+        "en": "Standard slide envelope. The CDG default is US 3\"x1\" (76.2 x 25.4 mm).",
+        "es": "Envolvente estándar de laminilla. El CDG por defecto es US 3\"x1\" (76.2 x 25.4 mm)."
       },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "slide"
+      "options": [
+        {
+          "value": 0,
+          "label": {
+            "en": "ISO 8037 (76 x 26)",
+            "es": "ISO 8037 (76 x 26)"
+          }
+        },
+        {
+          "value": 1,
+          "label": {
+            "en": "US 3\"x1\" (76.2 x 25.4)",
+            "es": "US 3\"x1\" (76.2 x 25.4)"
+          }
+        },
+        {
+          "value": 2,
+          "label": {
+            "en": "Petrographic (46 x 27)",
+            "es": "Petrográfico (46 x 27)"
+          }
+        },
+        {
+          "value": 3,
+          "label": {
+            "en": "Supa Mega (75 x 50)",
+            "es": "Supa Mega (75 x 50)"
+          }
+        },
+        {
+          "value": 4,
+          "label": {
+            "en": "Custom",
+            "es": "Personalizado"
+          }
+        }
+      ]
     },
     {
       "id": "custom_slide_length",
       "type": "slider",
-      "default": 76,
+      "default": 76.2,
       "min": 40,
       "max": 100,
       "step": 0.1,
+      "group": "slide",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "advanced": true,
       "label": {
-        "es": "Largo de Laminilla (mm)",
-        "en": "Slide Length (mm)"
+        "en": "Slide Length (mm)",
+        "es": "Largo de Laminilla (mm)"
       },
       "tooltip": {
-        "es": "Solo se usa cuando Estándar = 4 (Personalizado)",
-        "en": "Only used when Standard = 4 (Custom)"
-      },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "slide",
-      "visibility_level": "advanced"
+        "en": "Used only when Standard = Custom",
+        "es": "Solo se usa cuando Estándar = Personalizado"
+      }
     },
     {
       "id": "custom_slide_width",
       "type": "slider",
-      "default": 26,
+      "default": 25.4,
       "min": 15,
       "max": 55,
       "step": 0.1,
+      "group": "slide",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "advanced": true,
       "label": {
-        "es": "Ancho de Laminilla (mm)",
-        "en": "Slide Width (mm)"
+        "en": "Slide Width (mm)",
+        "es": "Ancho de Laminilla (mm)"
       },
       "tooltip": {
-        "es": "Solo se usa cuando Estándar = 4 (Personalizado)",
-        "en": "Only used when Standard = 4 (Custom)"
-      },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "slide",
-      "visibility_level": "advanced"
+        "en": "Used only when Standard = Custom",
+        "es": "Solo se usa cuando Estándar = Personalizado"
+      }
     },
     {
       "id": "custom_slide_thickness",
@@ -417,49 +451,68 @@
       "min": 0.5,
       "max": 2.0,
       "step": 0.1,
+      "group": "slide",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "advanced": true,
       "label": {
-        "es": "Grosor de Laminilla (mm)",
-        "en": "Slide Thickness (mm)"
+        "en": "Slide Thickness (mm)",
+        "es": "Grosor de Laminilla (mm)"
       },
       "tooltip": {
-        "es": "Solo se usa cuando Estándar = 4 (Personalizado)",
-        "en": "Only used when Standard = 4 (Custom)"
-      },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "slide",
-      "visibility_level": "advanced"
+        "en": "Used only when Standard = Custom",
+        "es": "Solo se usa cuando Estándar = Personalizado"
+      }
     },
     {
       "id": "num_slots",
       "type": "slider",
-      "default": 25,
+      "default": 20,
       "min": 1,
       "max": 100,
       "step": 1,
+      "group": "architecture",
+      "modes": [
+        "slide_box",
+        "staining_rack_cq"
+      ],
       "label": {
-        "es": "Número de Posiciones",
-        "en": "Number of Slots"
+        "en": "Slide Capacity",
+        "es": "Capacidad de Laminillas"
       },
       "tooltip": {
-        "es": "Cantidad de ranuras para laminillas",
-        "en": "Number of slide positions"
+        "en": "Number of slide slots (box and rack)",
+        "es": "Número de ranuras para laminillas (caja y bastidor)"
       },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "architecture",
       "preview_hint": {
         "type": "axis_scale",
-        "axis": "y",
-        "affected_parts": ["box", "lid"]
+        "axis": "x",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.2,
+      "max": 4.0,
+      "step": 0.2,
+      "group": "structure",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Outer wall / floor thickness",
+        "es": "Grosor de pared exterior / piso"
       }
     },
     {
@@ -469,22 +522,21 @@
       "min": 0.1,
       "max": 1.0,
       "step": 0.05,
+      "group": "tolerance",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "advanced": true,
       "label": {
-        "es": "Tolerancia XY (mm)",
-        "en": "XY Tolerance (mm)"
+        "en": "XY Tolerance (mm)",
+        "es": "Tolerancia XY (mm)"
       },
       "tooltip": {
-        "es": "Holgura en plano horizontal para impresión FDM",
-        "en": "Horizontal clearance for FDM printing"
-      },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
-      ],
-      "group": "tolerance",
-      "visibility_level": "advanced"
+        "en": "In-plane clearance around the slide (FDM fit)",
+        "es": "Holgura en plano alrededor de la laminilla (ajuste FDM)"
+      }
     },
     {
       "id": "tolerance_z",
@@ -493,22 +545,197 @@
       "min": 0.05,
       "max": 0.5,
       "step": 0.05,
+      "group": "tolerance",
+      "modes": [
+        "slide_box",
+        "slide_tray",
+        "staining_rack_cq"
+      ],
+      "advanced": true,
       "label": {
-        "es": "Tolerancia Z (mm)",
-        "en": "Z Tolerance (mm)"
+        "en": "Z Tolerance (mm)",
+        "es": "Tolerancia Z (mm)"
       },
       "tooltip": {
-        "es": "Holgura en grosor de laminilla",
-        "en": "Slide thickness clearance"
-      },
-      "visible_in_modes": [
-        "box",
-        "tray",
-        "staining_rack",
-        "cabinet_drawer"
+        "en": "Clearance added to slide thickness (slot width)",
+        "es": "Holgura añadida al grosor de laminilla (ancho de ranura)"
+      }
+    },
+    {
+      "id": "density",
+      "type": "select",
+      "default": 1,
+      "group": "box_architecture",
+      "modes": [
+        "slide_box"
       ],
-      "group": "tolerance",
-      "visibility_level": "advanced"
+      "label": {
+        "en": "Density / Pitch",
+        "es": "Densidad / Paso"
+      },
+      "tooltip": {
+        "en": "Rib width between slots — sets slot pitch in the box",
+        "es": "Ancho de costilla entre ranuras — define el paso en la caja"
+      },
+      "options": [
+        {
+          "value": 0,
+          "label": {
+            "en": "Archival (1.0 mm rib)",
+            "es": "Archivador (costilla 1.0 mm)"
+          }
+        },
+        {
+          "value": 1,
+          "label": {
+            "en": "Working (1.5 mm rib)",
+            "es": "Trabajo (costilla 1.5 mm)"
+          }
+        },
+        {
+          "value": 2,
+          "label": {
+            "en": "Staining (2.0 mm rib)",
+            "es": "Tinción (costilla 2.0 mm)"
+          }
+        },
+        {
+          "value": 3,
+          "label": {
+            "en": "Mailer (3.0 mm rib)",
+            "es": "Envío (costilla 3.0 mm)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lid_snap",
+      "type": "checkbox",
+      "default": true,
+      "group": "box_architecture",
+      "modes": [
+        "slide_box"
+      ],
+      "label": {
+        "en": "Lid Snap Lip",
+        "es": "Labio de Presión en Tapa"
+      },
+      "tooltip": {
+        "en": "Add an inner retention lip to the lid",
+        "es": "Añadir un labio de retención interior a la tapa"
+      }
+    },
+    {
+      "id": "tray_columns",
+      "type": "slider",
+      "default": 5,
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "group": "tray_layout",
+      "modes": [
+        "slide_tray"
+      ],
+      "label": {
+        "en": "Columns",
+        "es": "Columnas"
+      },
+      "tooltip": {
+        "en": "Columns of slide pockets",
+        "es": "Columnas de bolsillos para laminillas"
+      }
+    },
+    {
+      "id": "tray_rows",
+      "type": "slider",
+      "default": 2,
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "group": "tray_layout",
+      "modes": [
+        "slide_tray"
+      ],
+      "label": {
+        "en": "Rows",
+        "es": "Filas"
+      },
+      "tooltip": {
+        "en": "Rows of slide pockets",
+        "es": "Filas de bolsillos para laminillas"
+      }
+    },
+    {
+      "id": "finger_notch",
+      "type": "checkbox",
+      "default": true,
+      "group": "tray_layout",
+      "modes": [
+        "slide_tray"
+      ],
+      "label": {
+        "en": "Finger Notch",
+        "es": "Muesca para Dedo"
+      },
+      "tooltip": {
+        "en": "Cylindrical notch through each pocket for easy removal",
+        "es": "Muesca cilíndrica en cada bolsillo para remover fácilmente"
+      }
+    },
+    {
+      "id": "handle",
+      "type": "checkbox",
+      "default": true,
+      "group": "rack_features",
+      "modes": [
+        "staining_rack_cq"
+      ],
+      "label": {
+        "en": "Carrying Handle",
+        "es": "Asa de Transporte"
+      },
+      "tooltip": {
+        "en": "Generate a carrying handle on the rack",
+        "es": "Generar un asa para transportar el bastidor"
+      }
+    },
+    {
+      "id": "open_bottom",
+      "type": "checkbox",
+      "default": true,
+      "group": "rack_features",
+      "modes": [
+        "staining_rack_cq"
+      ],
+      "label": {
+        "en": "Open Bottom",
+        "es": "Fondo Abierto"
+      },
+      "tooltip": {
+        "en": "Crossbars instead of a solid floor (fluid circulation)",
+        "es": "Travesaños en vez de piso sólido (circulación de fluido)"
+      }
+    },
+    {
+      "id": "drainage_angle",
+      "type": "slider",
+      "default": 5,
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "group": "rack_features",
+      "modes": [
+        "staining_rack_cq"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Drainage Angle (°)",
+        "es": "Ángulo de Drenaje (°)"
+      },
+      "tooltip": {
+        "en": "Floor slope for runoff (only when bottom is solid)",
+        "es": "Pendiente del piso para escurrimiento (solo con fondo sólido)"
+      }
     },
     {
       "id": "wall_thickness",
@@ -619,27 +846,6 @@
       "visibility_level": "advanced"
     },
     {
-      "id": "density",
-      "type": "slider",
-      "default": 1,
-      "min": 0,
-      "max": 3,
-      "step": 1,
-      "label": {
-        "es": "Densidad / Paso",
-        "en": "Density / Pitch"
-      },
-      "tooltip": {
-        "es": "0=archivador (2.6mm), 1=trabajo (3.5mm), 2=tinción (5mm), 3=envío (6mm)",
-        "en": "0=archival (2.6mm), 1=working (3.5mm), 2=staining (5mm), 3=mailer (6mm)"
-      },
-      "visible_in_modes": [
-        "box",
-        "cabinet_drawer"
-      ],
-      "group": "box_architecture"
-    },
-    {
       "id": "lid_latch",
       "type": "slider",
       "default": 0,
@@ -698,63 +904,6 @@
       "visibility_level": "advanced"
     },
     {
-      "id": "tray_columns",
-      "type": "slider",
-      "default": 5,
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "label": {
-        "es": "Columnas",
-        "en": "Columns"
-      },
-      "tooltip": {
-        "es": "Columnas de bolsillos para laminillas",
-        "en": "Columns of slide pockets"
-      },
-      "visible_in_modes": [
-        "tray"
-      ],
-      "group": "tray_layout"
-    },
-    {
-      "id": "tray_rows",
-      "type": "slider",
-      "default": 2,
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "label": {
-        "es": "Filas",
-        "en": "Rows"
-      },
-      "tooltip": {
-        "es": "Filas de bolsillos para laminillas",
-        "en": "Rows of slide pockets"
-      },
-      "visible_in_modes": [
-        "tray"
-      ],
-      "group": "tray_layout"
-    },
-    {
-      "id": "finger_notch",
-      "type": "checkbox",
-      "default": true,
-      "label": {
-        "es": "Muesca para Dedo",
-        "en": "Finger Notch"
-      },
-      "tooltip": {
-        "es": "Muesca cilíndrica para remover laminillas fácilmente",
-        "en": "Cylindrical notch for easy slide removal"
-      },
-      "visible_in_modes": [
-        "tray"
-      ],
-      "group": "tray_features"
-    },
-    {
       "id": "anti_capillary",
       "type": "checkbox",
       "default": true,
@@ -770,60 +919,6 @@
         "tray"
       ],
       "group": "tray_features"
-    },
-    {
-      "id": "handle",
-      "type": "checkbox",
-      "default": true,
-      "label": {
-        "es": "Asa de Transporte",
-        "en": "Carrying Handle"
-      },
-      "tooltip": {
-        "es": "Generar asa para transportar el bastidor",
-        "en": "Generate carrying handle on rack"
-      },
-      "visible_in_modes": [
-        "staining_rack"
-      ],
-      "group": "rack_features"
-    },
-    {
-      "id": "drainage_angle",
-      "type": "slider",
-      "default": 5,
-      "min": 0,
-      "max": 15,
-      "step": 1,
-      "label": {
-        "es": "Ángulo de Drenaje (°)",
-        "en": "Drainage Angle (°)"
-      },
-      "tooltip": {
-        "es": "Pendiente para escurrimiento de líquidos",
-        "en": "Slope for fluid runoff"
-      },
-      "visible_in_modes": [
-        "staining_rack"
-      ],
-      "group": "rack_features"
-    },
-    {
-      "id": "open_bottom",
-      "type": "checkbox",
-      "default": true,
-      "label": {
-        "es": "Fondo Abierto",
-        "en": "Open Bottom"
-      },
-      "tooltip": {
-        "es": "Travesaños en vez de piso sólido (mejor circulación de fluido)",
-        "en": "Crossbar floor instead of solid (better fluid circulation)"
-      },
-      "visible_in_modes": [
-        "staining_rack"
-      ],
-      "group": "rack_features"
     },
     {
       "id": "rail_profile",
@@ -883,435 +978,322 @@
       "group": "cabinet_features"
     }
   ],
-  "parameter_groups": [
+  "presets": [
     {
-      "id": "slide",
+      "id": "standard_20_box",
+      "mode": "slide_box",
       "label": {
-        "es": "Laminilla",
-        "en": "Slide"
+        "en": "Standard 20-Place Box",
+        "es": "Caja Estándar 20 Laminillas"
       },
-      "levels": [
-        {
-          "id": "basic",
-          "label": {
-            "en": "Basic",
-            "es": "Básico"
-          }
-        },
-        {
-          "id": "advanced",
-          "label": {
-            "en": "Advanced",
-            "es": "Avanzado"
-          }
-        }
-      ]
-    },
-    {
-      "id": "architecture",
-      "label": {
-        "es": "Arquitectura",
-        "en": "Architecture"
+      "values": {
+        "slide_standard": 1,
+        "num_slots": 20,
+        "density": 1,
+        "lid_snap": true
       }
     },
     {
-      "id": "tolerance",
+      "id": "archival_100_box",
+      "mode": "slide_box",
       "label": {
-        "es": "Tolerancia",
-        "en": "Tolerance"
+        "en": "100-Place Archival Box",
+        "es": "Caja Archivadora 100 Laminillas"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 100,
+        "density": 0,
+        "lid_snap": true
       }
     },
     {
-      "id": "structure",
+      "id": "drying_tray_10",
+      "mode": "slide_tray",
       "label": {
-        "es": "Estructura",
-        "en": "Structure"
+        "en": "Drying Tray (5x2)",
+        "es": "Bandeja de Secado (5x2)"
+      },
+      "values": {
+        "slide_standard": 1,
+        "tray_columns": 5,
+        "tray_rows": 2,
+        "finger_notch": true
       }
     },
     {
-      "id": "features",
+      "id": "staining_rack_20",
+      "mode": "staining_rack_cq",
       "label": {
-        "es": "Características",
-        "en": "Features"
+        "en": "20-Slide Staining Rack",
+        "es": "Bastidor de Tinción (20)"
+      },
+      "values": {
+        "slide_standard": 1,
+        "num_slots": 20,
+        "handle": true,
+        "open_bottom": true,
+        "drainage_angle": 5
       }
     },
     {
-      "id": "quality",
+      "id": "standard_25_box_scad",
       "label": {
-        "es": "Calidad",
-        "en": "Quality"
+        "es": "Caja Estándar 25 Laminillas",
+        "en": "Standard 25-Place Box"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 25,
+        "density": 1,
+        "lid_latch": 0,
+        "stackable": true
       }
     },
     {
-      "id": "box_architecture",
+      "id": "archival_100_box_scad",
       "label": {
-        "es": "Caja — Arquitectura",
-        "en": "Box — Architecture"
+        "es": "Caja Archivadora 100 Laminillas",
+        "en": "100-Place Archival Box"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 100,
+        "density": 0,
+        "stackable": true,
+        "lid_latch": 0
       }
     },
     {
-      "id": "tray_layout",
+      "id": "petrographic_box_scad",
       "label": {
-        "es": "Bandeja — Disposición",
-        "en": "Tray — Layout"
+        "es": "Caja Petrográfica (20)",
+        "en": "Petrographic Box (20)"
+      },
+      "values": {
+        "slide_standard": 2,
+        "num_slots": 20,
+        "density": 1
       }
     },
     {
-      "id": "tray_features",
+      "id": "drying_tray_10_scad",
       "label": {
-        "es": "Bandeja — Características",
-        "en": "Tray — Features"
+        "es": "Bandeja de Secado (5×2)",
+        "en": "Drying Tray (5×2)"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 10,
+        "tray_columns": 5,
+        "tray_rows": 2,
+        "anti_capillary": true,
+        "finger_notch": true
       }
     },
     {
-      "id": "rack_features",
+      "id": "staining_rack_20_scad",
       "label": {
-        "es": "Bastidor — Características",
-        "en": "Rack — Features"
+        "es": "Bastidor de Tinción (20)",
+        "en": "20-Slide Staining Rack"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 20,
+        "handle": true,
+        "drainage_angle": 5
       }
     },
     {
-      "id": "cabinet_features",
+      "id": "compact_5_box_scad",
       "label": {
-        "es": "Gabinete — Características",
-        "en": "Cabinet — Features"
+        "es": "Caja Compacta (5)",
+        "en": "Compact 5-Slide Box"
+      },
+      "values": {
+        "slide_standard": 1,
+        "num_slots": 5,
+        "density": 1,
+        "stackable": false
       }
     },
     {
-      "id": "colors",
+      "id": "supa_mega_tray_scad",
       "label": {
-        "es": "Colores",
-        "en": "Colors"
+        "es": "Bandeja Supa Mega (2×2)",
+        "en": "Supa Mega Tray (2×2)"
+      },
+      "values": {
+        "slide_standard": 3,
+        "num_slots": 4,
+        "tray_columns": 2,
+        "tray_rows": 2,
+        "finger_notch": true
+      }
+    },
+    {
+      "id": "cabinet_unit_5_scad",
+      "label": {
+        "es": "Unidad de Gabinete (5 cajones)",
+        "en": "Cabinet Unit (5 drawers)"
+      },
+      "values": {
+        "slide_standard": 0,
+        "num_slots": 25,
+        "drawers_per_shell": 5,
+        "rail_profile": 0
       }
     }
   ],
   "constraints": [
     {
-      "rule": "num_slots >= 1",
-      "message": {
-        "es": "Se necesita al menos 1 posición de laminilla",
-        "en": "At least 1 slide slot required"
-      },
+      "expression": "num_slots >= 1",
       "severity": "error",
-      "applies_to": [
-        "num_slots"
-      ]
-    },
-    {
-      "rule": "custom_slide_thickness > 0",
       "message": {
-        "es": "El grosor de laminilla debe ser positivo",
-        "en": "Slide thickness must be positive"
-      },
-      "severity": "error",
-      "applies_to": [
-        "custom_slide_thickness"
-      ]
-    },
-    {
-      "rule": "custom_slide_length > custom_slide_width",
-      "message": {
-        "es": "El largo debe ser mayor que el ancho",
-        "en": "Length must exceed width"
-      },
-      "severity": "error",
-      "applies_to": [
-        "custom_slide_length",
-        "custom_slide_width"
-      ]
-    },
-    {
-      "rule": "wall_thickness >= 1.2",
-      "message": {
-        "es": "Paredes por debajo de 1.2mm pueden no imprimirse bien (3 perímetros a boquilla de 0.4mm)",
-        "en": "Walls below 1.2mm may not print reliably (3 perimeters at 0.4mm nozzle)"
-      },
-      "severity": "warning",
-      "applies_to": [
-        "wall_thickness"
-      ]
-    },
-    {
-      "rule": "num_slots <= 50",
-      "message": {
-        "es": "Más de 50 ranuras puede exceder el ancho de la cama de impresión",
-        "en": "More than 50 slots may exceed typical print bed width"
-      },
-      "severity": "warning",
-      "applies_to": [
-        "num_slots"
-      ]
-    },
-    {
-      "rule": "tolerance_xy >= 0.2",
-      "message": {
-        "es": "Tolerancia por debajo de 0.2mm puede causar dificultad de inserción",
-        "en": "Tolerance below 0.2mm may cause insertion difficulty"
-      },
-      "severity": "warning",
-      "applies_to": [
-        "tolerance_xy"
-      ]
-    },
-    {
-      "rule": "!(slide_standard == 3 && density == 0)",
-      "message": {
-        "es": "Laminillas Supa Mega a densidad archivadora requiere cama de impresión muy ancha",
-        "en": "Supa Mega slides at archival density require very wide print bed"
-      },
-      "severity": "warning",
-      "applies_to": [
-        "slide_standard",
-        "density"
-      ]
-    }
-  ],
-  "materials": [
-    {
-      "id": "pla",
-      "name": "PLA",
-      "density": 1.24,
-      "cost_per_kg": 20,
-      "print_speed_factor": 1.0
-    },
-    {
-      "id": "petg",
-      "name": "PETG",
-      "density": 1.27,
-      "cost_per_kg": 25,
-      "print_speed_factor": 0.85
-    },
-    {
-      "id": "abs",
-      "name": "ABS/ASA",
-      "density": 1.04,
-      "cost_per_kg": 22,
-      "print_speed_factor": 0.8
-    },
-    {
-      "id": "nylon",
-      "name": "Nylon (PA)",
-      "density": 1.14,
-      "cost_per_kg": 40,
-      "print_speed_factor": 0.7
-    }
-  ],
-  "assembly_steps": [
-    {
-      "step": 1,
-      "label": {
-        "es": "Imprime las piezas",
-        "en": "Print the parts"
-      },
-      "notes": {
-        "es": "0.2mm capas, 20–30% relleno. PLA para almacenamiento seco, PETG para tinción",
-        "en": "0.2mm layers, 20–30% infill. PLA for dry storage, PETG for staining"
-      },
-      "visible_parts": [
-        "box_base",
-        "box_lid",
-        "tray",
-        "rack",
-        "drawer",
-        "shell"
-      ],
-      "highlight_parts": [
-        "box_base"
-      ],
-      "camera": [
-        80,
-        -80,
-        50
-      ],
-      "camera_target": [
-        20,
-        40,
-        0
-      ]
-    },
-    {
-      "step": 2,
-      "label": {
-        "es": "Ensambla tapa (modo caja)",
-        "en": "Attach lid (box mode)"
-      },
-      "notes": {
-        "es": "Alinea los broches a presión de la tapa con las muescas de la base",
-        "en": "Align lid snap-fit latches with base catches"
-      },
-      "visible_parts": [
-        "box_base",
-        "box_lid"
-      ],
-      "highlight_parts": [
-        "box_lid"
-      ],
-      "camera": [
-        60,
-        -40,
-        40
-      ],
-      "camera_target": [
-        20,
-        40,
-        10
-      ]
-    },
-    {
-      "step": 3,
-      "label": {
-        "es": "Inserta las laminillas",
-        "en": "Insert microscope slides"
-      },
-      "notes": {
-        "es": "Desliza las laminillas desde arriba en las ranuras",
-        "en": "Slide microscope slides in from the top into the slots"
-      },
-      "visible_parts": [
-        "box_base"
-      ],
-      "highlight_parts": [
-        "box_base"
-      ],
-      "camera": [
-        60,
-        -40,
-        40
-      ],
-      "camera_target": [
-        20,
-        40,
-        10
-      ]
-    }
-  ],
-  "verification": {
-    "stages": {
-      "geometry": {
-        "checks": {
-          "watertight": {
-            "enabled": true
-          },
-          "body_count": {
-            "enabled": true,
-            "expected": 1
-          },
-          "facet_count": {
-            "enabled": true,
-            "min_facets": 100
-          }
-        }
-      },
-      "printability": {
-        "checks": {
-          "thin_wall": {
-            "enabled": true,
-            "min_thickness_mm": 1.0
-          },
-          "overhang": {
-            "enabled": true,
-            "max_angle_deg": 45
-          }
-        }
+        "en": "At least 1 slide slot is required",
+        "es": "Se necesita al menos 1 posición de laminilla"
       }
     },
-    "mode_overrides": {
-      "box": {
-        "stages": [
-          "geometry",
-          "printability"
-        ]
-      },
-      "tray": {
-        "stages": [
-          "geometry",
-          "printability"
-        ]
-      },
-      "staining_rack": {
-        "stages": [
-          "geometry",
-          "printability"
-        ]
-      },
-      "cabinet_drawer": {
-        "stages": [
-          "geometry",
-          "printability"
-        ]
+    {
+      "expression": "wall >= 1.2",
+      "severity": "warning",
+      "message": {
+        "en": "Walls below 1.2 mm may not print reliably",
+        "es": "Paredes por debajo de 1.2 mm pueden no imprimirse bien"
+      }
+    },
+    {
+      "expression": "custom_slide_length > custom_slide_width",
+      "severity": "warning",
+      "message": {
+        "en": "Slide length should exceed width",
+        "es": "El largo de laminilla debe superar el ancho"
       }
     }
-  },
-  "export_formats": [
-    "stl",
-    "3mf",
-    "off",
-    "glb",
-    "obj"
   ],
-  "print_estimation": {
-    "default_material": "pla",
-    "default_infill": 0.2
-  },
   "camera_views": [
     {
       "id": "iso",
       "label": {
-        "es": "Isométrico",
-        "en": "Isometric"
+        "en": "Isometric",
+        "es": "Isométrico"
       },
       "position": [
-        80,
-        80,
-        50
+        180,
+        180,
+        140
       ]
     },
     {
       "id": "top",
       "label": {
-        "es": "Superior",
-        "en": "Top"
+        "en": "Top",
+        "es": "Superior"
       },
       "position": [
         0,
         0,
-        150
+        260
       ]
     },
     {
       "id": "front",
       "label": {
-        "es": "Frente",
-        "en": "Front"
+        "en": "Front",
+        "es": "Frontal"
       },
       "position": [
         0,
-        -150,
-        20
-      ]
-    },
-    {
-      "id": "side",
-      "label": {
-        "es": "Lateral",
-        "en": "Side"
-      },
-      "position": [
-        150,
-        0,
-        20
+        -260,
+        40
       ]
     }
   ],
-  "viewer": {
-    "default_color": "#4a90d9"
-  },
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
   "estimate_constants": {
-    "base_time": 5,
-    "per_unit": 2,
-    "per_part": 8,
+    "base_time": 12,
+    "per_unit": 3,
+    "per_part": 12,
     "fn_factor": 32,
-    "wasm_multiplier": 3,
-    "warning_threshold_seconds": 60
-  }
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "medical",
+    "cdg_interfaces": [
+      {
+        "id": "microscope_slide_slot",
+        "label": {
+          "en": "Microscope Slide Slot",
+          "es": "Ranura de Laminilla de Microscopio"
+        },
+        "geometry_type": "pocket",
+        "standard": "ISO 8037-1 (25.4x76.2mm)",
+        "parameters": [
+          "slide_standard",
+          "custom_slide_length",
+          "custom_slide_width",
+          "custom_slide_thickness",
+          "tolerance_xy",
+          "tolerance_z",
+          "num_slots"
+        ]
+      },
+      {
+        "id": "retention_pitch_system",
+        "label": {
+          "en": "Retention Pitch System",
+          "es": "Sistema de Paso de Retención"
+        },
+        "geometry_type": "rail",
+        "standard": "internal",
+        "parameters": [
+          "density",
+          "num_slots"
+        ]
+      },
+      {
+        "id": "press_lid_seam",
+        "label": {
+          "en": "Press-Fit Lid Seam",
+          "es": "Junta de Tapa a Presión"
+        },
+        "geometry_type": "snap",
+        "standard": "internal",
+        "parameters": [
+          "lid_snap",
+          "wall",
+          "num_slots"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Enables laboratories and pathology departments to fabricate precision slide retention systems for histology, cytology, and archival workflows — independent of commercial supply chains.",
+      "es": "Permite a laboratorios y departamentos de patología fabricar sistemas de retención de laminillas de precisión para flujos de histología, citología y archivo — independiente de cadenas de suministro comerciales."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "lab",
+    "microscope",
+    "science",
+    "rack",
+    "histology",
+    "pathology",
+    "medical",
+    "hyperobject",
+    "commons"
+  ]
 }
