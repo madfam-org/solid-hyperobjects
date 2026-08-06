@@ -1,233 +1,580 @@
 {
-    "project": {
-        "name": "Heavy Duty DIN Rail Clip",
-        "slug": "din-rail-clip",
-        "version": "1.0.0",
-        "description": {
-            "en": "Parametric mounting clip for TS35 DIN rails — industrial automation & electronics mounting\n\nOfficial Visualizer and Configurator: Yantra4D",
-            "es": "Clip de montaje paramétrico para rieles DIN TS35 — automatización industrial y montaje de electrónica\n\nVisualizador y configurador oficial: Yantra4D"
-        },
-        "thumbnail": "/projects/din-rail-clip.webp",
-        "tags": [
-            "industrial",
-            "automation",
-            "mounting",
-            "electronics",
-            "hyperobject",
-            "commons"
-        ],
-        "difficulty": "intermediate",
-        "force_backend": true
+  "project": {
+    "name": "Heavy Duty DIN Rail Clip",
+    "slug": "din-rail-clip",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A snap-on clip for standard top-hat DIN rail (DIN EN 60715) — the spine of industrial control panels. Grips the two rolled rail lips with one fixed hook and one COMPLIANT spring hook, so a printed clip holds through geometry, not permanently strained plastic (avoiding the creep and fatigue that kill rigid printed snaps). Flat mount face with a device bolt pattern; Gridfinity-on-DIN and multi-device strip variants.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un clip de encaje para riel DIN de sombrero superior (DIN EN 60715) — la columna vertebral de los tableros de control industrial. Sujeta los dos labios enrollados del riel con un gancho fijo y un gancho de resorte CONFORME (compliant), de modo que un clip impreso sujeta por su geometría y no por plástico permanentemente tensionado (evitando el creep y la fatiga que arruinan los encajes impresos rígidos). Cara de montaje plana con patrón de tornillos; variantes Gridfinity-sobre-DIN y tira multidispositivo.\n\nVisualizador y configurador oficial: Yantra4D"
     },
-    "modes": [
-        {
-            "id": "Standard",
-            "scad_file": "din_clip.scad",
-            "cq_file": "clip.py",
-            "label": {
-                "en": "Clip Body",
-                "es": "Cuerpo del Clip"
-            },
-            "parts": [
-                "clip_body"
-            ],
-            "estimate": {
-                "base_units": 1,
-                "formula": "constant"
-            }
-        }
+    "thumbnail": "/projects/din-rail-clip.webp",
+    "difficulty": "advanced",
+    "tags": [
+      "industrial",
+      "automation",
+      "mounting",
+      "electronics",
+      "din-rail",
+      "compliant-mechanism",
+      "gridfinity",
+      "hyperobject",
+      "commons"
     ],
-    "parts": [
-        {
-            "id": "clip_body",
-            "render_mode": 0,
-            "label": {
-                "en": "Clip Body",
-                "es": "Cuerpo del Clip"
-            },
-            "default_color": "#2d2d2d"
-        }
-    ],
-    "presets": [
-        {
-            "id": "arduino_uno_mount",
-            "label": {
-                "en": "Arduino Uno Mount",
-                "es": "Montaje Arduino Uno"
-            },
-            "values": {
-                "mount_width": 54,
-                "bolt_spacing": 40,
-                "bolt_size": 1
-            }
-        },
-        {
-            "id": "rpi_mount",
-            "label": {
-                "en": "Raspberry Pi Mount",
-                "es": "Montaje Raspberry Pi"
-            },
-            "values": {
-                "mount_width": 56,
-                "bolt_spacing": 49,
-                "bolt_size": 0
-            }
-        },
-        {
-            "id": "relay_module",
-            "label": {
-                "en": "Relay Module (Small)",
-                "es": "Módulo de Relé (Pequeño)"
-            },
-            "values": {
-                "mount_width": 30,
-                "bolt_spacing": 20,
-                "bolt_size": 1
-            }
-        }
-    ],
-    "parameters": [
-        {
-            "id": "mount_width",
-            "type": "slider",
-            "default": 40,
-            "min": 20,
-            "max": 120,
-            "step": 1,
-            "label": {
-                "en": "Mount Width (mm)",
-                "es": "Ancho de Montaje (mm)"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "bolt_spacing",
-            "type": "slider",
-            "default": 20,
-            "min": 10,
-            "max": 100,
-            "step": 1,
-            "label": {
-                "en": "Bolt Spacing (mm)",
-                "es": "Espaciado de Pernos (mm)"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "bolt_size",
-            "type": "slider",
-            "default": 1,
-            "min": 0,
-            "max": 2,
-            "step": 1,
-            "label": {
-                "en": "Bolt Size",
-                "es": "Tamaño de Perno"
-            },
-            "tooltip": {
-                "en": "0=M3, 1=M4, 2=M5",
-                "es": "0=M3, 1=M4, 2=M5"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "dimensions"
-        },
-        {
-            "id": "fn",
-            "type": "slider",
-            "default": 0,
-            "min": 0,
-            "max": 64,
-            "step": 8,
-            "label": {
-                "en": "Quality ($fn)",
-                "es": "Calidad ($fn)"
-            },
-            "visible_in_modes": [
-                "Standard"
-            ],
-            "group": "quality",
-            "visibility_level": "advanced"
-        }
-    ],
-    "parameter_groups": [
-        {
-            "id": "dimensions",
-            "label": {
-                "en": "Dimensions",
-                "es": "Dimensiones"
-            }
-        },
-        {
-            "id": "quality",
-            "label": {
-                "en": "Quality",
-                "es": "Calidad"
-            }
-        }
-    ],
-    "export_formats": [
-        "stl",
-        "3mf",
-        "off",
-        "step",
-        "glb",
-        "gltf",
-        "obj"
-    ],
-    "estimate_constants": {
-        "base_time": 5,
-        "per_unit": 2,
-        "per_part": 8,
-        "fn_factor": 32,
-        "wasm_multiplier": 3,
-        "warning_threshold_seconds": 60
-    },
     "hyperobject": {
-        "domain": "industrial",
-        "cdg_interfaces": [
-            {
-                "id": "ts35_din_rail",
-                "label": {
-                    "en": "TS35 DIN Rail Interface",
-                    "es": "Interfaz de Riel DIN TS35"
-                },
-                "geometry_type": "rail",
-                "standard": "DIN EN 60715 (TS35)",
-                "parameters": [
-                    "mount_width"
-                ]
-            },
-            {
-                "id": "bolt_pattern",
-                "label": {
-                    "en": "Device Bolt Pattern",
-                    "es": "Patrón de Tornillos del Dispositivo"
-                },
-                "geometry_type": "bolt_pattern",
-                "standard": "M3/M4/M5",
-                "parameters": [
-                    "bolt_spacing",
-                    "bolt_size"
-                ]
-            }
-        ],
-        "material_awareness": {
-            "shrinkage_compensation": false,
-            "recycled_material_toggle": false,
-            "tolerance_by_material": true
-        },
-        "societal_benefit": {
-            "en": "Universal DIN rail mounting for electronics and automation — enables rapid panel building",
-            "es": "Montaje universal en riel DIN para electrónica y automatización — permite construcción rápida de paneles"
-        },
-        "commons_license": "CERN-OHL-W-2.0"
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "clip",
+      "label": {
+        "en": "DIN Clip",
+        "es": "Clip DIN"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "clip"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "gridfinity_clip",
+      "label": {
+        "en": "Gridfinity DIN Clip",
+        "es": "Clip DIN Gridfinity"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "gridfinity_clip"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    },
+    {
+      "id": "clip_wide",
+      "label": {
+        "en": "Wide Multi-Device Strip",
+        "es": "Tira Multidispositivo Ancha"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "clip_wide"
+      ],
+      "estimate": {
+        "base_time": 16,
+        "per_unit": 4,
+        "per_part": 16
+      }
+    },
+    {
+      "id": "Standard",
+      "scad_file": "din_clip.scad",
+      "cq_file": "clip.py",
+      "label": {
+        "en": "Clip Body (OpenSCAD)",
+        "es": "Cuerpo del Clip (OpenSCAD)"
+      },
+      "parts": [
+        "clip_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "engine": "openscad"
     }
+  ],
+  "parts": [
+    {
+      "id": "clip",
+      "label": {
+        "en": "DIN Clip",
+        "es": "Clip DIN"
+      },
+      "render_mode": 0,
+      "color": "#2d2d2d"
+    },
+    {
+      "id": "gridfinity_clip",
+      "label": {
+        "en": "Gridfinity DIN Clip",
+        "es": "Clip DIN Gridfinity"
+      },
+      "render_mode": 0,
+      "color": "#3a5f8a"
+    },
+    {
+      "id": "clip_wide",
+      "label": {
+        "en": "Wide Multi-Device Strip",
+        "es": "Tira Multidispositivo Ancha"
+      },
+      "render_mode": 0,
+      "color": "#4a4a4a"
+    },
+    {
+      "id": "clip_body",
+      "render_mode": 0,
+      "label": {
+        "en": "Clip Body",
+        "es": "Cuerpo del Clip"
+      },
+      "default_color": "#2d2d2d"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "rail",
+      "label": {
+        "en": "DIN Rail",
+        "es": "Riel DIN"
+      }
+    },
+    {
+      "id": "mount",
+      "label": {
+        "en": "Mount & Bolts",
+        "es": "Montaje y Tornillos"
+      }
+    },
+    {
+      "id": "spring",
+      "label": {
+        "en": "Compliant Spring",
+        "es": "Resorte Conforme"
+      }
+    },
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Dimensions",
+        "es": "Dimensiones"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "rail_standard",
+      "type": "select",
+      "default": "TS35",
+      "group": "rail",
+      "modes": [
+        "clip",
+        "gridfinity_clip",
+        "clip_wide"
+      ],
+      "label": {
+        "en": "Rail Standard",
+        "es": "Estándar de Riel"
+      },
+      "tooltip": {
+        "en": "DIN EN 60715 rail profile the hooks engage",
+        "es": "Perfil de riel DIN EN 60715 que enganchan los ganchos"
+      },
+      "options": [
+        {
+          "value": "TS35",
+          "label": {
+            "en": "TS35 — 35 mm top-hat, 7.5 mm deep",
+            "es": "TS35 — sombrero de 35 mm, 7.5 mm de fondo"
+          }
+        },
+        {
+          "value": "TS35-15",
+          "label": {
+            "en": "TS35-15 — 35 mm, deep 15 mm",
+            "es": "TS35-15 — 35 mm, profundo 15 mm"
+          }
+        },
+        {
+          "value": "TS15",
+          "label": {
+            "en": "TS15 — 15 mm miniature",
+            "es": "TS15 — miniatura de 15 mm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mount_width",
+      "type": "slider",
+      "default": 40,
+      "min": 20,
+      "max": 200,
+      "step": 1,
+      "group": "mount",
+      "modes": [
+        "clip",
+        "clip_wide"
+      ],
+      "label": {
+        "en": "Mount Width (mm)",
+        "es": "Ancho de Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the mount plate across the rail (clamped ≥ rail span + 8)",
+        "es": "Ancho de la placa de montaje a lo ancho del riel (limitado a ≥ ancho del riel + 8)"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "x",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "bolt_spacing",
+      "type": "slider",
+      "default": 20,
+      "min": 6,
+      "max": 120,
+      "step": 1,
+      "group": "mount",
+      "modes": [
+        "clip",
+        "gridfinity_clip",
+        "clip_wide"
+      ],
+      "label": {
+        "en": "Bolt Spacing (mm)",
+        "es": "Espaciado de Tornillos (mm)"
+      },
+      "tooltip": {
+        "en": "Centre-to-centre of the device screw holes",
+        "es": "Distancia centro a centro de los agujeros de tornillo del dispositivo"
+      }
+    },
+    {
+      "id": "bolt_size",
+      "type": "slider",
+      "default": 1,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "group": "mount",
+      "modes": [
+        "clip",
+        "gridfinity_clip",
+        "clip_wide"
+      ],
+      "label": {
+        "en": "Bolt Size",
+        "es": "Tamaño de Tornillo"
+      },
+      "tooltip": {
+        "en": "0 = M3, 1 = M4, 2 = M5 (clearance holes)",
+        "es": "0 = M3, 1 = M4, 2 = M5 (agujeros de holgura)"
+      }
+    },
+    {
+      "id": "plate_thickness",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.5,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "clip",
+        "gridfinity_clip",
+        "clip_wide"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Grosor de Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the mount plate",
+        "es": "Grosor de la placa de montaje"
+      }
+    },
+    {
+      "id": "spring_thickness",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.0,
+      "max": 6.0,
+      "step": 0.2,
+      "group": "spring",
+      "modes": [
+        "clip",
+        "gridfinity_clip",
+        "clip_wide"
+      ],
+      "label": {
+        "en": "Spring Beam Thickness (mm)",
+        "es": "Grosor de Viga del Resorte (mm)"
+      },
+      "tooltip": {
+        "en": "Compliant hook beam thickness — the stiffness lever. Thinner = easier snap / softer grip; thicker = firmer hold.",
+        "es": "Grosor de la viga del gancho conforme — la palanca de rigidez. Más delgado = encaje más fácil / agarre más suave; más grueso = sujeción más firme."
+      }
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Quality ($fn)",
+        "es": "Calidad ($fn)"
+      },
+      "visible_in_modes": [
+        "Standard"
+      ],
+      "group": "quality",
+      "visibility_level": "advanced"
+    }
+  ],
+  "presets": [
+    {
+      "id": "arduino_uno_mount",
+      "mode": "clip",
+      "label": {
+        "en": "Arduino Uno Mount",
+        "es": "Montaje Arduino Uno"
+      },
+      "values": {
+        "rail_standard": "TS35",
+        "mount_width": 54,
+        "bolt_spacing": 48,
+        "bolt_size": 1
+      }
+    },
+    {
+      "id": "relay_module",
+      "mode": "clip",
+      "label": {
+        "en": "Relay Module (Small)",
+        "es": "Módulo de Relé (Pequeño)"
+      },
+      "values": {
+        "rail_standard": "TS35",
+        "mount_width": 30,
+        "bolt_spacing": 20,
+        "bolt_size": 1,
+        "spring_thickness": 1.6
+      }
+    },
+    {
+      "id": "gridfinity_bin_dock",
+      "mode": "gridfinity_clip",
+      "label": {
+        "en": "Gridfinity Bin Dock",
+        "es": "Base para Bin Gridfinity"
+      },
+      "values": {
+        "rail_standard": "TS35",
+        "bolt_size": 1,
+        "spring_thickness": 2.4
+      }
+    },
+    {
+      "id": "arduino_uno_mount_scad",
+      "label": {
+        "en": "Arduino Uno Mount",
+        "es": "Montaje Arduino Uno"
+      },
+      "values": {
+        "mount_width": 54,
+        "bolt_spacing": 40,
+        "bolt_size": 1
+      }
+    },
+    {
+      "id": "rpi_mount_scad",
+      "label": {
+        "en": "Raspberry Pi Mount",
+        "es": "Montaje Raspberry Pi"
+      },
+      "values": {
+        "mount_width": 56,
+        "bolt_spacing": 49,
+        "bolt_size": 0
+      }
+    },
+    {
+      "id": "relay_module_scad",
+      "label": {
+        "en": "Relay Module (Small)",
+        "es": "Módulo de Relé (Pequeño)"
+      },
+      "values": {
+        "mount_width": 30,
+        "bolt_spacing": 20,
+        "bolt_size": 1
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "mount_width >= 20",
+      "severity": "error",
+      "message": {
+        "en": "Mount width must be at least 20 mm",
+        "es": "El ancho de montaje debe ser de al menos 20 mm"
+      }
+    },
+    {
+      "expression": "spring_thickness <= plate_thickness",
+      "severity": "warning",
+      "message": {
+        "en": "A spring beam thicker than the plate stops flexing — reduce it for a working snap.",
+        "es": "Una viga de resorte más gruesa que la placa deja de flexionar — redúzcala para un encaje funcional."
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        90,
+        70
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front (rail section)",
+        "es": "Frontal (sección del riel)"
+      },
+      "position": [
+        0,
+        -140,
+        0
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        160
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 3,
+    "per_part": 12,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "din_ts35_rail",
+        "label": {
+          "en": "DIN TS35 Rail Profile",
+          "es": "Perfil de Riel DIN TS35"
+        },
+        "geometry_type": "rail",
+        "standard": "DIN EN 60715 TS35",
+        "parameters": [
+          "rail_standard",
+          "mount_width"
+        ]
+      },
+      {
+        "id": "compliant_spring_hook",
+        "label": {
+          "en": "Compliant Spring Hook",
+          "es": "Gancho de Resorte Conforme"
+        },
+        "geometry_type": "snap",
+        "standard": "internal",
+        "parameters": [
+          "spring_thickness",
+          "plate_thickness"
+        ]
+      },
+      {
+        "id": "device_bolt_pattern",
+        "label": {
+          "en": "Device Bolt Pattern",
+          "es": "Patrón de Tornillos del Dispositivo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "ISO 261 M3/M4/M5",
+        "parameters": [
+          "bolt_spacing",
+          "bolt_size"
+        ]
+      },
+      {
+        "id": "gridfinity_dock",
+        "label": {
+          "en": "Gridfinity 42 mm Dock",
+          "es": "Base Gridfinity de 42 mm"
+        },
+        "geometry_type": "socket",
+        "standard": "Gridfinity (42 mm module)",
+        "parameters": [
+          "plate_thickness"
+        ],
+        "compatible_with": [
+          "gridfinity"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Democratized industrial automation and repair: anyone can mount, adapt, or repair control-panel hardware on the universal DIN rail without proprietary carriers. The compliant spring hook makes a printed clip that survives creep, so repairs last — extending the life of breakers, relays, and controllers instead of scrapping enclosures.",
+      "es": "Automatización y reparación industrial democratizadas: cualquiera puede montar, adaptar o reparar hardware de tablero de control sobre el riel DIN universal sin portadores propietarios. El gancho de resorte conforme produce un clip impreso que resiste el creep, para que las reparaciones duren — extendiendo la vida de interruptores, relés y controladores en lugar de desechar gabinetes."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "industrial",
+    "automation",
+    "din-rail",
+    "compliant-mechanism",
+    "gridfinity",
+    "hyperobject",
+    "commons"
+  ]
 }

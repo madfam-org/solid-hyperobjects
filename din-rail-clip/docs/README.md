@@ -1,54 +1,37 @@
 # Heavy Duty DIN Rail Clip
 
-Parametric mounting clip for TS35 DIN rails — industrial automation & electronics mounting
+A snap-on clip for standard top-hat DIN rail (DIN EN 60715) — the spine of industrial control panels. Grips the two rolled rail lips with one fixed hook and one COMPLIANT spring hook, so a printed clip holds through geometry, not permanently strained plastic (avoiding the creep and fatigue that kill rigid printed snaps). Flat mount face with a device bolt pattern; Gridfinity-on-DIN and multi-device strip variants.
 
-Official Visualizer and Configurator: Yantra4D
+A **dual-engine** hyperobject: exact new **CadQuery** B-Rep modes alongside the original **OpenSCAD** modes. Un hiperobjeto de doble kernel: modos nuevos en CadQuery B-Rep junto a los modos originales de OpenSCAD.
 
-*Clip de montaje paramétrico para rieles DIN TS35 — automatización industrial y montaje de electrónica
-
-Visualizador y configurador oficial: Yantra4D*
-
-**Version**: 1.0.0  
-**Slug**: `din-rail-clip`
+Part of the **Yantra4D Hyperobjects Commons** · Official visualizer: [Yantra4D](https://app.yantra4d.com)
 
 ## Modes
 
-| ID | Label | SCAD File | Parts |
-|---|---|---|---|
-| `Standard` | Clip Body | `din_clip.scad` | clip_body |
+| Mode | Label | Engine | File |
+| :--- | :--- | :--- | :--- |
+| `clip` | DIN Clip | CadQuery B-Rep | `main.py` |
+| `gridfinity_clip` | Gridfinity DIN Clip | CadQuery B-Rep | `main.py` |
+| `clip_wide` | Wide Multi-Device Strip | CadQuery B-Rep | `main.py` |
+| `Standard` | Clip Body (OpenSCAD) | OpenSCAD | `din_clip.scad` |
+
+The CadQuery modes render watertight and export STEP. The legacy OpenSCAD modes carry an explicit per-mode `engine: openscad` override (the platform resolves the render engine per mode).
 
 ## Parameters
 
-| Name | Type | Default | Range | Description |
-|---|---|---|---|---|
-| `mount_width` | slider | 40 | 20–120 | mount_width |
-| `bolt_spacing` | slider | 20 | 10–100 | bolt_spacing |
-| `bolt_size` | slider | 1 | 0–2 | 0=M3, 1=M4, 2=M5 |
-| `fn` | slider | 0 | 0–64 (step 8) | fn |
+The CadQuery modes expose the core parametric controls (see `project.json` → `parameters`). The OpenSCAD-extended modes add their own legacy parameters, grouped in the manifest and visible only in those modes.
 
-## Presets
+## Hyperobject Profile
 
-- **Arduino Uno Mount**
-  `mount_width`=54, `bolt_spacing`=40, `bolt_size`=1
-- **Raspberry Pi Mount**
-  `mount_width`=56, `bolt_spacing`=49, `bolt_size`=0
-- **Relay Module (Small)**
-  `mount_width`=30, `bolt_spacing`=20, `bolt_size`=1
+- **Domain:** industrial
+- **CDG interfaces:**
+- **DIN TS35 Rail Profile** (`rail`, DIN EN 60715 TS35)
+- **Compliant Spring Hook** (`snap`, internal)
+- **Device Bolt Pattern** (`bolt_pattern`, ISO 261 M3/M4/M5)
+- **Gridfinity 42 mm Dock** (`socket`, Gridfinity (42 mm module))
+- **Societal benefit:** Democratized industrial automation and repair: anyone can mount, adapt, or repair control-panel hardware on the universal DIN rail without proprietary carriers. The compliant spring hook makes a printed clip that survives creep, so repairs last — extending the life of breakers, relays, and controllers instead of scrapping enclosures.
+- **License:** CERN-OHL-W-2.0
 
-## Parts
+## Engines
 
-| ID | Label | Default Color |
-|---|---|---|
-| `clip_body` | Clip Body | `#2d2d2d` |
-
-## Render Estimates
-
-- **base_time**: 5
-- **per_unit**: 2
-- **per_part**: 8
-- **fn_factor**: 32
-- **wasm_multiplier**: 3
-- **warning_threshold_seconds**: 60
-
----
-*Auto-generated from `project.json` by `scripts/generate-project-docs.py`*
+Default engine is **CadQuery**; the original OpenSCAD modes are preserved with a per-mode `engine: openscad` override. All CadQuery modes are verified watertight through the render sandbox and render distinctly.
