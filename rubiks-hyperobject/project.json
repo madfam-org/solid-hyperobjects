@@ -3,7 +3,7 @@
     "name": "Parametric Rubik's Cube",
     "slug": "rubiks-hyperobject",
     "version": "1.0.0",
-    "description": "Parametric Rubik's Cube hyperobject — NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D",
+    "description": "Parametric Rubik's Cube hyperobject \u2014 NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D",
     "thumbnail": "/projects/rubiks-hyperobject.webp",
     "tags": [
       "puzzle",
@@ -117,8 +117,8 @@
       "tolerance_by_material": true
     },
     "societal_benefit": {
-      "es": "Permite a educadores, makers y entusiastas de puzzles fabricar cubos de Rubik parametricos personalizados — desde prototipos didacticos hasta rompecabezas de exhibicion — independiente de cadenas de suministro comerciales.",
-      "en": "Enables educators, makers, and puzzle enthusiasts to fabricate custom parametric Rubik's cubes — from didactic prototypes to exhibition puzzles — independent of commercial supply chains."
+      "es": "Permite a educadores, makers y entusiastas de puzzles fabricar cubos de Rubik parametricos personalizados \u2014 desde prototipos didacticos hasta rompecabezas de exhibicion \u2014 independiente de cadenas de suministro comerciales.",
+      "en": "Enables educators, makers, and puzzle enthusiasts to fabricate custom parametric Rubik's cubes \u2014 from didactic prototypes to exhibition puzzles \u2014 independent of commercial supply chains."
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
@@ -149,6 +149,7 @@
         "base_units": "N * N",
         "formula": "grid",
         "formula_vars": [
+          "N",
           "N"
         ]
       }
@@ -193,6 +194,7 @@
         "base_units": "N * N",
         "formula": "grid",
         "formula_vars": [
+          "N",
           "N"
         ]
       }
@@ -520,8 +522,8 @@
     {
       "id": "colorblind_deutan",
       "label": {
-        "en": "♿ Deuteranopia Safe",
-        "es": "♿ Deuteranopía Seguro"
+        "en": "\u267f Deuteranopia Safe",
+        "es": "\u267f Deuteranop\u00eda Seguro"
       },
       "values": {
         "color_top": "#FFFFFF",
@@ -535,8 +537,8 @@
     {
       "id": "high_contrast",
       "label": {
-        "en": "🔲 High Contrast",
-        "es": "🔲 Alto Contraste"
+        "en": "\ud83d\udd32 High Contrast",
+        "es": "\ud83d\udd32 Alto Contraste"
       },
       "values": {
         "color_top": "#FFFFFF",
@@ -550,8 +552,8 @@
     {
       "id": "monochrome_tactile",
       "label": {
-        "en": "🤚 Monochrome Tactile",
-        "es": "🤚 Monocromático Táctil"
+        "en": "\ud83e\udd1a Monochrome Tactile",
+        "es": "\ud83e\udd1a Monocrom\u00e1tico T\u00e1ctil"
       },
       "values": {
         "color_top": "#808080",
@@ -626,7 +628,7 @@
     {
       "label": {
         "en": "Magnetic Revolution (2016)",
-        "es": "Revolución Magnética (2016)"
+        "es": "Revoluci\u00f3n Magn\u00e9tica (2016)"
       },
       "values": {
         "mechanism_detail": "functional",
@@ -739,8 +741,8 @@
         "en": "Cubie Clearance (mm)"
       },
       "tooltip": {
-        "es": "Espacio entre cubies adyacentes — aumentar si las piezas no giran libremente",
-        "en": "Gap between adjacent cubies — increase if pieces don't rotate freely"
+        "es": "Espacio entre cubies adyacentes \u2014 aumentar si las piezas no giran libremente",
+        "en": "Gap between adjacent cubies \u2014 increase if pieces don't rotate freely"
       },
       "visible_in_modes": [
         "cube",
@@ -1481,8 +1483,8 @@
         "en": "Explode Factor (%)"
       },
       "tooltip": {
-        "es": "Separa los cubies del centro — 0=ensamblado, 100=completamente explosionado",
-        "en": "Separate cubies from center — 0=assembled, 100=fully exploded"
+        "es": "Separa los cubies del centro \u2014 0=ensamblado, 100=completamente explosionado",
+        "en": "Separate cubies from center \u2014 0=assembled, 100=fully exploded"
       },
       "visible_in_modes": [
         "cube",
@@ -1588,14 +1590,14 @@
           "value": "tactile",
           "label": {
             "en": "Tactile Dots",
-            "es": "Puntos Táctiles"
+            "es": "Puntos T\u00e1ctiles"
           }
         },
         {
           "value": "stripes",
           "label": {
             "en": "Stripe Pattern",
-            "es": "Patrón de Rayas"
+            "es": "Patr\u00f3n de Rayas"
           }
         },
         {
@@ -1609,7 +1611,7 @@
           "value": "concentric",
           "label": {
             "en": "Concentric Squares",
-            "es": "Cuadrados Concéntricos"
+            "es": "Cuadrados Conc\u00e9ntricos"
           }
         }
       ],
@@ -1739,8 +1741,8 @@
         "en": "Mechanism Clearance (mm)"
       },
       "tooltip": {
-        "es": "Holgura interna entre piezas moviles del mecanismo — aumentar si las piezas se atascan",
-        "en": "Internal clearance between moving mechanism parts — increase if pieces bind"
+        "es": "Holgura interna entre piezas moviles del mecanismo \u2014 aumentar si las piezas se atascan",
+        "en": "Internal clearance between moving mechanism parts \u2014 increase if pieces bind"
       },
       "group": "mechanism",
       "visibility_level": "advanced",
@@ -1919,7 +1921,7 @@
       },
       "tooltip": {
         "en": "DaYan 2011: Plastic fins on edges prevent pieces from popping",
-        "es": "DaYan 2011: Aletas plásticas en aristas previenen que las piezas salten"
+        "es": "DaYan 2011: Aletas pl\u00e1sticas en aristas previenen que las piezas salten"
       },
       "modes": [
         "cube",
@@ -1985,8 +1987,8 @@
       "max": 45,
       "step": 5,
       "label": {
-        "en": "Corner Cut Angle (°)",
-        "es": "Ángulo de Corte (°)"
+        "en": "Corner Cut Angle (\u00b0)",
+        "es": "\u00c1ngulo de Corte (\u00b0)"
       },
       "parent": "enable_corner_cutting",
       "modes": [
@@ -2037,7 +2039,7 @@
       "step": 0.5,
       "label": {
         "en": "Magnet Diameter (mm)",
-        "es": "Diámetro del Imán (mm)"
+        "es": "Di\u00e1metro del Im\u00e1n (mm)"
       },
       "parent": "enable_magnets",
       "modes": [
@@ -2054,7 +2056,7 @@
       "step": 0.25,
       "label": {
         "en": "Magnet Depth (mm)",
-        "es": "Profundidad del Imán (mm)"
+        "es": "Profundidad del Im\u00e1n (mm)"
       },
       "parent": "enable_magnets",
       "modes": [
@@ -2068,7 +2070,7 @@
       "default": false,
       "label": {
         "en": "Corner-Core Magnets",
-        "es": "Imanes Esquina-Núcleo"
+        "es": "Imanes Esquina-N\u00facleo"
       },
       "tooltip": {
         "en": "Gan 2018: Secondary magnets between corners and core sphere",
@@ -2088,7 +2090,7 @@
       "step": 0.5,
       "label": {
         "en": "Core Magnet Diameter (mm)",
-        "es": "Diámetro Imán Central (mm)"
+        "es": "Di\u00e1metro Im\u00e1n Central (mm)"
       },
       "parent": "enable_core_magnets",
       "modes": [
@@ -2105,7 +2107,7 @@
       "step": 0.5,
       "label": {
         "en": "Core Magnet Depth (mm)",
-        "es": "Profundidad Imán Central (mm)"
+        "es": "Profundidad Im\u00e1n Central (mm)"
       },
       "parent": "enable_core_magnets",
       "modes": [
@@ -2123,7 +2125,7 @@
       },
       "tooltip": {
         "en": "2020s: Repelling ring magnets replace springs (frictionless)",
-        "es": "2020s: Imanes de anillo repelentes reemplazan resortes (sin fricción)"
+        "es": "2020s: Imanes de anillo repelentes reemplazan resortes (sin fricci\u00f3n)"
       },
       "modes": [
         "cube",
@@ -2139,7 +2141,7 @@
       "step": 0.5,
       "label": {
         "en": "Maglev Ring Diameter (mm)",
-        "es": "Diámetro Anillo Maglev (mm)"
+        "es": "Di\u00e1metro Anillo Maglev (mm)"
       },
       "parent": "enable_maglev",
       "modes": [
@@ -2173,7 +2175,7 @@
       "step": 0.25,
       "label": {
         "en": "Maglev Gap (mm)",
-        "es": "Separación Maglev (mm)"
+        "es": "Separaci\u00f3n Maglev (mm)"
       },
       "parent": "enable_maglev",
       "modes": [
@@ -2293,10 +2295,10 @@
     }
   ],
   "estimate_constants": {
-    "base_time": 8,
-    "per_unit": 2.0,
+    "base_time": 2.0,
+    "per_unit": 0.006,
     "fn_factor": 48,
-    "per_part": 10,
+    "per_part": 0.05,
     "wasm_multiplier": 4,
     "warning_threshold_seconds": 90
   },
@@ -2304,8 +2306,8 @@
     {
       "id": "solve",
       "label": {
-        "en": "Solve (Checkerboard → Solved)",
-        "es": "Resolver (Tablero → Resuelto)"
+        "en": "Solve (Checkerboard \u2192 Solved)",
+        "es": "Resolver (Tablero \u2192 Resuelto)"
       },
       "from_state": {
         "rotate_top": 90,
@@ -2348,8 +2350,8 @@
     {
       "id": "morph",
       "label": {
-        "en": "Scale 2x2 → 9x9",
-        "es": "Escala 2x2 → 9x9"
+        "en": "Scale 2x2 \u2192 9x9",
+        "es": "Escala 2x2 \u2192 9x9"
       },
       "from_state": {
         "N": 2,
