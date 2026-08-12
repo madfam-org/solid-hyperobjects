@@ -39,20 +39,21 @@ module parametric_connector() {
             right(socket_od/2 - wall_thickness_mm) yrot(90) socket_arm();
 
         // X-
-        if (connector_type == "elbow" || connector_type == "tee" || connector_type == "cross" || connector_type == "4-way-corner" || connector_type == "5-way" || connector_type == "6-way")
+        // "elbow" used to be listed here as well. Together with the X+ arm that
+        // every connector gets, and the Y+ arm added for elbows further down,
+        // that gave a 90-degree elbow three arms — a tee. connector.py has only
+        // ever built two, so the two engines disagreed by 20 mm in X and 20% by
+        // volume on this cartridge's default mode.
+        if (connector_type == "tee" || connector_type == "cross" || connector_type == "4-way-corner" || connector_type == "5-way" || connector_type == "6-way")
             left(socket_od/2 - wall_thickness_mm) yrot(-90) socket_arm();
-            
+
         // Y+
-        if (connector_type == "3-way-corner" || connector_type == "4-way-corner" || connector_type == "5-way" || connector_type == "6-way" || connector_type == "tee")
+        if (connector_type == "elbow" || connector_type == "3-way-corner" || connector_type == "4-way-corner" || connector_type == "5-way" || connector_type == "6-way" || connector_type == "tee")
             back(socket_od/2 - wall_thickness_mm) xrot(-90) socket_arm();
 
         // Y-
         if (connector_type == "6-way")
             fwd(socket_od/2 - wall_thickness_mm) xrot(90) socket_arm();
-            
-        // Special case for simple elbow (90 deg)
-        if (connector_type == "elbow")
-             back(socket_od/2 - wall_thickness_mm) xrot(-90) socket_arm();
     }
 }
 
