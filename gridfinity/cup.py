@@ -35,6 +35,11 @@ def build(params):
     base_h = 5.0
     foot_bottom = 39.2
     foot_top = pitch - 0.5
+    # Solid web sealing the groove between adjacent cells. Without it the
+    # interior cavity spans the groove and the bin is open to the outside
+    # between cells — a through-slot, and the reason OCCT reported genus 1
+    # where CGAL's tessellation happened to close it over.
+    web = 0.6
 
     total_w = width_units * pitch - 0.5
     total_d = depth_units * pitch - 0.5
@@ -78,8 +83,8 @@ def build(params):
     cavity = None
     for cx, cy in cell_centres():
         inner_foot = _rounded_prismoid(
-            foot_bottom - 2 * wall, foot_top - 2 * wall, base_h,
-            max(corner_radius - wall, 0.1), z0=cup_floor_thickness,
+            foot_bottom - 2 * wall, foot_top - 2 * wall, base_h + web,
+            corner_radius, z0=cup_floor_thickness,
         ).translate((cx, cy, 0))
         cavity = inner_foot if cavity is None else cavity.union(inner_foot)
 
@@ -88,8 +93,8 @@ def build(params):
         cq.Workplane("XY")
         .box(total_w - 2 * wall, total_d - 2 * wall, body_h + 1)
         .edges("|Z")
-        .fillet(max(corner_radius - wall, 0.1))
-        .translate((0, 0, base_h + (body_h + 1) / 2.0))
+        .fillet(corner_radius)
+        .translate((0, 0, base_h + web + (body_h + 1) / 2.0))
     )
     cavity = cavity.union(inner_body)
 

@@ -19,6 +19,9 @@ base_h = 5;
 foot_bottom = 39.2;
 foot_top = pitch - 0.5;
 wall = 1.2;
+// Solid web sealing the groove between adjacent cells. Without it the interior
+// cavity spans the groove and the bin is open to the outside between cells.
+web = 0.6;
 
 // The base used to be carved out of a full-height box by subtracting one
 // prismoid per cell that grew to the full 42 mm cell footprint. At the top of
@@ -63,11 +66,11 @@ module gridfinity_cup() {
                            (y - (depth_units-1)/2) * pitch, 0])
                     prismoid(size1=[foot_bottom - 2*wall, foot_bottom - 2*wall],
                              size2=[foot_top - 2*wall, foot_top - 2*wall],
-                             h=base_h,
+                             h=base_h + web,
                              rounding1=corner_radius, rounding2=corner_radius,
                              anchor=BOT);
 
-            up(base_h - cup_floor_thickness)
+            up(base_h + web - cup_floor_thickness)
                 cuboid([total_w - 2*wall, total_d - 2*wall, body_h + 1],
                        p1=[-(total_w - 2*wall)/2, -(total_d - 2*wall)/2, 0],
                        rounding=corner_radius, edges="Z");
