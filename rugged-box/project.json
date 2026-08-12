@@ -1872,5 +1872,8 @@
         "base_time": 8,
         "per_unit": 1,
         "per_part": 4
+    },
+    "hyperobject": {
+        "commons_license": "CERN-OHL-W-2.0"
     }
 }
