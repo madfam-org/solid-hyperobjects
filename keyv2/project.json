@@ -436,5 +436,8 @@
         "fn_factor": 64,
         "wasm_multiplier": 3,
         "warning_threshold_seconds": 45
+    },
+    "hyperobject": {
+        "commons_license": "GPL-3.0"
     }
 }
