@@ -717,5 +717,8 @@
     "fn_factor": 32,
     "wasm_multiplier": 3,
     "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "commons_license": "CERN-OHL-W-2.0"
   }
 }
