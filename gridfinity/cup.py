@@ -2,85 +2,108 @@ import cadquery as cq
 import json
 import argparse
 
+
+def _rounded_prismoid(bottom, top, height, radius, z0=0.0):
+    """A square prismoid with filleted vertical edges, matching BOSL2's prismoid."""
+    solid = (
+        cq.Workplane("XY", origin=(0, 0, z0))
+        .rect(bottom, bottom)
+        .workplane(offset=height)
+        .rect(top, top)
+        .loft(combine=True)
+    )
+    try:
+        solid = solid.edges("|Z").fillet(radius)
+    except Exception:
+        # A fillet larger than the taper allows is a cosmetic loss, not a defect.
+        pass
+    return solid
+
+
 def build(params):
     width_units = int(params.get('width_units', 2))
     depth_units = int(params.get('depth_units', 1))
     height_units = int(params.get('height_units', 3))
     cup_floor_thickness = float(params.get('cup_floor_thickness', 0.7))
-    
+
     pitch = 42.0
     zpitch = 7.0
     corner_radius = 3.75
-    
+    wall = 1.2
+
+    # Gridfinity base profile — kept in step with cup.scad.
+    base_h = 5.0
+    foot_bottom = 39.2
+    foot_top = pitch - 0.5
+
     total_w = width_units * pitch - 0.5
     total_d = depth_units * pitch - 0.5
     total_h = height_units * zpitch
-    
-    # Core geometry
-    # offset to center it properly (the SCAD is centered on X/Y and +Z on Z)
-    # CQ box is centered by default, so we translate Z by total_h/2
-    cup = (
+    body_h = total_h - base_h
+
+    # The base was previously carved by subtracting one prismoid per cell that
+    # grew to the full 42 mm cell footprint. At the top of that taper the
+    # cutters spanned the whole cross section, leaving geometry that was closed
+    # but self-touching: OCCT produced non-manifold edges here and CGAL split
+    # the OpenSCAD build into two volumes. It also removed the floor and part of
+    # the walls, so the part was lighter than a Gridfinity bin its size because
+    # it was not printable.
+    #
+    # The feet are positive geometry now, fused into the body with a slight
+    # overlap so no coincident plane survives, and the interior is cut in one
+    # pass so the feet and bin are shelled together.
+    def cell_centres():
+        for ix in range(width_units):
+            for iy in range(depth_units):
+                yield (
+                    (ix - (width_units - 1) / 2.0) * pitch,
+                    (iy - (depth_units - 1) / 2.0) * pitch,
+                )
+
+    solid = None
+    for cx, cy in cell_centres():
+        foot = _rounded_prismoid(foot_bottom, foot_top, base_h + 0.1,
+                                 corner_radius).translate((cx, cy, 0))
+        solid = foot if solid is None else solid.union(foot)
+
+    body = (
         cq.Workplane("XY")
-        .box(total_w, total_d, total_h)
+        .box(total_w, total_d, body_h)
         .edges("|Z")
         .fillet(corner_radius)
-        .translate((0, 0, total_h/2.0))
+        .translate((0, 0, base_h + body_h / 2.0))
     )
-    
-    # Inner scoop
-    # The inner box is W-2.4, D-2.4, H
-    # The SCAD says p1 = [-..., -..., 0], and it's shifted up by cup_floor_thickness.
-    inner_w = total_w - 2.4
-    inner_d = total_d - 2.4
-    inner = (
+    solid = solid.union(body)
+
+    cavity = None
+    for cx, cy in cell_centres():
+        inner_foot = _rounded_prismoid(
+            foot_bottom - 2 * wall, foot_top - 2 * wall, base_h,
+            max(corner_radius - wall, 0.1), z0=cup_floor_thickness,
+        ).translate((cx, cy, 0))
+        cavity = inner_foot if cavity is None else cavity.union(inner_foot)
+
+    # Overshoot the top so the bin is open rather than a sealed void.
+    inner_body = (
         cq.Workplane("XY")
-        .box(inner_w, inner_d, total_h)
+        .box(total_w - 2 * wall, total_d - 2 * wall, body_h + 1)
         .edges("|Z")
-        .fillet(corner_radius)
-        .translate((0, 0, total_h/2.0 + cup_floor_thickness))
+        .fillet(max(corner_radius - wall, 0.1))
+        .translate((0, 0, base_h + (body_h + 1) / 2.0))
     )
-    
-    cup = cup.cut(inner)
-    
-    # Bottom profile (interface)
-    # Grid of prismoids to cut from the bottom
-    # SCAD: size1=[39.2, 39.2] (bottom), size2=[42, 42] (top), h=5, shifted down by 0.1
-    # CQ makePrism is a bit different, easiest is a swept loft or just use an inverted pyramid
-    # Actually, a simple cut from the base is a chamfered box or a loft.
-    # We can create a base prismoid:
-    # A loft between two rectangles.
-    prismoid = (
-        cq.Workplane("XY", origin=(0,0,-0.1))
-        .rect(39.2, 39.2)
-        .workplane(offset=5.0)
-        .rect(42.0, 42.0)
-        .loft(combine=True)
-    )
-    # Fillet vertical edges
-    try:
-        prismoid = prismoid.edges("|Z").fillet(corner_radius - 0.1)
-    except Exception:
-        pass
-    
-    start_x = -total_w/2.0 + pitch/2.0
-    start_y = -total_d/2.0 + pitch/2.0
-    
-    for x in range(width_units):
-        for y in range(depth_units):
-            cx = start_x + x * pitch
-            cy = start_y + y * pitch
-            cup = cup.cut(prismoid.translate((cx, cy, 0)))
-            
-    return cup.clean()
+    cavity = cavity.union(inner_body)
+
+    return solid.cut(cavity).clean()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--params", type=str, default="{}")
     parser.add_argument("--out", type=str, default="out.stl")
     args = parser.parse_args()
-    
+
     params = json.loads(args.params)
     res = build(params)
-    
+
     if args.out:
         cq.exporters.export(res, args.out)
