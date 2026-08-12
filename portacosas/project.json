@@ -1100,5 +1100,8 @@
     "render": "public",
     "download": "public",
     "export": "public"
+  },
+  "hyperobject": {
+    "commons_license": "CERN-OHL-W-2.0"
   }
 }
