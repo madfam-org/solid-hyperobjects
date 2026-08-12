@@ -1,14 +1,22 @@
 include <../../libs/BOSL2/std.scad>
 
 // Yantra4D Parameters
-upper_circumference_mm = 320;
-lower_circumference_mm = 240;
-socket_length_mm = 250;
+// These names must match project.json, and socket.py, exactly. They used to be
+// upper_circumference_mm / lower_circumference_mm / socket_length_mm, which the
+// manifest never declares, so the render harness — which only forwards
+// parameters a .scad actually declares — passed none of them and this file
+// silently used its own defaults of 320/240/250 while socket.py built from the
+// manifest's 350/250/300. The two engines were modelling different sockets:
+// 251 mm against 300 mm tall, and 161% apart by volume.
+circumference_top = 350;
+circumference_bottom = 250;
+length = 300;
 voronoi_density = 10;
+wall_thickness = 4;
 
 // Internal Calcs
-r_upper = upper_circumference_mm / (2 * PI);
-r_lower = lower_circumference_mm / (2 * PI);
+r_upper = circumference_top / (2 * PI);
+r_lower = circumference_bottom / (2 * PI);
 distal_interface_d = 50; // Standard distal cap
 
 module voronoi_pattern(r, h, density) {
@@ -32,13 +40,12 @@ module voronoi_pattern(r, h, density) {
 }
 
 module socket_shell() {
-    wall_thickness = 4;
     
     difference() {
         // Outer Shell
         hull() {
             cylinder(h=1, r=r_lower + wall_thickness, $fn=64);
-            up(socket_length_mm)
+            up(length)
             cylinder(h=1, r=r_upper + wall_thickness, $fn=64);
         }
         
@@ -46,7 +53,7 @@ module socket_shell() {
         hull() {
             up(wall_thickness)
             cylinder(h=1, r=r_lower, $fn=64);
-            up(socket_length_mm + 1)
+            up(length + 1)
             cylinder(h=1, r=r_upper, $fn=64);
         }
         
@@ -54,7 +61,7 @@ module socket_shell() {
         // Apply pattern to the tapered surface
         // We approximate the surface at mid-radius for subtraction
         r_mid = (r_upper + r_lower) / 2;
-        voronoi_pattern(r_mid + wall_thickness, socket_length_mm, voronoi_density);
+        voronoi_pattern(r_mid + wall_thickness, length, voronoi_density);
         
         // Distal Hardware Mounting Holes
         down(1)

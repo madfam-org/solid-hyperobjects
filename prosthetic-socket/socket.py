@@ -29,7 +29,8 @@ def build(params):
     random.seed(int(r_upper * length)) # Deterministic seed
     
     spheres = []
-    for i in range(voronoi_density * 2):
+    # density + 1 to match socket.scad's for(i=[0:density]).
+    for i in range(voronoi_density + 1):
         z = random.uniform(20.0, length - 20.0)
         ang = random.uniform(0.0, 360.0)
         rad = random.uniform(5.0, 15.0)
@@ -41,7 +42,15 @@ def build(params):
         x = r_at_z * math.cos(math.radians(ang))
         y = r_at_z * math.sin(math.radians(ang))
         
-        sphere = cq.Solid.makeSphere(rad).translate((x, y, z))
+        # Full sphere. makeSphere defaults to a hemisphere (angleDegrees1=0),
+        # and cutting those half-domes left flat faces lying tangent to the
+        # shell that OCCT could not tessellate cleanly: the exported STL came
+        # out with 20 boundary and 197 non-manifold edges, which made its
+        # measured volume meaningless — 768,984 mm3 against the 393,885 mm3
+        # OCCT reports for the same solid. socket.scad cuts full spheres.
+        sphere = cq.Solid.makeSphere(
+            rad, angleDegrees1=-90, angleDegrees2=90
+        ).translate((x, y, z))
         spheres.append(sphere)
         
     for s in spheres:
