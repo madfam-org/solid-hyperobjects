@@ -448,5 +448,8 @@
         "fn_factor": 64,
         "wasm_multiplier": 3,
         "warning_threshold_seconds": 60
+    },
+    "hyperobject": {
+        "commons_license": "BSD-2-Clause"
     }
 }
