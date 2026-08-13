@@ -1,9 +1,20 @@
 import cadquery as cq
 
-# Parameters provided by cq_runner.py
-extrusion_length = globals().get('extrusion_length', 150)
-profile_scale = globals().get('profile_scale', 1.0)
-degradation_state = globals().get('degradation_state', 0)
+
+# ─── Sandbox-safe parameter access ───────────────────────────────────────────
+# cq_runner injects parameters as module globals but blocks the globals()
+# builtin, so reading them via globals().get() failed every production render
+# of this cartridge. The NameError probe below needs no blocked builtins.
+def PARAM(getter, default):
+    try:
+        return getter()
+    except Exception:
+        return default
+
+
+extrusion_length = float(PARAM(lambda: extrusion_length, 150))
+profile_scale = float(PARAM(lambda: profile_scale, 1.0))
+degradation_state = float(PARAM(lambda: degradation_state, 0))
 
 # Create an I-beam representing the rail body
 w = 50 * profile_scale
