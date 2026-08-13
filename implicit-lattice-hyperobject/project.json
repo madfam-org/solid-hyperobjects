@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "author": "Yantra4D",
     "license": "CERN-OHL-W-2.0",
-    "thumbnail": "thumbnail.png",
+    "thumbnail": "/projects/implicit-lattice-hyperobject.png",
     "tags": [
       "math",
       "implicit",
