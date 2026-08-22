@@ -3,7 +3,10 @@
     "name": "Parametric Rubik's Cube",
     "slug": "rubiks-hyperobject",
     "version": "1.0.0",
-    "description": "Parametric Rubik's Cube hyperobject \u2014 NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D",
+    "description": {
+      "es": "Hiperobjeto Cubo de Rubik parametrico \u2014 cubo NxN con rotacion de capas, vista explosionada y variante esferica\n\nVisualizador y Configurador Oficial: Yantra4D",
+      "en": "Parametric Rubik's Cube hyperobject \u2014 NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D"
+    },
     "thumbnail": "/projects/rubiks-hyperobject.webp",
     "tags": [
       "puzzle",
@@ -142,8 +145,7 @@
       "part_quantities": {
         "cubies": "N * N * N - (N - 2) * (N - 2) * (N - 2)",
         "core": 1,
-        "stickers": "6 * N * N",
-        "frame": 1
+        "stickers": "6 * N * N"
       },
       "estimate": {
         "base_units": "N * N",
@@ -237,7 +239,11 @@
         "en": "Functional Mechanism"
       },
       "parts": [
-        "main"
+        "main",
+        "mechanism_core",
+        "mechanism_center",
+        "mechanism_edge",
+        "mechanism_corner"
       ],
       "part_quantities": {
         "mechanism_core": 1,
@@ -273,15 +279,6 @@
         "en": "Core Mechanism"
       },
       "default_color": "#e0e0e0"
-    },
-    {
-      "id": "frame",
-      "render_mode": 0,
-      "label": {
-        "es": "Marco",
-        "en": "Frame"
-      },
-      "default_color": "#a0a0a0"
     },
     {
       "id": "segments",
