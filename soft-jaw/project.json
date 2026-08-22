@@ -80,7 +80,7 @@
       }
     },
     {
-      "id": "Standard",
+      "id": "jaw_body",
       "scad_file": "soft_jaw.scad",
       "cq_file": "soft_jaw.py",
       "label": {
@@ -558,7 +558,7 @@
         "es": "Calidad ($fn)"
       },
       "visible_in_modes": [
-        "Standard"
+        "jaw_body"
       ],
       "group": "quality",
       "visibility_level": "advanced"
@@ -611,6 +611,7 @@
     },
     {
       "id": "kurt_dx6_prismatic_scad",
+      "mode": "jaw_body",
       "label": {
         "en": "Kurt DX6 Prismatic (Round Stock)",
         "es": "Kurt DX6 Prismático (Material Redondo)"
@@ -623,6 +624,7 @@
     },
     {
       "id": "kurt_dx6_smooth_scad",
+      "mode": "jaw_body",
       "label": {
         "en": "Kurt DX6 Smooth (Mar-free)",
         "es": "Kurt DX6 Liso (Sin marcas)"
@@ -635,6 +637,7 @@
     },
     {
       "id": "orange_vise_grid_scad",
+      "mode": "jaw_body",
       "label": {
         "en": "Orange Vise 6\" Grid",
         "es": "Orange Vise 6\" Rejilla"

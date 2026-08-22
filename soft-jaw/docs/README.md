@@ -19,7 +19,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 
 ## Modes
 
-The default kernel is **CadQuery (B-Rep)**; the legacy `Standard` mode carries an
+The default kernel is **CadQuery (B-Rep)**; the legacy `jaw_body` mode carries an
 explicit `engine: openscad` and renders on OpenSCAD.
 
 | Mode id | Label (en) | Engine | File |
@@ -27,7 +27,7 @@ explicit `engine: openscad` and renders on OpenSCAD.
 | `jaw` | Soft Jaw | CadQuery B-Rep | `main.py` |
 | `jaw_pair` | Jaw Pair | CadQuery B-Rep | `main.py` |
 | `vee_jaw` | V-Groove Jaw | CadQuery B-Rep | `main.py` |
-| `Standard` | Soft Jaw (OpenSCAD) | OpenSCAD | `soft_jaw.scad` |
+| `jaw_body` | Soft Jaw (OpenSCAD) | OpenSCAD | `soft_jaw.scad` |
 
 **CadQuery modes** — `jaw`, `jaw_pair`, `vee_jaw`:
 
@@ -39,7 +39,7 @@ explicit `engine: openscad` and renders on OpenSCAD.
 - **V-Groove Jaw** (`vee_jaw`) — a jaw with a V-groove down the face to hold round
   stock (bar / pipe) for cross-drilling or milling a flat.
 
-**OpenSCAD mode** — `Standard`: the original single `jaw_body` soft jaw from
+**OpenSCAD mode** — `jaw_body`: the original single `jaw_body` soft jaw from
 `soft_jaw.scad`, driven by the legacy parameter set.
 
 The mode's part id **is** the `target_part` the CadQuery script dispatches on, so
@@ -70,10 +70,10 @@ magnets and serrations are in **mm**. Internally everything is converted to mm.
 
 ### OpenSCAD-extended parameters
 
-The legacy `Standard` (OpenSCAD) mode adds its own parameters by group — notably a
+The legacy `jaw_body` (OpenSCAD) mode adds its own parameters by group — notably a
 **Quality** group with `fn` ($fn) — plus its own reading of the shared
 `vise_model` / `jaw_width` / `jaw_height` / `jaw_thickness` / `face_pattern` /
-`magnet_pockets` controls. Only `Standard` exposes these legacy rows.
+`magnet_pockets` controls. Only `jaw_body` exposes these legacy rows.
 
 ## Presets
 
@@ -81,7 +81,7 @@ The legacy `Standard` (OpenSCAD) mode adds its own parameters by group — notab
 - **Kurt DX6 Round-Stock Pair** — a serrated pair with a 25 mm round pocket (`jaw_pair`).
 - **Tormach 5" V-Block** — a V-groove jaw for round stock on a 5" vise (`vee_jaw`).
 - Legacy OpenSCAD presets — **Kurt DX6 Prismatic (Round Stock)**, **Kurt DX6
-  Smooth (Mar-free)**, **Orange Vise 6" Grid** — target the `Standard` mode.
+  Smooth (Mar-free)**, **Orange Vise 6" Grid** — target the `jaw_body` mode.
 
 ## Hyperobject Profile
 
@@ -108,7 +108,7 @@ The legacy `Standard` (OpenSCAD) mode adds its own parameters by group — notab
 - **Default engine: CadQuery (B-Rep).** `jaw`, `jaw_pair`, and `vee_jaw` render
   on CadQuery; every shipped preset and default renders **watertight** and exports
   **STEP** (alongside STL / 3MF / GLB / GLTF / OBJ).
-- **Legacy engine: OpenSCAD.** The `Standard` mode carries an explicit per-mode
+- **Legacy engine: OpenSCAD.** The `jaw_body` mode carries an explicit per-mode
   `engine: openscad` and renders `soft_jaw.scad` through the OpenSCAD kernel,
   preserving the original soft jaw exactly.
 - The CadQuery script is **self-contained** (sandbox-safe): parameters are read via
