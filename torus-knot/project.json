@@ -26,7 +26,7 @@
                 "en": "Sculpture"
             },
             "parts": [
-                "knot"
+                "sculpture"
             ],
             "estimate": {
                 "base_units": 4,
@@ -37,7 +37,7 @@
     ],
     "parts": [
         {
-            "id": "knot",
+            "id": "sculpture",
             "render_mode": 0,
             "label": {
                 "es": "Nudo",
@@ -335,10 +335,10 @@
                 "en": "Requires supports. 0.2mm layers, 15% infill. Orient to minimize supports"
             },
             "visible_parts": [
-                "knot"
+                "sculpture"
             ],
             "highlight_parts": [
-                "knot"
+                "sculpture"
             ],
             "camera": [
                 80,
@@ -362,10 +362,10 @@
                 "en": "Sand support marks. 220 grit then 400 grit for smooth finish"
             },
             "visible_parts": [
-                "knot"
+                "sculpture"
             ],
             "highlight_parts": [
-                "knot"
+                "sculpture"
             ],
             "camera": [
                 60,

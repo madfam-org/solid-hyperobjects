@@ -11,7 +11,7 @@ Generative torus knot sculptures using BOSL2 (knot curve inlined, formerly dotSC
 
 | ID | Label | SCAD File | Parts |
 |---|---|---|---|
-| `sculpture` | Sculpture | `torus_knot.scad` | knot |
+| `sculpture` | Sculpture | `torus_knot.scad` | sculpture |
 
 ## Parameters
 
@@ -41,7 +41,7 @@ Generative torus knot sculptures using BOSL2 (knot curve inlined, formerly dotSC
 
 | ID | Label | Default Color |
 |---|---|---|
-| `knot` | Knot | `#e74c3c` |
+| `sculpture` | Knot | `#e74c3c` |
 
 ## Constraints
 
