@@ -79,7 +79,7 @@
       }
     },
     {
-      "id": "Standard",
+      "id": "filter_housing",
       "scad_file": "faircap.scad",
       "cq_file": "faircap.py",
       "label": {
@@ -377,7 +377,7 @@
         "es": "Diámetro de Carcasa (mm)"
       },
       "visible_in_modes": [
-        "Standard"
+        "filter_housing"
       ],
       "group": "dimensions"
     },
@@ -393,7 +393,7 @@
         "es": "Largo de Carcasa (mm)"
       },
       "visible_in_modes": [
-        "Standard"
+        "filter_housing"
       ],
       "group": "dimensions"
     }
@@ -453,6 +453,7 @@
     },
     {
       "id": "charcoal_standard_scad",
+      "mode": "filter_housing",
       "label": {
         "en": "Charcoal Filter (Standard)",
         "es": "Filtro de Carbón (Estándar)"
@@ -464,6 +465,7 @@
     },
     {
       "id": "ceramic_long_scad",
+      "mode": "filter_housing",
       "label": {
         "en": "Ceramic Filter (Long)",
         "es": "Filtro Cerámico (Largo)"
