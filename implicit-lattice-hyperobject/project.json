@@ -2,7 +2,10 @@
   "project": {
     "name": "Maths: TPMS Implicit Lattice",
     "slug": "implicit-lattice-hyperobject",
-    "description": "A field-driven Triply Periodic Minimal Surface (TPMS). Uses continuous Signed Distance Fields rather than explicit BSP trees.",
+    "description": {
+      "en": "A field-driven Triply Periodic Minimal Surface (TPMS). Uses continuous Signed Distance Fields rather than explicit BSP trees.",
+      "es": "Una Superficie Mínima Triplemente Periódica (TPMS) generada por campos. Usa Campos de Distancia con Signo continuos en lugar de árboles BSP explícitos."
+    },
     "version": "1.0.0",
     "author": "Yantra4D",
     "license": "CERN-OHL-W-2.0",
@@ -36,7 +39,7 @@
   },
   "modes": [
     {
-      "id": "single",
+      "id": "lattice",
       "scad_file": "tpms.scad",
       "label": {
         "en": "Single TPMS Lattice",
@@ -91,7 +94,10 @@
           "label": "PETG Carbon Fiber"
         }
       ],
-      "label": "Target Material",
+      "label": {
+        "en": "Target Material",
+        "es": "Material Objetivo"
+      },
       "hidden": true
     },
     {
@@ -103,7 +109,10 @@
       "min": 0,
       "max": 2,
       "default": 0,
-      "label": "Topology: 0=Gyroid, 1=Diamond, 2=Schwarz P"
+      "label": {
+        "en": "Topology: 0=Gyroid, 1=Diamond, 2=Schwarz P",
+        "es": "Topología: 0=Giroide, 1=Diamante, 2=Schwarz P"
+      }
     },
     {
       "id": "frequency",
@@ -111,7 +120,10 @@
       "min": 1,
       "max": 20,
       "default": 5,
-      "label": "Spatial Frequency"
+      "label": {
+        "en": "Spatial Frequency",
+        "es": "Frecuencia Espacial"
+      }
     }
   ],
   "hyperobject": {
