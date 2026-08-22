@@ -2,7 +2,7 @@
   "project": {
     "name": "Parametric Pipe Connector",
     "slug": "parametric-connector",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "engine": "cadquery",
     "description": {
       "en": "A disaster-relief structural connector for scavenged cylindrical stock — PVC pipe, bamboo, or wooden dowel. Measure the outer diameter of whatever material you have, pick a topology (elbow, tee, or 3D corner), and print a node whose sockets seat each pipe to a set depth, with optional pin holes and a heavy-load rib option for shelter frames and geodesic domes.\n\nOfficial Visualizer and Configurator: Yantra4D",
@@ -79,7 +79,7 @@
       }
     },
     {
-      "id": "Standard",
+      "id": "connector_body",
       "scad_file": "connector.scad",
       "cq_file": "connector.py",
       "label": {
@@ -384,7 +384,7 @@
         "es": "Diámetro exterior del tubo/espiga"
       },
       "visible_in_modes": [
-        "Standard"
+        "connector_body"
       ],
       "group": "dimensions"
     },
@@ -448,7 +448,7 @@
         "es": "Tipo de Conector"
       },
       "visible_in_modes": [
-        "Standard"
+        "connector_body"
       ],
       "group": "geometry"
     },
@@ -464,7 +464,7 @@
         "es": "Grosor de Pared (mm)"
       },
       "visible_in_modes": [
-        "Standard"
+        "connector_body"
       ],
       "group": "structure"
     },
@@ -480,7 +480,7 @@
         "es": "Profundidad de Inserción (mm)"
       },
       "visible_in_modes": [
-        "Standard"
+        "connector_body"
       ],
       "group": "structure"
     },
@@ -496,7 +496,7 @@
         "es": "Calidad ($fn)"
       },
       "visible_in_modes": [
-        "Standard"
+        "connector_body"
       ],
       "group": "quality",
       "visibility_level": "advanced"

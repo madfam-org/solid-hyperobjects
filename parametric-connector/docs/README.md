@@ -16,11 +16,11 @@ imprimes un nodo cuyos enchufes asientan cada tubo a una profundidad definida.*
 Part of the **Yantra4D Hyperobjects Commons**. Official visualizer and
 configurator: [Yantra4D](https://app.yantra4d.com).
 
-**Version**: 2.1.0 · **Slug**: `parametric-connector`
+**Version**: 2.1.1 · **Slug**: `parametric-connector`
 
 ## Modes
 
-The default kernel is **CadQuery (B-Rep)**; the legacy `Standard` mode carries an
+The default kernel is **CadQuery (B-Rep)**; the legacy `connector_body` mode carries an
 explicit `engine: openscad` and renders on OpenSCAD.
 
 | Mode id | Label (en) | Engine | File |
@@ -28,7 +28,7 @@ explicit `engine: openscad` and renders on OpenSCAD.
 | `elbow` | Elbow (2-way) | CadQuery B-Rep | `main.py` |
 | `tee` | Tee (3-way flat) | CadQuery B-Rep | `main.py` |
 | `corner_3way` | Corner (3-way 3D) | CadQuery B-Rep | `main.py` |
-| `Standard` | Pipe Connector (OpenSCAD) | OpenSCAD | `connector.scad` |
+| `connector_body` | Pipe Connector (OpenSCAD) | OpenSCAD | `connector.scad` |
 
 **CadQuery modes** — `elbow`, `tee`, `corner_3way` (each is one solid; the
 platform dispatches on `target_part` == the mode's part id):
@@ -40,9 +40,13 @@ platform dispatches on `target_part` == the mode's part id):
 - **Corner (3-way 3D)** (`corner_3way`) — one arm on each of +X, +Y, +Z — the
   orthogonal vertex of a cube / box frame or shelving.
 
-**OpenSCAD mode** — `Standard`: the original single `connector_body` from
+**OpenSCAD mode** — `connector_body`: the original single body from
 `connector.scad`, whose `connector_type` selector spans a wider legacy topology
-set (elbow, tee, cross, 3-way / 4-way corner, 5-way, 6-way hub).
+set (elbow, tee, cross, 3-way / 4-way corner, 5-way, 6-way hub). This mode was
+called `Standard` until v2.1.1. A single-part mode's id must EQUAL its part id,
+because the platform dispatches by injecting `target_part = <the part id>`; a
+mode id of `Standard` could never match the part `connector_body`. The
+meaningless boilerplate id was retired rather than renaming the part.
 
 ## Parameters
 
@@ -61,11 +65,11 @@ set (elbow, tee, cross, 3-way / 4-way corner, 5-way, 6-way hub).
 
 ### OpenSCAD-extended parameters
 
-The legacy `Standard` (OpenSCAD) mode adds its own parameters by group — a
+The legacy `connector_body` (OpenSCAD) mode adds its own parameters by group — a
 **Pipe Size** group (`pipe_od_mm`), a **Topology** group (`connector_type` select
 with elbow/tee/cross/3-way/4-way/5-way/6-way options), a **Structure** group
 (`wall_thickness_mm`, `insertion_depth_mm`), and a **Quality** group (`fn`, $fn).
-Only `Standard` exposes these legacy rows.
+Only `connector_body` exposes these legacy rows.
 
 ## Presets
 
@@ -75,7 +79,7 @@ Only `Standard` exposes these legacy rows.
   and a wide clearance for irregular bamboo (`corner_3way`).
 - **Geodesic Strut (60°)** — `pipe_od` 25, heavy-load elbow opened to 60° (`elbow`).
 - Legacy OpenSCAD presets — **1/2" PVC Elbow**, **3/4" PVC Tee**, **Furniture
-  3-Way Corner (1")** — target the `Standard` mode.
+  3-Way Corner (1")** — target the `connector_body` mode.
 
 ## Hyperobject Profile
 
@@ -103,7 +107,7 @@ Only `Standard` exposes these legacy rows.
 - **Default engine: CadQuery (B-Rep).** `elbow`, `tee`, and `corner_3way` render
   on CadQuery; every shipped preset and mode renders **watertight** and exports
   **STEP** (alongside STL / 3MF / GLB / GLTF / OBJ).
-- **Legacy engine: OpenSCAD.** The `Standard` mode carries an explicit per-mode
+- **Legacy engine: OpenSCAD.** The `connector_body` mode carries an explicit per-mode
   `engine: openscad` and renders `connector.scad` through the OpenSCAD kernel,
   preserving the wider legacy topology set.
 - The CadQuery script is **self-contained** (sandbox-safe): parameters are read via
