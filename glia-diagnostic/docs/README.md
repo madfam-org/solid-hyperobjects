@@ -15,8 +15,8 @@ Visualizador y configurador oficial: Yantra4D*
 
 | ID | Label | SCAD File | Parts |
 |---|---|---|---|
-| `stethoscope` | Stethoscope | `diagnostic.scad` | head |
-| `otoscope` | Otoscope | `diagnostic.scad` | specula |
+| `stethoscope` | Stethoscope | `diagnostic.scad` | stethoscope |
+| `otoscope` | Otoscope | `diagnostic.scad` | otoscope |
 
 ## Parameters
 
@@ -30,8 +30,8 @@ Visualizador y configurador oficial: Yantra4D*
 
 | ID | Label | Default Color |
 |---|---|---|
-| `head` | Head | `#e5e7eb` |
-| `specula` | Specula | `#d1d5db` |
+| `stethoscope` | Stethoscope Head | `#e5e7eb` |
+| `otoscope` | Otoscope Speculum | `#d1d5db` |
 
 ## Render Estimates
 

@@ -37,7 +37,7 @@
             "scad_file": "diagnostic.scad",
             "cq_file": "diagnostic.py",
             "parts": [
-                "head"
+                "stethoscope"
             ],
             "estimate": {
                 "base_units": 1,
@@ -53,7 +53,7 @@
             "scad_file": "diagnostic.scad",
             "cq_file": "diagnostic.py",
             "parts": [
-                "specula"
+                "otoscope"
             ],
             "estimate": {
                 "base_units": 1,
@@ -63,19 +63,19 @@
     ],
     "parts": [
         {
-            "id": "head",
+            "id": "stethoscope",
             "label": {
-                "en": "Head",
-                "es": "Cabezal"
+                "en": "Stethoscope Head",
+                "es": "Cabezal de Estetoscopio"
             },
             "render_mode": 1,
             "default_color": "#e5e7eb"
         },
         {
-            "id": "specula",
+            "id": "otoscope",
             "label": {
-                "en": "Specula",
-                "es": "Espéculo"
+                "en": "Otoscope Speculum",
+                "es": "Espéculo de Otoscopio"
             },
             "render_mode": 2,
             "default_color": "#d1d5db"
