@@ -51,7 +51,7 @@
   },
   "modes": [
     {
-      "id": "default",
+      "id": "main",
       "scad_file": "slide.scad",
       "label": {
         "en": "Single Slide",
