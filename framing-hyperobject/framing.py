@@ -1,11 +1,20 @@
 import cadquery as cq
-import json
-import argparse
-import sys
-import os
+import math
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-from libs.yantra4d.cdg_interfaces import cdg_french_cleat
+# The CDG french-cleat interface, inlined so this cartridge is self-contained.
+# The sandbox blocks `os`/`sys`, so the shared libs/ tree cannot be reached from
+# here — and a standalone cartridge must not depend on the parent repo anyway.
+# Keep this in sync with libs/yantra4d/cdg_interfaces.py::cdg_french_cleat.
+def cdg_french_cleat(length=100, height=30, depth=15, angle=45):
+    rad = math.radians(angle)
+    pts = [
+        (0, 0),
+        (depth, 0),
+        (depth, height),
+        (depth - (height * math.tan(rad)), height),
+    ]
+    cleat = cq.Workplane("YZ").polyline(pts).close().extrude(length)
+    return cleat.translate((-length / 2, -height / 2, 0)).clean()
 
 def cubic_bezier(p0, p1, p2, p3, steps=20):
     pts = []
@@ -16,7 +25,7 @@ def cubic_bezier(p0, p1, p2, p3, steps=20):
         pts.append((x, y))
     return pts
 
-def build(params):
+def build_frame(params):
     width = float(params.get("width", 200))
     height = float(params.get("height", 250))
     depth = float(params.get("depth", 20))
@@ -94,25 +103,64 @@ def build(params):
     
     return frame.clean()
 
-# Parse parameters injected by cq_runner or fall back to defaults
-width_val = float(globals().get("width", 200))
-height_val = float(globals().get("height", 250))
-depth_val = float(globals().get("depth", 20))
+def _seated_panel(params, thickness, z_offset):
+    """A flat panel sized to seat in the frame's rabbet, `thickness` thick."""
+    width = float(params.get("width", 200))
+    height = float(params.get("height", 250))
+    # rabbet_w (5mm per side) is how far the rabbet reaches inward from the
+    # frame's inner edge — the panel spans the opening plus both rabbet lips.
+    rabbet_w = 5
+    panel_w = width - (2 * rabbet_w)
+    panel_h = height - (2 * rabbet_w)
+    return (
+        cq.Workplane("XY")
+        .box(panel_w, panel_h, thickness)
+        .translate((0, 0, z_offset))
+        .clean()
+    )
+
+
+def build_glazing(params):
+    """The glazing sheet (acrylic/glass) that fronts the artwork."""
+    t = float(params.get("glazing_thickness", 2))
+    depth = float(params.get("depth", 20))
+    # Seats at the front of the rabbet.
+    return _seated_panel(params, t, (depth / 2) - (t / 2))
+
+
+def build_back_panel(params):
+    """The backing board that closes the frame behind the artwork."""
+    t = 3.0
+    depth = float(params.get("depth", 20))
+    # Seats at the rear of the rabbet.
+    return _seated_panel(params, t, -(depth / 2) + (t / 2))
+
+
+def build(params):
+    """Dispatch on target_part — the platform injects it as the part id."""
+    target_part = params.get("target_part", "frame_assembly")
+    if target_part == "glazing":
+        return build_glazing(params)
+    if target_part == "back_panel":
+        return build_back_panel(params)
+    return build_frame(params)
+
+
+# Parameters arrive as bare globals injected by the runner, so probe each one
+# through a lambda and fall back to the manifest default when it is absent.
+def PARAM(probe, default):
+    try:
+        return probe()
+    except NameError:
+        return default
+
 
 result = build({
-    "width": width_val,
-    "height": height_val,
-    "depth": depth_val
+    "width": PARAM(lambda: width, 200),
+    "height": PARAM(lambda: height, 250),
+    "depth": PARAM(lambda: depth, 20),
+    "glazing_thickness": PARAM(lambda: glazing_thickness, 2),
+    "mounting_style": PARAM(lambda: mounting_style, "none"),
+    "target_part": PARAM(lambda: target_part, "frame_assembly"),
 })
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--params", type=str, default="{}")
-    parser.add_argument("--out", type=str, default="out.stl")
-    args = parser.parse_args()
-    
-    params = json.loads(args.params)
-    res = build(params)
-    
-    cq.exporters.export(res, args.out)
 

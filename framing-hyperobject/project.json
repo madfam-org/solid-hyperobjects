@@ -87,7 +87,10 @@
           "label": "Formlabs Clear V4"
         }
       ],
-      "label": "Target Material",
+      "label": {
+        "en": "Target Material",
+        "es": "Material objetivo"
+      },
       "hidden": true
     },
     {
