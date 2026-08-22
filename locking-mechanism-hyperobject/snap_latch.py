@@ -2,15 +2,32 @@ import cadquery as cq
 import math
 
 # Variables injected by Yantra4D at runtime
-latch_width = 15
-hook_depth = 2
-spring_angle = 15
-wall_thickness = 2
-base_length = 40
-clearance = 0.3
-material_modulus = 1.5
-shrinkage_factor = 0.0
-cdg_mount_type = 0
+
+def PARAM(getter, default):
+    """Return an injected global if present, else the default.
+
+    Manifest parameters arrive as BARE globals injected before this module runs.
+    A plain `latch_width = 15` would overwrite the injected value, so every
+    parameter is read through this helper instead (house idiom; see other
+    yantra4d CadQuery cartridges).
+    """
+    try:
+        v = getter()
+        return default if v is None else v
+    except Exception:
+        return default
+
+
+# ── Parameters ───────────────────────────────────────────────────────────────
+latch_width = float(PARAM(lambda: latch_width, 15))
+hook_depth = float(PARAM(lambda: hook_depth, 2))
+spring_angle = float(PARAM(lambda: spring_angle, 30))
+wall_thickness = float(PARAM(lambda: wall_thickness, 2))
+base_length = float(PARAM(lambda: base_length, 40))
+clearance = float(PARAM(lambda: clearance, 0.3))
+material_modulus = float(PARAM(lambda: material_modulus, 1.5))
+shrinkage_factor = float(PARAM(lambda: shrinkage_factor, 0.0))
+cdg_mount_type = int(PARAM(lambda: cdg_mount_type, 0))
 render_mode = 0
 
 def apply_cdg(base_obj, base_x):
@@ -46,8 +63,15 @@ def generate():
         hook_l = hook_depth / math.tan(math.radians(35))
         ret_off = hook_depth / math.tan(math.radians(85))
         
-        hook = cq.Workplane("XZ").polyline([(0,0), (-ret_off, hook_depth), (hook_l, 0)]).close().extrude(latch_width, both=True).translate((arm_l, 0, arm_t))
-        undercut = cq.Workplane("XZ").polyline([(0,0), (hook_l, 0), (0, -arm_t)]).close().extrude(latch_width, both=True).translate((arm_l, 0, 0))
+        # Sink the wedges into the arm by `weld` so the fuse has real volumetric
+        # overlap. Placed flush on the arm's top/bottom faces they only touch,
+        # and a coincident-face union leaves three disjoint solids in a compound
+        # instead of one watertight body. The exposed hook and undercut profiles
+        # are unchanged — only the buried root shifts.
+        weld = arm_t * 0.5
+
+        hook = cq.Workplane("XZ").polyline([(0,0), (-ret_off, hook_depth), (hook_l, 0)]).close().extrude(latch_width, both=True).translate((arm_l, 0, arm_t - weld))
+        undercut = cq.Workplane("XZ").polyline([(0,0), (hook_l, 0), (0, -arm_t)]).close().extrude(latch_width, both=True).translate((arm_l, 0, weld))
         
         full_arm = arm.union(hook).union(undercut).rotate((0,0,0), (0,1,0), -spring_angle).translate((0, 0, base_h/2 - arm_t/2))
         result = base.union(full_arm)
@@ -63,9 +87,24 @@ def generate():
         
         result = base.cut(slot).cut(chamf).translate((arm_l * math.cos(math.radians(spring_angle)), 0, 0))
 
-    return result.scale(1 + shrinkage_factor/100.0)
+    # Compensate for material shrinkage. cq.Workplane has no .scale(); the
+    # operation lives on the underlying Shape, so unwrap, scale and rewrap.
+    factor = 1 + shrinkage_factor/100.0
+    if factor == 1.0:
+        return result
+    return cq.Workplane("XY").newObject([result.val().scale(factor)])
 
-if 'show_object' in globals():
-    show_object(generate())
-else:
-    result = generate()
+# ── Dispatch ─────────────────────────────────────────────────────────────────
+# The platform injects parameters as bare globals and reads back `result`.
+# CadQuery renders are selected by `target_part` (the part id); the OpenSCAD
+# twin of this script is selected by the `render_mode` integer. Map one to the
+# other so both engines build the same part from the same manifest.
+_PART_RENDER_MODE = {
+    "latch_arm": 0,
+    "striker_plate": 1,
+}
+
+_target_part = str(PARAM(lambda: target_part, "latch_arm"))
+render_mode = _PART_RENDER_MODE.get(_target_part, render_mode)
+
+result = generate()

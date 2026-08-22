@@ -204,15 +204,6 @@
             "default_color": "#2d2d2d"
         },
         {
-            "id": "compliant_body",
-            "render_mode": 0,
-            "label": {
-                "en": "Compliant Lock Body",
-                "es": "Cuerpo de Cerradura Flexible"
-            },
-            "default_color": "#4a6fa5"
-        },
-        {
             "id": "plug",
             "render_mode": 0,
             "label": {
@@ -258,24 +249,6 @@
             "default_color": "#2d2d2d"
         },
         {
-            "id": "slip_housing",
-            "render_mode": 0,
-            "label": {
-                "en": "Spring Housing",
-                "es": "Carcasa del Resorte"
-            },
-            "default_color": "#4a6fa5"
-        },
-        {
-            "id": "slip_blade",
-            "render_mode": 1,
-            "label": {
-                "en": "Blade/Arm",
-                "es": "Hoja/Brazo"
-            },
-            "default_color": "#c45b28"
-        },
-        {
             "id": "gauge",
             "render_mode": 0,
             "label": {
@@ -297,7 +270,8 @@
             "id": "housing",
             "render_mode": 0,
             "label": {
-                "en": "Rigid Housing"
+                "en": "Rigid Housing",
+                "es": "Carcasa Rígida"
             },
             "default_color": "#2d2d2d"
         },
@@ -305,7 +279,8 @@
             "id": "spring_t1",
             "render_mode": 1,
             "label": {
-                "en": "Flexible Arch"
+                "en": "Flexible Arch",
+                "es": "Arco Flexible"
             },
             "default_color": "#1f8fff"
         },
@@ -313,7 +288,8 @@
             "id": "assembly_compliant",
             "render_mode": 2,
             "label": {
-                "en": "Preview Overlay"
+                "en": "Preview Overlay",
+                "es": "Vista del Conjunto"
             },
             "default_color": "#2d2d2d"
         },
@@ -321,7 +297,8 @@
             "id": "blade",
             "render_mode": 1,
             "label": {
-                "en": "Rotating Blade"
+                "en": "Rotating Blade",
+                "es": "Hoja Giratoria"
             },
             "default_color": "#aaaaaa"
         },
@@ -329,7 +306,8 @@
             "id": "spring_t2",
             "render_mode": 2,
             "label": {
-                "en": "Leaf Spring"
+                "en": "Leaf Spring",
+                "es": "Resorte de Hoja"
             },
             "default_color": "#1f8fff"
         },
@@ -337,7 +315,8 @@
             "id": "assembly_slip",
             "render_mode": 3,
             "label": {
-                "en": "Preview Overlay"
+                "en": "Preview Overlay",
+                "es": "Vista del Conjunto"
             },
             "default_color": "#2d2d2d"
         }

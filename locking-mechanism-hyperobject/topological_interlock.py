@@ -1,9 +1,26 @@
 import cadquery as cq
 
-matrix_size = 3
-clearance = 0.3
-shrinkage_factor = 0.0
-cdg_mount_type = 0
+
+def PARAM(getter, default):
+    """Return an injected global if present, else the default.
+
+    Manifest parameters arrive as BARE globals injected before this module runs.
+    A plain `latch_width = 15` would overwrite the injected value, so every
+    parameter is read through this helper instead (house idiom; see other
+    yantra4d CadQuery cartridges).
+    """
+    try:
+        v = getter()
+        return default if v is None else v
+    except Exception:
+        return default
+
+
+# ── Parameters ───────────────────────────────────────────────────────────────
+matrix_size = int(PARAM(lambda: matrix_size, 3))
+clearance = float(PARAM(lambda: clearance, 0.3))
+shrinkage_factor = float(PARAM(lambda: shrinkage_factor, 0.0))
+cdg_mount_type = int(PARAM(lambda: cdg_mount_type, 0))
 render_mode = 0
 
 def generate():
@@ -42,9 +59,24 @@ def generate():
             
         result = result.translate((-block_s/2, -block_s/2, 0))
         
-    return result.scale(1 + shrinkage_factor/100.0)
+    # Compensate for material shrinkage. cq.Workplane has no .scale(); the
+    # operation lives on the underlying Shape, so unwrap, scale and rewrap.
+    factor = 1 + shrinkage_factor/100.0
+    if factor == 1.0:
+        return result
+    return cq.Workplane("XY").newObject([result.val().scale(factor)])
 
-if 'show_object' in globals():
-    show_object(generate())
-else:
-    result = generate()
+# ── Dispatch ─────────────────────────────────────────────────────────────────
+# The platform injects parameters as bare globals and reads back `result`.
+# CadQuery renders are selected by `target_part` (the part id); the OpenSCAD
+# twin of this script is selected by the `render_mode` integer. Map one to the
+# other so both engines build the same part from the same manifest.
+_PART_RENDER_MODE = {
+    "interlocking_blocks": 0,
+    "peripheral_frame": 1,
+}
+
+_target_part = str(PARAM(lambda: target_part, "interlocking_blocks"))
+render_mode = _PART_RENDER_MODE.get(_target_part, render_mode)
+
+result = generate()

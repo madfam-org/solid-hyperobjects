@@ -1,14 +1,31 @@
 import cadquery as cq
 import math
 
-latch_width = 15
-wall_thickness = 2
-base_length = 40
-hook_depth = 2
-clearance = 0.3
-material_modulus = 1.5
-shrinkage_factor = 0.0
-cdg_mount_type = 0
+
+def PARAM(getter, default):
+    """Return an injected global if present, else the default.
+
+    Manifest parameters arrive as BARE globals injected before this module runs.
+    A plain `latch_width = 15` would overwrite the injected value, so every
+    parameter is read through this helper instead (house idiom; see other
+    yantra4d CadQuery cartridges).
+    """
+    try:
+        v = getter()
+        return default if v is None else v
+    except Exception:
+        return default
+
+
+# ── Parameters ───────────────────────────────────────────────────────────────
+latch_width = float(PARAM(lambda: latch_width, 15))
+wall_thickness = float(PARAM(lambda: wall_thickness, 2))
+base_length = float(PARAM(lambda: base_length, 40))
+hook_depth = float(PARAM(lambda: hook_depth, 2))
+clearance = float(PARAM(lambda: clearance, 0.3))
+material_modulus = float(PARAM(lambda: material_modulus, 1.5))
+shrinkage_factor = float(PARAM(lambda: shrinkage_factor, 0.0))
+cdg_mount_type = int(PARAM(lambda: cdg_mount_type, 0))
 render_mode = 0
 
 def apply_cdg(base_obj):
@@ -48,7 +65,9 @@ def generate():
             z = base_h/2 + arch_h * math.sin(t * math.pi)
             pts.append((x, z))
         
-        arch = cq.Workplane("XZ").spline(pts).extrude(latch_width, both=True)
+        # Build the arch as a closed ribbon: offset the centreline below and above
+        # by half the wall, then walk back along the top to close the loop. (An
+        # open spline has no closed wire, so it cannot be extruded directly.)
         arch = cq.Workplane("XZ").polyline([(p[0], p[1]-wall_thickness*0.3) for p in pts] + [(p[0], p[1]+wall_thickness*0.3) for p in pts[::-1]]).close().extrude(latch_width/2, both=True)
         
         boss = cq.Workplane("XY").box(wall_thickness*2, latch_width*0.6, wall_thickness*1.5).translate((0,0,base_h/2 + arch_h + wall_thickness*0.75))
@@ -63,9 +82,25 @@ def generate():
     elif render_mode == 2: result = rigid.union(flex)
     else: result = cq.Workplane("XY").box(1,1,1)
         
-    return result.scale(1 + shrinkage_factor/100.0)
+    # Compensate for material shrinkage. cq.Workplane has no .scale(); the
+    # operation lives on the underlying Shape, so unwrap, scale and rewrap.
+    factor = 1 + shrinkage_factor/100.0
+    if factor == 1.0:
+        return result
+    return cq.Workplane("XY").newObject([result.val().scale(factor)])
 
-if 'show_object' in globals():
-    show_object(generate())
-else:
-    result = generate()
+# ── Dispatch ─────────────────────────────────────────────────────────────────
+# The platform injects parameters as bare globals and reads back `result`.
+# CadQuery renders are selected by `target_part` (the part id); the OpenSCAD
+# twin of this script is selected by the `render_mode` integer. Map one to the
+# other so both engines build the same part from the same manifest.
+_PART_RENDER_MODE = {
+    "housing": 0,
+    "spring_t1": 1,
+    "assembly_compliant": 2,
+}
+
+_target_part = str(PARAM(lambda: target_part, "housing"))
+render_mode = _PART_RENDER_MODE.get(_target_part, render_mode)
+
+result = generate()
