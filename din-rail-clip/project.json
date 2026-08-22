@@ -79,7 +79,7 @@
       }
     },
     {
-      "id": "Standard",
+      "id": "clip_body",
       "scad_file": "din_clip.scad",
       "cq_file": "clip.py",
       "label": {
@@ -341,7 +341,7 @@
         "es": "Calidad ($fn)"
       },
       "visible_in_modes": [
-        "Standard"
+        "clip_body"
       ],
       "group": "quality",
       "visibility_level": "advanced"
