@@ -1,13 +1,20 @@
 include <../../libs/BOSL2/std.scad>
 
-// Yantra4D Parameters
-jaw_width_inch = 6; // [4, 6, 8]
-face_pattern = "prismatic"; // [smooth, prismatic, grid, leather]
-magnet_holes = true;
+// Yantra4D Parameters — defaults are project.json's declared defaults.
+// face_pattern used to default to "prismatic" (which is not one of the
+// manifest's options at all) and the jaw height was hard-coded at 1.25 in
+// rather than taking the manifest's 1.735 in. Rendering this mode with no
+// parameters therefore produced a 31.75 mm-tall jaw carrying a full-width
+// V-rib in OpenSCAD against a plain 44.069 mm-tall blank in CadQuery.
+jaw_width_inch = 6;          // project.json jaw_width, default 6.0 in
+jaw_height_inch = 1.735;     // project.json jaw_height, default 1.735 in
+jaw_thickness_inch = 0.75;   // project.json jaw_thickness, default 0.75 in
+face_pattern = "smooth";     // project.json face_pattern, default "smooth"
+magnet_holes = true;         // project.json magnet_pockets, default true
 
 // CDG Constants (Kurt 6")
-JAW_HEIGHT = 1.25 * 25.4; // ~31.75mm
-JAW_THICKNESS = 0.75 * 25.4; // ~19mm
+JAW_HEIGHT = jaw_height_inch * 25.4;
+JAW_THICKNESS = jaw_thickness_inch * 25.4;
 BOLT_SPACING = 3.875 * 25.4; // Varies by model, using standard spacing
 BOLT_HEAD_D = 14; 
 BOLT_SHAFT_D = 9;
