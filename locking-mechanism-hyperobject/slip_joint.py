@@ -37,8 +37,20 @@ def generate():
         elif cdg_mount_type == 2:
             base = base.union(cq.Workplane("XY").workplane(offset=-4.5).rect(42, 42).workplane(offset=4.5).rect(41.5, 41.5).loft())
             
-        slot = cq.Workplane("XY").box(42, latch_width - hinge_t*2, 20).translate((0,0,10))
-        pivot = cq.Workplane("YZ").cylinder(latch_width+1, pin_d/2 + clearance).translate((-10,0,9))
+        # cq's box() is centred on its origin, so a 20 mm-tall slot translated
+        # to z = 10 spans z = 0..20 and hollows the housing out from the build
+        # plate up. slip_joint.scad anchors the same cuboid BOTTOM at z = 10, so
+        # it spans z = 10..30 and opens only the top 8 mm of the 18 mm housing.
+        # Translating to z = 20 puts the centred box in the same place: the
+        # housing keeps its 10 mm solid base, which is what carries the pivot.
+        slot = cq.Workplane("XY").box(42, latch_width - hinge_t*2, 20).translate((0,0,20))
+        # The pivot bore runs ACROSS the latch width (the Y axis) — that is the
+        # axis the blade rotates about. Workplane("YZ") has normal +X, so this
+        # used to bore a 16 mm channel along X instead; it removed nothing only
+        # because the mis-placed slot had already taken that material away.
+        # Workplane("XZ") has normal -Y and matches slip_joint.scad's
+        # `xrot(90) cyl(h=latch_width+1, ...)`.
+        pivot = cq.Workplane("XZ").cylinder(latch_width+1, pin_d/2 + clearance).translate((-10,0,9))
         housing = base.cut(slot).cut(pivot)
 
     if render_mode == 2 or render_mode == 3:
