@@ -57,7 +57,16 @@ module render_profile(path_width, path_height, profile_type = "ogee", w = 20, d 
     difference() {
       // Extrude profile. The profile X is width, Y is height.
       // We orient it so profile X -> outward (Y), profile Y -> upward (Z).
-      rotate([0, 0, -90])
+      //
+      // zrot(+90), not zrot(-90). xrot(90) leaves the extrusion running along
+      // -Y with the profile's X still on X; zrot(-90) then sent the profile's
+      // X to -Y, i.e. INWARD, so the moulding was laid inside the frame path
+      // instead of outside it and the opening came out 2*w narrower than
+      // `width` in each direction. zrot(+90) puts it outward, which is what the
+      // line above says and what framing.py builds — and what the manifest's
+      // glazing and back_panel parts assume, since they are sized
+      // width - 2*rabbet_w to seat in the rabbet of a `width`-wide opening.
+      rotate([0, 0, 90])
         rotate([90, 0, 0])
           linear_extrude(l + w * 2 + 20, center=true)
             polygon(p);
@@ -65,13 +74,19 @@ module render_profile(path_width, path_height, profile_type = "ogee", w = 20, d 
       // Cut right miter (X > L/2 + Y => X - Y > L/2)
       // Cut left miter  (X < -L/2 - Y => X + Y < -L/2)
       // We can use a large box rotated at 45 degrees.
+      //
+      // The angles are negative: at +45 and +135 the half-spaces removed are
+      // X + Y >= L/2 and X - Y <= -L/2 — the mirror image of the two lines
+      // above, which shortened each stick at its OUTER face and left it long at
+      // the inner one. That is an inverted miter: the corners gap on the
+      // outside and overlap on the inside.
       translate([l / 2, 0, 0])
-        rotate([0, 0, 45])
+        rotate([0, 0, -45])
           translate([0, -500, -500])
             cube([1000, 1000, 1000]);
 
       translate([-l / 2, 0, 0])
-        rotate([0, 0, 135])
+        rotate([0, 0, -135])
           translate([0, -500, -500])
             cube([1000, 1000, 1000]);
     }
