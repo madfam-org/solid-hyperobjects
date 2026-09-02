@@ -37,21 +37,30 @@ mount_hole_d = 5;
 mount_hole_spacing = plate_size - 10;
 
 module motor_plate() {
+    // The plate is anchored BOT, so it spans z = 0 .. base_thickness and its
+    // mid-plane is at base_thickness/2. Every cutter below is `h =
+    // base_thickness + 2, anchor=CENTER` — the usual "1 mm proud at each end"
+    // through-cut — so it has to be centred on that mid-plane. Centring it on
+    // z = 0 instead (which is what these cutters used to do) sank half of each
+    // cylinder below the plate and left the top base_thickness/2 - 1 mm of
+    // material uncut: the shaft bore and all eight screw holes were blind, and
+    // the plate came out 7.4% heavier than mount.py's.
     difference() {
         // Base plate using BOSL2 cuboid
         cuboid([plate_size, plate_size, base_thickness], anchor=BOT);
 
         // Center shaft hole
-        cylinder(d=shaft_hole_d + 1, h=base_thickness + 2, anchor=CENTER, $fn=$fn);
+        translate([0, 0, base_thickness/2])
+            cylinder(d=shaft_hole_d + 1, h=base_thickness + 2, anchor=CENTER, $fn=$fn);
 
         // Motor screw holes (4 corners)
         for (x = [-1, 1], y = [-1, 1])
-            translate([x * hole_spacing/2, y * hole_spacing/2, 0])
+            translate([x * hole_spacing/2, y * hole_spacing/2, base_thickness/2])
                 cylinder(d=screw_d + 0.3, h=base_thickness + 2, anchor=CENTER, $fn=24);
 
         // Mounting holes for attaching to surface
         for (x = [-1, 1], y = [-1, 1])
-            translate([x * mount_hole_spacing/2, y * mount_hole_spacing/2, 0])
+            translate([x * mount_hole_spacing/2, y * mount_hole_spacing/2, base_thickness/2])
                 cylinder(d=mount_hole_d, h=base_thickness + 2, anchor=CENTER, $fn=24);
     }
 }
