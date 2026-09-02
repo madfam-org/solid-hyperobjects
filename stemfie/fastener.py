@@ -6,7 +6,11 @@ def build(params):
     BU = 10.0
     HOLE_D = 4.2
     
-    length_units = int(params.get('length_units', 2))
+    # Default 4, matching project.json's `length_units` (default 4, visible in
+    # this mode) and stemfie_core.scad's `is_undef(length_units) ? 4`. A local
+    # default of 2 made this cartridge's OpenSCAD and CadQuery sides build a
+    # 40 mm and a 20 mm fastener from the same empty parameter set.
+    length_units = int(params.get('length_units', 4))
     fastener_type_id = int(params.get('fastener_type_id', 0))
     
     h_mm = length_units * BU
