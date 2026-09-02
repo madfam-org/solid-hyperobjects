@@ -15,9 +15,17 @@ module din_clip() {
     
     diff()
     cuboid([mount_width, RAIL_WIDTH + 10, 8], anchor=BOTTOM) {
-        // DIN Rail Cutout
+        // DIN Rail Cutout.
+        // position(), not attach(): attach(BOTTOM) also REORIENTS the child so
+        // its +Z points out of the bottom face, so the prismoid grew downwards
+        // out of the body and the diff() removed only the 0.1 mm sliver that
+        // down(0.1) pushed back inside. The clip rendered as a solid block with
+        // no rail channel at all — 14160 mm^3 against clip.py's 4370 mm^3.
+        // position() places the child at the same anchor point without rotating
+        // it, so the prismoid runs upwards from z = -0.1 to z = RAIL_DEPTH - 0.1
+        // with its wide face at the opening, exactly as clip.py cuts it.
         tag("remove")
-        attach(BOTTOM)
+        position(BOTTOM)
         down(0.1)
         prismoid([mount_width, RAIL_WIDTH + 0.5], [mount_width, RAIL_WIDTH - 2], h=RAIL_DEPTH, anchor=BOTTOM);
         
