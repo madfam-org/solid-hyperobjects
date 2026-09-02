@@ -40,7 +40,7 @@
   "modes": [
     {
       "id": "lattice",
-      "scad_file": "tpms.scad",
+      "scad_file": "tpms.py",
       "label": {
         "en": "Single TPMS Lattice",
         "es": "Retícula TPMS Única"
