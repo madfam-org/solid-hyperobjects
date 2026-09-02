@@ -5,7 +5,7 @@ include <../../libs/BOSL2/std.scad>
 // Yantra4D Parameters
 latch_width = 15;
 hook_depth = 2;
-spring_angle = 15;
+spring_angle = 30;  // project.json declares default 30 (min 15) for this mode
 wall_thickness = 2;
 base_length = 40;
 clearance = 0.3;

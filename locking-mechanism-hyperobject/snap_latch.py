@@ -70,8 +70,15 @@ def generate():
         # are unchanged — only the buried root shifts.
         weld = arm_t * 0.5
 
-        hook = cq.Workplane("XZ").polyline([(0,0), (-ret_off, hook_depth), (hook_l, 0)]).close().extrude(latch_width, both=True).translate((arm_l, 0, arm_t - weld))
-        undercut = cq.Workplane("XZ").polyline([(0,0), (hook_l, 0), (0, -arm_t)]).close().extrude(latch_width, both=True).translate((arm_l, 0, weld))
+        # extrude(latch_width/2, both=True), not extrude(latch_width, both=True):
+        # `both` mirrors the extrusion about the sketch plane, so passing the
+        # full width builds a 2 x latch_width prism. The hook and the undercut
+        # came out 30 mm across against a 15 mm arm. snap_latch.scad extrudes
+        # the same two profiles with `linear_extrude(height=latch_width,
+        # center=true)`, which is latch_width in total.
+        half_w = latch_width / 2.0
+        hook = cq.Workplane("XZ").polyline([(0,0), (-ret_off, hook_depth), (hook_l, 0)]).close().extrude(half_w, both=True).translate((arm_l, 0, arm_t - weld))
+        undercut = cq.Workplane("XZ").polyline([(0,0), (hook_l, 0), (0, -arm_t)]).close().extrude(half_w, both=True).translate((arm_l, 0, weld))
         
         full_arm = arm.union(hook).union(undercut).rotate((0,0,0), (0,1,0), -spring_angle).translate((0, 0, base_h/2 - arm_t/2))
         result = base.union(full_arm)
