@@ -35,6 +35,16 @@ def build(params):
         return psi_base - inv(math.acos(min(1.0, R_base / r)))
 
     STEPS = 8
+    # The space between two teeth is the ROOT CIRCLE, an arc at R_root, not a
+    # vee. The flanks are involutes and so start at R_base (18.794 mm at the
+    # defaults), well above R_root (17.5 mm); joining one tooth's last flank
+    # point straight to a single root point at the mid-angle and straight back
+    # up left a wedge of material standing between every pair of teeth, above
+    # the root circle the dedendum says should be there. The gear came out
+    # 2.04% heavier than BOSL2's and its teeth did not reach full depth.
+    # Each gap now runs radially down to R_root and follows the root circle
+    # across to the next tooth.
+    ROOT_STEPS = 4
     r_start = max(R_root, R_base)
     radii = [r_start + (R_outer - r_start) * i / STEPS for i in range(STEPS + 1)]
 
@@ -42,17 +52,25 @@ def build(params):
     for i in range(teeth_count):
         phi = 2.0 * math.pi * i / teeth_count
 
-        # Up the trailing flank, across the tip, down the leading flank.
+        # Radially out of the root circle, up the trailing flank, across the
+        # tip, down the leading flank and radially back to the root circle.
+        pts.append((R_root * math.cos(phi - psi_base),
+                    R_root * math.sin(phi - psi_base)))
         for r in radii:
             a = phi - flank(r)
             pts.append((r * math.cos(a), r * math.sin(a)))
         for r in reversed(radii):
             a = phi + flank(r)
             pts.append((r * math.cos(a), r * math.sin(a)))
+        pts.append((R_root * math.cos(phi + psi_base),
+                    R_root * math.sin(phi + psi_base)))
 
-        # Root, midway to the next tooth.
-        a = phi + math.pi / teeth_count
-        pts.append((R_root * math.cos(a), R_root * math.sin(a)))
+        # The root circle arc across to the next tooth.
+        a0 = phi + psi_base
+        a1 = phi + 2.0 * math.pi / teeth_count - psi_base
+        for k in range(1, ROOT_STEPS):
+            a = a0 + (a1 - a0) * k / ROOT_STEPS
+            pts.append((R_root * math.cos(a), R_root * math.sin(a)))
 
     gear_profile = cq.Workplane("XY").polyline(pts).close()
 
