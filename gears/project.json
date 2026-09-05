@@ -1,0 +1,931 @@
+{
+  "project": {
+    "name": "Involute Gears",
+    "slug": "gears",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Involute gears with a dual kernel: exact CadQuery B-Rep modes (spur, helical, internal ring, linear rack) plus the original OpenSCAD spur & herringbone modes. Any two gears sharing module and pressure angle mesh correctly.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Engranajes de involuta con doble kernel: modos exactos en CadQuery B-Rep (recto, helicoidal, corona interna, cremallera lineal) más los modos originales OpenSCAD de engranaje recto y de espiga. Dos engranajes con el mismo módulo y ángulo de presión engranan correctamente.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/gears.webp",
+    "difficulty": "advanced",
+    "tags": [
+      "gear",
+      "involute",
+      "spur",
+      "helical",
+      "rack",
+      "ring-gear",
+      "mechanical",
+      "transmission",
+      "engineering",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "industrial"
+    },
+    "force_backend": true,
+    "is_demo": true
+  },
+  "modes": [
+    {
+      "id": "spur",
+      "label": {
+        "en": "Spur Gear",
+        "es": "Engranaje Recto"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "spur"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 2,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "helical",
+      "label": {
+        "en": "Helical Gear",
+        "es": "Engranaje Helicoidal"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "helical"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "ring",
+      "label": {
+        "en": "Ring (Internal) Gear",
+        "es": "Corona (Engranaje Interno)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "ring"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "rack",
+      "label": {
+        "en": "Rack (Linear)",
+        "es": "Cremallera (Lineal)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "rack"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 8
+      }
+    },
+    {
+      "id": "spur_gear",
+      "scad_file": "spur_gear.scad",
+      "cq_file": "spur_gear.py",
+      "label": {
+        "en": "Spur Gear",
+        "es": "Engranaje Recto"
+      },
+      "parts": [
+        "spur_gear"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "engine": "openscad"
+    },
+    {
+      "id": "herringbone_gear",
+      "scad_file": "herringbone_gear.scad",
+      "cq_file": "herringbone_gear.py",
+      "label": {
+        "en": "Herringbone Gear",
+        "es": "Engranaje Espiga"
+      },
+      "parts": [
+        "herringbone_gear"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "engine": "openscad"
+    }
+  ],
+  "parts": [
+    {
+      "id": "spur",
+      "label": {
+        "en": "Spur Gear",
+        "es": "Engranaje Recto"
+      },
+      "render_mode": 0,
+      "color": "#f59e0b"
+    },
+    {
+      "id": "helical",
+      "label": {
+        "en": "Helical Gear",
+        "es": "Engranaje Helicoidal"
+      },
+      "render_mode": 0,
+      "color": "#f97316"
+    },
+    {
+      "id": "ring",
+      "label": {
+        "en": "Ring Gear",
+        "es": "Corona"
+      },
+      "render_mode": 0,
+      "color": "#ef4444"
+    },
+    {
+      "id": "rack",
+      "label": {
+        "en": "Rack",
+        "es": "Cremallera"
+      },
+      "render_mode": 0,
+      "color": "#eab308"
+    },
+    {
+      "id": "spur_gear",
+      "render_mode": 0,
+      "label": {
+        "en": "Spur Gear",
+        "es": "Engranaje Recto"
+      },
+      "default_color": "#f59e0b"
+    },
+    {
+      "id": "herringbone_gear",
+      "render_mode": 0,
+      "label": {
+        "en": "Herringbone Gear",
+        "es": "Engranaje Espiga"
+      },
+      "default_color": "#ef4444"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "tooth",
+      "label": {
+        "en": "Tooth Geometry",
+        "es": "Geometría del Diente"
+      }
+    },
+    {
+      "id": "body",
+      "label": {
+        "en": "Body & Bore",
+        "es": "Cuerpo y Orificio"
+      }
+    },
+    {
+      "id": "hub",
+      "label": {
+        "en": "Hub & Set-Screw",
+        "es": "Cubo y Prisionero"
+      }
+    },
+    {
+      "id": "ring_rack",
+      "label": {
+        "en": "Ring / Rack",
+        "es": "Corona / Cremallera"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      }
+    },
+    {
+      "id": "gear_geometry",
+      "label": {
+        "en": "Gear Geometry",
+        "es": "Geometría del Engranaje"
+      }
+    },
+    {
+      "id": "bore",
+      "label": {
+        "en": "Bore",
+        "es": "Orificio"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "m",
+      "type": "slider",
+      "default": 2,
+      "min": 0.5,
+      "max": 6,
+      "step": 0.25,
+      "group": "tooth",
+      "modes": [
+        "spur",
+        "helical",
+        "ring",
+        "rack"
+      ],
+      "label": {
+        "en": "Module (mm)",
+        "es": "Módulo (mm)"
+      },
+      "tooltip": {
+        "en": "Tooth size. Pitch diameter = module × teeth. Two gears mesh only if their modules match.",
+        "es": "Tamaño del diente. Diámetro primitivo = módulo × dientes. Dos engranajes engranan solo si sus módulos coinciden."
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "teeth",
+      "type": "slider",
+      "default": 20,
+      "min": 6,
+      "max": 120,
+      "step": 1,
+      "group": "tooth",
+      "modes": [
+        "spur",
+        "helical",
+        "ring"
+      ],
+      "label": {
+        "en": "Teeth Count",
+        "es": "Número de Dientes"
+      },
+      "tooltip": {
+        "en": "Number of teeth. Gear ratio between two gears is the ratio of their tooth counts.",
+        "es": "Número de dientes. La relación de transmisión entre dos engranajes es la razón de sus números de dientes."
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "pressure_angle",
+      "type": "select",
+      "default": 20,
+      "group": "tooth",
+      "modes": [
+        "spur",
+        "helical",
+        "ring",
+        "rack"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Pressure Angle (°)",
+        "es": "Ángulo de Presión (°)"
+      },
+      "tooltip": {
+        "en": "Involute flank angle. 20° is the modern standard (ISO 53); 14.5° for legacy stock; 25° for high load. Must match on both gears.",
+        "es": "Ángulo del flanco involuto. 20° es el estándar moderno (ISO 53); 14.5° para piezas antiguas; 25° para alta carga. Debe coincidir en ambos engranajes."
+      },
+      "options": [
+        {
+          "value": 14.5,
+          "label": {
+            "en": "14.5° (legacy)",
+            "es": "14.5° (antiguo)"
+          }
+        },
+        {
+          "value": 20,
+          "label": {
+            "en": "20° (standard)",
+            "es": "20° (estándar)"
+          }
+        },
+        {
+          "value": 25,
+          "label": {
+            "en": "25° (high load)",
+            "es": "25° (alta carga)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "helix",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 45,
+      "step": 1,
+      "group": "tooth",
+      "modes": [
+        "spur",
+        "helical",
+        "ring"
+      ],
+      "label": {
+        "en": "Helix Angle (°)",
+        "es": "Ángulo Helicoidal (°)"
+      },
+      "tooltip": {
+        "en": "Twist of the teeth along the face width. 0 = spur. Helical gears run quieter and carry more load but produce axial thrust.",
+        "es": "Torsión de los dientes a lo largo del ancho de cara. 0 = recto. Los helicoidales son más silenciosos y soportan más carga pero generan empuje axial."
+      }
+    },
+    {
+      "id": "thickness",
+      "type": "slider",
+      "default": 8,
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "group": "body",
+      "modes": [
+        "spur",
+        "helical",
+        "ring",
+        "rack"
+      ],
+      "label": {
+        "en": "Face Width (mm)",
+        "es": "Ancho de Cara (mm)"
+      },
+      "tooltip": {
+        "en": "Gear thickness along the shaft axis (extrusion depth).",
+        "es": "Grosor del engranaje a lo largo del eje (profundidad de extrusión)."
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "bore",
+      "type": "slider",
+      "default": 6,
+      "min": 0,
+      "max": 30,
+      "step": 0.5,
+      "group": "body",
+      "modes": [
+        "spur",
+        "helical",
+        "ring",
+        "rack"
+      ],
+      "label": {
+        "en": "Bore Diameter (mm)",
+        "es": "Diámetro del Orificio (mm)"
+      },
+      "tooltip": {
+        "en": "Central shaft bore. 0 = solid centre. On the rack it becomes a lengthwise mounting hole through the back.",
+        "es": "Orificio central del eje. 0 = centro sólido. En la cremallera se convierte en un orificio de montaje longitudinal en el respaldo."
+      }
+    },
+    {
+      "id": "hub_enabled",
+      "type": "checkbox",
+      "default": false,
+      "group": "hub",
+      "modes": [
+        "spur",
+        "helical"
+      ],
+      "label": {
+        "en": "Add Hub",
+        "es": "Añadir Cubo"
+      },
+      "tooltip": {
+        "en": "Raised boss around the bore for a longer grip on the shaft.",
+        "es": "Resalte alrededor del orificio para un mayor agarre sobre el eje."
+      }
+    },
+    {
+      "id": "hub_diameter",
+      "type": "slider",
+      "default": 16,
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "group": "hub",
+      "modes": [
+        "spur",
+        "helical"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Hub Diameter (mm)",
+        "es": "Diámetro del Cubo (mm)"
+      },
+      "tooltip": {
+        "en": "Outer diameter of the hub boss (clamped to stay inside the root circle).",
+        "es": "Diámetro exterior del cubo (limitado para permanecer dentro del círculo de raíz)."
+      }
+    },
+    {
+      "id": "hub_height",
+      "type": "slider",
+      "default": 6,
+      "min": 2,
+      "max": 30,
+      "step": 1,
+      "group": "hub",
+      "modes": [
+        "spur",
+        "helical"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Hub Height (mm)",
+        "es": "Altura del Cubo (mm)"
+      },
+      "tooltip": {
+        "en": "How far the hub rises above the gear face.",
+        "es": "Cuánto sobresale el cubo por encima de la cara del engranaje."
+      }
+    },
+    {
+      "id": "setscrew",
+      "type": "checkbox",
+      "default": false,
+      "group": "hub",
+      "modes": [
+        "spur",
+        "helical"
+      ],
+      "label": {
+        "en": "Set-Screw Hole",
+        "es": "Orificio de Prisionero"
+      },
+      "tooltip": {
+        "en": "Radial hole into the bore to lock the gear to the shaft with a grub screw.",
+        "es": "Orificio radial hacia el eje para fijar el engranaje con un tornillo prisionero."
+      }
+    },
+    {
+      "id": "setscrew_dia",
+      "type": "slider",
+      "default": 3,
+      "min": 1.5,
+      "max": 5,
+      "step": 0.5,
+      "group": "hub",
+      "modes": [
+        "spur",
+        "helical"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Set-Screw Diameter (mm)",
+        "es": "Diámetro del Prisionero (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the radial set-screw hole (e.g. 3 mm for M3).",
+        "es": "Diámetro del orificio radial del prisionero (p. ej. 3 mm para M3)."
+      }
+    },
+    {
+      "id": "rim_width",
+      "type": "slider",
+      "default": 6,
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "group": "ring_rack",
+      "modes": [
+        "ring"
+      ],
+      "label": {
+        "en": "Ring Rim Width (mm)",
+        "es": "Ancho del Aro de la Corona (mm)"
+      },
+      "tooltip": {
+        "en": "Radial thickness of solid material outside the internal tooth roots.",
+        "es": "Grosor radial de material sólido fuera de las raíces de los dientes internos."
+      }
+    },
+    {
+      "id": "rack_teeth",
+      "type": "slider",
+      "default": 12,
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "group": "ring_rack",
+      "modes": [
+        "rack"
+      ],
+      "label": {
+        "en": "Rack Teeth",
+        "es": "Dientes de la Cremallera"
+      },
+      "tooltip": {
+        "en": "Number of teeth along the rack. Length = teeth × π × module.",
+        "es": "Número de dientes a lo largo de la cremallera. Longitud = dientes × π × módulo."
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "x",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "rack_height",
+      "type": "slider",
+      "default": 10,
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "group": "ring_rack",
+      "modes": [
+        "rack"
+      ],
+      "label": {
+        "en": "Rack Back Height (mm)",
+        "es": "Altura del Respaldo (mm)"
+      },
+      "tooltip": {
+        "en": "Solid backing thickness below the tooth roots.",
+        "es": "Grosor del respaldo sólido por debajo de las raíces de los dientes."
+      }
+    },
+    {
+      "id": "flank_pts",
+      "type": "slider",
+      "default": 9,
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "group": "quality",
+      "modes": [
+        "spur",
+        "helical",
+        "ring"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Involute Samples / Flank",
+        "es": "Muestras de Involuta / Flanco"
+      },
+      "tooltip": {
+        "en": "Points sampled along each involute flank. Higher = smoother flanks, more facets, slower render.",
+        "es": "Puntos muestreados a lo largo de cada flanco involuto. Más alto = flancos más suaves, más facetas, render más lento."
+      }
+    },
+    {
+      "id": "teeth_count",
+      "type": "slider",
+      "default": 20,
+      "min": 8,
+      "max": 80,
+      "step": 1,
+      "label": {
+        "en": "Teeth Count",
+        "es": "Número de Dientes"
+      },
+      "tooltip": {
+        "en": "Number of teeth on the gear",
+        "es": "Número de dientes del engranaje"
+      },
+      "group": "gear_geometry",
+      "visible_in_modes": [
+        "spur_gear",
+        "herringbone_gear"
+      ]
+    },
+    {
+      "id": "module_size",
+      "type": "slider",
+      "default": 2,
+      "min": 0.5,
+      "max": 5,
+      "step": 0.25,
+      "label": {
+        "en": "Module (mm)",
+        "es": "Módulo (mm)"
+      },
+      "tooltip": {
+        "en": "Gear module — pitch diameter = module x teeth",
+        "es": "Módulo del engranaje — diámetro primitivo = módulo x dientes"
+      },
+      "group": "gear_geometry",
+      "visible_in_modes": [
+        "spur_gear",
+        "herringbone_gear"
+      ]
+    },
+    {
+      "id": "bore_diameter",
+      "type": "slider",
+      "default": 5,
+      "min": 0,
+      "max": 20,
+      "step": 0.5,
+      "label": {
+        "en": "Bore Diameter (mm)",
+        "es": "Diámetro del Orificio (mm)"
+      },
+      "tooltip": {
+        "en": "Central shaft bore diameter — 0 for solid center",
+        "es": "Diámetro del orificio central — 0 para centro sólido"
+      },
+      "group": "bore",
+      "visible_in_modes": [
+        "spur_gear",
+        "herringbone_gear"
+      ]
+    },
+    {
+      "id": "helical_angle",
+      "type": "slider",
+      "default": 30,
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "label": {
+        "en": "Helix Angle (°)",
+        "es": "Ángulo Helicoidal (°)"
+      },
+      "tooltip": {
+        "en": "Helix angle for the herringbone pattern",
+        "es": "Ángulo helicoidal del patrón espiga"
+      },
+      "group": "gear_geometry",
+      "visible_in_modes": [
+        "herringbone_gear"
+      ]
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Resolution ($fn)",
+        "es": "Resolución ($fn)"
+      },
+      "tooltip": {
+        "en": "Curve resolution — 0 uses default (32)",
+        "es": "Resolución de curvas — 0 usa el valor por defecto (32)"
+      },
+      "group": "quality",
+      "visible_in_modes": [
+        "spur_gear",
+        "herringbone_gear"
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "small_motor_20t",
+      "mode": "spur",
+      "label": {
+        "en": "Small Motor Pinion (20T)",
+        "es": "Piñón de Motor Pequeño (20T)"
+      },
+      "values": {
+        "m": 1.5,
+        "teeth": 20,
+        "thickness": 5,
+        "bore": 3,
+        "hub_enabled": true,
+        "setscrew": true
+      }
+    },
+    {
+      "id": "large_drive_60t",
+      "mode": "helical",
+      "label": {
+        "en": "Quiet Drive Gear (60T helical)",
+        "es": "Engranaje Silencioso (60T helicoidal)"
+      },
+      "values": {
+        "m": 2,
+        "teeth": 60,
+        "thickness": 12,
+        "bore": 8,
+        "helix": 20
+      }
+    },
+    {
+      "id": "rack_and_pinion",
+      "mode": "rack",
+      "label": {
+        "en": "Rack (module 2)",
+        "es": "Cremallera (módulo 2)"
+      },
+      "values": {
+        "m": 2,
+        "rack_teeth": 16,
+        "thickness": 8,
+        "rack_height": 10,
+        "bore": 4
+      }
+    },
+    {
+      "id": "small_motor_20t_scad",
+      "label": {
+        "en": "Small Motor (20T)",
+        "es": "Motor Pequeño (20T)"
+      },
+      "values": {
+        "teeth_count": 20,
+        "module_size": 1.5,
+        "thickness": 5,
+        "bore_diameter": 3
+      },
+      "mode": "spur_gear"
+    },
+    {
+      "id": "large_drive_60t_scad",
+      "label": {
+        "en": "Large Drive (60T)",
+        "es": "Transmisión Grande (60T)"
+      },
+      "values": {
+        "teeth_count": 60,
+        "module_size": 2,
+        "thickness": 10,
+        "bore_diameter": 8
+      },
+      "mode": "spur_gear"
+    },
+    {
+      "id": "gear_pair_5to1_scad",
+      "label": {
+        "en": "Gear Pair 5:1 (50T)",
+        "es": "Par de Engranajes 5:1 (50T)"
+      },
+      "values": {
+        "teeth_count": 50,
+        "module_size": 1,
+        "thickness": 8,
+        "bore_diameter": 5
+      },
+      "mode": "spur_gear"
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "bore < m * teeth - 2 * m",
+      "severity": "warning",
+      "message": {
+        "en": "Bore is large relative to the root circle — thin gear body",
+        "es": "El orificio es grande respecto al círculo de raíz — cuerpo delgado"
+      }
+    },
+    {
+      "expression": "teeth >= 17 || pressure_angle >= 20",
+      "severity": "warning",
+      "message": {
+        "en": "Few teeth at low pressure angle may undercut (weakened flank)",
+        "es": "Pocos dientes con ángulo de presión bajo pueden generar socavado (flanco debilitado)"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        70,
+        70,
+        50
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        120
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -120,
+        20
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj",
+    "off"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 2,
+    "per_part": 10,
+    "fn_factor": 12,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "involute_gear_tooth",
+        "label": {
+          "en": "Involute Gear Tooth",
+          "es": "Diente de Engranaje Involuto"
+        },
+        "geometry_type": "spline",
+        "standard": "ISO 53 / DIN 867 (20° involute)",
+        "parameters": [
+          "m",
+          "teeth",
+          "pressure_angle",
+          "helix"
+        ],
+        "compatible_with": [
+          "gears"
+        ]
+      },
+      {
+        "id": "shaft_bore",
+        "label": {
+          "en": "Shaft Bore Interface",
+          "es": "Interfaz de Eje"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 286 (shaft/hole tolerance)",
+        "parameters": [
+          "bore",
+          "setscrew",
+          "setscrew_dia"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Correct involute gearing is the backbone of every mechanism, yet off-the-shelf gears rarely match a given module, tooth count, and bore. On-demand, mesh-accurate gears let makers repair machines and build transmissions without tooling or lead time.",
+      "es": "El engranaje involuto correcto es la base de todo mecanismo, pero los engranajes comerciales rara vez coinciden con un módulo, número de dientes y orificio dados. Engranajes bajo demanda y con engrane preciso permiten reparar máquinas y construir transmisiones sin herramental ni tiempos de entrega."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "gear",
+    "involute",
+    "power-transmission",
+    "mechanical",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ]
+}
