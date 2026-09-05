@@ -3,6 +3,10 @@
     "name": "Pen / Stylus Holder & Grip",
     "slug": "pen-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A desk pen station sized around a real writing-instrument barrel diameter. Choose an upright round cup for a fistful of pens, a rounded desk block with an array of angled bores, or an ergonomic grip sleeve that slides over a thin pen to fatten the barrel for an easier hold.\n\nOfficial Visualizer and Configurator: Yantra4D",

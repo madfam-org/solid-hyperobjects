@@ -3,6 +3,10 @@
     "name": "Worm & Wheel Set",
     "slug": "worm-wheel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "force_backend": true,
     "difficulty": "advanced",

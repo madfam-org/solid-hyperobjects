@@ -3,6 +3,10 @@
     "name": "Gear / Linkage Learning Kit",
     "slug": "gear-kit",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A snap-together STEM kit for teaching gear ratios, torque and linkages. Every piece shares one interface — a square peg grid on an 8 mm pitch with round pegs — so involute spur gears, idlers and linkage bars relocate to any grid node and mesh correctly. Build a hubbed gear with a finger crank, a multi-hole linkage bar, or a peg baseboard the whole set mounts on.\n\nOfficial Visualizer and Configurator: Yantra4D",

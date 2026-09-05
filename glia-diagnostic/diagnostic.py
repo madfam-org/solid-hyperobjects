@@ -34,22 +34,30 @@ def build_stethoscope(params):
     head = head.cut(chamber)
 
     # Tube connector (on +X side).
-    # Extruded from the CENTRE of the bell, not from its outer wall: a connector
-    # that starts at x = outer_d/2 is exactly tangent to the cylindrical face and
-    # the union of two tangent solids is non-manifold — it renders as a mesh with
-    # boundary edges that no slicer will print. Starting inside the body gives the
-    # boolean real overlap to work with; the buried portion is absorbed by the union.
+    #
+    # A connector that starts at exactly x = outer_d/2 is tangent to the
+    # cylindrical face, and the union of two tangent solids is non-manifold, so
+    # it has to start INSIDE the wall. But it must not start at the bell's
+    # centre either: extruding from x = 0 drove a solid 8 mm bar straight
+    # through the sound chamber, adding ~1100 mm^3 of material the chamber is
+    # supposed to be free of, and putting this side 685 mm^3 (6.9%) above
+    # diagnostic.scad. Bury it CONNECTOR_OVERLAP into the wall -- enough
+    # overlap for the boolean, not enough to reach the chamber -- matching the
+    # `down(_connector_overlap)` the OpenSCAD side now uses.
+    CONNECTOR_OVERLAP = 2.0
+    x_start = outer_d / 2.0 - CONNECTOR_OVERLAP
     connector = (
-        cq.Workplane("YZ", origin=(0, 0, 10.0))
+        cq.Workplane("YZ", origin=(x_start, 0, 10.0))
         .circle(8.0 / 2.0)
-        .extrude(outer_d / 2.0 + 20.0)
+        .extrude(20.0 + CONNECTOR_OVERLAP)
     )
 
-    # Air channel
+    # Air channel, bored the full length of the connector plus 1 mm past its
+    # buried end so no cutter face is coincident with the wall.
     air_hole = (
         cq.Workplane("YZ", origin=(outer_d / 2.0 + 20.0, 0, 10.0))
         .circle(5.0 / 2.0)
-        .extrude(-22.0)
+        .extrude(-(20.0 + CONNECTOR_OVERLAP + 1.0))
     )
 
     head = head.union(connector).cut(air_hole)

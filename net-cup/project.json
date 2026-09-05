@@ -3,6 +3,10 @@
     "name": "Net Cup / Hydroponic Collar",
     "slug": "net-cup",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A tapered mesh net cup for hydroponics — Kratky, DWC and NFT. Its wide rim lip rests on a hole in a lid, bucket or PVC pipe; slots in the tapered wall pass roots and water while retaining clay pebbles or rockwool. Build a full net basket, a short seating collar, or a plain lid grommet, sized by the 2\" (50 mm) and 3\" (76 mm) net-cup standards.\n\nOfficial Visualizer and Configurator: Yantra4D",

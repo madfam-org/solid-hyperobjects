@@ -3,6 +3,10 @@
     "name": "Squeeze Bottle Nozzle",
     "slug": "squeeze-nozzle",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A precision dispensing nozzle for squeeze / dispenser bottles that use the common '410' personal-care neck finishes: 28-410 (28 mm) and 24-410 (24 mm). Print a tapered precision cone tip, a long thin needle applicator (glue / oil / flux), or a controlled drip dome. The functional interface is a real 410-series female helical thread (~3.18 mm pitch) — the same 28 mm bottle neck the filter-straw cartridge threads onto.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Push Stick / Push Block",
     "slug": "push-stick",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A safety pusher that keeps hands away from a table-saw blade or jointer cutter. A rear heel notch hooks the trailing end of the stock to push it through. Choose a long tapered push stick, a broad push block, or a compact centred gripper. Sized by length, grip and heel depth.\n\nOfficial Visualizer and Configurator: Yantra4D",

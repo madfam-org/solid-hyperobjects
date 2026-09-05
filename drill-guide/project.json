@@ -3,6 +3,10 @@
     "name": "Drill Guide / Bushing Jig",
     "slug": "drill-guide",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A drill jig that guides a bit (or press-fit steel bushing) to repeatable hole positions. Choose a linear row, a rectangular grid, or an edge guide with a registration fence.\n\nOfficial Visualizer and Configurator: Yantra4D",

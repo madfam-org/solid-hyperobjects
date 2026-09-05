@@ -3,6 +3,10 @@
     "name": "Spice / Jar Rack",
     "slug": "jar-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Holds round jars in a row of circular cradles sized to the jar body. Set the jar diameter and count, arrange them across one or more tiers, and optionally add a magnet-pocket back so the rack clamps to steel. Rack mode is a shelf with N cradles; Magnetic Lid Holder mode is a plate of 6 × 2 mm magnet pockets that grabs the steel lids of jars hung under a shelf.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Motorcycle Bar-End / Mirror Mount",
     "slug": "barend-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Handlebar hardware for motorcycles and bicycles: a split clamp that closes around the bar to carry an accessory, an expanding plug for the hollow bar end (bar-end weights and mirrors), and a wider clamp with an action-cam / phone cradle. Sized to real bar diameters — 7/8\" (22.2 mm), 1\" (25.4 mm), 31.8 mm oversize.\n\nOfficial Visualizer and Configurator: Yantra4D",

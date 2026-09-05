@@ -3,6 +3,10 @@
     "name": "TPU Chainmail Panel",
     "slug": "tpu-chainmail-panel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A print-in-place flexible chainmail panel — the additive-manufacturing fabric the Fashion Cabinet `tpu-panel-impreso` fabric card describes as cloth and bridges to here for its geometry. A grid of interlocked rings (the 4-in-1 European weave) prints in one job as separate, already-linked solids and drapes like a textile: rigid link, flexible sheet. Sized by ring count so a garment panel's finished dimensions drive the weave. One material identity — Bambu TPU 95A — spans the fabric card and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

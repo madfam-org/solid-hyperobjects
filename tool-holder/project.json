@@ -3,6 +3,10 @@
     "name": "Tool Holder (CNC / Lathe)",
     "slug": "tool-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A shop organizer that holds cutting tools by their shank. A block carries an array of correctly-sized bores or pockets for the selected tool family — straight-shank end mills, ER collets, indexable lathe inserts, or a graduated drill index — and can be freestanding, wall-mounted, or dropped into a drawer as a low tray.\n\nOfficial Visualizer and Configurator: Yantra4D",

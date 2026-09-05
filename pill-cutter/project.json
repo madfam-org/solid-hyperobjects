@@ -3,6 +3,10 @@
     "name": "Pill Cutter & Crusher",
     "slug": "pill-cutter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A home kit for managing solid medication: a splitter that centres a tablet in a V-pocket under a razor-blade slot for a clean half, a crusher cup with a domed grinding floor, and a graduated dosing cup for liquid medicine. Printable everyday medication-handling aids, not certified medical devices.\n\nOfficial Visualizer and Configurator: Yantra4D",

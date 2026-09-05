@@ -3,6 +3,10 @@
     "name": "Guitar Pick Holder & Punch",
     "slug": "pick-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Keeps guitar picks where you need them and lets you make your own. A slim pocket clip, a wall tray with pick slots, and a punch/stencil template with the classic 351 pick outline cut clean through it. Every part shares the same real pick footprint.\n\nOfficial Visualizer and Configurator: Yantra4D",

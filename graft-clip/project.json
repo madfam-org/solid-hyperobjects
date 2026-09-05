@@ -3,6 +3,10 @@
     "name": "Grafting Union Clip",
     "slug": "graft-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A spring clip that holds a graft union closed while it knits. A graft only takes if the two cambium layers stay pressed together and immobile for the weeks it takes them to fuse, and a clip is what supplies that pressure. Parameterised on the two diameters that matter — the scion going on and the rootstock it goes onto — with the jaw built around the larger stem plus a share of the smaller, because a real union is wider than either alone. Reuses the published plant-clip C-jaw profile and stem-Ø series rather than inventing a second one. Ships with a tape-slotted wrap band for oversized unions and a taper gauge for cutting matched whips.\n\nOfficial Visualizer and Configurator: Yantra4D",

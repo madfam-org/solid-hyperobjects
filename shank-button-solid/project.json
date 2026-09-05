@@ -3,6 +3,10 @@
     "name": "Button",
     "slug": "shank-button-solid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The printable solid button. Fashion Cabinet's shank-button notion owns the fashion semantics — ligne sizing and the placket placement guide — and bridges to this solid for the hardware. Sized in ligne (1 L = 0.635 mm, the button trade's unit): a shank button with a closed back loop, a flat 2- or 4-hole sew-through, and a barrel toggle for duffle-coat closures. The same ligne that lays out a Fashion Cabinet placket makes the matching button here.\n\nOfficial Visualizer and Configurator: Yantra4D",

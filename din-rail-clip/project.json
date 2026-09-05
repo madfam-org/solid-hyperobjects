@@ -3,6 +3,10 @@
     "name": "Heavy Duty DIN Rail Clip",
     "slug": "din-rail-clip",
     "version": "2.1.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A snap-on clip for standard top-hat DIN rail (DIN EN 60715) — the spine of industrial control panels. Grips the two rolled rail lips with one fixed hook and one COMPLIANT spring hook, so a printed clip holds through geometry, not permanently strained plastic (avoiding the creep and fatigue that kill rigid printed snaps). Flat mount face with a device bolt pattern; Gridfinity-on-DIN and multi-device strip variants.\n\nOfficial Visualizer and Configurator: Yantra4D",

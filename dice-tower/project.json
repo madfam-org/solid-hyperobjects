@@ -3,6 +3,10 @@
     "name": "Dice Tower",
     "slug": "dice-tower",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A dice tower with internal angled baffles that tumble the dice for a fair, un-scoopable roll, plus a matching catch tray. Dice drop in the open top, ricochet down an alternating stack of ramps, and roll out a front window into the tray.\n\nOfficial Visualizer and Configurator: Yantra4D",

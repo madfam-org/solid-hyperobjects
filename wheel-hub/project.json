@@ -3,6 +3,10 @@
     "name": "Robot Wheel / Hub",
     "slug": "wheel-hub",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A drive wheel or hub with a shaft bore matched to a real motor shaft: a 3 mm or 4 mm D-shaft (round with one flat), a 6 mm round shaft (round bore + set-screw), or the TT gearmotor shaft (hex bore adapter). The bore keys the wheel to the shaft so it drives. Choose a drive wheel, a shaft-to-bolt-circle hub adapter, or a flanged pulley wheel.\n\nOfficial Visualizer and Configurator: Yantra4D",

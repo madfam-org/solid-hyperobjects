@@ -3,6 +3,10 @@
     "name": "Custom MSH (AOCL)",
     "slug": "custom-msh",
     "version": "2.4.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Custom substrate holder system for 1×1 inch substrates (AOCL) — holder, 10-slot rack, multi-rack joined body, 3-rack storage box, and assembly views.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Sistema portamuestras para sustratos de 1×1 pulgada (AOCL) — soporte individual, rack de 10 ranuras, cuerpo multi-rack unido, caja para 3 racks y vistas de ensamblaje.\n\nVisualizador y configurador oficial: Yantra4D"

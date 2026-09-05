@@ -3,6 +3,10 @@
     "name": "Gravity Pet Dispenser",
     "slug": "pet-dispenser",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Turns an inverted PET bottle into a self-refilling water or feed station. A base screws onto the bottle neck (real PCO-1881 finish thread) and holds the bottle over a trough; gravity refills the pool to the bottle-mouth level as the animal drinks or eats. Shares the bottle-neck thread with the bottle-thread cartridge.\n\nOfficial Visualizer and Configurator: Yantra4D",

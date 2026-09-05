@@ -1,21 +1,55 @@
-NOTICE — third-party attributions
-=================================
+NOTICE — attributions and provenance
+====================================
 
-Gridfinity Extended (Yantra4D project)
-Copyright (c) 2026 madfam-org
-Licensed under CERN-OHL-W-2.0 (see LICENSE), except as noted below.
+Gridfinity (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
 
-Upstream projects:
+The standard implemented
+------------------------
 
 Gridfinity
   Author:    Zack Freedman (Voidstar Lab)
   Source:    https://gridfinity.xyz/ , https://www.voidstarlab.com/
   License:   MIT License
-  Usage:     The modular storage-system standard (42mm grid, 7mm height
-             units, stacking lip, magnet holes) implemented by this project.
+  Usage:     The modular storage-system standard — 42 mm grid module, 7 mm
+             height unit, the 0.8 / 1.8 / 2.15 mm base-profile chamfer stack,
+             the stacking lip, 6 x 2 mm magnet sockets on 26 mm centres and M3
+             screw provisions — implemented by this cartridge. A published
+             standard, not code: no Gridfinity implementation is a source of
+             this work.
 
-  Usage:     Ancestor implementation on which 
+Clean-room provenance (ADR-021, 2026-09-04)
+-------------------------------------------
 
-Removed 2026-09-04 (ADR-021): the OpenSCAD modes and helper scripts that
-descended from gridfinity_extended_openscad (GPL-3.0) and gridfinity_openscad
-(MIT); reserved for clean-room CadQuery re-creation.
+The three OpenSCAD-engine modes of this cartridge — `cup` (cup.scad),
+`baseplate_scad` (baseplate.scad) and `lid` (lid.scad), with the geometry they
+share in gridfinity_std.scad — were removed from this commons on 2026-09-04
+because they descended from GPL-3.0 code, and have been RE-CREATED CLEAN-ROOM.
+
+They were authored from a recorded final-result baseline (the manifest contract
+and measured geometry of the removed version) and from the publicly documented
+Gridfinity specification, WITHOUT ACCESS TO THE PRIOR IMPLEMENTATION OR TO ANY
+UPSTREAM IMPLEMENTATION. The implementer did not read, fetch or consult the
+removed cartridge, its git history, the archived satellite repository, or any
+upstream OpenSCAD Gridfinity project, at any point.
+
+The re-creation is not a port, a migration or a derivation of any third-party
+implementation. It is MADFAM's own authoring of a public standard. The
+verification that it meets the standard's dimensions and the recorded baseline's
+envelope is in docs/CLEANROOM-VERIFICATION.md.
+
+The two CadQuery modes (`bin`, `baseplate`, in main.py) were MADFAM-authored
+from the same published standard and were never in scope for removal.
+
+Libraries
+---------
+
+BOSL2
+  Source:    https://github.com/BelfrySCAD/BOSL2
+  License:   BSD-2-Clause
+  Usage:     The OpenSCAD standard-library include used by the .scad modes. A
+             library dependency, not an origin licence (ADR-021 section 1).
+
+No other OpenSCAD library is used by this cartridge, and no upstream Gridfinity
+project is vendored, submoduled or fetched by it.

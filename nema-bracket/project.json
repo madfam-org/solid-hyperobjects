@@ -3,6 +3,10 @@
     "name": "NEMA Stepper Bracket",
     "slug": "nema-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Mounts a NEMA 17 or NEMA 23 stepper motor. The motor face carries the correct square bolt pattern (NEMA 17: 31 mm square, M3; NEMA 23: 47.14 mm square, M4/M5) plus a central pilot bore that clears the motor register boss and shaft. Choose an L-mount, a flat surface plate, or a 2020 T-slot extrusion foot.\n\nOfficial Visualizer and Configurator: Yantra4D",

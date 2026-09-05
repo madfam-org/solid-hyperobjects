@@ -3,6 +3,10 @@
     "name": "Sprue Tray",
     "slug": "sprue-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A model-kit parts tray: a compartment grid to sort sprue-cut pieces during a build, a magnetized variant that clings to a steel bench, and a sorting lid whose underside carries a fine grid of small-parts pockets for screws, photo-etch and tiny bits.\n\nOfficial Visualizer and Configurator: Yantra4D",

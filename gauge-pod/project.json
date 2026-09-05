@@ -3,6 +3,10 @@
     "name": "Gauge Pod",
     "slug": "gauge-pod",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Mounts a round aftermarket gauge (boost, oil, AFR, voltage) in the cabin. The gauge drops into a standard 52 mm or 60 mm bore; choose a vent-clip pod, an angled A-pillar pod, or a low adhesive surface pod. Every style presents the identical gauge socket so any standard gauge fits any mount.\n\nOfficial Visualizer and Configurator: Yantra4D",

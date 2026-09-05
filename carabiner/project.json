@@ -3,6 +3,10 @@
     "name": "Carabiner / Quick-Link (Utility)",
     "slug": "carabiner",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A utility clip for keys, gear, bags, and organisation — NOT load-rated and NOT for climbing or any life-safety use. A flat racetrack body with a choice of gate: a printed sprung gate, a screw-sleeve link (real threaded post), or an open S-hook.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Mobility Tube Tip",
     "slug": "mobility-tip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Printable replacement tips and holders for the round tubes of canes, crutches, and walkers. Sized by the outer tube diameter so the socket press-fits; the ground face carries a concentric tread for grip. A printable mobility aid, not a certified medical device.\n\nOfficial Visualizer and Configurator: Yantra4D",

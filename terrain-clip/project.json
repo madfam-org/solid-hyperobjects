@@ -3,6 +3,10 @@
     "name": "Terrain Clip",
     "slug": "terrain-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Modular-terrain hardware: connectors and magnet bases that lock printed or boxed terrain tiles together during play, then break down flat for storage. Built around the ubiquitous 6x2 mm disc magnet — a magnet base, a two-peg edge connector, and a U-channel panel clip.\n\nOfficial Visualizer and Configurator: Yantra4D",

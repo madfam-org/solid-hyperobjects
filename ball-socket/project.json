@@ -3,6 +3,10 @@
     "name": "Ball-Socket / Articulated Arm",
     "slug": "ball-socket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A ball-and-socket joint for adjustable arms — phone, mic, camera, and light mounts. A ball stud snaps into a socket cup whose opening is smaller than the ball, so friction holds any angle. Parts chain into arms of any length.\n\nOfficial Visualizer and Configurator: Yantra4D",

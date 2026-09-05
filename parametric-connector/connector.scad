@@ -18,13 +18,33 @@ module socket_arm() {
     }
 }
 
-module core_sphere() {
-    sphere(d=socket_od, $fn=64);
+// Solid hub the arms grow out of: a chamfered cube, deliberately OVERSIZE.
+//
+// This was `sphere(d=socket_od)`. Both CadQuery sides of this cartridge --
+// connector.py:16-38 and main.py:81-95, which is the primary entry point for
+// the elbow/tee/corner_3way modes -- replaced that sphere years ago and
+// document why at length:
+//
+//   1. A sphere's UV poles tessellate into coincident vertices that collapse
+//      to zero-length edges, so the export never encloses a volume.
+//   2. A hub whose half-extent is exactly socket_od/2 makes every arm exactly
+//      TANGENT to it, and the union of two surfaces that merely kiss
+//      tessellates into razor-thin slivers.
+//
+// Both are fixed the same way: give the hub strictly more radius than the
+// socket, so the arms INTERSECT the hub rather than touching it. Two of this
+// cartridge's three sources already agreed on the rule and the constants; only
+// this file still carried the sphere, which is the whole of the 2.999999 mm
+// AABB divergence -- exactly the 1.5 mm oversize, doubled.
+hub_r = (socket_od / 2) + max(1.5, wall_thickness_mm * 0.5);
+
+module core_hub() {
+    cuboid([hub_r * 2, hub_r * 2, hub_r * 2], chamfer=hub_r * 0.35);
 }
 
 module parametric_connector() {
     union() {
-        core_sphere();
+        core_hub();
         
         // Z+
         if (connector_type != "elbow" && connector_type != "tee")

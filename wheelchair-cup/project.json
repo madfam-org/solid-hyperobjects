@@ -3,6 +3,10 @@
     "name": "Wheelchair Cup Holder",
     "slug": "wheelchair-cup",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A cup holder that snap-clamps to the round frame tube of a wheelchair, walker or rollator (3/4\"–1\", 19–25 mm) so a drink stays within reach. Ships as a cup basket, a deeper bottle cradle, and a bare universal clamp with a bolt pad for your own tray. Shares the mobility-tube clamp with the mobility-accessory cartridge. An adaptive aid — fit is user-specific; confirm the clamp grips your frame before loading.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Un portavasos que se sujeta a presión al tubo redondo del marco de una silla de ruedas, andador o rollator (3/4\"–1\", 19–25 mm) para tener la bebida al alcance. Incluye una canasta para vaso, un soporte más profundo para botella y una abrazadera universal con placa de pernos para tu propia bandeja. Comparte la abrazadera de tubo de movilidad con el cartucho mobility-accessory. Una ayuda adaptativa — el ajuste es específico del usuario; confirma que la abrazadera sujete tu marco antes de cargar.\n\nVisualizador y configurador oficial: Yantra4D"

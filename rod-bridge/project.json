@@ -3,6 +3,10 @@
     "name": "15mm Rod Bridge Plate",
     "slug": "rod-bridge",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A bridge that spans two 15 mm LWS cinema rods at the 60 mm standard spacing and carries an accessory platform across them. Rails on 15 mm rods spaced 60 mm centre-to-centre are the backbone of a camera rig; this bridge clamps both rails at once and gives a flat 1/4-20 cheese plate, a raised riser plate, or a vertical accessory face. Every rod socket is the real 15 mm LWS bore, so it shares rails with any 15 mm rod clamp.\n\nOfficial Visualizer and Configurator: Yantra4D",

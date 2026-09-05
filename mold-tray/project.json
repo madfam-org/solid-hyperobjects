@@ -3,6 +3,10 @@
     "name": "Ice / Chocolate / Casting Mold Tray",
     "slug": "mold-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A tray of cavities you can pour into directly (ice, chocolate, wax, resin) or use as a master to cast a flexible silicone mold. Pick a cavity shape — cube, half-sphere, bar, or a rounded custom pocket — and a grid count.\n\nFood-contact note: direct-pour food use touches the print. Geometry only — food-safe filament/resin and hygiene are the maker's responsibility; casting a silicone mold sidesteps direct print-to-food contact.\n\nOfficial Visualizer and Configurator: Yantra4D",

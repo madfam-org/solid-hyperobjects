@@ -15,7 +15,16 @@
       "decorative"
     ],
     "difficulty": "beginner",
-    "license": "CERN-OHL-W-2.0"
+    "license": "CERN-OHL-W-2.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "household",
+    "commons_license": "CERN-OHL-W-2.0"
   },
   "modes": [
     {

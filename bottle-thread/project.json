@@ -3,6 +3,10 @@
     "name": "Bottle-Thread Cap & Coupler",
     "slug": "bottle-thread",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Turns any discarded PET bottle into infrastructure. Generates screw caps, bottle-to-bottle couplers, and spout adapters whose real single-start helical thread mates with standard bottle-neck finishes (PCO-1881, PCO-1810, 28-410, 38-400). The input side of the Faircap water-filter ecosystem — water sovereignty from plastic waste.\n\nOfficial Visualizer and Configurator: Yantra4D",

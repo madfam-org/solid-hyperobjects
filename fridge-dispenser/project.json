@@ -3,6 +3,10 @@
     "name": "Fridge Can Dispenser",
     "slug": "fridge-dispenser",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A gravity-fed can dispenser for the fridge: load cans on top, they roll down an inclined lane, and you take the front one from the bottom. Sized to the can diameter (66 mm soda can by default). Single lane, double lane, or a compact short lane.\n\nOfficial Visualizer and Configurator: Yantra4D",

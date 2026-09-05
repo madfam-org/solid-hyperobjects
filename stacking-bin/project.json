@@ -3,6 +3,10 @@
     "name": "Stackable Tray / Sorting Bin",
     "slug": "stacking-bin",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An open-front stacking sorting bin — the classic parts / hardware bin. Angled open front for easy scooping, a stacking lip so bins nest squarely, and an optional recessed label slot. Optionally add one or two internal dividers.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -175,23 +175,37 @@ def build_picture_frame():
 
     # Diagonal relief slot along the 45° miter line so the mitered ends butt
     # cleanly and any glue squeeze-out has somewhere to go.
-    diag = leg * 1.6
+    #
+    # The two arms only overlap in the corner block x,y in [0, outer/2]; the
+    # slot is a RELIEF at the inner corner, not a cut across the whole L. A
+    # slot centred at (leg/2, leg/2) with length leg*1.6 lies almost entirely
+    # outside that block and slices the corner away from both arms
+    # (picture_frame rendered 2 bodies). Centre it on the corner block and
+    # bound its length to that block's own diagonal, less a wall each end so
+    # the arms stay tied together.
+    corner = outer / 2.0
+    diag = max(2.0, corner * 1.41421356 - 2.0 * wall)
     slot = (
         cq.Workplane("XY")
         .box(diag, 1.6, height + 2.0, centered=(True, True, False))
         .rotate((0, 0, 0), (0, 0, 1), 45.0)
-        .translate((leg * 0.5, leg * 0.5, -1.0))
+        .translate((corner / 2.0, corner / 2.0, -1.0))
     )
     body = body.cut(slot)
 
     # Clamp-screw bore crossing the diagonal (pulls the miter together).
+    # Bounded to the same corner block and started just outside it, so it is a
+    # bore through the heel rather than a cut running the length of the legs.
+    screw_len = diag + 2.0 * wall
     screw = (
         cq.Workplane("XY")
         .circle(screw_bore / 2.0)
-        .extrude(diag)
+        .extrude(screw_len)
         .rotate((0, 0, 0), (0, 1, 0), 90.0)
         .rotate((0, 0, 0), (0, 0, 1), 45.0)
-        .translate((leg * 0.5 - diag * 0.354, leg * 0.5 - diag * 0.354, height / 2.0))
+        .translate((corner / 2.0 - screw_len * 0.354,
+                    corner / 2.0 - screw_len * 0.354,
+                    height / 2.0))
     )
     body = body.cut(screw)
     return safe_fillet_z(body, min(wall * 0.4, 2.0))

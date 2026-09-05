@@ -3,6 +3,10 @@
     "name": "Drip Chamber Holder",
     "slug": "drip-chamber-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A real ward-workflow gap. The drip chamber of a gravity infusion set has to hang vertical and still for the drop count to mean anything — a chamber swinging on its tubing gives a false rate, and one tilted past a few degrees runs dry or floods. This holder clips the chamber upright and rides the dovetail accessory face of iv-pole-clamp, so the whole stack is one printed assembly on any pole. The chamber bore follows ISO 8536 gravity infusion sets, whose chamber bodies run nominally 15-22 mm, so the bore is a real range rather than one hard-coded set.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -5,16 +5,7 @@ Parametric Gears
 Copyright (c) 2026 madfam-org
 Licensed under CERN-OHL-W-2.0 (see LICENSE).
 
-This project uses or derives from the following third-party libraries:
-
-MCAD
-  Source:    https://github.com/openscad/MCAD
-  License:   GNU Lesser General Public License v2.1 (LGPL-2.1)
-  Usage:     The original spur/herringbone gear implementations were built
-             on MCAD's involute_gears.scad; the current sources note this
-             migration ("Migrated from MCAD/involute_gears.scad → BOSL2
-             gears.scad") and the involute parameterization follows the
-             MCAD lineage.
+This project uses the following third-party libraries:
 
 BOSL2 (The Belfry OpenSCAD Library v2)
   Source:    https://github.com/BelfrySCAD/BOSL2

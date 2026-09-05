@@ -3,6 +3,10 @@
     "name": "Hive Frame Spacer",
     "slug": "hive-frame-spacer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Spacers that hold Langstroth frames at the correct pitch inside a hive body. The cartridge rests on the one hard published dimension in beekeeping: bee space. Bees treat a gap of roughly 6-9 mm as a passage and leave it open, fill anything smaller with propolis, and build comb across anything larger — which is the entire reason a modern hive comes apart at all. Frame pitch is comb thickness plus one bee space: 35 mm for ten frames in a ten-frame box, 38 mm when nine are spread to draw fatter honey comb. These parts make that pitch mechanical rather than eyeballed. Ships as a castellated comb rail, a per-frame lug clip for retrofit, and a follower spacer for short rows.\n\nOfficial Visualizer and Configurator: Yantra4D",

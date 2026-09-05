@@ -3,6 +3,10 @@
     "name": "Buttonhole Spacer",
     "slug": "buttonhole-spacer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed buttonhole spacing gauge: a graduated rail and a detented slider that steps equal button intervals down a placket, so a shirt front never ends up with a gap that gapes. The printable equivalent of the scissoring lazy-tongs expander.\n\nOfficial Visualizer and Configurator: Yantra4D",

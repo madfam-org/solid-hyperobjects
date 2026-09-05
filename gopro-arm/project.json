@@ -3,6 +3,10 @@
     "name": "GoPro Extension Arm",
     "slug": "gopro-arm",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An extension arm for the GoPro-style action-cam mount. A finger clevis on each end of a connecting bar lets you extend, offset or couple mounts: one end is a 2-prong (female) bank, the other a 3-prong (male) bank facing the opposite way, so the arm passes a mount through while adding reach. Every finger set is the real GoPro clevis, so it mates any GoPro mount, base or accessory. Also builds a short male-to-male coupler and a lightened long arm.\n\nOfficial Visualizer and Configurator: Yantra4D",

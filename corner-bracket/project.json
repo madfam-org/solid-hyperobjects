@@ -3,6 +3,10 @@
     "name": "Corner Bracket / Angle Gusset",
     "slug": "corner-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A simple angle bracket that joins two panels or boards at any angle. Two legs meet at a configurable angle (default 90°); each leg carries a row of screw holes with an optional countersink and an optional triangular gusset brace.\n\nOfficial Visualizer and Configurator: Yantra4D",

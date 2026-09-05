@@ -3,6 +3,10 @@
     "name": "Battery Terminal / Lug Cover",
     "slug": "lug-cover",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Insulating covers and boots for battery terminals, threaded studs and bolted lug joints - the short-circuit and accidental-contact protection that keeps a dropped spanner off a live post. The pocket lands on standard post / stud / lug sizes (SAE automotive posts 17.5/15.9 mm, M8/M10 studs), so a printed boot seats over a real terminal and its ring lug with a cable-exit notch. Includes a snap post cover, a threaded-stud boot, and a bolted bus-link cover.\n\nOfficial Visualizer and Configurator: Yantra4D",

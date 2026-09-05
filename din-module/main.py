@@ -149,12 +149,18 @@ def _pcb_bay(width):
     # groove the board edge sits in. Represented as thin gaps left in a pair of
     # ribs so the board is captured. Add two ribs with a slot between them.
     rib_z = z0 + 2.0
+    rib_t = 1.4
     for sy in (-1.0, 1.0):
         yface = sy * (RAIL_AXIS / 2.0 - wall)
+        # The rib must MEET the wall it retains against. Centring it at
+        # `yface - sy*(pcb_th + 1.5)` left it floating 2.4 mm clear of the wall
+        # face, so each rib came away as its own body (wide_carrier rendered 3).
+        # Seat it against the wall; the board edge slot is the gap between the
+        # two ribs, which is what `pcb_th` sizes.
         rib = (
             cq.Workplane("XY").workplane(offset=rib_z)
-            .transformed(offset=cq.Vector(0, yface - sy * (pcb_th + 1.5), 0))
-            .box(pcb_w + 2.0, 1.4, bay_h - 3.0, centered=(True, True, False))
+            .transformed(offset=cq.Vector(0, yface - sy * (rib_t / 2.0), 0))
+            .box(pcb_w + 2.0, rib_t, bay_h - 3.0, centered=(True, True, False))
         )
         bay = bay.union(rib)
     return bay
@@ -217,7 +223,12 @@ def build_wide_carrier():
     body = _mount_plate(width)
     body = body.union(_fixed_hook())
     body = body.union(_spring_hook())
-    body = body.union(_pcb_bay(width))
+    # Inset the bay from the plate edge. `_pcb_bay` builds a SQUARE box, but
+    # `_mount_plate` fillets the plate's vertical corners, so a bay given the
+    # full plate width overhangs those corners: its end-wall corners sit over
+    # thin air and come away as separate bodies (wide_carrier rendered 3).
+    # Pulling the bay in by the fillet radius lands it on solid plate.
+    body = body.union(_pcb_bay(max(RAIL_SPAN, width - 2.0 * min(3.0, width / 6.0))))
     try:
         body = body.clean()
     except Exception:

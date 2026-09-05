@@ -3,6 +3,10 @@
     "name": "License Plate Frame",
     "slug": "plate-frame",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A parametric license-plate frame plus trim fillers for the two dominant formats: US (12 x 6 in) and EU (520 x 110 mm). Choose a full border frame, a low-profile slim frame, or a blank filler panel that plugs an oversized factory recess. Every mode carries the standard mounting-slot pattern so it bolts to the same studs as the OEM plate.\n\nOfficial Visualizer and Configurator: Yantra4D",

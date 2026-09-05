@@ -3,6 +3,10 @@
     "name": "Breadboard Holder",
     "slug": "breadboard-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A base that holds a solderless breadboard or perfboard flat and captive on the bench while you wire a circuit. A recessed pocket sized to the standard breadboard footprint receives the board; retaining lips hold it down and corner ears bolt it to a project base. Variants add flanking power-rail channels for the clip-off DC rails, or an angled easel that tilts the board toward you.\n\nOfficial Visualizer and Configurator: Yantra4D",

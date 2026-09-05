@@ -72,14 +72,27 @@ def build_feather_bank():
     slot_len = finger_len + 4.0
     y0 = total_len / 2.0 - finger_len / 2.0 + 2.0  # centre of finger region
     dx = math.tan(math.radians(max(0.0, min(finger_ang, 55.0))))  # rake shift factor
+    # A raked kerf sweeps +-(slot_len/2)*sin(rake) in X. At defaults that is
+    # +-9.75 mm against a 7.50 mm pitch, so the first kerf reached x = -47.25
+    # on a board whose edge is -45.00 and cut the end finger clean off (every
+    # feather mode rendered 2 bodies). Clip each kerf to the board's own X
+    # extent, less half a kerf, so a raked slot can lean but never cross a side
+    # edge; the rake angle and the kerf width are unchanged.
+    rake_deg = math.degrees(math.atan(dx))
+    keep = prism(max(kerf, body_w - kerf), total_len + 4.0, thick + 4.0,
+                 cx=True, cy=True).translate((0, 0, -2.0))
     for i in range(1, n):
         x = -body_w / 2.0 + i * pitch
         slot = (
             cq.Workplane("XY")
             .box(kerf, slot_len, thick + 2.0, centered=(True, True, False))
-            .rotate((0, 0, 0), (0, 0, 1), -math.degrees(math.atan(dx)))
+            .rotate((0, 0, 0), (0, 0, 1), -rake_deg)
             .translate((x, y0, -1.0))
         )
+        try:
+            slot = slot.intersect(keep)
+        except Exception:
+            pass
         body = body.cut(slot)
 
     # Trim the finger tips to a clean angled leading edge (rake the whole bank).

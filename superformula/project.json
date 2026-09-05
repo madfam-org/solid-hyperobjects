@@ -3,6 +3,10 @@
     "name": "Superformula Vase",
     "slug": "superformula",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "es": "Jarrones generativos basados en superformulas matematicas usando dotSCAD",
       "en": "Generative vases based on mathematical superformulas using dotSCAD"

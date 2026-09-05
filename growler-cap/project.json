@@ -3,6 +3,10 @@
     "name": "Growler Cap / Handle",
     "slug": "growler-cap",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A replacement sealing cap for standard 32 oz / 64 oz screw-top growlers, which almost universally use the 38 mm '38-400' continuous-thread finish. Print a plain sealing cap, a cap with an integral carry handle, or a carbonation cap with a central boss bored for a gas-line grommet. The functional interface is a real 38-400 female helical thread (38 mm major diameter, coarse ~4.2 mm pitch).\n\nOfficial Visualizer and Configurator: Yantra4D",

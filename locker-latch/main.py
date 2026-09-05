@@ -194,11 +194,22 @@ def build_push_latch():
         .translate((0, h / 2.0, base_t))
     )
     # Relief slot behind the ramp to let it flex (does not sever the base).
+    #
+    # It must break OUT of the sloped ramp surface. Its height was `catch_hook`
+    # starting at base_t + catch_hook, which at preset locker_push ends 0.39 mm
+    # below the ramp face: the slot became a fully enclosed, undrainable void
+    # and rendered as a negative-volume body. Size it from the ramp's actual
+    # top at the slot's own x so it always cuts through, while still starting
+    # above the base so the base is never severed.
+    slot_x = w * 0.5 - spring_t * 1.5
+    ramp_top = catch_hook + spring_t + door_gap * 0.6 * (1.0 - slot_x / (w * 0.5))
+    slot_z0 = base_t + catch_hook
+    slot_h = max(0.5, base_t + ramp_top + 1.0 - slot_z0)
     slot = (
         cq.Workplane("XY")
-        .center(w * 0.5 - spring_t * 1.5, 0.0)
-        .box(spring_t, h * 0.7, catch_hook, centered=(True, True, False))
-        .translate((0, 0, base_t + catch_hook))
+        .center(slot_x, 0.0)
+        .box(spring_t, h * 0.7, slot_h, centered=(True, True, False))
+        .translate((0, 0, slot_z0))
     )
     body = base.union(ramp).cut(slot)
     try:

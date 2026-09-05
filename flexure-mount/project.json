@@ -3,6 +3,10 @@
     "name": "Compliant Flexure Mount",
     "slug": "flexure-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A monolithic flexure stage: a single printed part that moves precisely by elastic bending of thin blades instead of sliding joints — no play, no lubrication, no wear. Flexures give repeatable sub-millimetre motion for optics, metrology and precision positioning. Choose a parallelogram linear flexure, a notch-hinge angular flexure, or a decoupled XY stage. Mounting holes are M3 clearance so it bolts to any M3 pattern.\n\nOfficial Visualizer and Configurator: Yantra4D",

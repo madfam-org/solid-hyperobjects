@@ -3,6 +3,10 @@
     "name": "Battery Pocket Frame",
     "slug": "battery-pocket-frame",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed stiffener frame for an in-garment battery pocket. A soft pocket sewn into a heated jacket or a sensing vest sags around the pack, lets it rotate, and lets it slide out the mouth — and a lithium pack that rotates chafes its own leads. This rounded-rect frame is stitched into the pocket through perimeter sew holes and gives the pack a defined bay, with a retention lip stepping inward at the mouth and a depth skirt the pack registers against. This is the rigid hard good the Fashion Cabinet battery-pocket notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

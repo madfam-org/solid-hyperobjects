@@ -3,6 +3,10 @@
     "name": "Sharps Container Lid Adapter",
     "slug": "sharps-lid-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Turns an ordinary threaded jar into a one-way sharps container. A used needle is the most dangerous object in a small clinic, and the standard answer is a purchased consumable; where the supply budget does not stretch, the observed substitute is an open bottle or tin — which is the specific thing that causes needlestick injury, since it can be reached into and it spills when knocked. Jars are everywhere; the one-way lid is not. The lid carries a slot that passes a syringe hub but not a hand, a sprung baffle that closes behind the drop, and a closure that is destroyed rather than reopened. Lands on the published jar-thread CT finishes and the published needle-gauge series rather than inventing geometry. Distinct from the friction-fit sharps-lid cartridge, which fits buckets and carboys.\n\nOfficial Visualizer and Configurator: Yantra4D",
