@@ -141,13 +141,34 @@ def build_bellows_finger():
 
     # Barbed air port on the proximal (-Y) face, feeding the chamber. Built as a
     # stepped barb sticking out in -Y, with a through bore into the chamber.
+    # The port starts on the proximal face plane (local z = 0, i.e. global
+    # y = 0) and grows away from the body, so it met the base on a coincident
+    # plane only -- a tangent kiss, not a fusion. Under preset
+    # short_stiff_finger that left the whole port as a detached body. Start it
+    # PORT_BITE INSIDE the base and lengthen it by the same amount, so the barb
+    # keeps its original 9 mm protrusion.
     barb_len = 9.0
+    PORT_BITE = 0.8
     port = (
         cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, base_h + wall + ch_h * 0.4, 0))
+        .transformed(offset=cq.Vector(0, base_h + wall + ch_h * 0.4, -PORT_BITE))
         .circle(barb_od / 2.0)
-        .extrude(barb_len)  # extrudes toward -Y
+        .extrude(barb_len + PORT_BITE)  # extrudes toward -Y
     )
+    # The chamber is OPEN through the proximal face and is chamber_w wide, and
+    # the barb (barb_od) is narrower than that -- so on the face plane the port
+    # sat entirely inside the chamber's mouth, touching no material at all. It
+    # came out as a detached body under preset short_stiff_finger. Add a collar
+    # at the face that reaches past the chamber mouth in both X and Z, so the
+    # port is rooted in the proximal wall. The bore below re-opens the airway.
+    collar_r = max(barb_od / 2.0 + 1.6, chamber_w / 2.0 + 1.6)
+    collar = (
+        cq.Workplane("XZ")
+        .transformed(offset=cq.Vector(0, base_h + wall + ch_h * 0.4, -PORT_BITE))
+        .circle(collar_r)
+        .extrude(PORT_BITE + 1.6)
+    )
+    port = port.union(collar)
     # barb ridge (bigger lip near the tip for tube retention)
     ridge = (
         cq.Workplane("XZ")
