@@ -202,20 +202,48 @@ def build_base():
     body = cut_ports(body)
     body = cut_vents(body)
 
-    # Snap lip: a thin inward shelf at the top rim that the lid catches under.
+    # Snap lip: a thin upstand at the top rim that the lid catches under.
+    #
+    # The cavity is cut inner_h + 1.0 tall, so it breaks through the top face at
+    # base_h and the rim there is the annulus inner_w/2 -> outer_w/2. The lip
+    # used to be drawn from inner_w - 0.4 INWARD by `wall`, i.e. entirely inside
+    # that opening, starting exactly at z = base_h -- over the cavity void, on a
+    # coplanar plane. It fused to nothing and `base` rendered as two bodies
+    # under preset sensor_node (the only preset that selects lid_mount "snap").
+    #
+    # Build it as the rim carried upward (outer footprint, inner_w x inner_d
+    # bore, so it overlaps both walls), then shave its outside back to the
+    # inner_w - 0.4 nesting footprint above the rim. LIP_BITE sinks it into the
+    # rim so the union is a real overlap.
     if lid_mount == "snap":
-        lip = (
-            cq.Workplane("XY")
-            .transformed(offset=cq.Vector(0, 0, base_h))
-            .box(inner_w - 0.4, inner_d - 0.4, snap_lip_h, centered=(True, True, False))
-        )
+        LIP_BITE = 0.5
+        upstand = rounded_block(outer_w, outer_d, snap_lip_h + LIP_BITE, corner_r)
+        upstand = upstand.translate((0, 0, base_h - LIP_BITE))
         lip_bore = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(0, 0, base_h - 0.1))
-            .box(inner_w - 2.0 * wall, inner_d - 2.0 * wall, snap_lip_h + 0.4,
+            .transformed(offset=cq.Vector(0, 0, base_h - LIP_BITE - 1.0))
+            .box(inner_w, inner_d, snap_lip_h + LIP_BITE + 2.0,
                  centered=(True, True, False))
         )
-        body = body.union(lip.cut(lip_bore))
+        if inner_r > 0.05:
+            try:
+                lip_bore = lip_bore.edges("|Z").fillet(inner_r)
+            except Exception:
+                pass
+        # Trim the outside down to the nesting footprint, above the rim only.
+        nest_clear = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(0, 0, base_h))
+            .box(outer_w + 2.0, outer_d + 2.0, snap_lip_h + 1.0,
+                 centered=(True, True, False))
+        )
+        nest_keep = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(0, 0, base_h))
+            .box(inner_w - 0.4, inner_d - 0.4, snap_lip_h + 1.0,
+                 centered=(True, True, False))
+        )
+        body = body.union(upstand.cut(lip_bore).cut(nest_clear.cut(nest_keep)))
 
     return body
 
