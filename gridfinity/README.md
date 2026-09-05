@@ -39,12 +39,17 @@ Weakly Reciprocal (CERN-OHL-W-2.0). See [LICENSE](LICENSE).
 
 
 > **2026-09-04 (ADR-021, internal-devops):** the three OpenSCAD modes (`cup`,
-> `baseplate_scad`, `lid`) that descended from `gridfinity_extended_openscad`
-> (GPL-3.0) were removed from the commons together with that git submodule and the
-> helper scripts/exports derived from them. They are reserved and return only as
-> clean-room CadQuery re-creations verified against a recorded baseline. The
-> CadQuery modes (`bin`, `baseplate`) implement the published Gridfinity standard
-> and are unchanged.
+> `baseplate_scad`, `lid`) that descended from GPL-3.0 code were removed from the
+> commons together with that git submodule and the helper scripts and exports
+> derived from them — and have since been **re-created clean-room** and returned,
+> with their 27 parameters and 7 presets, from the published Gridfinity standard
+> and a recorded measurement baseline, without access to the removed
+> implementation or to any upstream one. See [NOTICE](NOTICE) for the provenance
+> statement, [docs/CLEANROOM-VERIFICATION.md](docs/CLEANROOM-VERIFICATION.md) for
+> the measurements, and [docs/README.md](docs/README.md) for the current
+> parameter surface (the table above predates the manifest and is kept only for
+> historical context). The CadQuery modes (`bin`, `baseplate`) implement the same
+> published standard and are unchanged.
 
 Upstream attribution:
 
