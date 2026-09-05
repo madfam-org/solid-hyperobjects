@@ -122,21 +122,35 @@ def _guard(bore_dia, length, shield_frac):
         .loft(combine=True)
     )
     body = tube.union(cap)
-    # Finger bore (from the open bottom, up to just under the tip).
+    # Finger bore, from the open bottom up to just under the tip -- which is
+    # what `length + outer_r*0.4` failed to do: at defaults it reached z =
+    # 48.56 into a cap spanning z = 44.00 to 52.98, cutting the dome in half
+    # and leaving its tip (z 48.56 to 52.98) as a detached second body. Stop
+    # the bore a `wall` below where the cap starts so the tip stays solid.
+    bore_top = max(1.0, length - 1.0 - wall)
     bore = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, 0, -1.0))
         .circle(bore_r)
-        .extrude(length + outer_r * 0.4)
+        .extrude(bore_top + 1.0)
     )
     body = body.cut(bore)
     # Open the pad side: remove the lower portion of the wall (a chord slab) so
     # the finger's underside is free and only the top/sides are shielded.
+    # The opener must stop BELOW the domed tip: the guard is "closed at the
+    # tip" (see the docstring), and an opener tall enough to reach the cap
+    # slices it off as a separate body. It used to run to z = length + outer_r
+    # + 1 (57.40 at defaults) against a cap whose top is at length - 1 +
+    # outer_r*0.7 + 1 (52.98), so both guard parts rendered 2 bodies.
+    #
+    # End it a wall below where the cap starts, so the tip stays capped and
+    # tied to the shell.
     open_h = (bore_r + outer_r) * shield_frac
+    open_top = max(2.0, length - 1.0 - wall)
     opener = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, -outer_r, -1.0))
-        .box(outer_r * 3.0, open_h, length + outer_r + 2.0, centered=(True, False, False))
+        .box(outer_r * 3.0, open_h, open_top + 1.0, centered=(True, False, False))
     )
     body = body.cut(opener)
     try:
