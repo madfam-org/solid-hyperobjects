@@ -14,8 +14,9 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 
 *Gridfinity en B-Rep exacto con CadQuery: un contenedor hueco y una base sobre el estándar publicado de 42 mm / 7 mm, con el perfil de base apilable, orificios opcionales para imanes y una muesca para el dedo.*
 
-Gridfinity was created by **Zack Freedman** (MIT). The CadQuery CORE modes are a
-clean-room re-authoring of the open standard's bin + baseplate geometry; the
+Gridfinity was created by **Zack Freedman** (MIT). The CadQuery modes are a
+clean-room re-authoring of the open standard's bin + baseplate geometry.
+
 **Version**: 2.1.0 · **Slug**: `gridfinity`
 
 ## Engines
