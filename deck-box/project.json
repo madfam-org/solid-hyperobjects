@@ -576,5 +576,22 @@
     "commercial",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "deck_box": {
+        "part_overrides": {
+          "deck_box": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

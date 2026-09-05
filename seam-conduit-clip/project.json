@@ -469,5 +469,27 @@
     "wearable",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "clip_run": {
+        "part_overrides": {
+          "clip_run": { "geometry.body_count": { "expected": "run_count" } }
+        }
+      },
+      "set": {
+        "part_overrides": {
+          "set": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

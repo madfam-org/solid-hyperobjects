@@ -159,5 +159,22 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["bracket", "shelf", "support", "mount", "household", "hyperobject", "commons"]
+  "tags": ["bracket", "shelf", "support", "mount", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "bracket_pair": {
+        "part_overrides": {
+          "bracket_pair": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

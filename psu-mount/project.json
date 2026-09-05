@@ -199,5 +199,27 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["psu", "power-supply", "meanwell", "mount", "2020", "extrusion", "industrial", "hyperobject", "commons"]
+  "tags": ["psu", "power-supply", "meanwell", "mount", "2020", "extrusion", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "extrusion_mount": {
+        "part_overrides": {
+          "extrusion_mount": { "geometry.body_count": { "expected": 2 } }
+        }
+      },
+      "foot_bracket": {
+        "part_overrides": {
+          "foot_bracket": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }
