@@ -147,20 +147,38 @@ def build_signet_blank():
     # Signet plateau: a rounded box sitting on top (+Y here is the outside; we put
     # the face on +Y so the ring lies flat on a print bed with the band as a ring).
     # Place the plateau outward along +Y at the top of the ring.
+    # On an XZ workplane the box's local axes map to global (X, Z, -Y): signet_w
+    # runs along X, signet_l along Z, and plate_th along Y. The old
+    # `transformed(offset=Vector(0, outer_r + ..., 0))` moved along LOCAL y,
+    # which is global Z -- it lifted the plateau straight up off the band
+    # instead of pushing it radially outward, so `signet_blank` rendered as two
+    # detached bodies. Translate in global Y instead, to -Y (the workplane's
+    # own outward normal), so the plateau straddles the band's outer surface.
     plate_th = signet_h + band_t          # extends from inside the band outward
     plate = (
         cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, outer_r + signet_h - plate_th / 2.0, 0))
         .box(signet_w, signet_l, plate_th)
+        .translate((0, -(outer_r + signet_h - plate_th / 2.0), 0))
     )
     try:
         plate = plate.edges("|Y").fillet(min(signet_w, signet_l) * 0.18)
     except Exception:
         pass
 
-    # Trim the plateau's inner side to the band OD so it fuses volumetrically and
-    # nothing floats inside the finger hole: cut away anything inside outer_r.
-    core = cq.Workplane("XY").circle(outer_r).extrude(band_w + 8.0).translate((0, 0, -(band_w + 8.0) / 2.0))
+    # Trim the plateau's inner side so nothing floats inside the finger hole.
+    # Cutting at exactly outer_r removed the plate's ENTIRE overlap with the
+    # band -- the two then met only on the band's outer cylinder, which is a
+    # tangent contact, not a fusion, and `signet_blank` rendered as two detached
+    # bodies. Cut PLATE_BITE inside outer_r instead, so a shell of plate that
+    # thick stays buried in the band material. The cut still stops well outside
+    # inner_r, so the finger hole is untouched.
+    PLATE_BITE = min(0.8, max(0.3, band_t * 0.4))
+    core = (
+        cq.Workplane("XY")
+        .circle(outer_r - PLATE_BITE)
+        .extrude(band_w + 8.0)
+        .translate((0, 0, -(band_w + 8.0) / 2.0))
+    )
     plate = plate.cut(core)
 
     body = band.union(plate)
