@@ -153,6 +153,25 @@ The OpenSCAD `is_undef` guard that caused the inert-parameter class of bug does
 not apply here: this is a CadQuery cartridge, and the `PARAM(lambda: name,
 default)` idiom reads the injected global directly.
 
+
+## 4b. Defects of our own, found by the sweep
+
+Three bugs in this cartridge were caught by running the matrix rather than by
+reading the code. All three share a shape: a feature sized against a nominal
+dimension instead of the material actually behind it.
+
+| Symptom | Variant that exposed it | Cause and fix |
+| :-- | :-- | :-- |
+| Four detached posts instead of four corner bumpers | `small-rounded-50x30` (50 × 30 cavity, 15 mm chamfer) | The pilaster was placed at the nominal rectangle corner, which is outside the shell once the corner radius is large. It is now anchored on the shell's own corner-arc centre. |
+| Feet not watertight | `small-rounded-50x30` | The four pads overlapped: the half-spacing floor was a bare 1.0 mm, and a 36 mm shell with a 15 mm corner pushed both rows to y = ±1.0 with a 4 mm pad. The floor is now half the pad's own size plus a gap. |
+| Lid in two bodies | `organizer-216x116`, `screw-box-216x116` (2 mm wall), `tiny-20x20` (1 mm wall) | The cavity cutter undercut the engagement rim — on a thin wall the cavity runs outside the rim's outer face, removing the ceiling the rim hung from. The rim is now a shoulder whose outer face reaches the wall; its inner face, which is the sealing surface, still carries the interface dimension. |
+
+Two of these exported as extra or non-watertight bodies **without OCCT
+raising**: an over-running fillet or chamfer, and overlapping solids in a
+compound, both return a quietly damaged shape. A bare `try/except` catches the
+wrong half of that failure mode, so `safe_fillet()` and the foot chamfer now
+check that the result is still one valid solid and discard it otherwise.
+
 ## 5. Resizing proof
 
 `internalBoxWidthXMm` set to 20, 100 and 300, mode `bottom`, everything else at
