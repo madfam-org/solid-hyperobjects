@@ -1,0 +1,67 @@
+NOTICE — attributions and provenance
+====================================
+
+Modular Grid Interoperability Hub (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see the repository LICENSE).
+
+This cartridge is MADFAM's own authoring. It implements the published
+INTERFACE DIMENSIONS of four shop / desk organization grids so that parts
+built for one system mount on another. It reproduces no upstream geometry,
+vendors no upstream file, and derives from no upstream implementation.
+
+The standards implemented
+-------------------------
+
+Multiboard (25 mm grid)                     [ADR-021 section 4: interface-only]
+  Author:    Keep Making Limited (Jonathan, "Keep Making")
+  Source:    https://www.multiboard.io/ (now redirects to https://multibuild.io/)
+             Licence page: https://multibuild.io/license (read 2026-09-05)
+  Standard:  The 25 mm cell pitch, the ~12.4 mm core hole and the 4 mm plate
+             corner radius — the dimensions a part must honour to mount on a
+             Multiboard board.
+  Form:      OURS. The `multiboard_tile` mode (multiboard_field() in main.py)
+             is a plain filleted plate carrying one plain circular hole per
+             cell. It does NOT reproduce the distinctive Multiboard tile form:
+             there is no hex or petal cell profile, no snap ring, no thread
+             profile, and no other element of the Multiboard tile's expression.
+             The geometry was written for this cartridge from the interface
+             dimensions alone.
+  Note:      The Multiboard design as published by Keep Making is licensed for
+             personal, NON-COMMERCIAL use only, with a separate commercial
+             licence required to sell derivatives (the A1 provenance audit
+             records this as CC-BY-NC-SA-4.0; the publisher's own licence page
+             would not serve to an automated reader on 2026-09-05, so the exact
+             SPDX variant is recorded here as the audit found it and the
+             verified fact is the NC restriction). Either way that licence is
+             incompatible with this commons, and it covers Keep Making's
+             DESIGN. It is not implicated here:
+             this cartridge implements the interface's measurements, which are
+             facts of fit and not copyrightable expression, with a form of its
+             own — the acceptance target ADR-021 section 4 sets for Multiboard
+             compatibility. No Multiboard model, source file or export was
+             consulted, copied or adapted in authoring this mode. (Ruled
+             2026-09-05; see the operator checklist, item G20.)
+
+Gridfinity (42 mm grid)
+  Author:    Zack Freedman (Voidstar Lab)
+  Source:    https://gridfinity.xyz/
+  License:   MIT License
+  Standard:  The 42 mm grid module and the standard baseplate chamfer stack,
+             implemented as a socket. A published standard, not code.
+
+French cleat (45 degrees)
+  Source:    An unowned woodworking shop convention; no author and no licence.
+  Standard:  The 45-degree interlocking rail profile.
+
+Pegboard (1 in pitch, 1/4 in holes)
+  Source:    An unowned shop convention; no author and no licence.
+  Standard:  The US 1 in (25.4 mm) hole pitch and 1/4 in (6.35 mm) hole
+             diameter a pegboard hook must honour (PEG_PITCH / PEG_HOLE_D in
+             main.py).
+
+Libraries
+---------
+
+None. This cartridge is a single CadQuery mode set (main.py) and uses no
+OpenSCAD library and no third-party Python package beyond CadQuery itself.

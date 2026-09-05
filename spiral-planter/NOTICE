@@ -17,3 +17,16 @@ dotSCAD
   Form:      Not vendored. dotSCAD is resolved at render time from the
              OpenSCAD library path (OPENSCADPATH); no dotSCAD source code
              is distributed in this repository.
+  Pin:       libs/dotSCAD, a git submodule of this repository, pinned at
+             commit bb33edfd75cba0edbb7971606a077b9c69d0b7d2
+             (.gitmodules -> https://github.com/JustinSDK/dotSCAD.git). That
+             gitlink is the exact library revision this cartridge is built
+             against.
+  Standing:  dotSCAD is the OpenSCAD ENGINE behind this cartridge's .scad
+             modes: it supplies the geometry-generating modules named above.
+             The cartridge code — the wrappers, the parameters, the modes and
+             every dimension they set — is MADFAM's own authoring. A library
+             dependency is not an origin licence (ADR-021 section 1), and
+             LGPL-3.0 permits this use by a differently-licensed work that
+             links to it without copying it. Ruled acceptable 2026-09-05
+             (operator checklist, item G21).

@@ -1,0 +1,81 @@
+NOTICE — attributions and provenance
+====================================
+
+Chronos-SCARA (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+This cartridge is MADFAM's own authoring. Every dimension, parameter, mode and
+line of robot.py / robot.scad was written for this project. No third-party
+source file, CAD file, mesh or export is vendored, copied, ported or adapted
+here.
+
+Inspired-by lineage
+-------------------
+
+The manifest records three upstream projects under
+`project.attribution.lineage`. Each is recorded as `relationship: inspired-by`:
+they contributed a CONCEPT or a MORPHOLOGY — an arrangement of joints, a choice
+of where to put the motors, a way of thinking about the arm — and contributed
+NO geometry and NO code to this cartridge. The licences below are recorded for
+completeness and traceability, not because any of them reaches this work.
+Licences read on 2026-09-05.
+
+PyBot (JJRobots)
+  Author:    JJRobots
+  Source:    https://www.hackster.io/news/pybot-is-an-accurate-open-source-scara-robotic-arm-with-3dof-and-can-be-3d-printed-with-ease-fe7191e06fc9
+  Files:     https://www.thingiverse.com/thing:4579405
+  License:   CC-BY-NC-ND-4.0 (Creative Commons Attribution-NonCommercial-
+             NoDerivatives 4.0), per the licence field in that Thingiverse
+             listing's JSON-LD metadata, published by `jjrobots` themselves.
+  Caution:   PyBot is described as "100% open source" by its own vendor and by
+             press coverage, but the licence actually granted on the design
+             files is NC-ND — it permits neither commercial use nor
+             derivatives, and is therefore NOT an open-source or OSHWA-
+             conformant licence. This does not affect this cartridge: NC-ND
+             restricts copying and adapting the PyBot FILES, and this cartridge
+             copies and adapts none of them. It took the idea of an accessible
+             SCARA morphology with a decoupled Z axis on the NEMA 17 actuator
+             ecosystem, which a licence on files does not reach.
+  Note:      jjrobots.com no longer resolves in DNS; the project appears
+             abandoned and there is no party left to ask for clarification.
+
+RepRap Morgan
+  Author:    Quentin Harley (RepRap wiki User:qharley)
+  Source:    https://reprap.org/wiki/RepRap_Morgan
+  Files:     https://github.com/qharley/Morgan
+  License:   GPL-2.0 for the design — the wiki infobox License field reads
+             "GPL" and the repository README reads "GPLv2 2013". The wiki page
+             TEXT is separately under the GNU Free Documentation License
+             ("Content is available under GNU Free Documentation License unless
+             otherwise noted", page footer).
+  Caution:   The GPLv2 claim rests on a bare README line; the repository
+             contains no LICENSE or COPYING file, and the GitHub licence API
+             reports none. GPL is in any case a software licence applied to
+             mechanical CAD files. Neither point affects this cartridge, which
+             contains no Morgan file: what it took is the parallel-linkage
+             idea of putting both motors at the base to reduce moving mass — a
+             kinematic arrangement, not an expression.
+  Note:      The URL recorded in the manifest is the original RepRap forum
+             thread. The wiki slug is `RepRap_Morgan`; `reprap.org/wiki/Morgan`
+             is a 404.
+
+MySCARABot (ROS2)
+  Author:    Sampreet Sarkar (github.com/sampreets3)
+  Source:    https://discourse.openrobotics.org/t/myscarabot-a-ros2-enabled-scara-robot-for-learning/27706
+  Files:     https://github.com/sampreets3/robot-arm-demo
+  License:   NOT STATED. The repository has no LICENSE file; GitHub's licence
+             API returns null for it and the /license endpoint returns 404.
+             An unlicensed public repository is all-rights-reserved by default:
+             publishing it on GitHub grants only the rights in GitHub's Terms
+             of Service (viewing and forking within GitHub), not redistribution
+             or reuse.
+  Caution:   Because no licence is granted, no file from that repository could
+             lawfully be reused here — and none is. What this cartridge took is
+             the framing of a robot as a ROS2/Gazebo computational graph node,
+             an architectural idea, from a public forum post.
+
+No geometry, source file or export from any of the three projects above is
+present in this cartridge, at this commit or at any commit in its history.
+(Lineage licences researched and recorded 2026-09-05 under operator ruling G22,
+which KEEPS these entries as inspired works.)

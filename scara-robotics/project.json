@@ -26,21 +26,30 @@
             "is_hyperobject": true
         },
         "attribution": {
-            "author": "Yantra4D",
+            "author": "Innovaciones MADFAM",
             "license": "CERN-OHL-W-2.0",
             "lineage": [
                 {
                     "project": "PyBot (JJRobots)",
+                    "license": "CC-BY-NC-ND-4.0",
+                    "license_source": "https://www.thingiverse.com/thing:4579405 (JSON-LD licence field, read 2026-09-05)",
+                    "relationship": "inspired-by",
                     "url": "https://www.hackster.io/news/pybot-is-an-accurate-open-source-scara-robotic-arm-with-3dof-and-can-be-3d-printed-with-ease-fe7191e06fc9",
                     "contribution": "Accessible SCARA morphology with decoupled Z-axis and NEMA 17 actuator ecosystem."
                 },
                 {
                     "project": "RepRap Morgan",
+                    "license": "GPL-2.0",
+                    "license_source": "https://reprap.org/wiki/RepRap_Morgan (infobox License field: GPL) and https://github.com/qharley/Morgan README (\"GPLv2 2013\"); no LICENSE file in the repo (read 2026-09-05)",
+                    "relationship": "inspired-by",
                     "url": "https://reprap.org/forum/read.php?185,291292",
                     "contribution": "Kinematic non-locality via parallel linkage — both motors at the base reduces moving mass."
                 },
                 {
                     "project": "MySCARABot (ROS2)",
+                    "license": "NOT STATED (no LICENSE file; all rights reserved by default)",
+                    "license_source": "https://github.com/sampreets3/robot-arm-demo — GitHub licence API returns null and /license returns 404 (read 2026-09-05)",
+                    "relationship": "inspired-by",
                     "url": "https://discourse.openrobotics.org/t/myscarabot-a-ros2-enabled-scara-robot-for-learning/27706",
                     "contribution": "ROS2/Gazebo integration, treating the robot as a computational graph node."
                 }

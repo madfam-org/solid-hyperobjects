@@ -7,15 +7,39 @@ Licensed under CERN-OHL-W-2.0 (see LICENSE).
 
 Upstream project:
 
-Faircap
-  Source:    https://faircap.org/
+Faircap                                        [relationship: inspired-by]
+  Source:    https://faircap.org/ ,
+             http://faircap.org/faircap-open-design-and-innovation/
   Author:    The Faircap project, founded by Mauricio Córdova (Faircap CIC)
-  Notes:     This repository contains an independent parametric
-             re-implementation inspired by the Faircap open-source water
-             filter — an affordable, 3D-printable filter cap for standard
-             PET bottle necks (PCO-1881). The product concept and reference
-             dimensions follow Faircap's published open design; consult
-             faircap.org for the upstream project's licensing terms.
+  License:   NOT STATED. Read on 2026-09-05: Faircap's own pages describe the
+             project as "100% open source" and speak of open collaboration,
+             but they name NO licence anywhere — no SPDX identifier, no
+             Creative Commons grant, no licence file. The same site states
+             that the design and trademark are REGISTERED at the British
+             Intellectual Property Office and that the filter is PATENT
+             PENDING. No Faircap GitHub organisation exists, and the `faircap`
+             GitHub user account has no public repositories. A widely repeated
+             claim that the design is CC0 could not be traced to any primary
+             source and should not be relied upon.
+             In the absence of a stated grant, treat the upstream design as
+             all rights reserved.
+  Notes:     This cartridge is MADFAM's own authoring and is recorded as an
+             INSPIRED-BY work, not a derivative. The geometry here — the
+             PCO-1881 thread interface, the housing, the nozzle, every
+             dimension and parameter — was written independently for this
+             project in CadQuery and OpenSCAD. No Faircap file, mesh, CAD
+             model or export was copied, ported or adapted, and none is
+             vendored here. What follows Faircap is the PRODUCT CONCEPT (an
+             affordable print-at-home filter cap for a standard PET bottle
+             neck) and the reference dimensions of the bottle-neck standard it
+             screws onto — and PCO-1881 is an independent packaging standard,
+             not Faircap's property.
+             Faircap's registered design and pending patent are noted here so
+             that anyone manufacturing from this cartridge understands they are
+             separate rights from copyright: they are not licensed by this
+             NOTICE, and this NOTICE is not legal advice. (Recorded 2026-09-05
+             under operator ruling G22, which KEEPS this entry as an inspired
+             work.)
 
 Third-party library:
 
