@@ -137,10 +137,12 @@ def accessory_cleat_profile(depth, height, ang, gap):
 def build_wall_cleat():
     """The wall strip: the cleat cross-section extruded along Y (`strip_len`) plus
     mounting screw holes drilled through the flat back band."""
+    # An XZ workplane extrudes toward -Y, so the raw prism spans
+    # y in [-strip_len, 0]; recentre by +strip_len/2, not -.
     cleat = (
         wall_cleat_profile(cleat_depth, cleat_h, angle)
         .extrude(strip_len)
-        .translate((0, -strip_len / 2.0, 0))
+        .translate((0, strip_len / 2.0, 0))
     )
     # A thicker lower band would over-build; the trapezoid already gives a solid strip.
     body = cleat
@@ -173,10 +175,15 @@ def build_wall_cleat():
 def _accessory_back(depth, height, width):
     """The accessory's mating cleat back: the complement cross-section extruded along
     Y (`width`), returned centred in Y with its back plane at x=0."""
+    # An XZ workplane extrudes toward -Y, so the raw prism spans y in
+    # [-width, 0]. Recentring by -width/2 parked the whole back at
+    # [-1.5*width, -0.5*width], where nothing else lives: every front body
+    # (hook arm and tip, bin walls) is y-centred on 0, so they had no y-overlap
+    # with the back at all and rendered as detached solids. Recentre by +.
     back = (
         accessory_cleat_profile(depth, height, angle, fit)
         .extrude(width)
-        .translate((0, -width / 2.0, 0))
+        .translate((0, width / 2.0, 0))
     )
     return back
 
@@ -187,9 +194,18 @@ def build_hook_back():
     height = cleat_h + wall * 2.0
     back = _accessory_back(depth, height, back_w)
 
-    # Front bodies start a couple mm INSIDE the back so the union is a volumetric fuse
-    # (a face-to-face tangent kiss tessellates non-watertight).
-    front_x = depth - 2.0
+    # Front bodies must start INSIDE the back so the union is a volumetric fuse
+    # (a face-to-face tangent kiss tessellates non-watertight). The accessory's
+    # front face is NOT the plane x = depth: below ramp_z + fit it is the 45
+    # degree lip ramp, receding to x = ramp_x at z = 0. A fixed inset of
+    # depth - 2.0 therefore sat in free air over the whole ramped band, and the
+    # hook -- which lives at z in [wall, wall + ...], entirely inside that band
+    # -- rendered as a detached body. Anchor the hook at the ramp's own back
+    # edge, minus a bite, so it always starts in solid material.
+    run, _rise, _ramp_z = cleat_ramp_geometry(depth, height, angle)
+    ramp_x = depth - run
+    HOOK_BITE = 2.0
+    front_x = max(0.0, ramp_x - HOOK_BITE)
     hook_out = 45.0
     hook_up = 22.0
     arm = (
