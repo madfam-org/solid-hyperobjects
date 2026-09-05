@@ -764,9 +764,27 @@ def build_top(flat=True):
 
     # INTERFACE: the engagement rim standing down from the seam face, rim_h tall,
     # ASSEMBLY_CLEARANCE under the groove it enters.
-    rim_out = rounded_prism(rim_out_x, rim_out_y, rim_h,
+    #
+    # The rim is built as a SHOULDER, not a free-hanging ring: its outer face
+    # runs out to the lid's own wall so it is continuous with the shell, while
+    # its inner face — the one that actually seals against the gasket groove —
+    # stays exactly on the interface value. Building it as a ring whose outer
+    # face floated inside the cavity left it attached only to a ceiling that the
+    # cavity cut then removed, and the lid came out as two bodies (tiny-20x20:
+    # a 20 mm cavity against an 18 mm rim outer face).
+    # The sealing face is the rim's INNER wall — that is the surface the gasket
+    # groove receives, so it carries the interface dimension. The outer face is
+    # only structure, and it runs out to whichever is larger: its own interface
+    # value or the lid wall. On a normal box those are the same thing; on a thin
+    # wall the wall is further out, and reaching it is what keeps the rim part
+    # of the lid.
+    rim_seal_in_x = rim_out_x - 2.0 * ring_w   # INTERFACE: the sealing face
+    rim_seal_in_y = rim_out_y - 2.0 * ring_w
+    rim_out = rounded_prism(max(rim_out_x, cav_x + EPS),
+                            max(rim_out_y, cav_y + EPS),
+                            rim_h,
                             max(0.0, gasket_r_out - ASSEMBLY_CLEARANCE / 2.0), -rim_h)
-    rim_in = rounded_prism(rim_out_x - 2.0 * ring_w, rim_out_y - 2.0 * ring_w,
+    rim_in = rounded_prism(rim_seal_in_x, rim_seal_in_y,
                            rim_h + 2.0 * OVER,
                            max(0.0, gasket_r_in - ASSEMBLY_CLEARANCE / 2.0),
                            -rim_h - OVER)
@@ -799,14 +817,20 @@ def build_top(flat=True):
     # Hollow the lid cavity from the seam face UPWARD ONLY, and cut the foot
     # pockets.
     #
-    # The cavity cutter must not dip below z=0. The engagement rim lives
-    # entirely below the seam plane, and on a thin-walled box the cavity wall
-    # (shell - 2*wall) can coincide with the rim's outer face
-    # (shell - 2*1.75 - 0.5): at boxWallWidthMm 2 both land on the same
-    # millimetre, so an overshooting cutter shaved the rim to nothing and the
-    # lid came out as two bodies. Cutting from exactly z=0 leaves the rim
-    # untouched, and the cavity floor is still clean because the crown above it
-    # is solid material.
+    # Two constraints on the cavity cutter, both learned from variants that came
+    # out as two bodies:
+    #
+    #  1. It must not dip below z=0. The engagement rim lives entirely below the
+    #     seam plane, and on a thin wall the cavity wall (shell - 2*wall) can
+    #     coincide with the rim's outer face (shell - 2*1.75 - 0.5) — at
+    #     boxWallWidthMm 2 they land on the same millimetre, so an overshooting
+    #     cutter shaved the rim away (organizer-216x116).
+    #  2. It must not undercut the rim. The rim's OUTER face must stay inside
+    #     the cavity wall so the rim meets the lid's own wall; otherwise the
+    #     cavity removes everything above the rim and leaves it attached to
+    #     nothing (tiny-20x20: a 20 mm cavity against an 18 mm rim outer face).
+    #     That is handled where the rim is built, by widening it to reach the
+    #     wall — never by shrinking the cavity, which is the payload interface.
     body = _subtract(body, [
         rounded_prism(cav_x, cav_y, cav_zt + OVER, inner_r, 0.0),
         # Lid: the skin is the crown left above the cavity, less the crown ease

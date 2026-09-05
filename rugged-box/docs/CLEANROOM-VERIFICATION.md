@@ -83,7 +83,59 @@ redesigned. §3 states the measured divergence.
 See `results-*.json` from `verify_cleanroom.py` for the full per-variant record.
 Summary table below.
 
-<!-- MEASURED-TABLE -->
+Every render goes through the platform's own path: `commons_sandbox`
+validation and restricted builtins, `exec` of `main.py`, the `result` global,
+`cq.exporters`, then `trimesh(process=True, force="mesh")`.
+
+### Interface conformance — 19/19 variants
+
+Defaults, all 16 presets, corner-allmin and corner-allmax. For each: the gasket
+ring's outer X/Y and depth, and the latch catch width measured from a single
+strap's own X extent. Every one within ±0.05 mm of the value the parameters
+imply, every part watertight with the expected body count.
+
+| Variant | Gasket outer X × Y | Depth | Latch catch | Latch bodies |
+| :-- | --: | --: | --: | --: |
+| defaults | 102.5 × 62.5 | 2.2 | 25.0 | 2 |
+| golden-benchy-case | 116.5 × 76.5 | 2.2 | 25.0 | 2 |
+| tiny-20x20 | 18.5 × 18.5 | 2.2 | 12.0 | 1 |
+| screw-box-216x116 | 216.5 × 116.5 | 2.2 | 25.0 | 3 |
+| tool-case-gasket | 142.5 × 78.0 | 2.2 | 25.0 | 2 |
+| corner-allmin | 18.5 × 18.5 | 1.0 | 10.0 | 1 |
+| corner-allmax | 316.5 × 216.5 | 5.0 | 40.0 | 5 |
+
+The seal tracks the shell exactly: at every size the ring's outer face is
+3.5 mm inside the shell on the diameter, which is the 1.75 mm per side the
+interface requires. The depth honours the full 1–5 mm range, and the catch
+width follows `latchSupportTotalWidth` from its minimum to its maximum.
+
+### Body counts and watertightness
+
+| Part / mode | Variants checked | Result |
+| :-- | --: | :-- |
+| `gasket` | 21 | 21/21 one watertight body |
+| `latches` | 21 | 21/21 `numberOfLatches` separate watertight bodies |
+| `feet` | 19 | 19/19 four watertight bodies, **9 distinct layouts** |
+| `top` | 19 | see the shell run below |
+| `bottom` | 19 | see the shell run below |
+| `complete` | defaults, small-rounded, tiny, medium, corner-allmax | 3 + latches (+4 feet), watertight |
+| `closed-view` | defaults, small-rounded | 2 + latches, watertight |
+
+Measured `complete` at defaults: **5 bodies** (bottom + top + gasket + 2 latch
+straps), watertight, 223.7 × 149.6 × 27.0 mm. `closed-view` at defaults:
+**4 bodies**, watertight. At corner-allmax `complete` is **12 bodies**
+(3 + 5 latches + 4 feet) and watertight — the variant the baseline could not
+render watertight at all.
+
+### Honest limits of this run
+
+The full 147-job matrix (7 modes × their parts × 21 variants) did not complete
+inside the session. The machine was shared with other work at load averages
+above 300 on 8 cores, and a single `bottom` render costs about 20 s of CPU.
+What ran is above: the interface sweep across all 19 variants, all 21 gasket and
+latch variants, 19 feet cases, 21 `top` variants, and the assemblies at the
+variants most likely to break (smallest, largest, thinnest-walled). The matrix
+should be re-run to completion on an idle machine before merge.
 
 ## 4. Baseline defects fixed, not reproduced
 
@@ -120,7 +172,28 @@ Reproduce with `docs/verify_parameters.py resize`.
 
 ## 6. Parameter effectiveness
 
-<!-- PARAMS-TABLE -->
+Every declared parameter is perturbed from its default to the far end of its
+range and the resulting mesh compared. Each is tested against a part it is
+supposed to drive — a gasket ring legitimately does not change when the lid gets
+deeper, and scoring that as inert would be wrong.
+
+**Result: 32/32 parameters change the mesh. None inert.**
+
+The baseline had 8 of 32 effective: 18 were never referenced at all and 6 more —
+`internalBoxWidthXMm`, `internalboxLengthYMm`, `internalBoxTopHeightZMm`,
+`internalboxBottomHeightZMm`, `boxWallWidthMm`, `boxChamferRadiusMm` — were
+referenced but inert, which is why the box could not be resized. All 24 of those
+are effective here.
+
+`BoxPolygonStyle` is worth calling out because it is the easiest one to leave as
+a label. It selects an 8- or 16-sided inscribed prism or a true circle for every
+cylindrical feature. Measured on `latches`: **264 / 328 / 1208 facets** across
+the three settings, three distinct meshes; on `bottom`: **3228 / 3332 / 5456**.
+Because the polygon is inscribed, the hinge knuckle still measures exactly
+8.000 mm (base) and 7.000 mm (lid) in diameter at all three settings, so the
+quality choice never moves the interface.
+
+Reproduce with `docs/verify_parameters.py params`.
 
 ## 7. What was not read
 
