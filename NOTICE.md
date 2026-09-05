@@ -32,6 +32,24 @@ It is tracked in the platform's `KNOWN_NC_EXPOSURE` map
 (`scripts/qa/check_licenses.py`) and surfaced per-cartridge in the catalog as
 `license_exposure`.
 
+## Cartridges under their own upstream licence (not CERN-OHL-W-2.0)
+
+Four cartridges declare a licence other than CERN-OHL-W-2.0 in their
+`project.json` (`hyperobject.commons_license`) because they are derived from
+upstream projects whose terms carry through. The catalog counts them honestly
+(496 of 500 on CERN-OHL-W-2.0); each cartridge's own `LICENSE`/`NOTICE` governs.
+
+| Cartridge | Declared licence | Consequence |
+| :-- | :-- | :-- |
+| `multiboard` | CC-BY-NC-SA-4.0 | NonCommercial: prints and derivatives may not be sold; share-alike applies |
+| `keyv2` | GPL-3.0 | copyleft: derivatives of the geometry source stay GPL-3.0 |
+| `stemfie` | GPL-3.0-or-later | copyleft, as above |
+| `polydice` | BSD-2-Clause | permissive; attribution required |
+
+The 2026-07-04 licence audit (internal-devops, "license review required") is
+still the open reference for `multiboard`, `keyv2`, `stemfie` and
+`julia-vase`; nothing here changes a declaration.
+
 ## Copyleft dependency, not vendored
 
 ### `gridfinity` → `gridfinity_extended`
