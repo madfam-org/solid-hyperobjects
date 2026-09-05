@@ -187,5 +187,27 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["pill", "organizer", "medication", "assistive", "medical", "hyperobject", "commons"]
+  "tags": ["pill", "organizer", "medication", "assistive", "medical", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "single_day": {
+        "part_overrides": {
+          "single_day": { "body_count": { "expected": 2 } }
+        }
+      },
+      "tray_lidded": {
+        "part_overrides": {
+          "tray_lidded": { "body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

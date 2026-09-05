@@ -203,5 +203,22 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["cable", "clip", "comb", "raceway", "household", "hyperobject", "commons"]
+  "tags": ["cable", "clip", "comb", "raceway", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "raceway": {
+        "part_overrides": {
+          "raceway": { "body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

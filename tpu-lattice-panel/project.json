@@ -162,5 +162,32 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["lattice", "armor", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"]
+  "tags": ["lattice", "armor", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "cell": {
+        "part_overrides": {
+          "cell": { "body_count": { "expected": 8 } }
+        }
+      },
+      "panel": {
+        "part_overrides": {
+          "panel": { "body_count": { "expected": "rows * cols + (cols - 1) * rows + (rows - 1) * cols" } }
+        }
+      },
+      "swatch": {
+        "part_overrides": {
+          "swatch": { "body_count": { "expected": 21 } }
+        }
+      }
+    }
+  }
 }

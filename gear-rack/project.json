@@ -599,5 +599,22 @@
     "industrial",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "rack_and_pinion": {
+        "part_overrides": {
+          "rack_and_pinion": { "body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

@@ -382,5 +382,22 @@
     "wearable",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "twin": {
+        "part_overrides": {
+          "twin": { "body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }
