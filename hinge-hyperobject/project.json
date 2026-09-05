@@ -3,6 +3,10 @@
         "name": "Parametric Hinge",
         "slug": "hinge-hyperobject",
         "version": "1.0.0",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0"
+        },
         "description": {
             "en": "Parametric print-in-place hinges — living hinge, pin hinge, and ball joint for mechanical assemblies\n\nOfficial Visualizer and Configurator: Yantra4D",
             "es": "Bisagras paramétricas impresas en sitio — bisagra viva, bisagra de pasador y junta esférica para ensamblajes mecánicos\n\nVisualizador y configurador oficial: Yantra4D"

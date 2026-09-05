@@ -3,6 +3,10 @@
     "name": "Cutting-Board Non-Slip Feet",
     "slug": "board-feet",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Clip-on feet that lift a cutting board off the counter and stop it sliding. Each foot is a C-clip sized to the board thickness with a textured pad underneath. Straight edge clip, corner-wrapping clip, or a taller riser for draining and airflow.\n\nOfficial Visualizer and Configurator: Yantra4D",

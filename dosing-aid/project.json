@@ -3,6 +3,10 @@
     "name": "Syringe / Dosing Aid",
     "slug": "dosing-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Aids for precise medication dosing: a plunger stop that clips onto a syringe plunger to cap the drawn volume, a stand that holds a syringe upright between doses, or a small graduated measuring cup whose inner volume is solved from the millilitres you enter. Sized to the syringe barrel (Luer-style).\n\nOfficial Visualizer and Configurator: Yantra4D",

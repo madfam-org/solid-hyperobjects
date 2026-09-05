@@ -3,6 +3,10 @@
     "name": "Robot Sensor Mount",
     "slug": "robot-sensor-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A tilt-adjustable bracket for a small robot sensor board. The board plate carries the exact mounting-hole pattern of the sensor (VL53L0X ToF ~13 x 25 mm, MPU6050 IMU ~15 x 21 mm with 2 holes, Raspberry Pi camera 25 x 24 mm with 4 holes) plus a window clearing the sensor / lens, on a pillar with an adjustment slot so the board can be angled and locked. Choose a ToF, IMU, or camera mount.\n\nOfficial Visualizer and Configurator: Yantra4D",

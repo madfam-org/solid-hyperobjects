@@ -3,6 +3,10 @@
     "name": "Chicago Screw",
     "slug": "chicago-screw",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The two-part binding post leatherworkers call a Chicago screw or sex bolt — a barrel with a flat head and an internal bore, and a cap screw that threads into it from the other side. Together they clamp a leather strap sandwich without a rivet setter, and unlike a rivet they come apart again, which is why every adjustable strap, watch band and knife sheath uses them. This is the rigid hard good the Fashion Cabinet `chicago-screw` notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

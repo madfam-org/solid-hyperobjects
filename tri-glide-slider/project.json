@@ -3,6 +3,10 @@
     "name": "Tri-Glide Slider",
     "slug": "tri-glide-slider",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed tri-glide — the flat three-bar webbing slider that holds a length setting by reversing the tape twice, on sternum straps, apron ties, camera slings, dog harnesses and overall straps. Distinct from the `d-ring` anchor loop, the `bra-ring-slider` lingerie pair and the one-bar `ladder-lock`. Sized for trade webbing widths 20, 25, 38 and 50 mm. This is the rigid hard good the Fashion Cabinet `tri-glide-slider` notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

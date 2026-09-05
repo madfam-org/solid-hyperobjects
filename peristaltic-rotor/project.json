@@ -3,6 +3,10 @@
     "name": "Peristaltic Pump Rotor",
     "slug": "peristaltic-rotor",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The rotating core of a peristaltic (roller) pump: a rotor carries rollers that squeeze a flexible tube against a curved race, moving fluid without ever touching it — ideal for lab dosing, aquaria, food and chemistry. Choose the roller-carrier rotor, the semicircular tube race (housing), or a single roller, all sized for standard 3/16 in (4.76 mm) and 1/4 in (6.35 mm) OD silicone tubing.\n\nOfficial Visualizer and Configurator: Yantra4D",

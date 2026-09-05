@@ -3,6 +3,10 @@
     "name": "Belt Hanger",
     "slug": "belt-hanger",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed multi-loop belt and accessory rack — a vertical spine carrying a column of open hooks, topped by a rod hook for the closet rail. Each open hook takes one belt folded at its buckle, or a scarf, a tie, or a bag strap, and comes off the front without disturbing its neighbours, which is what an open hook does that a closed loop cannot. The hook throat is sized from the strap width you actually own, across the standard 20 / 25 / 38 / 50 mm webbing widths.\n\nOfficial Visualizer and Configurator: Yantra4D",

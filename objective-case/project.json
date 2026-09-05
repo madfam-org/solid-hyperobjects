@@ -3,6 +3,10 @@
     "name": "Microscope Objective Case",
     "slug": "objective-case",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Protective threaded storage hyperobject for microscope objectives: a single case with a real female objective thread, a multi-nest storage block, and a threaded dust cap. Threads are modeled as true fused helical ribs on the RMS (0.800 in x 36 TPI) or M25 x 0.75 standards, so objectives screw in exactly as on a nosepiece.",
       "es": "Hiperobjeto de almacenamiento roscado protector para objetivos de microscopio: un estuche individual con rosca hembra real, un bloque de almacenamiento de múltiples nidos y una tapa antipolvo roscada. Las roscas se modelan como nervaduras helicoidales fusionadas reales en los estándares RMS (0.800 in x 36 TPI) o M25 x 0.75, de modo que los objetivos se enroscan igual que en un revólver."

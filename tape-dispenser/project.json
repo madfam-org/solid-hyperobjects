@@ -3,6 +3,10 @@
     "name": "Label / Tape Dispenser",
     "slug": "tape-dispenser",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A tape / label-roll dispenser parametric on the roll's core inner diameter. The roll slips over a printed spindle sized to the core. Choose a free-spin two-wall holder, a desktop dispenser with a saw-tooth tear edge, or a wall bracket with a single cantilevered spindle.\n\nOfficial Visualizer and Configurator: Yantra4D",

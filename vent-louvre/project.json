@@ -3,6 +3,10 @@
     "name": "Vent Louvre",
     "slug": "vent-louvre",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Airflow deflectors and vent inserts: a rectangular frame spanned by a bank of angled blades that steer or diffuse air. Choose a flat louvre insert that drops into a vent opening, a protruding deflector scoop that throws air away from a surface, or a fine straight-slat grille for a cover or intake screen. Sized by the opening and blade count.\n\nOfficial Visualizer and Configurator: Yantra4D",

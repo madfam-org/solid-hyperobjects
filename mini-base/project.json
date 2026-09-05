@@ -3,6 +3,10 @@
     "name": "Miniature Base",
     "slug": "mini-base",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Wargame and RPG miniature bases in the standard tabletop footprints (25/32/40/50/60 mm round, 25/50 mm square). Beveled top edge, optional rim lip and light texture, optional 6x2 mm magnet pocket underneath, plus a movement tray that holds a grid of minis as one unit.\n\nOfficial Visualizer and Configurator: Yantra4D",

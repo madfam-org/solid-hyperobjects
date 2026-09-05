@@ -3,6 +3,10 @@
     "name": "Desk Headphone Stand",
     "slug": "headphone-stand",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A free-standing desk stand that holds a headset by its headband on a broad, rounded cradle so the band does not develop a dent. Single saddle on a weighted base, a dual-saddle post for two headsets, or a desk-edge clamp version.\n\nOfficial Visualizer and Configurator: Yantra4D",

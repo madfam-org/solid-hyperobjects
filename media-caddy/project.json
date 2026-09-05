@@ -3,6 +3,10 @@
     "name": "USB / SD / Battery Caddy",
     "slug": "media-caddy",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A desk organizer with an array of correctly-sized slots or bores for one class of small media or battery. Pick the form factor — USB-A, full-size SD, microSD, AA, AAA, or 18650 — and how many; every pocket is sized to the real part plus a small clearance. Tray mode is a shallow single wide row; Block mode is a compact near-square standing block; Grid mode is an explicit rows × columns matrix.\n\nOfficial Visualizer and Configurator: Yantra4D",

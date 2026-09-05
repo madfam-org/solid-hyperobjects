@@ -3,6 +3,10 @@
     "name": "D-Shaft Replacement Knob",
     "slug": "knob-dshaft",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A right-to-repair replacement knob for a drawer, cabinet, appliance, or dial. Measure the broken shaft and pick the matching bore — round, single D-flat, double-D, or splined — then choose a cylindrical, knurled, or fluted grip. A pointer variant adds a raised indicator line for dials. An optional set-screw locks it on.\n\nOfficial Visualizer and Configurator: Yantra4D",

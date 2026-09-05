@@ -3,6 +3,10 @@
     "name": "TPU Gusset Flexure",
     "slug": "tpu-gusset-flexure",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A print-in-place stretch gusset — the additive-manufacturing insert the Fashion Cabinet `printed-gusset-flexure` notion describes and bridges to here for its geometry. A diamond gusset (the four-point insert sewn into an underarm, crotch, or side vent for range of motion) printed as a thin TPU panel cut with a slit lattice, so it stretches biaxially where a woven gusset only eases on the bias. Sewn into the seam it opens as the wearer moves. Sized by its two diagonals so a garment's finished gusset drives the panel. One material identity — Bambu TPU 95A — spans the FC notion and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

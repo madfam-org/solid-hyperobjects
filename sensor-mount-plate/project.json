@@ -3,6 +3,10 @@
     "name": "Sensor Mount Plate",
     "slug": "sensor-mount-plate",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A universal base for a security camera, motion sensor, dashcam, or small enclosure. Every mode is a flat base that fixes to a surface (adhesive pad or screws) and presents a device-fixing interface on top. Quarter-20 Base carries a dimensionally-correct ASME 1/4-20 boss stud (6.35 mm major diameter, the universal camera/tripod interface — modelled as a chamfered cylinder, not a slow swept helix); Screw Base is a 2/4-hole plate with a central device screw; Adhesive Puck is a round disc with a flat underside for a VHB pad. Optional cosmetic thread groove.\n\nOfficial Visualizer and Configurator: Yantra4D",

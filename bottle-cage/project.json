@@ -3,6 +3,10 @@
     "name": "Bike Bottle Cage",
     "slug": "bottle-cage",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A water-bottle cage that bolts to a bicycle frame's standard water-bottle bosses (two M5 bosses at 64 mm spacing). Sized by the bottle diameter so the cradle grips a 73 mm bidon. Side-entry cage, top-entry cage, or a boss-mounted tool/CO2 accessory holder.\n\nOfficial Visualizer and Configurator: Yantra4D",

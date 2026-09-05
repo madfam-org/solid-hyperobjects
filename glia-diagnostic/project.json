@@ -4,6 +4,10 @@
         "slug": "glia-diagnostic",
         "name": "Glia Diagnostic Tools",
         "version": "1.0.0",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0"
+        },
         "description": {
             "en": "Open source stethoscope and otoscope medical hardware by the Glia Project\n\nOfficial Visualizer and Configurator: Yantra4D",
             "es": "Hardware médico de código abierto: estetoscopio y otoscopio del Proyecto Glia\n\nVisualizador y configurador oficial: Yantra4D"

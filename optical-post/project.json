@@ -3,6 +3,10 @@
     "name": "Optical Post & Breadboard Mount",
     "slug": "optical-post",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Parametric optics-bench hyperobject: a Thorlabs-compatible cylindrical optical post, a bolt-down base clamp, and a mini breadboard tile — all sharing the real 25 mm metric / 1 in imperial hole grid with M6 and 1/4-20 fasteners. Build posts to any height, seat them in the base clamp, and tile a custom breadboard for benchtop optics.",
       "es": "Hiperobjeto para banco óptico paramétrico: un poste óptico cilíndrico compatible con Thorlabs, una base de sujeción atornillable y una placa breadboard en miniatura, todos compartiendo la rejilla real de 25 mm métrica / 1 in imperial con tornillos M6 y 1/4-20. Fabrica postes de cualquier altura, colócalos en la base y crea un breadboard a medida para óptica de mesa."

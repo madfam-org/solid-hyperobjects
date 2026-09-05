@@ -3,6 +3,10 @@
     "name": "SD / MicroSD Card Case",
     "slug": "sd-case",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A parametric memory-card organizer for SD, microSD, and CompactFlash cards in a gridded array of slots. Part of the card-format family — the slot block shares the card-footprint pocket convention with the card holder and deck box. Print a full-size SD tray, a dense microSD tray, or a mixed combo case.",
       "es": "Un organizador de tarjetas de memoria paramétrico para tarjetas SD, microSD y CompactFlash en un arreglo de ranuras en cuadrícula. Forma parte de la familia card-format — el bloque de ranuras comparte la convención de bolsillo de tarjeta con el portatarjetas y la caja de mazo. Imprime una bandeja SD de tamaño completo, una bandeja microSD densa o un estuche combinado."

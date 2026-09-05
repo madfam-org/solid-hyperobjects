@@ -3,6 +3,10 @@
     "name": "Stormwater Grate",
     "slug": "stormwater-grate",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The missing surface element of the commons drainage chain. The published downspout-adapter takes roof water out of a rectangular spout into a round outlet and drain-trap seals the run against sewer gas, but nothing covered the point where water actually enters the system: the grate. Frame footprint plus slot pitch and width are parameters, and the drop-in bore matches the same round outlet series (50-110 mm) those two cartridges already use. Includes a rectangular slot grate, a round drop-in grate, and a domed leaf guard.\n\nOfficial Visualizer and Configurator: Yantra4D",

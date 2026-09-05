@@ -3,6 +3,10 @@
     "name": "Guy-Line Adapter Set",
     "slug": "guyline-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Lightweight tent and tarp hardware sized to your guy-line cord. A 3-hole friction line tensioner, a tarp edge clip that grips without a grommet, and a pole tip that caps an improvised pole. The cord-hole geometry is shared across the set.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Sanding Block",
     "slug": "sanding-block",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hand sanding block sized to a sheet of abrasive, with paper-clamp slots at each end that pinch a torn sheet so it can't slip. Choose a flat face, a convex face for hollows, or a contour face for mouldings.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Fermentation Airlock Grommet & Fitting",
     "slug": "airlock-grommet",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The gas-management interface of a fermenter: a snap-in grommet that seals an airlock stem into a carboy or bucket bore, a simple printable bubbler airlock body, and a blow-off adapter for vigorous fermentation. All share one carboy/bucket bore interface.\n\nFood-contact note: this touches fermenting must and CO2. Geometry only — food-safe filament, sanitation, and a proper liquid seal are the maker's responsibility.\n\nOfficial Visualizer and Configurator: Yantra4D",

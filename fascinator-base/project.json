@@ -3,6 +3,10 @@
     "name": "Fascinator Base",
     "slug": "fascinator-base",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The small millinery base a fascinator is built on: a shallow disc or dome with a flat sewing brim, a pair of slots underneath that a hair comb's spine slides into, and a ring of sew holes around the brim so sinamay, feathers, veiling and trim are stitched on rather than hot-glued. Commercial bases come in four diameters, one crown height and no comb provision at all; this one takes the diameter, the crown rise and the comb it will actually be worn with as parameters.\n\nOfficial Visualizer and Configurator: Yantra4D",

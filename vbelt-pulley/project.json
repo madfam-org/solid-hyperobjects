@@ -3,6 +3,10 @@
     "name": "V-Belt / Round-Belt Pulley",
     "slug": "vbelt-pulley",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A parametric friction-drive pulley (sheave) for A-section V-belts or for round belts and O-rings. The rim carries one or more grooves revolved about the axis: an ~40° A-section V-groove that wedges a V-belt by its flanks, or a semicircular groove sized to a round belt. Choose a single V-groove, a round-belt groove, or a multi-groove sheave, all with an optional set-screw hub.\n\nOfficial Visualizer and Configurator: Yantra4D",

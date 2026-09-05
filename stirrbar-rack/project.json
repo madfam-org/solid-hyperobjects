@@ -3,6 +3,10 @@
     "name": "Magnetic Stir Bar Rack",
     "slug": "stirrbar-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Storage and retrieval hyperobject for PTFE magnetic stir bars: a linear length-graded slot rack, a radial carousel rack, and a magnetic retriever wand that holds a cylinder magnet at its tip. Slots are sized to the standard 12/20/25/38 mm stir-bar set.",
       "es": "Hiperobjeto de almacenamiento y recuperación para barras agitadoras magnéticas de PTFE: una gradilla lineal con ranuras graduadas por longitud, una gradilla en carrusel radial, y una varilla recuperadora que sostiene un imán cilíndrico en la punta. Las ranuras se dimensionan al conjunto estándar de 12/20/25/38 mm."

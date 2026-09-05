@@ -3,6 +3,10 @@
     "name": "T-Slot 2020 Accessory Kit",
     "slug": "tslot-2020",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The 'industrial LEGO' accessory ecosystem. On-demand T-nuts, corner brackets, and cable/panel clips that lock into standard aluminium T-slot extrusion (2020 / 3030 / 4040 series). The extrusion profile is the shared denominator every accessory fits.\n\nOfficial Visualizer and Configurator: Yantra4D",

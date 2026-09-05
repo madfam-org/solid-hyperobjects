@@ -3,6 +3,10 @@
     "name": "Cable Wrap & XLR Label",
     "slug": "cable-wrap",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Tames stage and studio cabling. A figure-8 winder to coil a cable without memory kinks, a snap ring that labels an XLR barrel with engraved text, and a wall hook keeper. Sized by the cable diameter so the channel grips your specific cable.\n\nOfficial Visualizer and Configurator: Yantra4D",

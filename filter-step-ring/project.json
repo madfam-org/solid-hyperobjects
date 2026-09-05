@@ -3,6 +3,10 @@
     "name": "Lens Filter Step Ring",
     "slug": "filter-step-ring",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Adapts one photographic filter thread to another. Screw-in filters and lens fronts share a small family of nominal thread diameters (M46/M49/M52/M58/M62/M67/M72/M77/M82) at a fine 0.75 mm pitch. A step ring puts a female thread of one size on the bottom and a male thread of another on top, so a filter made for one diameter fits a lens made for another. Also builds a stacking coupler (female↔female) and a reverse ring (male↔male). Every thread is a real filter thread, so it mates any filter-thread part.\n\nOfficial Visualizer and Configurator: Yantra4D",

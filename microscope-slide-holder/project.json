@@ -3,6 +3,10 @@
     "name": "Microscope Slide Holder",
     "slug": "microscope-slide-holder",
     "version": "3.1.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Parametric microscope slide retention system (B-Rep / CadQuery) — a covered slotted storage box with lid, a flat multi-pocket tray, and an open staining rack that holds slides on edge for reagent dipping. Built around the standard 25.4 x 76.2 mm (1\" x 3\") slide pocket per ISO 8037-1.\n\nOfficial Visualizer and Configurator: Yantra4D",

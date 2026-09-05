@@ -3,6 +3,10 @@
     "name": "Bottle-Fed Bird Feeder",
     "slug": "bird-feeder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Turns a discarded PET soda bottle into a gravity bird / seed feeder. The feeder cap screws onto a standard PCO-1881 bottle neck; seed flows down through ports onto a catch tray with perches. Threaded cap, tray base, or a standalone tube feeder that needs no bottle.\n\nOfficial Visualizer and Configurator: Yantra4D",

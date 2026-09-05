@@ -3,6 +3,10 @@
     "name": "Bench Dog / Hold-Down",
     "slug": "bench-dog",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Workholding that drops into a workbench dog hole. A round shank sized to the hole (19 mm, 20 mm or 3/4 in) registers the tool; a head above the bench pushes, pins or clamps the work. Choose a round stop dog, a cam hold-down, or a wide planing stop.\n\nOfficial Visualizer and Configurator: Yantra4D",

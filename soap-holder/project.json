@@ -3,6 +3,10 @@
     "name": "Soap / Sponge Holder",
     "slug": "soap-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A draining dish for a bar of soap or a sponge. The floor carries a lattice of drain holes so water runs out instead of pooling, an optional front spout tips runoff toward the sink, and a wall-mount variant adds a hook clip plus a suction-cup boss. Dish mode is freestanding; Wall Dish mode hangs on a rail or cabinet edge.\n\nOfficial Visualizer and Configurator: Yantra4D",

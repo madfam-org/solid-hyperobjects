@@ -3,6 +3,10 @@
     "name": "Spiral Planter",
     "slug": "spiral-planter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "es": "Maceta espiral generativa con drenaje parametrico usando dotSCAD",
       "en": "Generative spiral planter with parametric drainage using dotSCAD"

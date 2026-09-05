@@ -3,6 +3,10 @@
     "name": "Self-Watering Planter",
     "slug": "planter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A pot with a water reservoir in the base and a wicking path up to the soil, so plants water themselves between fillings. A false floor sits above the reservoir; wick holes pull water up; an overflow hole stops over-filling. Includes a matching saucer and a lift-out inner pot with wick legs. Round or square.\n\nOfficial Visualizer and Configurator: Yantra4D",

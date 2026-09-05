@@ -3,6 +3,10 @@
     "name": "Test-Tube Centrifuge Adapter",
     "slug": "centrifuge-tube-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Sleeve adapters that let 15 mL or 50 mL conical (Falcon-type) centrifuge tubes spin safely in a larger rotor bore or bucket, plus a conical-tip cushion that supports the tube point against g-force. Sized to the 15 mL (Ø17 mm) and 50 mL (Ø30 mm) conical standard, so tubes interoperate with the centrifuge-adapter cartridge. Verify balance and rotor rating before spinning.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Adaptadores de manguito que permiten a tubos cónicos (tipo Falcon) de 15 mL o 50 mL girar de forma segura en un barreno o cangilón de rotor más grande, más un cojín de punta cónica que apoya la punta del tubo contra la fuerza g. Dimensionado al estándar cónico de 15 mL (Ø17 mm) y 50 mL (Ø30 mm), de modo que los tubos son interoperables con el cartucho centrifuge-adapter. Verifica el balance y la clasificación del rotor antes de centrifugar.\n\nVisualizador y configurador oficial: Yantra4D"

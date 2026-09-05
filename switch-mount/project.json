@@ -3,6 +3,10 @@
     "name": "Switch-Adapted Toy / AT Switch Mount",
     "slug": "switch-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A mount that cradles a round assistive-technology switch at a reliable, repeatable position for single-switch access to toys, devices, and communication aids. The switch drops into a shallow recess; its 3.5 mm (1/8 in) mono cable exits a side channel. Choose a flat screw-down cradle, an inclined wedge that tilts the switch toward the user, or a strap mount for a tray edge or wheelchair armrest. Fit is user-specific — measure the switch and consult an OT.\n\nOfficial Visualizer and Configurator: Yantra4D",

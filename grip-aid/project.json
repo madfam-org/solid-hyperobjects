@@ -3,6 +3,10 @@
     "name": "Key / Zipper Grip Aid",
     "slug": "grip-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Grip enlargers for the small, hard-to-turn objects of daily life. Capture a thin flat tab — a key bow, a zipper slider, a button or cord toggle — in a pocket and give it a large, easy-to-hold body so a user with limited pinch strength, arthritis, tremor, or one-handed use can turn, pull, or grasp it. Choose a key turner, a zipper pull, or a tab grip. Fit is user-specific — measure the tab and consult an OT.\n\nOfficial Visualizer and Configurator: Yantra4D",

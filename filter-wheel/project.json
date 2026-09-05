@@ -3,6 +3,10 @@
     "name": "Cuvette / Filter Wheel",
     "slug": "filter-wheel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Benchtop optics hyperobject: a detented rotating filter/optic wheel that seats Ø1 in or Ø25 mm optics, a multi-well cuvette holder block with beam-access windows for standard 10 mm cuvettes, and a knurled retaining hub cap. Swap filters by hand or organize spectroscopy cells on the bench.",
       "es": "Hiperobjeto de óptica de mesa: una rueda de filtros/óptica giratoria con retenes que aloja ópticas de Ø1 in o Ø25 mm, un bloque portacubetas de múltiples pozos con ventanas de paso de haz para cubetas estándar de 10 mm, y una tapa de cubo estriada. Cambia filtros a mano u organiza celdas de espectroscopía en la mesa."

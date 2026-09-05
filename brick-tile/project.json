@@ -3,6 +3,10 @@
     "name": "Building-Brick Compatible Tile",
     "slug": "brick-tile",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Plates, tiles and adapters that clutch with the ubiquitous construction-brick system — an 8 mm stud pitch with Ø4.8 mm studs and hollow underside tubes — so a printed part snaps onto any brick from the same family. Build a studded plate, a smooth finishing tile, or a base adapter that bolts brick builds to a wall or desk.\n\nOfficial Visualizer and Configurator: Yantra4D",

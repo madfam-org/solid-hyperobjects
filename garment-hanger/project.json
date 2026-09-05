@@ -3,6 +3,10 @@
     "name": "Garment Hanger",
     "slug": "garment-hanger",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed parametric clothes hanger — a curved shoulder bar cut to a garment's own finished shoulder width, plus a rod hook sized to the closet rail it hangs on. Shop-bought hangers come in two sizes and crease everything that is not those two sizes; this one is generated from the shoulder span, with strap notches for camisoles and an optional trouser bar. This is the display hard good the Fashion Cabinet garment record bridges to when it needs a hanger that fits.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Pi HAT Case",
     "slug": "pi-hat-case",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A case sized around a Raspberry Pi plus its HAT or screen stack. The base carries the Pi on standoffs at the official 58 x 49 mm hole pattern; a raised lid clears a HAT sitting on the GPIO header; a bezel frames a screen mounted on top. Stack height sets how much room the lid leaves for the boards above the Pi. Complements the SBC case cartridge.\n\nOfficial Visualizer and Configurator: Yantra4D",

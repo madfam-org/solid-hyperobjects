@@ -3,6 +3,10 @@
     "name": "Corset Busk",
     "slug": "corset-busk",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The two-part front-closure busk of a corset — the rigid hard good the Fashion Cabinet `printed-corset-busk` notion places and bridges to here for its geometry. One plate carries stud knobs; the mating plate carries keyhole slots that drop over them, so the corset front opens and closes without unlacing. A hard finding printed rigid, it replaces the traditional spring-steel busk. Sized by busk length so a corset front's finished length drives the closure. One material identity — rigid PLA/PETG — spans the FC notion and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

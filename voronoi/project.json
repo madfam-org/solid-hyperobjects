@@ -3,6 +3,10 @@
     "name": "Voronoi Generator",
     "slug": "voronoi",
     "version": "0.1.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "es": "Generador de patrones Voronoi para posavasos, jarrones y lamparas",
       "en": "Voronoi pattern generator for coasters, vases, and lampshades"

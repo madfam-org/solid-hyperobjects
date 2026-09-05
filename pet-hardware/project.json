@@ -3,6 +3,10 @@
     "name": "Pet Collar Hardware",
     "slug": "pet-hardware",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Printable webbing hardware for pet collars and leashes, all sized to a standard webbing width (20 mm or 25 mm): a side-release buckle housing, a D-ring anchor plate for a leash or tag, and a soft tag silencer that stops the ID tag jingling.\n\nOfficial Visualizer and Configurator: Yantra4D",
