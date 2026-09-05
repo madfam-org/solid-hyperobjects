@@ -124,3 +124,19 @@ Two cartridges additionally reach for the platform's own in-tree libraries —
 (`libs/scad_core`, and `libs.cq_core` via `sys.path`). Those 193 lines are
 AGPL-3.0 platform code; vendoring them into a CERN-OHL-W-2.0 commons is a
 licensing decision, so it is **not** taken here either.
+
+## Post-extraction cleanup (2026-09-04, coordinator)
+
+- Removed `glia-diagnostic/BOSL2/.github/` (11 files: BOSL2 upstream's own
+  `gen_docs`, `gen_tutorials`, `main`, `version_stamp`, `weekly_release`
+  workflows, `release.yml`, issue templates and two JSON configs) — stale
+  upstream CI vendored inside the cartridge's copy of BOSL2. GitHub only runs
+  workflows from the repository root, so they were inert, but they read as
+  live automation for a repo they have nothing to do with. The satellites' own
+  caller workflows (the `validate-and-audit` callers of yantra4d's
+  `project-ci-reusable.yml`) were already stripped from every satellite's
+  history before absorption; none remain (`git grep project-ci-reusable` = 0).
+- Still open: `glia-diagnostic/BOSL2/` itself is a full vendored copy of the
+  BOSL2 library (BSD-2), duplicating `libs/BOSL2`; dropping it in favour of an
+  `OPENSCADPATH` include is a cartridge content change and belongs with the
+  relative-include ruling (internal-devops checklist G10).
