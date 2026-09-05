@@ -8,14 +8,17 @@ Usage:  python c4_verify.py <out_dir> [--quick]
 """
 import json, sys, os, math, itertools
 
-sys.path.insert(0, "/Users/aldoruizluna/labspace/.stab-clones/y4d-s3/packages/commons-sandbox/src")
+# The platform's shared sandbox core. Point COMMONS_SANDBOX_SRC at
+# packages/commons-sandbox/src in a yantra4d checkout, or install the package.
+_sb = os.environ.get("COMMONS_SANDBOX_SRC")
+if _sb:
+    sys.path.insert(0, _sb)
 import cadquery as cq
 import trimesh
 from commons_sandbox import build_sandbox_builtins, read_script, validate_script_path
 
-CART = "/Users/aldoruizluna/labspace/.stab-clones/c4-rugged-box/commons/rugged-box"
+CART = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCRIPT = os.path.join(CART, "main.py")
-PACK = "/Users/aldoruizluna/labspace/claudedocs/commons-p2-2026-09-04/cleanroom-baselines/rugged-box"
 TOL = 0.05
 
 manifest = json.load(open(os.path.join(CART, "project.json")))
@@ -41,10 +44,16 @@ def render(params, out_path):
         raise RuntimeError("script produced no result")
     cq.exporters.export(res, out_path, "STL")
     m = trimesh.load(out_path, process=True, force="mesh")
+    bodies = m.split(only_watertight=False)
+    # The X extent of a single connected body: for multi-strap `latches` this is
+    # the catch width, which the whole-part bbox cannot show.
+    body_xlen = (round(float(min(b.extents[0] for b in bodies)), 3)
+                 if len(bodies) else None)
     return {
         "seconds": round(time.time() - _t0, 1),
         "watertight": bool(m.is_watertight),
-        "bodies": len(m.split(only_watertight=False)),
+        "bodies": len(bodies),
+        "body_xlen": body_xlen,
         "volume": round(float(m.volume), 3),
         "bbox": [round(float(v), 3) for v in m.extents],
     }
@@ -120,8 +129,13 @@ def interface_checks(part, p, stats):
         rows.append(("gasket_depth", max(1.0, min(float(p["gasketSlotDepth"]), 5.0)),
                      stats["bbox"][2]))
     if part == "latches":
-        rows.append(("latch_catch_width", max(4.0, float(p["latchSupportTotalWidth"])),
-                     stats["bbox"][0] if int(p["numberOfLatches"]) == 1 else None))
+        # Each strap is catch_w wide in X and the straps are laid out along X,
+        # so the whole-part bbox only equals the catch width for a single strap.
+        # For n straps measure ONE body's own X extent instead — that is the
+        # dimension the catch interface actually constrains.
+        n_l = max(1, int(p["numberOfLatches"]))
+        w = stats["bbox"][0] if n_l == 1 else stats.get("body_xlen")
+        rows.append(("latch_catch_width", max(4.0, float(p["latchSupportTotalWidth"])), w))
     return [(n, e, m, (m is not None and abs(e - m) <= TOL)) for n, e, m in rows]
 
 
