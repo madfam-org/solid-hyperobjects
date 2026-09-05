@@ -148,7 +148,10 @@ def interface_checks(script):
     add("beam section width (4 BU)", 40.0, beam4.val().BoundingBox().ylen)
 
     # Through-hole diameter and pitch, read off the cylindrical faces of a beam
-    # holed only on Z (so every cylinder found belongs to that array).
+    # holed only on Z. Selected by AXIS, not by radius: the beam's long edges are
+    # filleted, and a fillet is a cylinder too — one whose axis runs along X. A
+    # radius filter would make the test circular (it would only ever find the
+    # value it expects), so the discriminator is orientation.
     bz = render(
         script,
         {"target_part": "beam", "length_units": 4, "width_units": 1, "height_units": 1,
@@ -157,9 +160,14 @@ def interface_checks(script):
     radii, centres = [], []
     for f in bz.val().Faces():
         try:
-            if f.geomType() == "CYLINDER":
-                radii.append(f._geomAdaptor().Cylinder().Radius())
-                centres.append(f.Center().x)
+            if f.geomType() != "CYLINDER":
+                continue
+            cyl = f._geomAdaptor().Cylinder()
+            axis = cyl.Axis().Direction()
+            if abs(abs(axis.Z()) - 1.0) > 1e-6:
+                continue  # not a Z-axis cylinder — an edge fillet, not a hole
+            radii.append(cyl.Radius())
+            centres.append(f.Center().x)
         except Exception:
             pass
     add("through-hole diameter", 4.2, 2.0 * (sum(radii) / len(radii)))

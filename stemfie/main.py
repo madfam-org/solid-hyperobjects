@@ -213,8 +213,14 @@ def build_brace():
     ax, by = a * BU, b * BU
 
     # The L footprint, drawn from the origin corner so arm A runs +X and arm B +Y.
-    if a == 1 and b == 1:
-        outline = cq.Workplane("XY").rect(BU, BU, centered=False)
+    #
+    # When either arm is a single block unit the L degenerates to a rectangle, and
+    # the six-point path would then contain a zero-length segment (at a == 1,
+    # ax == BU, so the (ax, BU) -> (BU, BU) leg has no length). OCCT rejects that
+    # with a bare "BRep_API: command not done"; the fix is to emit the rectangle
+    # the shape actually is rather than a degenerate polygon.
+    if a == 1 or b == 1:
+        outline = cq.Workplane("XY").rect(ax, by, centered=False)
     else:
         outline = (
             cq.Workplane("XY")
@@ -231,7 +237,8 @@ def build_brace():
     # Form: soften every vertical edge. The re-entrant corner takes the smaller
     # radius; CadQuery's variable-radius selection is per-edge, so do it in two
     # passes and let a failure on a degenerate footprint stay non-fatal.
-    if a == 1 and b == 1:
+    if a == 1 or b == 1:
+        # Rectangle: four convex corners, no re-entrant one.
         try:
             body = body.edges("|Z").fillet(min(BRACE_OUT_R, BU / 2.0 - 0.05))
         except Exception:
