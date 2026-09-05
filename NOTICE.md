@@ -27,16 +27,17 @@ verified against the recorded final result:
 
 Until each returns, the catalog counts **495** cartridges, honestly.
 
-## Copyleft dependency, not vendored
+## `gridfinity` — OpenSCAD side removed (ADR-021), GPL submodule dropped
 
-### `gridfinity` → `gridfinity_extended`
-
-`gridfinity_extended_openscad` (author **ostat**, upstream
-https://github.com/ostat/gridfinity_extended_openscad, consumed via the fork
-https://github.com/madfam-org/gridfinity_extended_openscad) is licensed
-**GPL-3.0**. It is **not** copied into this repository: it is a git submodule at
-`gridfinity/gridfinity_extended`, fetched at build time, and its contents remain
-under GPL-3.0. See `gridfinity/NOTICE`.
+The cartridge's CadQuery modes (`bin`, `baseplate`, `main.py`) are MADFAM-authored
+implementations of the published Gridfinity standard (Zack Freedman, MIT — a
+specification, not code) and stay. Its three OpenSCAD modes (`cup`,
+`baseplate_scad`, `lid`) descended from `gridfinity_extended_openscad` (ostat,
+GPL-3.0) and its ancestor `gridfinity_openscad` (vector76, MIT) per the
+cartridge's own README/NOTICE; they were removed on 2026-09-04 together with the
+`gridfinity/gridfinity_extended` git submodule (no remaining file included it).
+Those three modes are reserved and return only as clean-room CadQuery
+re-creations verified against a recorded baseline.
 
 ## Third-party libraries, not vendored
 

@@ -1,22 +1,21 @@
 # Gridfinity
 
-Dual-kernel Gridfinity: an exact **CadQuery B-Rep** bin & baseplate (canonical
-**42 mm / 7 mm** profile) plus the full **OpenSCAD** `gridfinity_extended` cup,
-baseplate and lid modes with chambers, wall patterns and sliding lids. Bins print
-on a 42 mm grid in 7 mm height units and snap into a matching baseplate through
-the canonical stacking-lip base profile.
+An exact **CadQuery B-Rep** Gridfinity bin and baseplate on the published
+**42 mm / 7 mm** standard: bins print on a 42 mm grid in 7 mm height units and
+snap into a matching baseplate through the canonical stacking-lip base profile,
+with optional corner magnet holes and a front finger scoop.
+
+> The former OpenSCAD "extended" modes (`cup`, `baseplate_scad`, `lid`) were
+> removed on 2026-09-04 (ADR-021, internal-devops): they descended from GPL-3.0
+> code and are reserved for clean-room CadQuery re-creation.
 
 Part of the **Yantra4D Hyperobjects Commons**. Official visualizer and
 configurator: [Yantra4D](https://app.yantra4d.com).
 
-*Gridfinity con doble kernel: contenedor y base exactos en CadQuery B-Rep (perfil
-canónico 42 mm / 7 mm) más los modos completos de OpenSCAD gridfinity_extended
-con compartimentos, patrones de pared y tapas deslizantes.*
+*Gridfinity en B-Rep exacto con CadQuery: un contenedor hueco y una base sobre el estándar publicado de 42 mm / 7 mm, con el perfil de base apilable, orificios opcionales para imanes y una muesca para el dedo.*
 
 Gridfinity was created by **Zack Freedman** (MIT). The CadQuery CORE modes are a
 clean-room re-authoring of the open standard's bin + baseplate geometry; the
-OpenSCAD-extended modes carry the fuller `gridfinity_extended` feature set.
-
 **Version**: 2.1.0 · **Slug**: `gridfinity`
 
 ## Engines
@@ -28,10 +27,7 @@ supports **per-mode engine selection**:
   watertight **B-Rep** solids and export **STEP** (plus STL / 3MF / GLB / GLTF /
   OBJ). The three-chamfer base profile is built as a loft through
   rounded-rectangle wires — watertight by construction.
-- **Legacy engine: OpenSCAD.** The three extended modes (`cup`, `baseplate_scad`,
-  `lid`) carry an explicit per-mode `engine: openscad` override and run through
-  their original `.scad` sources, bringing chambers, wall patterns, sliding lids
-  and other `gridfinity_extended` features.
+- **OpenSCAD side removed 2026-09-04 (ADR-021).** `cup`, `baseplate_scad` and `lid` descended from GPL-3.0 code and are reserved for clean-room CadQuery re-creation.
 
 ## Modes
 
@@ -42,9 +38,6 @@ renders each mode; legacy modes carry an explicit `engine: openscad` override.
 | :--- | :--- | :--- | :--- |
 | `bin` | Bin | **CadQuery** (B-Rep) | `main.py` |
 | `baseplate` | Baseplate | **CadQuery** (B-Rep) | `main.py` |
-| `cup` | Bin (OpenSCAD Extended) | **OpenSCAD** | `cup.scad` |
-| `baseplate_scad` | Baseplate (OpenSCAD Extended) | **OpenSCAD** | `baseplate.scad` |
-| `lid` | Lid (OpenSCAD Extended) | **OpenSCAD** | `lid.scad` |
 
 **CadQuery B-Rep modes**
 
@@ -52,15 +45,6 @@ renders each mode; legacy modes carry an explicit `engine: openscad` override.
   `grid_z` × 7 mm, optional magnets / finger-scoop / stacking lip.
 - **Baseplate** (`baseplate`) — a thin plate whose per-cell sockets are the
   **negative** of the bin base profile, so bins seat in.
-
-**OpenSCAD-extended modes**
-
-- **Bin (OpenSCAD Extended)** (`cup`) — the full `gridfinity_extended` cup with
-  chambers, wall patterns, sliding-lid support, labels, tapered corners.
-- **Baseplate (OpenSCAD Extended)** (`baseplate_scad`) — extended baseplate with
-  magnets, screws, reduced-wall and corner-radius options.
-- **Lid (OpenSCAD Extended)** (`lid`) — sliding / stacking lid with magnet
-  cavities and lid-type variants.
 
 ## The Gridfinity standard (modelled exactly — CadQuery kernel)
 
@@ -80,7 +64,6 @@ another. The baseplate socket is the same profile grown by the 0.25 mm clearance
 
 ## Parameters
 
-CadQuery CORE modes and the OpenSCAD-extended modes each read their own parameter
 set (parameters are scoped to modes via `modes` / `visible_in_modes`).
 
 ### CadQuery B-Rep parameters
@@ -97,27 +80,6 @@ set (parameters are scoped to modes via `modes` / `visible_in_modes`).
 | Bin Features | `finger_scoop` | off | Front access ramp. |
 | Baseplate | `bp_thickness` | 5.25 mm | Plate thickness (≥ 4.75 mm socket depth). |
 
-### OpenSCAD-extended parameters
-
-The three legacy modes add the fuller `gridfinity_extended` parameter set (they
-do not share the CadQuery set above). By group:
-
-- **Dimensions** (`dimensions`) — `width_units` (1–6), `depth_units` (1–6),
-  `height_units` (1–10, cup only).
-- **Bin Structure** (`cup_structure`) — `cup_wall_thickness` (0 = auto),
-  `cup_floor_thickness`, `vertical_chambers`, `horizontal_chambers`,
-  `lip_style_id` (normal/reduced/minimum/none), `headroom`, `efficient_floor_id`.
-- **Bin Features** (`cup_features`) — `fingerslide_enabled`, `label_enabled`,
-  `sliding_lid_enabled`, `wallpattern_enabled` + `wallpattern_style_id`
-  (hexgrid/grid/voronoi/brick), `tapered_corner_id` + `tapered_corner_size`.
-- **Mounting** (`mounting`) — `enable_screws` (cup), `bp_enable_magnets`,
-  `bp_enable_screws` (baseplate).
-- **Baseplate** (`baseplate`) — `bp_corner_radius`, `bp_reduced_wall`
-  (-1 = full height), `bp_reduced_wall_taper`.
-- **Lid** (`lid`) — `lid_include_magnets`, `lid_efficient_floor`, `lid_type_id`
-  (default/flat/halfpitch/efficient).
-- **Rendering** (`rendering`) — `fn` — OpenSCAD `$fn` quality (0 = auto).
-
 ## Presets
 
 **CadQuery**
@@ -125,16 +87,6 @@ do not share the CadQuery set above). By group:
 - **Small Parts Bin (2×1×3)** — bin, magnets + finger-scoop.
 - **Deep Bin (2×2×6)** — tall four-cell bin with magnets.
 - **Standard Baseplate (2×2)** — the mating plate for the bins above.
-
-**OpenSCAD-extended**
-
-- **Small Parts Bin (2×1×3)** — cup, magnets + finger-slide.
-- **Battery Holder (3×2×3)** — cup, 3×2 chambers, label.
-- **Tool Drawer (4×2×2)** — cup, 4 horizontal chambers, wall pattern.
-- **Standard Baseplate (2×2)** — baseplate_scad, magnets.
-- **Standard Lid (2×1)** — lid, magnets.
-- **Screw Organizer (3×2×4)** — cup, 2×3 chambers, label, magnets.
-- **Pen Cup (1×1×6)** — cup, tall single cell, magnets.
 
 ## Hyperobject Profile
 

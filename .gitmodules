@@ -27,6 +27,3 @@
 # gridfinity's upstream OpenSCAD fork is GPL-3.0, not a permissive licence, so
 # it is NOT vendored into this CERN-OHL-W-2.0 tree: it stays a submodule and is
 # fetched at build time, exactly as gridfinity/NOTICE has always described it.
-[submodule "gridfinity/gridfinity_extended"]
-	path = gridfinity/gridfinity_extended
-	url = https://github.com/madfam-org/gridfinity_extended_openscad.git

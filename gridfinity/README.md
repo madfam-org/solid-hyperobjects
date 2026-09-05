@@ -1,4 +1,4 @@
-# Gridfinity Extended
+# Gridfinity
 
 An advanced, fully parametric implementation of Zack Freedman's [Gridfinity](https://gridfinity.xyz/) storage system.
 
@@ -37,20 +37,20 @@ This project supports exporting compliant STL files ready for slicing.
 This repository is licensed under the CERN Open Hardware Licence Version 2 —
 Weakly Reciprocal (CERN-OHL-W-2.0). See [LICENSE](LICENSE).
 
+
+> **2026-09-04 (ADR-021, internal-devops):** the three OpenSCAD modes (`cup`,
+> `baseplate_scad`, `lid`) that descended from `gridfinity_extended_openscad`
+> (GPL-3.0) were removed from the commons together with that git submodule and the
+> helper scripts/exports derived from them. They are reserved and return only as
+> clean-room CadQuery re-creations verified against a recorded baseline. The
+> CadQuery modes (`bin`, `baseplate`) implement the published Gridfinity standard
+> and are unchanged.
+
 Upstream attribution:
 
-- **[gridfinity_extended_openscad](https://github.com/ostat/gridfinity_extended_openscad)**
-  by ostat — included as the `gridfinity_extended` git submodule (via the
-  [madfam-org fork](https://github.com/madfam-org/gridfinity_extended_openscad)).
-  Licensed under the **GNU General Public License v3.0 (GPL-3.0)**. The
-  submodule is fetched at build time; its source is not copied into this
-  repository.
 - **[Gridfinity](https://gridfinity.xyz/)** by Zack Freedman
   ([Voidstar Lab](https://www.voidstarlab.com/)) — the modular storage system
   standard this project implements, released as free and open source under the
   **MIT License**.
-- **[gridfinity_openscad](https://github.com/vector76/gridfinity_openscad)**
-  by vector76 (© 2022 Jamie) — **MIT License**; the OpenSCAD implementation
-  that gridfinity_extended_openscad is based on.
 
 See [NOTICE](NOTICE) for the full third-party attribution list.

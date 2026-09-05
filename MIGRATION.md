@@ -153,3 +153,17 @@ against a recorded final-result baseline (manifest contract + reference
 meshes), authored without access to the removed sources. None of the five is a
 Fashion Cabinet bridge target (checked against `yantra4d-hardware.snapshot.json`
 and `yantra4d-consumers.json`: zero references).
+
+### `gridfinity` (ADR-021, 2026-09-04)
+
+Removed the GPL-lineage OpenSCAD side only: modes `cup`, `baseplate_scad`, `lid`
+(and their 7 presets and 3 parts) from `project.json`; `cup.scad`,
+`baseplate.scad`, `lid.scad`; the unreferenced CadQuery ports `cup.py`, `lid.py`
+and the exports `cup_2x1x3.stl`, `lid_2x1.stl`; the `gridfinity/gridfinity_extended`
+git submodule (GPL-3.0; no remaining file included it) and its `.gitmodules`
+entry. Also removed `baseplate.py` and `exports/baseplate_2x2.stl` (a port of the
+removed OpenSCAD baseplate, on its parameter ids). Kept: `main.py` (CadQuery
+`bin` + `baseplate`, MADFAM-authored from the published Gridfinity standard) and
+the SDK wrapper; 10 parameters remain (the CadQuery set), 27 OpenSCAD-side
+parameters went with their modes. The studio fallback manifest in yantra4d is regenerated from this
+manifest by the platform lane.
