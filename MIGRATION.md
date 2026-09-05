@@ -154,6 +154,14 @@ meshes), authored without access to the removed sources. None of the five is a
 Fashion Cabinet bridge target (checked against `yantra4d-hardware.snapshot.json`
 and `yantra4d-consumers.json`: zero references).
 
+**`keyv2` returned 2026-09-04**, clean-room, as a CadQuery cartridge authored
+from the recorded baseline pack alone. Same slug, same mode/part/parameter ids,
+same ranges, defaults and presets, so saved configurations keep resolving. One
+intentional divergence from the baseline is recorded in the cartridge's
+`docs/CLEANROOM-VERIFICATION.md`: the baseline's default keycap exported as two
+disjoint solids (the stem stood free inside the shell), and the re-creation
+fuses the stem to the keytop so every variant is one printable body.
+
 ### `gridfinity` (ADR-021, 2026-09-04)
 
 Removed the GPL-lineage OpenSCAD side only: modes `cup`, `baseplate_scad`, `lid`
