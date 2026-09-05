@@ -25,6 +25,10 @@ glazing_thickness = 2; // [1:6]
 // [Container Type]
 container_type = "none"; // [none, PSA, BGS, SGC, CGC, Silver Eagle, Small Dollar, ID Badge]
 
+// [Hidden]
+// Part selector, injected by the platform as -D render_mode=<n>.
+render_mode = 0;
+
 // --- Logic ---
 
 module frame_assembly() {
@@ -78,4 +82,28 @@ module frame_assembly() {
   }
 }
 
-frame_assembly();
+// A flat panel sized to seat in the frame's rabbet, mirroring framing.py's
+// _seated_panel(): rabbet_w is 5 mm per side, so the panel spans the opening
+// plus both rabbet lips.
+module seated_panel(thickness, z_offset) {
+  rabbet_w = 5;
+  translate([0, 0, z_offset])
+    cube([width - 2 * rabbet_w, height - 2 * rabbet_w, thickness], center = true);
+}
+
+// --- Render mode dispatch ---
+// Until this existed, framing.scad ended on a bare `frame_assembly();` and so
+// rendered the whole frame for all three declared parts. The manifest's
+// back_panel and glazing were unreachable on the OpenSCAD side, which is the
+// 70 mm AABB gap the parity sweep reported against framing.py -- the CadQuery
+// side has dispatched on target_part all along.
+if (render_mode == 0) {
+  frame_assembly();
+} else if (render_mode == 1) {
+  // Backing board, 3 mm, seated at the rear of the rabbet.
+  color("wheat") seated_panel(3, -(depth / 2) + (3 / 2));
+} else if (render_mode == 2) {
+  // Glazing sheet, seated at the front of the rabbet.
+  color("lightblue")
+    seated_panel(glazing_thickness, (depth / 2) - (glazing_thickness / 2));
+}

@@ -76,18 +76,30 @@ SIDES = 20
 
 # ── Curve ────────────────────────────────────────────────────────────────────
 def torus_knot_path(p, q, torus_r, segments, scale):
-    """Points along a (p,q) torus knot.
+    """Points along a (p,q) torus knot — the standard parametric curve.
 
-    The effective radius is ``torus_r / 3`` so the default parameters produce a
-    model that fits comfortably on a print bed.
+        x(t) = (R + r*cos(q*t)) * cos(p*t)
+        y(t) = (R + r*cos(q*t)) * sin(p*t)
+        z(t) =       r*sin(q*t)
+
+    with major radius R = torus_radius * scale_factor and minor radius
+    r = 0.4 * R, matching `torus_knot.scad` term for term. The README names the
+    OpenSCAD file as the side that "computes the standard parametric
+    torus-knot curve", so that is the standard both kernels are held to.
+
+    The previous form here used R = torus_r/3 * 2 and r = torus_r/3 (a 20/10
+    knot against the standard's 30/12) and negated z, which put the two kernels
+    22.98 mm apart on the AABB and mirrored the knot's chirality.
     """
+    _R = torus_r * scale
+    _r = _R * 0.4
     pts = []
     for i in range(segments):
         t = i * 2 * math.pi / segments
-        r = math.cos(q * t) + 2
-        x = r * math.cos(p * t) * torus_r / 3.0 * scale
-        y = r * math.sin(p * t) * torus_r / 3.0 * scale
-        z = -math.sin(q * t) * torus_r / 3.0 * scale
+        radial = _R + _r * math.cos(q * t)
+        x = radial * math.cos(p * t)
+        y = radial * math.sin(p * t)
+        z = _r * math.sin(q * t)
         pts.append((x, y, z))
     return pts
 

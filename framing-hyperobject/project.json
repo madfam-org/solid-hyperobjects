@@ -59,7 +59,7 @@
     },
     {
       "id": "back_panel",
-      "render_mode": 0,
+      "render_mode": 1,
       "label": {
         "en": "Backing",
         "es": "Respaldo"
@@ -68,7 +68,7 @@
     },
     {
       "id": "glazing",
-      "render_mode": 0,
+      "render_mode": 2,
       "label": {
         "en": "Glazing",
         "es": "Vidrio/Acrílico"

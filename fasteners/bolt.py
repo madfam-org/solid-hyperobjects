@@ -1,12 +1,42 @@
 import cadquery as cq
 import json
 import argparse
-import sys
-import os
+import math
 
-# Add monorepo root to sys.path to import centralized libs
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-from libs.cq_core import create_thread
+
+def create_thread(diameter, pitch, length):
+    """A threaded shaft as ONE revolved solid, base at z=0.
+
+    This used to be `from libs.cq_core import create_thread`, reached by
+    appending to `sys.path`. The CadQuery sandbox
+    (apps/api/services/engine/cq_runner.py) rejects `import sys` outright, so
+    the bolt mode failed to render at all on the CadQuery side and had no
+    parity measurement to compare.
+
+    Rather than re-import, build the shaft the way this cartridge's own
+    `main.py:136` `cosmetic_shaft` does, and for its stated reason: sweeping a
+    separate helical rib onto a core cylinder leaves a coincident cylindrical
+    face that cracks the shell, whereas a single revolve of a closed sawtooth
+    profile -- up the axis, across the base, a zig-zag right edge climbing
+    root->crest->root, back across the top -- is watertight by construction and
+    much faster than a helical sweep.
+
+    ISO 60-degree metric: thread depth 0.6134*pitch, crest at the nominal
+    (major) radius, root 0.6134*pitch inside it.
+    """
+    major_r = diameter / 2.0
+    minor_r = max(0.4, major_r - 0.6134 * pitch)
+    n = max(1, int(round(length / pitch)))
+    pts = [(0.0, 0.0), (minor_r, 0.0)]
+    z0 = 0.0
+    for _ in range(n):
+        pts.append((major_r, z0 + pitch * 0.5))
+        pts.append((minor_r, z0 + pitch))
+        z0 += pitch
+    pts.append((0.0, z0))
+    face = cq.Workplane("XZ").polyline(pts).close()
+    return face.revolve(360, (0, 0, 0), (0, 1, 0))
+
 
 def build(params):
     diameter = float(params.get('diameter', 5.0))

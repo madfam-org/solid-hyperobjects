@@ -49,10 +49,20 @@ module rigid_housing() {
 }
 
 module flex_spring() {
+    // Both members are CENTRED on the z given, not anchored BOTTOM on it.
+    //
+    // `anchor=BOTTOM` made the 18 mm anchor post span z = 9..27: it floated
+    // 9 mm above the build plate and stood 9 mm proud of the 18 mm housing it
+    // is supposed to sit inside. The leaf had the same off-by-half-a-thickness
+    // shift. That is the whole of the 9 mm Z divergence on `assembly_slip`
+    // against slip_joint.py, which centres both.
+    //
+    // This is the same anchor-vs-centre confusion slip_joint.py:52-57 already
+    // documents fixing for the housing slot, in the other direction.
     translate([-17.5, 0, 9])
-    cuboid([5, latch_width - hinge_t*2 - clearance*2, 18], anchor=BOTTOM);
+    cuboid([5, latch_width - hinge_t*2 - clearance*2, 18], anchor=CENTER);
     translate([0, 0, 18 - hinge_t/2])
-    cuboid([35, latch_width - hinge_t*2 - clearance*2, hinge_t], anchor=BOTTOM);
+    cuboid([35, latch_width - hinge_t*2 - clearance*2, hinge_t], anchor=CENTER);
 }
 
 module rotating_blade() {
