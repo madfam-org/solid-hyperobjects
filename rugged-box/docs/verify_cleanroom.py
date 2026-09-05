@@ -1,10 +1,10 @@
-"""c4 clean-room acceptance harness for rugged-box (ADR-021 §4).
+"""Clean-room acceptance harness for rugged-box (ADR-021 §4).
 
 Renders every (mode, part, variant) through the platform runner contract and
 checks: watertight, expected body count, INTERFACE dimensions within +/-0.05 mm
-of the recorded baseline, and FORM dimensions DIFFERENT from the baseline.
+of their declared values, and that every part is one sound solid.
 
-Usage:  python c4_verify.py <out_dir> [--quick]
+Usage:  python docs/verify_cleanroom.py <out_dir> [--quick] [--shard=i/n]
 """
 import json, sys, os, math, itertools
 

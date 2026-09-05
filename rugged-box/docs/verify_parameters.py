@@ -1,6 +1,9 @@
-"""Prove resizing: three widths -> three different shell widths, and every
-declared parameter changes the mesh (the regression SPEC.md section 5 asks for)."""
-import sys, os, math, json, hashlib
+"""Verification harness for rugged-box (ADR-021 §4).
+
+Proves resizing — three widths give three different shell widths — and that every
+declared parameter changes the mesh — a manifest that advertises a parameter
+that never reaches the geometry is dishonest. See docs/CLEANROOM-VERIFICATION.md."""
+import sys, os, math, json, hashlib, tempfile
 # The platform's shared sandbox core. Point COMMONS_SANDBOX_SRC at
 # packages/commons-sandbox/src in a yantra4d checkout, or install the package.
 _sb = os.environ.get("COMMONS_SANDBOX_SRC")
@@ -20,7 +23,9 @@ def build(pv, part, mode=""):
     exec(read_script(S), g)
     return g["result"]
 
-def stats(shape, tmp="_r.stl"):
+def stats(shape, tmp=None):
+    # Write the scratch mesh beside the harness output, never into the cartridge.
+    tmp = tmp or os.path.join(tempfile.gettempdir(), "y4d_rugged_box_probe.stl")
     cq.exporters.export(shape, tmp, "STL")
     m=trimesh.load(tmp, process=True, force="mesh")
     h=hashlib.sha256(open(tmp,'rb').read()).hexdigest()[:12]
