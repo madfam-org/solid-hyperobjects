@@ -169,11 +169,13 @@
       },
       "parts": [
         "segments",
-        "core"
+        "core",
+        "bands"
       ],
       "part_quantities": {
         "segments": "sphere_band_count",
-        "core": 1
+        "core": 1,
+        "bands": "sphere_band_count - 1"
       },
       "estimate": {
         "base_units": "sphere_band_count",
@@ -290,6 +292,15 @@
         "en": "Segments"
       },
       "default_color": "#4a90d9"
+    },
+    {
+      "id": "bands",
+      "render_mode": 3,
+      "label": {
+        "es": "Bandas",
+        "en": "Bands"
+      },
+      "default_color": "#1f1f1f"
     },
     {
       "id": "insert",
