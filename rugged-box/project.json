@@ -1073,8 +1073,8 @@
         "es": "Calidad"
       },
       "tooltip": {
-        "en": "Arc segments on every cylindrical feature: 8, 16 or 48.",
-        "es": "Segmentos de arco en cada elemento cilíndrico: 8, 16 o 48."
+        "en": "Faceting of the cylindrical features (hinge knuckles, latch pivots, corner pilasters): 8 or 16 flats, or a true curve.",
+        "es": "Facetado de los elementos cilíndricos (nudillos de bisagra, pivotes de pestillo, pilastras): 8 o 16 caras, o una curva real."
       }
     }
   ],

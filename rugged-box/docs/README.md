@@ -77,7 +77,10 @@ Every one of the 32 declared parameters reaches the geometry.
   width, spread, clip grip and thumb-tab length.
 - **`isFeetAdded`, `feetwidthMm`, `feetLengthMm`, `boxGapMm`** — stacking feet
   and their pockets.
-- **`BoxPolygonStyle`** — arc segments on cylindrical features: 8, 16 or 48.
+- **`BoxPolygonStyle`** — faceting of the cylindrical features (hinge knuckles,
+  latch pivots, corner pilasters): 8 flats, 16 flats, or a true curve. The
+  knuckle polygon is inscribed, so the hinge interface diameter is unchanged at
+  every setting.
 
 ## Printing
 
