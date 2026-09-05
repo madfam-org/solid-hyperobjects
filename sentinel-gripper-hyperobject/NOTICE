@@ -1,0 +1,100 @@
+NOTICE — attributions and provenance
+====================================
+
+Sentinel Soft Gripper (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see the repository LICENSE).
+
+This cartridge is MADFAM's own authoring. Every dimension, parameter, mode and
+line of main.py was written for this project. No third-party source file, CAD
+file, mesh or export is vendored, copied, ported or adapted here.
+
+Inspired-by lineage
+-------------------
+
+The manifest records three upstream projects under
+`project.attribution.lineage`. Each is recorded as `relationship: inspired-by`:
+they contributed a MORPHOLOGY, a material-compliance idea or an intended
+solver backend — and contributed NO geometry and NO code to this cartridge.
+Licences read on 2026-09-05 and recorded under operator ruling G22, which KEEPS
+these entries as inspired works.
+
+Festo Bionic Cobot Gripper                     [relationship: inspired-by]
+  Author:    Festo SE & Co. KG (Bionic Learning Network)
+  Source:    https://www.festo.com/us/en/e/about-festo/research-and-development/bionic-learning-network/bionic-grippers-and-soft-robots/bioniccobot-id_33294
+  License:   proprietary (inspiration only; no geometry copied)
+  Basis:     Festo is a COMMERCIAL PRODUCT LINE, not an open design. There is
+             no open licence and there are no design files to license: the
+             product page publishes a marketing brochure and nothing else — no
+             CAD, no STEP, no STL, no drawings. Festo's conditions of use
+             reserve all rights in the site's material and forbid commercial
+             use of its content without a licence from Festo, and the page
+             carries "© Festo. All Rights Reserved".
+  Why it is recorded, and why it is harmless:
+             What this cartridge took from the BionicCobot is a PUBLICLY
+             VISIBLE MORPHOLOGY — the idea of a three-finger compliant grasp
+             driven by tendons rather than by bearings. That is an observation
+             of a product's shape and behaviour from published photographs and
+             marketing material, and it is the kind of thing copyright does not
+             reach. Nothing was copied because there was nothing published to
+             copy. The entry is kept because honest provenance means naming
+             what you looked at, including when the thing you looked at is
+             somebody's commercial product.
+  Caution:   A Festo product may be covered by patents or registered designs.
+             Those are rights separate from copyright; they are not licensed by
+             this NOTICE, and this NOTICE is not legal advice. Anyone
+             manufacturing from this cartridge at commercial scale should
+             satisfy themselves independently.
+  Note:      Festo published the BionicSoftHand 2.0 CONTROL SOFTWARE under
+             GPL-3.0 (the repository has since been removed by Festo). That is
+             software, not hardware, it is a different product, and no part of
+             it is used by this cartridge.
+  Stale URL: The URL previously recorded in the manifest,
+             https://www.festo.com/e/en/e/bionic-cobot-14316/ , now 404s; the
+             manifest has been updated to the live page above.
+
+RBO Hand 2 (TU Berlin)                         [relationship: inspired-by]
+  Author:    Raphael Deimel and Oliver Brock, Robotics and Biology Laboratory,
+             Technische Universität Berlin
+  Source:    https://depositonce.tu-berlin.de/items/8b6c48a6-dcc1-4466-8eda-cb0df6136b1b
+             ("RBO Hand 2 CAD Files", DOI 10.14279/depositonce-5831)
+  License:   CC-BY-SA-4.0 (Creative Commons Attribution-ShareAlike 4.0
+             International), corroborated at
+             https://www.naturalmachinemotioninitiative.com/rbo-hand-2
+  Basis:     What this cartridge took is the PRINCIPLE that compliance can live
+             in the material itself — a flexure that bends because of what it
+             is made of, instead of a discrete joint with a bearing. The RBO
+             Hand 2 CAD files are moulds for casting pneumatic PneuFlex
+             actuators; this cartridge is a printed multi-material gripper with
+             V-notch living hinges and no pneumatics. No RBO Hand 2 file was
+             downloaded, opened, copied or adapted.
+  Caution:   CC-BY-SA-4.0 is a COPYLEFT licence: a work that IS a derivative of
+             the RBO Hand 2 CAD files must be shared alike under CC-BY-SA-4.0
+             and attributed to Deimel and Brock. That obligation is not
+             triggered here, because this cartridge is not a derivative of
+             those files — it shares an idea with them, and share-alike
+             attaches to the expression, not to the idea. Recorded explicitly
+             so that the reasoning is on the record rather than assumed.
+  Stale URL: The URL previously recorded in the manifest,
+             https://www.robotics.tu-berlin.de/menue/research/projects/rbo_hand/ ,
+             now redirects away; the manifest has been updated to the
+             institutional deposit above, which is where the files actually are.
+
+PPF Contact Solver (ZOZO / SIGGRAPH Asia 2024) [relationship: inspired-by]
+  Author:    Ryoichi Ando (ZOZO, Inc.)
+  Source:    https://github.com/st-tech/ppf-contact-solver
+  License:   Apache-2.0 (per the repository's LICENSE file; no non-commercial
+             or research-only restriction)
+  Basis:     Named as the INTENDED SOLVER BACKEND for this cartridge's
+             generative-optimization mode — GPU-accelerated, penetration-free
+             FEM contact simulation. It is a reference to a tool, not a source
+             of geometry. No PPF code is vendored, imported, called or
+             distributed by this cartridge; the FEA stress map in main.py is
+             MADFAM's own heuristic.
+  Note:      Apache-2.0 is a permissive licence and would permit use; should
+             this cartridge ever actually link or ship PPF code, Apache-2.0's
+             attribution and NOTICE obligations would then apply. They do not
+             apply today, because it does not.
+
+No geometry, source file or export from any of the three projects above is
+present in this cartridge, at this commit or at any commit in its history.

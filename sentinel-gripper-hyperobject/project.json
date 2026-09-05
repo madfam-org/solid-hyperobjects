@@ -27,22 +27,31 @@
             "is_hyperobject": true
         },
         "attribution": {
-            "author": "Yantra4D",
+            "author": "Innovaciones MADFAM",
             "license": "CERN-OHL-W-2.0",
             "lineage": [
                 {
                     "project": "Festo Bionic Cobot Gripper",
-                    "url": "https://www.festo.com/e/en/e/bionic-cobot-14316/",
+                    "url": "https://www.festo.com/us/en/e/about-festo/research-and-development/bionic-learning-network/bionic-grippers-and-soft-robots/bioniccobot-id_33294",
+                    "license": "proprietary (inspiration only; no geometry copied)",
+                    "license_source": "https://www.festo.com/us/en/e/about-festo/research-and-development/bionic-learning-network/bionic-grippers-and-soft-robots/bioniccobot-id_33294 \u2014 a commercial Festo product line; no CAD or design files are published, only a marketing brochure, and https://www.festo.com/ie/en/e/legal-information/conditions-of-use-id_65609/ reserves all rights (read 2026-09-05). The previously recorded URL https://www.festo.com/e/en/e/bionic-cobot-14316/ now returns 404.",
+                    "relationship": "inspired-by",
                     "contribution": "Bio-inspired three-finger compliant grasping morphology with tendon-driven actuation."
                 },
                 {
                     "project": "RBO Hand 2 (TU Berlin)",
-                    "url": "https://www.robotics.tu-berlin.de/menue/research/projects/rbo_hand/",
+                    "url": "https://depositonce.tu-berlin.de/items/8b6c48a6-dcc1-4466-8eda-cb0df6136b1b",
+                    "license": "CC-BY-SA-4.0",
+                    "license_source": "https://depositonce.tu-berlin.de/items/8b6c48a6-dcc1-4466-8eda-cb0df6136b1b \u2014 \"RBO Hand 2 CAD Files\", Raphael Deimel and Oliver Brock, DOI 10.14279/depositonce-5831, licensed CC BY-SA 4.0; corroborated at https://www.naturalmachinemotioninitiative.com/rbo-hand-2 (read 2026-09-05). The previously recorded URL https://www.robotics.tu-berlin.de/menue/research/projects/rbo_hand/ now redirects away.",
+                    "relationship": "inspired-by",
                     "contribution": "Pneumatic soft robotic hand: material-embedded flexure compliance without discrete joints."
                 },
                 {
                     "project": "PPF Contact Solver (ZOZO / SIGGRAPH Asia 2024)",
                     "url": "https://github.com/st-tech/ppf-contact-solver",
+                    "license": "Apache-2.0",
+                    "license_source": "https://github.com/st-tech/ppf-contact-solver/blob/main/LICENSE \u2014 Apache License 2.0, Copyright Ryoichi Ando (ZOZO, Inc.); no non-commercial or research-only restriction (read 2026-09-05)",
+                    "relationship": "inspired-by",
                     "contribution": "GPU-accelerated, penetration-free FEM contact simulation — the physics backend for generative optimization."
                 }
             ]

@@ -5,7 +5,17 @@
     "version": "2.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
-      "license": "CERN-OHL-W-2.0"
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [
+        {
+          "project": "Faircap",
+          "url": "https://faircap.org/",
+          "license": "NOT STATED (design registered with the UK IPO; patent pending)",
+          "license_source": "https://faircap.org/ and http://faircap.org/faircap-open-design-and-innovation/ \u2014 marketing text says \"100% open source\" but names no licence, and the site states the design and trademark are registered at the British Intellectual Property Office and patent pending (read 2026-09-05)",
+          "relationship": "inspired-by",
+          "contribution": "The product concept \u2014 an affordable print-at-home filter cap for a standard PET bottle neck \u2014 and its reference dimensions."
+        }
+      ]
     },
     "engine": "cadquery",
     "description": {
