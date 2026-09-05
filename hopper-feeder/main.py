@@ -71,27 +71,43 @@ def _taper_height(run):
 # ── Helpers ──────────────────────────────────────────────────────────────────
 def _round_shell(r_top, r_bot, h):
     """Hollow conical frustum (outer minus inner), watertight, base at z=0.
-    Wall thickness is `wall` measured horizontally."""
+
+    `r_bot` is the THROAT radius and belongs at z=0, with the wide `r_top` mouth
+    at z=h: the outlet spout hangs below z=0 and `_top_rim` sits at the mouth.
+    The loft used to be built the other way up -- wide end at z=0, throat at
+    z=h -- so the spout hung under the wide mouth's hollow centre, touching no
+    material, and both hoppers rendered the spout as a detached body."""
     outer = (
-        cq.Workplane("XY").circle(r_top)
-        .workplane(offset=h).circle(max(r_bot, 0.5))
+        cq.Workplane("XY").circle(max(r_bot, 0.5))
+        .workplane(offset=h).circle(r_top)
         .loft(combine=True)
     )
     inner = (
         cq.Workplane("XY").transformed(offset=cq.Vector(0, 0, -0.5))
-        .circle(max(r_top - wall, 0.4))
-        .workplane(offset=h + 1.0).circle(max(r_bot - wall, 0.3))
+        .circle(max(r_bot - wall, 0.3))
+        .workplane(offset=h + 1.0).circle(max(r_top - wall, 0.4))
         .loft(combine=True)
     )
     return outer.cut(inner)
 
 
 def _spout(r_out, h, z0):
-    """A straight hollow cylindrical outlet spout of outer radius r_out."""
-    outer = cq.Workplane("XY").transformed(offset=cq.Vector(0, 0, z0)).circle(r_out).extrude(h)
+    """A straight hollow cylindrical outlet spout of outer radius r_out.
+
+    Callers place the spout at z0 = -outlet_len so it hangs below the shell,
+    whose own base is at z = 0. Extruding exactly `h` made the spout's top face
+    COPLANAR with that base -- a tangent kiss, not a fusion -- so both hoppers
+    shed the spout as a detached second body. Overshoot SPOUT_BITE up into the
+    shell; the bore that follows re-opens the throat, so the flow path is
+    unchanged."""
+    SPOUT_BITE = 0.6
+    outer = (
+        cq.Workplane("XY").transformed(offset=cq.Vector(0, 0, z0))
+        .circle(r_out).extrude(h + SPOUT_BITE)
+    )
     inner = (
         cq.Workplane("XY").transformed(offset=cq.Vector(0, 0, z0 - 0.5))
-        .circle(max(r_out - wall, 0.3)).extrude(h + 1.0)
+        .circle(max(r_out - wall, 0.3)).extrude(h + SPOUT_BITE + 1.0)
     )
     return outer.cut(inner)
 
@@ -128,7 +144,12 @@ def build_round_hopper():
     if outlet_len > 0.1:
         body = body.union(_spout(r_out, outlet_len, -outlet_len))
     if rim:
-        body = body.union(_top_rim(r_top, "round"))
+        # _top_rim builds from z=0 up; the mouth is at body_h, so lift it there
+        # (less RIM_BITE so it overlaps the shell rather than merely capping it).
+        RIM_BITE = 0.6
+        body = body.union(
+            _top_rim(r_top, "round").translate((0, 0, body_h - RIM_BITE))
+        )
     return body
 
 
@@ -140,18 +161,20 @@ def build_square_hopper():
     run = min(half_top_w, half_top_d) - r_out
     body_h = max(height, _taper_height(run) if run > 0 else height, outlet_dia)
 
-    # Outer: square top lofted to a small square around the throat.
+    # Outer: the small square THROAT at z=0 lofted up to the square top at
+    # body_h. Built the other way up -- wide mouth at z=0 -- the outlet spout
+    # below z=0 hung under the mouth's hollow centre and fused to nothing.
     thr = r_out  # square half-size at the throat that circumscribes the outlet
     outer = (
-        cq.Workplane("XY").rect(top_w, top_d)
-        .workplane(offset=body_h).rect(2 * thr, 2 * thr)
+        cq.Workplane("XY").rect(2 * thr, 2 * thr)
+        .workplane(offset=body_h).rect(top_w, top_d)
         .loft(combine=True)
     )
     # Inner cavity: offset inward by `wall`, opening to the outlet bore.
     inner = (
         cq.Workplane("XY").transformed(offset=cq.Vector(0, 0, -0.5))
-        .rect(top_w - 2 * wall, top_d - 2 * wall)
-        .workplane(offset=body_h + 1.0).rect(max(2 * (thr - wall), 0.6), max(2 * (thr - wall), 0.6))
+        .rect(max(2 * (thr - wall), 0.6), max(2 * (thr - wall), 0.6))
+        .workplane(offset=body_h + 1.0).rect(top_w - 2 * wall, top_d - 2 * wall)
         .loft(combine=True)
     )
     body = outer.cut(inner)
@@ -166,7 +189,10 @@ def build_square_hopper():
     if outlet_len > 0.1:
         body = body.union(_spout(r_out, outlet_len, -outlet_len))
     if rim:
-        body = body.union(_top_rim((top_w, top_d), "rect"))
+        RIM_BITE = 0.6
+        body = body.union(
+            _top_rim((top_w, top_d), "rect").translate((0, 0, body_h - RIM_BITE))
+        )
     return body
 
 
