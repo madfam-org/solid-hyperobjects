@@ -65,51 +65,76 @@ jobs:
 
   # Geometry is expensive, so on a pull request it runs only for the cartridges
   # the PR actually touched. The nightly sweep is what covers the rest.
-  render-changed:
-    name: render (cartridges changed in this PR)
+  #
+  # Two jobs: `render-scope` decides WHICH cartridges (fork-point diff, metadata-
+  # only manifests dropped) and cuts them into groups of at most eight;
+  # `render-changed` fans out one job per group. The pool's runners are capped at
+  # 6 GiB and 1.5 CPU, and a single job rendering 51 cartridges lost its runner
+  # twice at the ~30-minute mark with no log to name the culprit — small groups
+  # keep every job short, let the unaffected groups pass, and leave the failing
+  # group's log behind.
+  render-scope:
+    name: render scope (which cartridges changed)
     if: github.event_name == 'pull_request'
     runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
-    timeout-minutes: 60
+    timeout-minutes: 10
+    outputs:
+      chunks: ${{ steps.changed.outputs.chunks }}
+      none: ${{ steps.changed.outputs.none }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: recursive
 
       - name: Which cartridges changed
         id: changed
         run: |
           base="${{ github.event.pull_request.base.sha }}"
           head="${{ github.event.pull_request.head.sha }}"
-          # Top-level directory of every changed path that is a cartridge.
           git cat-file -e "$base^{commit}" || { echo "::error title=base unreachable::PR base $base is not in this checkout (fetch-depth); the render lane cannot diff"; exit 1; }
           # Diff from the fork point, not the base branch tip: a PR opened before
           # main moved must not re-render the cartridges main changed meanwhile.
           base=$(git merge-base "$base" "$head")
+          # Top-level directory of every changed path that is a cartridge.
           slugs=$(git diff --name-only "$base" "$head" \
             | awk -F/ 'NF>1 {print $1}' \
             | sort -u \
             | while read -r d; do if [ -f "$d/project.json" ]; then echo "$d"; fi; done) || true
           # Manifest-metadata-only changes (attribution, prose, tags, lineage) have
-          # no geometry to re-render. render_scope.py drops those and keeps every
+          # no geometry to re-render. render_scope.py drops those, keeps every
           # other kind of change — parameters, parts, presets, engine,
-          # verification, any non-manifest file. Without it a commons-wide
-          # attribution sweep asks this 60-minute lane to render all 495.
-          slugs=$(python3 .github/scripts/render_scope.py "$base" "$head" $slugs)
-          echo "slugs<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$slugs" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
-          if [ -z "$slugs" ]; then
+          # verification, any non-manifest file — and cuts the rest into groups.
+          chunks=$(python3 .github/scripts/render_scope.py --chunks 8 "$base" "$head" $slugs)
+          echo "chunks=$chunks" >> "$GITHUB_OUTPUT"
+          if [ "$chunks" = "[]" ]; then
             echo "none=true" >> "$GITHUB_OUTPUT"
             echo "No cartridge changed; the render lane has nothing to do."
+          else
+            echo "render groups: $chunks"
           fi
+
+  render-changed:
+    name: render (cartridges changed in this PR)
+    needs: render-scope
+    if: github.event_name == 'pull_request' && needs.render-scope.outputs.none != 'true'
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      # Two groups at a time: the pool is shared with the platforms' matrices.
+      max-parallel: 2
+      matrix:
+        group: ${{ fromJson(needs.render-scope.outputs.chunks) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
         # OCP's C extension links against X and GL at import. libgl1 alone is
         # not enough: nothing in its dependency tree pulls libXrender.so.1,
         # which VTK's renderer asks for. Never fails the job on its own — the
         # install step below is where a missing library becomes visible.
-        if: steps.changed.outputs.none != 'true'
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
@@ -123,7 +148,6 @@ jobs:
           fi
 
       - name: Install the spec (with geometry)
-        if: steps.changed.outputs.none != 'true'
         env:
           SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
@@ -144,18 +168,16 @@ jobs:
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
 
       - name: y4d-spec check --render
-        if: steps.changed.outputs.none != 'true'
         env:
           # OpenSCAD cartridges resolve their includes from the pinned libs/ tree.
           OPENSCADPATH: ${{ github.workspace }}/libs
         run: |
           rc=0
-          while read -r slug; do
-            [ -n "$slug" ] || continue
-            echo "::group::render $slug"
+          for slug in ${{ matrix.group }}; do
+            echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
             .venv/bin/y4d-spec check "./$slug" --render -v || rc=1
             echo "::endgroup::"
-          done <<< "${{ steps.changed.outputs.slugs }}"
+          done
           exit $rc
 
   # The whole commons, geometry included. Nightly rather than per-PR: 500
