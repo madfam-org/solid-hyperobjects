@@ -208,11 +208,16 @@ def build_bird_dispenser():
     body = build_station(max(45.0, trough_dia * 0.55), max(18.0, trough_h * 0.7), chute=False)
     # Add a perch ring around the pool rim.
     pool_r = max(45.0, trough_dia * 0.55) / 2.0 + wall
+    # The pool's outer radius IS pool_r, so a ring starting at pool_r + 3.0 hung
+    # 3 mm clear of it and `bird_dispenser` rendered as two detached bodies.
+    # Start the ring PERCH_BITE INSIDE the pool wall so it fuses, and keep the
+    # outer perch radius (pool_r + 8.0) where it was.
+    PERCH_BITE = min(0.8, wall * 0.5)
     perch = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, 0, wall + max(18.0, trough_h * 0.7) - wall))
         .circle(pool_r + 8.0)
-        .circle(pool_r + 3.0)
+        .circle(pool_r - PERCH_BITE)
         .extrude(wall)
     )
     body = body.union(perch)
