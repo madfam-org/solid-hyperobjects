@@ -858,17 +858,26 @@ def build_closed_view():
     bottom = build_bottom()
     # The lid rides on the seam plane, its rim entering the base groove.
     top = build_top(flat=False).translate((0.0, 0.0, base_z))
+
+    # Where the rim enters the groove the two parts genuinely occupy the same
+    # space — that is what a seated seal looks like. A compound of overlapping
+    # solids exports as non-watertight, so the overlap is resolved in favour of
+    # the base: the lid is trimmed by it. The picture is unchanged (the removed
+    # sliver is inside the closed case) and every body in the compound is then
+    # disjoint and sound.
+    top = top.cut(bottom)
     shapes = _solids(bottom) + _solids(top)
     strap = latch_strap()
     # Stand each strap clear of everything the front face already carries: the
-    # belt rib and the latch catch blocks both stand proud of the wall, so
-    # clearing only the strap thickness pushed the strap into the catches and
-    # the preview came back non-watertight on the smallest preset.
+    # belt rib and the corner pilasters both stand proud of the wall. The strap
+    # is then trimmed by the shells for the same reason the lid is, so a strap
+    # that still grazes a catch cannot make the preview non-watertight.
     front_proud = strap_t + BELT_PROUD + max(BUMPER_PROUD, 0.0)
     for x in latch_x_positions():
         s = (strap.rotate((0, 0, 0), (1, 0, 0), 90)
              .translate((x, -shell_y / 2.0 - front_proud - 0.4,
                          base_z - engage - 0.5)))
+        s = s.cut(bottom).cut(top)
         shapes += _solids(s)
     if isFeetAdded:
         for f in feet_bodies():
