@@ -160,6 +160,15 @@ platform's own parameter-injection contract and compared against
 `MEASUREMENTS.json`. **Every variant watertight, one body**, volume within
 +1.68 % / −1.19 % (tolerance ±2 %), bounding box within ±0.5 mm on every axis.
 
+```
+variants=48 failures=0 interface_checks=16 interface_failures=0
+```
+
+Extremes: `brace__brace__mix-a` is the worst on the high side at +1.68 %,
+`brace__brace__corner-allmin` the worst on the low side at −1.19 %. The 20 × 4 × 4
+manifest maximum (`beam__beam__corner-allmax`, 320 fused hole cutters) renders one
+watertight solid at −0.22 %.
+
 | Variant | wt | bodies | volume mm³ | Δ vol | verdict |
 | :--- | ---: | ---: | ---: | ---: | :--- |
 | `beam__beam__defaults` | 1 | 1 | 2734.82 | +0.03 % | ok |
@@ -193,7 +202,7 @@ platform's own parameter-injection contract and compared against
 | `brace__brace__holes_x-min` | 1 | 1 | 1051.07 | +0.38 % | ok |
 | `brace__brace__holes_y-min` | 1 | 1 | 1051.07 | +0.38 % | ok |
 | `brace__brace__holes_z-min` | 1 | 1 | 1051.07 | +0.38 % | ok |
-| `brace__brace__arm_a_units-min` | 1 | 1 | 625.94 | −0.04 % | ok |
+| `brace__brace__arm_a_units-min` | 1 | 1 | 626.00 | −0.03 % | ok |
 | `fastener__fastener__defaults` | 1 | 1 | 526.51 | +0.26 % | ok |
 | `fastener__fastener__preset-beam_5u` | 1 | 1 | 652.12 | +0.32 % | ok |
 | `fastener__fastener__preset-brace_90deg` | 1 | 1 | 526.51 | +0.26 % | ok |
