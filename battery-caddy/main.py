@@ -177,11 +177,20 @@ def build_sleeve():
     # Grip flat depth must stay shallower than the wall so it never breaks into
     # the bore (which would split the annulus into two arcs → body_count>1).
     flat_depth = min(outer_r * 0.15, wall * 0.5)
+    # The cutter must reach OUTWARD from the flat plane, never sit as a slab
+    # inside the wall: a bounded slab leaves the outer skin beyond it detached
+    # (body_count 2). Overshoot outward by flat_depth so only the outer skin
+    # between (outer_r - flat_depth) and the outside is removed.
+    reach = flat_depth * 2.0
     for sign in (1.0, -1.0):
+        # Y-centred box of height 2*reach placed so its INNER face is the flat
+        # plane at |y| = outer_r - flat_depth and it extends outward past the
+        # tube; the same expression is correct for both signs.
+        yc = sign * (outer_r - flat_depth + reach)
         flat = (
             cq.Workplane("XY")
-            .box(outer_r * 2, flat_depth, length, centered=(True, False, False))
-            .translate((0, sign * (outer_r - flat_depth / 2.0), 0))
+            .box(outer_r * 2, reach * 2.0, length, centered=(True, True, False))
+            .translate((0, yc, 0))
         )
         tube = tube.cut(flat)
     return tube

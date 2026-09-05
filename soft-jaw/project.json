@@ -659,6 +659,14 @@
       }
     },
     {
+      "expression": "workpiece_dia / 2 < jaw_thickness * 25.4 - 3",
+      "severity": "error",
+      "message": {
+        "en": "Round stock radius must be smaller than the jaw thickness less a back wall — a larger trough would cut through the back of the jaw",
+        "es": "El radio de la pieza redonda debe ser menor que el grosor de la mordaza menos una pared trasera — una canal mayor atravesaría la parte posterior de la mordaza"
+      }
+    },
+    {
       "expression": "pocket_depth < jaw_thickness * 25.4",
       "severity": "warning",
       "message": {
@@ -777,5 +785,22 @@
     "industrial",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "jaw_pair": {
+        "overrides": {
+          "geometry.body_count": { "expected": 2 }
+        }
+      }
+    }
+  }
 }

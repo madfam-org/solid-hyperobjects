@@ -225,9 +225,30 @@ def face_cutter():
 
 def round_pocket(dia, depth, x_centre=0.0):
     """Half-round trough cut into the front face to cradle round stock (axis
-    vertical, along Z). `depth` is how far into the jaw (−Y) the axis sits."""
+    vertical, along Z). `depth` is how far into the jaw (−Y) the axis sits.
+
+    `depth` alone does not bound the cut: the trough reaches a further `r`
+    behind its axis, so at defaults (r 12.5, depth 10, T 19.05) the cylinder
+    spanned y = -3.45 to 21.55 and bored clean through the jaw's back face,
+    splitting the jaw into two side pillars. jaw_pair rendered 4 bodies at
+    preset kurt_dx6_round_pair instead of the intended 2.
+
+    Pull the axis forward so the trough's back always stops a wall short of
+    the back face; the trough stays as deep as the jaw can host it.
+
+    Where the stock radius alone exceeds the jaw thickness less a back wall,
+    no round pocket of that diameter can be cut into this jaw at all. Returns
+    None in that case, and the manifest constraint `round_pocket_fits` rejects
+    the combination up front.
+    """
     r = max(2.0, dia / 2.0)
     depth = max(1.0, min(depth, T - 3.0))
+    back_wall = 2.0
+    # The axis sits at y = T - depth and the trough reaches a further `r`
+    # behind it, so the deepest legal axis keeps T - depth - r >= back_wall.
+    depth = min(depth, T - r - back_wall)
+    if depth < 1.0:
+        return None
     return (
         cq.Workplane("XY", origin=(x_centre, T - depth, -1.0))
         .circle(r)
@@ -265,7 +286,9 @@ def build_jaw():
     body = jaw_blank()
     body = _apply_common(body)
     if workpiece == "round":
-        body = body.cut(round_pocket(workpiece_dia, pocket_depth))
+        rp = round_pocket(workpiece_dia, pocket_depth)
+        if rp is not None:
+            body = body.cut(rp)
     elif workpiece == "rect":
         body = body.cut(rect_pocket(workpiece_w, workpiece_h, pocket_depth))
     return body
@@ -283,7 +306,9 @@ def build_jaw_pair():
         b = jaw_blank()
         b = _apply_common(b)
         if workpiece == "round":
-            b = b.cut(round_pocket(workpiece_dia, pocket_depth))
+            rp = round_pocket(workpiece_dia, pocket_depth)
+            if rp is not None:
+                b = b.cut(rp)
         elif workpiece == "rect":
             b = b.cut(rect_pocket(workpiece_w, workpiece_h, pocket_depth))
         return b

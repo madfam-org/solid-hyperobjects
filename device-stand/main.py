@@ -92,8 +92,15 @@ def wedge_prism(w, run_x, h, extra_base):
 
 def rest_slot_cutter(w, slot_w, over=60.0):
     """A tilted rectangular channel that the device sits in, cut into the
-    resting face. `slot_w` is the device thickness. Long enough to pass fully
-    through the body (`over`)."""
+    resting face. `slot_w` is the device thickness. Long enough to reach out of
+    the top of the body (`over`), but it must NOT reach out of the bottom: the
+    slot is a pocket in the resting face, and a slot that breaks the base cuts
+    the front catch lip off the wedge (stand and dock each rendered 2 bodies).
+
+    The rect is `centered=(True, False)`, so it grows upward from its own
+    origin; after the -(90-angle) rotation its lower corners dip to
+    -(slot_w/2)*sin(90-angle) below that origin. Raising the origin by that
+    projection plus `wall` leaves a floor of at least `wall` under the slot."""
     slot = (
         cq.Workplane("XZ")
         .rect(slot_w, over, centered=(True, False))
@@ -106,6 +113,14 @@ def rest_slot_cutter(w, slot_w, over=60.0):
     return slot
 
 
+def rest_slot_floor(slot_w):
+    """How far the tilted slot's lowest corner sits below its placement origin.
+
+    Callers lift the cutter by this much plus `wall` so a floor always remains
+    between the bottom of the slot and the base of the wedge."""
+    return abs(slot_w / 2.0 * math.sin(math.radians(90.0 - angle)))
+
+
 def build_stand():
     """One-piece easel wedge with a tilted device slot and a front catch lip."""
     body = wedge_prism(width, run, height, wall + device_t + 6.0)
@@ -115,8 +130,9 @@ def build_stand():
     # front of it to catch the device.
     slot_x = wall + device_t / 2.0
     slot = rest_slot_cutter(width, device_t)
-    # place the (centred-at-origin) tilted slot so its front wall sits at slot_x
-    slot = slot.translate((slot_x + device_t, 0, -2.0))
+    # place the (centred-at-origin) tilted slot so its front wall sits at slot_x,
+    # lifted so a `wall`-thick floor remains under it (see rest_slot_cutter)
+    slot = slot.translate((slot_x + device_t, 0, rest_slot_floor(device_t) + wall))
     body = body.cut(slot)
 
     # Trim the catch lip down to `lip_h` so tall devices clear it visually and
@@ -193,12 +209,18 @@ def build_adjustable():
         .extrude(width)
         .translate((0, width / 2.0, 0))
     )
-    # Device slot near the top of the leg (a shallow tilted pocket).
+    # Device slot near the top of the leg: a notch OPEN AT THE TOP, so the
+    # device drops in. The cutter is `device_t` wide against a leg only
+    # wall*2.5 thick, so it spans the leg in X; when it also sat wholly inside
+    # the leg's height (z in [50.5, 67.5] of a 70 mm leg at defaults) it cut
+    # the leg through and left the top cap as a third body. Run it out of the
+    # top instead, and keep a `wall` of leg below it.
+    slot_d = min(device_t + 6.0, max(2.0, leg_h - wall))
     slot = (
         cq.Workplane("XZ")
-        .rect(device_t, device_t + 6.0, centered=True)
+        .rect(device_t, slot_d * 2.0, centered=True)
         .extrude(width + 20.0)
-        .translate((0, (width + 20.0) / 2.0, leg_h - device_t))
+        .translate((0, (width + 20.0) / 2.0, leg_h))
     )
     leg = leg.cut(slot)
     # Foot tab under the leg that seats in a groove.
@@ -223,7 +245,7 @@ def build_dock():
 
     slot_x = wall + device_t / 2.0
     slot = rest_slot_cutter(width, device_t)
-    slot = slot.translate((slot_x + device_t, 0, -2.0))
+    slot = slot.translate((slot_x + device_t, 0, rest_slot_floor(device_t) + wall))
     body = body.cut(slot)
 
     # Trim front lip to lip_h.

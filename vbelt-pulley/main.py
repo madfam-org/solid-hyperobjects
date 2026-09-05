@@ -95,15 +95,34 @@ def v_groove_cutter(z_center):
     (radius outer_r - groove_depth) at z_center, each opening out to the rim."""
     apex_r = max(0.5, outer_r - groove_depth)
     half = groove_width / 2.0
-    lo = cq.Solid.makeCone(
-        apex_r, outer_r + 1.0, half + 1.0,
-        pnt=cq.Vector(0, 0, z_center), dir=cq.Vector(0, 0, -1),
+
+    # A V-groove is an ANNULAR channel, so it must be a revolved V profile --
+    # not two `makeCone`s meeting at the apex circle. `makeCone` returns a
+    # FILLED frustum, so that union was a solid hourglass whose waist is a disc
+    # of radius apex_r: it removed the entire core of the sheave, parting the
+    # rim into free flange discs. vbelt rendered 3 bodies and multi_groove
+    # n+1 = 5, at defaults and at every preset.
+    #
+    # Revolve the V cross-section about Z instead. The profile runs from the
+    # apex at (apex_r, 0) out to the rim at (outer_r, +-half) -- so the groove
+    # is exactly `groove_width` wide where it meets the rim, as declared -- and
+    # then 1 mm further along the same flanks so the cut breaks the surface
+    # cleanly.
+    radial = max(0.001, outer_r - apex_r)
+    over = 1.0
+    tip_r = outer_r + over
+    tip_h = half * (radial + over) / radial
+    profile = [
+        (apex_r, 0.0),
+        (tip_r, tip_h),
+        (tip_r, -tip_h),
+    ]
+    return (
+        cq.Workplane("XZ")
+        .polyline([(r, z + z_center) for r, z in profile])
+        .close()
+        .revolve(360.0, (0, 0, 0), (0, 1, 0))
     )
-    hi = cq.Solid.makeCone(
-        apex_r, outer_r + 1.0, half + 1.0,
-        pnt=cq.Vector(0, 0, z_center), dir=cq.Vector(0, 0, 1),
-    )
-    return cq.Workplane(obj=lo).union(cq.Workplane(obj=hi))
 
 
 def round_groove_cutter(z_center):
