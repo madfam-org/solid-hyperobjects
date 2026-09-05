@@ -211,8 +211,12 @@ def build_mic_clip():
 def build_thread_adapter():
     """5/8"-27 female socket on the bottom, 3/8"-16 male stud on top."""
     sock, sh, sod, sbr = female_socket("5/8-27", clearance, wall, stem_len, wall + 1.0)
-    # Flip so it opens downward (screws onto a 5/8 stand), closed shoulder up.
-    sock = sock.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, sh))
+    # female_socket ALREADY opens at z=0 with the closed base on top -- exactly
+    # what this part needs: it screws down onto a 5/8 stand and presents a
+    # closed shoulder upward for the stud. The 180-degree flip that used to be
+    # here inverted it, putting the closed base at the bottom and the OPEN bore
+    # rim facing up, so the stud (whose core is well inside bore_r) sat over
+    # open air and `thread_adapter` rendered as two detached bodies.
     shoulder_z = sh
     stud_len = max(8.0, THREADS["3/8-16"]["pitch"] * 5.0)
     # embed=1.5 sinks the stud core into the shoulder so it fuses into one solid.
@@ -240,14 +244,19 @@ def build_shock_mount_ring():
     inner = cq.Workplane("XY").circle(inner_r + inner_wall).circle(inner_r).extrude(ring_h)
     body = outer.union(inner)
 
-    # Flexible posts: thin S-less straight webs at 4 points (printable "bands").
+    # Flexible posts: thin straight webs at 4 points (printable "bands").
+    # The box is X-CENTRED, so a length of outer_out only reaches outer_out/2
+    # from the axis -- less than the cradle's own outer radius
+    # (inner_r + inner_wall) at defaults, so the webs spanned neither ring and
+    # the cradle came out as a detached body. Make each web a full diameter
+    # (2 * outer_out) so it runs right across, biting into both rings.
     post_t = max(1.6, wall * 0.5)
     for k in range(4):
         ang = 45.0 + 90.0 * k
         web = (
             cq.Workplane("XY")
             .transformed(rotate=cq.Vector(0, 0, ang))
-            .box(outer_out, post_t, ring_h * 0.5, centered=(True, True, False))
+            .box(2.0 * outer_out, post_t, ring_h * 0.5, centered=(True, True, False))
             .translate((0, 0, ring_h * 0.25))
         )
         body = body.union(web)
