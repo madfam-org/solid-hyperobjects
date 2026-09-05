@@ -97,12 +97,20 @@ def _hook_arm():
     curl = _quarter_curl(curl_start_y, r, sec_w, sec_t)
 
     # 3) Short vertical finger at the tip that captures the item.
+    #    The curl's centreline is y(a) = curl_start_y + r*sin(a), so the arc
+    #    ENDS at y = curl_start_y + r (not at curl_start_y). Placing the finger
+    #    at curl_start_y put it a full radius away from the curl tip, in free
+    #    air, as a detached body. Sit it on the arc end and sink FINGER_BITE
+    #    into the curl so the union is a real overlap, not a tangent kiss.
     finger_h = max(hook_thick, r * 0.8)
-    tip_y = curl_start_y
+    FINGER_BITE = 0.5
+    tip_y = curl_start_y + r
+    finger_z0 = r - FINGER_BITE
     finger = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, tip_y, r + finger_h / 2.0 - 0.01))
-        .box(sec_w, sec_t, finger_h, centered=(True, True, True))
+        .transformed(offset=cq.Vector(0, tip_y,
+                                      finger_z0 + (finger_h + FINGER_BITE) / 2.0))
+        .box(sec_w, sec_t, finger_h + FINGER_BITE, centered=(True, True, True))
     )
     arm = bar.union(curl).union(finger)
     return arm
@@ -178,21 +186,31 @@ def _over_door_yoke(width, height):
     dt = max(6.0, door_thick)
     front = _back_plate(width, height)
 
+    # The bridge and rear lip must OVERLAP the front plate, not merely abut it:
+    # the box() calls below are y-centred, and the old offsets put the bridge
+    # entirely behind the plate (and its underside exactly level with the plate
+    # top), so the yoke rendered as two detached bodies. YOKE_BITE sinks the
+    # bridge into the plate in both y and z.
+    YOKE_BITE = 0.5
     top_z = height
-    # Top bridge over the door: spans from the front plate back over the door.
-    bridge_len = plate_thick + gap + dt + gap + plate_thick
+    # Top bridge over the door: from the front plate face back over the door.
+    bridge_front_y = 0.0                       # the plate's own front face
+    bridge_back_y = -(plate_thick + gap + dt + gap + plate_thick)
+    bridge_len = bridge_front_y - bridge_back_y
     bridge = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -bridge_len + plate_thick, top_z))
-        .box(width, bridge_len, plate_thick, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, (bridge_front_y + bridge_back_y) / 2.0,
+                                      top_z - YOKE_BITE))
+        .box(width, bridge_len, plate_thick + YOKE_BITE,
+             centered=(True, True, False))
     )
-    # Rear lip hanging down the back of the door.
-    rear_y = -(plate_thick + gap + dt + gap)
+    # Rear lip hanging down the back of the door, its top sunk into the bridge.
+    rear_y = -(plate_thick + gap + dt + gap + plate_thick / 2.0)
     lip_h = min(height * 0.6, 40.0)
     rear = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, rear_y, top_z - lip_h))
-        .box(width, plate_thick, lip_h, centered=(True, True, False))
+        .box(width, plate_thick, lip_h + YOKE_BITE, centered=(True, True, False))
     )
     yoke = front.union(bridge).union(rear)
     return yoke

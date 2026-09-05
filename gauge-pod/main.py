@@ -140,10 +140,17 @@ def build_vent_pod():
             .box(max(2.0, wall * 0.8), vent_tab_len, vent_tab_w,
                  centered=(True, False, True))
         )
+        # The tab is centered=(True, False, True), so it grows in +Y from
+        # y = -outer_r + 1.0: its FREE tip is that start plane and its rooted
+        # end is at +vent_tab_len. Placing the barb a further
+        # -vent_tab_len * 0.7 BEYOND the start put it 18 mm past the tab's tip
+        # in open air, so each tab shed a detached barb (3 bodies).
+        # Sit the barb just inside the free tip instead.
+        BARB_BITE = 1.0
         barb = (
             cq.Workplane("XY")
             .transformed(offset=cq.Vector(base_x + sign * wall * 0.6,
-                                          -outer_r + 1.0 - vent_tab_len * 0.7,
+                                          -outer_r + 1.0 + BARB_BITE,
                                           back_depth * 0.35))
             .box(wall * 1.2, 4.0, vent_tab_w * 0.7, centered=(True, True, True))
         )

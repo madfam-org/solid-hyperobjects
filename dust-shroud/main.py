@@ -129,6 +129,26 @@ def _snap_skirt(body):
         cq.Workplane("XY").workplane(offset=-snap_depth)
         .circle(ro).circle(ri).extrude(snap_depth + 0.1)
     )
+    # The skirt's outer face is 0.3 mm INSIDE the bore (bore_d/2) so it can tuck
+    # into the fan. That put the whole ring over the open bore of the frame
+    # plate, touching no material: `filter_frame` and `magnetic_frame` rendered
+    # as two bodies (only `grille_filter` escaped, because its grille fills the
+    # bore and happened to reach the skirt). Add a short collar at the top of
+    # the skirt that reaches SKIRT_BITE PAST the bore rim and up into the plate,
+    # so the ring is fused to the frame. The snap face below is untouched.
+    # A shallow fillet-collar at the skirt root: it spans from the skirt's own
+    # inner radius out to SKIRT_BITE past the bore rim, and only COLLAR_H tall
+    # at the skirt top, so the ring is welded to the frame plate while the bore
+    # stays open over the frame's full thickness apart from this root band --
+    # which is what a locating skirt looks like anyway.
+    SKIRT_BITE = 0.6
+    COLLAR_H = 0.8
+    collar = (
+        cq.Workplane("XY").workplane(offset=-COLLAR_H)
+        .circle(bore_d / 2.0 + SKIRT_BITE).circle(ri)
+        .extrude(COLLAR_H + min(SKIRT_BITE, thickness * 0.5))
+    )
+    skirt = skirt.union(collar)
     # small outward barbs at 4 points to catch the fan lip
     barbs = (
         cq.Workplane("XY").workplane(offset=-snap_depth + 0.5)

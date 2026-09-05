@@ -115,11 +115,32 @@ def stacking_lip(body):
         return body
     lip_w = inner_w - 2.0 * lip_clear
     lip_d = inner_d - 2.0 * lip_clear
-    lip_outer = _box(lip_w, lip_d, lip, 0.0, 0.0, outer_h)
-    lip_inner = _box(
-        lip_w - 2.0 * wall, lip_d - 2.0 * wall, lip + 1.0, 0.0, 0.0, outer_h - 0.5
-    )
-    return body.union(lip_outer.cut(lip_inner))
+    # A ring whose OUTER face is inset to lip_w (inside the cavity opening,
+    # inner_w) cannot touch the rim annulus, which only begins AT inner_w — so
+    # the old inward-drawn ring floated over the open cavity as a second body.
+    # Build the upstand as the rim itself carried upward (footprint outer_w ×
+    # outer_d, bore inner_w × inner_d, so it overlaps the walls exactly), then
+    # shave its outside back to lip_w × lip_d above the rim so it still nests
+    # into the bin above with lip_clear per side.
+    LIP_BITE = 0.5          # how far the upstand reaches down into the rim
+    upstand = _box(outer_w, outer_d, lip + LIP_BITE, 0.0, 0.0, outer_h - LIP_BITE)
+    if corner_r > 0.05:
+        upstand = upstand.edges("|Z").fillet(corner_r)
+    bore = _box(inner_w, inner_d, lip + LIP_BITE + 2.0,
+                0.0, 0.0, outer_h - LIP_BITE - 1.0)
+    inner_r = max(0.0, corner_r - wall)
+    if inner_r > 0.05:
+        bore = bore.edges("|Z").fillet(inner_r)
+    # Trim the outside of the upstand down to the nesting footprint, above the
+    # rim only (the LIP_BITE band below stays full width and fuses to the wall).
+    nest_clear = _box(outer_w + 2.0, outer_d + 2.0, lip + 1.0, 0.0, 0.0, outer_h)
+    nest_keep = _box(lip_w, lip_d, lip + 1.0, 0.0, 0.0, outer_h)
+    if corner_r > 0.05:
+        nest_keep = nest_keep.edges("|Z").fillet(
+            max(0.0, min(corner_r, min(lip_w, lip_d) / 2.0 - 0.01))
+        )
+    ring = upstand.cut(bore).cut(nest_clear.cut(nest_keep))
+    return body.union(ring)
 
 
 def cut_angled_front(body):
