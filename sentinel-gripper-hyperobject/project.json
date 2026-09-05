@@ -405,5 +405,35 @@
             "optimization_target": "flexure_thickness",
             "optimization_objective": "minimize_sigma_under_load"
         }
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        },
+        "mode_overrides": {
+            "full_assembly": {
+                "part_overrides": {
+                    "skeleton": { "geometry.body_count": { "expected": "finger_count * 2" } },
+                    "flexure": { "geometry.body_count": { "expected": "finger_count * 2" } },
+                    "grip_pad": { "geometry.body_count": { "expected": "finger_count" } }
+                }
+            },
+            "rigid_core": {
+                "part_overrides": {
+                    "skeleton": { "geometry.body_count": { "expected": "finger_count * 2" } }
+                }
+            },
+            "compliant_elements": {
+                "part_overrides": {
+                    "flexure": { "geometry.body_count": { "expected": "finger_count * 2" } },
+                    "grip_pad": { "geometry.body_count": { "expected": "finger_count" } }
+                }
+            }
+        }
     }
 }

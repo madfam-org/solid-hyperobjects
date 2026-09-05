@@ -99,15 +99,26 @@ def plug_body():
 def build_blind_plug():
     """Solid closed plug. Hollow the underside from the lip tip upward so the
     snap lip can flex on insertion and to save material (leaves `wall` all round;
-    the flange stays a closed cap so the hole is truly blanked)."""
+    the flange stays a closed cap so the hole is truly blanked).
+
+    The cavity must BREAK OUT of the bottom. It used to end exactly at the lip
+    tip (z = -(panel_t + lip_h), the body's own lowest face), so the cut left a
+    zero-thickness seam rather than an opening: the exported mesh came out as two
+    shells, the outer body at +2285.97 mm^3 and a SEALED internal void at
+    -335.14 mm^3. An enclosed cavity is an undrainable, unprintable pocket, and
+    the spec's render check reads it as a negative-volume body. Overshooting the
+    tip by `open_out` turns the same cavity into the open underside the docstring
+    always described — one shell, one body, and the lip can actually flex.
+    """
     body = plug_body()
     inner_r = shank_r - wall
     depth = shank_h + lip_h - flange_t - wall
     if depth > 0.5 and inner_r > 0.8:
+        open_out = 1.0                      # run the cut past the lip tip
         cav = (
             cq.Workplane("XY")
-            .cylinder(depth, inner_r)
-            .translate((0, 0, -(panel_t + lip_h) + depth / 2.0))
+            .cylinder(depth + open_out, inner_r)
+            .translate((0, 0, -(panel_t + lip_h) - open_out + (depth + open_out) / 2.0))
         )
         body = body.cut(cav)
     return body
