@@ -1,0 +1,124 @@
+NOTICE — clean-room provenance and the interface / form split
+=============================================================
+
+Modular Wall Tile (25 mm Threaded Grid) — slug `multiboard`
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+Clean-room statement
+--------------------
+
+This cartridge was authored from a recorded final-result baseline — measured
+dimensions, mesh statistics and a written specification — without access to any
+prior implementation of this slug or to its upstream. The implementer did not
+read, and did not have available:
+
+  * the previous `multiboard` cartridge in this repository's git history;
+  * the archived `madfam-org/multiboard` satellite repository, or any checkout
+    of it;
+  * the Multiboard project (Keep Making) — its website, its model files, its
+    CAD sources, or any remix of them on a model-sharing site.
+
+Every line of `tile.scad` and every value in `project.json` was written from the
+baseline pack and from the OpenSCAD language reference.
+
+**This cartridge is NOT derived from the Multiboard design files.**
+
+What is the interface, and why it matches
+-----------------------------------------
+
+Interoperability is the point of a mounting grid: an accessory printed by
+someone else must screw into this panel. The *functional* dimensions other
+objects mate to are therefore implemented to the measured values, and are frozen
+constants in `tile.scad` rather than user parameters:
+
+  * 25.0 mm grid pitch, both axes, both hole classes;
+  * cell-centre bore — internal trapezoidal thread, 29° flank, 2.5 mm pitch,
+    major Ø 22.54 mm, minor Ø 20.15 mm;
+  * interior-node bore — internal trapezoidal thread, 29° flank, 3 mm pitch,
+    major Ø 6.95 mm, minor Ø 4.48 mm;
+  * panel thickness (the `height` parameter, 6.4 mm by default) is the thread
+    engagement length an accessory screws into.
+
+These are dimensions of a mechanical fit, taken by measurement. They are stated
+here so anyone can verify them against a physical panel; no upstream file was
+consulted to obtain them.
+
+The thread is a true helix
+--------------------------
+
+Both thread classes are real helices cut at full panel depth, not stacks of
+concentric rings. A ring stack can be dimensionally exact and still be useless:
+a screw cannot thread into it. Each bore is one `linear_extrude` of the
+trapezoidal tooth profile with `twist = -360 · height / pitch`, which is a helix
+of exactly that pitch by construction.
+
+`docs/CLEANROOM-VERIFICATION.md` records the proof: 8-angle radial sampling per
+z-slice shows the minor-diameter band advancing 144.4°/mm on the primary bore
+(lead 2.494 mm/turn against a declared 2.5 mm pitch) and 121.0°/mm on the
+secondary (2.975 mm/turn against 3 mm). A revolved ring stack would read 0°/mm,
+and each bore turns at its OWN declared rate, which a sampling artefact could
+not produce.
+
+An earlier attempt implemented this mode in CadQuery. It was abandoned on render
+cost: the B-Rep boolean of the helical thread tools against the plate took 376
+seconds at the default 4 × 4 tile and left the plate fragmented rather than one
+solid. OpenSCAD's Manifold backend cuts the same true helices from the same
+plate in tens of seconds and yields one watertight body, so this mode is
+OpenSCAD — which is also the engine the manifest contract declared.
+
+What is the form, and why it differs
+------------------------------------
+
+The upstream tile design is licensed CC-BY-NC-SA-4.0, a licence that covers the
+*design itself* and not merely code. Under ADR-021 §4 the acceptance target for
+this slug is therefore the interface standard with a form of our own — not a
+shape match. The following are MADFAM's design and differ deliberately:
+
+  * **Silhouette.** The tile perimeter is castellated: a rounded tab stands
+    proud of the rectangle at every grid node on the boundary, so a seam
+    connector at an edge node sits in solid material with metal all round it.
+    The baseline is a plain rectangle.
+  * **Corner treatment.** The four plate corners take a 45° flat of a fixed
+    6 mm, decoupled from the grid module. The baseline's corner treatment was an
+    octagonal chamfer scaled *from* the cell size; ours is independent of it by
+    design.
+  * **Rear relief.** Every cell-centre bore is coned on the back face so a screw
+    starts square without a bench chamfer. The baseline has no such relief.
+
+`docs/CLEANROOM-VERIFICATION.md` records the measured interface dimensions of
+every rendered variant against the baseline, and the form dimensions that
+differ.
+
+Two corrections to the baseline record
+--------------------------------------
+
+The baseline pack's prose disagrees with its own measurements in two places, and
+this cartridge follows the measurements — they are the record of what was
+actually rendered and measured.
+
+  * **Secondary bore positions.** The pack's prose says one bore per cell corner,
+    (x+1)(y+1) = 25 at the 4 x 4 default; its measured record says 9, which is
+    (x-1)(y-1) — the INTERIOR intersections only. Nine is also the only reading
+    the geometry allows: a bore centred on a boundary node would be half off the
+    plate. This cartridge places secondary bores at interior intersections.
+  * **Thread nominals.** The prose gives the primary major as 22.5 mm and the
+    secondary major as 7.025 mm; the measured record gives 22.537 and 6.948, and
+    the prose's own interface table agrees with the measurements rather than
+    with its tolerance section. This cartridge targets the measured values.
+    Building to the 7.025 figure would have put the secondary major 0.077 mm off
+    the measured standard — outside the 0.05 mm interface tolerance.
+
+Defect fixed rather than reproduced
+-----------------------------------
+
+The baseline exposed a `cell_size` parameter over 20–35 mm while the thread
+diameters stayed fixed. Only 25 mm produced valid geometry: at 20 mm the Ø22.54
+bore exceeded the cell and fragmented the plate into 25 separate bodies; at
+35 mm the result was non-manifold with 52 bodies. This cartridge keeps the
+parameter — 25 mm IS the interface, and above it the same bores simply sit
+further apart, which is valid geometry — but clamps it at the geometric floor of
+25 mm rather than fragmenting, and `project.json` carries a `severity: error`
+constraint that says so in the UI before a render is queued. Every point in the
+declared range now produces one watertight body, which is the commons standard
+and which the baseline did not meet.

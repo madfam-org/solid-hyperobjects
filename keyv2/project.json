@@ -1,0 +1,257 @@
+{
+  "project": {
+    "name": "Keycap",
+    "slug": "keyv2",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric keycap for mechanical keyboard switches. Five sculpted profile families across four rows, four widths on the 19.05 mm key pitch, Cherry MX / Alps / Box Cherry stems with a printer-fit allowance, a dished top and an optional debossed legend.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una tecla paramétrica para interruptores de teclado mecánico. Cinco familias de perfil esculpido en cuatro filas, cuatro anchos sobre el paso de 19.05 mm, vástagos Cherry MX / Alps / Box Cherry con holgura de impresión, plato cóncavo superior y leyenda grabada opcional.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/keyv2.webp",
+    "difficulty": "intermediate",
+    "tags": ["keyboard", "keycap", "mechanical", "cherry-mx", "hyperobject", "commons"],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [
+        { "project": "MX / Alps / Box stem interfaces (public dimensions)" }
+      ]
+    },
+    "hyperobject": { "is_hyperobject": true },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "keycap",
+      "label": { "en": "Keycap", "es": "Tecla" },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": ["keycap"],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 8,
+        "fn_factor": 64,
+        "wasm_multiplier": 3,
+        "warning_threshold_seconds": 45
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "keycap",
+      "render_mode": 0,
+      "label": { "en": "Keycap", "es": "Tecla" },
+      "color": "#e879f9",
+      "default_color": "#e879f9"
+    }
+  ],
+  "parameter_groups": [
+    { "id": "profile", "key": "profile", "label": { "en": "Profile", "es": "Perfil" } },
+    { "id": "stem", "key": "stem", "label": { "en": "Stem", "es": "Vástago" } },
+    { "id": "legend", "key": "legend", "label": { "en": "Legend", "es": "Leyenda" } },
+    { "id": "geometry", "key": "geometry", "label": { "en": "Geometry", "es": "Geometría" } },
+    { "id": "quality", "key": "quality", "label": { "en": "Quality", "es": "Calidad" } }
+  ],
+  "parameters": [
+    {
+      "id": "profile_id", "type": "slider", "default": 0, "min": 0, "max": 4, "step": 1,
+      "group": "profile", "modes": ["keycap"],
+      "label": {
+        "en": "Profile (0=DCS, 1=DSA, 2=SA, 3=OEM, 4=Cherry)",
+        "es": "Perfil (0=DCS, 1=DSA, 2=SA, 3=OEM, 4=Cherry)"
+      },
+      "tooltip": {
+        "en": "Profile family: sets base height, top face size, tilt and dish shape",
+        "es": "Familia de perfil: define altura base, tamaño de la cara superior, inclinación y forma del plato"
+      }
+    },
+    {
+      "id": "row_id", "type": "slider", "default": 1, "min": 1, "max": 4, "step": 1,
+      "group": "profile", "modes": ["keycap"],
+      "label": { "en": "Row (1-4)", "es": "Fila (1-4)" },
+      "tooltip": {
+        "en": "Sculpted row: adds 0.5 mm of height and 2 degrees of tilt per row away from row 2",
+        "es": "Fila esculpida: añade 0.5 mm de altura y 2 grados de inclinación por fila respecto a la fila 2"
+      }
+    },
+    {
+      "id": "key_size_id", "type": "slider", "default": 0, "min": 0, "max": 3, "step": 1,
+      "group": "profile", "modes": ["keycap"],
+      "label": {
+        "en": "Key Size (0=1u, 1=1.25u, 2=1.5u, 3=2u)",
+        "es": "Tamaño (0=1u, 1=1.25u, 2=1.5u, 3=2u)"
+      },
+      "tooltip": {
+        "en": "Cap width in keyboard units on the 19.05 mm pitch",
+        "es": "Ancho de la tecla en unidades de teclado sobre el paso de 19.05 mm"
+      },
+      "preview_hint": { "type": "axis_scale", "axis": "x", "scale_factor": 1.0 }
+    },
+    {
+      "id": "stem_type_id", "type": "slider", "default": 0, "min": 0, "max": 2, "step": 1,
+      "group": "stem", "modes": ["keycap"],
+      "label": {
+        "en": "Stem (0=Cherry MX, 1=Alps, 2=Box Cherry)",
+        "es": "Vástago (0=Cherry MX, 1=Alps, 2=Box Cherry)"
+      },
+      "tooltip": {
+        "en": "Switch stem type the cap presses onto",
+        "es": "Tipo de vástago del interruptor sobre el que encaja la tecla"
+      }
+    },
+    {
+      "id": "legend_enabled", "type": "checkbox", "default": false,
+      "group": "legend", "modes": ["keycap"],
+      "label": { "en": "Enable Legend", "es": "Activar leyenda" },
+      "tooltip": {
+        "en": "Deboss a text legend into the top face",
+        "es": "Grabar en bajorrelieve una leyenda de texto en la cara superior"
+      }
+    },
+    {
+      "id": "legend_text", "type": "text", "default": "A",
+      "group": "legend", "parent": "legend_enabled", "modes": ["keycap"],
+      "label": { "en": "Legend Text", "es": "Texto de leyenda" },
+      "tooltip": {
+        "en": "Character or short string to engrave (only used when the legend is enabled)",
+        "es": "Carácter o texto corto a grabar (sólo se usa con la leyenda activada)"
+      }
+    },
+    {
+      "id": "font_size", "type": "slider", "default": 6, "min": 3, "max": 10, "step": 0.5,
+      "group": "legend", "advanced": true, "parent": "legend_enabled", "modes": ["keycap"],
+      "label": { "en": "Font Size", "es": "Tamaño de fuente" },
+      "tooltip": {
+        "en": "Legend glyph height in mm (only used when the legend is enabled)",
+        "es": "Altura del glifo de la leyenda en mm (sólo se usa con la leyenda activada)"
+      }
+    },
+    {
+      "id": "dish_depth", "type": "slider", "default": 1, "min": 0, "max": 3, "step": 0.25,
+      "group": "geometry", "advanced": true, "modes": ["keycap"],
+      "label": { "en": "Dish Depth", "es": "Profundidad del plato" },
+      "tooltip": {
+        "en": "Depth of the concave top dish; 0 leaves the top flat",
+        "es": "Profundidad del plato cóncavo superior; 0 deja la parte superior plana"
+      }
+    },
+    {
+      "id": "wall_thickness", "type": "slider", "default": 3, "min": 1.5, "max": 5, "step": 0.25,
+      "group": "geometry", "advanced": true, "modes": ["keycap"],
+      "label": { "en": "Wall Thickness", "es": "Grosor de pared" },
+      "tooltip": {
+        "en": "Skirt wall thickness per side; thickens inward, the outer footprint is unchanged",
+        "es": "Grosor de la pared del faldón por lado; engrosa hacia dentro, la huella exterior no cambia"
+      }
+    },
+    {
+      "id": "keytop_thickness", "type": "slider", "default": 1, "min": 0.5, "max": 2, "step": 0.25,
+      "group": "geometry", "advanced": true, "modes": ["keycap"],
+      "label": { "en": "Keytop Thickness", "es": "Grosor superior" },
+      "tooltip": {
+        "en": "Thickness of the top face; also shortens the stem socket, which stops under the keytop",
+        "es": "Grosor de la cara superior; también acorta el alojamiento del vástago, que termina bajo ella"
+      }
+    },
+    {
+      "id": "stem_slop", "type": "slider", "default": 0.35, "min": 0.1, "max": 0.6, "step": 0.05,
+      "group": "stem", "advanced": true, "modes": ["keycap"],
+      "label": { "en": "Stem Tolerance", "es": "Tolerancia del vástago" },
+      "tooltip": {
+        "en": "Printer fit allowance on the stem socket: Cherry and Box widen the cross by half of it, Alps narrows its socket by all of it",
+        "es": "Holgura de impresión en el alojamiento: Cherry y Box ensanchan la cruz por la mitad, Alps estrecha su alojamiento por el total"
+      }
+    },
+    {
+      "id": "fn", "type": "slider", "default": 0, "min": 0, "max": 64, "step": 8,
+      "group": "quality", "modes": ["keycap"],
+      "label": { "en": "Resolution ($fn, 0=auto)", "es": "Resolución ($fn, 0=auto)" },
+      "tooltip": {
+        "en": "Tessellation hint; the B-Rep kernel is exact, so this only affects the exported mesh density",
+        "es": "Sugerencia de teselado; el núcleo B-Rep es exacto, así que sólo afecta la densidad de la malla exportada"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "cherry_r3_1u", "mode": "keycap",
+      "label": { "en": "Cherry Row 3 (1u)", "es": "Cherry Fila 3 (1u)" },
+      "values": { "profile_id": 0, "row_id": 3, "key_size_id": 0 }
+    },
+    {
+      "id": "dsa_uniform", "mode": "keycap",
+      "label": { "en": "DSA Uniform", "es": "DSA Uniforme" },
+      "values": { "profile_id": 1, "row_id": 1, "key_size_id": 0 }
+    },
+    {
+      "id": "sa_sculpted", "mode": "keycap",
+      "label": { "en": "SA Sculpted Row 3", "es": "SA Esculpido Fila 3" },
+      "values": { "profile_id": 2, "row_id": 3, "key_size_id": 0 }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "wall_thickness <= 5",
+      "severity": "warning",
+      "message": {
+        "en": "A thick wall on a 1u cap leaves little interior for the stem",
+        "es": "Una pared gruesa en una tecla 1u deja poco interior para el vástago"
+      }
+    },
+    {
+      "expression": "keytop_thickness >= 0.5",
+      "severity": "error",
+      "message": {
+        "en": "The keytop must be at least 0.5 mm thick",
+        "es": "La cara superior debe tener al menos 0.5 mm de grosor"
+      }
+    }
+  ],
+  "camera_views": [
+    { "id": "iso", "label": { "en": "Isometric", "es": "Isométrico" }, "position": [25, 25, 25] },
+    { "id": "top", "label": { "en": "Top", "es": "Superior" }, "position": [0, 0, 40] },
+    { "id": "front", "label": { "en": "Front", "es": "Frontal" }, "position": [0, -40, 10] },
+    { "id": "right", "label": { "en": "Right", "es": "Derecha" }, "position": [40, 0, 10] }
+  ],
+  "export_formats": ["stl", "3mf", "step", "off", "glb", "obj"],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 64,
+    "wasm_multiplier": 3,
+    "warning_threshold_seconds": 45
+  },
+  "hyperobject": {
+    "domain": "electronics",
+    "cdg_interfaces": [
+      {
+        "id": "keyboard_key_pitch",
+        "label": { "en": "Keyboard Key Pitch", "es": "Paso de Tecla de Teclado" },
+        "geometry_type": "grid",
+        "standard": "19.05 mm key pitch",
+        "parameters": ["key_size_id"]
+      },
+      {
+        "id": "switch_stem_socket",
+        "label": { "en": "Switch Stem Socket", "es": "Alojamiento del Vástago" },
+        "geometry_type": "socket",
+        "standard": "Cherry MX / Alps / Box Cherry stem dimensions",
+        "parameters": ["stem_type_id", "stem_slop", "keytop_thickness"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A worn or missing keycap is a common reason a working keyboard is discarded. A cap printed to the same key pitch and stem socket keeps the board in service, and lets a user shape a key to their own hand or mark it for their own sight.",
+      "es": "Una tecla gastada o perdida es una razón común para desechar un teclado que funciona. Una tecla impresa con el mismo paso y alojamiento mantiene el teclado en servicio, y permite adaptar una tecla a la propia mano o marcarla para la propia vista."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": ["keyboard", "keycap", "mechanical", "cherry-mx", "electronics", "hyperobject", "commons"]
+}

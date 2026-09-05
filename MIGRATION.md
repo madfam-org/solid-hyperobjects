@@ -154,6 +154,14 @@ meshes), authored without access to the removed sources. None of the five is a
 Fashion Cabinet bridge target (checked against `yantra4d-hardware.snapshot.json`
 and `yantra4d-consumers.json`: zero references).
 
+**`keyv2` returned 2026-09-04**, clean-room, as a CadQuery cartridge authored
+from the recorded baseline pack alone. Same slug, same mode/part/parameter ids,
+same ranges, defaults and presets, so saved configurations keep resolving. One
+intentional divergence from the baseline is recorded in the cartridge's
+`docs/CLEANROOM-VERIFICATION.md`: the baseline's default keycap exported as two
+disjoint solids (the stem stood free inside the shell), and the re-creation
+fuses the stem to the keytop so every variant is one printable body.
+
 ### `gridfinity` (ADR-021, 2026-09-04)
 
 Removed the GPL-lineage OpenSCAD side only: modes `cup`, `baseplate_scad`, `lid`
@@ -167,3 +175,15 @@ removed OpenSCAD baseplate, on its parameter ids). Kept: `main.py` (CadQuery
 the SDK wrapper; 10 parameters remain (the CadQuery set), 27 OpenSCAD-side
 parameters went with their modes. The studio fallback manifest in yantra4d is regenerated from this
 manifest by the platform lane.
+
+### `libs/*` gitlinks (2026-09-04, coordinator)
+
+`.gitmodules` declared the six third-party OpenSCAD libraries but no gitlink was
+tracked (found by lanes R1 and Cg: `git submodule update --init` was a no-op).
+Added the six gitlinks at the platform's pinned commits (BOSL2 `fcfce7c7`,
+MCAD `bd0a7ba3`, NopSCADlib `c9baa0ed`, Round-Anything `061fef7c`, dotSCAD
+`bb33edfd`, threads-scad `4ae9aeb3`). Note the still-open include-path issue:
+cartridges include `../../libs/…` relative to `projects/<slug>/`, which resolves
+one level ABOVE this repository's root when rendered standalone — the commons CI
+renders through a `projects/`-shaped scaffold until the include form is ruled
+(internal-devops checklist G10).

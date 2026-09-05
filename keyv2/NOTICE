@@ -1,0 +1,36 @@
+NOTICE — provenance
+===================
+
+Keycap (`keyv2`)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+Clean-room provenance
+---------------------
+
+This cartridge was re-created from a recorded final-result baseline without
+access to the prior implementation or its upstream. The implementer worked from
+a specification pack — a manifest contract, measured dimensions, and reference
+meshes — and from published mechanical dimensions only; no prior source, no
+upstream source, and no derived code was read at any point.
+
+It implements published mechanical interfaces:
+
+  - the 19.05 mm keyboard key pitch, with a 0.5 mm per-side inter-cap gap
+    (18.05 mm across a 1u cap, 37.10 mm across a 2u cap);
+  - the Cherry MX stem: a 5.5 mm outer-diameter post carrying a cross socket of
+    4.1 mm nominal arm length by 1.17 mm nominal arm width, widened by half the
+    printer-fit allowance;
+  - the Alps stem: a 4.5 x 3.2 mm post with a 3.2 x 1.2 mm socket, narrowed by
+    the full printer-fit allowance;
+  - the Box Cherry stem: a 6.0 mm square post carrying the same cross socket.
+
+A mechanical interface dimension is not code. The profile silhouettes, the dish
+curvature, the shell construction, the stem-to-keytop fusion and its support
+ribs, and the legend deboss are MADFAM's own authoring.
+
+See `docs/CLEANROOM-VERIFICATION.md` for the acceptance evidence and for the one
+intentional divergence from the recorded baseline (body count).
+
+The slug `keyv2` is retained so existing catalog references and saved
+configurations keep resolving; it names this cartridge, not any prior work.

@@ -81,14 +81,26 @@ def build_jar_opener():
     body = outer
 
     # Interior stepped bore: cut cylinders of decreasing diameter, bottom→top.
+    #
+    # Each bore must leave `wall` of frustum around it over its WHOLE span. The
+    # outer radius shrinks with z, so the binding point is the top of the step:
+    # step 0's bore was lid_max/2 = 42.50 against a cone that has already
+    # narrowed to 40.88 by z = 16, so it removed the entire wall there and cut
+    # the bottom ring free (jar_opener rendered 2 bodies at defaults and at
+    # wide_range_jar, 3 at big_lids).
     for i in range(steps):
         # step i spans z in [i*grip_h, (i+1)*grip_h]; diameter decreases upward.
         t = i / max(1, steps - 1)
         d = lid_max + (lid_min - lid_max) * t
+        z1 = (i + 1) * grip_h
+        r_at_top = r_bot + (r_top - r_bot) * (z1 / total_h)
+        r_cut = min(d / 2.0, r_at_top - wall)
+        if r_cut <= 0.5:
+            continue
         cutter = (
             cq.Workplane("XY")
             .transformed(offset=cq.Vector(0, 0, i * grip_h))
-            .circle(d / 2.0)
+            .circle(r_cut)
             .extrude(grip_h + (0.0 if i == steps - 1 else 0.1))
         )
         body = body.cut(cutter)
