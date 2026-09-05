@@ -110,21 +110,44 @@ def _stacking_lip(body):
     lip_w = inner_w - 2.0 * lip_clear
     lip_d = inner_d - 2.0 * lip_clear
     lip_wall = max(1.2, wall - 0.4)
-    # Raised ring on the rim (only around back/left/right — leave the open front).
-    ring_outer = _box(lip_w, lip_d, lip, 0.0, 0.0, outer_h)
-    ring_inner = _box(lip_w - 2.0 * lip_wall, lip_d - 2.0 * lip_wall, lip + 1.0,
-                      0.0, 0.0, outer_h - 0.5)
-    ring = ring_outer.cut(ring_inner)
+    LIP_BITE = 0.5
+
+    # Raised ring on the rim (only around back/left/right - leave the open
+    # front). The ring's OUTER face is inset by lip_clear so it nests into the
+    # bin above, which puts it INSIDE the cavity opening (inner_w); a ring drawn
+    # inward from there hangs over the void and fuses to nothing. Build it as
+    # the rim carried upward -- outer footprint, inner_w x inner_d bore -- then
+    # shave the outside back to the nesting footprint above the rim.
+    upstand = _box(outer_w, outer_d, lip + LIP_BITE, 0.0, 0.0, outer_h - LIP_BITE)
+    bore = _box(inner_w, inner_d, lip + LIP_BITE + 2.0,
+                0.0, 0.0, outer_h - LIP_BITE - 1.0)
+    nest_clear = _box(outer_w + 2.0, outer_d + 2.0, lip + 1.0, 0.0, 0.0, outer_h)
+    nest_keep = _box(lip_w, lip_d, lip + 1.0, 0.0, 0.0, outer_h)
+    ring = upstand.cut(bore).cut(nest_clear.cut(nest_keep))
     # Trim the ring's front so it doesn't block the open front.
-    ring = ring.cut(_box(lip_w + 2.0, wall * 2.5, lip + 2.0, 0.0, FRONT_Y + wall, outer_h - 0.5))
+    ring = ring.cut(_box(outer_w + 2.0, wall * 2.5, lip + LIP_BITE + 2.0,
+                         0.0, FRONT_Y + wall, outer_h - LIP_BITE - 1.0))
     body = body.union(ring)
 
-    # Underside recess so the lip of the bin below can enter.
-    recess = _box(lip_w + 2.0 * lip_clear, lip_d + 2.0 * lip_clear, lip + lip_clear,
-                  0.0, 0.0, -0.01)
-    recess_keep = _box(lip_w + 2.0 * lip_clear - 2.0 * (lip_wall + lip_clear),
-                       lip_d + 2.0 * lip_clear - 2.0 * (lip_wall + lip_clear),
-                       lip + lip_clear + 1.0, 0.0, 0.0, -0.01)
+    # Underside recess so the lip of the bin below can enter. It must NOT reach
+    # the cavity edge (inner_w/2): a groove that wide cut the floor slab free of
+    # the side walls, which is what made the bin render as three bodies. Keep
+    # RECESS_KEEP of floor-to-wall material outboard of the groove.
+    # Underside recess so the lip of the bin below can enter. Two bounds matter:
+    # it must not reach the cavity edge (inner_w/2) laterally, and it must stay
+    # SHALLOWER than the floor (`wall`). At defaults the groove was
+    # lip + lip_clear = 4.4 mm deep into a 2.0 mm floor, so it cut straight
+    # through and severed the floor slab from the walls -- the bin rendered as
+    # three bodies. Clamp both.
+    RECESS_KEEP = 0.6
+    RECESS_FLOOR = 0.8       # floor material left under the recess
+    rec_out = min(lip_w + 2.0 * lip_clear, inner_w - 2.0 * RECESS_KEEP)
+    rec_out_d = min(lip_d + 2.0 * lip_clear, inner_d - 2.0 * RECESS_KEEP)
+    rec_h = max(0.2, min(lip + lip_clear, wall - RECESS_FLOOR))
+    recess = _box(rec_out, rec_out_d, rec_h, 0.0, 0.0, -0.01)
+    recess_keep = _box(max(0.2, rec_out - 2.0 * (lip_wall + lip_clear)),
+                       max(0.2, rec_out_d - 2.0 * (lip_wall + lip_clear)),
+                       rec_h + 1.0, 0.0, 0.0, -0.01)
     body = body.cut(recess.cut(recess_keep))
     return body
 
