@@ -8,7 +8,7 @@
 //   openscad -o exploded.stl rubiks_exploded.scad
 //   openscad -o exploded.stl -D "explode_factor=150" rubiks_exploded.scad
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 /* [Puzzle Grid] */
 N = is_undef(N) ? 3 : N;

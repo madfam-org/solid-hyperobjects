@@ -2,7 +2,7 @@
 // Inner sphere with stem, outer socket shell with opening
 // Requires adequate clearance for print-in-place articulation
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 socket_diameter = 15;   // mm — inner diameter of the socket

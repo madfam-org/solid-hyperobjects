@@ -16,7 +16,7 @@ use <box.scad>
 use <aocl_lib.scad>
 
 // "include" brings in an external library entirely (BOSL2 here provides advanced shapes if needed).
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // --- Configuration Parameters ---
 

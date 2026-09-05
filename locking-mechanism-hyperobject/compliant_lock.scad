@@ -1,6 +1,6 @@
 // Parametric Compliant Bistable Locking Mechanism — Engineered for AM
 // Yantra4D — Locking Mechanism Hyperobject
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 latch_width = 15;

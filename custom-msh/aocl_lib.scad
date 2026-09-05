@@ -16,7 +16,7 @@
  */
 
 // Import the BOSL2 standard library for advanced 3D geometry manipulation
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // --- AOCL Standard Defaults ---
 // Shared constants as functions so `use <aocl_lib.scad>` imports them.

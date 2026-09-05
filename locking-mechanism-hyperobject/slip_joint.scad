@@ -1,5 +1,5 @@
 // Slip Joint Monolithic Spring Check
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 latch_width = 15;
 material_modulus = 1.5;

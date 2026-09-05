@@ -1,4 +1,4 @@
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters — defaults are project.json's declared defaults.
 // face_pattern used to default to "prismatic" (which is not one of the

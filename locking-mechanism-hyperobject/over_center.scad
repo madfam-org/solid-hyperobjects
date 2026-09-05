@@ -1,6 +1,6 @@
 // Parametric Over-Center Linkage Lock — Engineered for AM
 // Yantra4D — Locking Mechanism Hyperobject
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 lever_length = 30;

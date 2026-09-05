@@ -12,7 +12,7 @@
 //   openscad -o mechanism.stl -D "render_mode=3" mechanism.scad   # edge cubie
 //   openscad -o mechanism.stl -D "render_mode=4" mechanism.scad   # corner cubie
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 /* [Puzzle Grid] */
 N = is_undef(N) ? 3 : N;

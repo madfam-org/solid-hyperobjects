@@ -99,31 +99,22 @@ not a file-by-file diff.
   `gridfinity/gridfinity_extended`; the satellite's own nested `.gitmodules`
   (whose relative path git never reads at a nested level) was removed.
 
-## Known issue carried over: `../../libs/` include paths
+## Resolved: library includes now resolve through `OPENSCADPATH`
 
-50 `.scad` files across 22 cartridges contain `include <../../libs/…>`. That
-path is correct at `projects/<slug>/` in the platform, where it resolves to
-`<repo>/libs/`. Here, at `<slug>/`, it resolves to this repository's **parent**
-directory.
+Cartridge `.scad` files used to carry `include <../../libs/…>`. That path is
+correct at `projects/<slug>/` in the platform, where it resolves to
+`<repo>/libs/`; here, at `<slug>/`, it resolved to this repository's **parent**
+directory, and OpenSCAD does **not** fall back to `OPENSCADPATH` for an explicit
+relative include — it emits `WARNING: Can't find include file …` and exits 1.
 
-This was verified, not assumed: OpenSCAD does **not** fall back to
-`OPENSCADPATH` for an explicit relative include — it emits
-`WARNING: Can't find include file '../../libs/BOSL2/std.scad'` and exits 1.
-`y4d-spec` already reports these as notes (61 of them), for exactly this reason.
-
-Rendering these cartridges standalone in this repo therefore needs a `libs/`
-tree one level **above** the checkout, or the includes rewritten to `../libs/`
-(which was verified to work, together with a bare `include <BOSL2/std.scad>`
-resolved through `OPENSCADPATH`). Rewriting 50 cartridge source files is a
-content change, and it would break the platform's own layout when it mounts
-this repo at `projects/`, so it is **left for an operator decision** rather than
-taken here.
-
-Two cartridges additionally reach for the platform's own in-tree libraries —
-`framing-hyperobject` (`libs/scad_core`, `libs/yantra4d`) and `fasteners`
-(`libs/scad_core`, and `libs.cq_core` via `sys.path`). Those 193 lines are
-AGPL-3.0 platform code; vendoring them into a CERN-OHL-W-2.0 commons is a
-licensing decision, so it is **not** taken here either.
+Under operator ruling **G10** (2026-09-05) every one of those includes was
+rewritten to the library-path form (`include <BOSL2/std.scad>`), which OpenSCAD
+resolves against `OPENSCADPATH`. That works in **both** layouts without a
+sibling checkout: the commons CI sets `OPENSCADPATH` to this repo's own `libs/`,
+and the platform worker's `VIRTUAL_OPENSCADPATH` already lists `/libs`. 53
+include lines across 43 files in 17 cartridges were rewritten. Files under
+`maze/` are excluded — that cartridge already uses the library-path form for
+dotSCAD.
 
 ## Post-extraction cleanup (2026-09-04, coordinator)
 
@@ -182,8 +173,7 @@ manifest by the platform lane.
 tracked (found by lanes R1 and Cg: `git submodule update --init` was a no-op).
 Added the six gitlinks at the platform's pinned commits (BOSL2 `fcfce7c7`,
 MCAD `bd0a7ba3`, NopSCADlib `c9baa0ed`, Round-Anything `061fef7c`, dotSCAD
-`bb33edfd`, threads-scad `4ae9aeb3`). Note the still-open include-path issue:
-cartridges include `../../libs/…` relative to `projects/<slug>/`, which resolves
-one level ABOVE this repository's root when rendered standalone — the commons CI
-renders through a `projects/`-shaped scaffold until the include form is ruled
-(internal-devops checklist G10).
+`bb33edfd`, threads-scad `4ae9aeb3`). Under operator ruling G10 (2026-09-05)
+cartridges now include those libraries by library path (`include
+<BOSL2/std.scad>`), resolved against `OPENSCADPATH` — which the commons CI
+points at this `libs/` tree — so no `projects/`-shaped scaffold is needed.

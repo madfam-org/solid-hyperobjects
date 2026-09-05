@@ -22,7 +22,7 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: 74c11e3e996b9e7f3ce569a81889efb7fd909eb1
+  SPEC_PIN: 9c2b341fc1fb084ab05e9010cbe7d12761885b99
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
@@ -175,13 +175,18 @@ jobs:
 
       - name: y4d-spec check --render
         env:
-          # OpenSCAD cartridges resolve their includes from the pinned libs/ tree.
-          OPENSCADPATH: ${{ github.workspace }}/libs
+          # OpenSCAD cartridges resolve their includes from the pinned libs/ tree
+          # and from this repo's own first-party commons-lib/ (ruling G11).
+          # --require-openscad (spec 9c2b341f): the runner image ships OpenSCAD
+          # 2026.02.01 (enclii #513/#514), so a missing binary is a failure, never
+          # a skip — OpenSCAD cartridges are now verified here, not only locally.
+          OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           rc=0
           for slug in ${{ matrix.group }}; do
             echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
-            .venv/bin/y4d-spec check "./$slug" --render -v || rc=1
+            .venv/bin/y4d-spec check "./$slug" --render --require-openscad \
+              --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v || rc=1
             echo "::endgroup::"
           done
           exit $rc
@@ -234,8 +239,9 @@ jobs:
 
       - name: y4d-spec check --render (every cartridge)
         env:
-          OPENSCADPATH: ${{ github.workspace }}/libs
+          OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
           echo "cartridges: $(echo $dirs | wc -w)"
-          .venv/bin/y4d-spec check $dirs --render -v
+          .venv/bin/y4d-spec check $dirs --render --require-openscad \
+            --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v

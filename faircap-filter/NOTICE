@@ -47,8 +47,8 @@ BOSL2 (The Belfry OpenSCAD Library v2)
   Source:    https://github.com/BelfrySCAD/BOSL2
   Author:    Revar Desmera and contributors
   License:   BSD 2-Clause License
-  Usage:     `include <../../libs/BOSL2/std.scad>` and
-             `include <../../libs/BOSL2/threading.scad>` in faircap.scad.
+  Usage:     `include <BOSL2/std.scad>` and
+             `include <BOSL2/threading.scad>` in faircap.scad.
   Form:      Not vendored. BOSL2 is resolved at render time from the build
              environment's library path; no BOSL2 source code is distributed
              in this repository.

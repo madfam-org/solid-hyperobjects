@@ -24,6 +24,6 @@ Upstream attribution:
   contributors — licensed under the BSD 2-Clause License. Used for solids and
   the PCO-1881 threading (`std.scad`, `threading.scad`). BOSL2 is **not
   vendored** in this repository; it is resolved at render time from
-  `../../libs/BOSL2` on the build environment's library path.
+  BOSL2 on the build environment's library path.
 
 See [NOTICE](NOTICE) for the full third-party attribution list.
