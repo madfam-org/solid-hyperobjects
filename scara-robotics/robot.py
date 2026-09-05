@@ -62,7 +62,7 @@ def circular_spline(pitch_diam, num_teeth, tooth_w, tooth_h, thickness):
 
 def build(params, part="all"):
     num_teeth = int(params.get('num_teeth', 100))
-    gear_module = float(params.get('module', 0.5))
+    gear_module = float(params.get('gear_module', 0.5))
     bore_diameter = float(params.get('bore_diameter', 5.0))
     
     flex_teeth = num_teeth - 2

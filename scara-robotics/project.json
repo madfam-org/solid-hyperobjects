@@ -270,7 +270,7 @@
             "group": "gear_spec"
         },
         {
-            "id": "module",
+            "id": "gear_module",
             "type": "slider",
             "default": 0.5,
             "min": 0.2,
