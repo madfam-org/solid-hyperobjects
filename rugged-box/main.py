@@ -410,11 +410,25 @@ def foot_pockets(z0):
 
 
 def foot_positions():
-    """Where the four feet sit — inset from the shell corners by the stacking gap."""
-    inset_x = max(feetLengthMm / 2.0 + boxGapMm, corner_r + feetLengthMm / 2.0)
-    inset_y = max(feetwidthMm / 2.0 + boxGapMm, corner_r + feetwidthMm / 2.0)
-    hx = max(1.0, shell_x / 2.0 - inset_x)
-    hy = max(1.0, shell_y / 2.0 - inset_y)
+    """Where the four feet sit — inset from the shell corners by the stacking gap.
+
+    The four pads must stay APART. Clamping each half-spacing at a bare 1.0 mm
+    let the two rows overlap on a small box with a large corner radius (the
+    `small-rounded-50x30` preset: a 36 mm deep shell with a 15 mm corner leaves
+    only 1 mm of half-spacing for a 4 mm wide pad). Two intersecting solids in a
+    compound export as a non-watertight mesh, so the floor here is half the pad
+    size plus a real gap, and the pads are pulled inward rather than allowed to
+    collide.
+    """
+    L = max(2.0, feetLengthMm)
+    W = max(1.5, feetwidthMm)
+    # Never closer than the pad's own size plus a printable gap.
+    min_hx = L / 2.0 + 0.6
+    min_hy = W / 2.0 + 0.6
+    inset_x = max(L / 2.0 + boxGapMm, corner_r + L / 2.0)
+    inset_y = max(W / 2.0 + boxGapMm, corner_r + W / 2.0)
+    hx = max(min_hx, shell_x / 2.0 - inset_x)
+    hy = max(min_hy, shell_y / 2.0 - inset_y)
     return [(-hx, -hy), (hx, -hy), (-hx, hy), (hx, hy)]
 
 

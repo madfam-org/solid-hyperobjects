@@ -103,7 +103,20 @@ default)` idiom reads the injected global directly.
 
 ## 5. Resizing proof
 
-<!-- RESIZE-TABLE -->
+`internalBoxWidthXMm` set to 20, 100 and 300, mode `bottom`, everything else at
+its default. The baseline produced a 106 mm external X for all three.
+
+| `internalBoxWidthXMm` | Measured shell bbox (X, Y, Z) mm | Volume mm³ | Watertight | Bodies |
+| --: | :-- | --: | :-- | --: |
+| 20 | 29.2 × 78.9 × 27.0 | 19 536.44 | yes | 1 |
+| 100 | 109.2 × 78.9 × 27.0 | 46 276.05 | yes | 1 |
+| 300 | 309.2 × 78.9 × 27.0 | 108 564.32 | yes | 1 |
+
+Three inputs, three distinct shell widths. Each is the payload width plus
+2 × `boxWallWidthMm` (the shell) plus 2 × 1.6 mm (the corner pilasters, which
+stand proud of the belt): 100 + 6 + 3.2 = 109.2 mm at defaults.
+
+Reproduce with `docs/verify_parameters.py resize`.
 
 ## 6. Parameter effectiveness
 
