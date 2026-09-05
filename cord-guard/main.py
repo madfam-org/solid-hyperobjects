@@ -128,17 +128,26 @@ def build_corner_guard():
     )
     body = solid.cut(cv.union(ch))
 
-    # Lay-in slot on each arm (a through cross-slit at the channel level), so a
-    # cable already routed through the corner can drop into the guard.
+    # Lay-in slot on each arm (a cross-slit at the channel level), so a cable
+    # already routed through the corner can drop into the guard.
+    #
+    # These slots must be INSET from the free end of each arm by `wall`. Run to
+    # the very end and the slot frees the outer wall beyond it: the vertical
+    # slot used to span z in [wall + sq_bore/2, +arm] past the arm top and the
+    # horizontal slot the whole y in [0, arm], both `sq_out + 2` wide in X, so
+    # corner_guard rendered 2 bodies. An end-cap of one wall keeps the two
+    # halves tied together while still letting the cable be laid in.
+    v_len = max(1.0, arm - (wall + sq_bore / 2.0) - wall)
     sv = (
         cq.Workplane("XY")
-        .box(sq_out + 2.0, SPLIT_W, arm, centered=(True, True, False))
+        .box(sq_out + 2.0, SPLIT_W, v_len, centered=(True, True, False))
         .translate((0, 0, wall + sq_bore / 2.0))
     )
+    h_len = max(1.0, arm - wall)
     sh = (
         cq.Workplane("XY")
-        .box(sq_out + 2.0, arm, SPLIT_W, centered=(True, True, False))
-        .translate((0, arm / 2.0, wall + sq_bore / 2.0))
+        .box(sq_out + 2.0, h_len, SPLIT_W, centered=(True, True, False))
+        .translate((0, h_len / 2.0, wall + sq_bore / 2.0))
     )
     try:
         body = body.cut(sv.union(sh))
