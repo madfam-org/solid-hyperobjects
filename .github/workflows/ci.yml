@@ -22,7 +22,7 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: cb19e515c4d9b6a603e7d3863a7e6027e6877c59
+  SPEC_PIN: 308efae80b0e8d03d6e4d018d2d9c1ebce9406d6
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
@@ -82,10 +82,11 @@ jobs:
           base="${{ github.event.pull_request.base.sha }}"
           head="${{ github.event.pull_request.head.sha }}"
           # Top-level directory of every changed path that is a cartridge.
+          git cat-file -e "$base^{commit}" || { echo "::error title=base unreachable::PR base $base is not in this checkout (fetch-depth); the render lane cannot diff"; exit 1; }
           slugs=$(git diff --name-only "$base" "$head" \
             | awk -F/ 'NF>1 {print $1}' \
             | sort -u \
-            | while read -r d; do [ -f "$d/project.json" ] && echo "$d"; done)
+            | while read -r d; do if [ -f "$d/project.json" ]; then echo "$d"; fi; done) || true
           echo "slugs<<EOF" >> "$GITHUB_OUTPUT"
           echo "$slugs" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"

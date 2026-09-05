@@ -167,3 +167,15 @@ removed OpenSCAD baseplate, on its parameter ids). Kept: `main.py` (CadQuery
 the SDK wrapper; 10 parameters remain (the CadQuery set), 27 OpenSCAD-side
 parameters went with their modes. The studio fallback manifest in yantra4d is regenerated from this
 manifest by the platform lane.
+
+### `libs/*` gitlinks (2026-09-04, coordinator)
+
+`.gitmodules` declared the six third-party OpenSCAD libraries but no gitlink was
+tracked (found by lanes R1 and Cg: `git submodule update --init` was a no-op).
+Added the six gitlinks at the platform's pinned commits (BOSL2 `fcfce7c7`,
+MCAD `bd0a7ba3`, NopSCADlib `c9baa0ed`, Round-Anything `061fef7c`, dotSCAD
+`bb33edfd`, threads-scad `4ae9aeb3`). Note the still-open include-path issue:
+cartridges include `../../libs/…` relative to `projects/<slug>/`, which resolves
+one level ABOVE this repository's root when rendered standalone — the commons CI
+renders through a `projects/`-shaped scaffold until the include form is ruled
+(internal-devops checklist G10).
