@@ -42,8 +42,14 @@ jobs:
           .venv/bin/python -m pip install --upgrade pip
           .venv/bin/pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
 
-      - name: y4d-spec check ./*/ -v
-        run: .venv/bin/y4d-spec check ./*/ -v
+      - name: y4d-spec check (every cartridge)
+        # NOT `./*/`: that glob also picks up libs/ (a submodule mount point with
+        # no project.json), which y4d-spec correctly fails as "not a cartridge".
+        # Pass only the directories that carry a manifest.
+        run: |
+          dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
+          echo "cartridges: $(echo $dirs | wc -w)"
+          .venv/bin/y4d-spec check $dirs -v
 
   # Geometry is expensive, so on a pull request it runs only for the cartridges
   # the PR actually touched. The nightly sweep is what covers the rest.
@@ -152,7 +158,10 @@ jobs:
           .venv/bin/python -c "import cadquery" || {
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
 
-      - name: y4d-spec check ./*/ --render -v
+      - name: y4d-spec check --render (every cartridge)
         env:
           OPENSCADPATH: ${{ github.workspace }}/libs
-        run: .venv/bin/y4d-spec check ./*/ --render -v
+        run: |
+          dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
+          echo "cartridges: $(echo $dirs | wc -w)"
+          .venv/bin/y4d-spec check $dirs --render -v
