@@ -76,12 +76,22 @@ def bore_cutter(length):
     cutter = cq.Workplane("XY").circle(bore_r).extrude(length + 2.0).translate((0, 0, -1.0))
 
     if bore_type == "dflat":
-        # D-flat: shave a chord off the round bore. Flat sits at ~0.8·radius.
+        # D-flat: shave a chord off the round bore. Flat sits at ~0.8*radius.
+        #
+        # The slab must reach only just past the bore. The old box was
+        # bore_dia * 2 on a side and centred at flat_at + bore_dia, so it swept
+        # x in [flat_at, flat_at + 2*bore_dia] by y in [-bore_dia, bore_dia] --
+        # a 20 mm swathe at defaults that cut clean through the crank arm and
+        # severed it from the hub (`crank` rendered as two bodies under preset
+        # valve_crank, the only preset selecting bore_type "dflat"). Bound the
+        # slab to the bore itself: it starts at the flat and ends a hair beyond
+        # bore_r, so it can only ever remove bore material.
         flat_at = bore_r * 0.8
+        slab_len = max(0.1, bore_r + 0.5 - flat_at)
         slab = (
             cq.Workplane("XY")
-            .box(bore_dia * 2.0, bore_dia * 2.0, length + 4.0, centered=(True, True, True))
-            .translate((flat_at + bore_dia, 0, length / 2.0))
+            .box(slab_len, bore_dia + 1.0, length + 4.0, centered=(True, True, True))
+            .translate((flat_at + slab_len / 2.0, 0, length / 2.0))
         )
         cutter = cutter.union(slab)
     elif bore_type == "keyway":
