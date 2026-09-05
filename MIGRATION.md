@@ -136,7 +136,9 @@ licensing decision, so it is **not** taken here either.
   caller workflows (the `validate-and-audit` callers of yantra4d's
   `project-ci-reusable.yml`) were already stripped from every satellite's
   history before absorption; none remain (`git grep project-ci-reusable` = 0).
-- Still open: `glia-diagnostic/BOSL2/` itself is a full vendored copy of the
-  BOSL2 library (BSD-2), duplicating `libs/BOSL2`; dropping it in favour of an
-  `OPENSCADPATH` include is a cartridge content change and belongs with the
-  relative-include ruling (internal-devops checklist G10).
+- Removed `glia-diagnostic/BOSL2/` (148 files, 11 MB): a full vendored copy of
+  the BOSL2 library (BSD-2) that nothing referenced — `diagnostic.scad`
+  includes `../../libs/BOSL2/std.scad` (the shared `libs/` submodule), and the
+  only other mention is a comment. Not a geometry change; the copy stays in
+  history. The satellite and yantra4d `main` still carry it; the platform's
+  pin to this repo drops it there too.
