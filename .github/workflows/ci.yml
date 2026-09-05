@@ -130,18 +130,24 @@ jobs:
         with:
           submodules: recursive
 
-      - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
+      - name: System libraries for the CAD kernel (libGL + libXrender for OCP, fonts for text)
         # OCP's C extension links against X and GL at import. libgl1 alone is
         # not enough: nothing in its dependency tree pulls libXrender.so.1,
-        # which VTK's renderer asks for. Never fails the job on its own — the
-        # install step below is where a missing library becomes visible.
+        # which VTK's renderer asks for. fonts-liberation + fontconfig mirror the
+        # platform image (apps/api/Dockerfile): without ANY font, Workplane.text
+        # raises ("Font_FontMgr: unable to find any font"), every cartridge that
+        # debosses a label degrades to its plain fallback body, and the render
+        # lane either fails the mode as "renders the fallback body" or — worse —
+        # passes geometry with the text silently missing. Never fails the job on
+        # its own — the install step below is where a missing library becomes
+        # visible.
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
             APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
             timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
             $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
-              libgl1 libglib2.0-0 libxrender1 \
+              libgl1 libglib2.0-0 libxrender1 fonts-liberation fontconfig \
               || echo "::warning::could not install the CAD kernel's system libraries"
           else
             echo "::warning::apt-get unavailable on this runner"
@@ -193,14 +199,14 @@ jobs:
         with:
           submodules: recursive
 
-      - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
+      - name: System libraries for the CAD kernel (libGL + libXrender for OCP, fonts for text)
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
             APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
             timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
             $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
-              libgl1 libglib2.0-0 libxrender1 \
+              libgl1 libglib2.0-0 libxrender1 fonts-liberation fontconfig \
               || echo "::warning::could not install the CAD kernel's system libraries"
           else
             echo "::warning::apt-get unavailable on this runner"
