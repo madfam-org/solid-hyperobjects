@@ -1,8 +1,8 @@
 // Yantra4D Gear Reducer — Housing Only
 // Renders just the housing parts for print plate layout
 
-include <../../libs/BOSL2/std.scad>
-include <../../libs/BOSL2/gears.scad>
+include <BOSL2/std.scad>
+include <BOSL2/gears.scad>
 
 input_teeth = 12;
 output_teeth = 36;

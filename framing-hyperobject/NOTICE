@@ -1,0 +1,43 @@
+NOTICE — attributions
+=====================
+
+Framing Hyperobject
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+This project uses the following third-party library:
+
+BOSL2 (The Belfry OpenSCAD Library v2)
+  Source:    https://github.com/BelfrySCAD/BOSL2
+  Author:    Revar Desmera and contributors
+  License:   BSD 2-Clause License
+  Usage:     `include <BOSL2/std.scad>` in framing.scad, profiles/classic.scad
+             and profiles/industrial.scad.
+  Form:      Not vendored. BOSL2 is resolved at render time from the OpenSCAD
+             library path (OPENSCADPATH); no BOSL2 source code is distributed
+             in this repository.
+
+This project uses the following first-party relicensed helpers:
+
+commons-lib/scad_core.scad (Innovaciones MADFAM)
+  Provides:  y4d_vesa_pattern (with vesa_spec), y4d_standoff_set (with
+             y4d_standoff_barrel), y4d_french_cleat
+  Usage:     `include <commons-lib/scad_core.scad>` in framing.scad.
+  Origin:    Originally published under AGPL-3.0 in madfam-org/yantra4d as
+             libs/scad_core/core.scad and libs/yantra4d/cdg_interfaces.scad.
+  License:   Relicensed by the rights holder (Innovaciones MADFAM) under
+             CERN-OHL-W-2.0 on 2026-09-05, per operator ruling G11, so this
+             cartridge no longer depends on AGPL-3.0 platform code at render
+             time. Resolved through OPENSCADPATH from this repository's own
+             commons-lib/ directory.
+
+commons-lib/cq_core.py (Innovaciones MADFAM)
+  Provides:  cdg_french_cleat
+  Usage:     framing.py carries a self-contained INLINE copy of this function —
+             the CadQuery render sandbox blocks `sys`, `os` and `importlib`, so
+             a cartridge cannot import a sibling module. commons-lib/cq_core.py
+             is the licensed canonical text that inline copy tracks.
+  Origin:    Originally published under AGPL-3.0 in madfam-org/yantra4d as
+             libs/yantra4d/cdg_interfaces.py (and libs/cq_core/__init__.py).
+  License:   Relicensed by the rights holder (Innovaciones MADFAM) under
+             CERN-OHL-W-2.0 on 2026-09-05, per operator ruling G11.

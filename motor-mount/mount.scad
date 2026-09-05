@@ -2,7 +2,7 @@
 // Parametric motor bracket for NEMA 17/23/34 stepper motors
 // Uses NopSCADlib dimensions for accurate motor hole patterns
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // --- Parameters (overridden by platform) ---
 nema_size = 17;

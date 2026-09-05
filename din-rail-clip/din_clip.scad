@@ -1,4 +1,4 @@
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 mount_width = 40;

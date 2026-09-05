@@ -2,7 +2,7 @@
 // Two flat leaves connected by a thin flexible web
 // Best printed in PLA (short-term) or TPU (high-cycle)
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 hinge_width     = 30;    // mm — total width of the hinge

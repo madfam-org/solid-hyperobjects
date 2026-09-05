@@ -1,5 +1,5 @@
 // Yantra4D — Tolerance Calibration Comb
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 shrinkage_factor = 0.0;
 material_modulus = 1.5; // Unused geometric, but present for UI compatibility

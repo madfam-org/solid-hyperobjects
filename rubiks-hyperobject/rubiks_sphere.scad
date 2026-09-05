@@ -5,7 +5,7 @@
 // horizontal bands that can rotate independently. The interior holds
 // a core mechanism identical to the cube variant.
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 /* [Puzzle Grid] */
 // Grid size (controls internal segment count)

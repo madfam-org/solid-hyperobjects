@@ -1,8 +1,10 @@
-include <../../libs/BOSL2/std.scad>
-include <../../libs/scad_core/core.scad>
+include <BOSL2/std.scad>
+// The CDG helpers this cartridge calls (y4d_vesa_pattern, y4d_standoff_set,
+// y4d_french_cleat) — relicensed into the commons under CERN-OHL-W-2.0 by
+// operator ruling G11, so this cartridge no longer reaches outside the repo.
+include <commons-lib/scad_core.scad>
 use <profiles/classic.scad>
 use <profiles/industrial.scad>
-include <../../libs/yantra4d/cdg_interfaces.scad>
 use <containers/slabs.scad>
 use <containers/slabs.scad>
 use <containers/capsules.scad>

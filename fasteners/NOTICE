@@ -1,0 +1,36 @@
+NOTICE — attributions
+=====================
+
+Metric Fastener Generator
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+This project uses the following third-party library:
+
+BOSL2 (The Belfry OpenSCAD Library v2)
+  Source:    https://github.com/BelfrySCAD/BOSL2
+  Author:    Revar Desmera and contributors
+  License:   BSD 2-Clause License
+  Usage:     `include <BOSL2/std.scad>` and `include <BOSL2/threading.scad>`
+             in nut.scad; reached transitively from bolt.scad through
+             commons-lib/scad_core.scad.
+  Form:      Not vendored. BOSL2 is resolved at render time from the OpenSCAD
+             library path (OPENSCADPATH); no BOSL2 source code is distributed
+             in this repository.
+
+This project uses the following first-party relicensed helper:
+
+commons-lib/scad_core.scad (Innovaciones MADFAM)
+  Provides:  y4d_standard_thread
+  Usage:     `include <commons-lib/scad_core.scad>` in bolt.scad.
+  Origin:    Originally published under AGPL-3.0 in madfam-org/yantra4d as
+             libs/scad_core/core.scad.
+  License:   Relicensed by the rights holder (Innovaciones MADFAM) under
+             CERN-OHL-W-2.0 on 2026-09-05, per operator ruling G11, so this
+             cartridge no longer depends on AGPL-3.0 platform code at render
+             time. Resolved through OPENSCADPATH from this repository's own
+             commons-lib/ directory.
+
+  The CadQuery side needs no such helper: bolt.py's `create_thread` is a clean
+  rewrite (a single revolved sawtooth profile) that shares no code with the
+  platform's helical-sweep implementation.

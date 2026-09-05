@@ -3,7 +3,10 @@
 # standalone here. Init them with:
 #
 #   git submodule update --init --recursive
-#   export OPENSCADPATH="$PWD/libs"
+#   export OPENSCADPATH="$PWD/libs:$PWD"
+#
+# The second entry is the repository root, so the first-party helpers in
+# commons-lib/ resolve as `include <commons-lib/scad_core.scad>` (ruling G11).
 #
 [submodule "libs/BOSL2"]
 	path = libs/BOSL2
