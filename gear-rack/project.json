@@ -3,6 +3,10 @@
     "name": "Involute Gear Rack",
     "slug": "gear-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A linear involute gear rack that meshes with a spur pinion. Straight trapezoidal teeth inclined at the pressure angle (ISO 53 / DIN 867), with optional back-mounting holes and an optional matching involute pinion for a complete rack-and-pinion set.\n\nOfficial Visualizer and Configurator: Yantra4D",

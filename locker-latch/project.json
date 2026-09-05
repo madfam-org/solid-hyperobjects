@@ -3,6 +3,10 @@
     "name": "Locker Latch",
     "slug": "locker-latch",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Positive latches for RV and boat cabinet doors that stay shut under motion — a cammed or sprung catch, not a friction magnet. The body screws to the frame; a hooked catch engages the door so vibration and heel can't pop it open. Choose a quarter-turn cam, a snap-over spring latch, or a low-profile push catch.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -9,6 +9,10 @@
     "version": "1.0.0",
     "author": "Yantra4D",
     "license": "CERN-OHL-W-2.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "thumbnail": "/projects/implicit-lattice-hyperobject.png",
     "tags": [
       "math",

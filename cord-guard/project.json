@@ -3,6 +3,10 @@
     "name": "Cord Guard",
     "slug": "cord-guard",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Chew-resistant and abrasion sleeves that protect a cable or cord: a straight split sleeve that snaps over an in-place cable, an L-shaped corner guard for where a cord turns a wall corner or table edge, and a flexible spiral wrap that coils around the cable.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Conduit Clip / Spacer",
     "slug": "conduit-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Snap clips and standoffs that hold electrical conduit to a surface. The cradle diameter lands on the real outside diameter of EMT (1/2\", 3/4\", 1\") or metric conduit (16/20/25 mm), and the snap mouth opens just under the OD so the tube clicks in and stays put. Flat-backed snap clip with screw ears, a standoff version that spaces the run off the wall, and a gang rail that routes several parallel runs.\n\nOfficial Visualizer and Configurator: Yantra4D",

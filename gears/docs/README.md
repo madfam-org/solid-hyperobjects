@@ -55,7 +55,7 @@ renders each mode; legacy modes carry an explicit `engine: openscad` override.
 
 **OpenSCAD legacy modes**
 
-- **Spur Gear** (`spur_gear`) — the original MCAD-derived involute spur gear.
+- **Spur Gear** (`spur_gear`) — involute spur gear (ISO 53 / DIN 867 profile).
 - **Herringbone Gear** (`herringbone_gear`) — double-helical (V-tooth) gear that
   cancels axial thrust.
 

@@ -3,6 +3,10 @@
     "name": "Homebrew Crown-Cap Seat",
     "slug": "bottle-capper",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Bottling tools for standard 26 mm crown caps: a hand-capper bell that crimps a cap onto a bottle finish, a bench seat that keeps the bottle aligned under a lever press, and a cap organizer tray. All share one 26 mm crown-cap seat interface.\n\nFood-contact note: geometry only — only the cap seat touches the bottle rim, but food-safe filament and hygiene are the maker's responsibility.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -116,17 +116,20 @@ def build_zip_pull():
         .circle(small_r)
         .extrude(thick)
     )
-    # A connecting bar so the two lobes overlap into one solid.
+    # A connecting bar so the two lobes overlap into one solid. It must be wide
+    # enough to survive the finger loop cut below: at small_r*1.6 the bar was
+    # 7.74 mm across at preset:coat_zip while the loop is loop_dia = 14 mm, so
+    # the loop cut straight through the bar's full width and sliced the pull
+    # apart (5 bodies, one of them inverted, 41923 faces, not watertight).
+    # Give the bar the loop's diameter plus a wall on each side.
+    _BAR_WALL = 2.0
+    bar_w = max(small_r * 1.6, loop_dia + 2.0 * _BAR_WALL)
     bar = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, reach / 2.0, 0))
-        .box(small_r * 1.6, reach + 0.2, thick, centered=(True, True, False))
+        .box(bar_w, reach + 0.2, thick, centered=(True, True, False))
     )
     body = body.union(bar).union(tip)
-    try:
-        body = body.edges(">Z or <Z").fillet(min(1.4, thick * 0.2))
-    except Exception:
-        pass
 
     # Finger loop: a through-hole in the big lobe.
     loop = (
@@ -146,7 +149,15 @@ def build_zip_pull():
         .extrude(thick + 2.0)
     )
     body = body.cut(hook)
-    return body
+
+    # Break the top and bottom edges LAST. This fillet used to run before the
+    # loop and hook cuts, so those cuts sliced the already-rounded edges into
+    # slivers; OCCT does not raise on that, it just returns a bad shape.
+    try:
+        body = body.edges(">Z or <Z").fillet(min(1.4, thick * 0.2))
+    except Exception:
+        pass
+    return body.clean()
 
 
 def build_tab_grip():

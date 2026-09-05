@@ -3,6 +3,10 @@
     "name": "GoPro Ball-Head Mount",
     "slug": "gopro-ballhead",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An angle-adjustable base for the GoPro-style action-cam mount. A ball-and-socket lets the camera tilt to any angle, then a pinch bolt locks it. The ball stud carries a GoPro finger bank so it seats into a GoPro accessory; the socket clamp grips the ball and carries its own GoPro fingers, so a whole articulating mount drops into any GoPro ecosystem. A 1/4-20 variant screws a ball onto a tripod.\n\nOfficial Visualizer and Configurator: Yantra4D",

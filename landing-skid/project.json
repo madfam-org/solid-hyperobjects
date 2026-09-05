@@ -3,6 +3,10 @@
     "name": "Landing Skid",
     "slug": "landing-skid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Printable landing gear for FPV & RC multirotors. A splayed leg drops from the frame to a skid foot, protecting the belly, camera and gimbal on landing. It attaches by clamping around a round arm/boom, or by bolting to a frame plate using the standard square motor bolt pattern. Choose a boom-clamp skid, a bolt-on skid, or a tall gear for camera / cargo clearance.\n\nOfficial Visualizer and Configurator: Yantra4D",

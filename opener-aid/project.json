@@ -3,6 +3,10 @@
     "name": "Opener Aid",
     "slug": "opener-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Grip aids that give leverage and a non-slip hold to hands with limited strength. A stepped cone drops over round jar and bottle lids across a range of diameters, a lever pries crown caps, and a small hook lifts stubborn can tabs. Printable everyday-living aids, not certified medical devices.\n\nOfficial Visualizer and Configurator: Yantra4D",

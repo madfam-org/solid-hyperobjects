@@ -82,7 +82,22 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     params = json.loads(args.params)
-    res = build(params, part=args.part)
+
+    # The part comes from `params["target_part"]` first and only falls back to
+    # `--part`. The platform runner
+    # (apps/api/services/engine/cq_runner.py:50) sets sys.argv to exactly
+    # ["<script>", "--params", <json>, "--out", <path>] and executes the file,
+    # so this block DOES run under the platform -- but `--part` is never among
+    # the arguments it passes, and `args.part` therefore always fell back to
+    # "planter". Both declared parts rendered the planter: the sweep measured
+    # byte-identical volumes for `planter` and `saucer` and a 72 mm AABB gap
+    # against spiral_planter.scad, which dispatches on render_mode correctly.
+    part = params.get("target_part") or args.part
+    res = build(params, part=part)
+
+    # Name the result so the runner's own lookup finds it directly rather than
+    # falling through to its "last CadQuery object created" scan.
+    result = res
 
     if args.out:
         cq.exporters.export(res, args.out)

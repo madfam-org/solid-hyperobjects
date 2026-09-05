@@ -3,6 +3,10 @@
     "name": "Center Finder / Marking Gauge",
     "slug": "center-finder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Layout tools that scribe or find a reference line. A 90° vee registers on a round or square end so a slot down its bisector marks dead centre. Choose a center finder, a fenced marking gauge, or a mortise gauge with two parallel scribe lines.\n\nOfficial Visualizer and Configurator: Yantra4D",

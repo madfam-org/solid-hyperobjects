@@ -58,17 +58,24 @@ bore_r = inner_dia / 2.0
 
 def build_eyelet():
     """Flange disc with a barrel tube rising from it; one bore through everything."""
+    # `transformed(offset=...)` moves the WORKPLANE and `extrude()` then grows
+    # from there, so offsetting by half the height and extruding the full height
+    # double-counts: the flange landed at z in [washer_t/2, 3*washer_t/2] and
+    # the barrel at z in [washer_t + barrel_h/2, washer_t + 3*barrel_h/2],
+    # leaving a barrel_h/2 air gap between them (0.9 mm at defaults). The eyelet
+    # rendered as two detached bodies in every mode and preset. Extrude from
+    # z=0 and from the flange top, and sink BARREL_BITE into the flange.
+    BARREL_BITE = min(0.4, washer_t * 0.3)
     flange = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, washer_t / 2.0))
         .circle(flange_dia / 2.0)
         .extrude(washer_t)
     )
     barrel = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, washer_t + barrel_h / 2.0))
+        .transformed(offset=cq.Vector(0, 0, washer_t - BARREL_BITE))
         .circle(barrel_outer / 2.0)
-        .extrude(barrel_h)
+        .extrude(barrel_h + BARREL_BITE)
     )
     body = flange.union(barrel)
     # Rolled-rim read: soften the barrel crown and the flange perimeter.
@@ -84,7 +91,6 @@ def build_eyelet():
     total_h = washer_t + barrel_h
     bore = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, total_h / 2.0))
         .circle(bore_r)
         .extrude(total_h + 4.0)
         .translate((0, 0, -2.0))
@@ -94,9 +100,9 @@ def build_eyelet():
 
 def build_washer():
     """Plain toothless annulus the eyelet barrel is set against."""
+    # Same double-offset as build_eyelet: extrude the disc from z=0.
     disc = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, washer_t / 2.0))
         .circle(flange_dia / 2.0)
         .extrude(washer_t)
     )
@@ -108,7 +114,6 @@ def build_washer():
     hole_r = min(barrel_outer / 2.0 + 0.2, flange_dia / 2.0 - 0.5)
     bore = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, washer_t / 2.0))
         .circle(hole_r)
         .extrude(washer_t + 4.0)
         .translate((0, 0, -2.0))

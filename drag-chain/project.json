@@ -3,6 +3,10 @@
     "name": "Cable Drag Chain",
     "slug": "drag-chain",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A cable drag chain (e-chain / cable carrier) for motion systems: gantries, 3D-printer axes, and CNC machines. One link pins to identical links to form a flexible carrier with a built-in bend stop. Peg-and-socket ends let the chain pivot; a rigid closed frame protects the cables.\n\nOfficial Visualizer and Configurator: Yantra4D",

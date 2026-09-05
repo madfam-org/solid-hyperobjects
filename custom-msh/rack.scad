@@ -94,6 +94,16 @@ module am_ramp(w, l, h) {
 
 // Builds the structural lattice (skeleton) of the rack and populates the retention ribs inside
 module rack_body() {
+  // EVERY child below has to be inside this union(). They were bare siblings:
+  // the two walls, the four base rails, the two inner rails, both side guards
+  // and every divider were separate top-level objects that only ever got
+  // implicitly merged by the difference() in rack_complete(). Their many
+  // coincident faces (the rails share exact planes with the walls, the guards
+  // with the rails) were then left as zero-thickness contacts, which is what
+  // made even the standalone `rack` part non-watertight -- and, replicated
+  // three times by assembly.scad, produced the 41-body / 40-negative
+  // assembly/rack render. Manifold needs one explicit union to weld them.
+  union() {
   // Solid Left wall (with handle cutout if enabled)
   difference() {
     cube([_pillar_w, _body_y, _wall_z]);
@@ -137,11 +147,19 @@ module rack_body() {
 
   // Bottom plate (either a skeletal frame or a solid floor based on `open_bottom` setting)
   if (open_bottom == 1) {
-    // Skeletal crossbar base (allows fluids to drain perfectly)
+    // Skeletal crossbar base (allows fluids to drain perfectly).
+    //
+    // Only the FRONT and BACK rails are drawn. The left and right rails used
+    // to be drawn too --  cube([_pillar_w, _body_y, _crossbar_h]) at the
+    // origin and the same at x = _body_x - _pillar_w -- but the side walls
+    // above are cube([_pillar_w, _body_y, _wall_z]) at exactly those same two
+    // positions, and _wall_z >= _crossbar_h. Each side rail was therefore a
+    // duplicate wholly CONTAINED in its wall, sharing five of its six faces
+    // with it. Those coincident faces are what made the rack non-watertight
+    // (and, tripled by assembly.scad, gave the 41-body / 40-negative
+    // assembly/rack render). The walls already provide the side rails.
     cube([_body_x, _pillar_w, _crossbar_h]); // Front rail
     translate([0, _body_y - _pillar_w, 0]) cube([_body_x, _pillar_w, _crossbar_h]); // Back rail
-    cube([_pillar_w, _body_y, _crossbar_h]); // Left rail
-    translate([_body_x - _pillar_w, 0, 0]) cube([_pillar_w, _body_y, _crossbar_h]); // Right rail
 
     // Add two inner rails spanning across the X axis to hold the glass slide's bottom edges
     for (frac = [0.33, 0.67])
@@ -225,6 +243,7 @@ module rack_body() {
   }
 
   // Removed external overhead handle logic; handled natively within side walls now
+  }
 }
 
 // Extrudes standard numerical text (e.g. 1 2 3...) on the frame to identify sample locations
@@ -269,11 +288,16 @@ module rack_label() {
 // This wrapper module cleanly combines all the shapes natively into one solid "rack"
 // It ensures the label dent is cleanly SUBTRACTED out of the main body, then ADDs the raised slot numbers onto it.
 module rack_complete() {
-  difference() {
-    rack_body();
-    rack_label();
+  // union() around the whole thing: slot_numbers() used to sit OUTSIDE the
+  // difference() as a bare sibling, so the raised numerals were a second
+  // top-level object rather than part of the rack.
+  union() {
+    difference() {
+      rack_body();
+      rack_label();
+    }
+    slot_numbers();
   }
-  slot_numbers();
 }
 
 // Default Render

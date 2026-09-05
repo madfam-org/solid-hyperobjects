@@ -3,6 +3,10 @@
     "name": "Fan Dust Shroud",
     "slug": "dust-shroud",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A snap-on dust filter frame for a PC or equipment fan. It clips a mesh or foam filter over the fan intake on the standard fan screw square, keeping dust out of enclosures and 3D-printer electronics bays. Pick the fan size and the frame lands on the correct corner-hole spacing; variants add an integral printed grille (no separate mesh needed) or corner magnet pockets for tool-free removal. Complements the fan adapter cartridge.\n\nOfficial Visualizer and Configurator: Yantra4D",

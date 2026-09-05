@@ -3,6 +3,10 @@
     "name": "FPV Antenna Mount",
     "slug": "fpv-antenna-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Holds a VTX antenna clear of the propellers and routes it up or back. Sized to the antenna connector standard (SMA bulkhead or the tiny U.FL coax). Choose a tube mount that captures a rigid tube antenna, an SMA bulkhead bracket, or a lightweight frame clip.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -10,6 +10,10 @@ wall_thickness = 2;
 base_length = 40;
 clearance = 0.3;
 fn = 0;
+
+// How far the hook profiles reach back into the cantilever beam so their
+// union with it has volume rather than a single shared edge.
+_hook_overlap = 0.5;
 cdg_mount_type = 0;
 material_modulus = 1.5;
 shrinkage_factor = 0.0;
@@ -74,27 +78,39 @@ if (render_mode == 0) {
             rotate([180, 0, 0])
             prismoid(size1=[fillet_r*2, latch_width], size2=[0, latch_width], h=fillet_r, shift=[fillet_r,0], anchor=BOTTOM+LEFT);
 
-        // Hook Profile
+        // Hook Profile and Undercut Support.
+        //
+        // Both polygons used to start at [0, 0] -- the beam's own corner -- so
+        // each met the beam along a single EDGE with zero overlap. The union
+        // of solids that only touch is non-manifold: `latch_arm` rendered NOT
+        // WATERTIGHT and split into three pieces, the beam plus these two as
+        // detached fragments, and that is what put the pair 0.692821 mm apart
+        // on the AABB against snap_latch.py.
+        //
+        // Extend each profile back INTO the beam by _hook_overlap so the
+        // boolean has real volume to fuse. The profiles' outer vertices, which
+        // set every external dimension, do not move.
         hook_l = hook_depth / tan(entry_angle);
         retention_offset = hook_depth / tan(retention_angle);
-        
+
         translate([arm_length, 0, arm_thickness])
         rotate([90,0,0])
         linear_extrude(height=latch_width, center=true)
         polygon([
-            [0, 0],
+            [-_hook_overlap, -_hook_overlap],
             [-retention_offset, hook_depth],
-            [hook_l, 0]
+            [hook_l, 0],
+            [hook_l, -_hook_overlap]
         ]);
-        
-        // Undercut Support
+
         translate([arm_length, 0, 0])
         rotate([90,0,0])
         linear_extrude(height=latch_width, center=true)
         polygon([
-            [0, 0],
+            [-_hook_overlap, 0],
             [hook_l, 0],
-            [0, -arm_thickness]
+            [0, -arm_thickness],
+            [-_hook_overlap, -arm_thickness]
         ]);
     }
 }

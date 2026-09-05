@@ -3,6 +3,10 @@
     "name": "1/4-20 Camera / Tripod Interface",
     "slug": "camera-quarter-twenty",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The universal camera/tripod 1/4\"-20 UNC interface — the base every mount, plate, and adapter bolts onto. Generate a 1/4-20 male stud (tripod screw), a 1/4-20 female socket (for plates and mounts), or the ubiquitous 1/4-to-3/8 adapter, on a configurable disc or plate base. Threads render fast and watertight by default.\n\nOfficial Visualizer and Configurator: Yantra4D",

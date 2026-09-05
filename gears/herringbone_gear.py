@@ -10,7 +10,15 @@ def build(params):
     bore_diameter = float(params.get('bore_diameter', 5.0))
     helical_angle = float(params.get('helical_angle', 30.0))
     
-    R_pitch = module_size * teeth_count / 2.0
+    # `module_size` is the NORMAL module, as BOSL2's spur_gear(mod=, helical=)
+    # takes it. On a helical/herringbone gear the transverse module — the one
+    # that sets the radii in the XY cross-section being extruded here — is
+    # larger by 1/cos(beta):  d = m*N/cos(beta).  Omitting this correction was
+    # the whole of the 6.17 mm parity gap against herringbone_gear.scad
+    # (40/cos30 + 2*2 = 50.19 mm OD, not 20*2 + 2*2 = 44 mm).
+    m_t = module_size / math.cos(math.radians(helical_angle))
+
+    R_pitch = m_t * teeth_count / 2.0
     R_outer = R_pitch + module_size
     R_root = R_pitch - 1.25 * module_size
     

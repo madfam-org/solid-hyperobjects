@@ -272,16 +272,22 @@ def build_corner_bracket():
     )
     bracket = bracket.cut(slot_cut_a)
 
-    # Leg B slot (bore in Y through the vertical leg — cut along X thickness).
+    # Leg B slot (bore through the vertical leg's X thickness).
+    #
+    # An XZ workplane extrudes along -Y, so `.circle(r).extrude(cyl_h)` bored
+    # along Y -- the leg's 16 mm WIDTH -- not its 5 mm thickness. Translated to
+    # y in [-1, 6] it stopped short of both faces of a leg spanning
+    # y in [-8, 8], leaving a blind pocket: a sealed void that tessellates as a
+    # second, negative-volume body. The pill's rectangular cut below already
+    # goes through X correctly; bore these circles the same way.
     b_center = t + (leg - t) / 2.0
     cyl_h = t + 2.0
     for zc in (b_center - slot_len / 2.0, b_center + slot_len / 2.0):
         cyl = (
-            cq.Workplane("XZ")
+            cq.Workplane("YZ")
             .circle(r)
             .extrude(cyl_h)
-            .translate((0, cyl_h - 1.0, 0))  # start behind the leg's front face
-            .translate((t / 2.0, 0, zc))
+            .translate((-1.0, 0, zc))        # start outside the leg's back face
         )
         bracket = bracket.cut(cyl)
     slot_cut_b = (

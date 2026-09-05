@@ -84,13 +84,18 @@ def build_board():
 
     body = plate.union(rim)
 
-    # Button post at the collar end (near y = board_len).
+    # Button post at the collar end (near y = board_len). Start it INSIDE the
+    # plate (POST_BITE below the plate top) and carry it to the same head height
+    # as before: starting at plate_t + button_dia*0.2 left the post floating in
+    # air above the plate as a detached second body.
+    POST_BITE = 0.4
+    post_z0 = plate_t - POST_BITE
+    post_top = plate_t + button_dia * 0.2 + button_dia * 0.4
     post = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0.0, board_len - narrow_w * 0.35,
-                                      plate_t + button_dia * 0.2))
+        .transformed(offset=cq.Vector(0.0, board_len - narrow_w * 0.35, post_z0))
         .circle(button_dia / 2.0)
-        .extrude(button_dia * 0.4)
+        .extrude(post_top - post_z0)
     )
     return body.union(post)
 

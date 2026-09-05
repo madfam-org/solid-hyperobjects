@@ -3,6 +3,10 @@
     "name": "PCO-1881 Bottle Cap",
     "slug": "pco-cap",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A reusable screw cap for the PCO-1881 soda / water bottle neck (27.43 mm thread major diameter, 2.7 mm pitch) — the world's most abundant standardized vessel. Print a plain replacement cap, an anti-loss tethered cap, or a sport drink-spout cap. The functional interface is a real single-start helical thread that mates with the same PCO-1881 neck as the bottle-thread, bird-feeder, faircap-filter and pet-dispenser cartridges.\n\nOfficial Visualizer and Configurator: Yantra4D",

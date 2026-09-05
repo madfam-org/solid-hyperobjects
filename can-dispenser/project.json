@@ -3,6 +3,10 @@
     "name": "Can Storage Dispenser",
     "slug": "can-dispenser",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A printable rack that stores standard beverage cans on their sides and gravity-feeds them one at a time. Sized to the can diameter (66 mm standard 12 oz can by default), so one parameter adapts it to slim (53 mm) or tallboy cans. Build a compact two-level FIFO shelf rack, a vertical loading column, or a simple counter tray. Shares the 'standard can Ø' socket with the fridge-dispenser cartridge — a can that seats in one seats in the other.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Hook-and-Loop Tape",
     "slug": "hook-loop-tape",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A printable analogue of hook-and-loop tape: two mating strips that peel apart and re-close. The hook strip carries a field of mushroom-headed pins; the loop strip carries a waffle grid of thin walls whose cells those heads snag on. This is the rigid hard good the Fashion Cabinet `hook-loop-tape` hardware reference bridges to — a garment hands over its finished closure overlap (`overlap_mm`) and gets back a tape that spans it, while the garment keeps the placement math. `tolerance` is the real print clearance between a mushroom head and the cell it drops into, so the same strip can be tuned from squashy TPU to rigid PLA.\n\nOfficial Visualizer and Configurator: Yantra4D",

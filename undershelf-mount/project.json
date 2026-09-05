@@ -3,6 +3,10 @@
     "name": "Under-Shelf / Under-Desk Mount",
     "slug": "undershelf-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Reclaims the dead space under a shelf, desk, or cabinet. A shelf-edge clamp grips over the surface (no tools, no drilling) or a screw plate fixes to the underside, carrying a payload that hangs below: a small bin, a router or power-strip cradle, or a hook. Set the surface thickness and the mount grips it exactly.\n\nOfficial Visualizer and Configurator: Yantra4D",

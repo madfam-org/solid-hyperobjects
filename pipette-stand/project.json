@@ -3,6 +3,10 @@
     "name": "Pipette / Tip Stand",
     "slug": "pipette-stand",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Bench organization hyperobject for liquid handling: a round carousel that cradles single-channel micropipettes upright, a pipette-tip rack on the real 9 mm SBS/ANSI-SLAS microplate pitch, and a wall-mount single-pipette hook. Keep pipettes drip-free and tips ready.",
       "es": "Hiperobjeto de organización de mesa para manejo de líquidos: un carrusel redondo que sostiene micropipetas de un canal en vertical, una gradilla de puntas con el paso real de 9 mm SBS/ANSI-SLAS, y un colgador de pared para una pipeta. Mantén las pipetas sin goteo y las puntas listas."

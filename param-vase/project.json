@@ -3,6 +3,10 @@
     "name": "Parametric Vase",
     "slug": "param-vase",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A generative vase whose silhouette is a polar radius function extruded, optionally twisting as it rises. Pick a profile family — round, faceted N-gon, lobed/twisted, or superformula — and dial base diameter, height, wall, twist, and lobe count. The result is a hollow watertight vessel with a closed floor.\n\nOfficial Visualizer and Configurator: Yantra4D",

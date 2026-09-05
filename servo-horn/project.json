@@ -3,6 +3,10 @@
     "name": "Servo Horn",
     "slug": "servo-horn",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A replacement servo arm with a real splined bore. The bore is cut with N internal teeth matching the servo output spline standard: 24T (~5.8 mm, Futaba / Savox) or 25T (~6.0 mm, Spektrum / Hitec). Linkage holes sit at a chosen radius. Choose a single arm, a double two-sided arm, or a round wheel horn.\n\nOfficial Visualizer and Configurator: Yantra4D",

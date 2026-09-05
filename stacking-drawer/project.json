@@ -3,6 +3,10 @@
     "name": "Stackable Drawer System",
     "slug": "stacking-drawer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A small modular drawer unit. The carcass is an open shell with side rails and a stacking interlock (pegs on top, sockets below) so units stack and lock. The drawer slides in on those rails with clearance on every side and has a front handle. The drawer that prints from this file always fits the carcass that prints from it.\n\nOfficial Visualizer and Configurator: Yantra4D",

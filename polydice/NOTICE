@@ -1,0 +1,50 @@
+NOTICE — provenance
+===================
+
+Polyhedral Dice Set (`polydice`)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+Clean-room re-creation (ADR-021)
+--------------------------------
+
+This cartridge was re-created from a recorded final-result baseline without
+access to the prior implementation or its upstream; it implements the geometry
+of the five regular convex polyhedra (the Platonic solids) and the standard
+tabletop dice numbering convention.
+
+The slug `polydice` previously held a cartridge whose origin licence was
+BSD-2-Clause. Under the operator ruling recorded as ADR-021, any hyperobject
+whose origin licence is not CERN-OHL-W-2.0 leaves the commons and returns as a
+clean-room re-creation. That cartridge was removed on 2026-09-04 and the slug
+reserved.
+
+The implementer of this cartridge did not read, fetch or otherwise consult:
+
+  - the removed cartridge's source, in this repository's history or in the
+    archived satellite repository of the same slug;
+  - the upstream OpenSCAD project the removed cartridge derived from;
+  - any fork or mirror of either.
+
+The only inputs were a baseline pack recording the removed version's *final
+result* — its manifest contract (modes, parts, parameters, presets, i18n) and
+measured geometry (sizes, circumradii, volumes, body counts) — together with
+the public mathematics of the regular polyhedra.
+
+No third-party files are vendored here, and this cartridge depends on no
+third-party design. The geometry of a regular tetrahedron, cube, octahedron,
+dodecahedron and icosahedron is public mathematics, not anybody's code; the
+numbering convention (opposite faces summing to n+1, vertex numbering on the
+d4) is long-standing common practice in the tabletop trade.
+
+Lineage recorded in `project.json` → `project.attribution.lineage`:
+`regular polyhedra (public geometry)`.
+
+Departure from the recorded baseline
+------------------------------------
+
+The recorded baseline was inert: all 80 of its renders were one byte-identical
+mesh containing fourteen dice on a 30 mm grid, and no mode or parameter had any
+effect. This cartridge implements what the manifest contract promises rather
+than what that baseline did. `docs/CLEANROOM-VERIFICATION.md` records the
+measurements and states each deviation.

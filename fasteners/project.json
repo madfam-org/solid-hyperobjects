@@ -3,6 +3,10 @@
     "name": "Fastener Generator",
     "slug": "fasteners",
     "version": "2.1.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Parametric ISO metric hardware — bolts, nuts and washers sized to mate real M-series fasteners. Major diameter equals the nominal (M5 = 5 mm), pitch is the real coarse-series value, and head/nut across-flats follow the ISO wrench envelope. Threads default to a fast cosmetic profile with an opt-in real helical thread.\n\nOfficial Visualizer and Configurator: Yantra4D",

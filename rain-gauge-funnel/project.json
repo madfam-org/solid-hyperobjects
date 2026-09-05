@@ -3,6 +3,10 @@
     "name": "Rain Gauge Funnel",
     "slug": "rain-gauge-funnel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A calibrated rain-gauge collector that screws onto an ordinary PET bottle. Rainfall is a depth, not a volume: a bare bottle catches whatever its own neck happens to be — tiny and unknown — so the water it holds means nothing. A funnel of known aperture converts collected volume to depth exactly (depth_mm = mL x 1000 / area_mm2). At the default 100 mm aperture, 1 mm of rain = 7.854 mL. The outlet lands on the published PCO-1881 bottle-neck thread, reusing the bottle-thread family's interface rather than inventing a new attachment. Includes the calibrated funnel, a splash-suppressing throat insert, and a post clip that holds the bottle level.\n\nOfficial Visualizer and Configurator: Yantra4D",

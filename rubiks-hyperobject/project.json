@@ -3,6 +3,10 @@
     "name": "Parametric Rubik's Cube",
     "slug": "rubiks-hyperobject",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "es": "Hiperobjeto Cubo de Rubik parametrico \u2014 cubo NxN con rotacion de capas, vista explosionada y variante esferica\n\nVisualizador y Configurador Oficial: Yantra4D",
       "en": "Parametric Rubik's Cube hyperobject \u2014 NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D"

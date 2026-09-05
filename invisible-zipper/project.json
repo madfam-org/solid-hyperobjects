@@ -3,6 +3,10 @@
     "name": "Invisible Zipper",
     "slug": "invisible-zipper",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The concealed zipper of skirts and dresses — the closure whose coil rolls to the garment's inside so only a seam line shows on the face. Two tapes carry a coil bead along their back edge; a compact slider with a pull ring mates them. Choose the full set, a single tape for a repair length, or the slider alone. It complements the `zipper` cartridge (closed-end and separating chains) and shares its `zip_length` / `tape_width` / `tape_thick` / `gap` naming, so the same finished-opening number that drafts a skirt seam in Fashion Cabinet sizes this hardware. This is the solid the Fashion Cabinet invisible-zipper notion bridges to.\n\nOfficial Visualizer and Configurator: Yantra4D",

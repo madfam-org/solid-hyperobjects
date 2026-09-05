@@ -51,17 +51,31 @@ module soft_jaw() {
         rotate([90,0,0])
         cylinder(h=JAW_THICKNESS+1, d1=BOLT_HEAD_D, d2=BOLT_SHAFT_D, $fn=32);
         
-        // Magnet Pockets
+        // Magnet Pockets.
+        //
+        // These used to be `attach(BACK) up(...)` / `down(...)`. Inside an
+        // attach() the up/down offsets move along the ATTACH frame's own axis,
+        // which points into the jaw -- not along Z as intended. Both pockets
+        // therefore landed buried at y = -14.69..-11.69 inside a jaw spanning
+        // y = -19.05..0: a fully enclosed void, so jaw_body rendered a
+        // negative-volume body on every variant.
+        //
+        // `position(BACK)` places the child on the back face without adopting
+        // an attach frame, so up/down move along Z as intended and an explicit
+        // rotate drives the bore into the jaw. h is 3.5 rather than 3 so the
+        // pocket breaks the face instead of kissing it.
         if (magnet_holes) {
             tag("remove")
-            attach(BACK)
+            position(BACK)
             up(JAW_HEIGHT/3)
-            cylinder(h=3, d=10.2, $fn=32); // 10mm magnet
-            
+            rotate([90, 0, 0])
+            cylinder(h=3.5, d=10.2, $fn=32); // 10mm magnet
+
             tag("remove")
-            attach(BACK)
+            position(BACK)
             down(JAW_HEIGHT/3)
-            cylinder(h=3, d=10.2, $fn=32); 
+            rotate([90, 0, 0])
+            cylinder(h=3.5, d=10.2, $fn=32);
         }
     }
 }

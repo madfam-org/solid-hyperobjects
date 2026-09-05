@@ -3,6 +3,10 @@
     "name": "Zipper Loop Aid",
     "slug": "zipper-loop-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A large finger ring that clips onto any zipper pull tab. One piece: a C-clip that springs over the tab and a generous ring for a finger, two fingers or a thumb. A standard pull tab is a 2 mm slip of metal that needs a fine thumb-and-forefinger pinch; arthritis, tremor, neuropathy, hemiparesis, a cast, thick gloves or a back zipper all defeat that pinch. The usual improvisation is a loop of cord that slides and has to be knotted on with the same fingers that cannot work the zipper — this clips on and stays put.\n\nOfficial Visualizer and Configurator: Yantra4D",

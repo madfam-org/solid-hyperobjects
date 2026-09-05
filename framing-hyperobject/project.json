@@ -3,6 +3,10 @@
     "name": "Framing Hyperobject",
     "slug": "framing-hyperobject",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Parametric framing and containment systems (Hyperobject)\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Sistemas paramétricos de enmarcado y contención (Hiperobjeto)\n\nVisualizador y configurador oficial: Yantra4D"
@@ -55,7 +59,7 @@
     },
     {
       "id": "back_panel",
-      "render_mode": 0,
+      "render_mode": 1,
       "label": {
         "en": "Backing",
         "es": "Respaldo"
@@ -64,7 +68,7 @@
     },
     {
       "id": "glazing",
-      "render_mode": 0,
+      "render_mode": 2,
       "label": {
         "en": "Glazing",
         "es": "Vidrio/Acrílico"

@@ -3,6 +3,10 @@
     "name": "Parametric Cookie Cutter & Stamp",
     "slug": "cookie-cutter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A press-and-cut cookie / fondant cutter with a thin cutting wall following your chosen outline (circle, star, heart, square, hexagon) and a wider top flange for pressing. Add an interior relief stamp that embosses a detail in the same press, or a linked double cutter that cuts a ring.\n\nFood-contact note: geometry only — food-safe filament and sealing are the maker's responsibility.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Arca-Swiss L-Bracket",
     "slug": "arca-l-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An L-bracket for the Arca-Swiss 38 mm tripod quick-release standard. An Arca plate that wraps up the camera's left side so the same body drops into any Arca clamp in landscape (base dovetail down) or portrait (wing dovetail out) with no re-levelling. Every clamping face carries the same 38 mm dovetail with ~45° flanks, so it mates every Arca clamp, plate and ball head. Also builds a plain Arca QR plate and a long telephoto-lens foot.\n\nOfficial Visualizer and Configurator: Yantra4D",

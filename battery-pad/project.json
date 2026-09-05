@@ -3,6 +3,10 @@
     "name": "Battery Pad",
     "slug": "battery-pad",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An anti-slip LiPo tray / pad for FPV & RC craft, with strap channels so the battery strap seats flush and does not creep. Sized to the pack footprint. Choose a flat grippy pad with strap slots, a walled tray that captures the pack, or a wedge that tilts the pack to shift the centre of gravity.\n\nOfficial Visualizer and Configurator: Yantra4D",

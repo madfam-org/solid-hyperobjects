@@ -3,6 +3,10 @@
     "name": "Pill Organizer Insert",
     "slug": "pill-insert",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A configurable pill-organiser grid: a compartment tray (weekly 7×1, daily 4-column, or any rows×columns), a friction lid that snaps over it, and a single removable dose cup with a finger tab. Compartment sizes and pitch are yours to set. A daily-living aid for medication sorting — it does not dispense or track doses; follow your pharmacist's and physician's guidance.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Una rejilla configurable de organizador de pastillas: una bandeja de compartimentos (semanal 7×1, diaria de 4 columnas, o cualquier filas×columnas), una tapa a fricción que encaja encima y un vaso de dosis individual removible con pestaña. Los tamaños y el paso de los compartimentos los defines tú. Una ayuda de vida diaria para clasificar medicación — no dispensa ni registra dosis; sigue la orientación de tu farmacéutico y médico.\n\nVisualizador y configurador oficial: Yantra4D"

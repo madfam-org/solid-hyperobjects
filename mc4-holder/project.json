@@ -3,6 +3,10 @@
     "name": "Solar MC4 / Connector Holder",
     "slug": "mc4-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Holders and strain reliefs that organize MC4 photovoltaic connectors. The socket bore lands on the real MC4 body / panel-cutout diameter (~16-17 mm, Staubli MC4 family), so a printed holder grips a standard MC4 coupling and dresses PV leads on a panel edge, combiner box or rail. Pick the socket count and pitch. Includes a single panel-mount collar, a multi-socket rail organizer, and a two-pole cable strain-relief block.\n\nOfficial Visualizer and Configurator: Yantra4D",

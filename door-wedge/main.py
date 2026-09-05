@@ -84,11 +84,19 @@ def add_grip(body):
     n = int((length - 10.0) / step)
     if n < 1:
         return body
+    # The ramp tapers to nothing at the toe, so a groove of fixed `depth` near
+    # x=0 cuts straight through it and frees the toe: at preset low_gap_wedge
+    # (length 140, height 22) the groove at x=6 is 1.2 mm deep into a 0.94 mm
+    # ramp, and the wedge rendered 2 bodies. Skip any groove whose position is
+    # thinner than the groove depth plus a floor of one groove depth.
+    min_thickness = depth * 2.0
     cutters = []
     for i in range(1, n + 1):
         x = i * step
         if x > length - 6.0:
             break
+        if height * x / length < min_thickness:
+            continue
         cutters.append(
             cq.Workplane("XY")
             .transformed(offset=cq.Vector(x, 0, -0.5))

@@ -3,6 +3,10 @@
     "name": "18650 Battery Caddy",
     "slug": "battery-caddy",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A parametric Li-ion cell caddy for 18650 and 21700 cells. Part of the battery-cell family — the cradle array shares the cell form-factor convention with the battery holder and media caddy, so a carrier sized here matches their cell pockets. Print a single-row caddy, a dual-row pack carrier, or a single-cell protective sleeve.",
       "es": "Un soporte de celdas Li-ion paramétrico para celdas 18650 y 21700. Forma parte de la familia battery-cell — el arreglo de cunas comparte la convención de formato de celda con el soporte de baterías y el media caddy, de modo que un portador dimensionado aquí coincide con sus bolsillos de celda. Imprime un soporte de una fila, un portador de dos filas o una funda protectora de una celda."

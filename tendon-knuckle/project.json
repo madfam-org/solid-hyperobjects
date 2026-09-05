@@ -3,6 +3,10 @@
     "name": "Tendon-Driven Knuckle",
     "slug": "tendon-knuckle",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A cable-driven articulated knuckle for soft and underactuated robotic hands. A tendon runs through a flexor channel on the palm side; pulling it curls the joint while a return elastic on the back straightens it. Choose the interlocking clevis-and-tongue knuckle, a straight phalanx segment with a soft-hinge notch, or a winch pulley that winds the tendon. Print in PLA/PETG for rigid links or TPU for compliant ones.\n\nOfficial Visualizer and Configurator: Yantra4D",

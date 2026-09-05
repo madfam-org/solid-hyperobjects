@@ -3,6 +3,10 @@
     "name": "Cabinet Cam-Lock Cam",
     "slug": "lock-cam",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "force_backend": true,
     "description": {

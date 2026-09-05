@@ -144,14 +144,29 @@ def cosmetic_shaft(total_len):
     The closed profile: up the axis (x=0), across the base, then a zig-zag right
     edge (root MINOR_R → crest MAJOR_R → root …) climbing to the top, and back
     across the top to the axis."""
-    n = max(1, int(round(total_len / pitch)))
+    # ROUNDING the tooth count left the shaft short of total_len whenever
+    # total_len was not a whole number of pitches: at M5 x 25 (pitch 0.8),
+    # round(31.25) = 31 teeth reach only 24.8 mm, and the head -- placed at
+    # z = length = 25 -- floated 0.2 mm above it, so `bolt_cq` rendered as two
+    # bodies under preset m5_hex_25. Lay down enough whole teeth to reach
+    # total_len, then close the profile AT total_len so the shaft is exactly as
+    # long as it says. The last partial tooth is simply truncated.
+    n = max(1, int(math.ceil(total_len / pitch)))
     pts = [(0.0, 0.0), (MINOR_R, 0.0)]
     z0 = 0.0
     for _ in range(n):
-        pts.append((MAJOR_R, z0 + pitch * 0.5))
-        pts.append((MINOR_R, z0 + pitch))
+        z_crest = min(z0 + pitch * 0.5, total_len)
+        pts.append((MAJOR_R, z_crest))
+        if z_crest >= total_len:
+            break
+        z_root = min(z0 + pitch, total_len)
+        pts.append((MINOR_R, z_root))
+        if z_root >= total_len:
+            break
         z0 += pitch
-    pts.append((0.0, z0))          # back to the axis along the top
+    if pts[-1][1] < total_len:
+        pts.append((MINOR_R, total_len))
+    pts.append((0.0, total_len))   # back to the axis along the top
     face = cq.Workplane("XZ").polyline(pts).close()
     return face.revolve(360, (0, 0, 0), (0, 1, 0))
 

@@ -104,6 +104,8 @@ _latch_hook_d = 1.5;
 // Stacking lip (RESEARCH §4.4)
 _lip_h = 3;
 _lip_w = 1.5;
+_lip_inset = 0.2;    // keeps the lip's outer faces off the shell's side planes
+_latch_inset = 0.2;  // same, for the lid's latch arms
 
 // ---------------------------------------------------------------------------
 // box_base — Slotted trough with ribs
@@ -115,10 +117,22 @@ module box_base() {
         // Outer shell
         cube([_body_x, _body_y, _body_z]);
 
-        // Stacking lip on top perimeter
+        // Stacking lip on top perimeter.
+        //
+        // INSET by _lip_inset. Sitting the lip flush at the full _body_x /
+        // _body_y left its four outer faces exactly COPLANAR with the shell's
+        // four sides, and that coincident-face union is what made box_base
+        // non-watertight in every preset (5 bodies at defaults). An inset of
+        // as little as 0.01 mm resolves it; _lip_inset is the printer
+        // clearance, so the lip is also correctly a hair proud of nothing --
+        // a stacking lip the next box drops over should not be flush with the
+        // wall it rises from.
         if (stackable == 1) {
-          translate([0, 0, _body_z - EPSILON])
-            stacking_lip(_body_x, _body_y, _lip_h + EPSILON, _lip_w);
+          translate([_lip_inset, _lip_inset, _body_z - EPSILON])
+            stacking_lip(
+              _body_x - 2 * _lip_inset, _body_y - 2 * _lip_inset,
+              _lip_h + EPSILON, _lip_w
+            );
         }
       }
 
@@ -198,13 +212,51 @@ module box_lid() {
   _inner_y = _body_y + _lid_clearance * 2;
   _outer_x = _inner_x + _lid_wall * 2;
   _outer_y = _inner_y + _lid_wall * 2;
+  _label_w = min(50, _outer_x * 0.6);
+  _label_h = min(20, _outer_y * 0.3);
 
+  // The lid is ONE difference(): everything additive (shell + latch arms) in
+  // the first operand, everything subtractive (cavity, stacking groove, label
+  // recess) after it.
+  //
+  // Previously the latch arms AND the label recess sat outside the
+  // difference(), at the bottom of the module, as bare siblings. So the arms
+  // were never fused to the shell, and the label recess -- a recess -- was
+  // UNIONED onto the lid as a raised block instead of being cut into it. That
+  // is box_lid's 3 bodies, not watertight.
   difference() {
-    // Outer lid shell
-    cube([_outer_x, _outer_y, _lid_z]);
+    union() {
+      // Outer lid shell
+      cube([_outer_x, _outer_y, _lid_z]);
+
+      // Snap latch arms (one per long side).
+      //
+      // Inset by _latch_inset. Placed flush at y = 0 and
+      // y = _outer_y - _latch_arm_t, each arm's outer face was exactly
+      // COPLANAR with the lid shell's own side face -- the same
+      // coincident-face union that broke the base's stacking lip.
+      if (lid_latch == 0) {
+        // Front arm
+        translate([_outer_x / 2 - _latch_arm_w / 2, _latch_inset, _lid_z])
+          mirror([0, 0, 1])
+            snap_latch_arm(
+              _latch_arm_len, _latch_arm_w,
+              _latch_arm_t, _latch_hook_h, _latch_hook_d
+            );
+
+        // Back arm
+        translate([_outer_x / 2 - _latch_arm_w / 2,
+                   _outer_y - _latch_arm_t - _latch_inset, _lid_z])
+          mirror([0, 0, 1])
+            snap_latch_arm(
+              _latch_arm_len, _latch_arm_w,
+              _latch_arm_t, _latch_hook_h, _latch_hook_d
+            );
+      }
+    }
 
     // Hollow interior (slides over base top)
-    translate([_lid_wall, _lid_wall, 1.5]) // 1.5 ceiling?
+    translate([_lid_wall, _lid_wall, 1.5])
       cube([_inner_x, _inner_y, _lid_z]);
 
     // Stacking groove on top (if stackable)
@@ -222,35 +274,13 @@ module box_lid() {
           3.2, _lip_w + 0.2
         );
     }
-  }
 
-  // Snap latch arms (one per long side)
-  if (lid_latch == 0) {
-    // Front arm
-    translate([_outer_x / 2 - _latch_arm_w / 2, 0, _lid_z])
-      rotate([0, 0, 0])
-        mirror([0, 0, 1])
-          snap_latch_arm(
-            _latch_arm_len, _latch_arm_w,
-            _latch_arm_t, _latch_hook_h, _latch_hook_d
-          );
-
-    // Back arm
-    translate([_outer_x / 2 - _latch_arm_w / 2, _outer_y - _latch_arm_t, _lid_z])
-      rotate([0, 0, 0])
-        mirror([0, 0, 1])
-          snap_latch_arm(
-            _latch_arm_len, _latch_arm_w,
-            _latch_arm_t, _latch_hook_h, _latch_hook_d
-          );
-  }
-
-  // Label recess on lid top
-  if (label_area == 1) {
-    _label_w = min(50, _outer_x * 0.6);
-    _label_h = min(20, _outer_y * 0.3);
-    translate([(_outer_x - _label_w) / 2, (_outer_y - _label_h) / 2, _lid_z - LABEL_DEPTH + EPSILON])
-      label_recess(_label_w, _label_h, LABEL_DEPTH);
+    // Label recess on lid top -- CUT, not added.
+    if (label_area == 1) {
+      translate([(_outer_x - _label_w) / 2, (_outer_y - _label_h) / 2,
+                 _lid_z - LABEL_DEPTH + EPSILON])
+        label_recess(_label_w, _label_h, LABEL_DEPTH);
+    }
   }
 }
 

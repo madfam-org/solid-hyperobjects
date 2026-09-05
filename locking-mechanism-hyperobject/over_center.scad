@@ -16,7 +16,19 @@ $fn = fn > 0 ? fn : $preview ? 32 : 64;
 
 // Mechanics
 pin_d = wall_thickness * 1.5;
-joint_w = latch_width - wall_thickness * 2 - clearance * 2;
+// Every one of these is a DERIVED width that must stay positive. At
+// preset:battery_cover (latch_width = 8, wall_thickness = 2.5) the unfloored
+// expressions went negative -- joint_w 2.40, link_w -2.60, the link slot -2.00
+// -- so the difference() inside the rotated lever block produced nothing, the
+// rotate() received an empty child and OpenSCAD failed the whole render:
+//   "rotate(a = [0, -15, 0], v = undef) ... over_center.scad, line 69 ...
+//    Current top level object is empty."
+// Floored here, once, so the lever degrades to a thin-but-real link instead of
+// vanishing.
+_min_w = 0.8;
+joint_w = max(_min_w, latch_width - wall_thickness * 2 - clearance * 2);
+link_w  = max(_min_w, joint_w - wall_thickness * 2);
+slot_w  = max(_min_w, joint_w - wall_thickness * 2 + clearance * 2);
 
 
 module apply_cdg(base_x) {
@@ -81,7 +93,7 @@ if (render_mode == 0) {
             // Link attachment slot
             link_pivot_x = lever_length * 0.4;
             translate([link_pivot_x, 0, pin_d*1.5 + over_center_offset])
-            cuboid([pin_d*3, joint_w - wall_thickness*2 + clearance*2, pin_d*4], anchor=CENTER);
+            cuboid([pin_d*3, slot_w, pin_d*4], anchor=CENTER);
         }
         
         // Link attachment pin
@@ -95,7 +107,6 @@ if (render_mode == 0) {
         rotate([0, 20, 0])
         difference() {
             union() {
-                link_w = joint_w - wall_thickness*2;
                 // Base barrel
                 rotate([90,0,0])
                 cyl(d=pin_d*2, h=link_w);

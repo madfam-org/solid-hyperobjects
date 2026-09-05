@@ -182,10 +182,18 @@ def build_wall_hook():
     cradle, cw, ch = temple_cradle(cradle_w)
     cradle = cradle.rotate((0, 0, 0), (0, 1, 0), 180)
     cradle = cradle.translate((wall + ch / 2.0 + 4.0, 0, plate_h * 0.5))
-    # Arm to hold the cradle out from the wall.
+    # Arm to hold the cradle out from the wall. Rotating by -90 about Y laid the
+    # arm BACKWARD, into the wall (x in [-4.8, 3.0] at defaults), so it never
+    # bridged the plate to the cradle at x in [5.1, 16.7] and `wall_hook`
+    # rendered as two detached bodies. Rotate +90 so the arm projects forward,
+    # and sink ARM_BITE into the plate face so the union is a real overlap
+    # rather than a tangent kiss at x = wall.
+    # The plate box is X-CENTRED, so its front face is at x = wall/2, not x = wall.
+    ARM_BITE = 0.6
+    plate_front_x = wall / 2.0
     arm = rounded_block(ch + 4.0, cradle_w * 0.7, ch, 1.5)
-    arm = arm.rotate((0, 0, 0), (0, 1, 0), -90)
-    arm = arm.translate((wall, 0, plate_h * 0.5))
+    arm = arm.rotate((0, 0, 0), (0, 1, 0), 90)
+    arm = arm.translate((plate_front_x - ARM_BITE, 0, plate_h * 0.5))
     body = plate.union(arm).union(cradle)
     return body
 

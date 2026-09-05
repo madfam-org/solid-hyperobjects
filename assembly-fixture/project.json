@@ -3,6 +3,10 @@
     "name": "Assembly / Welding Fixture",
     "slug": "assembly-fixture",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A positioning aid that holds parts in a repeatable location during assembly, welding, gluing, or drilling. A base plate carries locating pins in a selectable pattern, optional raised stops forming a corner reference, or a V-groove for round stock, plus mounting holes to bolt it down.\n\nOfficial Visualizer and Configurator: Yantra4D",

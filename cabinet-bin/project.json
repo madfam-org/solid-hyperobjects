@@ -3,6 +3,10 @@
     "name": "Cabinet Organizer Bin",
     "slug": "cabinet-bin",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A fits-anything cabinet and drawer organizer bin, sized by interior dimensions. Choose a plain open bin, an angled scoop-front bin, or a divided bin with an interior partition grid. A stacking lip nests bins together.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Cup-Holder Caddy Adapter",
     "slug": "cupholder-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Turns a car cup holder into a useful caddy. A tapered stem drops into the cup-holder well (sized to your holder diameter, with a gentle draft so it self-centres and wedges) and a platform on top carries a phone slot, a multi-well coin tray, or a combo organiser with side pockets and pen bores.\n\nOfficial Visualizer and Configurator: Yantra4D",

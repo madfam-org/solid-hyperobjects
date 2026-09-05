@@ -3,6 +3,10 @@
     "name": "Sprung Bag Clip",
     "slug": "bag-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A one-piece sprung clip that reseals bags. A curved back spine acts as a living spring joining two jaws that pinch a bag shut at the mouth; the beam thickness tunes the grip force. Choose a friction mouth or a snap-hook catch that latches closed for thicker or heavier bags, in a standard or extra-wide size.\n\nOfficial Visualizer and Configurator: Yantra4D",

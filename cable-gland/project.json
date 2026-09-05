@@ -3,6 +3,10 @@
     "name": "Cable Gland / Strain Nut",
     "slug": "cable-gland",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Threaded cable glands that seal a cable where it passes through an enclosure wall and take the strain off the terminations inside. The panel thread is a real PG (DIN 40430) or metric-ISO gland thread, so the printed body screws into off-the-shelf knockouts and lock nuts. Pick the size (PG7-PG21, M12-M25) and the thread major diameter, pitch and clearance-cored cable bore all land on the standard. Includes the gland body, a matching interior lock/strain nut, and a threaded sealing reducer for thinner cable.\n\nOfficial Visualizer and Configurator: Yantra4D",

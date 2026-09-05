@@ -3,6 +3,10 @@
     "name": "TPU Pleat Panel",
     "slug": "tpu-pleat-panel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A print-in-place accordion-pleated textile panel — the additive-manufacturing fabric the Fashion Cabinet `tpu-pleat-panel` fabric card describes as cloth and bridges to here for its geometry. A run of alternating knife folds prints flat and concertinas like a pleated skirt panel: rigid facet, flexible crease. Sized by pleat count and depth so a garment panel's finished dimensions drive the fold. One material identity — Bambu TPU 95A — spans the fabric card and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

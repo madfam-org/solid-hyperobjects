@@ -82,11 +82,21 @@ module diamond_grid_guard(span, thickness, height, step=8, bar=1.5) {
 
 module slide_retention_rib(height, depth, root_w, tip_w, chamfer_h = 0) {
   _main_h = height - chamfer_h;
-  if (_main_h > 0) {
-    prismoid(size1=[root_w, depth], size2=[tip_w, depth], h=_main_h, anchor=BOTTOM);
-  }
-  if (chamfer_h > 0) {
-    translate([0, 0, _main_h])
-      prismoid(size1=[tip_w, depth], size2=[tip_w * 0.3, depth * 0.3], h=chamfer_h, anchor=BOTTOM);
+  // The two prismoids MUST be an explicit union and MUST overlap. As bare
+  // siblings meeting exactly at z = _main_h -- the main one's top face
+  // [tip_w, depth] against the chamfer's bottom face of the same [tip_w,
+  // depth] -- every rib contributed a zero-thickness contact, and with one rib
+  // per slot that is what made the whole rack non-watertight. Overlap the
+  // chamfer down into the main body by _lap so the seam has volume.
+  _lap = min(0.2, _main_h > 0 ? _main_h * 0.5 : 0.2);
+  union() {
+    if (_main_h > 0) {
+      prismoid(size1=[root_w, depth], size2=[tip_w, depth], h=_main_h, anchor=BOTTOM);
+    }
+    if (chamfer_h > 0) {
+      translate([0, 0, _main_h - _lap])
+        prismoid(size1=[tip_w, depth], size2=[tip_w * 0.3, depth * 0.3],
+                 h=chamfer_h + _lap, anchor=BOTTOM);
+    }
   }
 }

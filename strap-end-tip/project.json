@@ -3,6 +3,10 @@
     "name": "Strap End Tip",
     "slug": "strap-end-tip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The cap that finishes the raw end of a leather strap or a length of webbing — it stops the end fraying, gives the strap a silhouette, and on a belt it is the piece that leads the tongue through the keeper. The strap slides into a channel running the full width of the tip, so a garment's finished strap width and thickness size the hardware directly. This is the rigid hard good the Fashion Cabinet `strap-end-tip` notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

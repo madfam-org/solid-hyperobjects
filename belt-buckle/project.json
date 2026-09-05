@@ -3,6 +3,10 @@
     "name": "Belt Buckle",
     "slug": "belt-buckle",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed center-bar belt buckle — the rounded frame, its center bar, and the prong that curls around that bar and drops into a punched belt hole. This is the rigid hard good the Fashion Cabinet `belt-buckle` notion places and bridges to here for its geometry, for kilts, belted coats and waistcoat cinches. Sized so a garment's finished strap width drives the finding.\n\nOfficial Visualizer and Configurator: Yantra4D",

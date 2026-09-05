@@ -186,9 +186,22 @@ def build_watch_stand():
     body = body.union(lip)
 
     # A cradle groove across the wedge face where the watch head sits.
+    #
+    # The cutter is a cylinder of radius watch_dia/2 (22 mm at defaults). Centred
+    # ON the wedge it spanned z in [1.8, 45.8] against a wedge of z in [6, 45.6]
+    # -- it cut the wedge's whole height and severed the top from the base, so
+    # `watch_stand` rendered as two bodies. Push the cutter's axis FORWARD (+Y)
+    # off the wedge face so only a shallow scallop of depth GROOVE_DEPTH is
+    # removed, which is what a cradle is.
+    GROOVE_DEPTH = min(wall * 0.8, watch_dia * 0.06)
+    face_y = -base_d / 2.0 + run * 0.6
     groove = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -base_d / 2.0 + run * 0.6, base_h + back_h * 0.45))
+        .transformed(offset=cq.Vector(
+            0,
+            face_y + watch_dia * 0.5 - GROOVE_DEPTH,
+            base_h + back_h * 0.45,
+        ))
         .cylinder(base_w * 0.85, watch_dia * 0.5)
     )
     groove = groove.rotate((0, 0, 0), (0, 1, 0), 90)

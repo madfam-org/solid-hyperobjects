@@ -3,6 +3,10 @@
     "name": "Multiconnect / GOEWS Adapter",
     "slug": "multiconnect-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An accessory back that snaps into the popular Multiconnect (and GOEWS) wall-mount systems, so you can hang your own thing off a Multiconnect board. The back carries the male snap profile — a keyed, tapered snap tab that slides into the channel and locks. Three faces: a blank plate to build on, a J-hook, or a small open bin.\n\nOfficial Visualizer and Configurator: Yantra4D",
