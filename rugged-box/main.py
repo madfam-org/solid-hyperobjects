@@ -599,15 +599,25 @@ def feet_bodies():
     W = max(1.5, feetwidthMm)
     slot_len = max(L, W + 0.01)
     out = []
+    # FORM: chamfer the ground face so the pad does not catch on a lip. Keep it
+    # well inside both the pad half-width and the pad height: a chamfer that
+    # consumes the whole semicircular end of the stadium leaves OCCT with a
+    # degenerate face, which exports as a non-watertight body rather than
+    # raising — so the size is bounded here rather than caught afterwards.
+    cham = min(0.8, W * 0.25, FOOT_PAD_HEIGHT * 0.3)
     for (x, y) in foot_positions():
         pad = (cq.Workplane("XY").center(x, y)
                .slot2D(slot_len, W, 0)
                .extrude(FOOT_PAD_HEIGHT))
-        # FORM: chamfer the ground face so the pad does not catch on a lip.
-        try:
-            pad = pad.edges("<Z").chamfer(min(0.8, W * 0.28))
-        except Exception:
-            pass
+        if cham > 0.05:
+            try:
+                chamfered = pad.edges("<Z").chamfer(cham)
+                # Only keep it if it is still one sound solid. A silently
+                # damaged chamfer is worse than no chamfer.
+                if len(chamfered.val().Solids()) == 1 and chamfered.val().isValid():
+                    pad = chamfered
+            except Exception:
+                pass
         out.append(pad)
     return out
 
