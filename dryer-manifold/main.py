@@ -107,8 +107,23 @@ def build_manifold(flatten=False):
     body = _plenum_solid()
 
     # Outer branch tubes weld deep into the plenum for a volumetric join.
+    #
+    # Union the branches TO EACH OTHER first, then the resulting tree onto the
+    # plenum. Folding them onto the plenum one at a time
+    # (`body = body.union(branch_k)` in a loop) fails at branch_dia = 40 -- the
+    # one_pair_boots preset -- because the buried tails of the two opposed
+    # branches meet inside the plenum in a configuration OCCT resolves badly
+    # once the plenum is already part of the shape. It does not raise; it
+    # returns a shape that is not watertight, and the interior cut below then
+    # shattered it into 6 pieces. Fusing the branch tree in isolation first
+    # gives OCCT the tail-on-tail intersection on its own, which it handles,
+    # and the single union onto the plenum is then clean.
+    tree = None
     for k in range(branches):
-        body = body.union(_branch_solid(k, branch_r, branch_len, plenum_r + 2.0))
+        b = _branch_solid(k, branch_r, branch_len, plenum_r + 2.0)
+        tree = b if tree is None else tree.union(b)
+    if tree is not None:
+        body = body.union(tree)
 
     # ── One connected interior void ──
     # Plenum chamber: a cylinder that stops `cap` below the plenum top, leaving a
@@ -139,17 +154,33 @@ def build_manifold(flatten=False):
     return body
 
 
+# How much branch wall a tip flat must leave standing over the bore. The flat
+# is measured from the BORE outwards, not as a fraction of branch_dia: the old
+# `branch_r + branch_dia*0.20` offset put the shaving block's inner face at a
+# clearance over the bore that SHRANK as branch_dia grew -- 1.50 mm at
+# branch_dia 30, 1.00 mm at 40, 0.80 mm at 44 -- and at exactly 40 (the
+# one_pair_boots preset) the 1.00 mm sliver left between the flat and the bore
+# came apart, splitting the manifold into 2 bodies, not watertight.
+_FLAT_MIN_WALL = 1.6
+
+
 def _flatten_tips(body):
     """Squeeze each branch tip toward an oval boot outlet by shaving two flats near
     the open end. Non-fatal per branch."""
+    # Where the flat sits: always _FLAT_MIN_WALL clear of the bore, and never so
+    # far out that it misses the branch entirely.
+    flat_y = min(branch_r - 0.2, branch_bore_r + _FLAT_MIN_WALL)
     for k in range(branches):
         az, ang = _branch_axis(k)
-        # Build two shaving blocks on either side of the branch at its tip.
+        # Build two shaving blocks on either side of the branch at its tip. The
+        # block's Y dimension has to reach from flat_y out past the branch
+        # surface, so size it from the geometry rather than from branch_dia.
+        blk_d = (branch_r - flat_y) + branch_dia
         for sign in (+1.0, -1.0):
             blk = (
                 cq.Workplane("XY")
-                .box(branch_dia * 1.4, branch_dia * 0.5, branch_len * 0.6, centered=(True, True, False))
-                .translate((0, sign * (branch_r + branch_dia * 0.20), branch_len * 0.55))
+                .box(branch_dia * 1.4, blk_d, branch_len * 0.6, centered=(True, True, False))
+                .translate((0, sign * (flat_y + blk_d / 2.0), branch_len * 0.55))
             )
             blk = blk.rotate((0, 0, 0), (0, 1, 0), ang).rotate((0, 0, 0), (0, 0, 1), az).translate((0, 0, plenum_h))
             try:

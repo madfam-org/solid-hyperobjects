@@ -106,19 +106,40 @@ def build_holdfast():
     body = body.union(neck)
     # Horizontal arm reaching in +X at the top of the neck.
     arm_h = max(10.0, shank_dia * 0.9)
+    # A SECOND `arm.translate((0, 0, head_h - arm_h))` used to follow the one
+    # below, commented "Raise arm to top of neck" -- the same move applied
+    # twice. It lifted the arm to z in [18.90, 36.00], clear of both the neck
+    # and the pad, so the pad came off as a second, floating body (sweep:
+    # 2 bodies at defaults and at preset:printed_holdfast).
+    #
+    # The arm also has to stay ON the bench. head_h (16.0) is smaller than
+    # arm_h (max(10, shank_dia*0.9) = 16.56 at the default 19 mm hole), so
+    # hanging the arm from the neck top put its underside at z = -0.56, down
+    # inside the shank's zone -- where the arm's start face at x = shank_r is
+    # exactly TANGENT to the shank cylinder of the same radius. That tangent
+    # plane/cylinder contact is what cracked the union (not watertight, and no
+    # exception raised). Seat the arm on the bench top instead: its underside
+    # is z = 0 and it rises arm_h, overlapping the neck for min(arm_h, head_h).
     arm = block(reach, arm_h, arm_h, cx=False, cy=True).translate(
-        (shank_r, 0, head_h + arm_h * 0.5 - arm_h / 2.0)
+        (shank_r, 0, 0.0)
     )
-    # Raise arm to top of neck.
-    arm = arm.translate((0, 0, head_h - arm_h))
     body = body.union(arm)
-    # Down-pad at the arm tip that contacts the work.
-    pad = block(head_w, arm_h + 6.0, arm_h * 0.9).translate(
-        (reach + shank_r - head_w / 2.0, 0, head_h - arm_h * 1.2)
+    # Down-pad at the arm tip that contacts the work. It must OVERLAP the arm,
+    # not abut it: placed at x = reach + shank_r - head_w/2 the pad's far face
+    # landed at exactly x = shank_r + reach, the arm's own far face, and that
+    # coincident face is what cracked the union open (holdfast rendered 1 body,
+    # not watertight, once the arm was back down on the neck). Pull the pad
+    # inboard by _PAD_BITE so the two solids share volume instead of a plane,
+    # and hang it BELOW the arm rather than straddling it -- the pad presses
+    # down on the work, so its top belongs inside the arm and its bottom below.
+    _PAD_BITE = 2.0
+    pad_h = arm_h * 0.9
+    pad_top = _PAD_BITE                       # bites up into the arm from z=0
+    pad = block(head_w, arm_h + 6.0, pad_h).translate(
+        (reach + shank_r - head_w / 2.0 - _PAD_BITE, 0, pad_top - pad_h)
     )
     body = body.union(pad)
-    body = safe_fillet(body, "|Y", min(arm_h * 0.25, 3.0))
-    return body
+    return body.clean()
 
 
 # ── Planing stop (wide-headed end stop) ──────────────────────────────────────
@@ -135,20 +156,36 @@ def build_planing_stop():
     face_t = 8.0
     face = block(head_w * 1.4, face_t, face_h).translate((0, -head_w / 2.0 + face_t / 2.0, 6.0))
     body = body.union(face)
-    # Solid buttress behind the face: a block tapering back over the base so the
-    # face is braced. Built as an overlapping stepped stack (unions cleanly, no
-    # zero-thickness geometry).
+    # Solid buttress behind the face: a stepped stack tapering back over the
+    # base so the face is braced.
+    #
+    # `block()` is Y-CENTRED, so translating each step to y = -head_w/2 + face_t
+    # (as this did) put its MIDPOINT on the face's back plane: the two deepest
+    # steps then reached y = -21.50 and -24.75, out past the front of both the
+    # base and the stop face (y = -20) into mid-air, and every step shared that
+    # same y plane with the others. The stack was four coplanar-faced solids,
+    # which is what the blanket "|X" fillet below then chained across into a
+    # non-manifold shape (hand_plane_stop: not watertight, sweep vol 44835.65).
+    #
+    # Anchor each step on the face's BACK plane instead and grow it backwards
+    # (+Y) over the base, overlapping into the face by `_BRACE_BITE` so each
+    # union has real volume to fuse rather than a coincident face.
     steps = 4
+    _BRACE_BITE = 1.0
+    y_back = -head_w / 2.0 + face_t          # the stop face's back plane
+    max_depth = head_w / 2.0 - y_back        # room left on the base behind it
     for i in range(steps):
         frac = 1.0 - i / float(steps)
         h = 6.0 + face_h * frac
-        d = 6.0 + (head_w - face_t - 6.0) * (i / float(steps))
-        brace = block(head_w * 0.6, d, h).translate(
-            (0, -head_w / 2.0 + face_t, 0.0)
+        d = _BRACE_BITE + max_depth * (1.0 - i / float(steps))
+        brace = block(head_w * 0.6, d, h, cy=False).translate(
+            (0, y_back - _BRACE_BITE, 0.0)
         )
         body = body.union(brace)
-    body = safe_fillet(body, "|X", 1.2)
-    return body
+    # Soften the buttress's own vertical step edges only. A blanket "|X" fillet
+    # over the whole assembly reaches the coincident seams the unions leave and
+    # returns a bad shape without raising, which safe_fillet cannot detect.
+    return body.clean()
 
 
 # ── Dispatch ─────────────────────────────────────────────────────────────────

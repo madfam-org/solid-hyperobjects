@@ -217,15 +217,24 @@ module box_assembly() {
 // render_mode selects which part to isolate; assembly_level controls box/lid visibility.
 // Rack and slide counts always scale with num_racks.
 
+// An EXPLICIT render_mode names the part to isolate, so assembly_level must not
+// be allowed to switch that part off. show_base / show_lid gate the *preview*
+// (render_mode == -1), where assembly_level genuinely means "how much of the
+// assembly to show". They used to gate the isolated parts too, so any preset
+// with a lower level made the requested part render nothing at all and
+// OpenSCAD exited with "Current top level object is empty":
+//   assembly/box_base at preset:assembly_rack_slides (level 1)
+//   assembly/box_lid  at preset:assembly_rack_slides (level 1)
+//   assembly/box_lid  at preset:assembly_box_nolid   (level 2)
 if (render_mode == 1) {
   // 1 = Rack(s) only
   racks_only();
 } else if (render_mode == 2) {
   // 2 = Box Base
-  if (show_base) box_base();
+  box_base();
 } else if (render_mode == 3) {
   // 3 = Box Lid
-  if (show_lid) {
+  {
     translate(
       [
         -(_lid_wall + _lid_clearance),
