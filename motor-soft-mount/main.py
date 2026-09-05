@@ -177,11 +177,18 @@ def build_pod(mode):
         # Neck down to a landing foot.
         z_foot_top = z_plate_bot - foot_drop
         neck = _neck(z_plate_bot, z_foot_top, neck_width)
+        # The neck ends at z_foot_top. Starting the foot at z_foot_top - 2.0 and
+        # extruding DOWNWARD by 4.0 left a 2 mm air gap between the two, so
+        # `skid_mount` rendered as two detached bodies at defaults and at preset
+        # tinywhoop_skid. Start the foot FOOT_BITE above the neck's end and keep
+        # its underside where it was (z_foot_top - 6.0), so the landing height
+        # is unchanged and the union is a real overlap.
+        FOOT_BITE = 1.0
         foot = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(0, 0, z_foot_top - 2.0))
+            .transformed(offset=cq.Vector(0, 0, z_foot_top + FOOT_BITE))
             .circle(max(3.0, foot_dia / 2.0))
-            .extrude(-4.0)
+            .extrude(-(6.0 + FOOT_BITE))
         )
         try:
             foot = foot.edges("<Z").fillet(min(2.0, foot_dia / 4.0))
