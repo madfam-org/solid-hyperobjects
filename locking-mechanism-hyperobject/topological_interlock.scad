@@ -1,6 +1,6 @@
 // Parametric Topological Interlock (Osteomorphic Blocks)
 // Yantra4D — Locking Mechanism Hyperobject
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 matrix_size = 3;
 clearance = 0.3;

@@ -1,6 +1,6 @@
 // Parametric Pin-Tumbler Core — Engineered for AM
 // Yantra4D — Locking Mechanism Hyperobject
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 clearance = 0.3; // Nominal transition fit

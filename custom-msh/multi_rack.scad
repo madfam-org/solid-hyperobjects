@@ -10,7 +10,7 @@
 // Side guards are mandatory (always ON) — not toggleable in this mode.
 
 use <aocl_lib.scad>
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // --- Configuration Parameters ---
 // Defaults sourced from aocl_lib.scad; CLI -D overrides still work.

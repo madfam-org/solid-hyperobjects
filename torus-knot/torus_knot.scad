@@ -4,8 +4,8 @@
 // A torus knot is defined by integers (p, q) that describe how the
 // curve winds around the torus surface.
 
-include <../../libs/BOSL2/std.scad>
-include <../../libs/BOSL2/skin.scad>
+include <BOSL2/std.scad>
+include <BOSL2/skin.scad>
 
 // --- Parameters (overridden by platform) ---
 p = 2;

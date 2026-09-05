@@ -17,7 +17,7 @@ Third-party libraries and lineage:
   contributors — licensed under the BSD 2-Clause License. `torus_knot.scad`
   uses BOSL2 (`std.scad`, `skin.scad`) to sweep the knot path into a solid.
   BOSL2 is **not vendored** in this repository; it is resolved at render time
-  from `../../libs/BOSL2` on the build environment's library path.
+  from BOSL2 on the build environment's library path.
 - **[dotSCAD](https://github.com/JustinSDK/dotSCAD)** by Justin Lin
   (@JustinSDK) — LGPL-3.0. Earlier versions of this project generated the
   torus-knot path with dotSCAD. That dependency was removed by inlining the

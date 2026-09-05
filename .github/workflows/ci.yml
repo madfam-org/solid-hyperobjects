@@ -175,8 +175,9 @@ jobs:
 
       - name: y4d-spec check --render
         env:
-          # OpenSCAD cartridges resolve their includes from the pinned libs/ tree.
-          OPENSCADPATH: ${{ github.workspace }}/libs
+          # OpenSCAD cartridges resolve their includes from the pinned libs/ tree
+          # and from this repo's own first-party commons-lib/ (ruling G11).
+          OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           rc=0
           for slug in ${{ matrix.group }}; do
@@ -234,7 +235,7 @@ jobs:
 
       - name: y4d-spec check --render (every cartridge)
         env:
-          OPENSCADPATH: ${{ github.workspace }}/libs
+          OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
           echo "cartridges: $(echo $dirs | wc -w)"

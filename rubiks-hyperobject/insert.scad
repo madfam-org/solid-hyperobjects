@@ -8,7 +8,7 @@
 //   openscad -o insert.stl insert.scad
 //   openscad -o insert_5x5.stl -D "N=5" -D "size=80" insert.scad
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 /* [Puzzle Grid] */
 N = is_undef(N) ? 3 : N;

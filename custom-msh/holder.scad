@@ -13,7 +13,7 @@
 use <aocl_lib.scad>
 
 // Import the BOSL2 library for advanced geometric operations like creating cuboids and chamfers
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // --- Configuration Parameters ---
 // These variables act as the control panel for the 3D model.

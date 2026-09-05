@@ -2,7 +2,7 @@
 // Interleaving knuckle cylinders around a central pin
 // Print-in-place with clearance gap between knuckles
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 // Yantra4D Parameters
 hinge_width   = 30;    // mm — total width along hinge axis

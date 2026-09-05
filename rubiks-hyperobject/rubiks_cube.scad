@@ -5,7 +5,7 @@
 // and primitive geometry. Supports 2x2 through 9x9, layer rotations
 // (including middle layers), exploded views, and separate core/cubie rendering.
 
-include <../../libs/BOSL2/std.scad>
+include <BOSL2/std.scad>
 
 /* [Puzzle Grid] */
 // Grid size: 2=Pocket, 3=Standard, 4=Revenge, 5=Professor ... 9x9

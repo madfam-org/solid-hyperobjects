@@ -2,8 +2,8 @@
 // BOSL2 `gears.scad` wrapper; no MCAD code. Involute parameterization
 // (module, teeth, pressure angle) follows ISO 53 / DIN 867.
 // BOSL2 advantages: active maintenance, shaft bore, helical support, rack-and-pinion
-include <../../libs/BOSL2/std.scad>
-include <../../libs/BOSL2/gears.scad>
+include <BOSL2/std.scad>
+include <BOSL2/gears.scad>
 
 // Parameters (injected by Yantra4D platform via -D flags)
 teeth_count = 20;

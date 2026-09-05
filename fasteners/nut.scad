@@ -1,6 +1,6 @@
 // Yantra4D wrapper — Parametric Nut (BOSL2)
-include <../../libs/BOSL2/std.scad>
-include <../../libs/BOSL2/threading.scad>
+include <BOSL2/std.scad>
+include <BOSL2/threading.scad>
 
 diameter = 5;
 width = 0;       // 0 = auto (1.7x diameter)

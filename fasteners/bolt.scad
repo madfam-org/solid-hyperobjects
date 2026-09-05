@@ -1,5 +1,5 @@
 // Yantra4D wrapper — Parametric Bolt (BOSL2)
-include <../../libs/scad_core/core.scad>
+include <commons-lib/scad_core.scad>
 
 diameter = 5;
 length = 20;

@@ -14,9 +14,10 @@ not yet a finished Yantra4D Commons pack.
   (shoulder link, elbow link, Z spindle, end-effector mount); `sensorium` is
   the reference-anchor set (two endstop brackets and a Z-probe mount). Each
   part has its own `render_mode` branch — see the dispatch table at the top of
-  the file. Note the BOSL2 include uses a platform-relative path
-  (`../../libs/BOSL2/std.scad`) and is resolved by the Yantra4D build
-  environment, not by this repo alone.
+  the file. The BOSL2 include is a library-path include
+  (`include <BOSL2/std.scad>`), resolved through `OPENSCADPATH` — which the
+  commons CI points at this repo's own `libs/` tree, and the platform worker
+  points at its own.
 - `robot.py` — CadQuery equivalent of the same ten parts, dispatched on the
   `target_part` the platform injects. The kinematic and sensorium parts are
   built primitive-for-primitive against the OpenSCAD side (faceted `.polygon()`

@@ -48,12 +48,13 @@ y4d-spec rules                             # what is checked, and where each rul
 Manifest conformance is pure Python. `--render` pulls a CAD kernel (~400 MB);
 on Debian/Ubuntu it also needs `libgl1`, `libglib2.0-0` **and** `libxrender1`.
 
-OpenSCAD cartridges resolve their library includes from the pinned `libs/*`
-submodules:
+OpenSCAD cartridges resolve their library includes through `OPENSCADPATH`:
+third-party libraries from the pinned `libs/*` submodules, and the first-party
+helpers in `commons-lib/` from the repository root:
 
 ```bash
 git submodule update --init --recursive
-export OPENSCADPATH="$PWD/libs"
+export OPENSCADPATH="$PWD/libs:$PWD"
 ```
 
 ## Layout
@@ -65,6 +66,7 @@ export OPENSCADPATH="$PWD/libs"
 <slug>/LICENSE          CERN-OHL-W-2.0 (or the cartridge's own, if it differs)
 <slug>/NOTICE           third-party attributions, where any apply
 libs/*                  pinned third-party OpenSCAD libraries (submodules)
+commons-lib/*           first-party shared helpers, resolved via OPENSCADPATH
 ```
 
 ## Contributing
