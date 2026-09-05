@@ -205,22 +205,25 @@ module snap_latch_arm(arm_length, arm_width, arm_thick, hook_height, hook_depth)
 module snap_latch_catch(width, height, depth) {
   union() {
     cube([width, depth, height]);
-    // Support chamfer below, extending downwards from Z=0
-    // Triangle with height=depth and depth=depth (45 deg)
-    // Extruded along X (width)
-    translate([0, depth, 0]) // Align with back of catch for rotation
-      rotate([90, 0, 90]) // Rotate to place triangle under Z=0, sloping up to Y=depth?
-        // Let's keep it simple:
-        // Polygon in XZ plane: (0,0) -> (depth, 0) -> (depth, -depth) ?
-        // Extruded along Y (width)? No width is X.
 
-        // Using linear_extrude(height=width) suggests extrusion along Z before rotation.
-        // We want uniform cross section along X (width).
-        translate([0, 0, 0])
-          rotate([0, 90, 0]) // Extrude becomes X.
-            rotate([0, 0, 90]) // Rotate profile in YZ
-              linear_extrude(height=width)
-                polygon([[0, 0], [depth, 0], [depth, -depth]]);
+    // 45-degree print support below the catch, so the overhang is bridged.
+    //
+    // The old transform chain was three stacked rotates written by trial and
+    // error -- its own comments read "Let's keep it simple", "No width is X."
+    // -- and it did not land: the catch came out as TWO disjoint bodies with a
+    // bounding box of 11.5 x 11.5 x 6.99 for a catch asked for as
+    // width 8 x depth 3.5 x height 2, i.e. the chamfer was thrown clear of the
+    // body it was meant to support. Two of those per box_base is where
+    // box/box_base's stray bodies came from.
+    //
+    // Built directly instead: the profile lives in the YZ plane (y outward,
+    // z downward from the catch's underside) and is extruded along X for
+    // `width`, which is the one axis it has to span uniformly. rotate([0,90,0])
+    // maps the extrusion axis onto +X and the profile's (x, y) onto (z, y), so
+    // the polygon is written as (z, y) pairs.
+    rotate([0, 90, 0])
+      linear_extrude(height=width)
+        polygon([[0, 0], [0, depth], [depth, depth]]);
     // Triangle in YZ plane
     // (0,0) is top-front?
     // The block is [0,0,0] to [width, depth, height].
