@@ -3,6 +3,10 @@
     "name": "Seam Conduit Clip",
     "slug": "seam-conduit-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed sew-on C-clip that routes a wire bundle along a garment's seam allowance. An e-textile harness that is not captured migrates inside the shell, snags in the wash, and eventually pulls a solder joint apart. Two flanking sew tabs stitch the clip flat to the seam allowance; the open C channel above them takes the bundle so it stays put while still sliding enough for the garment to move. This is the rigid hard good the Fashion Cabinet harness-routing notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

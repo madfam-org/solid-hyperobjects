@@ -17,15 +17,27 @@ this commit (their history stays in git and in the archived satellite repos);
 their slugs are **reserved** and return only as clean-room implementations
 verified against the recorded final result:
 
-| Slug | Origin licence | Origin |
-| :-- | :-- | :-- |
-| `keyv2` | GPL-3.0 | rsheldiii/KeyV2 |
-| `stemfie` | GPL-3.0-or-later | stemfie.org (Paulo Kiefe) |
-| `multiboard` | CC-BY-NC-SA-4.0 | Multiboard (Keep Making) |
-| `polydice` | BSD-2-Clause | (unattributed upstream) |
-| `rugged-box` | CC-BY-NC-SA-4.0 (vendored `RuggedBoxV1.scad` + parameter sets) | Super Customizable Rugged Box (Iceman) |
+| Slug | Origin licence | Origin | Status |
+| :-- | :-- | :-- | :-- |
+| `keyv2` | GPL-3.0 | rsheldiii/KeyV2 | **returned** clean-room, see below |
+| `stemfie` | GPL-3.0-or-later | stemfie.org (Paulo Kiefe) | reserved |
+| `multiboard` | CC-BY-NC-SA-4.0 | Multiboard (Keep Making) | reserved |
+| `polydice` | BSD-2-Clause | (unattributed upstream) | reserved |
+| `rugged-box` | CC-BY-NC-SA-4.0 (vendored `RuggedBoxV1.scad` + parameter sets) | Super Customizable Rugged Box (Iceman) | reserved |
 
-Until each returns, the catalog counts **495** cartridges, honestly.
+Until each returns, the catalog counts what remains, honestly.
+
+### `keyv2` — returned clean-room (ADR-021 §3)
+
+`keyv2` was re-created from a recorded final-result baseline by an implementer
+with no access to the removed cartridge, the archived satellite, or the upstream
+project. It is MADFAM's own authoring under CERN-OHL-W-2.0 and implements
+published mechanical interfaces only: the 19.05 mm keyboard key pitch and the
+Cherry MX, Alps and Box Cherry stem dimensions. Its acceptance evidence, and the
+one intentional divergence from the baseline (body count — the baseline's
+default keycap was two disjoint solids with a free-floating stem, which cannot
+be printed; the re-creation fuses the stem to the keytop), are recorded in
+`keyv2/docs/CLEANROOM-VERIFICATION.md`.
 
 ## `gridfinity` — OpenSCAD side removed (ADR-021), GPL submodule dropped
 

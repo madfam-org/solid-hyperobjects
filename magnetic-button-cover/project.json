@@ -3,6 +3,10 @@
     "name": "Magnetic Button Cover",
     "slug": "magnetic-button-cover",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The two-part adaptive conversion that turns an existing buttoned garment into a magnetic one without unpicking a single button: a cap that snaps over the sew-through button already on the shirt, and a magnet carrier plate sewn behind the buttonhole side. The button stays where it is and still looks like a button; the placket now closes by bringing two magnets together. Both magnet pockets open downward, so they drain, print without a bridge, and capture the disc against the mating part instead of needing glue.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Wire Nut / Terminal Cover",
     "slug": "terminal-cover",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Insulating covers, guards and barriers for terminals and busbars on a DIN rail. The footprint follows DIN rail (TS35, EN 60715) and DIN feed-through terminal-block dimensions, so a printed hood drops over a real block row and a finger guard shrouds a busbar. Pick the block pitch and pole count and the cover spans the row with wire-entry slots. Includes a clip-over block cover, an IP20 comb busbar guard, and a rail-clip end barrier.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "NATO Accessory Rail",
     "slug": "nato-rail",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The NATO accessory rail — a dovetail cross-section with ~44° flanks and safety notches that photo/video accessory ecosystems share for quick-release mounting. Build a length of NATO rail with mounting holes, a quick-release clamp that grips the rail dovetail, or a rail adapter carrying a 1/4-20 face.\n\nOfficial Visualizer and Configurator: Yantra4D",

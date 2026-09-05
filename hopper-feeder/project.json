@@ -3,6 +3,10 @@
     "name": "Hopper / Funnel Feeder",
     "slug": "hopper-feeder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hopper that funnels bulk material to an outlet. The taper wall angle is exposed so you can set it steeper than the material's angle of repose for reliable flow. Choose a round (conical), square (pyramidal to a round outlet), or wedge (linear trough to a slot) shape. Built as a genuine watertight hollow shell.\n\nOfficial Visualizer and Configurator: Yantra4D",

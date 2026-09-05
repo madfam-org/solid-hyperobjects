@@ -1,0 +1,50 @@
+NOTICE — provenance
+===================
+
+Rugged Box (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+
+Clean-room re-creation (ADR-021 §3, §4)
+---------------------------------------
+
+This cartridge is an original MADFAM work. It was authored clean-room: from a
+recorded specification of the case's functional interfaces only, without access
+to the implementation that previously occupied this slug, to that
+implementation's git history, or to the third-party design whose files that
+implementation vendored.
+
+The prior cartridge vendored an upstream design licensed CC BY-NC-SA 4.0. That
+licence covers the design itself, not only its source, so reproducing the shape
+from any source would carry the licence forward. Nothing from it is vendored,
+copied, adapted or reproduced here, and the non-commercial restriction that
+applied to the prior cartridge does not apply to this one.
+
+Interface, not shape
+--------------------
+
+Per ADR-021 §4 the re-creation target is the INTERFACE — the functional
+dimensions another part mates to — with a FORM of our own:
+
+  Held (interface). The payload envelope; the seal — gasket ring inset 1.75 mm
+  per side from the shell face, 2.0 mm ring width, 2.2 mm default depth over a
+  1–5 mm range; the lid engagement rim, 3.0 mm deep with 0.5 mm assembly
+  clearance; the knuckle hinge — 4.0 mm base radius against a 3.5 mm lid radius
+  for 0.5 mm running clearance, and a lid knuckle 1 mm narrower axially; the
+  latch catch — 25 mm wide, 5 mm engagement, 4 mm strap thickness; the 3 mm
+  stacking foot height. A lid, a gasket or a latch printed from this cartridge
+  interchanges with one printed from any other implementation of the same
+  published interface.
+
+  Ours (form). The shell silhouette — a belt rib running the seam line right
+  around both halves and a corner pilaster at each vertical edge, so the case
+  lands on its corners; the wall treatment; the waisted latch strap with its
+  thumb ramp; the stadium-shaped foot pads. These are MADFAM design decisions
+  and are deliberately unlike the prior cartridge's plain chamfered box, flat
+  rectangular strap and flat rectangular pads.
+
+The interface dimensions this cartridge implements are published in
+docs/CLEANROOM-VERIFICATION.md alongside the measurements proving conformance.
+
+No third-party code or design files are vendored in this cartridge.

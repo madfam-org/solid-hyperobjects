@@ -3,6 +3,10 @@
     "name": "Finger Guard & Blister Popper",
     "slug": "finger-guard",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Small hand-protection and dexterity aids: a blister-pack popper that presses a pill through foil without hurting the thumb, a cut-resistant finger shield worn while chopping, and a shorter thumb guard. Printable everyday-living aids, not certified medical or safety-rated PPE.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Belt Clip & Holster",
     "slug": "belt-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Belt-worn carry hardware sized to your belt width. A sprung belt clip that snaps over the belt, a device pocket holster with an integral belt loop, and a bare belt loop to graft onto anything.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -170,12 +170,19 @@ def build_hook_back():
     body = with_snaps(plate())
     z_hook = plate_h * 0.30
     # Horizontal rod from the plate front out to +Y.
+    # On an XZ workplane, local +z is global -Y, so the transformed offset's
+    # third component (-plate_t) ALREADY moves the rod to y = +plate_t. Adding a
+    # further plate_t in the translate double-counted it: the rod started at
+    # y = 2*plate_t (8.0 mm at defaults) instead of at the plate's front face
+    # (4.0 mm), leaving a plate_t-wide air gap and a detached body. Drop the
+    # duplicate, and sink ROD_BITE into the plate so the union overlaps.
+    ROD_BITE = 0.6
     rod = (
         cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, z_hook, -plate_t))
-        .cylinder(hook_len, hook_dia / 2.0)
+        .transformed(offset=cq.Vector(0, z_hook, 0.0))
+        .cylinder(hook_len + ROD_BITE, hook_dia / 2.0)
     )
-    rod = rod.translate((0, plate_t + hook_len / 2.0, 0))
+    rod = rod.translate((0, plate_t - ROD_BITE + (hook_len + ROD_BITE) / 2.0, 0))
     # Upturn at the tip.
     up = (
         cq.Workplane("XY")

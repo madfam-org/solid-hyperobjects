@@ -3,6 +3,10 @@
     "name": "Trellis / Plant Clip",
     "slug": "plant-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A gentle clip that ties a plant stem to a stake, a trellis wire, or itself. Three styles: a figure-of-eight stake clip, a wire clip that snaps over a trellis wire, and a soft spiral wrap. The C-loops grip a little smaller than the stem so they hold, but spring on without crushing the plant.\n\nOfficial Visualizer and Configurator: Yantra4D",

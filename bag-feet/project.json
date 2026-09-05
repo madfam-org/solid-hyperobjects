@@ -3,6 +3,10 @@
     "name": "Bag Feet",
     "slug": "bag-feet",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The dome studs set into the base of a handbag or briefcase so the bag stands off the floor and the leather does not scuff. A foot is a shallow dome on a flange with a boss underneath that passes through a punched hole; a backing washer inside the bag spreads the load so the foot does not pull through. Two boss styles: a cosmetically threaded screw post, or two splayable prongs folded over the washer in the traditional way. This is the rigid hard good the Fashion Cabinet `bag-feet` notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

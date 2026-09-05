@@ -3,6 +3,10 @@
     "name": "Shelf Bracket",
     "slug": "shelf-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A right-angle L-bracket that supports a shelf, load-aware. The plate thickness is bounded so the part stays structurally sane, an optional diagonal gusset braces the corner, and screw holes sit on both arms to bolt into the wall and up into the shelf. Print a single bracket or a mirrored left+right pair.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Business Card Holder",
     "slug": "card-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A parametric business-card holder for the desk or wall. Part of the card-format family — it shares the business-card footprint groove with the card holder and deck box, so a stack sized for one seats cleanly in another. Print an angled display tray, a wall pocket, or an upright divider box.",
       "es": "Un portatarjetas de presentación paramétrico para escritorio o pared. Forma parte de la familia card-format — comparte la ranura del formato de tarjeta con el portatarjetas y la caja de mazo, de modo que un bloque dimensionado para uno encaja en otro. Imprime una bandeja de exhibición inclinada, un bolsillo de pared o una caja divisoria vertical."

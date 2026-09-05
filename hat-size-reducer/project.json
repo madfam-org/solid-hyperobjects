@@ -3,6 +3,10 @@
     "name": "Hat Size Reducer",
     "slug": "hat-size-reducer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A ribbed C-profile sizing strip that clips inside a hatband to take a hat down a size or two. One US/UK hat size is about 10 mm of head circumference, so the take-up is set directly in millimetres of circumference and the strip converts it to radial build-up. The C hooks the sweatband's free edges — friction fit, no glue, removable — and the inner ribs spread the take-up and vent so the fit stays comfortable.\n\nOfficial Visualizer and Configurator: Yantra4D",

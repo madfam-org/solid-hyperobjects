@@ -3,6 +3,10 @@
     "name": "Geodesic / Strut Hub Connector",
     "slug": "geodesic-hub",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A central hub that joins several struts (dowels, tubes, or pipes) at defined angles — the vertex node for domes, shelters, trellises, tensegrity frames, and geodesic structures. Each strut plugs into a cylindrical socket on an arm radiating from a solid core, with optional pin/screw cross-holes to lock it in. Flat, dome (angled), and ground-anchor variants.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Timing Belt Clamp",
     "slug": "belt-clamp",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Terminates or tensions a timing belt by gripping its teeth. The gripping face is a comb of ridges cut to the belt's tooth pitch (GT2 = 2 mm, HTD-3M = 3 mm) so the belt's valleys seat into the ridges and cannot pull out. Choose a belt clamp, a slotted tensioner, or a two-ended belt joiner.\n\nOfficial Visualizer and Configurator: Yantra4D",

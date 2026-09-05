@@ -3,6 +3,10 @@
     "name": "SBS/SLAS Microplate Tray",
     "slug": "microplate-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Labware built on the ANSI/SLAS microplate footprint (127.76 x 85.48 mm) so it drops into standard lab automation, stackers, and readers. Print a holder tray that a commercial plate sits in, a simple 96-well plate (9 mm pitch), or a 24-well plate.\n\nOfficial Visualizer and Configurator: Yantra4D",

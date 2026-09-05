@@ -1,5 +1,6 @@
 // Yantra4D wrapper — Herringbone Gear (BOSL2)
-// Migrated from MCAD/involute_gears.scad → BOSL2 gears.scad
+// BOSL2 `gears.scad` wrapper; no MCAD code. Involute parameterization
+// (module, teeth, pressure angle) follows ISO 53 / DIN 867.
 // BOSL2 renders herringbone natively in a single call (herringbone=true + helical angle)
 include <../../libs/BOSL2/std.scad>
 include <../../libs/BOSL2/gears.scad>
@@ -10,7 +11,7 @@ module_size = 2; // gear module (mm per tooth)
 pressure_angle = 20; // degrees
 thickness = 10; // total gear face width (mm)
 bore_diameter = 5; // shaft bore (mm)
-helical_angle = 30; // helix angle (degrees) — replaces MCAD twist_angle
+helical_angle = 30; // helix angle (degrees)
 fn = 0;
 render_mode = 0;
 

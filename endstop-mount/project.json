@@ -3,6 +3,10 @@
     "name": "Endstop Mount",
     "slug": "endstop-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Holds a limit switch at a repeatable position on a motion axis. The switch face carries the Omron-style microswitch footprint — two M2 holes on ~9.5 mm centres for a ~20 x 6 mm subminiature switch (SS / D2F family) — and adjustment slots dial in the trigger point. Choose a slotted switch bracket, an optical-endstop board mount, or a 2020 extrusion foot.\n\nOfficial Visualizer and Configurator: Yantra4D",

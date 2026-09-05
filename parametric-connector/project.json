@@ -3,6 +3,10 @@
     "name": "Parametric Pipe Connector",
     "slug": "parametric-connector",
     "version": "2.1.1",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A disaster-relief structural connector for scavenged cylindrical stock — PVC pipe, bamboo, or wooden dowel. Measure the outer diameter of whatever material you have, pick a topology (elbow, tee, or 3D corner), and print a node whose sockets seat each pipe to a set depth, with optional pin holes and a heavy-load rib option for shelter frames and geodesic domes.\n\nOfficial Visualizer and Configurator: Yantra4D",

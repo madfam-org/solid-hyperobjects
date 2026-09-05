@@ -79,7 +79,13 @@ def _band(arc_deg=360.0):
     if arc_deg < 359.9:
         # Trim to an arc with a big wedge cut (keep the +X-ish sector).
         half = math.radians(arc_deg) / 2.0
-        big = r_out + 10.0
+        # `keep` is a TRIANGLE, so the straight chord between its two outer
+        # vertices sits at x = big*cos(half) -- not at radius `big`. With
+        # big = r_out + 10 and a 120 deg arc that chord lands at x = 20.32,
+        # inside the band's inner radius of 28.65: it sliced the middle out of
+        # the arc and left the two ends as separate bodies (swatch rendered 2).
+        # Scale `big` by 1/cos(half) so the chord clears r_out instead.
+        big = (r_out + 10.0) / max(0.05, math.cos(half))
         keep = (
             cq.Workplane("XY")
             .transformed(offset=cq.Vector(0, 0, -1.0))
@@ -125,6 +131,14 @@ def build_cuff(arc_deg=360.0, cols=None):
     slot_h = row_h * 0.7                      # gap between rows = the flexing ligament
 
     span_rad = math.radians(arc_deg)
+    # On an open arc (the swatch) the band has two free edges, and a slot that
+    # straddles one cuts a sliver off instead of featuring the wall. The
+    # staggered rows shift by half a pitch, which pushed the last slot of every
+    # offset row to 58.07-61.93 deg against a 60 deg arc edge, so the swatch
+    # rendered 2 bodies. A closed ring has no edge to cross, so this only
+    # applies to the arc.
+    slot_half_ang = (slot_w / 2.0) / max(0.001, r_in + wall / 2.0)
+    edge_limit = span_rad / 2.0 - slot_half_ang - slot_half_ang
     for r in range(slot_rows):
         z_c = land + row_h * (r + 0.5)
         offset = (span_rad / cols / 2.0) if (r % 2) else 0.0
@@ -132,6 +146,8 @@ def build_cuff(arc_deg=360.0, cols=None):
             ang = -span_rad / 2.0 + (c + 0.5) * (span_rad / cols) + offset
             if arc_deg > 359.9:
                 ang = c * (2.0 * math.pi / cols) + offset
+            elif abs(ang) > edge_limit:
+                continue
             body = body.cut(_slot(ang, z_c, slot_h))
     return body
 

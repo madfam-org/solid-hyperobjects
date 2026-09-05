@@ -3,6 +3,10 @@
     "name": "Hobby Servo Bracket",
     "slug": "servo-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Cradles a hobby servo by its body. The cradle is a pocket sized to the servo (SG90 micro = 23 x 12.2 mm, MG996R standard = 40.7 x 19.7 mm) with a floor window clearing the output shaft and mounting tabs matching the servo's flange screws. Choose a single servo mount, a two-servo pan/tilt bracket, or a U output arm.\n\nOfficial Visualizer and Configurator: Yantra4D",

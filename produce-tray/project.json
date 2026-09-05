@@ -3,6 +3,10 @@
     "name": "Egg / Produce Tray",
     "slug": "produce-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Stackable trays for storing eggs and produce: an egg-cup array that cradles eggs upright, a flat tray divided into open compartments for berries and small produce, and a plain stacking tray. All share one cup-array footprint and a common stacking lip so trays nest.\n\nFood-contact note: eggs and produce contact the print. Geometry only — food-safe filament and hygiene are the maker's responsibility.\n\nOfficial Visualizer and Configurator: Yantra4D",

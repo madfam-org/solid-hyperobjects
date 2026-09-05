@@ -3,6 +3,10 @@
     "name": "Lampshade",
     "slug": "lampshade",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A patterned lampshade or pendant — a thin shell with a bulb-socket ring at the top (sized to an E26/E27 lamp holder) and a perforated pattern that casts light. Dial top and bottom diameter, height, wall, socket standard, and pattern density. Choose a straight drum, a tapered cone, or a downlight pendant.\n\nOfficial Visualizer and Configurator: Yantra4D",

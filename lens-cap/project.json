@@ -3,6 +3,10 @@
     "name": "Lens & Filter Cap",
     "slug": "lens-cap",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Front lens caps, rear body caps and step-up/step-down rings for the universal photographic filter-thread system (49/52/58/67/72/77/82 mm at a fine 0.75 mm pitch). Build a pinch/press snap cap sized to a filter OD, a step ring that threads one filter size to another, or a rear body-cap blank.\n\nOfficial Visualizer and Configurator: Yantra4D",

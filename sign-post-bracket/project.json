@@ -3,6 +3,10 @@
     "name": "Sign Post Bracket",
     "slug": "sign-post-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Brackets that mount a sign blank to a street-furniture post. Two real interfaces meet here and neither is negotiable if the part is to fit anything: the post section on one side (U-channel or square tube, in the sections actually rolled for signage) and the sign-blank hole spacing on the other (the 3/8 in punched pattern blanks arrive with, on 100/150/304.8 mm centres). Post bolts land on the real 1 in punching pitch of perforated tube and U-channel. Includes a U-channel bracket, a three-sided square-tube clamp, and a perpendicular blade arm for a street-name sign or fingerpost.\n\nOfficial Visualizer and Configurator: Yantra4D",

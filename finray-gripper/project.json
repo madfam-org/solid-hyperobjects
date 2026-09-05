@@ -3,6 +3,10 @@
     "name": "Fin-Ray Gripper Jaw",
     "slug": "finray-gripper",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A compliant Fin-Ray-effect gripper jaw: a triangular ribbed finger that wraps toward the load when pushed, form-fitting fragile or irregular parts with no actuator. One mode carries a real 24T/25T servo output spline so a jaw bolts straight onto a hobby servo — bridging soft-robotics to the servo family. Print rigid for a light-compliance jaw, or in TPU for a soft wrapping one.\n\nOfficial Visualizer and Configurator: Yantra4D",

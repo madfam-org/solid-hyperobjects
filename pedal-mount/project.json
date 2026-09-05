@@ -3,6 +3,10 @@
     "name": "Pedalboard Pedal Mount",
     "slug": "pedal-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Fixes guitar effects pedals to a pedalboard, sized by the pedal footprint. An edge-gripping rail bracket (rail slot / hook-and-loop / riser feet), a viewing-angle riser, and an under-board power-supply cradle — all indexed off one pedalboard rail slot.\n\nOfficial Visualizer and Configurator: Yantra4D",

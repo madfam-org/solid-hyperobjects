@@ -3,6 +3,10 @@
     "name": "IV Pole Clamp",
     "slug": "iv-pole-clamp",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The mounting spine of the ward. A split clamp that grips a round IV pole (19-25 mm is the usual range) and presents a DOVETAIL accessory face; anything that speaks the same dovetail — starting with drip-chamber-holder — slides on and locks without a second tool. The pole-diameter series is published as a CDG socket so a clamp and an accessory generated at the same pole diameter are guaranteed to share a pole, and the dovetail is published separately so accessories can be authored against the face without knowing the pole size at all.\n\nOfficial Visualizer and Configurator: Yantra4D",

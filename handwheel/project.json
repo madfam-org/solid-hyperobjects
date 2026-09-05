@@ -3,6 +3,10 @@
     "name": "Machine Handwheel / Crank",
     "slug": "handwheel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A replacement handwheel, crank, or adjust knob for a machine shaft. The bore is modelled per type — round, D-flat, keyway, or hex — with a radial setscrew, so it drives the real shaft. Optional revolving handle.\n\nOfficial Visualizer and Configurator: Yantra4D",

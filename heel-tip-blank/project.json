@@ -3,6 +3,10 @@
     "name": "Heel Tip Blank",
     "slug": "heel-tip-blank",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed replacement heel top-lift — the small wearing piece at the very bottom of a shoe heel, the part that meets the pavement and the only part of a heel meant to be consumed. It carries a center pin bore for the steel pin, a wearing chamfer, and the same slight draft a moulded tip has. Heel-tip sizes are a manufacturer's private grid, so the exact tip for a given shoe is routinely unobtainable; this is the blank a cobbler or a wearer can size to the heel in hand.\n\nOfficial Visualizer and Configurator: Yantra4D",

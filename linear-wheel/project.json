@@ -3,6 +3,10 @@
     "name": "Linear Bushing / V-Wheel",
     "slug": "linear-wheel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A parametric OpenBuilds-style V-wheel that rolls in a V-slot aluminium extrusion rail, plus a plain flat idler variant. The running surface is a double-V of two 45° flanks (a 90°-included groove) that grips the rail's 45° slot edges; the wheel presses onto a standard 625 bearing (16 mm OD). Build a bearing V-wheel, a flat bearing wheel, or a bearingless solid wheel with a printed axle hole.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Boning Stay and Channel",
     "slug": "boning-stay",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The boning of corsetry and structured garments — a flat flexible stay that holds a seam line straight, together with the sew-in channel casing that carries it. This is the rigid hard good the Fashion Cabinet `boning` notion places and bridges to here for its geometry. Printed in a springy filament a thin stay flexes around the body while resisting buckling edge-on, exactly as spiral steel or synthetic whalebone does. Sized by stay length so a garment's finished seam drives the finding.\n\nOfficial Visualizer and Configurator: Yantra4D",

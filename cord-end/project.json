@@ -3,6 +3,10 @@
     "name": "Cord End (Aglet & Bell Tip)",
     "slug": "cord-end",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The tip that finishes a drawcord — a straight aglet like a shoelace point, or a flared bell tip for hoodie and waistband strings. It crimps onto the cord end so the braid cannot fray or vanish back into its channel, and it feeds the cord through eyelets. The Fashion Cabinet `cord-end` notion places the tip on a garment and bridges here for the solid; the companion `cord-lock` cartridge owns the stop function.\n\nOfficial Visualizer and Configurator: Yantra4D",

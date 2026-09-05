@@ -3,6 +3,10 @@
     "name": "Bias Tape Maker",
     "slug": "bias-tape-maker",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed folded-channel bias tape tool: a bias-cut strip feeds in the wide mouth, the tapering channel folds both raw edges to the centre, and single-fold tape comes out the throat under the iron. 18 mm and 25 mm modes, or any finished width you set.\n\nOfficial Visualizer and Configurator: Yantra4D",

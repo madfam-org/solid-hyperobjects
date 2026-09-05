@@ -3,6 +3,10 @@
     "name": "Deck Box",
     "slug": "deck-box",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A card-game deck box sized to a sleeved deck, with a friction-fit lid. Footprints follow the common card standards — standard (63x88), mini (41x63) and tarot (70x120) mm. Also builds a matching token tray and a two-deck box with a central divider.\n\nOfficial Visualizer and Configurator: Yantra4D",

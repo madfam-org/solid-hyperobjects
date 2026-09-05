@@ -3,6 +3,10 @@
     "name": "Strap Ring",
     "slug": "strap-ring",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The strap-ring family — the plain loops a bag maker sews webbing or a leather tab around to anchor a strap, hang a clip, or turn a corner. Three shapes cover almost every commercial part: the O-ring (round, free-swivelling), the rectangular ring (keeps the webbing flat and square to the panel), and the triangle ring (apex takes the clip, flat base takes the sewn tape). This is the rigid hard good the Fashion Cabinet `strap-ring` notion places and bridges to here for its geometry. The sibling `d-ring` cartridge covers the flat-bar D shape.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -1,0 +1,250 @@
+{
+  "project": {
+    "name": "Polyhedral Dice Set",
+    "slug": "polydice",
+    "version": "1.0.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric set of the five Platonic dice — d4, d6, d8, d12 and d20 — each an exact regular polyhedron with its numerals debossed into every face. Opposite faces sum to n+1; the d4 uses the vertex-number convention.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un conjunto paramétrico de los cinco dados platónicos — d4, d6, d8, d12 y d20 — cada uno un poliedro regular exacto con sus numerales grabados en hueco en cada cara. Las caras opuestas suman n+1; el d4 usa la convención de numeración por vértice.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/polydice.webp",
+    "tags": ["dice", "tabletop", "gaming", "polyhedron", "platonic", "rpg", "hyperobject", "commons"],
+    "difficulty": "beginner",
+    "force_backend": true,
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [
+        { "project": "regular polyhedra (public geometry)" }
+      ]
+    }
+  },
+  "modes": [
+    {
+      "id": "d4",
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "label": { "es": "D4 (Tetraedro)", "en": "D4 (Tetrahedron)" },
+      "parts": ["d4"],
+      "estimate": { "base_units": 1, "formula": "constant" }
+    },
+    {
+      "id": "d6",
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "label": { "es": "D6 (Cubo)", "en": "D6 (Cube)" },
+      "parts": ["d6"],
+      "estimate": { "base_units": 1, "formula": "constant" }
+    },
+    {
+      "id": "d8",
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "label": { "es": "D8 (Octaedro)", "en": "D8 (Octahedron)" },
+      "parts": ["d8"],
+      "estimate": { "base_units": 1, "formula": "constant" }
+    },
+    {
+      "id": "d12",
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "label": { "es": "D12 (Dodecaedro)", "en": "D12 (Dodecahedron)" },
+      "parts": ["d12"],
+      "estimate": { "base_units": 1, "formula": "constant" }
+    },
+    {
+      "id": "d20",
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "label": { "es": "D20 (Icosaedro)", "en": "D20 (Icosahedron)" },
+      "parts": ["d20"],
+      "estimate": { "base_units": 1, "formula": "constant" }
+    }
+  ],
+  "parts": [
+    { "id": "d4", "render_mode": 0, "label": { "es": "D4", "en": "D4" }, "default_color": "#e74c3c" },
+    { "id": "d6", "render_mode": 1, "label": { "es": "D6", "en": "D6" }, "default_color": "#3498db" },
+    { "id": "d8", "render_mode": 2, "label": { "es": "D8", "en": "D8" }, "default_color": "#2ecc71" },
+    { "id": "d12", "render_mode": 3, "label": { "es": "D12", "en": "D12" }, "default_color": "#9b59b6" },
+    { "id": "d20", "render_mode": 4, "label": { "es": "D20", "en": "D20" }, "default_color": "#f39c12" }
+  ],
+  "presets": [
+    {
+      "id": "standard_d20",
+      "label": { "es": "D20 Estandar", "en": "Standard D20" },
+      "values": { "die_size": 20, "font_depth": 0.6, "font_size": 6, "rounding_corner": 0, "rounding_edge": 0 }
+    },
+    {
+      "id": "large_d6",
+      "label": { "es": "D6 Grande Redondeado", "en": "Large Rounded D6" },
+      "values": { "die_size": 30, "rounding_corner": 2 }
+    },
+    {
+      "id": "mini_d8",
+      "label": { "es": "D8 Mini", "en": "Mini D8" },
+      "values": { "die_size": 12, "font_size": 4 }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "die_size",
+      "type": "slider",
+      "default": 20,
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "label": { "es": "Tamano del dado (mm)", "en": "Die Size (mm)" },
+      "tooltip": {
+        "es": "Cara a cara en mm (d6, d8, d12, d20); altura del apice a la base en el d4",
+        "en": "Face-to-face size in mm (d6, d8, d12, d20); apex-to-base height for the d4"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "dimensions"
+    },
+    {
+      "id": "font_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.2,
+      "max": 1.5,
+      "step": 0.1,
+      "label": { "es": "Profundidad del texto (mm)", "en": "Text Depth (mm)" },
+      "tooltip": {
+        "es": "Profundidad de grabado de los numeros, medida normal a la cara",
+        "en": "Engraving depth of the numbers, measured normal to the face"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "text"
+    },
+    {
+      "id": "font_size",
+      "type": "slider",
+      "default": 6,
+      "min": 3,
+      "max": 12,
+      "step": 0.5,
+      "label": { "es": "Tamano de fuente", "en": "Font Size" },
+      "tooltip": {
+        "es": "Altura de los numeros en mm; se limita a lo que cabe en la cara",
+        "en": "Numeral height in mm; clamped to what fits on the face"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "text"
+    },
+    {
+      "id": "rounding_corner",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "label": { "es": "Redondeo de esquinas (mm)", "en": "Corner Rounding (mm)" },
+      "tooltip": {
+        "es": "Radio de redondeo en los vertices del dado, en mm (0 = vivo)",
+        "en": "Vertex rounding radius in millimetres (0 = sharp)"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "dimensions"
+    },
+    {
+      "id": "rounding_edge",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "label": { "es": "Redondeo de aristas (mm)", "en": "Edge Rounding (mm)" },
+      "tooltip": {
+        "es": "Radio de redondeo en las aristas del dado, en mm (0 = vivo)",
+        "en": "Edge fillet radius in millimetres (0 = sharp)"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "dimensions"
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": { "es": "Realce del grabado", "en": "Engraving Relief" },
+      "tooltip": {
+        "es": "0 = numerales de corte recto; mayor = boca del grabado mas ancha, retiene mejor la pintura",
+        "en": "0 = plain-cut numerals; higher = wider engraving mouth that holds paint better"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "quality"
+    },
+    {
+      "id": "dice_gradient",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "label": { "es": "Ranura bicolor", "en": "Two-Tone Groove" },
+      "tooltip": {
+        "es": "1 graba una ranura ecuatorial para un cambio limpio de filamento (dado bicolor)",
+        "en": "1 cuts an equatorial groove for a clean filament change (two-tone die)"
+      },
+      "visible_in_modes": ["d4", "d6", "d8", "d12", "d20"],
+      "group": "appearance",
+      "widget": { "type": "color-gradient" }
+    }
+  ],
+  "parameter_groups": [
+    { "id": "dimensions", "label": { "es": "Dimensiones", "en": "Dimensions" } },
+    { "id": "text", "label": { "es": "Texto", "en": "Text" } },
+    { "id": "quality", "label": { "es": "Calidad", "en": "Quality" } },
+    { "id": "appearance", "label": { "es": "Apariencia", "en": "Appearance" } }
+  ],
+  "export_formats": ["stl", "3mf", "off", "glb", "obj"],
+  "camera_views": [
+    { "id": "iso", "label": { "es": "Isometrico", "en": "Isometric" }, "position": [60, 60, 60] },
+    { "id": "top", "label": { "es": "Superior", "en": "Top" }, "position": [0, 0, 120] },
+    { "id": "front", "label": { "es": "Frente", "en": "Front" }, "position": [0, -120, 0] },
+    { "id": "right", "label": { "es": "Derecha", "en": "Right" }, "position": [120, 0, 0] }
+  ],
+  "viewer": { "default_color": "#f39c12" },
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 64,
+    "wasm_multiplier": 3,
+    "warning_threshold_seconds": 60
+  },
+  "hyperobject": {
+    "is_hyperobject": true,
+    "domain": "play",
+    "cdg_interfaces": [
+      {
+        "id": "fair_die_geometry",
+        "label": { "es": "Geometria de dado justo", "en": "Fair Die Geometry" },
+        "geometry_type": "polyhedron",
+        "standard": "platonic-solids",
+        "parameters": ["die_size"]
+      },
+      {
+        "id": "face_numbering",
+        "label": { "es": "Numeracion de caras", "en": "Face Numbering" },
+        "geometry_type": "engraving",
+        "standard": "opposite-faces-sum-n-plus-1",
+        "parameters": ["font_size", "font_depth"]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "es": "Dados justos por construccion geometrica, no por control de calidad: cualquiera puede imprimir un juego completo y verificar la equidad con una regla y la regla de suma de caras opuestas.",
+      "en": "Dice that are fair by geometric construction rather than by quality control: anyone can print a full set and check fairness with a ruler and the opposite-face sum rule."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": ["dice", "tabletop", "gaming", "polyhedron", "platonic", "hyperobject", "commons"]
+}

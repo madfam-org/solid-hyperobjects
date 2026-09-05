@@ -3,6 +3,10 @@
     "name": "Golf Accessory Set",
     "slug": "golf-accessory",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Small course accessories sized to a standard golf ball (42.7 mm) and tee. A tee holder that carries a row of tees, a coin-style ball marker, and an alignment tool that cradles the ball so you can draw a straight putting line.\n\nOfficial Visualizer and Configurator: Yantra4D",

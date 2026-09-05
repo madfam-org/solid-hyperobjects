@@ -3,6 +3,10 @@
     "name": "Compass / Whistle Housing",
     "slug": "compass-housing",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Housings and EDC bodies for button compasses and emergency whistles. Button compass capsules are sold as sealed liquid-filled buttons in two common diameters — 20 mm and 25 mm — that need a bezel to carry them. One capsule-diameter interface sockets that button into a clip-on bezel, a pealess emergency whistle body, or a pocket EDC storage pod.\n\nOfficial Visualizer and Configurator: Yantra4D",

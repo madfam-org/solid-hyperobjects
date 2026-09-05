@@ -3,6 +3,10 @@
     "name": "DIN Module Carrier",
     "slug": "din-module",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Snaps a bare PCB or electronics module onto standard top-hat DIN rail (TS35, DIN EN 60715) — the backbone of control panels and consumer units. The carrier holds the board in a walled bay and grabs the two rolled rail lips from behind: one hook is a rigid reference face, the opposite hook rides a cantilever spring beam (a compliant mechanism), so a printed clip grips through geometry rather than permanently strained plastic, avoiding creep and fatigue. Terminal-block and double-width variants included.\n\nOfficial Visualizer and Configurator: Yantra4D",

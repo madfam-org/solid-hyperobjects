@@ -3,6 +3,10 @@
     "name": "Worm & Worm-Wheel",
     "slug": "worm-gear",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A high-reduction, potentially self-locking right-angle drive: a worm (a helical screw thread swept along a true helix, DIN 3975) meshing with a worm-wheel (a helical spur gear set to the worm's lead angle). Single- and multi-start worms are supported. The wheel is a helical-spur approximation of a throated wheel, kept printable and watertight.\n\nOfficial Visualizer and Configurator: Yantra4D",

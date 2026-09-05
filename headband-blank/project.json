@@ -3,6 +3,10 @@
     "name": "Headband Blank",
     "slug": "headband-blank",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The rigid arc a milliner or costume maker covers in fabric to build a padded headband. An adult head measured ear to ear is an ellipse, not a circle, so the blank is struck as an elliptical half-arc that follows the head instead of pinching at the temples. The ends taper in both width and thickness — that taper is what lets a covered headband disappear behind the ear — and each tapered end carries sew holes so the fabric casing is stitched to the blank rather than glued.\n\nOfficial Visualizer and Configurator: Yantra4D",

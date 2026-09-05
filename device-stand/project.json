@@ -3,6 +3,10 @@
     "name": "Phone / Tablet Stand",
     "slug": "device-stand",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An angled desk stand that cradles a phone or tablet in a slot tilted to a comfortable viewing angle, with a front lip that catches the device and a bottom cable slot so it charges while docked. Stand mode is a one-piece easel wedge; Adjustable mode is a base with angle notches plus a separate prop leg; Dock mode routes a cable channel to the rest and adds a raised back support.\n\nOfficial Visualizer and Configurator: Yantra4D",
@@ -177,5 +181,22 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["stand", "phone", "tablet", "dock", "commercial", "hyperobject", "commons"]
+  "tags": ["stand", "phone", "tablet", "dock", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "adjustable": {
+        "overrides": {
+          "geometry.body_count": { "expected": 2 }
+        }
+      }
+    }
+  }
 }

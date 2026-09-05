@@ -3,6 +3,10 @@
     "name": "Card / Book Holder",
     "slug": "card-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Holders that present cards and pages hands-free for people with limited dexterity or grip. A card rack stands a fanned hand of playing cards upright so they can be seen and played one-handed; a book stand props a book or tablet at a reading angle; a page holder pins a single card or page open on a weighted base. Sized to the standard poker playing card (63 x 88 mm). Fit is user-specific — consider an OT's advice on angle and reach.\n\nOfficial Visualizer and Configurator: Yantra4D",

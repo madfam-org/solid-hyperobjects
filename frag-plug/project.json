@@ -3,6 +3,10 @@
     "name": "Aquarium Frag / Coral Plug",
     "slug": "frag-plug",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Coral propagation hardware for a reef tank: a mushroom-shaped frag plug whose stem pushes into a rack, a rack that stands a grid of plugs on the sand bed, and a stemless gluing disc for mounting frags straight onto live rock. Sized by the 25 mm disc / 6 mm stem reef-hobby convention.\n\nOfficial Visualizer and Configurator: Yantra4D",

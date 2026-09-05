@@ -3,6 +3,10 @@
     "name": "Button Hook Aid",
     "slug": "button-hook-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The one-hand buttoning aid: a generous built-up handle and a flat rigid hook loop. The loop goes through the buttonhole from the far side, hooks the button, and is pulled back so the button follows through the hole. Standard occupational-therapy hardware for arthritis, hemiparesis, tremor and limited fine motor control. Grip strength lost to arthritis is recovered by increasing grip circumference, so the handle is sized like a built-up handle — 28 to 38 mm across, not the pen-thin one nobody can hold — and the loop is sized to the button it must encircle.\n\nOfficial Visualizer and Configurator: Yantra4D",

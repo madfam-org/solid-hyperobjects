@@ -3,6 +3,10 @@
     "name": "Snap Electrode Carrier",
     "slug": "snap-electrode-carrier",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed carrier disc for a standard 10 mm ECG/EMG snap stud used as a textile electrode contact. A sensing garment needs the snap to sit on a rigid, flat, sewable island so the stud cannot tilt against skin and the conductive-fabric patch under it stays in even contact. Sew-hole ring, central bored boss, and an underside pocket that seats the fabric patch. This is the rigid hard good the Fashion Cabinet electrode notion places and bridges to here for its geometry.\n\nOfficial Visualizer and Configurator: Yantra4D",

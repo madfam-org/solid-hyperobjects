@@ -3,6 +3,10 @@
     "name": "Compliant Gripper Pad",
     "slug": "soft-gripper-pad",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The wear face that turns a hard jaw into a gentle one. A backing plate with a field of transverse ribs on the gripping face; the ribs buckle and splay under load so the pad conforms to a curved or irregular part with no compliant mechanism. Rib pitch is the tunable compliance parameter — closer ribs are stiffer, wider ribs are softer. The backing bolt pattern is the one the existing industrial gripper cartridges already use.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -117,11 +117,29 @@ def build_clamp_relief():
     )
     body = foot.union(saddle).cut(groove)
     # Strain ribs across the groove (raised rings that bite the jacket).
+    #
+    # A plain disc of radius bore_r + grip - 0.8 sits ENTIRELY INSIDE the groove
+    # void (radius bore_r + grip) and touches no saddle material -- the three
+    # ribs floated and `clamp_relief` rendered as four bodies. Build each rib as
+    # the saddle's own cross-section with only the narrowed bore removed, so it
+    # is the groove locally shrinking rather than a disc in mid-air.
+    rib_bore = max(0.4, bore_r + grip - 0.8)
     for xr in (-cable_dia * 0.3, 0.0, cable_dia * 0.3):
-        body = body.union(
-            cq.Workplane("YZ").circle(bore_r + grip - 0.8).extrude(1.2)
-            .translate((xr - 0.6, 0, block_h))
+        # A slab the size of the saddle's own cross-section, spanning z from the
+        # foot up to the groove centre, with only the NARROWED bore removed. It
+        # therefore refills the groove locally except for rib_bore, and is
+        # rooted in the saddle walls on both sides -- no intersect() needed, so
+        # this stays a cheap boolean.
+        slab = (
+            cq.Workplane("XY")
+            .box(1.2, body_w, block_h, centered=(True, True, False))
+            .translate((xr - 0.6, 0, 0))
         )
+        rib_hole = (
+            cq.Workplane("YZ").circle(rib_bore).extrude(1.2 + 2.0)
+            .translate((xr - 0.6 - 1.6, 0, block_h))
+        )
+        body = body.union(slab.cut(rib_hole))
     # Two bolt holes through the foot flanking the saddle.
     for s in (-1.0, 1.0):
         x = s * (cable_dia / 2.0 + wall + bolt_dia * 0.9)

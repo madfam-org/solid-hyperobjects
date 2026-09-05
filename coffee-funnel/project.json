@@ -3,6 +3,10 @@
     "name": "Espresso Dosing Funnel & Ring",
     "slug": "coffee-funnel",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A dosing aid that slips over an espresso portafilter basket rim to guide ground coffee in cleanly: a funnel with a gripping ring, a minimal dosing ring, and a leveling base. Sized to a standard 58 mm, 54 mm, or 51 mm basket, all sharing one basket-rim interface. Optional magnet pockets for a magnetic funnel.\n\nFood-contact note: ground coffee passes through. Geometry only — food-safe filament and hygiene are the maker's responsibility.\n\nOfficial Visualizer and Configurator: Yantra4D",

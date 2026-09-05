@@ -3,6 +3,10 @@
     "name": "Microscope Objective Turret",
     "slug": "objective-turret",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A rotating multi-objective nosepiece (turret) that carries real female RMS (0.800 in x 36 TPI, 20.32 mm) or M25 x 0.75 objective threads around a central pivot bore, so objectives screw into any port exactly as on a factory turret. Ships as the nosepiece disc, a male objective stub for bench use, and a threaded port dust plug. Shares the RMS/M25 thread with the objective-case cartridge, so objectives interchange across the family.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Un revólver rotatorio multi-objetivo que porta roscas hembra reales RMS (0.800 in x 36 TPI, 20.32 mm) o M25 x 0.75 alrededor de un eje pivote central, de modo que los objetivos se enroscan en cualquier puerto igual que en un revólver de fábrica. Incluye el disco del revólver, un vástago macho de objetivo para uso en mesa y una tapa antipolvo roscada para puertos. Comparte la rosca RMS/M25 con el cartucho objective-case, de modo que los objetivos son intercambiables en la familia.\n\nVisualizador y configurador oficial: Yantra4D"

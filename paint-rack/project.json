@@ -3,6 +3,10 @@
     "name": "Paint Rack",
     "slug": "paint-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hobby paint rack with cradle holes sized to the chosen bottle — Citadel pots (34 mm), Vallejo droppers (30 mm) or Army Painter droppers (29 mm). Flat, tiered (stepped so back rows stay visible) and wall-mounted variants.\n\nOfficial Visualizer and Configurator: Yantra4D",

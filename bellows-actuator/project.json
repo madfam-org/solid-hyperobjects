@@ -3,6 +3,10 @@
     "name": "Pneumatic Bellows Actuator",
     "slug": "bellows-actuator",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The base primitive of soft robotics: a convoluted bellows column that extends when pressurised and returns elastically when vented. Printed in TPU it is a one-piece linear actuator with no sliding seal, no rod, and no lubricant. The stroke axis is published as a linear-motion interface so a gripper knows its travel envelope, and the inlet is the shared barb series the rest of the soft-pneumatic family speaks. Low-pressure service only.\n\nOfficial Visualizer and Configurator: Yantra4D",

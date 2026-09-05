@@ -3,6 +3,10 @@
     "name": "Magnetic Tool Strip",
     "slug": "magnetic-tool-strip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A wall-mounted magnetic strip that holds screwdrivers, pliers, knives, and other steel tools on a row of embedded disc magnets. The magnets drop into blind pockets on the front face; wall screws pass through countersunk holes near the ends. Strip is a flat magnetic bar; Shelf Strip adds a bottom ledge so heavier tools rest on a shelf too; Corner Strip wraps an inside wall corner. Magnet size is parametric — 6×2 mm and 8×3 mm disc magnets are presets.\n\nOfficial Visualizer and Configurator: Yantra4D",

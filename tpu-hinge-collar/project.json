@@ -3,6 +3,10 @@
     "name": "TPU Hinge Collar",
     "slug": "tpu-hinge-collar",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A print-in-place stand-or-fold collar band — the additive-manufacturing trim the Fashion Cabinet `printed-hinge-collar` notion describes and bridges to here for its geometry. A flat collar band with a printed living-hinge fold line: the upper stand and the lower sewn band are stiff, the thin slotted line between them lets the collar stand up or fold down and hold its crease. No interfacing, no topstitched roll line. Sized by collar length so a neckline's finished length drives the band. One material identity — Bambu TPU 95A — spans the FC notion and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

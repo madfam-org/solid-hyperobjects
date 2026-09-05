@@ -125,17 +125,24 @@ def build_tilt_leg():
     foot = _bolt_foot(mount_w, 46.0)
     rad = math.radians(tilt_angle)
     strut_w = wall * 2.2
-    # Strut as an upright bar, then tilted about Y and dropped so its base fuses to the foot.
+    # Rotate the strut about its OWN BASE (the box already starts at z=0), so the
+    # base stays inside the foot. The old code rotated about the origin and then
+    # re-translated by a hand-derived offset that did not land on the foot at
+    # all: strut, foot and clip came out as three detached bodies.
+    # Extend the bar STRUT_BITE below z=0 first so the fuse is volumetric.
+    STRUT_BITE = wall
     strut = (
         cq.Workplane("XY")
-        .box(strut_w, strut_w, leg_len, centered=(True, True, False))
+        .box(strut_w, strut_w, leg_len + STRUT_BITE, centered=(True, True, False))
+        .translate((0, 0, -STRUT_BITE))
     )
-    strut = strut.rotate((0, 0, 0), (0, 1, 0), 90.0 - tilt_angle)
-    # After tilt, translate so the lower end sits inside the foot for a volumetric fuse.
-    strut = strut.translate((-leg_len * 0.5 * math.cos(rad) + strut_w * 0.5, 0, wall * 0.5))
-    # Top edge clip: a short grip channel oriented to catch a horizontal frame edge.
-    top_x = -leg_len * math.cos(rad) + strut_w * 0.5
-    top_z = leg_len * math.sin(rad) + wall * 0.5
+    strut = strut.rotate((0, 0, 0), (0, 1, 0), -(90.0 - tilt_angle))
+    # Top edge clip: a short grip channel oriented to catch a horizontal frame
+    # edge. The strut's axis after that rotation runs along
+    # (-sin(90-tilt), 0, cos(90-tilt)) = (-cos(tilt), 0, sin(tilt)), so its far
+    # end is leg_len along that direction from the origin.
+    top_x = -leg_len * math.cos(rad)
+    top_z = leg_len * math.sin(rad)
     clip = _edge_grip(mount_w).rotate((0, 0, 0), (0, 0, 1), 90)
     clip = clip.translate((top_x, 0, top_z))
     body = foot.union(strut)

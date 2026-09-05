@@ -3,6 +3,10 @@
     "name": "Weather-Instrument Mount",
     "slug": "weather-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Mounts a rain gauge, thermometer, anemometer, or other backyard weather sensor to a pole or fence. A split clamp wraps a round pole; a flat plate screws to a fence; a cradle ring holds a cylindrical instrument. All share one mounting-boss interface so the cradle plugs into either mount.\n\nOfficial Visualizer and Configurator: Yantra4D",

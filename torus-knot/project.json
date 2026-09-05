@@ -3,6 +3,10 @@
         "name": "Torus Knot Sculpture",
         "slug": "torus-knot",
         "version": "1.0.0",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0"
+        },
         "description": {
             "es": "Esculturas de nudos toroidales generativas usando BOSL2 (curva del nudo integrada, anteriormente dotSCAD)",
             "en": "Generative torus knot sculptures using BOSL2 (knot curve inlined, formerly dotSCAD)"

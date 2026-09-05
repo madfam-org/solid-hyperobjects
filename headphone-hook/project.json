@@ -3,6 +3,10 @@
     "name": "Headphone / Headset Hook",
     "slug": "headphone-hook",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hook that hangs a headset by its headband from a broad, rounded cradle so the band does not develop a dent. Choose a mount: Under-Desk is an L-bracket that screws to a desktop underside; Wall is a flat screw plate; Clamp is a C-clamp that grips a desk edge of a set thickness with no screws.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Beaker / Flask Clamp",
     "slug": "flask-clamp",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Lab-glassware support hyperobject: an open C-ring clamp that hugs an Erlenmeyer or beaker body and locks onto a ring-stand rod, an inverted-neck drying holder sized to standard 34 mm flask necks, and a weighted rod-stand base. Sized to real borosilicate glassware and 12 mm support rods.",
       "es": "Hiperobjeto de soporte para material de vidrio: una abrazadera en C abierta que sujeta un matraz Erlenmeyer o vaso y se fija a una varilla de soporte, un soporte de secado por cuello invertido para cuellos estándar de 34 mm, y una base con peso para varilla. Dimensionado a vidrio borosilicato real y varillas de 12 mm."

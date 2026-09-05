@@ -196,13 +196,37 @@ def build_cleat():
         )
         body = body.cut(throat)
 
-    # Mounting hole through the block (Y direction) at the base.
-    mount = (
-        cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, t * 0.15, 0))
-        .cylinder(d + 2.0, max(1.6, cord_dia * 0.4))
-    )
-    body = body.cut(mount)
+    # Mounting hole through the block (Y direction).
+    #
+    # It used to sit on the block centreline at z = t*0.15 with
+    # r = max(1.6, cord_dia*0.4): at defaults that is z in [-0.40, 2.80], which
+    # breaks through the block floor (z = 0) AND reaches the throat's bottom at
+    # z = t*0.25 = 2.00, so throat and bore merged into one channel across the
+    # full block depth and freed the slab below it (cleat rendered 2 bodies at
+    # defaults and at preset tent_cleat).
+    #
+    # There is no room for it under the throat -- t*0.25 is ~2 mm -- but ~7.6 mm
+    # of solid block each side of the throat group. Put the bore there, at
+    # mid-height, bounded so it touches neither the throat nor an outer face.
+    # The bore shrinks to whatever genuinely fits beside the throat; where the
+    # throat group leaves less than a printable hole (wide cords at cords=2
+    # with a thick wall) it is omitted entirely rather than emitted as a cutter
+    # that would breach an outer face. A mounting hole is a convenience on this
+    # part, so degrading it is preferable to rejecting the parameter set.
+    offs = cord_offsets()
+    throat_half = max(abs(o) for o in offs) + cord_dia * 1.8 / 2.0
+    free = w / 2.0 - throat_half          # solid width beside the throat group
+    hole_r = min(max(1.6, cord_dia * 0.4),
+                 (free - 2.0 * wall) / 2.0,
+                 (t - 2.0 * wall) / 2.0)
+    if hole_r >= 0.8:
+        mount_x = throat_half + wall + hole_r
+        mount = (
+            cq.Workplane("XZ")
+            .transformed(offset=cq.Vector(mount_x, t / 2.0, 0))
+            .cylinder(d + 2.0, hole_r)
+        )
+        body = body.cut(mount)
     return body
 
 

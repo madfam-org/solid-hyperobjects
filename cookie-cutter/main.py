@@ -155,8 +155,14 @@ def build_cutter_stamp():
     # Stamp web: a thin closed disk/plate spanning the interior at the top, from
     # which the relief ridge rises. Built as a full filled outline of the inner
     # bore, a thin plate, unioned at flange top with overlap.
+    # The cutting wall is a hollow prism spanning size -> size - 2*wall, so its
+    # BORE outline is at span (size - 2*wall). A web sized 0.2 mm SMALLER than
+    # that bore hung 0.1 mm clear of the wall all the way round and fused to
+    # nothing -- `cutter_stamp` rendered as two bodies. Oversize the web past
+    # the bore instead, so it bites WEB_BITE into the wall material per side.
+    WEB_BITE = 0.3
     inner_span = size - 2.0 * wall
-    web_span = inner_span - 0.2
+    web_span = inner_span + 2.0 * WEB_BITE
     web_th = 1.2
     web_z = cutter_h - web_th
     ov = 0.6

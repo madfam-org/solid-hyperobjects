@@ -3,6 +3,10 @@
         "name": "NEMA Motor Mount",
         "slug": "motor-mount",
         "version": "1.0.0",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0"
+        },
         "description": {
             "es": "Soporte parametrico para motores NEMA con vista previa del motor real usando NopSCADlib\n\nVisualizador y configurador oficial: Yantra4D",
             "en": "Parametric NEMA motor mount with real motor preview using NopSCADlib\n\nOfficial Visualizer and Configurator: Yantra4D"

@@ -3,6 +3,10 @@
     "name": "Vacuum Suction Cup Mount",
     "slug": "suction-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A compliant vacuum-suction gripper base: a suction cup on a mount boss with a central vacuum bore that routes out a barbed side port, and a 1/4-20 hex-nut trap so the gripper mounts on any 1/4-20 post, arm or plate. Choose a single cup, a taller accordion-bellows cup for extra travel, or a manifold that tees one vacuum line to a row of cups. Print the cup in TPU for a real seal, or rigid as a mold master.\n\nOfficial Visualizer and Configurator: Yantra4D",

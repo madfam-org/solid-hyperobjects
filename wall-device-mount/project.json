@@ -3,6 +3,10 @@
     "name": "Universal Device Wall Mount",
     "slug": "wall-device-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A fit-anything wall cradle for any rectangular device — remote, router, network switch, hub, or handset. Enter the device width, depth, and height and the mount wraps it with a printer-clearance gap and a wall-screw (or adhesive) backplate. Three styles: an open cradle shelf, a deeper four-wall pocket, or a minimal strap band.\n\nOfficial Visualizer and Configurator: Yantra4D",

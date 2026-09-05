@@ -278,11 +278,14 @@ def build_spout_adapter():
     segA, hA, odA, brA, thA = threaded_socket(
         neck_standard, extra_turns, clearance, wall, top_th, with_base=True
     )
-    # segA opens upward with a closed base on top; flip so it screws DOWN onto the
-    # bottle and the closed shoulder faces up to carry the spout.
-    segA = segA.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, hA))
-
-    shoulder_z = hA  # top surface of the flipped socket (the closed base)
+    # threaded_socket already opens at z=0 with the closed base on TOP, which is
+    # exactly what this part wants: it screws DOWN onto the bottle and presents
+    # the closed shoulder upward to carry the spout. The 180-degree flip that
+    # used to be here inverted that -- it put the closed base at the bottom
+    # (against the bottle neck) and left the OPEN bore rim facing up, so the
+    # nozzle, whose base radius is smaller than bore_r, was seated over open air
+    # and rendered as a detached second body.
+    shoulder_z = hA  # top surface of the socket (the closed base)
 
     # Nozzle: a tapered tube rising from the shoulder.
     s_bore = max(1.5, min(spout_dia, odA - 3.0)) / 2.0
@@ -291,14 +294,19 @@ def build_spout_adapter():
     base_outer_r = min(odA / 2.0 - 0.5, s_bore + nozzle_wall + 3.0)
     tip_outer_r = s_bore + nozzle_wall
 
-    # Outer tapered cone (loft between base and tip radius).
+    # Outer tapered cone (loft between base and tip radius). Start it
+    # NOZZLE_BITE below the shoulder: seated exactly at shoulder_z the cone only
+    # touched the socket's closed top face coplanarly, which is not a fusion --
+    # `spout_adapter` rendered as two detached bodies. The tip height is held by
+    # lofting over s_len + NOZZLE_BITE from the lower start.
+    NOZZLE_BITE = 0.5
     nozzle_outer = (
         cq.Workplane("XY")
         .circle(base_outer_r)
-        .workplane(offset=s_len)
+        .workplane(offset=s_len + NOZZLE_BITE)
         .circle(tip_outer_r)
         .loft(combine=True)
-        .translate((0, 0, shoulder_z))
+        .translate((0, 0, shoulder_z - NOZZLE_BITE))
     )
     body = segA.union(nozzle_outer)
 

@@ -3,6 +3,10 @@
     "name": "Ratchet & Pawl",
     "slug": "ratchet-pawl",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A one-way motion mechanism: a sawtooth ratchet wheel plus a pivoting pawl arm that drops into the teeth so the wheel turns freely one way and locks the other. For winches, tensioners, indexing tables, and hand tools. The tooth flank asymmetry (rake angle) sets how firmly it locks versus how easily it ratchets over.\n\nOfficial Visualizer and Configurator: Yantra4D",

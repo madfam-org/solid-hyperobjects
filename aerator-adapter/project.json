@@ -3,6 +3,10 @@
     "name": "Faucet Aerator Adapter",
     "slug": "aerator-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Adapters that bridge a standard faucet-aerator thread to something else — a garden or utility hose barb, or the opposite aerator gender. Built on the real M22 x 1 (male) and M24 x 1 (female) aerator standards, so every part mates the companion aerator-cache cartridge and any real tap aerator. Threads print as helical ribs fused into the wall, so each part comes off the bed as a single watertight body.\n\nOfficial Visualizer and Configurator: Yantra4D",
