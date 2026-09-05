@@ -83,7 +83,7 @@ jobs:
           head="${{ github.event.pull_request.head.sha }}"
           # Top-level directory of every changed path that is a cartridge.
           git cat-file -e "$base^{commit}" || { echo "::error title=base unreachable::PR base $base is not in this checkout (fetch-depth); the render lane cannot diff"; exit 1; }
-slugs=$(git diff --name-only "$base" "$head" \
+          slugs=$(git diff --name-only "$base" "$head" \
             | awk -F/ 'NF>1 {print $1}' \
             | sort -u \
             | while read -r d; do if [ -f "$d/project.json" ]; then echo "$d"; fi; done) || true
