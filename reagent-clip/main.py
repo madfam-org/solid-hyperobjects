@@ -93,9 +93,17 @@ def build_label_clip():
     band = band.cut(slot)
 
     # Label plate mounted on the back (opposite the mouth).
+    #
+    # label_plate spans z in [0, th]; rotating +90 about X maps that to
+    # y in [-th, 0]. Translating to y = -clip_or - wall therefore put the plate
+    # at y in [-clip_or - 2*wall, -clip_or - wall] -- a full wall-width clear of
+    # the band's outer surface at -clip_or -- so `label_clip` rendered as two
+    # detached bodies. Translate to PLATE_BITE INSIDE that surface instead, so
+    # the plate straddles it.
+    PLATE_BITE = min(0.8, wall * 0.5)
     plate = label_plate(label_w, label_h, wall)
     plate = plate.rotate((0, 0, 0), (1, 0, 0), 90).translate(
-        (0, -clip_or - wall, clip_h / 2.0)
+        (0, -clip_or + PLATE_BITE, clip_h / 2.0)
     )
     body = band.union(plate)
     return body
