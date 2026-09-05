@@ -1,0 +1,908 @@
+{
+  "project": {
+    "name": "Fastener Generator",
+    "slug": "fasteners",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Parametric ISO metric hardware — bolts, nuts and washers sized to mate real M-series fasteners. Major diameter equals the nominal (M5 = 5 mm), pitch is the real coarse-series value, and head/nut across-flats follow the ISO wrench envelope. Threads default to a fast cosmetic profile with an opt-in real helical thread.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Tornillería métrica ISO paramétrica — tornillos, tuercas y arandelas dimensionadas para acoplar herrajes M reales. El diámetro mayor es el nominal (M5 = 5 mm), el paso es el valor real de serie gruesa y el entrecaras de cabeza/tuerca sigue el sobre de llave ISO. Las roscas usan por defecto un perfil cosmético rápido con rosca helicoidal real opcional.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/fasteners.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "fasteners",
+      "hardware",
+      "bolt",
+      "nut",
+      "washer",
+      "thread",
+      "iso-metric",
+      "hyperobject",
+      "commons",
+      "fastener"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "bolt_cq",
+      "label": {
+        "en": "Bolt",
+        "es": "Tornillo"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "bolt_cq"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "nut_cq",
+      "label": {
+        "en": "Nut",
+        "es": "Tuerca"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "nut_cq"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      }
+    },
+    {
+      "id": "washer",
+      "label": {
+        "en": "Washer",
+        "es": "Arandela"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "washer"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    },
+    {
+      "label": {
+        "en": "Bolt (OpenSCAD)",
+        "es": "Tornillo (OpenSCAD)"
+      },
+      "scad_file": "bolt.scad",
+      "cq_file": "bolt.py",
+      "parts": [
+        "bolt"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      },
+      "id": "bolt",
+      "engine": "openscad"
+    },
+    {
+      "label": {
+        "en": "Nut (OpenSCAD)",
+        "es": "Tuerca (OpenSCAD)"
+      },
+      "scad_file": "nut.scad",
+      "cq_file": "nut.py",
+      "parts": [
+        "nut"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      },
+      "id": "nut",
+      "engine": "openscad"
+    }
+  ],
+  "parts": [
+    {
+      "id": "bolt_cq",
+      "label": {
+        "en": "Bolt",
+        "es": "Tornillo"
+      },
+      "render_mode": 0,
+      "color": "#71717a"
+    },
+    {
+      "id": "nut_cq",
+      "label": {
+        "en": "Nut",
+        "es": "Tuerca"
+      },
+      "render_mode": 0,
+      "color": "#a1a1aa"
+    },
+    {
+      "id": "washer",
+      "label": {
+        "en": "Washer",
+        "es": "Arandela"
+      },
+      "render_mode": 0,
+      "color": "#8b8b93"
+    },
+    {
+      "label": {
+        "en": "Bolt",
+        "es": "Tornillo"
+      },
+      "render_mode": 0,
+      "color": "#71717a",
+      "id": "bolt"
+    },
+    {
+      "label": {
+        "en": "Nut",
+        "es": "Tuerca"
+      },
+      "render_mode": 0,
+      "color": "#a1a1aa",
+      "id": "nut"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Dimensions",
+        "es": "Dimensiones"
+      }
+    },
+    {
+      "id": "thread",
+      "label": {
+        "en": "Thread",
+        "es": "Rosca"
+      }
+    },
+    {
+      "id": "head",
+      "label": {
+        "en": "Head Style",
+        "es": "Estilo de Cabeza"
+      }
+    },
+    {
+      "id": "nut",
+      "label": {
+        "en": "Nut Style",
+        "es": "Estilo de Tuerca"
+      }
+    },
+    {
+      "id": "washer",
+      "label": {
+        "en": "Washer",
+        "es": "Arandela"
+      }
+    },
+    {
+      "label": {
+        "en": "Head Style",
+        "es": "Estilo de Cabeza"
+      },
+      "id": "head_style"
+    },
+    {
+      "label": {
+        "en": "Nut Style",
+        "es": "Estilo de Tuerca"
+      },
+      "id": "nut_style"
+    },
+    {
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      },
+      "id": "quality"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "diameter",
+      "type": "slider",
+      "default": 5,
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "group": "dimensions",
+      "modes": [
+        "bolt_cq",
+        "nut_cq",
+        "washer"
+      ],
+      "label": {
+        "en": "Nominal Diameter (mm)",
+        "es": "Diámetro Nominal (mm)"
+      },
+      "tooltip": {
+        "en": "Nominal thread major diameter (M5 = 5)",
+        "es": "Diámetro mayor nominal de la rosca (M5 = 5)"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "length",
+      "type": "slider",
+      "default": 20,
+      "min": 4,
+      "max": 120,
+      "step": 1,
+      "group": "dimensions",
+      "modes": [
+        "bolt_cq"
+      ],
+      "label": {
+        "en": "Length (mm)",
+        "es": "Largo (mm)"
+      },
+      "tooltip": {
+        "en": "Bolt shaft length excluding the head",
+        "es": "Largo del vástago excluyendo la cabeza"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "pitch",
+      "type": "slider",
+      "default": 0.8,
+      "min": 0.25,
+      "max": 3.0,
+      "step": 0.05,
+      "group": "thread",
+      "modes": [
+        "bolt_cq",
+        "nut_cq"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Thread Pitch (mm)",
+        "es": "Paso de Rosca (mm)"
+      },
+      "tooltip": {
+        "en": "Axial distance between thread crests (M5 coarse = 0.8)",
+        "es": "Distancia axial entre crestas de rosca (M5 grueso = 0.8)"
+      }
+    },
+    {
+      "id": "thread_enabled",
+      "type": "checkbox",
+      "default": true,
+      "group": "thread",
+      "modes": [
+        "bolt_cq",
+        "nut_cq"
+      ],
+      "label": {
+        "en": "Enable Threads",
+        "es": "Habilitar Rosca"
+      },
+      "tooltip": {
+        "en": "Draw a thread; off = plain shaft / bore",
+        "es": "Dibujar rosca; apagado = vástago / barreno liso"
+      }
+    },
+    {
+      "id": "thread_style",
+      "type": "select",
+      "default": "cosmetic",
+      "group": "thread",
+      "modes": [
+        "bolt_cq",
+        "nut_cq"
+      ],
+      "label": {
+        "en": "Thread Style",
+        "es": "Tipo de Rosca"
+      },
+      "tooltip": {
+        "en": "Cosmetic = fast revolved profile; Real = true helical thread (opt-in, slower)",
+        "es": "Cosmético = perfil revolucionado rápido; Real = rosca helicoidal verdadera (opcional, más lento)"
+      },
+      "options": [
+        {
+          "value": "cosmetic",
+          "label": {
+            "en": "Cosmetic (fast)",
+            "es": "Cosmético (rápido)"
+          }
+        },
+        {
+          "value": "real",
+          "label": {
+            "en": "Real Helical",
+            "es": "Helicoidal Real"
+          }
+        }
+      ]
+    },
+    {
+      "id": "clearance",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "group": "thread",
+      "modes": [
+        "nut_cq",
+        "washer"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Fit Clearance (mm)",
+        "es": "Holgura de Ajuste (mm)"
+      },
+      "tooltip": {
+        "en": "Per-side clearance so printed parts mate",
+        "es": "Holgura por lado para que las piezas impresas acoplen"
+      }
+    },
+    {
+      "id": "head_style",
+      "type": "select",
+      "default": "hex",
+      "group": "head",
+      "modes": [
+        "bolt_cq"
+      ],
+      "label": {
+        "en": "Head Style",
+        "es": "Estilo de Cabeza"
+      },
+      "tooltip": {
+        "en": "Bolt head shape",
+        "es": "Forma de la cabeza del tornillo"
+      },
+      "options": [
+        {
+          "value": "hex",
+          "label": {
+            "en": "Hex (ISO 4014)",
+            "es": "Hexagonal (ISO 4014)"
+          }
+        },
+        {
+          "value": "socket",
+          "label": {
+            "en": "Socket Cap (ISO 4762)",
+            "es": "Allen (ISO 4762)"
+          }
+        },
+        {
+          "value": "button",
+          "label": {
+            "en": "Button (ISO 7380)",
+            "es": "Botón (ISO 7380)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nut_style",
+      "type": "select",
+      "default": "hex",
+      "group": "nut",
+      "modes": [
+        "nut_cq"
+      ],
+      "label": {
+        "en": "Nut Style",
+        "es": "Estilo de Tuerca"
+      },
+      "tooltip": {
+        "en": "Nut shape (nyloc adds a nylon locking collar)",
+        "es": "Forma de la tuerca (nyloc añade un collar de nylon)"
+      },
+      "options": [
+        {
+          "value": "hex",
+          "label": {
+            "en": "Hex (ISO 4032)",
+            "es": "Hexagonal (ISO 4032)"
+          }
+        },
+        {
+          "value": "square",
+          "label": {
+            "en": "Square",
+            "es": "Cuadrada"
+          }
+        },
+        {
+          "value": "nyloc",
+          "label": {
+            "en": "Nyloc",
+            "es": "Nyloc"
+          }
+        }
+      ]
+    },
+    {
+      "id": "washer_type",
+      "type": "select",
+      "default": "flat",
+      "group": "washer",
+      "modes": [
+        "washer"
+      ],
+      "label": {
+        "en": "Washer Type",
+        "es": "Tipo de Arandela"
+      },
+      "tooltip": {
+        "en": "Flat (ISO 7089) or split/spring lock washer",
+        "es": "Plana (ISO 7089) o arandela de presión partida"
+      },
+      "options": [
+        {
+          "value": "flat",
+          "label": {
+            "en": "Flat (ISO 7089)",
+            "es": "Plana (ISO 7089)"
+          }
+        },
+        {
+          "value": "spring",
+          "label": {
+            "en": "Spring / Split Lock",
+            "es": "Presión / Partida"
+          }
+        }
+      ]
+    },
+    {
+      "id": "head_style_id",
+      "label": {
+        "en": "Head Style (0=Hex, 1=Socket, 2=Button)",
+        "es": "Estilo de Cabeza (0=Hex, 1=Allen, 2=Boton)"
+      },
+      "tooltip": {
+        "en": "Bolt head shape",
+        "es": "Forma de la cabeza del tornillo"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "group": "head_style",
+      "modes": [
+        "bolt"
+      ],
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "head_diameter",
+      "label": {
+        "en": "Head Diameter (0=Auto)",
+        "es": "Diametro de Cabeza (0=Auto)"
+      },
+      "tooltip": {
+        "en": "Override head diameter (0=auto)",
+        "es": "Diámetro de cabeza manual (0=auto)"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 30,
+      "step": 0.5,
+      "group": "head_style",
+      "modes": [
+        "bolt"
+      ],
+      "advanced": true,
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "head_height",
+      "label": {
+        "en": "Head Height (0=Auto)",
+        "es": "Altura de Cabeza (0=Auto)"
+      },
+      "tooltip": {
+        "en": "Override head height (0=auto)",
+        "es": "Altura de cabeza manual (0=auto)"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 15,
+      "step": 0.5,
+      "group": "head_style",
+      "modes": [
+        "bolt"
+      ],
+      "advanced": true,
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "nut_style_id",
+      "label": {
+        "en": "Nut Style (0=Hex, 1=Square, 2=Nyloc)",
+        "es": "Estilo de Tuerca (0=Hex, 1=Cuadrada, 2=Nyloc)"
+      },
+      "tooltip": {
+        "en": "Nut shape",
+        "es": "Forma de la tuerca"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "group": "nut_style",
+      "modes": [
+        "nut"
+      ],
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "width",
+      "label": {
+        "en": "Nut Width (0=Auto)",
+        "es": "Ancho de Tuerca (0=Auto)"
+      },
+      "tooltip": {
+        "en": "Override nut width (0=auto)",
+        "es": "Ancho de tuerca manual (0=auto)"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 30,
+      "step": 0.5,
+      "group": "nut_style",
+      "modes": [
+        "nut"
+      ],
+      "advanced": true,
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "height",
+      "label": {
+        "en": "Nut Height (0=Auto)",
+        "es": "Altura de Tuerca (0=Auto)"
+      },
+      "tooltip": {
+        "en": "Override nut height (0=auto)",
+        "es": "Altura de tuerca manual (0=auto)"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 15,
+      "step": 0.5,
+      "group": "nut_style",
+      "modes": [
+        "nut"
+      ],
+      "advanced": true,
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    },
+    {
+      "id": "fn",
+      "label": {
+        "en": "Resolution ($fn, 0=Auto)",
+        "es": "Resolucion ($fn, 0=Auto)"
+      },
+      "tooltip": {
+        "en": "Circle smoothness (0=auto)",
+        "es": "Suavidad de círculos (0=auto)"
+      },
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "group": "quality",
+      "modes": [
+        "bolt",
+        "nut"
+      ],
+      "visible_in_modes": [
+        "bolt",
+        "nut"
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "id": "m3_socket_20",
+      "mode": "bolt_cq",
+      "label": {
+        "en": "M3 Socket 20mm",
+        "es": "M3 Allen 20mm"
+      },
+      "values": {
+        "diameter": 3,
+        "length": 20,
+        "pitch": 0.5,
+        "head_style": "socket"
+      }
+    },
+    {
+      "id": "m5_hex_25",
+      "mode": "bolt_cq",
+      "label": {
+        "en": "M5 Hex 25mm",
+        "es": "M5 Hex 25mm"
+      },
+      "values": {
+        "diameter": 5,
+        "length": 25,
+        "pitch": 0.8,
+        "head_style": "hex"
+      }
+    },
+    {
+      "id": "m8_button_30",
+      "mode": "bolt_cq",
+      "label": {
+        "en": "M8 Button 30mm",
+        "es": "M8 Botón 30mm"
+      },
+      "values": {
+        "diameter": 8,
+        "length": 30,
+        "pitch": 1.25,
+        "head_style": "button"
+      }
+    },
+    {
+      "id": "m6_nyloc",
+      "mode": "nut_cq",
+      "label": {
+        "en": "M6 Nyloc Nut",
+        "es": "Tuerca Nyloc M6"
+      },
+      "values": {
+        "diameter": 6,
+        "pitch": 1.0,
+        "nut_style": "nyloc"
+      }
+    },
+    {
+      "id": "m5_spring_washer",
+      "mode": "washer",
+      "label": {
+        "en": "M5 Spring Washer",
+        "es": "Arandela de Presión M5"
+      },
+      "values": {
+        "diameter": 5,
+        "washer_type": "spring"
+      }
+    },
+    {
+      "label": {
+        "en": "M3 Socket 20mm",
+        "es": "M3 Allen 20mm"
+      },
+      "mode": "bolt",
+      "values": {
+        "diameter": 3,
+        "length": 20,
+        "pitch": 0.5,
+        "head_style_id": 1
+      },
+      "id": "m3_socket_20_scad"
+    },
+    {
+      "label": {
+        "en": "M5 Hex 25mm",
+        "es": "M5 Hex 25mm"
+      },
+      "mode": "bolt",
+      "values": {
+        "diameter": 5,
+        "length": 25,
+        "pitch": 0.8,
+        "head_style_id": 0
+      },
+      "id": "m5_hex_25_scad"
+    },
+    {
+      "label": {
+        "en": "M8 Button 30mm",
+        "es": "M8 Boton 30mm"
+      },
+      "mode": "bolt",
+      "values": {
+        "diameter": 8,
+        "length": 30,
+        "pitch": 1.25,
+        "head_style_id": 2
+      },
+      "id": "m8_button_30_scad"
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "pitch <= diameter",
+      "severity": "error",
+      "message": {
+        "en": "Pitch must be less than diameter",
+        "es": "El paso debe ser menor que el diámetro"
+      }
+    },
+    {
+      "expression": "length >= diameter",
+      "severity": "warning",
+      "message": {
+        "en": "Length should be at least 1x diameter",
+        "es": "El largo debe ser al menos 1x el diámetro"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        80
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -80,
+        20
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 2,
+    "per_part": 10,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "iso_metric_thread",
+        "label": {
+          "en": "ISO Metric Thread",
+          "es": "Rosca Métrica ISO"
+        },
+        "geometry_type": "thread",
+        "standard": "ISO 261 / ISO 965",
+        "parameters": [
+          "diameter",
+          "pitch",
+          "thread_enabled",
+          "thread_style"
+        ]
+      },
+      {
+        "id": "bolt_head_interface",
+        "label": {
+          "en": "Bolt Head Wrench Interface",
+          "es": "Interfaz de Cabeza de Tornillo"
+        },
+        "geometry_type": "profile",
+        "standard": "ISO 4014 / ISO 4762 / ISO 7380",
+        "parameters": [
+          "head_style",
+          "diameter"
+        ]
+      },
+      {
+        "id": "nut_wrench_interface",
+        "label": {
+          "en": "Nut Wrench Interface",
+          "es": "Interfaz de Tuerca"
+        },
+        "geometry_type": "profile",
+        "standard": "ISO 4032 / ISO 4033",
+        "parameters": [
+          "nut_style",
+          "diameter",
+          "clearance"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "On-demand fabrication of standard ISO metric fasteners — enables prototyping and repair without hardware-store dependency, and lets a bolt, nut and washer be printed to mate real hardware.",
+      "es": "Fabricación bajo demanda de tornillería métrica ISO estándar — permite prototipado y reparación sin depender de ferreterías, e imprime tornillo, tuerca y arandela para acoplar herrajes reales."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "fasteners",
+    "hardware",
+    "industrial",
+    "iso-metric",
+    "hyperobject",
+    "commons"
+  ]
+}
