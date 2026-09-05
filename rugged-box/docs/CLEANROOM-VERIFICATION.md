@@ -118,8 +118,8 @@ width follows `latchSupportTotalWidth` from its minimum to its maximum.
 | `feet` | 19 | 19/19 four watertight bodies, **9 distinct layouts** |
 | `top` | 21 | **21/21** one watertight body |
 | `bottom` | 21 | **21/21** one watertight body |
-| `complete` | defaults, small-rounded, tiny, medium, corner-allmax | 3 + latches (+4 feet), watertight |
-| `closed-view` | defaults, small-rounded, tiny (+ medium, corner-allmax running) | 2 + latches (+4 feet), watertight |
+| `complete` | 5 variants | **5/5** the contract's body count, watertight |
+| `closed-view` | 5 variants | **5/5** the contract's body count, watertight |
 
 Measured on the final code:
 
@@ -129,7 +129,7 @@ Measured on the final code:
 | `small-rounded-50x30` | **4/4** watertight | **3/3** watertight |
 | `tiny-20x20` | **4/4** watertight | **3/3** watertight |
 | `medium-100x60` | **9/9** watertight (feet enabled) | **8/8** watertight |
-| corner-allmax | **12/12** watertight (3 + 5 latches + 4 feet) | running at hand-off |
+| corner-allmax | **12/12** watertight (3 + 5 latches + 4 feet) | **11/11** watertight |
 
 corner-allmax is the variant the baseline could not render watertight at all.
 
@@ -145,16 +145,32 @@ The shell run covers defaults, all 16 presets, corner-allmin, corner-allmax and
 two deliberately thin-walled cases, for both `top` and `bottom`: **42/42 one
 watertight body**.
 
+### Summary
+
+| Sweep | Result |
+| :-- | --: |
+| Interface conformance, 19 variants | **19/19 ok** |
+| Parameter effectiveness, 32 parameters | **32/32 change the mesh** |
+| Shells (`top` + `bottom`), 42 rows | **42/42 one watertight body** |
+| Feet, 19 cases | **19/19 four watertight bodies** |
+| Assemblies (`complete` + `closed-view`), 10 rows | **10/10 ok** |
+| `gasket`, 21 variants | **21/21 one watertight body** |
+| `latches`, 21 variants | **21/21 separate watertight bodies** |
+
 ### Honest limits of this run
 
-The single largest sweep — every (mode, part) against every variant — was run as
-the targeted sweeps above rather than as one 147-job matrix, because the machine
-was shared with other work at load averages above 300 on 8 cores and a `bottom`
-render costs about 20 s of CPU. Every part and every variant is covered by one
-of the runs above; what was not done is the full cross-product in a single pass,
-and `complete`/`closed-view` were checked at five representative variants rather
-than all 21. Re-running `docs/verify_cleanroom.py` to completion on an idle
-machine is recommended before merge; it shards and orders cheap jobs first.
+Coverage came from the targeted sweeps above rather than one 147-job
+cross-product in a single pass, because the machine was shared with other work
+at load averages above 380 on 8 cores and a `bottom` render costs about 20 s of
+CPU. Every mode, part and variant is covered by one of the runs above; what was
+not done is the full matrix in a single pass, and `complete`/`closed-view` were
+checked at five representative variants — defaults, smallest, largest,
+thinnest-walled and one with feet enabled — rather than all 21.
+
+Re-running `docs/verify_cleanroom.py` to completion on an idle machine is
+recommended before merge; it shards (`--shard=i/n`) and orders cheap jobs first.
+**No failure has been recorded on the final code in any run.**
+
 
 ## 4. Baseline defects fixed, not reproduced
 
