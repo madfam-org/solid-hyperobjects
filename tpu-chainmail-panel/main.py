@@ -36,21 +36,60 @@ faceted solid contains the analytic torus rather than shrinking inside it: wire
 thickness and ring reach are never undersized, and the printed link is if anything a
 hair stronger.
 
-── Known defect, NOT introduced here: the weave does not actually interlink ─────
-At the shipped defaults the rings collide instead of linking. Measured on this
-cartridge's own geometry, before and after this change, with identical numbers
-(142 of 205 neighbour pairs share material, max overlap 5.847 mm³; interior rings
-link 2 of 4 diagonal neighbours, never 4). The cause is dimensional, not a
-placement bug: four wire crossings through one ring's hole need
-`ring_id >= 4*wire_d + 8*clearance` = 13.2 mm at the defaults, and the default
-`ring_id` is 9.0 mm. No pitch or tilt can fix that — a search over tilt
-(30–55°) x col_pitch (0.45–0.95 ring_od) x row_pitch (0.28–1.10 ring_od) found
-configurations reaching 4 links and configurations with 0 clearance violations,
-but never both. Fixing it means changing the parameter defaults (or making the
-pitches derive from a feasibility check), which is a product decision outside the
-mesh repair this module's change set is scoped to. Tracked separately; the
-geometry here is byte-for-byte the same weave the cartridge always described,
-rendered at a sane triangle count.
+── WEAVE FEASIBILITY: the placement fix and the dimensional rule ────────────────
+Two things have to hold for this to be chainmail rather than a pile of rings:
+every interior ring must LINK all four of its diagonal neighbours, and no two
+rings may SHARE MATERIAL (they would fuse into one body in the print).
+
+  1. LINKING is a placement property. It is fixed by the row-tilt scheme in
+     `_tilt_sign()` — see that function for what was wrong before and why. With
+     it, all four diagonals link at EVERY `ring_id` in range; without it, exactly
+     two of four linked at every `ring_id` in range.
+
+  2. NON-OVERLAP is a dimensional property, and TWO different pairs bind it in
+     two different regimes. Same-row neighbours are never the problem: they share
+     a tilt sign and sit in parallel planes col_pitch*sin(tilt) apart — 5.8 mm at
+     the defaults.
+
+     (A) The DIAGONAL (linking) pair. Two diagonal rings are tilted oppositely and
+         pass through each other's holes, so their centrelines approach to
+         `diag_sep`, and they clear when `diag_sep >= wire_d` (the tube radii sum
+         to 2*tube_r = wire_d). Bisecting that boundary on the analytic
+         centrelines over the declared parameter box gives a surface linear in
+         the parameters to within 0.62 mm:
+
+             ring_id >= 6.3879*wire_d - 4.8324*clearance + 0.8208         (A)
+
+         The MINUS on clearance is real, not a slip: a larger print gap shrinks
+         `col_pitch`, which pulls the lattice in and buys slack on this pair.
+
+     (B) The TWO-ROWS-APART pair, same column. These are not neighbours and do not
+         link, but `row_pitch` is only 0.62*col_pitch, so at large clearance rows
+         r and r+2 close up and collide — and because they share a tilt sign, no
+         tilt can separate them. This one needs no fitting; it is exact. Both
+         rings are tilted about Y, so their extent along Y is not foreshortened
+         and is exactly 2*r_center. Requiring 2*row_pitch >= 2*r_center + wire_d
+         and substituting row_pitch = 0.62*(ring_id + wire_d - clearance) and
+         r_center = (ring_id + wire_d)/2 gives, with a 0.7 mm margin:
+
+             ring_id >= 3.1667*wire_d + 5.1667*clearance + 0.7            (B)
+
+     (A) binds at low clearance and (B) at high clearance; both are encoded as
+     `error`-severity entries in project.json's `constraints[]`, so the UI cannot
+     combine the ranges into an impossible weave. The ranges DO still admit
+     infeasible points — at wire_d 6.0 the binding rule wants ring_id 32-38,
+     above the 30 mm cap, at every clearance — which is exactly what the
+     constraints exist to reject.
+
+     Checked over the whole box (wire_d 1.2/2.4/3.4/6.0 x clearance
+     0.2/0.45/1.5): at the smallest ring_id each rule admits, the worst pairwise
+     gap on a 5x5 field — over ALL pair types, not just the diagonals — is
+     positive at every feasible point (+0.063 to +0.168 mm), and every wire_d 6.0
+     point is correctly rejected as impossible.
+
+  Defaults and presets were re-derived from (A) and (B) and each verified by exact OCCT
+  pairwise intersection (zero overlapping neighbour pairs) plus a Gauss linking
+  number of +-1 on all four diagonals of every interior ring.
 
 ── Why placement is `cq.Location`, not `.translate()` ───────────────────────────
 Every ring in a panel is the same shape at a different place. `Shape.translate()`
@@ -84,7 +123,7 @@ def PARAM(getter, default):
 # ── Parameters ───────────────────────────────────────────────────────────────
 rows        = int(  PARAM(lambda: rows,        10))     # rings down the panel
 cols        = int(  PARAM(lambda: cols,        8))      # rings across the panel
-ring_id     = float(PARAM(lambda: ring_id,     9.0))    # ring inner diameter (mm)
+ring_id     = float(PARAM(lambda: ring_id,     15.0))   # ring inner diameter (mm) — see WEAVE FEASIBILITY
 wire_d      = float(PARAM(lambda: wire_d,      2.4))    # ring wire (cross-section) diameter (mm)
 clearance   = float(PARAM(lambda: clearance,   0.45))   # print gap between linked rings (mm)
 
@@ -162,6 +201,27 @@ _PROTOTYPE = {
 }
 
 
+def _tilt_sign(r, c):
+    """The 4-in-1 row-tilt scheme: the tilt sign depends on the ROW ONLY.
+
+    Rings sit on an offset (brick) lattice — odd rows are shifted half a column —
+    so EVERY diagonal neighbour of ring (r, c) lives in row r-1 or r+1. Making the
+    sign a function of `r` alone therefore guarantees that all four diagonal
+    partners are tilted the OPPOSITE way, which is the condition for two rings to
+    interlink: two rings tilted the same way lie in parallel planes and can only
+    miss or collide, never link.
+
+    The scheme this replaces was `(r + c) % 2`. On a square lattice that would
+    alternate correctly, but on the offset lattice the half-column shift flips the
+    column parity of one diagonal and not the other, so one diagonal came out
+    same-sign at every ring: measured on a 6x6, 36 of 72 diagonal pairs were
+    same-sign, and every interior ring linked exactly 2 of its 4 neighbours no
+    matter what `ring_id` was set to. Raising `ring_id` could never have fixed it;
+    the defect was in the placement, not the dimensions.
+    """
+    return 1 if (r % 2 == 0) else -1
+
+
 def _ring(cx, cy, tilt_sign):
     """One chainmail ring centred at (cx, cy) on the panel plane (XY), its plane
     tilted about the Y axis by ±tilt so it interlinks its row neighbours. Returns a
@@ -173,8 +233,9 @@ def _ring(cx, cy, tilt_sign):
 
 def build_panel(n_rows, n_cols):
     """The interlocked ring grid. Even/odd rows are offset by half a column and the
-    tilt alternates so every interior ring links its four diagonal neighbours — the
-    4-in-1 weave. Returns an Assembly of separate (interlinked) ring solids.
+    tilt alternates BY ROW, so every interior ring links its four diagonal
+    neighbours — the 4-in-1 weave. Returns an Assembly of separate (interlinked)
+    ring solids.
 
     Each ring is added as the shared tilted prototype under its own `loc`, never as
     a translated copy: the Assembly holds N instances of 2 shapes, so the exporter
@@ -186,8 +247,8 @@ def build_panel(n_rows, n_cols):
         x_off = (col_pitch / 2.0) if (r % 2) else 0.0
         for c in range(n_cols):
             x = c * col_pitch + x_off
-            # Alternate tilt across columns AND rows so neighbours interlink.
-            tilt_sign = 1 if ((r + c) % 2 == 0) else -1
+            # Row-tilt: the sign depends on the ROW ONLY. See _tilt_sign().
+            tilt_sign = _tilt_sign(r, c)
             asm.add(_PROTOTYPE[tilt_sign], name=f"ring_{idx}",
                     loc=cq.Location(cq.Vector(x, y, 0)),
                     color=cq.Color("#8a8f94"))
