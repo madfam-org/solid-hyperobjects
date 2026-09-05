@@ -1,0 +1,725 @@
+{
+  "project": {
+    "name": "Parametric Pipe Connector",
+    "slug": "parametric-connector",
+    "version": "2.1.1",
+    "engine": "cadquery",
+    "description": {
+      "en": "A disaster-relief structural connector for scavenged cylindrical stock — PVC pipe, bamboo, or wooden dowel. Measure the outer diameter of whatever material you have, pick a topology (elbow, tee, or 3D corner), and print a node whose sockets seat each pipe to a set depth, with optional pin holes and a heavy-load rib option for shelter frames and geodesic domes.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un conector estructural para ayuda ante desastres, hecho para material cilíndrico recuperado — tubo de PVC, bambú o espiga de madera. Mide el diámetro exterior del material que tengas, elige una topología (codo, tee o esquina 3D) e imprime un nodo cuyos enchufes asientan cada tubo a una profundidad definida, con orificios opcionales para pasador y una opción de carga pesada con nervaduras para refugios y domos geodésicos.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/parametric-connector.png",
+    "difficulty": "beginner",
+    "tags": [
+      "construction",
+      "pvc",
+      "bamboo",
+      "structure",
+      "disaster-relief",
+      "geodesic",
+      "furniture",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "elbow",
+      "label": {
+        "en": "Elbow (2-way)",
+        "es": "Codo (2 vías)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "elbow"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 12
+      }
+    },
+    {
+      "id": "tee",
+      "label": {
+        "en": "Tee (3-way flat)",
+        "es": "Tee (3 vías plano)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "tee"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    },
+    {
+      "id": "corner_3way",
+      "label": {
+        "en": "Corner (3-way 3D)",
+        "es": "Esquina (3 vías 3D)"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "corner_3way"
+      ],
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 16
+      }
+    },
+    {
+      "id": "connector_body",
+      "scad_file": "connector.scad",
+      "cq_file": "connector.py",
+      "label": {
+        "en": "Pipe Connector (OpenSCAD)",
+        "es": "Conector de Tubería (OpenSCAD)"
+      },
+      "parts": [
+        "connector_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "complex"
+      },
+      "engine": "openscad"
+    }
+  ],
+  "parts": [
+    {
+      "id": "elbow",
+      "label": {
+        "en": "Elbow Node",
+        "es": "Nodo Codo"
+      },
+      "render_mode": 0,
+      "color": "#f97316"
+    },
+    {
+      "id": "tee",
+      "label": {
+        "en": "Tee Node",
+        "es": "Nodo Tee"
+      },
+      "render_mode": 0,
+      "color": "#fb923c"
+    },
+    {
+      "id": "corner_3way",
+      "label": {
+        "en": "Corner Node",
+        "es": "Nodo Esquina"
+      },
+      "render_mode": 0,
+      "color": "#ea580c"
+    },
+    {
+      "id": "connector_body",
+      "render_mode": 0,
+      "label": {
+        "en": "Connector Body",
+        "es": "Cuerpo del Conector"
+      },
+      "default_color": "#f97316"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "material",
+      "label": {
+        "en": "Measured Material",
+        "es": "Material Medido"
+      }
+    },
+    {
+      "id": "socket",
+      "label": {
+        "en": "Socket & Fit",
+        "es": "Enchufe y Ajuste"
+      }
+    },
+    {
+      "id": "topology",
+      "label": {
+        "en": "Topology",
+        "es": "Topología"
+      }
+    },
+    {
+      "id": "load",
+      "label": {
+        "en": "Load & Fixing",
+        "es": "Carga y Fijación"
+      }
+    },
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Pipe Size",
+        "es": "Tamaño de Tubería"
+      }
+    },
+    {
+      "id": "geometry",
+      "label": {
+        "en": "Topology",
+        "es": "Topología"
+      }
+    },
+    {
+      "id": "structure",
+      "label": {
+        "en": "Structure",
+        "es": "Estructura"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "pipe_od",
+      "type": "slider",
+      "default": 21.3,
+      "min": 6,
+      "max": 60,
+      "step": 0.1,
+      "group": "material",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "label": {
+        "en": "Measured Pipe OD (mm)",
+        "es": "OD Medido del Tubo (mm)"
+      },
+      "tooltip": {
+        "en": "Outer diameter of your local material — measure the actual PVC, bamboo, or dowel with calipers.",
+        "es": "Diámetro exterior de tu material local — mide el PVC, bambú o espiga real con calibrador."
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "scale_factor": 1.0
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "socket",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Socket wall thickness around the pipe. Thicker = stronger joint.",
+        "es": "Grosor de la pared del enchufe alrededor del tubo. Más grueso = unión más fuerte."
+      }
+    },
+    {
+      "id": "insertion_depth",
+      "type": "slider",
+      "default": 20.0,
+      "min": 10.0,
+      "max": 50.0,
+      "step": 1.0,
+      "group": "socket",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "label": {
+        "en": "Insertion Depth (mm)",
+        "es": "Profundidad de Inserción (mm)"
+      },
+      "tooltip": {
+        "en": "How deep each pipe seats into its socket. Deeper = more surface for a rigid, glued, or friction joint.",
+        "es": "Qué tan profundo asienta cada tubo en su enchufe. Más profundo = más superficie para una unión rígida, pegada o por fricción."
+      }
+    },
+    {
+      "id": "clearance",
+      "type": "slider",
+      "default": 0.5,
+      "min": 0.1,
+      "max": 2.0,
+      "step": 0.05,
+      "group": "socket",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Bore Clearance (mm)",
+        "es": "Holgura del Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "Extra diameter over the measured OD for a slip fit. Raise for rough/irregular stock like bamboo; lower for a tight PVC fit.",
+        "es": "Diámetro adicional sobre el OD medido para un ajuste deslizante. Súbelo para material rugoso/irregular como bambú; bájalo para un ajuste apretado de PVC."
+      }
+    },
+    {
+      "id": "elbow_angle",
+      "type": "slider",
+      "default": 90.0,
+      "min": 20.0,
+      "max": 160.0,
+      "step": 1.0,
+      "group": "topology",
+      "modes": [
+        "elbow"
+      ],
+      "label": {
+        "en": "Elbow Angle (°)",
+        "es": "Ángulo del Codo (°)"
+      },
+      "tooltip": {
+        "en": "Angle between the two arms. 90° is a right-angle elbow; open it up for the shallow struts of a geodesic dome or a splayed leg.",
+        "es": "Ángulo entre los dos brazos. 90° es un codo recto; ábrelo para los puntales poco profundos de un domo geodésico o una pata abierta."
+      }
+    },
+    {
+      "id": "heavy_load",
+      "type": "checkbox",
+      "default": false,
+      "group": "load",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "label": {
+        "en": "Heavy Load",
+        "es": "Carga Pesada"
+      },
+      "tooltip": {
+        "en": "Thicker walls plus three internal gusset ribs per socket, for load-bearing shelter frames.",
+        "es": "Paredes más gruesas más tres nervaduras internas por enchufe, para estructuras de refugio que soportan carga."
+      }
+    },
+    {
+      "id": "pin_holes",
+      "type": "checkbox",
+      "default": false,
+      "group": "load",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "label": {
+        "en": "Pin/Screw Holes",
+        "es": "Orificios de Pasador/Tornillo"
+      },
+      "tooltip": {
+        "en": "Add a cross through-hole near each socket mouth to fix the seated pipe with a pin or self-tapping screw.",
+        "es": "Agrega un orificio pasante cruzado cerca de la boca de cada enchufe para fijar el tubo asentado con un pasador o tornillo autorroscante."
+      }
+    },
+    {
+      "id": "pin_dia",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "load",
+      "modes": [
+        "elbow",
+        "tee",
+        "corner_3way"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Pin Diameter (mm)",
+        "es": "Diámetro del Pasador (mm)"
+      },
+      "tooltip": {
+        "en": "Shank diameter of the fixing pin or screw (only used when Pin/Screw Holes is on).",
+        "es": "Diámetro del vástago del pasador o tornillo de fijación (solo se usa cuando Orificios de Pasador/Tornillo está activo)."
+      }
+    },
+    {
+      "id": "pipe_od_mm",
+      "type": "slider",
+      "default": 21.3,
+      "min": 10,
+      "max": 60,
+      "step": 0.1,
+      "label": {
+        "en": "Pipe OD (mm)",
+        "es": "OD Tubería (mm)"
+      },
+      "tooltip": {
+        "en": "Outer diameter of the pipe/dowel",
+        "es": "Diámetro exterior del tubo/espiga"
+      },
+      "visible_in_modes": [
+        "connector_body"
+      ],
+      "group": "dimensions"
+    },
+    {
+      "id": "connector_type",
+      "type": "select",
+      "default": "elbow",
+      "options": [
+        {
+          "value": "elbow",
+          "label": {
+            "en": "Elbow (2-way)",
+            "es": "Codo (2 vías)"
+          }
+        },
+        {
+          "value": "tee",
+          "label": {
+            "en": "Tee (3-way flat)",
+            "es": "Tee (3 vías plano)"
+          }
+        },
+        {
+          "value": "cross",
+          "label": {
+            "en": "Cross (4-way flat)",
+            "es": "Cruz (4 vías plano)"
+          }
+        },
+        {
+          "value": "3-way-corner",
+          "label": {
+            "en": "Corner (3-way)",
+            "es": "Esquina (3 vías)"
+          }
+        },
+        {
+          "value": "4-way-corner",
+          "label": {
+            "en": "Corner (4-way)",
+            "es": "Esquina (4 vías)"
+          }
+        },
+        {
+          "value": "5-way",
+          "label": {
+            "en": "5-Way Center",
+            "es": "Centro 5 Vías"
+          }
+        },
+        {
+          "value": "6-way",
+          "label": {
+            "en": "6-Way Hub",
+            "es": "Hub 6 Vías"
+          }
+        }
+      ],
+      "label": {
+        "en": "Connector Type",
+        "es": "Tipo de Conector"
+      },
+      "visible_in_modes": [
+        "connector_body"
+      ],
+      "group": "geometry"
+    },
+    {
+      "id": "wall_thickness_mm",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 8,
+      "step": 0.5,
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Grosor de Pared (mm)"
+      },
+      "visible_in_modes": [
+        "connector_body"
+      ],
+      "group": "structure"
+    },
+    {
+      "id": "insertion_depth_mm",
+      "type": "slider",
+      "default": 20,
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "label": {
+        "en": "Insertion Depth (mm)",
+        "es": "Profundidad de Inserción (mm)"
+      },
+      "visible_in_modes": [
+        "connector_body"
+      ],
+      "group": "structure"
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Quality ($fn)",
+        "es": "Calidad ($fn)"
+      },
+      "visible_in_modes": [
+        "connector_body"
+      ],
+      "group": "quality",
+      "visibility_level": "advanced"
+    }
+  ],
+  "presets": [
+    {
+      "id": "pvc_half_inch_elbow",
+      "mode": "elbow",
+      "label": {
+        "en": "1/2\" PVC Elbow",
+        "es": "Codo PVC 1/2\""
+      },
+      "values": {
+        "pipe_od": 21.3,
+        "wall": 3.0,
+        "insertion_depth": 20,
+        "elbow_angle": 90
+      }
+    },
+    {
+      "id": "pvc_three_quarter_tee",
+      "mode": "tee",
+      "label": {
+        "en": "3/4\" PVC Tee",
+        "es": "Tee PVC 3/4\""
+      },
+      "values": {
+        "pipe_od": 26.7,
+        "wall": 3.0,
+        "insertion_depth": 24
+      }
+    },
+    {
+      "id": "bamboo_shelter_corner",
+      "mode": "corner_3way",
+      "label": {
+        "en": "Bamboo Shelter Corner",
+        "es": "Esquina de Refugio de Bambú"
+      },
+      "values": {
+        "pipe_od": 33.4,
+        "wall": 4.0,
+        "insertion_depth": 35,
+        "clearance": 1.2,
+        "heavy_load": true,
+        "pin_holes": true
+      }
+    },
+    {
+      "id": "geodesic_strut_hub",
+      "mode": "elbow",
+      "label": {
+        "en": "Geodesic Strut (60°)",
+        "es": "Puntal Geodésico (60°)"
+      },
+      "values": {
+        "pipe_od": 25.0,
+        "wall": 3.0,
+        "insertion_depth": 22,
+        "elbow_angle": 60,
+        "heavy_load": true
+      }
+    },
+    {
+      "id": "pvc_half_inch_elbow_scad",
+      "label": {
+        "en": "1/2\" PVC Elbow",
+        "es": "Codo PVC 1/2\""
+      },
+      "values": {
+        "pipe_od_mm": 21.3,
+        "connector_type": "elbow"
+      }
+    },
+    {
+      "id": "pvc_three_quarter_tee_scad",
+      "label": {
+        "en": "3/4\" PVC Tee",
+        "es": "Tee PVC 3/4\""
+      },
+      "values": {
+        "pipe_od_mm": 26.7,
+        "connector_type": "tee"
+      }
+    },
+    {
+      "id": "furniture_corner_scad",
+      "label": {
+        "en": "Furniture 3-Way Corner (1\")",
+        "es": "Esquina de Mueble 3 Vías (1\")"
+      },
+      "values": {
+        "pipe_od_mm": 33.4,
+        "connector_type": "3-way-corner"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "wall >= 2",
+      "severity": "error",
+      "message": {
+        "en": "Wall must be at least 2 mm for a printable socket",
+        "es": "La pared debe ser de al menos 2 mm para un enchufe imprimible"
+      }
+    },
+    {
+      "expression": "clearance < wall",
+      "severity": "warning",
+      "message": {
+        "en": "Clearance approaching wall thickness — the socket wall may be too thin",
+        "es": "La holgura se acerca al grosor de pared — la pared del enchufe puede quedar muy delgada"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        110,
+        110,
+        90
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        180
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -180,
+        20
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 3,
+    "per_part": 14,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "household",
+    "cdg_interfaces": [
+      {
+        "id": "socket",
+        "label": {
+          "en": "Pipe/Tube Socket",
+          "es": "Enchufe de Tubo/Caño"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "pipe_od",
+          "insertion_depth",
+          "wall",
+          "clearance"
+        ]
+      },
+      {
+        "id": "fixing_pin",
+        "label": {
+          "en": "Cross Fixing Pin",
+          "es": "Pasador de Fijación Cruzado"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal",
+        "parameters": [
+          "pin_holes",
+          "pin_dia"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Turns whatever cylindrical stock a community can scavenge — PVC pipe, cut bamboo, wooden dowel — into rigid structures. Print the nodes, feed in local material at its measured diameter, and build emergency shelters, geodesic domes, and furniture without proprietary fittings or a supply chain.",
+      "es": "Convierte el material cilíndrico que una comunidad pueda recuperar — tubo de PVC, bambú cortado, espiga de madera — en estructuras rígidas. Imprime los nodos, introduce el material local a su diámetro medido y construye refugios de emergencia, domos geodésicos y muebles sin acoples propietarios ni cadena de suministro."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "connector",
+    "pipe",
+    "bamboo",
+    "pvc",
+    "structure",
+    "disaster-relief",
+    "geodesic",
+    "household",
+    "hyperobject",
+    "commons"
+  ]
+}
