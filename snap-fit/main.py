@@ -244,11 +244,28 @@ def build_annular_snap():
         pass
     # A relief slot down the shaft lets a solid print flex (optional, keeps it a
     # real snap not a press fit). A single slot keeps it watertight and simple.
+    # The slot must be a PARTIAL cut in BOTH axes, which is the invariant the
+    # comment above states and the source violated twice:
+    #   Y: it was Y-centred with a Y dimension of shaft_r*2.4 (18.48 mm at the
+    #      default bore) across a shaft only 15.40 mm across, so it severed the
+    #      shaft into halves (shaft_ring_snap: 4 bodies, not watertight).
+    #   Z: it ran shaft_len*0.7 up from shaft_len*0.3, i.e. all the way to the
+    #      tip, straight through the bead and the tip chamfer -- which lopped
+    #      the chamfered cap off as its own body (detent_test_clip: 3 bodies).
+    # Leave a solid spine of `_SPINE` on the far side, and stop the slot short
+    # of the bead so the engagement ring and the tip stay whole.
     slot_w = max(1.2, shaft_r * 0.5)
+    _SPINE = max(1.2, shaft_r * 0.3)
+    slot_depth = max(0.8, 2.0 * shaft_r - _SPINE)
+    slot_z0 = shaft_len * 0.3
+    slot_z1 = min(slot_z0 + shaft_len * 0.7, bead_z - 0.5)
+    slot_h = max(1.0, slot_z1 - slot_z0)
     slot = (
         cq.Workplane("XY")
-        .box(slot_w, shaft_r * 2.4, shaft_len * 0.7, centered=(True, True, False))
-        .translate((0, 0, shaft_len * 0.3 + 0.001))
+        # centered=False in Y so the cut is measured from the near face inwards:
+        # it starts outside the shaft and reaches slot_depth in, leaving _SPINE.
+        .box(slot_w, slot_depth + 1.0, slot_h, centered=(True, False, False))
+        .translate((0, -shaft_r - 1.0, slot_z0))
     )
     shaft = shaft.cut(slot)
 
@@ -273,16 +290,25 @@ def build_annular_snap():
         .extrude(bead_w + 2.0 * clearance)
     )
     tube = tube.cut(groove)
-    # Lead-in chamfer at the bore mouth.
+    # Lead-in chamfer at the bore mouth. ">Z" selects BOTH the outer and the
+    # inner top edge of the tube, so two chamfers of radius r together consume
+    # 2r of the `wall`. At wall*0.6 that is 1.2*wall -- more wall than exists,
+    # and the two chamfer faces collide (shaft_ring_snap: not watertight).
+    # wall*0.4 keeps the pair at 0.8*wall.
     try:
-        tube = tube.edges(">Z").chamfer(min(bead_h, wall * 0.6))
+        tube = tube.edges(">Z").chamfer(min(bead_h, wall * 0.4))
     except Exception:
         pass
 
+    # Shaft and tube are two SEPARATE printed pieces laid out side by side --
+    # a COMPOUND, never a .union() (a union of disjoint solids is a fused shape
+    # OCCT has to keep consistent for no reason).
     gap = outer_r + shaft_r + 8.0
     shaft = shaft.translate((-gap, 0, 0))
     tube = tube.translate((gap, 0, 0))
-    return shaft.union(tube)
+    return cq.Workplane("XY").newObject(
+        [cq.Compound.makeCompound([shaft.val(), tube.val()])]
+    )
 
 
 # ── Dispatch ─────────────────────────────────────────────────────────────────
