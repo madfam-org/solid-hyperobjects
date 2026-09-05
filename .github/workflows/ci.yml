@@ -1,0 +1,158 @@
+name: CI
+
+# ADR-010: org policy is own-runners. No job here may run on GitHub-hosted
+# compute. The expression mirrors yantra4d's deploy.yml so a bootstrap or a
+# pool migration can be steered from a repository variable without editing
+# every job, and falls back to the standing pool when the variable is unset.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Nightly full render sweep, 09:00Z (03:00 CDMX).
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # The verification bar is the hyperobjects-spec package, never platform code
+  # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
+  # validator cannot say what bar a green run cleared.
+  SPEC_PIN: cb19e515c4d9b6a603e7d3863a7e6027e6877c59
+  SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
+
+jobs:
+  # Every cartridge, every PR. Manifest conformance is pure python and runs in
+  # seconds, so it is never scoped to changed files: a shared-schema change or a
+  # bad merge has to be caught across all 500, not just the one in the diff.
+  manifests:
+    name: manifest conformance (all cartridges)
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the spec (manifest bar only — no CAD kernel)
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install "hyperobjects-spec @ git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
+
+      - name: y4d-spec check ./*/ -v
+        run: .venv/bin/y4d-spec check ./*/ -v
+
+  # Geometry is expensive, so on a pull request it runs only for the cartridges
+  # the PR actually touched. The nightly sweep is what covers the rest.
+  render-changed:
+    name: render (cartridges changed in this PR)
+    if: github.event_name == 'pull_request'
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Which cartridges changed
+        id: changed
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          # Top-level directory of every changed path that is a cartridge.
+          slugs=$(git diff --name-only "$base" "$head" \
+            | awk -F/ 'NF>1 {print $1}' \
+            | sort -u \
+            | while read -r d; do [ -f "$d/project.json" ] && echo "$d"; done)
+          echo "slugs<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$slugs" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          if [ -z "$slugs" ]; then
+            echo "none=true" >> "$GITHUB_OUTPUT"
+            echo "No cartridge changed; the render lane has nothing to do."
+          fi
+
+      - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
+        # OCP's C extension links against X and GL at import. libgl1 alone is
+        # not enough: nothing in its dependency tree pulls libXrender.so.1,
+        # which VTK's renderer asks for. Never fails the job on its own — the
+        # install step below is where a missing library becomes visible.
+        if: steps.changed.outputs.none != 'true'
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
+            APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
+            timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
+            $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
+              libgl1 libglib2.0-0 libxrender1 \
+              || echo "::warning::could not install the CAD kernel's system libraries"
+          else
+            echo "::warning::apt-get unavailable on this runner"
+          fi
+
+      - name: Install the spec (with geometry)
+        if: steps.changed.outputs.none != 'true'
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
+          .venv/bin/python -c "import cadquery" || {
+            echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
+
+      - name: y4d-spec check --render
+        if: steps.changed.outputs.none != 'true'
+        env:
+          # OpenSCAD cartridges resolve their includes from the pinned libs/ tree.
+          OPENSCADPATH: ${{ github.workspace }}/libs
+        run: |
+          rc=0
+          while read -r slug; do
+            [ -n "$slug" ] || continue
+            echo "::group::render $slug"
+            .venv/bin/y4d-spec check "./$slug" --render -v || rc=1
+            echo "::endgroup::"
+          done <<< "${{ steps.changed.outputs.slugs }}"
+          exit $rc
+
+  # The whole commons, geometry included. Nightly rather than per-PR: 500
+  # cartridges rendered at defaults AND at every preset is hours of kernel time,
+  # which would make the pool unusable for everything else.
+  render-nightly:
+    name: nightly full render sweep
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    timeout-minutes: 720
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: System libraries for the CAD kernel (libGL + libXrender for OCP)
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
+            APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
+            timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
+            $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
+              libgl1 libglib2.0-0 libxrender1 \
+              || echo "::warning::could not install the CAD kernel's system libraries"
+          else
+            echo "::warning::apt-get unavailable on this runner"
+          fi
+
+      - name: Install the spec (with geometry)
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
+          .venv/bin/python -c "import cadquery" || {
+            echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
+
+      - name: y4d-spec check ./*/ --render -v
+        env:
+          OPENSCADPATH: ${{ github.workspace }}/libs
+        run: .venv/bin/y4d-spec check ./*/ --render -v

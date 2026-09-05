@@ -1,0 +1,32 @@
+# Third-party OpenSCAD libraries, pinned at the same commits the Yantra4D
+# platform uses, so `y4d-spec check --render` resolves OpenSCAD cartridges
+# standalone here. Init them with:
+#
+#   git submodule update --init --recursive
+#   export OPENSCADPATH="$PWD/libs"
+#
+[submodule "libs/BOSL2"]
+	path = libs/BOSL2
+	url = https://github.com/BelfrySCAD/BOSL2.git
+[submodule "libs/NopSCADlib"]
+	path = libs/NopSCADlib
+	url = https://github.com/nophead/NopSCADlib.git
+[submodule "libs/Round-Anything"]
+	path = libs/Round-Anything
+	url = https://github.com/Irev-Dev/Round-Anything.git
+[submodule "libs/threads-scad"]
+	path = libs/threads-scad
+	url = https://github.com/rcolyer/threads-scad.git
+[submodule "libs/MCAD"]
+	path = libs/MCAD
+	url = https://github.com/openscad/MCAD.git
+[submodule "libs/dotSCAD"]
+	path = libs/dotSCAD
+	url = https://github.com/JustinSDK/dotSCAD.git
+
+# gridfinity's upstream OpenSCAD fork is GPL-3.0, not a permissive licence, so
+# it is NOT vendored into this CERN-OHL-W-2.0 tree: it stays a submodule and is
+# fetched at build time, exactly as gridfinity/NOTICE has always described it.
+[submodule "gridfinity/gridfinity_extended"]
+	path = gridfinity/gridfinity_extended
+	url = https://github.com/madfam-org/gridfinity_extended_openscad.git
