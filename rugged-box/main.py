@@ -762,22 +762,15 @@ def build_top(flat=True):
     body = safe_fillet(rounded_prism(shell_x, shell_y, lid_z, corner_r),
                        ">Z", CROWN_EASE)
 
-    # INTERFACE: the engagement rim standing down from the seam face, rim_h tall,
+    # INTERFACE: the engagement rim, rim_h tall below the seam face, with
     # ASSEMBLY_CLEARANCE under the groove it enters.
     #
-    # The rim is built as a SHOULDER, not a free-hanging ring: its outer face
-    # runs out to the lid's own wall so it is continuous with the shell, while
-    # its inner face — the one that actually seals against the gasket groove —
-    # stays exactly on the interface value. Building it as a ring whose outer
-    # face floated inside the cavity left it attached only to a ceiling that the
-    # cavity cut then removed, and the lid came out as two bodies (tiny-20x20:
-    # a 20 mm cavity against an 18 mm rim outer face).
-    # The sealing face is the rim's INNER wall — that is the surface the gasket
-    # groove receives, so it carries the interface dimension. The outer face is
-    # only structure, and it runs out to whichever is larger: its own interface
-    # value or the lid wall. On a normal box those are the same thing; on a thin
-    # wall the wall is further out, and reaching it is what keeps the rim part
-    # of the lid.
+    # Built as a SHOULDER, not a free-hanging ring. The rim's INNER wall is the
+    # sealing face and carries the interface dimension; the outer face is only
+    # structure and runs out to whichever is larger, its own interface value or
+    # the cavity wall. On a thin wall the cavity runs outside a nominal rim and
+    # removes the ceiling it hangs from, which split the lid into two bodies.
+    # See docs/CLEANROOM-VERIFICATION.md section 4b.
     rim_seal_in_x = rim_out_x - 2.0 * ring_w   # INTERFACE: the sealing face
     rim_seal_in_y = rim_out_y - 2.0 * ring_w
     rim_out = rounded_prism(max(rim_out_x, cav_x + EPS),
@@ -814,23 +807,10 @@ def build_top(flat=True):
     # against it.
     lid_crown = max(0.4, lid_z - cav_zt - CROWN_EASE)
 
-    # Hollow the lid cavity from the seam face UPWARD ONLY, and cut the foot
-    # pockets.
-    #
-    # Two constraints on the cavity cutter, both learned from variants that came
-    # out as two bodies:
-    #
-    #  1. It must not dip below z=0. The engagement rim lives entirely below the
-    #     seam plane, and on a thin wall the cavity wall (shell - 2*wall) can
-    #     coincide with the rim's outer face (shell - 2*1.75 - 0.5) — at
-    #     boxWallWidthMm 2 they land on the same millimetre, so an overshooting
-    #     cutter shaved the rim away (organizer-216x116).
-    #  2. It must not undercut the rim. The rim's OUTER face must stay inside
-    #     the cavity wall so the rim meets the lid's own wall; otherwise the
-    #     cavity removes everything above the rim and leaves it attached to
-    #     nothing (tiny-20x20: a 20 mm cavity against an 18 mm rim outer face).
-    #     That is handled where the rim is built, by widening it to reach the
-    #     wall — never by shrinking the cavity, which is the payload interface.
+    # Hollow the lid cavity from the seam face UPWARD ONLY. Dipping below z=0
+    # shaves the rim, which lives entirely under the seam plane; the rim is
+    # widened where it is built so the cavity cannot undercut it. The cavity is
+    # never shrunk - it is the payload interface.
     body = _subtract(body, [
         rounded_prism(cav_x, cav_y, cav_zt + OVER, inner_r, 0.0),
         # Lid: the skin is the crown left above the cavity, less the crown ease
@@ -880,10 +860,14 @@ def build_closed_view():
     top = build_top(flat=False).translate((0.0, 0.0, base_z))
     shapes = _solids(bottom) + _solids(top)
     strap = latch_strap()
+    # Stand each strap clear of everything the front face already carries: the
+    # belt rib and the latch catch blocks both stand proud of the wall, so
+    # clearing only the strap thickness pushed the strap into the catches and
+    # the preview came back non-watertight on the smallest preset.
+    front_proud = strap_t + BELT_PROUD + max(BUMPER_PROUD, 0.0)
     for x in latch_x_positions():
-        # Stand each strap against the front wall, spanning the seam.
         s = (strap.rotate((0, 0, 0), (1, 0, 0), 90)
-             .translate((x, -shell_y / 2.0 - strap_t - 0.2,
+             .translate((x, -shell_y / 2.0 - front_proud - 0.4,
                          base_z - engage - 0.5)))
         shapes += _solids(s)
     if isFeetAdded:
