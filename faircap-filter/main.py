@@ -287,11 +287,18 @@ def build_housing():
     # membrane_holder part carries the element, so a light single grille suffices.)
     grille_hole = 1.4 if filter_type != "membrane" else 2.0
     rings = 3 if chamber_r > 12.0 else 2
+    # The chamber wall is at chamber_r, so a grille of radius chamber_r - 0.3
+    # hung 0.3 mm clear of it all the way round and fused to nothing -- the top
+    # grille came out as a detached body in `housing` at defaults and at presets
+    # charcoal_standard and ceramic_long. Oversize both grilles GRILLE_BITE PAST
+    # the chamber wall so they bite into it; they stay well inside the housing
+    # OD (chamber_r + wall).
+    GRILLE_BITE = min(0.6, wall * 0.4)
     bottom_grille = perforated_disk(
-        chamber_r - 0.3, 1.6, grille_hole, rings, z=end_web + 0.2
+        chamber_r + GRILLE_BITE, 1.6, grille_hole, rings, z=end_web + 0.2
     )
     top_grille = perforated_disk(
-        chamber_r - 0.3, 1.6, grille_hole, rings, z=length - end_web - 1.8
+        chamber_r + GRILLE_BITE, 1.6, grille_hole, rings, z=length - end_web - 1.8
     )
     body = body.union(bottom_grille).union(top_grille)
 
