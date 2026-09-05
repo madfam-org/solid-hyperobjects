@@ -224,11 +224,27 @@ def build_clip_marker():
     plate = plate.rotate((0, 0, 0), (0, 1, 0), 90)
     plate = plate.translate((px, length / 2.0, 0))
 
+    # The boss bridges the clip's -X flank to the back of the label plate. Built
+    # on an XZ workplane with a NEGATIVE extrude it grew along +Y -- the clip's
+    # own axis -- and landed at y in [6.0, 9.9], entirely off the clip (which
+    # spans y in [-6, 6]) and merely tangent to it at y = 6. That left the plate
+    # attached only through a hairline, and the render carried a sealed void
+    # (negative_volume_bodies = 1) under preset thin_clip.
+    #
+    # Build it as a plain X-running block instead: full clip length in Y, from
+    # inside the clip wall out to the plate's back face, with a bite at each end.
+    BOSS_BITE = 0.4
+    boss_x0 = px + plate_t / 2.0          # plate back face
+    boss_x1 = -ring_r + clip_wall         # inside the clip's -X wall
+    if boss_x1 < boss_x0:
+        boss_x0, boss_x1 = boss_x1, boss_x0
     boss = (
-        cq.Workplane("XZ")
-        .rect(clip_wall + 2.0, face_h * 0.7, centered=True)
-        .extrude(-(ring_r + 1.0))
-        .translate((0, length / 2.0, 0))
+        cq.Workplane("XY")
+        .box(max(0.4, (boss_x1 - boss_x0) + 2.0 * BOSS_BITE),
+             min(length, face_h * 0.7),
+             face_h * 0.7,
+             centered=(True, True, True))
+        .translate(((boss_x0 + boss_x1) / 2.0, length / 2.0, 0))
     )
     body = clip.union(boss).union(plate)
     return body
