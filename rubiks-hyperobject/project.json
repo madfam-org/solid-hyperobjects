@@ -169,13 +169,11 @@
       },
       "parts": [
         "segments",
-        "core",
-        "bands"
+        "core"
       ],
       "part_quantities": {
         "segments": "sphere_band_count",
-        "core": 1,
-        "bands": "sphere_band_count - 1"
+        "core": 1
       },
       "estimate": {
         "base_units": "sphere_band_count",
@@ -294,15 +292,6 @@
       "default_color": "#4a90d9"
     },
     {
-      "id": "bands",
-      "render_mode": 3,
-      "label": {
-        "es": "Bandas",
-        "en": "Bands"
-      },
-      "default_color": "#1f1f1f"
-    },
-    {
       "id": "insert",
       "render_mode": 0,
       "label": {
@@ -411,6 +400,89 @@
       }
     }
   ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "cube": {
+        "part_overrides": {
+          "cubies": {
+            "geometry.body_count": {
+              "expected": "N * N * N - (N - 2) * (N - 2) * (N - 2)"
+            }
+          },
+          "stickers_top": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          },
+          "stickers_bottom": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          },
+          "stickers_front": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          },
+          "stickers_back": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          },
+          "stickers_left": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          },
+          "stickers_right": {
+            "geometry.body_count": {
+              "expected": "N * N"
+            }
+          }
+        }
+      },
+      "exploded": {
+        "part_overrides": {
+          "cubies": {
+            "geometry.body_count": {
+              "expected": "N * N * N - (N - 2) * (N - 2) * (N - 2)"
+            }
+          }
+        }
+      },
+      "sphere": {
+        "part_overrides": {
+          "segments": {
+            "geometry.body_count": {
+              "expected": "sphere_band_count"
+            }
+          }
+        }
+      },
+      "mechanism": {
+        "part_overrides": {
+          "main": {
+            "geometry.body_count": {
+              "expected": 4
+            }
+          }
+        }
+      }
+    }
+  },
   "presets": [
     {
       "id": "standard_3x3",

@@ -157,6 +157,15 @@ axle_len = size * 0.48;
 // Safe rounding: cannot exceed half cubie size
 safe_rounding = min(corner_rounding, cubie_size / 2 - 0.01);
 
+// How far a face-venting cutter is pushed past the surface it opens through.
+// A cutter that stops exactly ON the face produces a coincident-face contact rather
+// than an opening, sealing the cavity behind it into an inverted shell. The vent has
+// to clear the sticker plate as well: a sticker sits on the face and reaches
+// `sticker_depth - 0.01` beyond it, and it is part of the difference() minuend, so a
+// cut that stops short of its outer surface is re-sealed by the sticker. Everything
+// this adds lies outside the cubie body, so the printed pocket is unchanged.
+vent_overshoot = sticker_depth + 0.5;
+
 /* [Face Colors] */
 // Top face color (hex string)
 color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
@@ -424,6 +433,30 @@ module notation_letter(letter) {
              font="Liberation Sans:style=Bold");
 }
 
+// Stickers on the exposed faces of the cubie at grid position (gx, gy, gz).
+// Kept as its own module so it can be unioned INTO the difference() minuend in
+// cubie() — see the note there.
+module cubie_stickers(gx, gy, gz) {
+    // Top face: gz == N-1
+    if (gz == N - 1)
+        face_sticker(2, 1, face_colors[0], face_index=0);
+    // Bottom face: gz == 0
+    if (gz == 0)
+        face_sticker(2, -1, face_colors[1], face_index=1);
+    // Front face: gy == 0
+    if (gy == 0)
+        face_sticker(1, -1, face_colors[2], face_index=2);
+    // Back face: gy == N-1
+    if (gy == N - 1)
+        face_sticker(1, 1, face_colors[3], face_index=3);
+    // Left face: gx == 0
+    if (gx == 0)
+        face_sticker(0, -1, face_colors[4], face_index=4);
+    // Right face: gx == N-1
+    if (gx == N - 1)
+        face_sticker(0, 1, face_colors[5], face_index=5);
+}
+
 // Render a single cubie at grid position (gx, gy, gz).
 // Grid indices run from 0 to N-1.
 module cubie(gx, gy, gz) {
@@ -444,14 +477,26 @@ module cubie(gx, gy, gz) {
                  : (_center_axis == 1) ? (gy == N-1 ? 1 : -1)
                  : (gz == N-1 ? 1 : -1);
 
-    // Body — difference() subtracts sockets and/or functional mechanism internals
+    // Body — difference() subtracts sockets and/or functional mechanism internals.
+    //
+    // The stickers are part of the MINUEND, not a separate union member added after
+    // the difference. A sticker plate sits 0.01 mm proud of the face it covers, so a
+    // sticker unioned onto a finished body re-seals every pocket that opens through
+    // that face: at mechanism_detail="functional" the bottom-layer cubies' retention
+    // feet and spherical pockets vent through -Z, and the bottom sticker capped them
+    // into closed cavities, which OpenSCAD exports as inverted (negative-volume)
+    // shells. Cutting the cavities out of body+stickers together keeps those vents
+    // open, so every cubie is one positive watertight solid.
     _need_diff = show_sockets || mechanism_detail == "functional";
 
     if (_need_diff) {
         difference() {
-            color(body_color)
-                cuboid([cubie_size, cubie_size, cubie_size],
-                       rounding=safe_rounding);
+            union() {
+                color(body_color)
+                    cuboid([cubie_size, cubie_size, cubie_size],
+                           rounding=safe_rounding);
+                cubie_stickers(gx, gy, gz);
+            }
 
             // Socket pockets (when enabled)
             if (show_sockets) {
@@ -500,31 +545,12 @@ module cubie(gx, gy, gz) {
             }
         }
     } else {
-        // No sockets, no functional mechanism — render body normally
+        // No sockets, no functional mechanism — render body plus stickers normally
         color(body_color)
             cuboid([cubie_size, cubie_size, cubie_size],
                    rounding=safe_rounding);
+        cubie_stickers(gx, gy, gz);
     }
-
-    // Stickers on exposed faces only
-    // Top face: gz == N-1
-    if (gz == N - 1)
-        face_sticker(2, 1, face_colors[0], face_index=0);
-    // Bottom face: gz == 0
-    if (gz == 0)
-        face_sticker(2, -1, face_colors[1], face_index=1);
-    // Front face: gy == 0
-    if (gy == 0)
-        face_sticker(1, -1, face_colors[2], face_index=2);
-    // Back face: gy == N-1
-    if (gy == N - 1)
-        face_sticker(1, 1, face_colors[3], face_index=3);
-    // Left face: gx == 0
-    if (gx == 0)
-        face_sticker(0, -1, face_colors[4], face_index=4);
-    // Right face: gx == N-1
-    if (gx == N - 1)
-        face_sticker(0, 1, face_colors[5], face_index=5);
 
     // Notation overlay on center cubies (requires N >= 3)
     if (show_notation && N >= 3) {
@@ -589,6 +615,16 @@ module core_functional() {
     post_length = cubie_size * 0.4;
     post_r = screw_r + 1.5;
 
+    // Where each post's base plane has to sit for the post to actually MEET the core.
+    // Seating it at core_r makes the post tangent to the sphere at a single axis
+    // point: its whole rim is outside the sphere, so the union is seven disconnected
+    // bodies (one sphere, six posts) — a core that would fall apart off the plate.
+    // Backing the base off by the chord depth of a post_r circle on the sphere buries
+    // the entire rim, so the six posts and the sphere fuse into one solid.
+    post_seat = (post_r < core_r)
+        ? sqrt(core_r * core_r - post_r * post_r) - 0.01
+        : 0;
+
     color([0.3, 0.3, 0.3]) {
         // Solid core sphere with axle through-holes
         difference() {
@@ -607,28 +643,28 @@ module core_functional() {
 
         // 6 axle posts — screw into core, springs sit on these
         // +X post
-        translate([core_r, 0, 0])
+        translate([post_seat, 0, 0])
             rotate([0, 90, 0])
-                _axle_post(post_r, post_length, screw_r);
+                _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
         // -X post
-        translate([-core_r, 0, 0])
+        translate([-post_seat, 0, 0])
             rotate([0, -90, 0])
-                _axle_post(post_r, post_length, screw_r);
+                _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
         // +Y post
-        translate([0, core_r, 0])
+        translate([0, post_seat, 0])
             rotate([-90, 0, 0])
-                _axle_post(post_r, post_length, screw_r);
+                _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
         // -Y post
-        translate([0, -core_r, 0])
+        translate([0, -post_seat, 0])
             rotate([90, 0, 0])
-                _axle_post(post_r, post_length, screw_r);
+                _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
         // +Z post
-        translate([0, 0, core_r])
-            _axle_post(post_r, post_length, screw_r);
+        translate([0, 0, post_seat])
+            _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
         // -Z post
-        translate([0, 0, -core_r])
+        translate([0, 0, -post_seat])
             rotate([180, 0, 0])
-                _axle_post(post_r, post_length, screw_r);
+                _axle_post(post_r, post_length + (core_r - post_seat), screw_r);
     }
 }
 
@@ -745,45 +781,51 @@ module corner_cut_bevel(track_w, track_d, axis) {
 
 // ── Magnet cavities (2016+) ──
 // Cylindrical pocket for a neodymium disc magnet.
+// The extra `vent_overshoot` is the part that lies outside the face the pocket is
+// seated on; the recess left in the printed part is magnet_depth + 0.2 deep, as
+// before.
 module magnet_cavity() {
     if (enable_magnets) {
-        cylinder(d=magnet_dia, h=magnet_depth + 0.2, $fn=20);
+        cylinder(d=magnet_dia, h=magnet_depth + 0.2 + vent_overshoot, $fn=20);
     }
 }
 
 // Edge magnet cavities — 2 magnets per edge (one toward each adjacent corner).
+//
+// The pockets sit on the +X and -X faces, the two the edge piece presents to its
+// neighbouring corners. They used to be placed at +/-45 deg, aimed into the material
+// between two faces: at that angle the cubie boundary is cubie_size/2*sqrt(2) away,
+// so a magnet_depth-deep pocket ended inside solid plastic — an enclosed void with no
+// way to insert a magnet, which OpenSCAD exports as an inverted shell. Seated on a
+// face and cut inward, each pocket is the open, press-fit recess the design means.
 module edge_magnet_cavities() {
     if (enable_magnets) {
-        mag_offset = cubie_size / 2 - magnet_depth / 2;
-        // Magnets on the two internal faces (toward corners)
-        for (angle = [45, -45]) {
-            rotate([0, 0, angle])
-                translate([mag_offset, 0, 0])
-                    rotate([0, 90, 0])
-                        magnet_cavity();
-        }
+        for (dir = [-1, 1])
+            translate([dir * (cubie_size / 2 + vent_overshoot), 0, 0])
+                rotate([0, -dir * 90, 0])
+                    magnet_cavity();
     }
 }
 
 // Corner magnet cavities — 3 magnets per corner (one toward each adjacent edge).
+//
+// One pocket per internal face (-X, -Y, -Z), cut inward FROM that face. The previous
+// placement started the cylinder at cubie_size/2 - magnet_depth/2 and extruded it
+// further inward, so the pocket stopped magnet_depth short of the surface and was a
+// sealed void rather than an insertable recess.
 module corner_magnet_cavities() {
     if (enable_magnets) {
-        mag_offset = cubie_size / 2 - magnet_depth / 2;
-        // Magnets on the three internal faces
-        for (axis = [0, 1, 2]) {
-            if (axis == 0) {
-                translate([0, 0, -mag_offset])
-                    magnet_cavity();
-            } else if (axis == 1) {
-                translate([0, -mag_offset, 0])
-                    rotate([90, 0, 0])
-                        magnet_cavity();
-            } else {
-                translate([-mag_offset, 0, 0])
-                    rotate([0, 90, 0])
-                        magnet_cavity();
-            }
-        }
+        // -Z face
+        translate([0, 0, -(cubie_size / 2 + vent_overshoot)])
+            magnet_cavity();
+        // -Y face
+        translate([0, -(cubie_size / 2 + vent_overshoot), 0])
+            rotate([-90, 0, 0])
+                magnet_cavity();
+        // -X face
+        translate([-(cubie_size / 2 + vent_overshoot), 0, 0])
+            rotate([0, 90, 0])
+                magnet_cavity();
     }
 }
 
@@ -825,6 +867,36 @@ module maglev_rings(post_length) {
     }
 }
 
+// Opens a spherical socket of radius `r` onto the cubie's internal faces.
+//
+// A socket whose radius is smaller than cubie_size/2 breaks no face on its own, so
+// the sphere alone is a fully enclosed void: not printable (no way to get the core
+// in), and exported by OpenSCAD as an inverted, negative-volume shell. `dirs` names
+// the internal directions as a [x, y, z] vector of -1 / 0 / +1; for each nonzero
+// component this cuts a channel of the socket's own radius out through that face, so
+// the socket is genuinely open where the core enters and the piece stays one solid.
+module socket_mouth(r, dirs) {
+    // Reach past the face (and past any sticker sitting on it) so the mouth is a real
+    // opening rather than a coincident-face contact.
+    reach = cubie_size / 2 + vent_overshoot;
+    for (axis = [0, 1, 2]) {
+        d = dirs[axis];
+        if (d != 0) {
+            if (axis == 0)
+                translate([d * reach / 2, 0, 0])
+                    rotate([0, 90, 0])
+                        cylinder(r=r, h=reach, center=true, $fn=24);
+            else if (axis == 1)
+                translate([0, d * reach / 2, 0])
+                    rotate([90, 0, 0])
+                        cylinder(r=r, h=reach, center=true, $fn=24);
+            else
+                translate([0, 0, d * reach / 2])
+                    cylinder(r=r, h=reach, center=true, $fn=24);
+        }
+    }
+}
+
 // Internal geometry for edge cubies (2 exposed faces).
 // Subtractive shape: spherical pocket that rides on core surface + foot slots.
 module edge_cubie_internal() {
@@ -833,14 +905,24 @@ module edge_cubie_internal() {
     foot_depth = cubie_size * 0.12;
     foot_length = cubie_size * 0.6;
 
-    // Inner spherical pocket — rides on core surface
+    // Inner spherical pocket — rides on core surface. Like the corner socket it is
+    // smaller than the cubie half-width, so it needs an explicit mouth onto the
+    // internal faces; see socket_mouth(). edge_magnet_cavities() below already treats
+    // -Z and -X/-Y as this piece's internal sides, and the mouth follows that frame.
     sphere(r=rail_r, $fn=24);
+    socket_mouth(rail_r, [0, 0, -1]);
 
-    // Two sliding feet (oriented for T-track engagement at 0 and 90 deg)
+    // Two sliding feet (oriented for T-track engagement at 0 and 90 deg).
+    // The slot is deepened by `vent_overshoot` past the -Z face: the design depth is
+    // foot_depth, but a cutter whose bottom face is COPLANAR with the cubie face cuts
+    // a zero-thickness opening, which leaves the spherical pocket sealed and exported
+    // as an inverted shell. The overshoot is outside the cubie, so the printed part
+    // keeps exactly the foot_depth pocket it declares.
     for (angle = [0, 90]) {
         rotate([0, 0, angle])
-            translate([0, 0, -cubie_size / 2 + foot_depth / 2])
-                cube([foot_width, foot_length, foot_depth], center=true);
+            translate([0, 0, -cubie_size / 2 + foot_depth / 2 - vent_overshoot / 2])
+                cube([foot_width, foot_length, foot_depth + vent_overshoot],
+                     center=true);
     }
 
     // Magnet cavities (2016+ magnetic cubes)
@@ -853,8 +935,16 @@ module corner_cubie_internal() {
     pocket_r = cubie_size * 0.45 + mechanism_clearance * 2;
     foot_size = cubie_size * 0.15;
 
-    // Spherical pocket — rides on core with extra clearance
+    // Spherical pocket — rides on core with extra clearance.
+    //
+    // The pocket has to OPEN onto the three internal faces: it is the socket the core
+    // sits in, so a corner piece is slid on from the inside. pocket_r (0.45*cubie_size
+    // + 2*mechanism_clearance) is smaller than cubie_size/2, so the bare sphere breaks
+    // no face and is a fully enclosed void — unprintable, and exported as an inverted
+    // shell. socket_mouth() below cuts that sphere out to each internal face, which is
+    // both the printable shape and a single positive solid.
     sphere(r=pocket_r, $fn=24);
+    socket_mouth(pocket_r, [-1, -1, -1]);
 
     // Three angled retention feet
     for (dx = [-1, 1]) {
