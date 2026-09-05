@@ -25,7 +25,6 @@ sticker_depth = is_undef(sticker_depth) ? 0.3 : sticker_depth;
 sticker_style = is_undef(sticker_style) ? "color" : sticker_style;
 
 /* [Mechanism Parameters] */
-mechanism_detail = "functional";  // Always functional in this mode
 spring_dia = is_undef(spring_dia) ? 5 : spring_dia;
 spring_length = is_undef(spring_length) ? 8 : spring_length;
 screw_dia = is_undef(screw_dia) ? 3 : screw_dia;
@@ -41,14 +40,45 @@ insert_pocket_depth = is_undef(insert_pocket_depth) ? 1.5 : insert_pocket_depth;
 insert_pin_dia = is_undef(insert_pin_dia) ? 1.0 : insert_pin_dia;
 insert_pin_height = is_undef(insert_pin_height) ? 1.0 : insert_pin_height;
 
-/* [Notation] */
-show_notation = false;
+/* [Face Colors] */
+color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
+color_bottom = is_undef(color_bottom) ? "#FFD900" : color_bottom;
+color_front = is_undef(color_front) ? "#CC0000" : color_front;
+color_back = is_undef(color_back) ? "#FF8000" : color_back;
+color_left = is_undef(color_left) ? "#0000CC" : color_left;
+color_right = is_undef(color_right) ? "#009900" : color_right;
 
-/* Visibility — all on for mechanism view */
+// Include the main cube as a library.
+//
+// `include` inlines rubiks_cube.scad into THIS file's scope, and OpenSCAD resolves a
+// variable to its LAST assignment in the resulting text — so every setting this view
+// makes BEFORE the include is silently overwritten by rubiks_cube.scad's own
+// `x = is_undef(x) ? default : x` line (OpenSCAD prints one "was assigned ... but was
+// overwritten" warning per variable). That is why the mechanism view's own settings
+// now come AFTER the include, where they win. The one that mattered most was
+// `is_library`: overwritten back to 0, rubiks_cube.scad's own top-level `if
+// (is_library == 0)` block ran as well, so every mechanism render also contained the
+// entire cube — 9 stray sticker plates in mechanism_edge, and the whole 26-cubie grid
+// in the other parts.
+//
+// Parameters the platform passes with -D are unaffected: a command-line -D wins over
+// every in-file assignment, so presets still drive N, size, mechanism_detail and the
+// rest.
+include <rubiks_cube.scad>
+
+/* ---- Mechanism-view settings — MUST come after the include (see note above) ---- */
+
+// Suppress rubiks_cube.scad's own top-level render; this file draws the pieces.
+is_library = 1;
+
+// Visibility — all on for mechanism view
 show_cubies = true;
 show_core = true;
 
-/* Layer rotations — all zero (irrelevant for mechanism view) */
+// No notation letters in the mechanism view
+show_notation = false;
+
+// Layer rotations — all zero (irrelevant for mechanism view)
 rotate_top = 0; rotate_front = 0; rotate_right = 0;
 rotate_bottom = 0; rotate_back = 0; rotate_left = 0;
 rotate_x_1 = 0; rotate_x_2 = 0; rotate_x_3 = 0; rotate_x_4 = 0;
@@ -58,18 +88,6 @@ rotate_y_5 = 0; rotate_y_6 = 0; rotate_y_7 = 0;
 rotate_z_1 = 0; rotate_z_2 = 0; rotate_z_3 = 0; rotate_z_4 = 0;
 rotate_z_5 = 0; rotate_z_6 = 0; rotate_z_7 = 0;
 explode_factor = 0;
-
-/* [Face Colors] */
-color_top = is_undef(color_top) ? "#FFFFFF" : color_top;
-color_bottom = is_undef(color_bottom) ? "#FFD900" : color_bottom;
-color_front = is_undef(color_front) ? "#CC0000" : color_front;
-color_back = is_undef(color_back) ? "#FF8000" : color_back;
-color_left = is_undef(color_left) ? "#0000CC" : color_left;
-color_right = is_undef(color_right) ? "#009900" : color_right;
-
-// Include the main cube as a library (suppresses its top-level render)
-is_library = 1;
-include <rubiks_cube.scad>
 
 /* ---- Derived layout spacing ---- */
 spacing = cubie_size * 2.0;  // gap between exploded pieces
