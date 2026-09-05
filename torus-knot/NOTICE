@@ -1,0 +1,30 @@
+NOTICE — third-party attributions
+=================================
+
+Torus Knot Sculpture
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+Third-party library:
+
+BOSL2 (The Belfry OpenSCAD Library v2)
+  Source:    https://github.com/BelfrySCAD/BOSL2
+  Author:    Revar Desmera and contributors
+  License:   BSD 2-Clause License
+  Usage:     `include <../../libs/BOSL2/std.scad>` and
+             `include <../../libs/BOSL2/skin.scad>` in torus_knot.scad
+             (path sweep to solid).
+  Form:      Not vendored. BOSL2 is resolved at render time from the build
+             environment's library path; no BOSL2 source code is distributed
+             in this repository.
+
+Historical lineage:
+
+dotSCAD
+  Source:    https://github.com/JustinSDK/dotSCAD
+  Author:    Justin Lin (@JustinSDK)
+  License:   GNU Lesser General Public License v3.0 (LGPL-3.0)
+  Notes:     Earlier versions of this project used dotSCAD for torus-knot
+             path generation. The dependency was removed by inlining the
+             standard parametric torus-knot equations in torus_knot.scad;
+             the current version does not use or distribute dotSCAD code.
