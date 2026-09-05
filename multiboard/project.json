@@ -1,0 +1,364 @@
+{
+    "project": {
+        "name": "Modular Wall Tile (25 mm Threaded Grid)",
+        "slug": "multiboard",
+        "version": "1.0.0",
+        "engine": "openscad",
+        "description": {
+            "en": "A wall panel carrying a 25 mm square grid of internally threaded bores. Accessories — hooks, bins, tool holders, brackets — screw straight into the grid, so the thread is both the fastening and the locating feature and no separate hardware is needed. Panels butt edge to edge and the small interior-node threads carry the seam connectors that keep the grid continuous across a joint. Two thread classes, both TRUE HELICES cut at full panel depth: a 22.54/20.15 mm trapezoidal thread at every cell centre for load-bearing accessories, and a 6.95/4.48 mm trapezoidal thread at every interior cell corner for seam connectors and light fixings. MADFAM clean-room implementation: the 25 mm interface is implemented from measured dimensions so third-party grid accessories mate; the tile's castellated silhouette, its fixed-millimetre corner flats and its rear relief are our own design.\n\nOfficial Visualizer and Configurator: Yantra4D",
+            "es": "Un panel de pared con una cuadrícula cuadrada de 25 mm de barrenos roscados internamente. Los accesorios — ganchos, cajas, portaherramientas, soportes — se atornillan directamente en la cuadrícula, así que la rosca es a la vez la fijación y el elemento de posicionamiento y no hace falta herraje aparte. Los paneles se topan borde con borde y las roscas pequeñas de los nodos interiores llevan los conectores de junta que mantienen la cuadrícula continua en la unión. Dos clases de rosca, ambas HÉLICES REALES cortadas a todo el espesor del panel: una rosca trapecial de 22.54/20.15 mm en el centro de cada celda para accesorios de carga, y una rosca trapecial de 6.95/4.48 mm en cada esquina interior de celda para conectores de junta y fijaciones ligeras. Implementación de sala limpia de MADFAM: la interfaz de 25 mm se implementa a partir de dimensiones medidas para que los accesorios de cuadrícula de terceros encajen; la silueta almenada de la baldosa, sus chaflanes de esquina en milímetros fijos y su alivio posterior son diseño propio.\n\nVisualizador y configurador oficial: Yantra4D"
+        },
+        "thumbnail": "/projects/multiboard.webp",
+        "tags": [
+            "storage",
+            "wall-mount",
+            "organization",
+            "modular",
+            "threaded-grid",
+            "hyperobject",
+            "commons"
+        ],
+        "difficulty": "intermediate",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0",
+            "lineage": [
+                {
+                    "project": "25 mm threaded wall-grid mounting interface (interoperability only; dimensions taken by measurement)"
+                }
+            ]
+        },
+        "force_backend": true
+    },
+    "modes": [
+        {
+            "id": "tile",
+            "scad_file": "tile.scad",
+            "label": {
+                "en": "Tile",
+                "es": "Baldosa"
+            },
+            "parts": [
+                "tile"
+            ],
+            "estimate": {
+                "base_units": "x_cells*y_cells",
+                "formula": "grid",
+                "formula_vars": [
+                    "x_cells",
+                    "y_cells"
+                ]
+            }
+        }
+    ],
+    "parts": [
+        {
+            "id": "tile",
+            "render_mode": 0,
+            "label": {
+                "en": "Tile",
+                "es": "Baldosa"
+            },
+            "default_color": "#374151"
+        }
+    ],
+    "presets": [
+        {
+            "id": "small_panel",
+            "label": {
+                "en": "Small Panel (4x4)",
+                "es": "Panel Pequeño (4x4)"
+            },
+            "values": {
+                "x_cells": 4,
+                "y_cells": 4
+            }
+        },
+        {
+            "id": "large_wall",
+            "label": {
+                "en": "Large Wall (8x6)",
+                "es": "Pared Grande (8x6)"
+            },
+            "values": {
+                "x_cells": 8,
+                "y_cells": 6
+            }
+        },
+        {
+            "id": "tool_rack",
+            "label": {
+                "en": "Tool Rack (10x3)",
+                "es": "Porta Herramientas (10x3)"
+            },
+            "values": {
+                "x_cells": 10,
+                "y_cells": 3
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "id": "x_cells",
+            "type": "slider",
+            "default": 4,
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": {
+                "en": "Columns",
+                "es": "Columnas"
+            },
+            "tooltip": {
+                "en": "Number of cells along the X axis. One cell-centre thread per cell",
+                "es": "Número de celdas en el eje X. Una rosca central por celda"
+            },
+            "group": "grid",
+            "visible_in_modes": [
+                "tile"
+            ]
+        },
+        {
+            "id": "y_cells",
+            "type": "slider",
+            "default": 4,
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": {
+                "en": "Rows",
+                "es": "Filas"
+            },
+            "tooltip": {
+                "en": "Number of cells along the Y axis. One cell-centre thread per cell",
+                "es": "Número de celdas en el eje Y. Una rosca central por celda"
+            },
+            "group": "grid",
+            "visible_in_modes": [
+                "tile"
+            ]
+        },
+        {
+            "id": "cell_size",
+            "type": "slider",
+            "default": 25,
+            "min": 20,
+            "max": 35,
+            "step": 1,
+            "label": {
+                "en": "Cell Size (mm)",
+                "es": "Tamaño de Celda (mm)"
+            },
+            "tooltip": {
+                "en": "Grid module — centre-to-centre spacing of the threads. 25 mm IS the mounting interface: a panel at any other value will not accept third-party 25 mm-grid accessories. Below 25 mm the Ø22.54 thread is wider than the cell, so the value is held at 25",
+                "es": "Módulo de la cuadrícula — separación centro a centro de las roscas. 25 mm ES la interfaz de montaje: un panel con otro valor no aceptará accesorios de cuadrícula de 25 mm de terceros. Por debajo de 25 mm la rosca de Ø22.54 es más ancha que la celda, así que el valor se mantiene en 25"
+            },
+            "group": "grid",
+            "visibility_level": "advanced",
+            "visible_in_modes": [
+                "tile"
+            ]
+        },
+        {
+            "id": "height",
+            "type": "slider",
+            "default": 6.4,
+            "min": 4,
+            "max": 10,
+            "step": 0.2,
+            "label": {
+                "en": "Height (mm)",
+                "es": "Altura (mm)"
+            },
+            "tooltip": {
+                "en": "Panel thickness. This is the thread engagement length an accessory screws into — 6.4 mm is the interface default",
+                "es": "Grosor del panel. Es la longitud de rosca en la que se atornilla un accesorio — 6.4 mm es el valor de interfaz por defecto"
+            },
+            "group": "grid",
+            "visibility_level": "advanced",
+            "visible_in_modes": [
+                "tile"
+            ]
+        },
+        {
+            "id": "fn",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 64,
+            "step": 8,
+            "label": {
+                "en": "Resolution ($fn)",
+                "es": "Resolución ($fn)"
+            },
+            "tooltip": {
+                "en": "Circle resolution — 0 uses the cartridge default (32), the value the interface tables are measured at. It sets both the facets per thread turn and the extrusion layers per turn. Higher = smoother but slower, and the mesh grows quickly",
+                "es": "Resolución de círculos — 0 usa el valor por defecto del cartucho (32), con el que se midieron las tablas de interfaz. Fija tanto las facetas por vuelta de rosca como las capas de extrusión por vuelta. Mayor = más suave pero más lento, y la malla crece rápido"
+            },
+            "group": "quality",
+            "visible_in_modes": [
+                "tile"
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "expression": "x_cells * y_cells <= 96",
+            "severity": "warning",
+            "message": {
+                "en": "Large panels render slowly",
+                "es": "Los paneles grandes se renderizan lentamente"
+            }
+        },
+        {
+            "expression": "x_cells * y_cells <= 120",
+            "severity": "error",
+            "message": {
+                "en": "Too many cells: every bore is a full-depth helical thread, and beyond about 120 cells the render exceeds the platform's budget. Split the wall into two panels — they butt edge to edge and the seam threads tie them together",
+                "es": "Demasiadas celdas: cada barreno es una rosca helicoidal a todo el espesor, y más allá de unas 120 celdas el render supera el presupuesto de la plataforma. Divide la pared en dos paneles — se topan borde con borde y las roscas de junta los unen"
+            }
+        },
+        {
+            "expression": "cell_size >= 25",
+            "severity": "error",
+            "message": {
+                "en": "Cell size below 25 mm is not buildable: the Ø22.54 mm cell-centre thread is wider than the cell, leaving no material between neighbouring bores. 25 mm is the mounting interface",
+                "es": "Un tamaño de celda menor a 25 mm no es construible: la rosca central de Ø22.54 mm es más ancha que la celda y no queda material entre barrenos vecinos. 25 mm es la interfaz de montaje"
+            }
+        }
+    ],
+    "camera_views": [
+        {
+            "id": "iso",
+            "label": {
+                "en": "Isometric",
+                "es": "Isométrico"
+            },
+            "position": [
+                120,
+                120,
+                40
+            ]
+        },
+        {
+            "id": "top",
+            "label": {
+                "en": "Top",
+                "es": "Superior"
+            },
+            "position": [
+                0,
+                0,
+                200
+            ]
+        },
+        {
+            "id": "front",
+            "label": {
+                "en": "Front",
+                "es": "Frente"
+            },
+            "position": [
+                0,
+                -200,
+                0
+            ]
+        },
+        {
+            "id": "right",
+            "label": {
+                "en": "Right",
+                "es": "Derecha"
+            },
+            "position": [
+                200,
+                0,
+                0
+            ]
+        }
+    ],
+    "parameter_groups": [
+        {
+            "id": "grid",
+            "label": {
+                "en": "Grid",
+                "es": "Cuadrícula"
+            }
+        },
+        {
+            "id": "quality",
+            "label": {
+                "en": "Quality",
+                "es": "Calidad"
+            }
+        }
+    ],
+    "export_formats": [
+        "stl",
+        "3mf",
+        "off",
+        "glb",
+        "obj"
+    ],
+    "estimate_constants": {
+        "base_time": 5,
+        "per_unit": 1.5,
+        "per_part": 8,
+        "fn_factor": 64,
+        "wasm_multiplier": 3,
+        "warning_threshold_seconds": 90
+    },
+    "hyperobject": {
+        "domain": "commercial",
+        "cdg_interfaces": [
+            {
+                "id": "grid_25mm_primary",
+                "label": {
+                    "en": "25 mm Grid — Cell-Centre Thread",
+                    "es": "Cuadrícula de 25 mm — Rosca Central de Celda"
+                },
+                "geometry_type": "threaded_socket",
+                "standard": "25 mm threaded wall-grid interface (22.54/20.15 mm trapezoidal, 29°, 2.5 mm pitch)",
+                "parameters": [
+                    "x_cells",
+                    "y_cells",
+                    "height"
+                ],
+                "compatible_with": [
+                    "wall-tile",
+                    "french-cleat",
+                    "utility-hook",
+                    "tool-holder"
+                ]
+            },
+            {
+                "id": "grid_25mm_seam",
+                "label": {
+                    "en": "25 mm Grid — Interior-Node Seam Thread",
+                    "es": "Cuadrícula de 25 mm — Rosca de Junta en Nodo Interior"
+                },
+                "geometry_type": "threaded_socket",
+                "standard": "25 mm threaded wall-grid interface (6.95/4.48 mm trapezoidal, 29°, 3 mm pitch)",
+                "parameters": [
+                    "x_cells",
+                    "y_cells",
+                    "height"
+                ],
+                "compatible_with": [
+                    "wall-tile",
+                    "panel-connector"
+                ]
+            }
+        ],
+        "material_awareness": {
+            "shrinkage_compensation": false,
+            "recycled_material_toggle": false,
+            "tolerance_by_material": true
+        },
+        "societal_benefit": {
+            "en": "A wall grid whose fastening is the grid itself needs no proprietary hardware: a hook is a printed part and a screw thread, not a purchased bracket. Publishing the interface dimensions openly means any workshop can print accessories that mate with panels it did not make, and a damaged panel is replaced one tile at a time rather than by re-fitting a wall.",
+            "es": "Una cuadrícula de pared cuya fijación es la propia cuadrícula no necesita herraje propietario: un gancho es una pieza impresa y una rosca, no un soporte comprado. Publicar las dimensiones de la interfaz abiertamente permite que cualquier taller imprima accesorios que encajen con paneles que no fabricó, y que un panel dañado se reemplace baldosa por baldosa en vez de rehacer una pared."
+        },
+        "commons_license": "CERN-OHL-W-2.0"
+    }
+}
