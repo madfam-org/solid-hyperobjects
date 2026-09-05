@@ -8,47 +8,24 @@ or dependencies from an upstream project travel under their own terms.
 Each cartridge listed here also carries a `<slug>/NOTICE` with the full
 attribution; this file is the index, not a replacement for it.
 
-## Vendored NonCommercial upstream
+## Removed pending clean-room re-creation (operator ruling 2026-09-04, ADR-021)
 
-### `rugged-box`
+The operator ruled that any hyperobject whose origin licence is not
+CERN-OHL-W-2.0 leaves the commons and is re-created from scratch, clean-room,
+to the same final result. Five cartridges were removed from this repository at
+this commit (their history stays in git and in the archived satellite repos);
+their slugs are **reserved** and return only as clean-room implementations
+verified against the recorded final result:
 
-> Carries vendored upstream files under a NonCommercial license, so commercial
-> use is constrained by those files' terms despite the cartridge's own license —
-> see the cartridge's `NOTICE` and the `license_exposure` field in the JSON
-> catalog.
-
-Specifically: `RuggedBoxV1.scad` and the `RuggedBoxV1.txt` parameter sets
-(including the "Golden Benchy Case" preset) are the vendored upstream source of
-*Super Customizable Rugged Box in OpenSCAD* by **Iceman**
-(https://www.printables.com/model/1073708-super-customizable-rugged-box-in-openscad),
-licensed **CC BY-NC-SA 4.0**, and remain under those terms. Selling prints made
-from those vendored files is forbidden by the upstream licence.
-
-The modular `rugged_*.scad` wrappers are derived from that design;
-`rugged_core.scad` is an independent native BOSL2 rewrite.
-
-This is the only cartridge in the commons with a known NonCommercial exposure.
-It is tracked in the platform's `KNOWN_NC_EXPOSURE` map
-(`scripts/qa/check_licenses.py`) and surfaced per-cartridge in the catalog as
-`license_exposure`.
-
-## Cartridges under their own upstream licence (not CERN-OHL-W-2.0)
-
-Four cartridges declare a licence other than CERN-OHL-W-2.0 in their
-`project.json` (`hyperobject.commons_license`) because they are derived from
-upstream projects whose terms carry through. The catalog counts them honestly
-(496 of 500 on CERN-OHL-W-2.0); each cartridge's own `LICENSE`/`NOTICE` governs.
-
-| Cartridge | Declared licence | Consequence |
+| Slug | Origin licence | Origin |
 | :-- | :-- | :-- |
-| `multiboard` | CC-BY-NC-SA-4.0 | NonCommercial: prints and derivatives may not be sold; share-alike applies |
-| `keyv2` | GPL-3.0 | copyleft: derivatives of the geometry source stay GPL-3.0 |
-| `stemfie` | GPL-3.0-or-later | copyleft, as above |
-| `polydice` | BSD-2-Clause | permissive; attribution required |
+| `keyv2` | GPL-3.0 | rsheldiii/KeyV2 |
+| `stemfie` | GPL-3.0-or-later | stemfie.org (Paulo Kiefe) |
+| `multiboard` | CC-BY-NC-SA-4.0 | Multiboard (Keep Making) |
+| `polydice` | BSD-2-Clause | (unattributed upstream) |
+| `rugged-box` | CC-BY-NC-SA-4.0 (vendored `RuggedBoxV1.scad` + parameter sets) | Super Customizable Rugged Box (Iceman) |
 
-The 2026-07-04 licence audit (internal-devops, "license review required") is
-still the open reference for `multiboard`, `keyv2`, `stemfie` and
-`julia-vase`; nothing here changes a declaration.
+Until each returns, the catalog counts **495** cartridges, honestly.
 
 ## Copyleft dependency, not vendored
 

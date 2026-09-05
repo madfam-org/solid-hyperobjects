@@ -9,7 +9,7 @@ source that turns a parameter point into geometry. Every cartridge is verified
 fail-closed — each `(mode, part)` pair must render watertight, positive-volume
 and free of inverted bodies, at its defaults **and** at every preset it ships.
 
-**500 cartridges.** Licensed CERN-OHL-W-2.0, with the carve-outs recorded in
+**495 cartridges** (five slugs reserved for clean-room re-creation — see `NOTICE.md`). Licensed CERN-OHL-W-2.0, with the carve-outs recorded in
 [`NOTICE.md`](./NOTICE.md).
 
 ## The four-repo topology

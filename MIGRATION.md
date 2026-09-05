@@ -142,3 +142,14 @@ licensing decision, so it is **not** taken here either.
   only other mention is a comment. Not a geometry change; the copy stays in
   history. The satellite and yantra4d `main` still carry it; the platform's
   pin to this repo drops it there too.
+
+## Licence-origin removal (2026-09-04, operator ruling — ADR-021 in internal-devops)
+
+Removed whole cartridges whose origin licence is not CERN-OHL-W-2.0: `keyv2`,
+`stemfie`, `multiboard`, `polydice`, `rugged-box` (see NOTICE.md). Their
+history is intact in this repository's git history and in the archived
+satellite repos; the slugs are reserved for clean-room re-creations verified
+against a recorded final-result baseline (manifest contract + reference
+meshes), authored without access to the removed sources. None of the five is a
+Fashion Cabinet bridge target (checked against `yantra4d-hardware.snapshot.json`
+and `yantra4d-consumers.json`: zero references).
