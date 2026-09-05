@@ -166,7 +166,15 @@ BELT_PROUD  = 1.2                                   # how far the belt stands ou
 BELT_HEIGHT = 5.0                                   # belt band height
 BUMPER_PROUD = 1.6                                  # corner pilaster projection
 BUMPER_SPAN  = max(6.0, min(18.0, min(shell_x, shell_y) * 0.16))
-CROWN_EASE   = min(1.2, wall * 0.45)                # top/bottom edge ease
+# Top/bottom edge ease.
+#
+# Bounded by the skin actually behind that face. The base floor and the lid
+# crown are each `wall` thick, and this fillet rounds their outer edge — so it
+# must stay well under `wall`, not merely under a fraction of it that still
+# leaves the skin marginal. The `tiny-20x20` preset (1 mm wall, a 5 mm cavity in
+# a 6 mm lid) is the case that forced the tighter bound: a 0.45 mm ease on a
+# 1 mm crown pinched the crown off as a second body.
+CROWN_EASE   = max(0.0, min(1.2, wall * 0.3))
 
 # ── The seal (INTERFACE) ─────────────────────────────────────────────────────
 # The ring outer face is GASKET_INSET_PER_SIDE inside the shell face on every
@@ -219,6 +227,29 @@ def _spread(count, offset, span):
 
 
 # ── FORM helpers ─────────────────────────────────────────────────────────────
+def safe_fillet(wp, selector, r):
+    """Fillet `selector` by r, but only keep the result if it is still ONE valid
+    solid.
+
+    OCCT does not always raise when a fillet over-runs the material behind the
+    edge: on a thin skin it can return a shape that is quietly split or
+    self-intersecting, which then exports as extra bodies. A bare try/except
+    catches the exception case and misses this one, so the result is checked.
+    """
+    if r <= 0.05:
+        return wp
+    try:
+        out = wp.edges(selector).fillet(r)
+    except Exception:
+        return wp
+    try:
+        if len(out.val().Solids()) == 1 and out.val().isValid():
+            return out
+    except Exception:
+        pass
+    return wp
+
+
 def _fuse(base, parts):
     """Union a list of solids onto `base` in ONE n-ary boolean.
 
@@ -390,18 +421,35 @@ def dividers(z0, h):
     return out
 
 
-def foot_pockets(z0):
+def pocket_depth(skin):
+    """How deep a foot pocket may go into a skin of the given thickness.
+
+    Never more than half the skin it is cut into. On a thin-walled shallow lid
+    the crown left above the cavity can be only a couple of millimetres; a
+    pocket sized from `wall` alone (plus the crown ease above it) cut clean
+    through and detached the crown as a second body.
+    """
+    return max(0.3, min(FOOT_PAD_HEIGHT * 0.5, wall * 0.4, skin * 0.5))
+
+
+def foot_pockets(z0, skin=None):
     """Recesses that accept the printed feet, on the outer floor of the base and
-    the crown of the lid, so a stack registers. Only cut when feet are enabled."""
+    the crown of the lid, so a stack registers. Only cut when feet are enabled.
+
+    `skin` is the material actually available at that face — the floor under the
+    base cavity, or the crown above the lid cavity — so the pocket can be capped
+    against it rather than against the nominal wall.
+    """
     if not isFeetAdded:
         return None
+    d = pocket_depth(wall if skin is None else skin)
     pockets = []
     for (x, y) in foot_positions():
         p = (cq.Workplane("XY").workplane(offset=z0)
              .center(x, y)
              .slot2D(max(feetLengthMm, feetwidthMm + 0.01) + 2.0 * 0.25,
                      feetwidthMm + 2.0 * 0.25, 0)
-             .extrude(min(FOOT_PAD_HEIGHT * 0.5, max(0.4, wall * 0.4))))
+             .extrude(d))
         pockets.append(p)
     out = pockets[0]
     for p in pockets[1:]:
@@ -649,12 +697,8 @@ def build_gasket():
 # ── The base ─────────────────────────────────────────────────────────────────
 def build_bottom():
     # 1. FORM shell, eased before anything is cut into it (OCCT ordering).
-    body = rounded_prism(shell_x, shell_y, base_z, corner_r)
-    if CROWN_EASE > 0.05:
-        try:
-            body = body.edges("<Z").fillet(CROWN_EASE)
-        except Exception:
-            pass
+    body = safe_fillet(rounded_prism(shell_x, shell_y, base_z, corner_r),
+                       "<Z", CROWN_EASE)
 
     # 2. Every additive feature in ONE fuse: the FORM belt and bumpers and ribs,
     #    the INTERFACE hinge knuckles, and the INTERFACE latch anchor blocks.
@@ -684,7 +728,7 @@ def build_bottom():
         rounded_prism(cav_x, cav_y, cav_zb + OVER, inner_r, wall),
         groove_out.cut(groove_in),
         base_knuckle_cutters(),
-        foot_pockets(-EPS),
+        foot_pockets(-EPS, skin=wall),   # base: the skin is the floor
     ]
     if boxSealType == 2:
         # Seal type 2 adds a drain relief outside the groove; type 1 is the plain
@@ -715,12 +759,8 @@ def build_bottom():
 def build_top(flat=True):
     """The lid, built seam-face at z=0 upward to the crown at lid_z.
     `flat=True` returns it flipped for printing (crown on the bed)."""
-    body = rounded_prism(shell_x, shell_y, lid_z, corner_r)
-    if CROWN_EASE > 0.05:
-        try:
-            body = body.edges(">Z").fillet(CROWN_EASE)
-        except Exception:
-            pass
+    body = safe_fillet(rounded_prism(shell_x, shell_y, lid_z, corner_r),
+                       ">Z", CROWN_EASE)
 
     # INTERFACE: the engagement rim standing down from the seam face, rim_h tall,
     # ASSEMBLY_CLEARANCE under the groove it enters.
@@ -751,10 +791,27 @@ def build_top(flat=True):
         adds.append(bead.cut(bead_in))
     body = _fuse(body, adds)
 
-    # Hollow the lid cavity from the seam face upward, and cut the foot pockets.
+    # The crown is what is left above the cavity once it is hollowed, minus the
+    # ease already rounded off its outer edge. The foot pockets are capped
+    # against it.
+    lid_crown = max(0.4, lid_z - cav_zt - CROWN_EASE)
+
+    # Hollow the lid cavity from the seam face UPWARD ONLY, and cut the foot
+    # pockets.
+    #
+    # The cavity cutter must not dip below z=0. The engagement rim lives
+    # entirely below the seam plane, and on a thin-walled box the cavity wall
+    # (shell - 2*wall) can coincide with the rim's outer face
+    # (shell - 2*1.75 - 0.5): at boxWallWidthMm 2 both land on the same
+    # millimetre, so an overshooting cutter shaved the rim to nothing and the
+    # lid came out as two bodies. Cutting from exactly z=0 leaves the rim
+    # untouched, and the cavity floor is still clean because the crown above it
+    # is solid material.
     body = _subtract(body, [
-        rounded_prism(cav_x, cav_y, cav_zt + OVER, inner_r, -OVER),
-        foot_pockets(lid_z - min(FOOT_PAD_HEIGHT * 0.5, max(0.4, wall * 0.4)) + EPS),
+        rounded_prism(cav_x, cav_y, cav_zt + OVER, inner_r, 0.0),
+        # Lid: the skin is the crown left above the cavity, less the crown ease
+        # already rounded off its outer edge.
+        foot_pockets(lid_z - pocket_depth(lid_crown) + EPS, skin=lid_crown),
     ])
 
     body = _fuse(body, [side_ribs(0.0, cav_zt * 0.8, external=False)])

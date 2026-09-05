@@ -94,7 +94,7 @@ rather than reproduced.
 | :-- | :-- | :-- |
 | Only 8 of 32 declared parameters reached the geometry; the box could not be resized (`internalBoxWidthXMm` 20 / 100 / 300 all gave a 106 mm external X) | **Fixed.** Every declared parameter reaches the geometry. | §5 resizing proof; `verify_parameters.py params` |
 | The two latch straps merged into one body at the default spacing | **Fixed.** `latches` emits `numberOfLatches` separate bodies, spread by the strap's own measured width so they never touch. | `latch_bodies`; body counts in §3 |
-| The feet were entirely invariant across all 12 recorded variants | **Fixed.** `feetwidthMm`, `feetLengthMm` and `boxGapMm` all drive the pad geometry and placement. | `feet_bodies`, `foot_positions` |
+| The feet were entirely invariant across all 12 recorded variants (identical 96 x 56 x 3 mm, 4 bodies, every time) | **Fixed.** All three feet parameters drive the pads. 19 cases (defaults, all 16 presets, feet-min, feet-max): 19/19 four bodies and watertight, with **9 distinct pad layouts** where the baseline had one. | `feet_bodies`, `foot_positions` |
 | `complete__*__corner-allmax` was not watertight (2 bodies) | **Fixed.** `complete` is a compound of genuinely separate parts and is watertight at corner-allmax. | §3 |
 
 The OpenSCAD `is_undef` guard that caused the inert-parameter class of bug does
