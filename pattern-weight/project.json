@@ -389,12 +389,12 @@
     "mode_overrides": {
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 4 } }
+          "set": { "geometry.body_count": { "expected": 4 } }
         }
       },
       "stack": {
         "part_overrides": {
-          "stack": { "body_count": { "expected": 2 } }
+          "stack": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

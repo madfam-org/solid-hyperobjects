@@ -501,7 +501,7 @@
     "mode_overrides": {
       "miter_pair": {
         "part_overrides": {
-          "miter_pair": { "body_count": { "expected": 2 } }
+          "miter_pair": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

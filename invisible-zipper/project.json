@@ -268,12 +268,12 @@
     "mode_overrides": {
       "set": {
         "part_overrides": {
-          "slider": { "body_count": { "expected": 2 } }
+          "slider": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "slider": {
         "part_overrides": {
-          "slider": { "body_count": { "expected": 2 } }
+          "slider": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

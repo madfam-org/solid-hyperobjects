@@ -585,7 +585,7 @@
     "mode_overrides": {
       "deck_box": {
         "part_overrides": {
-          "deck_box": { "body_count": { "expected": 2 } }
+          "deck_box": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

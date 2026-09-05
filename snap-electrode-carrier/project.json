@@ -442,12 +442,12 @@
     "mode_overrides": {
       "carrier_lid": {
         "part_overrides": {
-          "carrier_lid": { "body_count": { "expected": 2 } }
+          "carrier_lid": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 4 } }
+          "set": { "geometry.body_count": { "expected": 4 } }
         }
       }
     }

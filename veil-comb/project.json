@@ -456,7 +456,7 @@
     "mode_overrides": {
       "pair": {
         "part_overrides": {
-          "pair": { "body_count": { "expected": 2 } }
+          "pair": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

@@ -208,12 +208,12 @@
     "mode_overrides": {
       "extrusion_mount": {
         "part_overrides": {
-          "extrusion_mount": { "body_count": { "expected": 2 } }
+          "extrusion_mount": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "foot_bracket": {
         "part_overrides": {
-          "foot_bracket": { "body_count": { "expected": 2 } }
+          "foot_bracket": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

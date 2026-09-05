@@ -450,7 +450,7 @@
     "mode_overrides": {
       "puller_pair": {
         "part_overrides": {
-          "puller_pair": { "body_count": { "expected": 2 } }
+          "puller_pair": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

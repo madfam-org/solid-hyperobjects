@@ -188,7 +188,7 @@
     "mode_overrides": {
       "split_gland": {
         "part_overrides": {
-          "split_gland": { "body_count": { "expected": 2 } }
+          "split_gland": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

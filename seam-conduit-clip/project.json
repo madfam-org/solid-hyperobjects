@@ -478,12 +478,12 @@
     "mode_overrides": {
       "clip_run": {
         "part_overrides": {
-          "clip_run": { "body_count": { "expected": "run_count" } }
+          "clip_run": { "geometry.body_count": { "expected": "run_count" } }
         }
       },
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 2 } }
+          "set": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

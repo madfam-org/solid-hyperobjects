@@ -175,17 +175,17 @@
     "mode_overrides": {
       "cell": {
         "part_overrides": {
-          "cell": { "body_count": { "expected": 8 } }
+          "cell": { "geometry.body_count": { "expected": 8 } }
         }
       },
       "panel": {
         "part_overrides": {
-          "panel": { "body_count": { "expected": "rows * cols + (cols - 1) * rows + (rows - 1) * cols" } }
+          "panel": { "geometry.body_count": { "expected": "rows * cols + (cols - 1) * rows + (rows - 1) * cols" } }
         }
       },
       "swatch": {
         "part_overrides": {
-          "swatch": { "body_count": { "expected": 21 } }
+          "swatch": { "geometry.body_count": { "expected": 21 } }
         }
       }
     }

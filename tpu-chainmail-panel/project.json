@@ -163,12 +163,12 @@
     "mode_overrides": {
       "panel": {
         "part_overrides": {
-          "panel": { "body_count": { "expected": "rows * cols" } }
+          "panel": { "geometry.body_count": { "expected": "rows * cols" } }
         }
       },
       "swatch": {
         "part_overrides": {
-          "swatch": { "body_count": { "expected": 9 } }
+          "swatch": { "geometry.body_count": { "expected": 9 } }
         }
       }
     }

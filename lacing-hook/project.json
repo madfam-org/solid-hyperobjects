@@ -379,7 +379,7 @@
     "mode_overrides": {
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": "hook_count" } }
+          "set": { "geometry.body_count": { "expected": "hook_count" } }
         }
       }
     }

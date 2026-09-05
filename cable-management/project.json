@@ -216,7 +216,7 @@
     "mode_overrides": {
       "raceway": {
         "part_overrides": {
-          "raceway": { "body_count": { "expected": 2 } }
+          "raceway": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

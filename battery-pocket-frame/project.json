@@ -491,12 +491,12 @@
     "mode_overrides": {
       "frame_lid": {
         "part_overrides": {
-          "frame_lid": { "body_count": { "expected": 2 } }
+          "frame_lid": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 3 } }
+          "set": { "geometry.body_count": { "expected": 3 } }
         }
       }
     }

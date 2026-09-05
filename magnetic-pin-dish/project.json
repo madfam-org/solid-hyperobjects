@@ -395,7 +395,7 @@
     "mode_overrides": {
       "twin": {
         "part_overrides": {
-          "twin": { "body_count": { "expected": 2 } }
+          "twin": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

@@ -200,12 +200,12 @@
     "mode_overrides": {
       "single_day": {
         "part_overrides": {
-          "single_day": { "body_count": { "expected": 2 } }
+          "single_day": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "tray_lidded": {
         "part_overrides": {
-          "tray_lidded": { "body_count": { "expected": 2 } }
+          "tray_lidded": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

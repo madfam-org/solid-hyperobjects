@@ -168,7 +168,7 @@
     "mode_overrides": {
       "bracket_pair": {
         "part_overrides": {
-          "bracket_pair": { "body_count": { "expected": 2 } }
+          "bracket_pair": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

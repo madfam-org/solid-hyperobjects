@@ -394,7 +394,7 @@
     "mode_overrides": {
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 2 } }
+          "set": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

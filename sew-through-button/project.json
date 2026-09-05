@@ -408,7 +408,7 @@
     "mode_overrides": {
       "card": {
         "part_overrides": {
-          "card": { "body_count": { "expected": "card_count" } }
+          "card": { "geometry.body_count": { "expected": "card_count" } }
         }
       }
     }

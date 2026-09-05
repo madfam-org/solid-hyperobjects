@@ -612,7 +612,7 @@
     "mode_overrides": {
       "rack_and_pinion": {
         "part_overrides": {
-          "rack_and_pinion": { "body_count": { "expected": 2 } }
+          "rack_and_pinion": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

@@ -188,7 +188,7 @@
     "mode_overrides": {
       "wall_reel": {
         "part_overrides": {
-          "wall_reel": { "body_count": { "expected": 2 } }
+          "wall_reel": { "geometry.body_count": { "expected": 2 } }
         }
       }
     }

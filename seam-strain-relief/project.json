@@ -426,12 +426,12 @@
     "mode_overrides": {
       "plate_pair": {
         "part_overrides": {
-          "plate_pair": { "body_count": { "expected": 2 } }
+          "plate_pair": { "geometry.body_count": { "expected": 2 } }
         }
       },
       "set": {
         "part_overrides": {
-          "set": { "body_count": { "expected": 3 } }
+          "set": { "geometry.body_count": { "expected": 3 } }
         }
       }
     }
