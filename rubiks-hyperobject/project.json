@@ -1,0 +1,2480 @@
+{
+  "project": {
+    "name": "Parametric Rubik's Cube",
+    "slug": "rubiks-hyperobject",
+    "version": "1.0.0",
+    "description": {
+      "es": "Hiperobjeto Cubo de Rubik parametrico \u2014 cubo NxN con rotacion de capas, vista explosionada y variante esferica\n\nVisualizador y Configurador Oficial: Yantra4D",
+      "en": "Parametric Rubik's Cube hyperobject \u2014 NxN cube with layer rotation, exploded view, and spherical variant\n\nOfficial Visualizer and Configurator: Yantra4D"
+    },
+    "thumbnail": "/projects/rubiks-hyperobject.webp",
+    "tags": [
+      "puzzle",
+      "rubiks",
+      "cube",
+      "parametric",
+      "toy",
+      "educational",
+      "mechanical",
+      "hyperobject",
+      "commons",
+      "cdg",
+      "bosl2"
+    ],
+    "difficulty": "intermediate",
+    "welcome": {
+      "enabled": true,
+      "heading": {
+        "es": "Cubo de Rubik Parametrico",
+        "en": "Parametric Rubik's Cube"
+      },
+      "body": {
+        "es": "Un cubo de Rubik completamente parametrico: elige el tamano de cuadricula (2x2 a 9x9), rota capas individuales (incluidas capas medias) y explora la vista explosionada.",
+        "en": "A fully parametric Rubik's Cube: choose grid size (2x2 to 9x9), rotate individual layers (including middle layers), and explore the exploded assembly view."
+      },
+      "features": [
+        {
+          "icon": "grid_view",
+          "text": {
+            "es": "Escala de 2x2 (Pocket) a 9x9 con un solo control",
+            "en": "Scale from 2x2 (Pocket) to 9x9 with a single slider"
+          }
+        },
+        {
+          "icon": "rotate_right",
+          "text": {
+            "es": "Rota las 6 capas individuales para visualizar estados del puzzle",
+            "en": "Rotate all 6 individual layers to visualize puzzle states"
+          }
+        },
+        {
+          "icon": "open_in_full",
+          "text": {
+            "es": "Vista explosionada para ver el mecanismo interno del cubo",
+            "en": "Exploded view to see the internal core mechanism"
+          }
+        }
+      ],
+      "cta_label": {
+        "es": "Comenzar",
+        "en": "Get Started"
+      }
+    },
+    "guest_render_limit": 100,
+    "force_backend": true
+  },
+  "hyperobject": {
+    "domain": "hybrid",
+    "cdg_interfaces": [
+      {
+        "id": "cubie_socket",
+        "label": {
+          "es": "Cavidad de Cubie",
+          "en": "Cubie Socket"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "N",
+          "size",
+          "clearance",
+          "corner_rounding",
+          "insert_pocket_depth",
+          "insert_pin_dia"
+        ]
+      },
+      {
+        "id": "display_stand_mount",
+        "label": {
+          "es": "Montaje para Base de Exhibicion",
+          "en": "Display Stand Mount"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "size"
+        ]
+      },
+      {
+        "id": "core_mechanism",
+        "label": {
+          "es": "Mecanismo Central",
+          "en": "Core Mechanism"
+        },
+        "geometry_type": "rail",
+        "standard": "internal",
+        "parameters": [
+          "N",
+          "size",
+          "mechanism_detail",
+          "spring_dia",
+          "spring_length",
+          "screw_dia",
+          "mechanism_clearance"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "es": "Permite a educadores, makers y entusiastas de puzzles fabricar cubos de Rubik parametricos personalizados \u2014 desde prototipos didacticos hasta rompecabezas de exhibicion \u2014 independiente de cadenas de suministro comerciales.",
+      "en": "Enables educators, makers, and puzzle enthusiasts to fabricate custom parametric Rubik's cubes \u2014 from didactic prototypes to exhibition puzzles \u2014 independent of commercial supply chains."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "modes": [
+    {
+      "id": "cube",
+      "scad_file": "rubiks_cube.scad",
+      "label": {
+        "es": "Cubo",
+        "en": "Cube"
+      },
+      "parts": [
+        "cubies",
+        "stickers_top",
+        "stickers_bottom",
+        "stickers_front",
+        "stickers_back",
+        "stickers_left",
+        "stickers_right"
+      ],
+      "part_quantities": {
+        "cubies": "N * N * N - (N - 2) * (N - 2) * (N - 2)",
+        "core": 1,
+        "stickers": "6 * N * N"
+      },
+      "estimate": {
+        "base_units": "N * N",
+        "formula": "grid",
+        "formula_vars": [
+          "N",
+          "N"
+        ]
+      }
+    },
+    {
+      "id": "sphere",
+      "scad_file": "rubiks_sphere.scad",
+      "label": {
+        "es": "Esfera",
+        "en": "Sphere"
+      },
+      "parts": [
+        "segments",
+        "core",
+        "bands"
+      ],
+      "part_quantities": {
+        "segments": "sphere_band_count",
+        "core": 1,
+        "bands": "sphere_band_count - 1"
+      },
+      "estimate": {
+        "base_units": "sphere_band_count",
+        "formula": "grid",
+        "formula_vars": [
+          "sphere_band_count"
+        ]
+      }
+    },
+    {
+      "id": "exploded",
+      "scad_file": "rubiks_exploded.scad",
+      "label": {
+        "es": "Vista Explosionada",
+        "en": "Exploded View"
+      },
+      "parts": [
+        "cubies",
+        "core"
+      ],
+      "estimate": {
+        "base_units": "N * N",
+        "formula": "grid",
+        "formula_vars": [
+          "N",
+          "N"
+        ]
+      }
+    },
+    {
+      "id": "cubie",
+      "scad_file": "cubie.scad",
+      "label": {
+        "es": "Cubie Individual",
+        "en": "Single Cubie"
+      },
+      "parts": [
+        "cubies"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "insert",
+      "scad_file": "insert.scad",
+      "label": {
+        "es": "Inserto CDG",
+        "en": "CDG Insert Tile"
+      },
+      "parts": [
+        "insert"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      }
+    },
+    {
+      "id": "mechanism",
+      "scad_file": "mechanism.scad",
+      "label": {
+        "es": "Mecanismo Funcional",
+        "en": "Functional Mechanism"
+      },
+      "parts": [
+        "main",
+        "mechanism_core",
+        "mechanism_center",
+        "mechanism_edge",
+        "mechanism_corner"
+      ],
+      "part_quantities": {
+        "mechanism_core": 1,
+        "mechanism_center": 6,
+        "mechanism_edge": "12",
+        "mechanism_corner": "8"
+      },
+      "estimate": {
+        "base_units": 4,
+        "formula": "constant"
+      },
+      "default_params": {
+        "render_mode": 0,
+        "mechanism_detail": "functional"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "cubies",
+      "render_mode": 1,
+      "label": {
+        "es": "Cubies",
+        "en": "Cubies"
+      },
+      "default_color": "#c8c8c8"
+    },
+    {
+      "id": "core",
+      "render_mode": 2,
+      "label": {
+        "es": "Mecanismo Central",
+        "en": "Core Mechanism"
+      },
+      "default_color": "#e0e0e0"
+    },
+    {
+      "id": "segments",
+      "render_mode": 1,
+      "label": {
+        "es": "Segmentos",
+        "en": "Segments"
+      },
+      "default_color": "#4a90d9"
+    },
+    {
+      "id": "bands",
+      "render_mode": 3,
+      "label": {
+        "es": "Bandas",
+        "en": "Bands"
+      },
+      "default_color": "#1f1f1f"
+    },
+    {
+      "id": "insert",
+      "render_mode": 0,
+      "label": {
+        "es": "Inserto",
+        "en": "Insert Tile"
+      },
+      "default_color": "#e5e7eb"
+    },
+    {
+      "id": "mechanism_core",
+      "render_mode": 1,
+      "label": {
+        "es": "Nucleo Funcional",
+        "en": "Functional Core"
+      },
+      "default_color": "#E63946"
+    },
+    {
+      "id": "mechanism_center",
+      "render_mode": 2,
+      "label": {
+        "es": "Cubie Centro (Mecanismo)",
+        "en": "Center Cubie (Mechanism)"
+      },
+      "default_color": "#457B9D"
+    },
+    {
+      "id": "mechanism_edge",
+      "render_mode": 3,
+      "label": {
+        "es": "Cubie Arista (Mecanismo)",
+        "en": "Edge Cubie (Mechanism)"
+      },
+      "default_color": "#2A9D8F"
+    },
+    {
+      "id": "mechanism_corner",
+      "render_mode": 4,
+      "label": {
+        "es": "Cubie Esquina (Mecanismo)",
+        "en": "Corner Cubie (Mechanism)"
+      },
+      "default_color": "#E9C46A"
+    },
+    {
+      "id": "main",
+      "default_color": "#E63946",
+      "render_mode": 0,
+      "label": {
+        "en": "Complete Assembly",
+        "es": "Ensamble Completo"
+      }
+    },
+    {
+      "id": "stickers_top",
+      "render_mode": 3,
+      "default_color": "#FFFFFF",
+      "label": {
+        "en": "Top Face",
+        "es": "Cara Superior"
+      }
+    },
+    {
+      "id": "stickers_bottom",
+      "render_mode": 4,
+      "default_color": "#FFEE00",
+      "label": {
+        "en": "Bottom Face",
+        "es": "Cara Inferior"
+      }
+    },
+    {
+      "id": "stickers_front",
+      "render_mode": 5,
+      "default_color": "#FF2020",
+      "label": {
+        "en": "Front Face",
+        "es": "Cara Frontal"
+      }
+    },
+    {
+      "id": "stickers_back",
+      "render_mode": 6,
+      "default_color": "#FF9920",
+      "label": {
+        "en": "Back Face",
+        "es": "Cara Posterior"
+      }
+    },
+    {
+      "id": "stickers_left",
+      "render_mode": 7,
+      "default_color": "#2040FF",
+      "label": {
+        "en": "Left Face",
+        "es": "Cara Izquierda"
+      }
+    },
+    {
+      "id": "stickers_right",
+      "render_mode": 8,
+      "default_color": "#00DD00",
+      "label": {
+        "en": "Right Face",
+        "es": "Cara Derecha"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "standard_3x3",
+      "label": {
+        "es": "Estandar 3x3 (57mm)",
+        "en": "Standard 3x3 (57mm)"
+      },
+      "values": {
+        "N": 3,
+        "size": 57,
+        "clearance": 0.3,
+        "corner_rounding": 1.5,
+        "sticker_depth": 0.3
+      }
+    },
+    {
+      "id": "pocket_2x2",
+      "label": {
+        "es": "Pocket 2x2 (40mm)",
+        "en": "Pocket 2x2 (40mm)"
+      },
+      "values": {
+        "N": 2,
+        "size": 40,
+        "clearance": 0.3,
+        "corner_rounding": 1.5,
+        "sticker_depth": 0.3
+      }
+    },
+    {
+      "id": "professor_5x5",
+      "label": {
+        "es": "Professor 5x5 (80mm)",
+        "en": "Professor 5x5 (80mm)"
+      },
+      "values": {
+        "N": 5,
+        "size": 80,
+        "clearance": 0.4,
+        "corner_rounding": 1.0,
+        "sticker_depth": 0.3
+      }
+    },
+    {
+      "id": "exploded_3x3",
+      "label": {
+        "es": "Explosionado 3x3",
+        "en": "Exploded 3x3"
+      },
+      "mode": "exploded",
+      "values": {
+        "N": 3,
+        "size": 57,
+        "explode_factor": 100
+      }
+    },
+    {
+      "id": "sphere_4band",
+      "label": {
+        "es": "Esfera 4 Bandas",
+        "en": "Sphere 4 Bands"
+      },
+      "mode": "sphere",
+      "values": {
+        "N": 3,
+        "size": 57,
+        "sphere_band_count": 4
+      }
+    },
+    {
+      "id": "checkerboard",
+      "label": {
+        "es": "Tablero",
+        "en": "Checkerboard"
+      },
+      "values": {
+        "rotate_top": 90,
+        "rotate_bottom": 90,
+        "rotate_front": 90,
+        "rotate_back": 90,
+        "rotate_left": 90,
+        "rotate_right": 90
+      }
+    },
+    {
+      "id": "t_pattern",
+      "label": {
+        "es": "Patron T",
+        "en": "T-Pattern"
+      },
+      "values": {
+        "rotate_front": 90
+      }
+    },
+    {
+      "id": "solved",
+      "label": {
+        "es": "Resuelto",
+        "en": "Solved"
+      },
+      "values": {
+        "rotate_top": 0,
+        "rotate_bottom": 0,
+        "rotate_front": 0,
+        "rotate_back": 0,
+        "rotate_left": 0,
+        "rotate_right": 0
+      }
+    },
+    {
+      "id": "colorblind_deutan",
+      "label": {
+        "en": "\u267f Deuteranopia Safe",
+        "es": "\u267f Deuteranop\u00eda Seguro"
+      },
+      "values": {
+        "color_top": "#FFFFFF",
+        "color_bottom": "#FFD700",
+        "color_front": "#0072B2",
+        "color_back": "#E69F00",
+        "color_left": "#56B4E9",
+        "color_right": "#CC79A7"
+      }
+    },
+    {
+      "id": "high_contrast",
+      "label": {
+        "en": "\ud83d\udd32 High Contrast",
+        "es": "\ud83d\udd32 Alto Contraste"
+      },
+      "values": {
+        "color_top": "#FFFFFF",
+        "color_bottom": "#000000",
+        "color_front": "#FF0000",
+        "color_back": "#0000FF",
+        "color_left": "#FFFF00",
+        "color_right": "#00FF00"
+      }
+    },
+    {
+      "id": "monochrome_tactile",
+      "label": {
+        "en": "\ud83e\udd1a Monochrome Tactile",
+        "es": "\ud83e\udd1a Monocrom\u00e1tico T\u00e1ctil"
+      },
+      "values": {
+        "color_top": "#808080",
+        "color_bottom": "#808080",
+        "color_front": "#808080",
+        "color_back": "#808080",
+        "color_left": "#808080",
+        "color_right": "#808080",
+        "sticker_style": "tactile"
+      }
+    },
+    {
+      "id": "functional_3x3",
+      "label": {
+        "es": "Funcional 3x3 (Imprimible)",
+        "en": "Functional 3x3 (Printable)"
+      },
+      "values": {
+        "N": 3,
+        "size": 57,
+        "clearance": 0.3,
+        "mechanism_detail": "functional",
+        "spring_dia": 5,
+        "spring_length": 8,
+        "screw_dia": 3,
+        "mechanism_clearance": 0.2
+      }
+    },
+    {
+      "id": "mechanism_exploded",
+      "label": {
+        "es": "Mecanismo Explosionado",
+        "en": "Mechanism Exploded"
+      },
+      "mode": "mechanism",
+      "values": {
+        "N": 3,
+        "size": 57,
+        "spring_dia": 5,
+        "spring_length": 8,
+        "screw_dia": 3,
+        "mechanism_clearance": 0.2
+      }
+    },
+    {
+      "label": {
+        "en": "Original Rubik (1974)",
+        "es": "Rubik Original (1974)"
+      },
+      "values": {
+        "mechanism_detail": "decorative",
+        "enable_torpedoes": false,
+        "enable_magnets": false,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "DaYan Era (2011)",
+        "es": "Era DaYan (2011)"
+      },
+      "values": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": false,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Magnetic Revolution (2016)",
+        "es": "Revoluci\u00f3n Magn\u00e9tica (2016)"
+      },
+      "values": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": false,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Gan Premium (2018)",
+        "es": "Gan Premium (2018)"
+      },
+      "values": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": true,
+        "enable_maglev": false
+      }
+    },
+    {
+      "label": {
+        "en": "Modern Flagship (2024)",
+        "es": "Buque Insignia Moderno (2024)"
+      },
+      "values": {
+        "mechanism_detail": "functional",
+        "enable_torpedoes": true,
+        "enable_corner_cutting": true,
+        "enable_magnets": true,
+        "enable_core_magnets": true,
+        "enable_maglev": true
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "N",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 9,
+      "step": 1,
+      "label": {
+        "es": "Tamano de Cuadricula (NxN)",
+        "en": "Grid Size (NxN)"
+      },
+      "tooltip": {
+        "es": "2=Pocket, 3=Estandar, 4=Revenge, 5=Professor ... 9x9",
+        "en": "2=Pocket, 3=Standard, 4=Revenge, 5=Professor ... 9x9"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie",
+        "sphere"
+      ],
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "affected_parts": [
+          "cubies",
+          "core"
+        ]
+      }
+    },
+    {
+      "id": "size",
+      "type": "slider",
+      "default": 57,
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "label": {
+        "es": "Dimension Total (mm)",
+        "en": "Overall Size (mm)"
+      },
+      "tooltip": {
+        "es": "Dimension exterior del cubo o esfera en milimetros",
+        "en": "Overall outer dimension of the cube or sphere in millimeters"
+      },
+      "visible_in_modes": [
+        "cube",
+        "sphere",
+        "exploded",
+        "cubie"
+      ],
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "radial",
+        "affected_parts": [
+          "cubies",
+          "core"
+        ]
+      }
+    },
+    {
+      "id": "clearance",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.1,
+      "max": 1.0,
+      "step": 0.05,
+      "label": {
+        "es": "Holgura entre Cubies (mm)",
+        "en": "Cubie Clearance (mm)"
+      },
+      "tooltip": {
+        "es": "Espacio entre cubies adyacentes \u2014 aumentar si las piezas no giran libremente",
+        "en": "Gap between adjacent cubies \u2014 increase if pieces don't rotate freely"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie",
+        "sphere"
+      ],
+      "group": "tolerance",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "corner_rounding",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0,
+      "max": 4.0,
+      "step": 0.1,
+      "label": {
+        "es": "Redondeo de Esquinas (mm)",
+        "en": "Corner Rounding (mm)"
+      },
+      "tooltip": {
+        "es": "Radio de redondeo en las esquinas de cada cubie",
+        "en": "Fillet radius on each cubie's corners"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ]
+    },
+    {
+      "id": "sticker_depth",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.1,
+      "max": 1.0,
+      "step": 0.1,
+      "label": {
+        "es": "Profundidad de Sticker (mm)",
+        "en": "Sticker Depth (mm)"
+      },
+      "tooltip": {
+        "es": "Profundidad de la incrustacion de color en cada cara",
+        "en": "Depth of the color inset on each face"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "rotate_top",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotacion Capa Superior",
+        "en": "Top Layer Rotation"
+      },
+      "tooltip": {
+        "es": "Gira la capa superior: 0, 90, 180 o 270 grados",
+        "en": "Rotate the top layer: 0, 90, 180 or 270 degrees"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_front",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotacion Capa Frontal",
+        "en": "Front Layer Rotation"
+      },
+      "tooltip": {
+        "es": "Gira la capa frontal: 0, 90, 180 o 270 grados",
+        "en": "Rotate the front layer: 0, 90, 180 or 270 degrees"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_right",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotacion Capa Derecha",
+        "en": "Right Layer Rotation"
+      },
+      "tooltip": {
+        "es": "Gira la capa derecha: 0, 90, 180 o 270 grados",
+        "en": "Rotate the right layer: 0, 90, 180 or 270 degrees"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_bottom",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Inferior",
+        "en": "Rotate Bottom"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa inferior (grados)",
+        "en": "Bottom layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_back",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Posterior",
+        "en": "Rotate Back"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa posterior (grados)",
+        "en": "Back layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_left",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Izquierda",
+        "en": "Rotate Left"
+      },
+      "tooltip": {
+        "es": "Rotacion de capa izquierda (grados)",
+        "en": "Left layer rotation (degrees)"
+      },
+      "visible_in_modes": [
+        "cube"
+      ],
+      "group": "rotation"
+    },
+    {
+      "id": "rotate_x_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 2",
+        "es": "Capa X 2"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 2 (inner)",
+        "es": "Rotacion de capa 2 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 3",
+        "es": "Capa X 3"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 3 (inner)",
+        "es": "Rotacion de capa 3 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 4",
+        "es": "Capa X 4"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 4 (inner)",
+        "es": "Rotacion de capa 4 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 5",
+        "es": "Capa X 5"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 5 (inner)",
+        "es": "Rotacion de capa 5 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 6",
+        "es": "Capa X 6"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 6 (inner)",
+        "es": "Rotacion de capa 6 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 7",
+        "es": "Capa X 7"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 7 (inner)",
+        "es": "Rotacion de capa 7 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_x_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "X Layer 8",
+        "es": "Capa X 8"
+      },
+      "tooltip": {
+        "en": "Rotation of X-axis layer 8 (inner)",
+        "es": "Rotacion de capa 8 del eje X (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 2",
+        "es": "Capa Y 2"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 2 (inner)",
+        "es": "Rotacion de capa 2 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 3",
+        "es": "Capa Y 3"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 3 (inner)",
+        "es": "Rotacion de capa 3 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 4",
+        "es": "Capa Y 4"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 4 (inner)",
+        "es": "Rotacion de capa 4 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 5",
+        "es": "Capa Y 5"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 5 (inner)",
+        "es": "Rotacion de capa 5 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 6",
+        "es": "Capa Y 6"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 6 (inner)",
+        "es": "Rotacion de capa 6 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 7",
+        "es": "Capa Y 7"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 7 (inner)",
+        "es": "Rotacion de capa 7 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_y_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Y Layer 8",
+        "es": "Capa Y 8"
+      },
+      "tooltip": {
+        "en": "Rotation of Y-axis layer 8 (inner)",
+        "es": "Rotacion de capa 8 del eje Y (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 2",
+        "es": "Capa Z 2"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 2 (inner)",
+        "es": "Rotacion de capa 2 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 3",
+        "es": "Capa Z 3"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 3 (inner)",
+        "es": "Rotacion de capa 3 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 4",
+        "es": "Capa Z 4"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 4 (inner)",
+        "es": "Rotacion de capa 4 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 5",
+        "es": "Capa Z 5"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 5 (inner)",
+        "es": "Rotacion de capa 5 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_5",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 6",
+        "es": "Capa Z 6"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 6 (inner)",
+        "es": "Rotacion de capa 6 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_6",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 7",
+        "es": "Capa Z 7"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 7 (inner)",
+        "es": "Rotacion de capa 7 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "rotate_z_7",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "en": "Z Layer 8",
+        "es": "Capa Z 8"
+      },
+      "tooltip": {
+        "en": "Rotation of Z-axis layer 8 (inner)",
+        "es": "Rotacion de capa 8 del eje Z (interior)"
+      },
+      "group": "rotation",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "color_top",
+      "type": "text",
+      "default": "#FFFFFF",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Superior",
+        "en": "Top Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_bottom",
+      "type": "text",
+      "default": "#FFD900",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Inferior",
+        "en": "Bottom Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_front",
+      "type": "text",
+      "default": "#CC0000",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Frontal",
+        "en": "Front Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_back",
+      "type": "text",
+      "default": "#FF8000",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Posterior",
+        "en": "Back Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_left",
+      "type": "text",
+      "default": "#0000CC",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Izquierda",
+        "en": "Left Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "color_right",
+      "type": "text",
+      "default": "#009900",
+      "widget": {
+        "type": "color"
+      },
+      "label": {
+        "es": "Color Cara Derecha",
+        "en": "Right Face Color"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ],
+      "group": "colors",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "explode_factor",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "label": {
+        "es": "Factor de Explosion (%)",
+        "en": "Explode Factor (%)"
+      },
+      "tooltip": {
+        "es": "Separa los cubies del centro \u2014 0=ensamblado, 100=completamente explosionado",
+        "en": "Separate cubies from center \u2014 0=assembled, 100=fully exploded"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded"
+      ]
+    },
+    {
+      "id": "sphere_band_count",
+      "type": "slider",
+      "default": 4,
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": {
+        "es": "Numero de Bandas",
+        "en": "Number of Bands"
+      },
+      "tooltip": {
+        "es": "Cantidad de bandas horizontales giratorias en la esfera",
+        "en": "Number of horizontal rotation bands on the sphere"
+      },
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "rotate_band_1",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 1",
+        "en": "Rotate Band 1"
+      },
+      "group": "rotation",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "rotate_band_2",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 2",
+        "en": "Rotate Band 2"
+      },
+      "group": "rotation",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "rotate_band_3",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 3",
+        "en": "Rotate Band 3"
+      },
+      "group": "rotation",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "rotate_band_4",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 270,
+      "step": 90,
+      "label": {
+        "es": "Rotar Banda 4",
+        "en": "Rotate Band 4"
+      },
+      "group": "rotation",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "sticker_style",
+      "type": "select",
+      "default": "color",
+      "options": [
+        {
+          "value": "color",
+          "label": {
+            "en": "Color Stickers",
+            "es": "Adhesivos de Color"
+          }
+        },
+        {
+          "value": "tactile",
+          "label": {
+            "en": "Tactile Dots",
+            "es": "Puntos T\u00e1ctiles"
+          }
+        },
+        {
+          "value": "stripes",
+          "label": {
+            "en": "Stripe Pattern",
+            "es": "Patr\u00f3n de Rayas"
+          }
+        },
+        {
+          "value": "checkers",
+          "label": {
+            "en": "Checkerboard",
+            "es": "Tablero de Ajedrez"
+          }
+        },
+        {
+          "value": "concentric",
+          "label": {
+            "en": "Concentric Squares",
+            "es": "Cuadrados Conc\u00e9ntricos"
+          }
+        }
+      ],
+      "label": {
+        "es": "Estilo de Adhesivo",
+        "en": "Sticker Style"
+      },
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ]
+    },
+    {
+      "id": "mechanism_detail",
+      "type": "select",
+      "default": "decorative",
+      "options": [
+        {
+          "value": "decorative",
+          "label": {
+            "en": "Decorative",
+            "es": "Decorativo"
+          }
+        },
+        {
+          "value": "functional",
+          "label": {
+            "en": "Functional (Printable)",
+            "es": "Funcional (Imprimible)"
+          }
+        }
+      ],
+      "label": {
+        "es": "Detalle del Mecanismo",
+        "en": "Mechanism Detail"
+      },
+      "tooltip": {
+        "es": "Decorativo: esfera + ejes simples. Funcional: mecanismo imprimible con rieles T, cavidades de resorte y geometria interna de cubies.",
+        "en": "Decorative: simple sphere + axles. Functional: printable mechanism with T-track rails, spring cavities, and cubie internal geometry."
+      },
+      "group": "mechanism",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "spring_dia",
+      "type": "slider",
+      "default": 5,
+      "min": 3,
+      "max": 8,
+      "step": 0.5,
+      "label": {
+        "es": "Diametro del Resorte (mm)",
+        "en": "Spring Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro del resorte de compresion que mantiene los cubies centrales contra el nucleo",
+        "en": "Compression spring diameter that holds center cubies against the core"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "spring_length",
+      "type": "slider",
+      "default": 8,
+      "min": 4,
+      "max": 15,
+      "step": 0.5,
+      "label": {
+        "es": "Longitud de Cavidad del Resorte (mm)",
+        "en": "Spring Cavity Length (mm)"
+      },
+      "tooltip": {
+        "es": "Longitud de la cavidad interna para el resorte de compresion",
+        "en": "Length of the internal cavity for the compression spring"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "screw_dia",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "label": {
+        "es": "Diametro del Tornillo (mm)",
+        "en": "Screw Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro del tornillo del eje (M3 por defecto)",
+        "en": "Axle screw diameter (M3 default)"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "mechanism_clearance",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.05,
+      "label": {
+        "es": "Holgura del Mecanismo (mm)",
+        "en": "Mechanism Clearance (mm)"
+      },
+      "tooltip": {
+        "es": "Holgura interna entre piezas moviles del mecanismo \u2014 aumentar si las piezas se atascan",
+        "en": "Internal clearance between moving mechanism parts \u2014 increase if pieces bind"
+      },
+      "group": "mechanism",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "show_sockets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "es": "Mostrar Cavidades de Inserto",
+        "en": "Show Insert Sockets"
+      },
+      "tooltip": {
+        "es": "Muestra las cavidades CDG para insertos intercambiables en cada cara expuesta",
+        "en": "Show CDG socket pockets for interchangeable inserts on every exposed face"
+      },
+      "group": "visibility",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie"
+      ]
+    },
+    {
+      "id": "insert_pocket_depth",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.1,
+      "label": {
+        "es": "Profundidad de Cavidad (mm)",
+        "en": "Insert Pocket Depth (mm)"
+      },
+      "tooltip": {
+        "es": "Profundidad de la cavidad para insertos CDG en cada cara",
+        "en": "Depth of the CDG insert pocket on each cubie face"
+      },
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie",
+        "insert"
+      ]
+    },
+    {
+      "id": "insert_pin_dia",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.5,
+      "max": 2.0,
+      "step": 0.1,
+      "label": {
+        "es": "Diametro de Pin de Alineacion (mm)",
+        "en": "Alignment Pin Diameter (mm)"
+      },
+      "tooltip": {
+        "es": "Diametro de los pines de alineacion en las cavidades de inserto",
+        "en": "Diameter of alignment pins in the insert socket pockets"
+      },
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "cubie",
+        "insert"
+      ]
+    },
+    {
+      "id": "show_notation",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "es": "Notacion de Caras (U/D/F/B/L/R)",
+        "en": "Face Notation (U/D/F/B/L/R)"
+      },
+      "tooltip": {
+        "es": "Muestra letras de notacion Rubik embosadas en los cubies centrales",
+        "en": "Show embossed Rubik notation letters on center cubies"
+      },
+      "group": "visibility",
+      "visibility_level": "advanced",
+      "visible_in_modes": [
+        "cube"
+      ]
+    },
+    {
+      "id": "show_cubies",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "es": "Cubies",
+        "en": "Cubies"
+      },
+      "tooltip": {
+        "es": "Mostrar u ocultar los cubies",
+        "en": "Show or hide cubies"
+      },
+      "group": "visibility",
+      "visibility_level": "basic",
+      "visible_in_modes": [
+        "cube",
+        "exploded"
+      ]
+    },
+    {
+      "id": "show_core",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "es": "Mecanismo Central",
+        "en": "Core Mechanism"
+      },
+      "tooltip": {
+        "es": "Mostrar u ocultar el mecanismo central (esfera + ejes)",
+        "en": "Show or hide the core mechanism (sphere + axles)"
+      },
+      "group": "visibility",
+      "visibility_level": "basic",
+      "visible_in_modes": [
+        "cube",
+        "exploded",
+        "sphere"
+      ]
+    },
+    {
+      "id": "show_segments",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "es": "Segmentos",
+        "en": "Segments"
+      },
+      "tooltip": {
+        "es": "Mostrar u ocultar los segmentos de la esfera",
+        "en": "Show or hide sphere segments"
+      },
+      "group": "visibility",
+      "visibility_level": "basic",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "show_bands",
+      "type": "checkbox",
+      "default": true,
+      "label": {
+        "es": "Bandas",
+        "en": "Bands"
+      },
+      "tooltip": {
+        "es": "Mostrar u ocultar los indicadores de corte entre bandas",
+        "en": "Show or hide band cut indicators"
+      },
+      "group": "visibility",
+      "visibility_level": "basic",
+      "visible_in_modes": [
+        "sphere"
+      ]
+    },
+    {
+      "id": "enable_torpedoes",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Anti-Pop Torpedoes",
+        "es": "Torpedos Anti-Pop"
+      },
+      "tooltip": {
+        "en": "DaYan 2011: Plastic fins on edges prevent pieces from popping",
+        "es": "DaYan 2011: Aletas pl\u00e1sticas en aristas previenen que las piezas salten"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "torpedo_length",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "label": {
+        "en": "Torpedo Length (mm)",
+        "es": "Longitud del Torpedo (mm)"
+      },
+      "parent": "enable_torpedoes",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "torpedo_thickness",
+      "type": "slider",
+      "default": 0.8,
+      "min": 0.4,
+      "max": 1.5,
+      "step": 0.1,
+      "label": {
+        "en": "Torpedo Thickness (mm)",
+        "es": "Grosor del Torpedo (mm)"
+      },
+      "parent": "enable_torpedoes",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_corner_cutting",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Corner Cutting Bevels",
+        "es": "Biseles de Corte de Esquina"
+      },
+      "tooltip": {
+        "en": "DaYan 2010: Beveled track entries allow misaligned turning",
+        "es": "DaYan 2010: Entradas biseladas permiten giro desalineado"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "corner_cut_angle",
+      "type": "slider",
+      "default": 35,
+      "min": 10,
+      "max": 45,
+      "step": 5,
+      "label": {
+        "en": "Corner Cut Angle (\u00b0)",
+        "es": "\u00c1ngulo de Corte (\u00b0)"
+      },
+      "parent": "enable_corner_cutting",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "track_bevel",
+      "type": "slider",
+      "default": 1,
+      "min": 0.5,
+      "max": 2,
+      "step": 0.25,
+      "label": {
+        "en": "Track Bevel (mm)",
+        "es": "Bisel de Riel (mm)"
+      },
+      "parent": "enable_corner_cutting",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_magnets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Edge-Corner Magnets",
+        "es": "Imanes Arista-Esquina"
+      },
+      "tooltip": {
+        "en": "2016 Chris Tran: Neodymium magnets snap cube into alignment",
+        "es": "2016 Chris Tran: Imanes de neodimio alinean el cubo"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "magnet_dia",
+      "type": "slider",
+      "default": 3,
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "label": {
+        "en": "Magnet Diameter (mm)",
+        "es": "Di\u00e1metro del Im\u00e1n (mm)"
+      },
+      "parent": "enable_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "magnet_depth",
+      "type": "slider",
+      "default": 1.5,
+      "min": 1,
+      "max": 3,
+      "step": 0.25,
+      "label": {
+        "en": "Magnet Depth (mm)",
+        "es": "Profundidad del Im\u00e1n (mm)"
+      },
+      "parent": "enable_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_core_magnets",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Corner-Core Magnets",
+        "es": "Imanes Esquina-N\u00facleo"
+      },
+      "tooltip": {
+        "en": "Gan 2018: Secondary magnets between corners and core sphere",
+        "es": "Gan 2018: Imanes secundarios entre esquinas y esfera central"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "core_magnet_dia",
+      "type": "slider",
+      "default": 4,
+      "min": 2,
+      "max": 6,
+      "step": 0.5,
+      "label": {
+        "en": "Core Magnet Diameter (mm)",
+        "es": "Di\u00e1metro Im\u00e1n Central (mm)"
+      },
+      "parent": "enable_core_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "core_magnet_depth",
+      "type": "slider",
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "label": {
+        "en": "Core Magnet Depth (mm)",
+        "es": "Profundidad Im\u00e1n Central (mm)"
+      },
+      "parent": "enable_core_magnets",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "enable_maglev",
+      "type": "checkbox",
+      "default": false,
+      "label": {
+        "en": "Maglev Tensioning",
+        "es": "Tensionado Maglev"
+      },
+      "tooltip": {
+        "en": "2020s: Repelling ring magnets replace springs (frictionless)",
+        "es": "2020s: Imanes de anillo repelentes reemplazan resortes (sin fricci\u00f3n)"
+      },
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_ring_dia",
+      "type": "slider",
+      "default": 6,
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "label": {
+        "en": "Maglev Ring Diameter (mm)",
+        "es": "Di\u00e1metro Anillo Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_ring_height",
+      "type": "slider",
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "label": {
+        "en": "Maglev Ring Height (mm)",
+        "es": "Altura Anillo Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    },
+    {
+      "id": "maglev_gap",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.5,
+      "max": 4,
+      "step": 0.25,
+      "label": {
+        "en": "Maglev Gap (mm)",
+        "es": "Separaci\u00f3n Maglev (mm)"
+      },
+      "parent": "enable_maglev",
+      "modes": [
+        "cube",
+        "mechanism"
+      ]
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "rotation",
+      "label": {
+        "es": "Rotacion de Capas",
+        "en": "Layer Rotation"
+      }
+    },
+    {
+      "id": "tolerance",
+      "label": {
+        "es": "Tolerancia",
+        "en": "Tolerance"
+      }
+    },
+    {
+      "id": "visibility",
+      "label": {
+        "es": "Visibilidad",
+        "en": "Visibility"
+      },
+      "levels": [
+        {
+          "id": "basic",
+          "label": {
+            "es": "Basico",
+            "en": "Basic"
+          }
+        },
+        {
+          "id": "advanced",
+          "label": {
+            "es": "Avanzado",
+            "en": "Advanced"
+          }
+        }
+      ]
+    },
+    {
+      "id": "colors",
+      "label": {
+        "es": "Colores de Caras",
+        "en": "Face Colors"
+      }
+    },
+    {
+      "id": "cdg",
+      "label": {
+        "es": "Sistema CDG",
+        "en": "CDG System"
+      }
+    },
+    {
+      "id": "mechanism",
+      "label": {
+        "es": "Mecanismo Interno",
+        "en": "Internal Mechanism"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "es": "Isometrico",
+        "en": "Isometric"
+      },
+      "position": [
+        80,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "es": "Superior",
+        "en": "Top"
+      },
+      "position": [
+        0,
+        0,
+        120
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "es": "Frente",
+        "en": "Front"
+      },
+      "position": [
+        0,
+        -120,
+        0
+      ]
+    },
+    {
+      "id": "right",
+      "label": {
+        "es": "Derecha",
+        "en": "Right"
+      },
+      "position": [
+        120,
+        0,
+        0
+      ]
+    }
+  ],
+  "estimate_constants": {
+    "base_time": 2.0,
+    "per_unit": 0.006,
+    "fn_factor": 48,
+    "per_part": 0.05,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "animations": [
+    {
+      "id": "solve",
+      "label": {
+        "en": "Solve (Checkerboard \u2192 Solved)",
+        "es": "Resolver (Tablero \u2192 Resuelto)"
+      },
+      "from_state": {
+        "rotate_top": 90,
+        "rotate_bottom": 90,
+        "rotate_front": 90,
+        "rotate_back": 90,
+        "rotate_left": 90,
+        "rotate_right": 90
+      },
+      "to_state": {
+        "rotate_top": 0,
+        "rotate_bottom": 0,
+        "rotate_front": 0,
+        "rotate_back": 0,
+        "rotate_left": 0,
+        "rotate_right": 0
+      },
+      "frames": 10,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "cube"
+    },
+    {
+      "id": "explode",
+      "label": {
+        "en": "Explode Assembly",
+        "es": "Vista Explosionada"
+      },
+      "from_state": {
+        "explode_factor": 0
+      },
+      "to_state": {
+        "explode_factor": 150
+      },
+      "frames": 8,
+      "duration_ms": 2000,
+      "easing": "ease-out",
+      "mode": "cube"
+    },
+    {
+      "id": "morph",
+      "label": {
+        "en": "Scale 2x2 \u2192 9x9",
+        "es": "Escala 2x2 \u2192 9x9"
+      },
+      "from_state": {
+        "N": 2,
+        "size": 40
+      },
+      "to_state": {
+        "N": 9,
+        "size": 100
+      },
+      "frames": 4,
+      "duration_ms": 4000,
+      "easing": "linear",
+      "mode": "cube"
+    }
+  ],
+  "assembly_steps": [
+    {
+      "step": 1,
+      "label": {
+        "en": "Print Cubies",
+        "es": "Imprimir Cubies"
+      },
+      "visible_parts": [
+        "cubies"
+      ],
+      "camera": [
+        80,
+        -80,
+        60
+      ],
+      "notes": {
+        "en": "Print all 26 cubies (for 3x3). Use 0.2mm layer height, 30% infill.",
+        "es": "Imprime los 26 cubies (para 3x3). Usa 0.2mm de capa, 30% relleno."
+      }
+    },
+    {
+      "step": 2,
+      "label": {
+        "en": "Print Core Mechanism",
+        "es": "Imprimir Mecanismo Central"
+      },
+      "visible_parts": [
+        "core"
+      ],
+      "camera": [
+        60,
+        -60,
+        40
+      ],
+      "notes": {
+        "en": "Print the central sphere and 6 axle cylinders. Use 100% infill for strength.",
+        "es": "Imprime la esfera central y 6 cilindros de eje. Usa 100% relleno para resistencia."
+      }
+    },
+    {
+      "step": 3,
+      "label": {
+        "en": "Insert Springs & Attach Centers",
+        "es": "Insertar Resortes y Centros"
+      },
+      "visible_parts": [
+        "core",
+        "cubies"
+      ],
+      "camera": [
+        50,
+        -50,
+        30
+      ],
+      "notes": {
+        "en": "Place springs on axles, then slide center cubies onto each axle.",
+        "es": "Coloca resortes en los ejes, luego desliza los cubies centrales."
+      }
+    },
+    {
+      "step": 4,
+      "label": {
+        "en": "Place Edge & Corner Cubies",
+        "es": "Colocar Aristas y Esquinas"
+      },
+      "visible_parts": [
+        "cubies",
+        "core"
+      ],
+      "camera": [
+        70,
+        -70,
+        50
+      ],
+      "notes": {
+        "en": "Snap edge cubies into tracks, then press corner cubies into place.",
+        "es": "Encaja los cubies de arista en rieles, luego presiona las esquinas."
+      }
+    },
+    {
+      "step": 5,
+      "label": {
+        "en": "Apply Stickers or Paint",
+        "es": "Aplicar Adhesivos o Pintar"
+      },
+      "visible_parts": [
+        "cubies",
+        "core"
+      ],
+      "camera": [
+        80,
+        -80,
+        60
+      ],
+      "notes": {
+        "en": "Apply colored stickers or paint each face. Verify smooth rotation.",
+        "es": "Aplica adhesivos de colores o pinta cada cara. Verifica rotacion suave."
+      }
+    }
+  ],
+  "print_estimation": {
+    "enabled": true
+  },
+  "export_formats": [
+    "stl",
+    "3mf",
+    "off",
+    "glb",
+    "obj"
+  ],
+  "viewer": {
+    "default_color": "#1f1f1f"
+  }
+}
