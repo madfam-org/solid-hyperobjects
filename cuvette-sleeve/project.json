@@ -3,6 +3,10 @@
     "name": "Cuvette Adapter Sleeve",
     "slug": "cuvette-sleeve",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A drop-in sleeve that adapts cuvette sizes to the universal 12.5 mm square holder slot used by spectrophotometers, cuvette racks and filter wheels. Fit a 10 mm-path cuvette into a wider slot, adapt a round cuvette or vial to a square slot, or raise a short semi-micro cuvette so its window centres in a tall light path. Mates the cuvette-rack and filter-wheel cuvette wells.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Un manguito de inserción que adapta tamaños de cubeta a la ranura cuadrada universal de 12.5 mm usada por espectrofotómetros, gradillas de cubetas y ruedas de filtros. Ajusta una cubeta de paso 10 mm en una ranura más ancha, adapta una cubeta o vial redondo a una ranura cuadrada, o eleva una cubeta semi-micro corta para centrar su ventana en un paso de luz alto. Compatible con los pozos de cubeta de cuvette-rack y filter-wheel.\n\nVisualizador y configurador oficial: Yantra4D"

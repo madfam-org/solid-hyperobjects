@@ -3,6 +3,10 @@
     "name": "GT2 / HTD Timing Pulley",
     "slug": "timing-pulley",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A parametric synchronous-belt timing pulley — the canonical drive pulley for 3D printers, CNC gantries, and small robotics. Pick a belt standard (GT2-2mm, GT2-3mm, HTD-3M, HTD-5M) and a tooth count; the pulley pitch diameter (PD = teeth × pitch ÷ π) and outside diameter are derived from the standard so the printed pulley meshes a real belt. Optional retaining flanges, a set-screw hub, or a smooth bearing-bored idler.\n\nOfficial Visualizer and Configurator: Yantra4D",

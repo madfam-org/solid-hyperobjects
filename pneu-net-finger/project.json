@@ -3,6 +3,10 @@
     "name": "PneuNet Bending Finger",
     "slug": "pneu-net-finger",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The canonical soft bending actuator. A row of thin-walled chambers sharing one supply channel sits on a thick, inextensible strain-limiting layer; pressurise the network and the chamber walls push against each other while the bottom refuses to stretch, so the whole finger curls into a hook. No joints, no tendons. Chamber pitch is the published bend parameter — closer chambers curl tighter at the same pressure.\n\nOfficial Visualizer and Configurator: Yantra4D",

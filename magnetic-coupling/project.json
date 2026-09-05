@@ -3,6 +3,10 @@
     "name": "Magnetic Coupling Hub",
     "slug": "magnetic-coupling",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A contactless magnetic shaft coupling: two hubs each carry a ring of disc magnets, so placed face to face (or across a thin non-magnetic wall) they transmit torque with no physical link — driving a shaft through a sealed barrier, or slipping harmlessly on overload. Choose the driving/driven hub, a thin magnet-carrier disc, or a cup shell for a through-wall coupling. The shaft bore is a round or D-flat 6/8 mm fit with a set-screw — the same shaft interface as knob-dshaft.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Cable Drag-Chain Mount",
     "slug": "chain-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Bolts the end bracket of a cable drag chain (energy chain / cable carrier) to a frame. The chain end is a small plate with two bolt holes on a known width; this mount presents those holes and carries its own surface-mounting holes so a drag-chain run can be anchored at its fixed and moving ends. Choose an end bracket, a 2020 extrusion bracket, or a slotted moving-end mount.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Veil Comb",
     "slug": "veil-comb",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hair comb whose spine is a veil-gathering bar. The tulle of a birdcage veil, a blusher or a mantilla is gathered along the bar and sewn through a row of slots cut down it, so the gather is anchored to the hardware instead of hanging off a few tacking stitches. Stock combs give you a plain spine and a needle; here the gather pitch is a stated number, and the teeth are sized to the real article — 25 to 40 mm long on a 35 to 50 mm spine, tapered to a rounded flat tip that parts hair instead of catching it.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Drawer Divider / Insert Grid",
     "slug": "drawer-divider",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "An adjustable cell grid sized to a drawer. Choose a solid-bottom divided tray, a bottomless interlocking grid that drops into an existing drawer, or a single slotted strip. Pick your column and row counts and the cells resize to fill the space.\n\nOfficial Visualizer and Configurator: Yantra4D",

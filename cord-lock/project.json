@@ -3,6 +3,10 @@
     "name": "Cord-Lock / Toggle Stopper",
     "slug": "cord-lock",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A small toggle that locks drawstrings and cords on apparel, bags, and gear. Single-piece, print-in-place designs: a spring toggle with a printed pincher, a friction bead, or a squeeze cleat. Sized to the cord and holds 1 or 2 cords.\n\nOfficial Visualizer and Configurator: Yantra4D",

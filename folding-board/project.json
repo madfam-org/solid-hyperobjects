@@ -3,6 +3,10 @@
     "name": "Folding Board",
     "slug": "folding-board",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A 3D-printed garment folding board — a centre panel with a hinged wing on each side, so a shirt laid face-down folds to an identical rectangle every time. Retail boards come in one size, which is why a folded child's tee and a folded XXL sweatshirt never stack; this one is generated from the folded width and height you actually want on the shelf. Real pin-knuckle hinges, not living hinges: three printed parts, assembled in a minute.\n\nOfficial Visualizer and Configurator: Yantra4D",

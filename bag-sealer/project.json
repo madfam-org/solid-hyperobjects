@@ -3,6 +3,10 @@
     "name": "Bag Reseal & Pour Clip",
     "slug": "bag-sealer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A slide-on C-channel clip that reseals an open bag by trapping the folded edge, with an optional pour nozzle so you can dispense from the sealed corner. Sized to bag width; a wide variant covers cereal and freezer bags.\n\nOfficial Visualizer and Configurator: Yantra4D",

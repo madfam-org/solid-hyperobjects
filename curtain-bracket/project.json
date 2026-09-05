@@ -3,6 +3,10 @@
     "name": "Curtain / Blind Bracket",
     "slug": "curtain-bracket",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A wall bracket that holds a curtain or blind rod at a set projection from the wall. The cradle is an open-top C (drop the rod in) or a closed ring (thread the rod through), sized to the rod diameter. Build a standard bracket, an end bracket that caps the rod, or a mid-span center support for long rods.\n\nOfficial Visualizer and Configurator: Yantra4D",

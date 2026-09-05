@@ -3,6 +3,10 @@
     "name": "Math Manipulatives / Solids",
     "slug": "math-solids",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Geometric manipulatives for the maths classroom: the five Platonic solids, a regular N-gon prism for surface-area and volume lessons, and pie-slice fraction tiles that snap into a whole circle. All pieces share a 40 mm nominal size so a set is comparable and stackable.\n\nOfficial Visualizer and Configurator: Yantra4D",

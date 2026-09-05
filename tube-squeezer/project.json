@@ -3,6 +3,10 @@
     "name": "Tube Squeezer Key",
     "slug": "tube-squeezer",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A winding key that squeezes the last of a toothpaste, cosmetic, or paint tube. Feed the flattened end of the tube through the lengthwise slot and turn the bar so the tube winds around it, driving the contents forward. Choose winged finger tabs or a cross-hole for a rod, in a standard or wide roller size.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Boot / Glove Dryer Manifold",
     "slug": "dryer-manifold",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Splits airflow from a fan, vent, or hair-dryer into several branches that push warm air down into wet boots and gloves. One inlet leads into a plenum that fans out to N branch tubes; the ends can be plain open tubes, flattened boot-shaped outlets, or the whole thing can carry a wall-mount plate. Dry outdoor gear overnight without a commercial rack.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Portacosas",
     "slug": "portacosas",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "es": "Organizador de escritorio modular con sistema de bandejas a presión",
       "en": "Modular desk organizer with snap-fit tray system"

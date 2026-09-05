@@ -3,6 +3,10 @@
     "name": "Stacking Solar Dryer Tray",
     "slug": "solar-dryer-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A stacking mesh tray for a solar food dryer. Post-harvest loss is the highest-leverage intervention available to a printable commons, and most of that loss is microbial — a loss of water control rather than of yield. Drying answers it and needs no power. What limits drying is airflow across the food, not heat alone: a hot cabinet with stagnant air case-hardens the surface, sealing wet flesh behind a dry skin. So the parameter that matters most here is the open-area ratio, the fraction of the tray floor that is hole rather than material. The tray declares it, solves the strut width for it, and reports what it actually achieved. Ships with a base foot that lets air enter under the stack and a louvred baffle that stops it short-circuiting past the food.\n\nOfficial Visualizer and Configurator: Yantra4D",

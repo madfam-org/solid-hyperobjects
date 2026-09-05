@@ -3,6 +3,10 @@
     "name": "Prosthetic Wrist Adapter",
     "slug": "prosthetic-wrist",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A quick-disconnect wrist unit for upper-limb prostheses on the open e-NABLE / Open Source Leg 4-bolt terminal interface. A wrist plate bolts to the socket and presents a keyed quick-disconnect socket; a terminal puck carries a hand or tool and locks into it against rotation; a fixed-flexion block sets the terminal device at a wrist angle. Mates the prosthetic-socket 4-bolt adapter. A clinician / occupational therapist must fit and approve any prosthesis — this is a fabrication blank, not a certified medical device.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Una unidad de muñeca de desconexión rápida para prótesis de miembro superior sobre la interfaz abierta de 4 pernos e-NABLE / Open Source Leg. Una placa de muñeca se atornilla al socket y presenta un socket de desconexión rápida con llave; un puck terminal porta una mano o herramienta y encaja bloqueado contra rotación; un bloque de flexión fija el dispositivo terminal en un ángulo de muñeca. Compatible con el adaptador de 4 pernos de prosthetic-socket. Un clínico / terapeuta ocupacional debe ajustar y aprobar cualquier prótesis — es un blank de fabricación, no un dispositivo médico certificado.\n\nVisualizador y configurador oficial: Yantra4D"

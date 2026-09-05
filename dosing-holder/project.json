@@ -3,6 +3,10 @@
     "name": "Drip / Dosing Line Holder",
     "slug": "dosing-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Tidy up the thin silicone and vinyl lines from a reef dosing pump, RODI top-off or CO2 drip system. Build a snap C-clip that grips a single tube, a rim clip that hangs a line over the tank edge, or a multi-line routing rail. Sized for 3/16\"-1/4\" (4.76-6.35 mm) aquarium tubing.\n\nOfficial Visualizer and Configurator: Yantra4D",

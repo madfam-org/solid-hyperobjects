@@ -3,6 +3,10 @@
     "name": "Parametric Storage Box",
     "slug": "parametric-box",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A fits-anything storage box with independent wall and floor control, rounded corners, an optional press-fit lid, and an optional interior divider grid. Sized by interior dimensions.\n\nOfficial Visualizer and Configurator: Yantra4D",

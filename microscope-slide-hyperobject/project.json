@@ -3,6 +3,10 @@
     "name": "Microscope Slide Hyperobject",
     "slug": "microscope-slide-hyperobject",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "Core parametric geometry and standards for microscope slides (ISO 8037).",
       "es": "Geometría paramétrica central y estándares para portaobjetos de microscopio (ISO 8037)."

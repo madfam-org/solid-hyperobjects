@@ -3,6 +3,10 @@
     "name": "Reacher / Button-Hook Dressing Aid",
     "slug": "dressing-aid",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Dressing aids that let a user fasten and reach clothing with limited hand function. A button hook catches a button through its buttonhole and pulls it through; a zipper-pull hook snags a zipper tab so a jacket can be closed one-handed; a reacher hook grabs a waistband, sock, or dropped item. Each is a printed hook on an enlarged, easy-to-grip handle. Fit is user-specific — consult an OT on hook size and handle shape.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Keychain / Tag",
     "slug": "keytag",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A flat keychain tag with an embossed or debossed name/number and a ring hole. Pick a shape (rounded rectangle, circle, dog tag, bone), type a label, and print. A one-line tag, a two-line tag, or a larger luggage tag with a strap slot.\n\nOfficial Visualizer and Configurator: Yantra4D",

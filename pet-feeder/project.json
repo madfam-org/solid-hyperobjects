@@ -3,6 +3,10 @@
     "name": "Slow-Feed Pet Bowl",
     "slug": "pet-feeder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A food bowl whose floor carries a maze of concentric rings and radial spokes so a fast-eating dog or cat has to work the kibble out of the channels, slowing gulping and easing digestion. Also a raised bowl stand and a drop-in maze insert for an existing bowl.\n\nOfficial Visualizer and Configurator: Yantra4D",

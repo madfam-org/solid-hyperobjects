@@ -3,6 +3,10 @@
     "name": "Roof-Rack / Crossbar Accessory",
     "slug": "rack-accessory",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Accessory saddles that seat on a roof-rack crossbar and carry a mount. The bar profile is channelled into the underside so the saddle straddles the bar; a clamp plate pinches it from below via side bolts, and a T-slot platform on top takes an accessory. Built for the three profile families — square, round and aero — using Thule / Yakima crossbar dimensions.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Edge Guard",
     "slug": "edge-guard",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Child-safety corner and edge guards that clip onto the edge of a table, counter, or shelf to cushion sharp corners and edges. Each guard is a C-clip that grips the edge thickness with a rounded outer cushion. Sized by the edge thickness so it snaps onto whatever furniture is in the home. Choose an L-shaped corner cap, a straight edge strip, or a stick-on cushion bumper.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Frog Closure 盤扣",
     "slug": "frog-closure",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The Chinese knotted frog (盤扣 pánkòu) — a knot-button on one side of a closure and a loop on the other, each carried on a sewn tail. The fastener of the changpao, the qipao, the magua and the tangzhuang, and the hard good the Fashion Cabinet `changpao` notion (FC-300 rank 299) bridges to here for its geometry. In cloth it is a single bias strip hand-knotted into a ball at one end and bent into a loop at the other; printed rigid it becomes a two-part finding sized by `span` — knot centre to loop centre — the same quantity a robe's finished frog measures, so the garment drives the solid. Fashion Cabinet owns where the frogs sit along the measured 大襟 dajin curve, spaced by arc length; this cartridge owns the knot, the loop and their sew tails.\n\nOfficial Visualizer and Configurator: Yantra4D",

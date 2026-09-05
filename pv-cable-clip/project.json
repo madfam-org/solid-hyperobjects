@@ -3,6 +3,10 @@
     "name": "PV Cable Clip",
     "slug": "pv-cable-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Cable management for photovoltaic strings. The channel bore lands on the real PV lead outside diameter series (4-6 mm2 double-insulated solar cable, ~5-7 mm), the same lead the published mc4-holder strain block expects, and the jaw lands on real anodised module-frame lip thicknesses. Dress leads along a panel edge, saddle a bundle to a rail, or pair the + and - leads of a string so they run together. Includes a frame-lip C-jaw, a screw-mount rail saddle and a twin figure-of-eight bundler.\n\nOfficial Visualizer and Configurator: Yantra4D",

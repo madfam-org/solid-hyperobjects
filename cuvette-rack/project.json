@@ -3,6 +3,10 @@
     "name": "Cuvette & Vial Rack",
     "slug": "cuvette-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A benchtop rack that holds spectrophotometer cuvettes (the standard 10 mm square footprint) and round sample vials in a configurable grid of pockets. Choose a cuvette rack, a vial rack, or a combo block with both.\n\nOfficial Visualizer and Configurator: Yantra4D",

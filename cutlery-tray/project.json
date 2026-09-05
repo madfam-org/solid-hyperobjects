@@ -3,6 +3,10 @@
     "name": "Cutlery Drawer Tray",
     "slug": "cutlery-tray",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A drawer-filling cutlery tray sized by interior dimensions with a configurable compartment grid. Straight compartments, raked compartments so cutlery lies angled, or a modular segment that tiles to fill any drawer width.\n\nOfficial Visualizer and Configurator: Yantra4D",

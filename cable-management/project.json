@@ -3,6 +3,10 @@
     "name": "Cable Comb / Clip / Raceway",
     "slug": "cable-management",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Desk and wall cable management in three parts that share one internal cable-channel profile. Build a snap-on C-clip (screw, adhesive, or t-slot mount), a comb that separates a ribbon of cables into parallel lanes, or a U-channel raceway duct with an optional snap-on lid.\n\nOfficial Visualizer and Configurator: Yantra4D",

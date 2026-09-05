@@ -3,6 +3,10 @@
     "name": "Jewelry Blanks",
     "slug": "jewelry-blank",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Parametric ring and bracelet blanks sized by standard ring size. A plain band, a signet blank with a flat top face for engraving or setting, and an open bangle bracelet. Ring inner diameter is derived from US ring size.\n\nOfficial Visualizer and Configurator: Yantra4D",

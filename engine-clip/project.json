@@ -3,6 +3,10 @@
     "name": "Engine Bay / Hose Clip",
     "slug": "engine-clip",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Under-hood routing that tidies vacuum hoses, fuel lines and wire looms so they don't chafe, rattle or melt on hot parts. Snap a hose three ways: a screw-down clip, a push-on sheet-metal edge clip, and a routing comb for a loom bundle. Sized to real split-loom and hose outer diameters (1/4\"-3/4\", ~10-25 mm).\n\nOfficial Visualizer and Configurator: Yantra4D",

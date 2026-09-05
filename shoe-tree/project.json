@@ -3,6 +3,10 @@
     "name": "Shoe Tree",
     "slug": "shoe-tree",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A one-piece compliant shoe tree — a toe form that fills the vamp, a flat-spring shank that stores the preload, and a heel pad that presses back into the counter. A commercial cedar tree is a two-piece block on a sprung spindle and cannot print as one solid, so here the spring IS the shank: a wide thin ribbon of material. Sized directly from the shoe's inside length and ball width, including the sizes cedar trees are never stocked in.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "Soft Pneumatic Finger",
     "slug": "soft-finger",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A single-body pneumatic bending finger for soft robotics: a ribbed accordion bellows on the extension side, a flat strain-limiting base, and an internal air chamber that opens to the proximal face at a barbed port sized for 4 mm ID / 6 mm OD pneumatic tubing. Choose the full bellows finger, a press-fit grip tip, or just the base air-port flange. Print rigid as a casting/mold master, or in TPU for a flexible actuator.\n\nOfficial Visualizer and Configurator: Yantra4D",

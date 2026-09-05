@@ -3,6 +3,10 @@
     "name": "Solar Panel Mount",
     "slug": "solar-mount",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Brackets and tilt legs for framed solar panels on a boat, RV, van, or ground setup. A corner bracket clamps the panel's aluminium edge frame and bolts down, a tilt leg props the panel at a chosen angle, and a low-profile Z-bracket fixes it flat to a roof. Sized by the panel edge (frame) thickness to fit common 25–40 mm frames.\n\nOfficial Visualizer and Configurator: Yantra4D",

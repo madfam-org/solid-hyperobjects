@@ -3,6 +3,10 @@
     "name": "Walker Glide Cup",
     "slug": "walker-glide-cup",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The front feet of a walker do NOT grip — they slide. A glide cup presses onto the front leg tube and presents a broad, smooth, low-friction dome that skates over vinyl, tile, and low-pile carpet instead of catching on it. It is a different part from mobility-tip, which is deliberately a GRIP tip for the rear legs; the two share the leg-tube socket series and nothing else. The WEAR FACE is the point: it is the surface that abrades away, so its thickness is a published parameter, not a hidden constant.\n\nOfficial Visualizer and Configurator: Yantra4D",

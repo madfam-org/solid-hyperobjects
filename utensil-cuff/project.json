@@ -3,6 +3,10 @@
     "name": "Grip-Aid Utensil Cuff",
     "slug": "utensil-cuff",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "description": {
       "en": "A universal cuff that holds a fork, spoon, pen or toothbrush against the palm for a user with limited hand grip. Ships as a palm-band cuff with a utensil socket, a strap version that cinches to any hand with hook-and-loop webbing, and a built-up wide grip that slides onto a thin handle to enlarge it. Sized to common cutlery/pen handles. An adaptive daily-living aid — fit is user-specific; an occupational therapist can help size it.\n\nOfficial Visualizer and Configurator: Yantra4D",
       "es": "Un puño universal que sostiene un tenedor, cuchara, bolígrafo o cepillo de dientes contra la palma para un usuario con agarre limitado. Incluye un puño de banda palmar con socket para utensilio, una versión con correa que se ajusta a cualquier mano con cinta de gancho y bucle, y un mango grueso que se desliza sobre un mango delgado para engrosarlo. Dimensionado a mangos comunes de cubiertos/bolígrafo. Una ayuda adaptativa de vida diaria — el ajuste es específico del usuario; un terapeuta ocupacional puede ayudar a dimensionarlo.\n\nVisualizador y configurador oficial: Yantra4D"

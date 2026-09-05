@@ -3,6 +3,10 @@
     "name": "Sew-Through Button",
     "slug": "sew-through-button",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The flat 2- or 4-hole button that closes shirts, blouses, trousers and coats — the rigid hard good the Fashion Cabinet `sew-through-button` notion places and bridges to here for its geometry. Sized in ligne, the button trade's unit (1 L = 0.635 mm), so `diameter_mm = button_ligne × 0.635`: the same ligne that lays out a Fashion Cabinet placket makes the matching button here. Print one button, or a whole card of them in a single run.\n\nOfficial Visualizer and Configurator: Yantra4D",

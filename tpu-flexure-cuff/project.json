@@ -3,6 +3,10 @@
     "name": "TPU Flexure Cuff",
     "slug": "tpu-flexure-cuff",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A print-in-place flexible cuff band — the additive-manufacturing trim the Fashion Cabinet `printed-flexure-cuff` notion describes and bridges to here for its geometry. A cylindrical band, printed thin in TPU and perforated by a staggered lattice of through-slots (a rolled-up living hinge), flexes open to pass over the hand and springs back to grip the wrist: a sleeve or hem finish with no separate elastic. Sized by cuff circumference so a garment's finished opening drives the band. One material identity — Bambu TPU 95A — spans the FC notion and this solid.\n\nOfficial Visualizer and Configurator: Yantra4D",

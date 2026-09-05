@@ -3,6 +3,10 @@
         "name": "Parametric Locking Mechanism",
         "slug": "locking-mechanism-hyperobject",
         "version": "1.0.0",
+        "attribution": {
+            "author": "Innovaciones MADFAM",
+            "license": "CERN-OHL-W-2.0"
+        },
         "description": {
             "en": "Parametric locking mechanisms for 3D-printed enclosures \u2014 snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
             "es": "Mecanismos de bloqueo param\u00e9tricos para carcasas impresas en 3D \u2014 pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"

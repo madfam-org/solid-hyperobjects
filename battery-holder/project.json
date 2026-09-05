@@ -3,6 +3,10 @@
     "name": "Battery Cell Holder",
     "slug": "battery-holder",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Cell holders that keep a set of cells captive in a printed carrier for a battery pack, with open contact slots at each end so bus strips or spring contacts reach the terminals. Pick the cell (18650, 21700, AA, AAA) and the bores land on the real cell diameter, spaced on a pitch that leaves a printable wall between cells. Row holder, thin indexing spacer grid, and a two-row series-pack holder.\n\nOfficial Visualizer and Configurator: Yantra4D",

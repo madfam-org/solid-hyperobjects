@@ -3,6 +3,10 @@
     "name": "Centrifuge Tube Adapter",
     "slug": "centrifuge-adapter",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Step-down sleeves that let a centrifuge rotor bored for one tube size carry a smaller tube. The outer diameter matches the rotor bore; the inner bore matches the tube (Falcon 15 mL ≈ 17 mm, 50 mL ≈ 29 mm) with a conical seat so the tapered bottom is fully supported for balanced spinning. Printable lab aid, not a certified medical device.\n\nOfficial Visualizer and Configurator: Yantra4D",

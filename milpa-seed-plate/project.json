@@ -3,6 +3,10 @@
     "name": "Milpa Seed Spacing Plate",
     "slug": "milpa-seed-plate",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "A hand-held spacing jig for laying out a milpa — the maize-bean-squash polyculture planted across Mesoamerica for millennia. You lay the plate on prepared ground, drop seed through the holes, and lift; what it guarantees is the one thing hand-sowing loses, a repeatable and stated spacing. Two independent pitches are declared: row spacing across the plate and hill spacing along a row. Maize is wind-pollinated and must be sown in a block rather than a line, so the hole grid is deliberately squarish. Ships with a dibber depth-stop collar and a row marker that carries the pitch to the next pass.\n\nOfficial Visualizer and Configurator: Yantra4D",

@@ -3,6 +3,10 @@
     "name": "VESA Arm Extender",
     "slug": "vesa-arm-extender",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Extends or offsets a VESA display mount for extra reach, wall clearance, or to bridge two pattern sizes. Every part carries a real VESA MIS-D bolt square (75×75 or 100×100, M4) on both a mount-side face and a display-side face, so it drops transparently into a VESA screw chain. Spacer mode is a straight standoff; Offset Arm is an L/Z crank that brings the pattern out and over an obstruction; Combo Adapter offsets while converting 75 ↔ 100. Optional cable-management slot.\n\nOfficial Visualizer and Configurator: Yantra4D",

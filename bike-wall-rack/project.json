@@ -3,6 +3,10 @@
     "name": "Bike Wall Rack",
     "slug": "bike-wall-rack",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "Wall-mounted bicycle storage. A load-rated wall plate screws to the studs; an arm projects from it to carry the bike horizontally (by the top tube), vertically (by a wheel), or as a pedal shelf. The tube/wheel contact is a half-round cradle pocket so the frame or rim rests without point loads. The wall plate carries a stud-spaced screw pattern (single stud, or 16 in / 24 in spacing) so the load goes into framing, not drywall.\n\nOfficial Visualizer and Configurator: Yantra4D",

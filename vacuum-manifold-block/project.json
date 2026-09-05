@@ -3,6 +3,10 @@
     "name": "Vacuum Manifold Block",
     "slug": "vacuum-manifold-block",
     "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
     "engine": "cadquery",
     "description": {
       "en": "The middle of the soft-pneumatic chain: source to manifold to actuator. A solid prism drilled with one plenum running its length, an inlet at one end, and N outlet ports on a fixed pitch. Every port speaks the shared barb series from pneumatic-barb-port, so a manifold generated at one tube ID mates every cartridge in the family generated at the same tube ID. Feed it vacuum and it drives an array of suction-cup-bellows; feed it pressure and it drives bellows-actuator or pneu-net-finger.\n\nOfficial Visualizer and Configurator: Yantra4D",
