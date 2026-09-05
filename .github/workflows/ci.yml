@@ -83,10 +83,19 @@ jobs:
           head="${{ github.event.pull_request.head.sha }}"
           # Top-level directory of every changed path that is a cartridge.
           git cat-file -e "$base^{commit}" || { echo "::error title=base unreachable::PR base $base is not in this checkout (fetch-depth); the render lane cannot diff"; exit 1; }
+          # Diff from the fork point, not the base branch tip: a PR opened before
+          # main moved must not re-render the cartridges main changed meanwhile.
+          base=$(git merge-base "$base" "$head")
           slugs=$(git diff --name-only "$base" "$head" \
             | awk -F/ 'NF>1 {print $1}' \
             | sort -u \
             | while read -r d; do if [ -f "$d/project.json" ]; then echo "$d"; fi; done) || true
+          # Manifest-metadata-only changes (attribution, prose, tags, lineage) have
+          # no geometry to re-render. render_scope.py drops those and keeps every
+          # other kind of change — parameters, parts, presets, engine,
+          # verification, any non-manifest file. Without it a commons-wide
+          # attribution sweep asks this 60-minute lane to render all 495.
+          slugs=$(python3 .github/scripts/render_scope.py "$base" "$head" $slugs)
           echo "slugs<<EOF" >> "$GITHUB_OUTPUT"
           echo "$slugs" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
