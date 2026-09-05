@@ -5,28 +5,28 @@ Maze Generator
 Copyright (c) 2026 madfam-org
 Licensed under CERN-OHL-W-2.0 (see LICENSE).
 
-This project uses the following third-party library:
+This project has NO third-party dependencies.
 
-dotSCAD
-  Source:    https://github.com/JustinSDK/dotSCAD
-  Author:    Justin Lin (@JustinSDK)
-  License:   GNU Lesser General Public License v3.0 (LGPL-3.0)
-  Usage:     `use <maze/mz_square.scad>`, `use <maze/mz_squarewalls.scad>`,
-             and `use <line2d.scad>` in maze_coaster.scad, maze_cube.scad,
-             and maze_cylinder.scad.
-  Form:      Not vendored. dotSCAD is resolved at render time from the
-             OpenSCAD library path (OPENSCADPATH); no dotSCAD source code
-             is distributed in this repository.
-  Pin:       libs/dotSCAD, a git submodule of this repository, pinned at
-             commit bb33edfd75cba0edbb7971606a077b9c69d0b7d2
-             (.gitmodules -> https://github.com/JustinSDK/dotSCAD.git). That
-             gitlink is the exact library revision this cartridge is built
-             against.
-  Standing:  dotSCAD is the OpenSCAD ENGINE behind this cartridge's .scad
-             modes: it supplies the geometry-generating modules named above.
-             The cartridge code — the wrappers, the parameters, the modes and
-             every dimension they set — is MADFAM's own authoring. A library
-             dependency is not an origin licence (ADR-021 section 1), and
-             LGPL-3.0 permits this use by a differently-licensed work that
-             links to it without copying it. Ruled acceptable 2026-09-05
-             (operator checklist, item G21).
+  Standing:  The maze geometry on BOTH engines comes from a shared
+             deterministic kernel that is MADFAM's own authoring:
+             `maze_kernel.scad` on the OpenSCAD side and its verbatim Python
+             twin inlined in maze_coaster.py, maze_cube.py and
+             maze_cylinder.py. It is a 32-bit linear congruential generator
+             (Numerical Recipes constants — a published parameter triple, not
+             copyrightable expression) driving an iterative recursive
+             backtracker. Both halves walk cells and neighbours in the same
+             fixed order and draw the PRNG at the same points, so the two
+             engines carve the same maze for the same `seed`.
+
+  History:   Revisions of the .scad sources before 2026-09-05 called dotSCAD's
+             `mz_square`, `mz_squarewalls` and `line2d`
+             (https://github.com/JustinSDK/dotSCAD, Justin Lin (@JustinSDK),
+             LGPL-3.0), resolved at render time from OPENSCADPATH and never
+             vendored here. Those calls have been REMOVED: dotSCAD's maze
+             generator draws from its own RNG, which the CadQuery side has no
+             way to reproduce, so the two engines rendered different mazes
+             from identical parameters. The shared kernel above replaces it.
+             No dotSCAD source code was, or is, distributed in this
+             repository, and none of it was copied into the kernel.
+             Ruled acceptable 2026-09-05 (operator checklist, item G21); the
+             dependency it ruled on no longer exists as of item G27.

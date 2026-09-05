@@ -1,5 +1,17 @@
 // Yantra4D wrapper — Maze Cylinder
-// Maze wrapped onto a cylindrical surface
+// Maze wrapped onto a cylindrical shell.
+//
+// The maze comes from maze_kernel.scad, the shared deterministic kernel whose
+// Python half is inlined in maze_cylinder.py: same 32-bit LCG, same
+// backtracker, same cell and neighbour order, so this file and
+// maze_cylinder.py render the SAME maze for the same seed. The field wraps in
+// x, so it closes on itself and carries no east or west rim.
+//
+// Wall placement mirrors the CadQuery side exactly: one box per segment,
+// rotated into the segment's direction on the unrolled surface, stood off at
+// radius - wall_height/2 and swung round to the segment's mid-angle. The
+// previous hull()-of-two-plates construction was a different solid and was
+// half the reason the two engines disagreed.
 
 rows = 10;
 cols = 10;
@@ -11,44 +23,46 @@ seed = 123;
 diameter = 100;
 render_mode = 0;
 
-use <maze/mz_square.scad>
-use <maze/mz_squarewalls.scad>
-use <line2d.scad>
+use <maze_kernel.scad>
+
+// Match the CadQuery side's circular shell — see maze_coaster.scad for why the
+// OpenSCAD default (30 facets) is not enough.
+$fn = 180;
 
 radius = diameter / 2;
 maze_h = rows * cell_size;
-
-// Generate wrapping maze (x_wrapping connects left-right edges)
-cells = mz_square(rows, cols, seed = seed, x_wrapping = true);
-walls = mz_squarewalls(cells, cell_size);
-
 maze_w = cols * cell_size;
-circumference = PI * diameter;
+
+grid = mz_grid(rows, cols, seed, true);
+walls = mz_walls(grid, rows, cols, cell_size, true);
+
 angle_per_unit = 360 / maze_w;
 
-// Cylinder base shell
-difference() {
-    cylinder(h = maze_h + base_thickness, r = radius);
-    translate([0, 0, base_thickness])
-        cylinder(h = maze_h + 1, r = radius - base_thickness);
-}
+union() {
+    // Cylinder base shell
+    difference() {
+        cylinder(h = maze_h + base_thickness, r = radius);
+        translate([0, 0, base_thickness])
+            cylinder(h = maze_h + 1, r = radius - base_thickness);
+    }
 
-// Maze walls on outer surface — approximate by placing wall segments
-translate([0, 0, base_thickness])
-    for (wall = walls) {
-        p1 = wall[0];
-        p2 = wall[1];
-        a1 = p1.x * angle_per_unit;
-        a2 = p2.x * angle_per_unit;
-        z1 = p1.y;
-        z2 = p2.y;
-
-        hull() {
-            rotate([0, 0, a1])
-                translate([radius - 0.1, 0, z1])
-                    cube([wall_height, wall_thickness, 0.1], center = true);
-            rotate([0, 0, a2])
-                translate([radius - 0.1, 0, z2])
-                    cube([wall_height, wall_thickness, 0.1], center = true);
+    // Maze walls on the outer surface
+    for (w = walls) {
+        a1 = w[0][0] * angle_per_unit;
+        a2 = w[1][0] * angle_per_unit;
+        z1 = w[0][1] + base_thickness;
+        z2 = w[1][1] + base_thickness;
+        mid_a = (a1 + a2) / 2;
+        mid_z = (z1 + z2) / 2;
+        // Arc length of the segment's angular span, at the shell radius.
+        arc = (a2 - a1) * PI * radius / 180;
+        seg_len = norm([arc, z2 - z1]);
+        if (seg_len >= 0.01) {
+            rotate([0, 0, mid_a])
+                translate([radius - wall_height / 2, 0, mid_z])
+                    rotate([0, 0, 90 - atan2(z2 - z1, arc)])
+                        cube([seg_len + 0.2, wall_thickness, wall_height],
+                             center = true);
         }
     }
+}

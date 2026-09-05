@@ -68,7 +68,7 @@
       "tooltip": { "en": "Ring columns across the panel; the width follows", "es": "Columnas de anillos a lo ancho; el ancho sigue" }
     },
     {
-      "id": "ring_id", "type": "slider", "default": 9.0, "min": 4.0, "max": 30.0, "step": 0.5,
+      "id": "ring_id", "type": "slider", "default": 15.0, "min": 4.0, "max": 30.0, "step": 0.5,
       "group": "ring", "modes": ["panel", "swatch", "ring"],
       "label": { "en": "Ring inner diameter (mm)", "es": "Diámetro interior del anillo (mm)" },
       "tooltip": { "en": "Inner diameter of each ring; larger = looser, drapier weave", "es": "Diámetro interior de cada anillo; mayor = tejido más suelto y con más caída" }
@@ -89,21 +89,31 @@
   "presets": [
     {
       "id": "fine_drape", "mode": "panel",
-      "label": { "en": "Fine Drape (9L, 2.4 wire)", "es": "Caída fina (9L, alambre 2.4)" },
-      "values": { "rows": 12, "cols": 10, "ring_id": 9, "wire_d": 2.4 }
+      "label": { "en": "Fine Drape (15 ID, 2.4 wire)", "es": "Caída fina (15 DI, alambre 2.4)" },
+      "values": { "rows": 12, "cols": 10, "ring_id": 15, "wire_d": 2.4 }
     },
     {
       "id": "armor_grade", "mode": "panel",
       "label": { "en": "Armor Grade (thicker wire)", "es": "Grado armadura (alambre grueso)" },
-      "values": { "rows": 10, "cols": 8, "ring_id": 10, "wire_d": 3.4 }
+      "values": { "rows": 10, "cols": 8, "ring_id": 21, "wire_d": 3.4 }
     },
     {
       "id": "print_test", "mode": "swatch",
       "label": { "en": "Print Test Swatch", "es": "Muestra de prueba" },
-      "values": { "ring_id": 9, "wire_d": 2.4, "clearance": 0.45 }
+      "values": { "ring_id": 15, "wire_d": 2.4, "clearance": 0.45 }
     }
   ],
   "constraints": [
+    {
+      "expression": "ring_id >= 6.3879 * wire_d - 4.8324 * clearance + 0.8208",
+      "severity": "error",
+      "message": { "en": "Ring inner diameter is too small for this wire: the four DIAGONAL neighbours would share material and print as one fused solid instead of interlinking. Raise ring_id, or lower wire_d.", "es": "El di\u00e1metro interior del anillo es muy peque\u00f1o para este alambre: los cuatro vecinos DIAGONALES compartir\u00edan material y se imprimir\u00edan como un solo s\u00f3lido fundido en vez de entrelazarse. Aumenta ring_id, o reduce wire_d." }
+    },
+    {
+      "expression": "ring_id >= 3.1667 * wire_d + 5.1667 * clearance + 0.7",
+      "severity": "error",
+      "message": { "en": "Ring inner diameter is too small for this clearance: the rows pack so tightly that rings TWO ROWS apart would collide, which no amount of tilt can separate. Raise ring_id, or lower clearance.", "es": "El di\u00e1metro interior del anillo es muy peque\u00f1o para esta holgura: las filas quedan tan juntas que los anillos separados por DOS FILAS chocar\u00edan, algo que ninguna inclinaci\u00f3n puede separar. Aumenta ring_id, o reduce la holgura." }
+    },
     {
       "expression": "wire_d < ring_id",
       "severity": "error",

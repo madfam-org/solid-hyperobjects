@@ -14,7 +14,17 @@
     },
     "thumbnail": "/projects/tpu-scale-mail.webp",
     "difficulty": "advanced",
-    "tags": ["scale-mail", "scales", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"],
+    "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  },
+  "tags": ["scale-mail", "scales", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"],
     "hyperobject": { "is_hyperobject": true },
     "force_backend": true
   },
