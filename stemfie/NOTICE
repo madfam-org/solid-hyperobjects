@@ -1,0 +1,68 @@
+# NOTICE — `stemfie`
+
+Copyright (C) 2026 Innovaciones MADFAM S.A.S. de C.V.
+SPDX-License-Identifier: CERN-OHL-W-2.0
+
+## Clean-room provenance (ADR-021 §3)
+
+This cartridge was **re-created clean-room** from a recorded final-result
+baseline — measured geometry, a manifest contract and a prose specification —
+**without access to the prior implementation or to its upstream**. The
+implementer did not read the removed cartridge, its git history, its archived
+satellite repository, or the upstream project's source, models or
+documentation.
+
+The prior cartridge under this slug carried a GPL-3.0-or-later origin and was
+removed from the commons under ADR-021, which makes CERN-OHL-W-2.0 the commons
+licence and a one-way door. Nothing from that implementation is reproduced
+here. This is MADFAM's own authoring, in CadQuery, against a published
+dimensional standard.
+
+## What is implemented, and what is not
+
+This cartridge is **compatible with the STEMFIE 10 mm block standard**. It
+implements the *interface* — the functional dimensions another STEMFIE-
+compatible part mates to — and gives everything non-functional a form of our
+own. That split is deliberate: ADR-021 §4 notes that where an upstream licence
+covers a *design*, reproducing the same shape from a "final result" may still
+be derivative. A dimensional standard is not code and not a design; a part
+shape is.
+
+### Interface — matched, because interoperability requires it
+
+| Quantity | Value |
+| :-- | :-- |
+| Block unit (grid pitch) | 10.0 mm |
+| Through-hole diameter | 4.2 mm nominal |
+| Hole pitch | 10.0 mm = 1 block unit, holes at cell centres |
+| Beam cross-section | 10.0 × 10.0 mm per width/height unit |
+| Brace plate thickness | 2.5 mm = ¼ block unit per thickness unit |
+| Brace arm angle | 90° |
+| Fastener shank diameter | 4.0 mm |
+| Fastener collar diameter | 5.7 mm |
+| Shank-to-hole clearance | 0.2 mm diametral |
+
+### Form — ours, and deliberately not the upstream shape
+
+| Feature | This cartridge |
+| :-- | :-- |
+| Beam long edges | 0.8 mm **fillet** (the baseline was chamfered) |
+| Beam hole mouths | left square |
+| Brace outer corners | 2.5 mm radius |
+| Brace re-entrant corner | 2.0 mm fillet (the baseline corner was sharp) |
+| Brace hole mouths | 0.4 mm × 45° chamfer, both faces |
+| Fastener collar | 1.5 mm cylindrical land over a 1.0 mm conical underside taper (the baseline collar was a flat ~2.0 mm ring) |
+| Fastener free end(s) | 0.8 mm lead-in taper down to 3.4 mm |
+
+`docs/CLEANROOM-VERIFICATION.md` records the measured proof of both halves:
+every interface dimension within ±0.05 mm, every form measurement different.
+
+## Lineage
+
+`project.attribution.lineage` names **the STEMFIE 10 mm block standard
+(interoperability only)**. It names no code and no prior implementation,
+because none was consulted.
+
+STEMFIE is a third-party project. MADFAM is not affiliated with it and claims
+no endorsement by it; the reference is a statement of dimensional
+compatibility, in the same sense that a part can be "M4 compatible".
