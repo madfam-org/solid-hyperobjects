@@ -93,8 +93,13 @@ def c_profile():
     ]
     prof = cq.Workplane("XZ").polyline(pts).close()
     body = prof.extrude(clip_width)
-    # Extrude along +Y from the XZ plane; recenter in Y so it is symmetric.
-    return body.translate((0, -clip_width / 2.0, 0))
+    # An XZ workplane extrudes along -Y, so the raw prism spans y in
+    # [-clip_width, 0] -- NOT [0, clip_width] as the old comment assumed.
+    # Shifting by -clip_width/2 therefore parked the whole clip at
+    # [-1.5*clip_width, -0.5*clip_width], leaving the y-centred grip ribs
+    # merely kissing its edge and the y-centred pour nozzle entirely off the
+    # body, as a detached second solid. Recentre in the correct direction.
+    return body.translate((0, clip_width / 2.0, 0))
 
 
 def add_grip_ribs(body):
