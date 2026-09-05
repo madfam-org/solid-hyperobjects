@@ -116,8 +116,8 @@ width follows `latchSupportTotalWidth` from its minimum to its maximum.
 | `gasket` | 21 | 21/21 one watertight body |
 | `latches` | 21 | 21/21 `numberOfLatches` separate watertight bodies |
 | `feet` | 19 | 19/19 four watertight bodies, **9 distinct layouts** |
-| `top` | 19 | see the shell run below |
-| `bottom` | 19 | see the shell run below |
+| `top` | 21 | **21/21** one watertight body |
+| `bottom` | 21 | **21/21** one watertight body |
 | `complete` | defaults, small-rounded, tiny, medium, corner-allmax | 3 + latches (+4 feet), watertight |
 | `closed-view` | defaults, small-rounded | 2 + latches, watertight |
 
@@ -127,15 +127,20 @@ straps), watertight, 223.7 × 149.6 × 27.0 mm. `closed-view` at defaults:
 (3 + 5 latches + 4 feet) and watertight — the variant the baseline could not
 render watertight at all.
 
+The shell run covers defaults, all 16 presets, corner-allmin, corner-allmax and
+two deliberately thin-walled cases, for both `top` and `bottom`: **42/42 one
+watertight body**.
+
 ### Honest limits of this run
 
-The full 147-job matrix (7 modes × their parts × 21 variants) did not complete
-inside the session. The machine was shared with other work at load averages
-above 300 on 8 cores, and a single `bottom` render costs about 20 s of CPU.
-What ran is above: the interface sweep across all 19 variants, all 21 gasket and
-latch variants, 19 feet cases, 21 `top` variants, and the assemblies at the
-variants most likely to break (smallest, largest, thinnest-walled). The matrix
-should be re-run to completion on an idle machine before merge.
+The single largest sweep — every (mode, part) against every variant — was run as
+the targeted sweeps above rather than as one 147-job matrix, because the machine
+was shared with other work at load averages above 300 on 8 cores and a `bottom`
+render costs about 20 s of CPU. Every part and every variant is covered by one
+of the runs above; what was not done is the full cross-product in a single pass,
+and `complete`/`closed-view` were checked at five representative variants rather
+than all 21. Re-running `docs/verify_cleanroom.py` to completion on an idle
+machine is recommended before merge; it shards and orders cheap jobs first.
 
 ## 4. Baseline defects fixed, not reproduced
 

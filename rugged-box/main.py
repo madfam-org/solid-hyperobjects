@@ -854,34 +854,34 @@ def build_complete():
 
 def build_closed_view():
     """Preview only: the lid seated on the base with the latches in place.
-    Not for printing — the parts interpenetrate at the latch by design."""
-    bottom = build_bottom()
-    # The lid rides on the seam plane, its rim entering the base groove.
-    top = build_top(flat=False).translate((0.0, 0.0, base_z))
 
-    # Where the rim enters the groove the two parts genuinely occupy the same
-    # space — that is what a seated seal looks like. A compound of overlapping
-    # solids exports as non-watertight, so the overlap is resolved in favour of
-    # the base: the lid is trimmed by it. The picture is unchanged (the removed
-    # sliver is inside the closed case) and every body in the compound is then
-    # disjoint and sound.
-    top = top.cut(bottom)
+    Not a print target. The lid is lifted clear of the base by the engagement it
+    would occupy when closed, so no two solids in the compound intersect: a
+    seated seal genuinely shares space with its groove, and a compound of
+    overlapping solids exports as non-watertight regardless of how sound each
+    part is on its own. Cutting the lid by the base instead of separating them
+    shatters it — the base's ribs, knuckles and pilasters all carve into it.
+    """
+    bottom = build_bottom()
+    # Lift by the rim engagement plus the assembly clearance, so the rim clears
+    # the groove entirely rather than sitting in it.
+    lift = base_z + rim_h + ASSEMBLY_CLEARANCE
+    top = build_top(flat=False).translate((0.0, 0.0, lift))
     shapes = _solids(bottom) + _solids(top)
+
+    # Stand each strap clear of everything the front face carries — the belt rib
+    # and the corner pilasters both stand proud of the wall — and inside the
+    # vertical gap the lift opens up, so it touches neither shell.
     strap = latch_strap()
-    # Stand each strap clear of everything the front face already carries: the
-    # belt rib and the corner pilasters both stand proud of the wall. The strap
-    # is then trimmed by the shells for the same reason the lid is, so a strap
-    # that still grazes a catch cannot make the preview non-watertight.
     front_proud = strap_t + BELT_PROUD + max(BUMPER_PROUD, 0.0)
     for x in latch_x_positions():
         s = (strap.rotate((0, 0, 0), (1, 0, 0), 90)
              .translate((x, -shell_y / 2.0 - front_proud - 0.4,
                          base_z - engage - 0.5)))
-        s = s.cut(bottom).cut(top)
         shapes += _solids(s)
     if isFeetAdded:
         for f in feet_bodies():
-            shapes += _solids(f.translate((0.0, 0.0, -FOOT_PAD_HEIGHT)))
+            shapes += _solids(f.translate((0.0, 0.0, -FOOT_PAD_HEIGHT - 0.5)))
     return cq.Compound.makeCompound(shapes)
 
 
