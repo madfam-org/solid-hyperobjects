@@ -6,12 +6,15 @@ Prints the slugs that still need a render, one per line (or, with --chunks N, a
 JSON list of space-joined groups of at most N slugs for a CI matrix); names the
 skipped ones on stderr.
 
-A cartridge is metadata-only when (a) the only file that changed under it is
-project.json and (b) every changed leaf sits under an allow-listed key that has
-no bearing on geometry: attribution, prose, tags, lineage. Anything else —
-parameters, parts, modes, presets, engine, verification, or any file beyond the
-manifest — keeps the cartridge in scope. A manifest that fails to parse on either
-side keeps the cartridge in scope too: the lane fails closed, never open.
+A cartridge needs no render when every changed file under it is either
+(a) a non-geometry file — NOTICE, LICENSE*, README*, any *.md, anything under
+docs/, images (png/jpg/jpeg/gif/svg/webp) — or (b) project.json with every
+changed leaf under an allow-listed key that has no bearing on geometry:
+attribution, prose, tags, lineage. Anything else — .scad/.py/.cq source,
+fonts/ (they change what .text() renders), parameters, parts, modes, presets,
+engine, verification, or any unknown file — keeps the cartridge in scope. A
+manifest that fails to parse on either side keeps the cartridge in scope too:
+the lane fails closed, never open.
 """
 
 import json
@@ -31,7 +34,26 @@ ALLOW = (
     "project.version",
 )
 
+# Files whose change can never move geometry. fonts/ is deliberately absent:
+# a bundled font changes what Workplane.text() renders.
+NON_GEOMETRY_NAMES = {"NOTICE", "LICENSE", "LICENCE", "COPYING", "README"}
+NON_GEOMETRY_SUFFIXES = {".md", ".txt", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".pdf"}
+NON_GEOMETRY_DIRS = {"docs"}
+
 _MISSING = object()
+
+
+def is_non_geometry_file(path):
+    """True for a cartridge-relative path (below the slug) that cannot affect a render."""
+    parts = path.split("/")
+    if parts[0] in NON_GEOMETRY_DIRS:
+        return True
+    name = parts[-1]
+    stem = name.split(".")[0].upper()
+    if stem in NON_GEOMETRY_NAMES:
+        return True
+    dot = name.rfind(".")
+    return dot > 0 and name[dot:].lower() in NON_GEOMETRY_SUFFIXES
 
 
 def _leaves(obj, prefix=""):
@@ -66,8 +88,14 @@ def _allowed(path):
 
 def needs_render(base, head, slug):
     files = _git("diff", "--name-only", base, head, "--", f"{slug}/").split()
-    if files != [f"{slug}/project.json"]:
+    if not files:
+        return True  # nothing diffed under the slug: not our call to skip
+    rel = [f[len(slug) + 1 :] for f in files]
+    others = [r for r in rel if r != "project.json"]
+    if any(not is_non_geometry_file(r) for r in others):
         return True
+    if "project.json" not in rel:
+        return False  # only NOTICE / docs / images moved
     before, after = _manifest_at(base, slug), _manifest_at(head, slug)
     if before is None or after is None:
         return True
