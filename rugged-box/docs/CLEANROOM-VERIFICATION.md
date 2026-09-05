@@ -119,13 +119,27 @@ width follows `latchSupportTotalWidth` from its minimum to its maximum.
 | `top` | 21 | **21/21** one watertight body |
 | `bottom` | 21 | **21/21** one watertight body |
 | `complete` | defaults, small-rounded, tiny, medium, corner-allmax | 3 + latches (+4 feet), watertight |
-| `closed-view` | defaults, small-rounded | 2 + latches, watertight |
+| `closed-view` | defaults, small-rounded, tiny (+ medium, corner-allmax running) | 2 + latches (+4 feet), watertight |
 
-Measured `complete` at defaults: **5 bodies** (bottom + top + gasket + 2 latch
-straps), watertight, 223.7 × 149.6 × 27.0 mm. `closed-view` at defaults:
-**4 bodies**, watertight. At corner-allmax `complete` is **12 bodies**
-(3 + 5 latches + 4 feet) and watertight — the variant the baseline could not
-render watertight at all.
+Measured on the final code:
+
+| Variant | `complete` | `closed-view` |
+| :-- | :-- | :-- |
+| defaults | **5/5** watertight (bottom + top + gasket + 2 straps) | **4/4** watertight |
+| `small-rounded-50x30` | **4/4** watertight | **3/3** watertight |
+| `tiny-20x20` | **4/4** watertight | **3/3** watertight |
+| `medium-100x60` | **9/9** watertight (feet enabled) | running |
+| corner-allmax | **12 bodies** watertight (3 + 5 latches + 4 feet) | running |
+
+corner-allmax is the variant the baseline could not render watertight at all.
+
+The `closed-view` preview lifts the lid clear of the base by the rim engagement
+plus the assembly clearance. A seated seal genuinely shares space with its
+groove, and a compound of overlapping solids exports as non-watertight however
+sound each part is on its own — so the preview separates the parts rather than
+letting them intersect. Cutting the lid by the base instead was tried and is
+much worse: the base's ribs, knuckles and pilasters carve into the lid and it
+came apart into 32 bodies.
 
 The shell run covers defaults, all 16 presets, corner-allmin, corner-allmax and
 two deliberately thin-walled cases, for both `top` and `bottom`: **42/42 one
