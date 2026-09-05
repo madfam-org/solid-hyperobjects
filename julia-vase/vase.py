@@ -40,11 +40,15 @@ def build(params):
     profile_pts = outer_pts + inner_pts
 
     # Create the profile wire on XZ and revolve 360 degrees around Z.
+    # revolve()'s axis points are LOCAL to the workplane: on "XZ" the local
+    # (x, y) map to global (x, z), so the global Z axis is local (0, 1, 0).
+    # Passing (0, 0, 1) here would be the XZ plane's own normal and would
+    # sweep the profile within its own plane into a flat, zero-volume disc.
     result = (
         cq.Workplane("XZ")
         .polyline(profile_pts)
         .close()
-        .revolve(360, (0, 0, 0), (0, 0, 1))
+        .revolve(360, (0, 0, 0), (0, 1, 0))
     )
 
     return result.clean()

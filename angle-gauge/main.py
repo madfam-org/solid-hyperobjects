@@ -130,6 +130,17 @@ def build_protractor_gauge():
         .extrude(width)
         .translate((0, width / 2.0, 0))
     )
+    # Soften the quarter-disc's corner edges on the CLEAN blank, BEFORE the
+    # grooves are cut. Running this blanket "|Y" fillet after the cuts (as this
+    # did) hands OCCT the groove cut-edges too; at angles="fine" the rays are
+    # 5/10/15/20 deg apart and their cut-edges converge on the shared vertex, so
+    # the fillet chains across them and returns a NON-MANIFOLD shape. It returns
+    # a bad shape rather than raising, so the try/except never caught it (the
+    # bevel_protractor preset rendered 2723 faces, not watertight).
+    try:
+        quarter = quarter.edges("|Y").fillet(0.8)
+    except Exception:
+        pass
     body = quarter
     # Engrave a shallow groove along each angle's ray from the vertex so the
     # reference edge is unmistakable. Each groove is a thin bar (full width) that
@@ -144,10 +155,6 @@ def build_protractor_gauge():
             .translate((0, width / 2.0 + 1.0, 0))
         )
         body = body.cut(groove)
-    try:
-        body = body.edges("|Y").fillet(0.8)
-    except Exception:
-        pass
     return body
 
 

@@ -103,12 +103,17 @@ def build_skeleton():
             .box(10, phalanx_width - 2, prox_len, centered=(True, True, False))
         )
 
-        # Lightening pocket
+        # Lightening pocket. It has to BREAK OUT of the top of the phalanx.
+        # At prox_len - 12 starting 6 mm up it stopped 6 mm short of the
+        # proximal top face, so the pocket was a fully enclosed cavity -- an
+        # undrainable void, unprintable, and counted as a NEGATIVE body (the
+        # sweep read neg = finger_count on every skeleton render). Run it out
+        # through the top instead.
         pocket = (
             cq.Workplane("XY")
             .transformed(offset=cq.Vector(cx1, cy1, prox_start + 6))
             .transformed(rotate=cq.Vector(0, 0, ang))
-            .box(6, phalanx_width - 10, prox_len - 12, centered=(True, True, False))
+            .box(6, phalanx_width - 10, prox_len - 6 + 1.0, centered=(True, True, False))
         )
         prox = prox.cut(pocket)
 
@@ -133,7 +138,6 @@ def build_flexure():
     prox_start = 22.0
 
     hinge_height = max(4.0, prox_start - 15.0)
-    scoop_r      = max(1.5, (12.0 - max(0.4, flexure_thickness)) / 2.0)
 
     hinges = []
     for i in range(finger_count):
@@ -153,24 +157,41 @@ def build_flexure():
             .box(12, phalanx_width - 2, hinge_height, centered=(True, True, False))
         )
 
-        # Inner scoop cylinder (to thin the hinge to flexure_thickness)
-        inner_x = cx + (6.0 - scoop_r) * ca
-        inner_y = cy + (6.0 - scoop_r) * sa
-        scoop1 = (
-            cq.Workplane("XY")
-            .transformed(offset=cq.Vector(inner_x, inner_y, mid_z))
-            .cylinder(phalanx_width + 4, scoop_r)
-        )
+        # The two V-notch scoops that thin the hinge to flexure_thickness.
+        #
+        # Both the AXIS and the OFFSET were wrong:
+        #
+        #  - Axis: built on a bare Workplane("XY"), .cylinder() runs along Z,
+        #    so the scoops were VERTICAL. A living hinge's notches have to run
+        #    across the finger's width -- which is what the phalanx_width + 4
+        #    length was always asking for. Vertical scoops sliced the 7 mm-tall
+        #    block apart instead of waisting it (block1 - both scoops came out
+        #    as 2 bodies, not watertight).
+        #
+        #  - Offset: the centres were at +/-(6.0 - scoop_r) with
+        #    scoop_r = (12 - thickness)/2, which only leaves `thickness`
+        #    between the scoops if they are tangent lines. As cylinders of
+        #    r = 5.4 against a block half-width of 6.0 they very nearly met and
+        #    ate the hinge. The centres are now the waist half-width plus the
+        #    radius, so the remaining web is exactly flexure_thickness by
+        #    construction, and the radius is bounded by the hinge's own height
+        #    so a scoop can never be taller than the block it notches.
+        _waist = max(0.4, flexure_thickness)
+        _r = min((12.0 - _waist) / 2.0, hinge_height * 0.45)
+        _off = _waist / 2.0 + _r
 
-        outer_x = cx - (6.0 - scoop_r) * ca
-        outer_y = cy - (6.0 - scoop_r) * sa
-        scoop2 = (
-            cq.Workplane("XY")
-            .transformed(offset=cq.Vector(outer_x, outer_y, mid_z))
-            .cylinder(phalanx_width + 4, scoop_r)
-        )
+        scoops = []
+        for _sgn in (1.0, -1.0):
+            scoops.append(
+                cq.Workplane("XY")
+                .transformed(offset=cq.Vector(cx, cy, mid_z))
+                .transformed(rotate=cq.Vector(0, 0, ang))
+                .transformed(offset=cq.Vector(_sgn * _off, 0, 0))
+                .transformed(rotate=cq.Vector(90, 0, 0))
+                .cylinder(phalanx_width + 4, _r)
+            )
 
-        h1 = block1.cut(scoop1).cut(scoop2)
+        h1 = block1.cut(scoops[0]).cut(scoops[1])
 
         # Distal hinge block (proximal → distal)
         cx2 = (base_radius - 3) * ca
