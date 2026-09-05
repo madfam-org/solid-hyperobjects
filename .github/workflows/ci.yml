@@ -177,12 +177,16 @@ jobs:
         env:
           # OpenSCAD cartridges resolve their includes from the pinned libs/ tree
           # and from this repo's own first-party commons-lib/ (ruling G11).
+          # --require-openscad (spec 9c2b341f): the runner image ships OpenSCAD
+          # 2026.02.01 (enclii #513/#514), so a missing binary is a failure, never
+          # a skip — OpenSCAD cartridges are now verified here, not only locally.
           OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           rc=0
           for slug in ${{ matrix.group }}; do
             echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
-            .venv/bin/y4d-spec check "./$slug" --render -v || rc=1
+            .venv/bin/y4d-spec check "./$slug" --render --require-openscad \
+              --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v || rc=1
             echo "::endgroup::"
           done
           exit $rc
@@ -239,4 +243,5 @@ jobs:
         run: |
           dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
           echo "cartridges: $(echo $dirs | wc -w)"
-          .venv/bin/y4d-spec check $dirs --render -v
+          .venv/bin/y4d-spec check $dirs --render --require-openscad \
+            --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v
