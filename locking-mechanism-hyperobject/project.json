@@ -1,0 +1,827 @@
+{
+    "project": {
+        "name": "Parametric Locking Mechanism",
+        "slug": "locking-mechanism-hyperobject",
+        "version": "1.0.0",
+        "description": {
+            "en": "Parametric locking mechanisms for 3D-printed enclosures \u2014 snap-fit latches, over-center linkages, and compliant bistable locks\n\nOfficial Visualizer and Configurator: Yantra4D",
+            "es": "Mecanismos de bloqueo param\u00e9tricos para carcasas impresas en 3D \u2014 pestillos snap-fit, cierres de palanca, y cerraduras biestables flexibles\n\nVisualizador y configurador oficial: Yantra4D"
+        },
+        "thumbnail": "/projects/locking-mechanism-hyperobject.webp",
+        "tags": [
+            "mechanical",
+            "locking",
+            "snap-fit",
+            "security",
+            "hyperobject",
+            "commons"
+        ],
+        "difficulty": "intermediate",
+        "force_backend": true
+    },
+    "modes": [
+        {
+            "id": "snap_latch",
+            "scad_file": "snap_latch.scad",
+            "label": {
+                "en": "Snap-Fit Latch",
+                "es": "Pestillo Snap-Fit"
+            },
+            "parts": [
+                "latch_arm",
+                "striker_plate"
+            ],
+            "part_quantities": {
+                "latch_arm": 1,
+                "striker_plate": 1
+            },
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
+            },
+            "cq_file": "snap_latch.py"
+        },
+        {
+            "id": "over_center",
+            "scad_file": "over_center.scad",
+            "label": {
+                "en": "Over-Center Lock",
+                "es": "Cierre de Palanca"
+            },
+            "parts": [
+                "lever_assembly",
+                "hook_catch"
+            ],
+            "part_quantities": {
+                "lever_assembly": 1,
+                "hook_catch": 1
+            },
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
+            },
+            "cq_file": "over_center.py"
+        },
+        {
+            "id": "compliant_lock",
+            "scad_file": "compliant_lock.scad",
+            "label": {
+                "en": "Compliant Bistable Lock",
+                "es": "Cerradura Biestable Flexible"
+            },
+            "parts": [
+                "housing",
+                "spring_t1",
+                "assembly_compliant"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
+            },
+            "cq_file": "compliant_lock.py"
+        },
+        {
+            "id": "pin_tumbler",
+            "scad_file": "pin_tumbler.scad",
+            "label": {
+                "en": "Pin-Tumbler Core",
+                "es": "N\u00facleo de Pines"
+            },
+            "parts": [
+                "plug",
+                "stator",
+                "keys"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "num_pins"
+                ]
+            },
+            "cq_file": "pin_tumbler.py"
+        },
+        {
+            "id": "topological_interlock",
+            "scad_file": "topological_interlock.scad",
+            "label": {
+                "en": "Topological Interlock",
+                "es": "Entrelazado Topol\u00f3gico"
+            },
+            "parts": [
+                "interlocking_blocks",
+                "peripheral_frame"
+            ],
+            "estimate": {
+                "base_units": 3,
+                "formula": "constant"
+            },
+            "cq_file": "topological_interlock.py"
+        },
+        {
+            "id": "slip_joint",
+            "scad_file": "slip_joint.scad",
+            "label": {
+                "en": "Friction Slip Joint",
+                "es": "Articulaci\u00f3n Deslizante"
+            },
+            "parts": [
+                "housing",
+                "blade",
+                "spring_t2",
+                "assembly_slip"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "grid",
+                "formula_vars": [
+                    "base_length"
+                ]
+            },
+            "cq_file": "slip_joint.py"
+        },
+        {
+            "id": "tolerance_calibration",
+            "scad_file": "tolerance_calibration.scad",
+            "label": {
+                "en": "Tolerance Gauge",
+                "es": "Calibrador de Tolerancia"
+            },
+            "parts": [
+                "gauge",
+                "slider"
+            ],
+            "estimate": {
+                "base_units": 1,
+                "formula": "constant"
+            }
+        }
+    ],
+    "parts": [
+        {
+            "id": "latch_arm",
+            "render_mode": 0,
+            "label": {
+                "en": "Latch Arm",
+                "es": "Brazo del Pestillo"
+            },
+            "default_color": "#3a7d44"
+        },
+        {
+            "id": "striker_plate",
+            "render_mode": 1,
+            "label": {
+                "en": "Striker Plate",
+                "es": "Placa Receptora"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "lever_assembly",
+            "render_mode": 0,
+            "label": {
+                "en": "Lever Assembly",
+                "es": "Conjunto de Palanca"
+            },
+            "default_color": "#c45b28"
+        },
+        {
+            "id": "hook_catch",
+            "render_mode": 1,
+            "label": {
+                "en": "Hook Catch",
+                "es": "Gancho Receptor"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "plug",
+            "render_mode": 0,
+            "label": {
+                "en": "Cylinder Plug",
+                "es": "Cilindro Interno"
+            },
+            "default_color": "#c45b28"
+        },
+        {
+            "id": "stator",
+            "render_mode": 1,
+            "label": {
+                "en": "Lock Stator",
+                "es": "Est\u00e1tor"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "keys",
+            "render_mode": 2,
+            "label": {
+                "en": "Keys & Pins",
+                "es": "Llave y Pines"
+            },
+            "default_color": "#3a7d44"
+        },
+        {
+            "id": "interlocking_blocks",
+            "render_mode": 0,
+            "label": {
+                "en": "Blocks Matrix",
+                "es": "Matriz de Bloques"
+            },
+            "default_color": "#4a6fa5"
+        },
+        {
+            "id": "peripheral_frame",
+            "render_mode": 1,
+            "label": {
+                "en": "Peripheral Frame",
+                "es": "Marco Perif\u00e9rico"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "gauge",
+            "render_mode": 0,
+            "label": {
+                "en": "Comb Frame",
+                "es": "Marco"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "slider",
+            "render_mode": 1,
+            "label": {
+                "en": "Slider Tabs",
+                "es": "Pesta\u00f1as"
+            },
+            "default_color": "#c45b28"
+        },
+        {
+            "id": "housing",
+            "render_mode": 0,
+            "label": {
+                "en": "Rigid Housing",
+                "es": "Carcasa Rígida"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "spring_t1",
+            "render_mode": 1,
+            "label": {
+                "en": "Flexible Arch",
+                "es": "Arco Flexible"
+            },
+            "default_color": "#1f8fff"
+        },
+        {
+            "id": "assembly_compliant",
+            "render_mode": 2,
+            "label": {
+                "en": "Preview Overlay",
+                "es": "Vista del Conjunto"
+            },
+            "default_color": "#2d2d2d"
+        },
+        {
+            "id": "blade",
+            "render_mode": 1,
+            "label": {
+                "en": "Rotating Blade",
+                "es": "Hoja Giratoria"
+            },
+            "default_color": "#aaaaaa"
+        },
+        {
+            "id": "spring_t2",
+            "render_mode": 2,
+            "label": {
+                "en": "Leaf Spring",
+                "es": "Resorte de Hoja"
+            },
+            "default_color": "#1f8fff"
+        },
+        {
+            "id": "assembly_slip",
+            "render_mode": 3,
+            "label": {
+                "en": "Preview Overlay",
+                "es": "Vista del Conjunto"
+            },
+            "default_color": "#2d2d2d"
+        }
+    ],
+    "presets": [
+        {
+            "id": "enclosure_clip",
+            "label": {
+                "en": "Enclosure Clip",
+                "es": "Clip de Carcasa"
+            },
+            "values": {
+                "latch_width": 12,
+                "hook_depth": 1.5,
+                "wall_thickness": 1.5
+            }
+        },
+        {
+            "id": "toolbox_latch",
+            "label": {
+                "en": "Toolbox Latch",
+                "es": "Pestillo de Caja de Herramientas"
+            },
+            "values": {
+                "latch_width": 25,
+                "lever_length": 40,
+                "over_center_offset": 3
+            }
+        },
+        {
+            "id": "battery_cover",
+            "label": {
+                "en": "Battery Cover",
+                "es": "Tapa de Bater\u00eda"
+            },
+            "values": {
+                "latch_width": 8,
+                "hook_depth": 1,
+                "spring_angle": 20
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "id": "latch_width",
+            "type": "slider",
+            "default": 15,
+            "min": 5,
+            "max": 40,
+            "step": 1,
+            "label": {
+                "en": "Latch Width (mm)",
+                "es": "Ancho del Pestillo (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "hook_depth",
+            "type": "slider",
+            "default": 2,
+            "min": 1,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Hook Depth (mm)",
+                "es": "Profundidad del Gancho (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "compliant_lock"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "spring_angle",
+            "type": "slider",
+            "default": 30,
+            "min": 15,
+            "max": 60,
+            "step": 1,
+            "label": {
+                "en": "Spring Angle (deg)",
+                "es": "\u00c1ngulo de Resorte (grados)"
+            },
+            "tooltip": {
+                "en": "Cantilever deflection angle \u2014 higher values increase retention force",
+                "es": "\u00c1ngulo de deflexi\u00f3n del voladizo \u2014 valores m\u00e1s altos aumentan la fuerza de retenci\u00f3n"
+            },
+            "visible_in_modes": [
+                "snap_latch"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "over_center_offset",
+            "type": "slider",
+            "default": 2,
+            "min": 0.5,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Over-Center Offset (mm)",
+                "es": "Desplazamiento Sobre-Centro (mm)"
+            },
+            "tooltip": {
+                "en": "Distance past center-point for locking \u2014 larger values increase holding force",
+                "es": "Distancia m\u00e1s all\u00e1 del punto central para bloqueo \u2014 valores mayores aumentan la fuerza de retenci\u00f3n"
+            },
+            "visible_in_modes": [
+                "over_center"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "clearance",
+            "type": "slider",
+            "default": 0.3,
+            "min": 0.2,
+            "max": 1.0,
+            "step": 0.1,
+            "label": {
+                "en": "Clearance (mm)",
+                "es": "Holgura (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "wall_thickness",
+            "type": "slider",
+            "default": 2,
+            "min": 1,
+            "max": 5,
+            "step": 0.5,
+            "label": {
+                "en": "Wall Thickness (mm)",
+                "es": "Grosor de Pared (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "lever_length",
+            "type": "slider",
+            "default": 30,
+            "min": 15,
+            "max": 60,
+            "step": 1,
+            "label": {
+                "en": "Lever Length (mm)",
+                "es": "Longitud de Palanca (mm)"
+            },
+            "visible_in_modes": [
+                "over_center"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "base_length",
+            "type": "slider",
+            "default": 40,
+            "min": 20,
+            "max": 80,
+            "step": 1,
+            "label": {
+                "en": "Base Length (mm)",
+                "es": "Longitud de Base (mm)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "fn",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 64,
+            "step": 8,
+            "label": {
+                "en": "Quality ($fn)",
+                "es": "Calidad ($fn)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock"
+            ],
+            "group": "quality",
+            "visibility_level": "advanced"
+        },
+        {
+            "id": "material_modulus",
+            "type": "slider",
+            "default": 1.5,
+            "min": 0.05,
+            "max": 10.0,
+            "step": 0.05,
+            "label": {
+                "en": "Flexural Modulus (GPa)",
+                "es": "M\u00f3dulo de Flexi\u00f3n (GPa)"
+            },
+            "tooltip": {
+                "en": "Rigidity of intended polymer (TPU ~0.05, PETG ~2.0, PA-CF ~6.0)",
+                "es": "Rigidez del pol\u00edmero"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "compliant_lock",
+                "slip_joint"
+            ],
+            "group": "material"
+        },
+        {
+            "id": "shrinkage_factor",
+            "type": "slider",
+            "default": 0.0,
+            "min": -5.0,
+            "max": 10.0,
+            "step": 0.1,
+            "label": {
+                "en": "Thermal Shrinkage (%)",
+                "es": "Contracci\u00f3n T\u00e9rmica (%)"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock",
+                "pin_tumbler",
+                "topological_interlock",
+                "slip_joint"
+            ],
+            "group": "material",
+            "visibility_level": "advanced"
+        },
+        {
+            "id": "num_pins",
+            "type": "slider",
+            "default": 5,
+            "min": 2,
+            "max": 8,
+            "step": 1,
+            "label": {
+                "en": "Number of Pins",
+                "es": "N\u00famero de Pines"
+            },
+            "visible_in_modes": [
+                "pin_tumbler"
+            ],
+            "group": "mechanism"
+        },
+        {
+            "id": "matrix_size",
+            "type": "slider",
+            "default": 3,
+            "min": 2,
+            "max": 5,
+            "step": 1,
+            "label": {
+                "en": "Matrix Grid Size",
+                "es": "Tama\u00f1o de Cuadr\u00edcula"
+            },
+            "visible_in_modes": [
+                "topological_interlock"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "cdg_mount_type",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "label": {
+                "en": "CDG Mount Standard",
+                "es": "Est\u00e1ndar de Montaje CDG"
+            },
+            "tooltip": {
+                "en": "0: None, 1: M3 Flanges, 2: Gridfinity",
+                "es": "0: Ninguno, 1: Bridas M3, 2: Gridfinity"
+            },
+            "visible_in_modes": [
+                "snap_latch",
+                "over_center",
+                "compliant_lock",
+                "pin_tumbler",
+                "slip_joint"
+            ],
+            "group": "dimensions"
+        },
+        {
+            "id": "kinematic_value",
+            "type": "slider",
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": {
+                "en": "Actuation Slider",
+                "es": "Deslizador de Actuaci\u00f3n"
+            },
+            "visible_in_modes": [
+                "slip_joint",
+                "over_center",
+                "snap_latch"
+            ],
+            "group": "mechanism"
+        }
+    ],
+    "parameter_groups": [
+        {
+            "id": "dimensions",
+            "label": {
+                "en": "Dimensions",
+                "es": "Dimensiones"
+            }
+        },
+        {
+            "id": "mechanism",
+            "label": {
+                "en": "Mechanism",
+                "es": "Mecanismo"
+            }
+        },
+        {
+            "id": "quality",
+            "label": {
+                "en": "Quality",
+                "es": "Calidad"
+            }
+        },
+        {
+            "id": "material",
+            "label": {
+                "en": "Material Science",
+                "es": "Ciencia de Materiales"
+            }
+        }
+    ],
+    "export_formats": [
+        "stl",
+        "3mf",
+        "off",
+        "step",
+        "glb",
+        "gltf",
+        "obj"
+    ],
+    "estimate_constants": {
+        "base_time": 5,
+        "per_unit": 2,
+        "per_part": 8,
+        "fn_factor": 32,
+        "wasm_multiplier": 3,
+        "warning_threshold_seconds": 60
+    },
+    "hyperobject": {
+        "domain": "hybrid",
+        "cdg_interfaces": [
+            {
+                "id": "iso_m3_standard",
+                "label": {
+                    "en": "ISO Metric M3 Fasteners",
+                    "es": "Fijaciones ISO M\u00e9tricas M3"
+                },
+                "geometry_type": "bolt_pattern",
+                "standard": "ISO 4032",
+                "parameters": [
+                    "cdg_mount_type"
+                ]
+            },
+            {
+                "id": "gridfinity_base",
+                "label": {
+                    "en": "Gridfinity 42mm Base",
+                    "es": "Base Gridfinity 42mm"
+                },
+                "geometry_type": "profile",
+                "standard": "Voidstar Gridfinity",
+                "parameters": [
+                    "cdg_mount_type"
+                ]
+            }
+        ],
+        "material_awareness": {
+            "shrinkage_compensation": true,
+            "tolerance_by_material": true
+        },
+        "societal_benefit": {
+            "en": "Open-source parametric locking mechanisms for enclosures, tools, and devices \u2014 reduces reliance on proprietary fasteners",
+            "es": "Mecanismos de bloqueo param\u00e9tricos de c\u00f3digo abierto para carcasas, herramientas y dispositivos \u2014 reduce la dependencia de sujetadores propietarios"
+        },
+        "commons_license": "CERN-OHL-W-2.0"
+    },
+    "print_estimation": {
+        "enabled": true,
+        "default_material": "petg",
+        "default_infill": 0.2
+    },
+    "materials": [
+        {
+            "id": "pla",
+            "label": {
+                "en": "PLA"
+            },
+            "density_g_cm3": 1.24,
+            "cost_per_kg": 20
+        },
+        {
+            "id": "petg",
+            "label": {
+                "en": "PETG"
+            },
+            "density_g_cm3": 1.27,
+            "cost_per_kg": 25
+        },
+        {
+            "id": "tpu",
+            "label": {
+                "en": "TPU"
+            },
+            "density_g_cm3": 1.21,
+            "cost_per_kg": 35
+        }
+    ],
+    "kinematics": [
+        {
+            "part": "blade",
+            "modes": [
+                "slip_joint"
+            ],
+            "type": "rotation",
+            "axis": [
+                1,
+                0,
+                0
+            ],
+            "origin": [
+                0,
+                30,
+                0
+            ],
+            "range": [
+                0,
+                -75
+            ]
+        },
+        {
+            "part": "lever_assembly",
+            "modes": [
+                "over_center"
+            ],
+            "type": "rotation",
+            "axis": [
+                1,
+                0,
+                0
+            ],
+            "origin": [
+                0,
+                0,
+                0
+            ],
+            "range": [
+                0,
+                60
+            ]
+        },
+        {
+            "part": "latch_arm",
+            "modes": [
+                "snap_latch"
+            ],
+            "type": "rotation",
+            "axis": [
+                0,
+                0,
+                1
+            ],
+            "origin": [
+                0,
+                0,
+                0
+            ],
+            "range": [
+                0,
+                -15
+            ]
+        }
+    ]
+}
