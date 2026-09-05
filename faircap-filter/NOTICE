@@ -1,0 +1,30 @@
+NOTICE — third-party attributions
+=================================
+
+Faircap Water Filter
+Copyright (c) 2026 madfam-org
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+Upstream project:
+
+Faircap
+  Source:    https://faircap.org/
+  Author:    The Faircap project, founded by Mauricio Córdova (Faircap CIC)
+  Notes:     This repository contains an independent parametric
+             re-implementation inspired by the Faircap open-source water
+             filter — an affordable, 3D-printable filter cap for standard
+             PET bottle necks (PCO-1881). The product concept and reference
+             dimensions follow Faircap's published open design; consult
+             faircap.org for the upstream project's licensing terms.
+
+Third-party library:
+
+BOSL2 (The Belfry OpenSCAD Library v2)
+  Source:    https://github.com/BelfrySCAD/BOSL2
+  Author:    Revar Desmera and contributors
+  License:   BSD 2-Clause License
+  Usage:     `include <../../libs/BOSL2/std.scad>` and
+             `include <../../libs/BOSL2/threading.scad>` in faircap.scad.
+  Form:      Not vendored. BOSL2 is resolved at render time from the build
+             environment's library path; no BOSL2 source code is distributed
+             in this repository.
