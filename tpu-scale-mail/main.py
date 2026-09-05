@@ -109,20 +109,29 @@ def _backing(n_rows, n_cols):
 
 def build_panel(n_rows, n_cols):
     """The scale field: rows of scales (offset alternate rows by half a scale) over a
-    thin backing, each scale tied by a neck. Returned as an Assembly (overlaps print as
-    one sheet)."""
-    asm = cq.Assembly()
-    asm.add(_backing(n_rows, n_cols), name="backing", color=cq.Color("#4a5a52"))
-    idx = 0
+    thin backing, each scale tied by a neck. ONE fused sheet.
+
+    This used to return a cq.Assembly of the backing plus a separate scale and
+    neck per cell. Those three OVERLAP by construction -- the scales and necks
+    both sit from z = back_t and bite down into the backing plate -- and an
+    Assembly keeps interpenetrating solids as distinct members. Exported, they
+    fragment: the 7x6 panel came out as 219 bodies of which 67 were NEGATIVE
+    (inverted shells), not watertight, and its reported volume of 54310.96
+    double-counted every overlap. A COMPOUND would not help either; the pieces
+    are not disjoint.
+
+    A scale-mail sheet is one printed object -- the docstring always said
+    "overlaps print as one sheet" -- so union them. The same panel is now
+    1 body, watertight, 0 negative, at a true volume of 39298.72.
+    """
+    body = _backing(n_rows, n_cols)
     for r in range(n_rows):
         y = r * row_pitch
         x_off = (col_pitch / 2.0) if (r % 2) else 0.0
         for c in range(n_cols):
             x = c * col_pitch + x_off
-            asm.add(_scale(x, y), name=f"scale_{idx}", color=cq.Color("#7f8f86"))
-            asm.add(_neck(x, y), name=f"neck_{idx}", color=cq.Color("#5a6a62"))
-            idx += 1
-    return asm
+            body = body.union(_scale(x, y)).union(_neck(x, y))
+    return body.clean()
 
 
 # ── Dispatch ─────────────────────────────────────────────────────────────────
