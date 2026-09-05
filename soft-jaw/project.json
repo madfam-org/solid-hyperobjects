@@ -1,0 +1,781 @@
+{
+  "project": {
+    "name": "Parametric Vise Soft Jaw",
+    "slug": "soft-jaw",
+    "version": "2.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Custom CNC soft jaws for Kurt-style and machine vises — a machinable/printable insert that bolts into the vise on a standard jaw bolt pattern and is pocketed to cradle a specific workpiece. Single jaw, matching pair, or V-groove for round stock.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Mordazas blandas CNC personalizadas para tornillos tipo Kurt y de máquina — un inserto mecanizable/imprimible que se atornilla al tornillo con un patrón de pernos estándar y se cajea para sujetar una pieza específica. Mordaza individual, par a juego o ranura en V para material redondo.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/soft-jaw.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "fixture",
+      "machining",
+      "cnc",
+      "tooling",
+      "vise",
+      "soft-jaw",
+      "workholding",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "jaw",
+      "label": {
+        "en": "Soft Jaw",
+        "es": "Mordaza Blanda"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "jaw"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    },
+    {
+      "id": "jaw_pair",
+      "label": {
+        "en": "Jaw Pair",
+        "es": "Par de Mordazas"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "jaw_pair"
+      ],
+      "estimate": {
+        "base_time": 16,
+        "per_unit": 4,
+        "per_part": 18
+      }
+    },
+    {
+      "id": "vee_jaw",
+      "label": {
+        "en": "V-Groove Jaw",
+        "es": "Mordaza en V"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "vee_jaw"
+      ],
+      "estimate": {
+        "base_time": 12,
+        "per_unit": 3,
+        "per_part": 14
+      }
+    },
+    {
+      "id": "jaw_body",
+      "scad_file": "soft_jaw.scad",
+      "cq_file": "soft_jaw.py",
+      "label": {
+        "en": "Soft Jaw (OpenSCAD)",
+        "es": "Mordaza Blanda (OpenSCAD)"
+      },
+      "parts": [
+        "jaw_body"
+      ],
+      "estimate": {
+        "base_units": 1,
+        "formula": "constant"
+      },
+      "engine": "openscad"
+    }
+  ],
+  "parts": [
+    {
+      "id": "jaw",
+      "label": {
+        "en": "Soft Jaw",
+        "es": "Mordaza Blanda"
+      },
+      "render_mode": 0,
+      "color": "#a8a29e"
+    },
+    {
+      "id": "jaw_pair",
+      "label": {
+        "en": "Jaw Pair",
+        "es": "Par de Mordazas"
+      },
+      "render_mode": 0,
+      "color": "#9c968f"
+    },
+    {
+      "id": "vee_jaw",
+      "label": {
+        "en": "V-Groove Jaw",
+        "es": "Mordaza en V"
+      },
+      "render_mode": 0,
+      "color": "#8d8781"
+    },
+    {
+      "id": "jaw_body",
+      "render_mode": 0,
+      "label": {
+        "en": "Jaw Body",
+        "es": "Cuerpo de Mordaza"
+      },
+      "default_color": "#a8a29e"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "vise",
+      "label": {
+        "en": "Vise Compatibility",
+        "es": "Compatibilidad de Tornillo"
+      }
+    },
+    {
+      "id": "dimensions",
+      "label": {
+        "en": "Dimensions",
+        "es": "Dimensiones"
+      }
+    },
+    {
+      "id": "workpiece",
+      "label": {
+        "en": "Workpiece Pocket",
+        "es": "Cajera de Pieza"
+      }
+    },
+    {
+      "id": "features",
+      "label": {
+        "en": "Face & Features",
+        "es": "Cara y Características"
+      }
+    },
+    {
+      "id": "quality",
+      "label": {
+        "en": "Quality",
+        "es": "Calidad"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "vise_model",
+      "type": "select",
+      "default": 0,
+      "group": "vise",
+      "modes": [
+        "jaw",
+        "jaw_pair",
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "Vise Model",
+        "es": "Modelo de Tornillo"
+      },
+      "tooltip": {
+        "en": "Standard vise the jaw bolts into — sets the mounting bolt pattern",
+        "es": "Tornillo estándar al que se atornilla la mordaza — define el patrón de pernos"
+      },
+      "options": [
+        {
+          "value": 0,
+          "label": {
+            "en": "Kurt DX6 (6\")",
+            "es": "Kurt DX6 (6\")"
+          }
+        },
+        {
+          "value": 1,
+          "label": {
+            "en": "Orange Vise (6\")",
+            "es": "Orange Vise (6\")"
+          }
+        },
+        {
+          "value": 2,
+          "label": {
+            "en": "Tormach (5\")",
+            "es": "Tormach (5\")"
+          }
+        }
+      ]
+    },
+    {
+      "id": "jaw_width",
+      "type": "slider",
+      "default": 6.0,
+      "min": 4.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "dimensions",
+      "modes": [
+        "jaw",
+        "jaw_pair",
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "Jaw Width (inch)",
+        "es": "Ancho de Mordaza (pulg)"
+      },
+      "tooltip": {
+        "en": "Width of the jaw across the vise (X)",
+        "es": "Ancho de la mordaza a lo ancho del tornillo (X)"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "x",
+        "scale_factor": 25.4
+      }
+    },
+    {
+      "id": "jaw_height",
+      "type": "slider",
+      "default": 1.735,
+      "min": 1.0,
+      "max": 3.0,
+      "step": 0.125,
+      "group": "dimensions",
+      "modes": [
+        "jaw",
+        "jaw_pair",
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "Jaw Height (inch)",
+        "es": "Altura de Mordaza (pulg)"
+      },
+      "tooltip": {
+        "en": "Vertical height of the jaw face (Z)",
+        "es": "Altura vertical de la cara de la mordaza (Z)"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 25.4
+      }
+    },
+    {
+      "id": "jaw_thickness",
+      "type": "slider",
+      "default": 0.75,
+      "min": 0.5,
+      "max": 2.0,
+      "step": 0.125,
+      "group": "dimensions",
+      "modes": [
+        "jaw",
+        "jaw_pair",
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "Jaw Thickness (inch)",
+        "es": "Grosor de Mordaza (pulg)"
+      },
+      "tooltip": {
+        "en": "Depth of the jaw from vise to face (Y)",
+        "es": "Profundidad de la mordaza del tornillo a la cara (Y)"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "y",
+        "scale_factor": 25.4
+      }
+    },
+    {
+      "id": "workpiece",
+      "type": "select",
+      "default": "none",
+      "group": "workpiece",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "label": {
+        "en": "Workpiece Pocket",
+        "es": "Cajera de Pieza"
+      },
+      "tooltip": {
+        "en": "Negative pocket cut into the face to cradle the part",
+        "es": "Cajera negativa en la cara para sujetar la pieza"
+      },
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None (blank face)",
+            "es": "Ninguna (cara lisa)"
+          }
+        },
+        {
+          "value": "round",
+          "label": {
+            "en": "Round Stock",
+            "es": "Material Redondo"
+          }
+        },
+        {
+          "value": "rect",
+          "label": {
+            "en": "Rectangular",
+            "es": "Rectangular"
+          }
+        }
+      ]
+    },
+    {
+      "id": "workpiece_dia",
+      "type": "slider",
+      "default": 25.0,
+      "min": 5.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "workpiece",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "label": {
+        "en": "Round Stock Dia (mm)",
+        "es": "Diámetro Redondo (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the round workpiece the pocket cradles",
+        "es": "Diámetro de la pieza redonda que sujeta la cajera"
+      }
+    },
+    {
+      "id": "workpiece_w",
+      "type": "slider",
+      "default": 40.0,
+      "min": 5.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "workpiece",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "label": {
+        "en": "Rect Pocket Width (mm)",
+        "es": "Ancho de Cajera (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the rectangular pocket (X)",
+        "es": "Ancho de la cajera rectangular (X)"
+      }
+    },
+    {
+      "id": "workpiece_h",
+      "type": "slider",
+      "default": 20.0,
+      "min": 3.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "workpiece",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Rect Pocket Height (mm)",
+        "es": "Alto de Cajera (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the rectangular pocket (Z)",
+        "es": "Alto de la cajera rectangular (Z)"
+      }
+    },
+    {
+      "id": "pocket_depth",
+      "type": "slider",
+      "default": 10.0,
+      "min": 2.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "workpiece",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Pocket Depth (mm)",
+        "es": "Profundidad de Cajera (mm)"
+      },
+      "tooltip": {
+        "en": "How deep the pocket cuts into the face (Y)",
+        "es": "Qué tan profundo corta la cajera en la cara (Y)"
+      }
+    },
+    {
+      "id": "face_pattern",
+      "type": "select",
+      "default": "smooth",
+      "group": "features",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "label": {
+        "en": "Face Pattern",
+        "es": "Patrón de Cara"
+      },
+      "tooltip": {
+        "en": "Gripping surface treatment on the jaw face",
+        "es": "Tratamiento de la superficie de agarre en la cara"
+      },
+      "options": [
+        {
+          "value": "smooth",
+          "label": {
+            "en": "Smooth (mar-free)",
+            "es": "Liso (sin marcas)"
+          }
+        },
+        {
+          "value": "serrations",
+          "label": {
+            "en": "Serrations (grip)",
+            "es": "Serraciones (agarre)"
+          }
+        },
+        {
+          "value": "grid",
+          "label": {
+            "en": "Grid (knurled)",
+            "es": "Rejilla (moleteado)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "serration_pitch",
+      "type": "slider",
+      "default": 2.5,
+      "min": 1.5,
+      "max": 5.0,
+      "step": 0.5,
+      "group": "features",
+      "modes": [
+        "jaw",
+        "jaw_pair"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Serration Pitch (mm)",
+        "es": "Paso de Serración (mm)"
+      },
+      "tooltip": {
+        "en": "Spacing between grip grooves",
+        "es": "Separación entre ranuras de agarre"
+      }
+    },
+    {
+      "id": "vee_angle",
+      "type": "slider",
+      "default": 90.0,
+      "min": 30.0,
+      "max": 120.0,
+      "step": 5.0,
+      "group": "features",
+      "modes": [
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "V-Groove Angle (deg)",
+        "es": "Ángulo de Ranura V (grados)"
+      },
+      "tooltip": {
+        "en": "Included angle of the V-groove for round stock",
+        "es": "Ángulo incluido de la ranura en V para material redondo"
+      }
+    },
+    {
+      "id": "magnet_pockets",
+      "type": "checkbox",
+      "default": true,
+      "group": "features",
+      "modes": [
+        "jaw",
+        "jaw_pair",
+        "vee_jaw"
+      ],
+      "label": {
+        "en": "Magnet Pockets",
+        "es": "Bolsillos para Imanes"
+      },
+      "tooltip": {
+        "en": "Pockets for 10x3mm magnets on the back face",
+        "es": "Bolsillos para imanes de 10x3mm en la cara trasera"
+      }
+    },
+    {
+      "id": "pair_gap",
+      "type": "slider",
+      "default": 30.0,
+      "min": 2.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "features",
+      "modes": [
+        "jaw_pair"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Pair Display Gap (mm)",
+        "es": "Separación del Par (mm)"
+      },
+      "tooltip": {
+        "en": "Open gap shown between the two jaws (display only)",
+        "es": "Separación mostrada entre las dos mordazas (solo visual)"
+      }
+    },
+    {
+      "id": "fn",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 64,
+      "step": 8,
+      "label": {
+        "en": "Quality ($fn)",
+        "es": "Calidad ($fn)"
+      },
+      "visible_in_modes": [
+        "jaw_body"
+      ],
+      "group": "quality",
+      "visibility_level": "advanced"
+    }
+  ],
+  "presets": [
+    {
+      "id": "kurt_dx6_smooth",
+      "mode": "jaw",
+      "label": {
+        "en": "Kurt DX6 Smooth (Mar-free)",
+        "es": "Kurt DX6 Liso (Sin marcas)"
+      },
+      "values": {
+        "vise_model": 0,
+        "jaw_width": 6.0,
+        "face_pattern": "smooth",
+        "workpiece": "none",
+        "magnet_pockets": true
+      }
+    },
+    {
+      "id": "kurt_dx6_round_pair",
+      "mode": "jaw_pair",
+      "label": {
+        "en": "Kurt DX6 Round-Stock Pair",
+        "es": "Par Kurt DX6 para Redondo"
+      },
+      "values": {
+        "vise_model": 0,
+        "jaw_width": 6.0,
+        "workpiece": "round",
+        "workpiece_dia": 25,
+        "face_pattern": "serrations"
+      }
+    },
+    {
+      "id": "tormach5_vee",
+      "mode": "vee_jaw",
+      "label": {
+        "en": "Tormach 5\" V-Block",
+        "es": "Bloque en V Tormach 5\""
+      },
+      "values": {
+        "vise_model": 2,
+        "jaw_width": 5.0,
+        "vee_angle": 90,
+        "magnet_pockets": true
+      }
+    },
+    {
+      "id": "kurt_dx6_prismatic_scad",
+      "mode": "jaw_body",
+      "label": {
+        "en": "Kurt DX6 Prismatic (Round Stock)",
+        "es": "Kurt DX6 Prismático (Material Redondo)"
+      },
+      "values": {
+        "vise_model": 0,
+        "face_pattern": 1,
+        "jaw_width": 6
+      }
+    },
+    {
+      "id": "kurt_dx6_smooth_scad",
+      "mode": "jaw_body",
+      "label": {
+        "en": "Kurt DX6 Smooth (Mar-free)",
+        "es": "Kurt DX6 Liso (Sin marcas)"
+      },
+      "values": {
+        "vise_model": 0,
+        "face_pattern": 0,
+        "jaw_width": 6
+      }
+    },
+    {
+      "id": "orange_vise_grid_scad",
+      "mode": "jaw_body",
+      "label": {
+        "en": "Orange Vise 6\" Grid",
+        "es": "Orange Vise 6\" Rejilla"
+      },
+      "values": {
+        "vise_model": 1,
+        "face_pattern": 2,
+        "jaw_width": 6
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "jaw_thickness >= 0.5",
+      "severity": "error",
+      "message": {
+        "en": "Jaw must be at least 0.5 inch thick to carry the bolt counterbores",
+        "es": "La mordaza debe tener al menos 0.5 pulg de grosor para alojar los avellanados"
+      }
+    },
+    {
+      "expression": "pocket_depth < jaw_thickness * 25.4",
+      "severity": "warning",
+      "message": {
+        "en": "Pocket depth is large relative to jaw thickness",
+        "es": "La profundidad de la cajera es grande respecto al grosor de la mordaza"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        180,
+        160,
+        140
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        260
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -260,
+        40
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 3,
+    "per_part": 14,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "vise_jaw_mount",
+        "label": {
+          "en": "Vise Jaw Mount",
+          "es": "Montaje de Mordaza"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "Kurt-style vise bolt pattern",
+        "parameters": [
+          "vise_model",
+          "jaw_width",
+          "jaw_thickness"
+        ]
+      },
+      {
+        "id": "workpiece_pocket",
+        "label": {
+          "en": "Workpiece Pocket",
+          "es": "Cajera de Pieza"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "workpiece",
+          "workpiece_dia",
+          "workpiece_w",
+          "workpiece_h",
+          "pocket_depth"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": true,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Empowers local machine shops to tool up for a new job in minutes — a workpiece-specific soft jaw cut on-demand instead of waiting on custom fixture delivery, and a shared bolt pattern that fits the vises already on the bench.",
+      "es": "Permite a los talleres locales equiparse para un nuevo trabajo en minutos — una mordaza blanda específica para la pieza, fabricada bajo demanda en lugar de esperar la entrega de accesorios personalizados, con un patrón de pernos compartido que encaja en los tornillos que ya están en el banco."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "fixture",
+    "machining",
+    "cnc",
+    "tooling",
+    "vise",
+    "soft-jaw",
+    "workholding",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ]
+}
