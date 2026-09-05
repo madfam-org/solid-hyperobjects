@@ -65,13 +65,28 @@ if (render_mode == 2) {
             // Raw Blade
             cuboid([core_l, key_gap - clearance, plug_d*0.8], anchor=LEFT);
             
-            // Generate exact bitting cuts 
+            // Generate exact bitting cuts.
+            //
+            // `bitting(i)` IS the depth removed from the top of the key -- the
+            // comment below always said so, but the code computed
+            // `plug_d*0.4 - bitting(i)`, i.e. the material LEFT, and then used
+            // it as the cutter's own height. bitting(i) = 2.0 + (i%3)*1.5
+            // reaches 5.0 at i%3 == 2 against plug_d*0.4 = 4.8, so that
+            // expression went NEGATIVE (-0.2) and the cutter became
+            // cyl(h = -0.4). With num_pins = 5 that index is always reached,
+            // so every keys render failed outright:
+            //   "scale(v = [1,1,1], ...) ... pin_tumbler.scad, line 25 ...
+            //    Current top level object is empty."
+            //
+            // Cut DOWN by bitting(i) from the blade top, and clamp so the
+            // deepest bitting still leaves _min_blade of blade behind rather
+            // than parting it (the blade's half-height is only plug_d*0.4).
+            _min_blade = 0.8;
             for (i=[0:num_pins-1]) {
-                // bitting maps to depth removed from top of key
-                cut_depth = plug_d*0.4 - bitting(i); 
+                cut_depth = max(0.2, min(bitting(i), plug_d*0.4 - _min_blade));
                 translate([6 + i*pin_pitch, 0, plug_d*0.4])
                 rotate([0, 90, 0])
-                cyl(d1=pin_d*1.5, d2=0.1, h=cut_depth*2, anchor=BOTTOM);
+                cyl(d1=pin_d*1.5, d2=0.1, h=cut_depth, anchor=TOP);
             }
         }
         
