@@ -1,17 +1,27 @@
 # Chronos-SCARA (scara-robotics)
 
-**Status: research-stage.** This is a parametric research project, not a
-completed Yantra4D Commons pack. Expect gaps: it currently ships a single
-geometry source per backend and a research essay, without the full mode /
-preset / assembly coverage of finished Commons packs.
+**Status: research-stage.** This is a parametric research project. All three
+declared modes now render — every one of the ten declared parts builds its own
+watertight solid on both backends, and the two kernels agree — but the pack
+still ships no presets, no assembly steps and no verification stages, so it is
+not yet a finished Yantra4D Commons pack.
 
 ## What is here
 
-- `robot.scad` — OpenSCAD (BOSL2) study of a strain-wave (harmonic) gear
-  joint: wave generator, flexspline, and circular spline. Note the BOSL2
-  include uses a platform-relative path (`../../libs/BOSL2/std.scad`) and
-  is resolved by the Yantra4D build environment, not by this repo alone.
-- `robot.py` — CadQuery equivalent of the same harmonic-drive geometry.
+- `robot.scad` — OpenSCAD (BOSL2) source for all three modes. The
+  `harmonic_drive` mode is a strain-wave gear study (wave generator,
+  flexspline, circular spline); `kinematic_chain` is the SCARA linkage
+  (shoulder link, elbow link, Z spindle, end-effector mount); `sensorium` is
+  the reference-anchor set (two endstop brackets and a Z-probe mount). Each
+  part has its own `render_mode` branch — see the dispatch table at the top of
+  the file. Note the BOSL2 include uses a platform-relative path
+  (`../../libs/BOSL2/std.scad`) and is resolved by the Yantra4D build
+  environment, not by this repo alone.
+- `robot.py` — CadQuery equivalent of the same ten parts, dispatched on the
+  `target_part` the platform injects. The kinematic and sensorium parts are
+  built primitive-for-primitive against the OpenSCAD side (faceted `.polygon()`
+  discs rather than analytic circles), so the two kernels agree to within
+  4e-6 % of volume and 0 mm of bounding box on all seven.
 - `project.json` — Yantra4D manifest (Chronos-SCARA, CERN-OHL-W-2.0),
   including lineage attribution to PyBot, RepRap Morgan, and MySCARABot.
 - `docs/research/` — design essay: *SCARA Robotics: 4D Hyperobject
@@ -19,9 +29,12 @@ preset / assembly coverage of finished Commons packs.
 
 ## What is not here (yet)
 
-- The full SCARA arm (linkages, Z-axis, actuator mounts) — only the
-  harmonic-drive joint is modeled.
-- Render/validation CI, presets, assembly steps, or verification stages.
+- Presets, assembly steps, or `verification` stages.
+- The linkage and sensorium parts are dimensioned studies driven by the
+  manifest parameters (`link1_length`, `link2_length`, `z_travel`,
+  `rail_width`, `motor_frame_size`, `bore_diameter`), not
+  production-engineered hardware: no fillets, no bearing seats, no fastener
+  torque analysis.
 
 ## License
 
