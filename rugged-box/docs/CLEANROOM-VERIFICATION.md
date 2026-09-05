@@ -128,8 +128,8 @@ Measured on the final code:
 | defaults | **5/5** watertight (bottom + top + gasket + 2 straps) | **4/4** watertight |
 | `small-rounded-50x30` | **4/4** watertight | **3/3** watertight |
 | `tiny-20x20` | **4/4** watertight | **3/3** watertight |
-| `medium-100x60` | **9/9** watertight (feet enabled) | running |
-| corner-allmax | **12 bodies** watertight (3 + 5 latches + 4 feet) | running |
+| `medium-100x60` | **9/9** watertight (feet enabled) | **8/8** watertight |
+| corner-allmax | **12/12** watertight (3 + 5 latches + 4 feet) | running at hand-off |
 
 corner-allmax is the variant the baseline could not render watertight at all.
 
