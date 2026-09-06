@@ -1,0 +1,40 @@
+# Fixture log for the FALSE GREEN of run 34023334942 — NOT a real sweep.
+#
+# On 2026-09-06 the first full chunked sweep concluded SUCCESS with every job
+# green, while its own concatenated log carried 62 FAIL rows. Two independent
+# defects had to line up for that:
+#
+#   1. the group step piped y4d-spec into `tee` under a shell that is
+#      `/usr/bin/bash -e` — no `pipefail` — so the pipeline's status was tee's
+#      (always 0) and `|| status=$?` never fired. Group job 101459896772
+#      printed `FAIL fasteners: parity …` twice and still concluded success.
+#   2. the report job took its verdict from the matrix result alone, computing
+#      the FAIL-row count for DISPLAY only, and called the reporter --green.
+#
+# This fixture reproduces the shape exactly, at fixture scale: TWO groups, the
+# scope fully covered (so the completeness check is satisfied and cannot be the
+# thing that catches it), every group "succeeded" as far as any exit code is
+# concerned — and ONE cartridge with FAIL rows, in the second group, followed
+# by a green cartridge, which is what last-writer-wins would have hidden.
+#
+# A reporter handed this log with --green must REFUSE: report the red, list the
+# rows in the tracking issue, exit 1. That is the whole regression.
+#
+# The parity rows mirror `fasteners`' real ones (run 34023334942, group job
+# 101459896772) so the fixture asserts against the shape the sweep actually
+# emits. The slugs are deliberately fake (`fixture-*`): no cartridge in this
+# repo is named that, so an issue raised from this file cannot be mistaken for
+# a real failure.
+=== nightly group g0 : fixture-alpha fixture-beta ===
+cartridges: 2
+  ok fixture-alpha (./fixture-alpha, 5 render(s) verified (2 preset), no dual-engine pair to compare)
+y4d-spec check: cartridges=1 failures=0 notes=0 geometry=verified renders=5 presets=2 skipped=0 parity=0/0 ok, warn=0, failures=0
+  ok fixture-beta (./fixture-beta, 5 render(s) verified (2 preset))
+y4d-spec check: cartridges=1 failures=0 notes=0 geometry=verified renders=5 presets=2 skipped=0 parity=0/0 ok, warn=0, failures=0
+=== nightly group g1 : fixture-gamma fixture-delta ===
+cartridges: 2
+  FAIL fixture-gamma: parity (bolt, bolt, preset 'm8_button_30_scad'): FAIL — Bounding boxes differ by 0.004228mm and the surfaces diverge too
+  FAIL fixture-gamma: parity (nut, nut): FAIL — Volumes differ by 7.146905mm^3 (4.3991%)
+y4d-spec check: cartridges=1 failures=1 notes=27 geometry=verified renders=18 presets=11 skipped=0 parity=2/5 ok, warn=1, failures=2
+  ok fixture-delta (./fixture-delta, 6 render(s) verified (3 preset))
+y4d-spec check: cartridges=1 failures=0 notes=2 geometry=verified renders=6 presets=3 skipped=0 parity=0/0 ok, warn=0, failures=0

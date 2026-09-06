@@ -31,6 +31,18 @@ on:
           the full 500.
         required: false
         default: ""
+      nightly_only:
+        description: >-
+          Debugging input: restrict the RENDER matrix to these comma- or
+          space-separated cartridge slugs (e.g. "fan-duct,fasteners"). Like
+          nightly_limit it shortens only the matrix, never the scope artifact,
+          so the run is deliberately incomplete and the completeness check must
+          fail the report job. It exists because nightly_limit can only take a
+          PREFIX of the alphabetical scope: proving the verdict fix needed the
+          `fasteners` group, which sits at render index 147 and is unreachable
+          from any small limit. Never use it for a real nightly.
+        required: false
+        default: ""
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -71,6 +83,22 @@ jobs:
             echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — the repo is private and no read token reached this job. Operator step: make madfam-org/hyperobjects-spec public (RFC 0038 §9 keystone posture) or set the repository secret MADFAM_BOT_PAT with read access to it."
             exit 1
           fi
+
+      # The CI scripts' own unit tests. They existed before this step did and
+      # NOTHING ran them: `python3 -m pytest .github/scripts` was a gate lanes
+      # ran by hand and CI never checked, so a regression in the nightly's
+      # verdict logic could land green. That is the same shape as the false
+      # green this workflow was just fixed for — evidence that exists and is
+      # never read — so the tests now run on every PR. They are pure stdlib +
+      # pytest and take seconds; this job already has a venv.
+      - name: Unit tests for the CI scripts
+        run: |
+          .venv/bin/pip install --quiet pytest
+          .venv/bin/python -m pytest .github/scripts -q
+          # The reporter's own selftest is a separate entry point (it asserts
+          # against the committed fixtures) and is likewise part of the bar.
+          python3 .github/scripts/nightly_report.py --selftest \
+            .github/fixtures/nightly-fail-sample.txt
 
       - name: y4d-spec check (every cartridge)
         # NOT `./*/`: that glob also picks up libs/ (a submodule mount point with
@@ -254,7 +282,8 @@ jobs:
         id: scope
         run: |
           groups=$(python3 .github/scripts/nightly_scope.py \
-            --chunks 8 --limit "${LIMIT:-0}" --slug-list nightly-scope.txt)
+            --chunks 8 --limit "${LIMIT:-0}" --only "${ONLY:-}" \
+            --slug-list nightly-scope.txt)
           echo "groups=$groups" >> "$GITHUB_OUTPUT"
           echo "count=$(wc -l < nightly-scope.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
           echo "groups: $groups"
@@ -266,6 +295,8 @@ jobs:
           # the scope too would make the check compare N against N and pass —
           # the same false green this restructure exists to abolish.
           LIMIT: ${{ inputs.nightly_limit }}
+          # Same asymmetry as LIMIT: matrix only, scope untouched.
+          ONLY: ${{ inputs.nightly_only }}
 
       # The scope is an artifact rather than a job output because the report job
       # has to compare against the exact list the matrix was handed — not
@@ -359,6 +390,18 @@ jobs:
           OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
           GROUP: ${{ matrix.group }}
         run: |
+          # set -o pipefail — THE fix for the false green of run 34023334942.
+          # The step's shell is `/usr/bin/bash -e {0}` (read the run log: the
+          # `shell:` line the runner prints). `-e` only; NOT `-o pipefail`, as
+          # the comment here used to claim. Without pipefail a pipeline's exit
+          # status is its LAST command's, so `y4d-spec … | tee -a` always
+          # exited 0 — tee's code — and `|| status=$?` never fired. Group job
+          # 101459896772 printed `FAIL fasteners: parity …` twice and
+          # `failures=1 … failures=2` for the cartridge, and still concluded
+          # SUCCESS. Every one of the 62 FAIL rows that night was swallowed the
+          # same way. `-e` is harmless here because the one command that may
+          # fail is guarded by the `if` below.
+          set -o pipefail
           # A stable, filesystem-safe name for this group's log. The first slug
           # is enough to identify it and keeps the artifact list readable.
           slug_id=$(echo "$GROUP" | awk '{print $1}')
@@ -367,21 +410,41 @@ jobs:
           # AND the slugs it was handed, so a group whose log never arrives is
           # still visible as a hole in the concatenation.
           echo "=== nightly group $slug_id : $GROUP ===" | tee "sweep-$slug_id.txt"
-          status=0
+          # STICKY, and named so it cannot be mistaken for a per-iteration
+          # variable: mirrors the per-PR `render-changed` loop (`rc=0` … `||
+          # rc=1` … `exit $rc`), which is the loop that DID fail its job on a
+          # mid-group failure (PR #38's tripod-hub segfault). A group's verdict
+          # is the OR of its cartridges' verdicts; a later green cartridge
+          # never clears an earlier red one.
+          rc=0
+          failed=""
           for slug in $GROUP; do
             echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
             # tee -a: every cartridge's rows land in this group's file, and the
             # log still streams to the run so a human sees progress.
-            # `status` rather than `set -e`: the upload and the report must run
-            # even when — especially when — a render failed. The default shell
-            # is `bash -e -o pipefail`, so `$?` after the pipe is the SWEEP's
-            # code, not tee's.
-            .venv/bin/y4d-spec check "./$slug" --render --require-openscad --parity \
+            # `rc` rather than bare `set -e`: the upload and the report must
+            # run even when — especially when — a render failed.
+            if .venv/bin/y4d-spec check "./$slug" --render --require-openscad --parity \
               --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v \
-              2>&1 | tee -a "sweep-$slug_id.txt" || status=$?
+              2>&1 | tee -a "sweep-$slug_id.txt"; then
+              :
+            else
+              rc=1
+              failed="$failed $slug"
+            fi
             echo "::endgroup::"
           done
-          exit $status
+          # The one line a human reads to know what this group decided. Printed
+          # on the green path too: "0 failing" is evidence the verdict was
+          # computed, where silence is indistinguishable from a swallowed code.
+          n_failed=$(echo $failed | wc -w | tr -d ' ')
+          if [ "$rc" -ne 0 ]; then
+            echo "GROUP VERDICT: $n_failed failing cartridge(s):$failed"
+            echo "::error title=nightly group $slug_id is red::$n_failed failing cartridge(s):$failed"
+          else
+            echo "GROUP VERDICT: 0 failing cartridge(s)"
+          fi
+          exit $rc
 
       # if: always() — a group that failed is exactly the group whose log the
       # report needs. Without this an incomplete or red group would upload
@@ -459,6 +522,13 @@ jobs:
           covered=$(grep -cE '^[[:space:]]*(ok|FAIL) ' sweep-report.txt || true)
           fails=$(grep -cE '^[[:space:]]*FAIL ' sweep-report.txt || true)
           echo "group logs: $found | scope: $scope | rows: $covered | FAIL rows: $fails"
+          # The rows are EVIDENCE, not decoration. Until 2026-09-06 `fails` was
+          # only ever printed and pasted into the step summary, and the verdict
+          # below was taken from the matrix result alone — so run 34023334942
+          # printed "FAIL rows: 62" on the line above and then called the
+          # reporter with --green. Publish it as a step output and let the
+          # verdict read it.
+          echo "fails=$fails" >> "$GITHUB_OUTPUT"
           {
             echo "### y4d-spec nightly render sweep (chunked)"
             echo ""
@@ -467,30 +537,57 @@ jobs:
             grep -E '^[[:space:]]*FAIL ' sweep-report.txt | head -40 || true
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # The verdict, in one place. Two independent conditions, both required:
-      #   1. every group job succeeded  (needs.render-nightly.result)
-      #   2. the union of rendered cartridges == the scope  (--require-complete)
-      # (2) is what run 33998128926 had no way to express. --require-complete is
-      # the only flag that lets the reporter fail a job; every other failure
-      # path in it exits 0, because an alerting path that turns a green sweep
-      # red is worse than the silence it replaces.
+      # The verdict, in one place. THREE independent conditions now, all
+      # required — the third was added 2026-09-06 after run 34023334942
+      # concluded success with 62 FAIL rows in its own concatenated log:
+      #   1. every group job succeeded          (needs.render-nightly.result)
+      #   2. the union of rendered cartridges == the scope (--require-complete)
+      #   3. the concatenated log carries NO FAIL row      (FAILS, below)
+      # (3) is belt and braces with the pipefail fix in the group step: the
+      # rows are the primary evidence and they now decide, so the report is red
+      # even if some future refactor loses a group's exit code again. The three
+      # are deliberately independent — a verdict with a single point of failure
+      # is what produced the false green.
+      #
+      # --require-complete and this FAILS branch are the only ways the reporter
+      # can fail a job; every other failure path in it exits 0, because an
+      # alerting path that turns a green sweep red is worse than the silence it
+      # replaces.
       - name: Report — red, incomplete, or green
         if: inputs.report_fixture == ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
           MATRIX_RESULT: ${{ needs.render-nightly.result }}
+          FAILS: ${{ steps.aggregate.outputs.fails }}
         run: |
-          if [ "$MATRIX_RESULT" = "success" ]; then
+          # FAIL CLOSED on a missing count. An empty FAILS means the aggregate
+          # step did not run or did not publish — i.e. nobody counted the rows,
+          # which is not the same as counting zero. Defaulting it to 0 would
+          # reinstate exactly the "silence reads as success" shape this whole
+          # change exists to abolish, one level up.
+          if [ -z "${FAILS}" ]; then
+            echo "::error title=no FAIL-row count::the aggregate step published no row count — the verdict cannot be green on an uncounted log"
+            FAILS=-1
+          fi
+          if [ "$MATRIX_RESULT" = "success" ] && [ "$FAILS" -eq 0 ]; then
             # Green ONLY if the completeness check also passes: --green with a
             # --scope that is not fully covered flips itself to the red path,
             # opens the issue with a NEVER RENDERED row per missing cartridge,
-            # and exits 1 under --require-complete.
+            # and exits 1 under --require-complete. --green with a log that
+            # contains FAIL rows now REFUSES outright (exit 1, ::error) — this
+            # branch should never be reached with any, and the reporter says so
+            # rather than closing the tracking issue on a red night.
             python3 .github/scripts/nightly_report.py --green \
               --log sweep-report.txt --scope nightly-scope.txt --require-complete \
               --workflow "CI · nightly full render sweep"
           else
-            echo "::error title=nightly matrix not green::render-nightly finished as '$MATRIX_RESULT'"
+            if [ "$MATRIX_RESULT" != "success" ]; then
+              echo "::error title=nightly matrix not green::render-nightly finished as '$MATRIX_RESULT'"
+            fi
+            if [ "$FAILS" -gt 0 ]; then
+              echo "::error title=nightly sweep has failing renders::the concatenated group logs carry $FAILS FAIL row(s); the sweep is red regardless of what the group jobs reported (run 34023334942 reported 62 of them and concluded success)"
+            fi
             python3 .github/scripts/nightly_report.py \
               --log sweep-report.txt --scope nightly-scope.txt --require-complete \
               --workflow "CI · nightly full render sweep"
