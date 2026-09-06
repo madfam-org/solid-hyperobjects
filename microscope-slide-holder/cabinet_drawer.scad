@@ -24,6 +24,12 @@ custom_slide_length = 76;
 custom_slide_width = 26;
 custom_slide_thickness = 1.0;
 
+// Every additive join in this file penetrates its neighbour by this much, so
+// the union is a volumetric fuse rather than a coincident-face kiss. Manifold
+// tears the latter apart. 0.1 mm is far below any print resolution and leaves
+// the part's extents unchanged.
+RAIL_BITE = 0.1;
+
 // --- Architecture ---
 num_slots = 25; // Number of slide positions per drawer
 density = 0; // 0=archival, 1=working, 2=staining, 3=mailer
@@ -142,13 +148,30 @@ module drawer() {
         }
       }
 
-      // Rib array
-      translate([1.5, 1.5, floor_thickness]) {
+      // Rib array.
+      //
+      // Three coincident faces, all of them slivers in the export:
+      //  * the ribs sat exactly ON the trough floor plane (z = floor_thickness),
+      //  * their two ends sat exactly on the trough's front and back walls
+      //    (y = 1.5 and y = 78.9, which is precisely the interior cut's span),
+      //  * and the array runs to x = 60.0, which is exactly the interior cut's
+      //    far wall, so the last rib's outer face was coplanar with it. (N slots
+      //    genuinely need N+1 ribs -- a slot is the gap BETWEEN two ribs -- and
+      //    the trough is sized `num_slots * pitch + rib_w` wide, so the last rib
+      //    landing on the wall is by design, not an off-by-one.)
+      // Manifold tore each of those into a zero-volume 2-face shell; the drawer
+      // exported as 4 bodies, 3 of them degenerate, and not watertight.
+      //
+      // The ribs now sink RAIL_BITE into the floor and overrun the front and
+      // back walls by RAIL_BITE at each end. Rib WIDTHS and PITCH are untouched
+      // -- they set the slot the glass sits in -- so the far-wall coincidence is
+      // closed by a separate filler block below rather than by fattening ribs.
+      translate([1.5, 1.5 - RAIL_BITE, floor_thickness - RAIL_BITE]) {
         slot_array(
           count=num_slots,
           pitch=_pitch,
-          height=_rib_height,
-          depth=_drawer_y - 3,
+          height=_rib_height + RAIL_BITE,
+          depth=_drawer_y - 3 + 2 * RAIL_BITE,
           root_w=_rib_w,
           tip_w=_rib_w * 0.7,
           chamfer_h=min(1.5, _rib_height * 0.1),
@@ -156,35 +179,60 @@ module drawer() {
         );
       }
 
-      // Rail flanges along drawer sides
+      // The last rib's outer face lands exactly on the trough's far wall.
+      // A thin filler spanning that plane turns the kiss into a fuse without
+      // touching any rib's width or the slot pitch.
+      translate([1.5 + num_slots * _pitch + _rib_w - RAIL_BITE,
+                 1.5 - RAIL_BITE,
+                 floor_thickness - RAIL_BITE])
+        cube([2 * RAIL_BITE,
+              _drawer_y - 3 + 2 * RAIL_BITE,
+              _rib_height + RAIL_BITE]);
+
+      // Rail flanges along drawer sides.
+      //
+      // Every one of these met the drawer body (and the T-slot's own stem met
+      // its head and its bridge) on an EXACT plane -- a zero-overlap kiss.
+      // Manifold, the backend the platform and `y4d-spec check --render` both
+      // use, snaps near-coincident vertices and tears such a pair apart; the
+      // drawer came out as 4 shells, not watertight, with the rails detached.
+      //
+      // Each rail now penetrates the body by RAIL_BITE and the T-slot's parts
+      // overlap each other by the same amount, so every join is a volumetric
+      // fuse. The rails' OUTER faces are untouched -- they are the running
+      // surfaces that mate with the shell's channels, so their positions and
+      // the drawer's overall extents are unchanged.
       if (rail_profile == 0) {
         // T-slot: stem + head
         // Left rail
         translate([-_rail_w, 0, _drawer_z / 2 - _rail_h / 2]) {
-          // Stem
-          cube([_rail_stem, _drawer_y, _rail_h]);
-          // Head
+          // Stem, carried RAIL_BITE into the body (was flush at x = _rail_w).
+          cube([_rail_stem + RAIL_BITE, _drawer_y, _rail_h]);
+          // Head, overlapping the stem rather than abutting it.
           translate([-(_rail_w - _rail_stem) / 2, 0, _rail_h * 0.25])
-            cube([_rail_w, _drawer_y, _rail_h * 0.5]);
+            cube([_rail_w + RAIL_BITE, _drawer_y, _rail_h * 0.5]);
 
-          // FIXED: Bridge gap to body (Left rail was floating at -3.0 vs body at 0)
-          translate([_rail_stem, 0, 0])
-            cube([_rail_w - _rail_stem, _drawer_y, _rail_h]);
+          // Bridge from the stem to the body: starts RAIL_BITE back inside the
+          // stem and ends RAIL_BITE inside the body.
+          translate([_rail_stem - RAIL_BITE, 0, 0])
+            cube([_rail_w - _rail_stem + 2 * RAIL_BITE, _drawer_y, _rail_h]);
         }
-        // Right rail
-        translate([_drawer_x, 0, _drawer_z / 2 - _rail_h / 2]) {
-          cube([_rail_stem, _drawer_y, _rail_h]);
-          translate([_rail_stem - (_rail_w - _rail_stem) / 2, 0, _rail_h * 0.25])
-            cube([_rail_w, _drawer_y, _rail_h * 0.5]);
+        // Right rail. The stem starts RAIL_BITE inside the body and keeps its
+        // original outer face, so the drawer's overall width is unchanged.
+        translate([_drawer_x - RAIL_BITE, 0, _drawer_z / 2 - _rail_h / 2]) {
+          cube([_rail_stem + RAIL_BITE, _drawer_y, _rail_h]);
+          translate([_rail_stem - (_rail_w - _rail_stem) / 2,
+                     0, _rail_h * 0.25])
+            cube([_rail_w + RAIL_BITE, _drawer_y, _rail_h * 0.5]);
         }
       } else {
-        // L-rail: simple shelf
+        // L-rail: simple shelf, each biting RAIL_BITE into the body.
         // Left rail
         translate([-_rail_w, 0, 0])
-          cube([_rail_w, _drawer_y, _rail_h]);
+          cube([_rail_w + RAIL_BITE, _drawer_y, _rail_h]);
         // Right rail
-        translate([_drawer_x, 0, 0])
-          cube([_rail_w, _drawer_y, _rail_h]);
+        translate([_drawer_x - RAIL_BITE, 0, 0])
+          cube([_rail_w + RAIL_BITE, _drawer_y, _rail_h]);
       }
     }
   }
