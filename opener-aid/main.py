@@ -168,10 +168,15 @@ def build_tab_opener():
     handle with a thin angled hook at the tip that slides under the tab."""
     handle_r = 9.0
     handle_l = lever_len * 0.55
+    # The handle runs along +Y, so the blade (placed at y = handle_l) continues it and
+    # the butt fillet below can find it on "<Y". Building it on "YZ" extrudes along +X
+    # instead, which parks the barrel across the blade's axis: the blade then starts at
+    # y = handle_l while the barrel never reaches past y = handle_r, and the lever
+    # exports as two detached bodies.
     handle = (
-        cq.Workplane("YZ")
+        cq.Workplane("XZ")
         .circle(handle_r)
-        .extrude(handle_l)
+        .extrude(-handle_l)
     )
     # Thin blade extending from the handle end.
     blade_l = lever_len * 0.45
@@ -191,10 +196,10 @@ def build_tab_opener():
     if flutes > 0:
         try:
             cutter = (
-                cq.Workplane("YZ")
+                cq.Workplane("XZ")
                 .polarArray(radius=handle_r, startAngle=0, angle=360, count=max(6, flutes))
                 .rect(1.8, 4.0)
-                .extrude(handle_l - 2.0)
+                .extrude(-(handle_l - 2.0))
             )
             body = body.cut(cutter)
         except Exception:
