@@ -35,19 +35,27 @@ def _hex_prism(across_flats, height):
     return prism.intersect(clip)
 
 
-def _cosmetic_bore_negative(bore_r, total_h, pitch, depth):
+def _cosmetic_bore_negative(crest_r, root_r, total_h, pitch):
     """One revolved negative for an internally threaded bore.
 
     Ported from `main.py:159` `cosmetic_bore_negative`, and for its reason: a
     single solid from the Z axis out to a sawtooth, cut in ONE boolean, leaves
     no coincident cylindrical face to crack the shell.
+
+    The sawtooth runs between the thread's CREST radius (the narrowest point of
+    the bore, where the nut grips the bolt) and its ROOT radius. Previously it
+    ran from `diameter / 2` -- the bolt's own major radius -- OUTWARD, so the
+    bore never narrowed below the bolt's crests and the printed nut could not
+    grip an M5 bolt at all. It also removed 95.17 mm(3) against BOSL2's 87.92
+    on the OpenSCAD side, the whole of the 4.4 % parity gap; the AABB already
+    agreed to 0.0000 mm, so the bore was the only divergence.
     """
     n = max(1, int(round(total_h / pitch)))
-    pts = [(0.0, 0.0), (bore_r, 0.0)]
+    pts = [(0.0, 0.0), (crest_r, 0.0)]
     z0 = 0.0
     for _ in range(n):
-        pts.append((bore_r + depth, z0 + pitch * 0.5))
-        pts.append((bore_r, z0 + pitch))
+        pts.append((root_r, z0 + pitch * 0.5))
+        pts.append((crest_r, z0 + pitch))
         z0 += pitch
     pts.append((0.0, z0))
     face = cq.Workplane("XZ").polyline(pts).close()
@@ -85,12 +93,22 @@ def build(params):
     # so an internally threaded bore is what the OpenSCAD side produces; this
     # side used to cut a plain cylinder either way.
     if thread_enabled:
-        # ISO 60-degree metric: thread depth 0.6134*pitch (H = 0.866*p, the
-        # engaged flank is 5/8 H). The nut's minor bore is the nominal
-        # diameter, the major bore is that plus the depth.
+        # ISO 60-degree metric, internal thread. `depth = 0.6134 * pitch` is the
+        # engaged flank height (5/8 of H = 0.866*p). An INTERNAL thread's crests
+        # stand INWARD of the nominal diameter and its roots stand outward, so
+        # the bore is a sawtooth between those two radii -- not one that starts
+        # at the nominal radius and only ever cuts outward.
+        #
+        # These two radii are BOSL2's, measured off `nut.scad`'s own render
+        # (crest r = 2.2791, root r ~ 2.99 on an M5 x 0.8): the crest sits
+        # 0.45 * depth inside the nominal radius, which is the 5/8-H flank plus
+        # BOSL2's default `$slop = 0.1` relief, and the root a full depth
+        # outside it.
         depth = 0.6134 * pitch
-        hole = _cosmetic_bore_negative(diameter / 2.0, total_h + 1.0, pitch,
-                                       depth).translate((0, 0, -0.5))
+        crest_r = diameter / 2.0 - depth * 0.45
+        root_r = diameter / 2.0 + depth
+        hole = _cosmetic_bore_negative(crest_r, root_r, total_h + 1.0,
+                                       pitch).translate((0, 0, -0.5))
     else:
         hole = wp.circle(diameter / 2.0).extrude(total_h + 1.0).translate((0,0,-0.5))
     
