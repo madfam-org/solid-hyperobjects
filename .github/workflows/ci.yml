@@ -84,6 +84,22 @@ jobs:
             exit 1
           fi
 
+      # The CI scripts' own unit tests. They existed before this step did and
+      # NOTHING ran them: `python3 -m pytest .github/scripts` was a gate lanes
+      # ran by hand and CI never checked, so a regression in the nightly's
+      # verdict logic could land green. That is the same shape as the false
+      # green this workflow was just fixed for — evidence that exists and is
+      # never read — so the tests now run on every PR. They are pure stdlib +
+      # pytest and take seconds; this job already has a venv.
+      - name: Unit tests for the CI scripts
+        run: |
+          .venv/bin/pip install --quiet pytest
+          .venv/bin/python -m pytest .github/scripts -q
+          # The reporter's own selftest is a separate entry point (it asserts
+          # against the committed fixtures) and is likewise part of the bar.
+          python3 .github/scripts/nightly_report.py --selftest \
+            .github/fixtures/nightly-fail-sample.txt
+
       - name: y4d-spec check (every cartridge)
         # NOT `./*/`: that glob also picks up libs/ (a submodule mount point with
         # no project.json), which y4d-spec correctly fails as "not a cartridge".
