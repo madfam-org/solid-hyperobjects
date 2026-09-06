@@ -112,27 +112,43 @@ def build_wire():
     # sits well inside solid material rather than coincident with the trimmed section.
     cap_l = wire_d * 1.4
     bury = wire_d * 0.5
+    # The plug is built a hair UNDER the tube radius. At exactly `sec_r` its
+    # cylindrical face is tangent to the torus all the way round the buried rim, and
+    # OCCT sheds a zero-volume sliver shell there (a second, empty "body" in the
+    # export). 2% under clears the tangency while staying inside the rounded tip.
+    plug_r = sec_r * 0.98
+    # The half-space cuts above keep the -Y half of the circle (the torus centroid
+    # sits at negative y and both trimmed end faces are at y = -arc_r*sin(half_sweep)),
+    # but `arc_r * sin(90 +/- half_sweep)` names the +Y half. At a 180 deg sweep the
+    # end faces are on y = 0 and the mirror is invisible; at any other sweep it puts
+    # each cap on the wrong side of the X axis, off the wire entirely. The
+    # `narrow_cup` preset (165 deg) exported 3 bodies for exactly this reason, as does
+    # every sweep below 180 deg. Negate the y term to land on the real end centres;
+    # the tangent, being the derivative, flips with it.
     for sgn in (+1.0, -1.0):
         ang = math.radians(90.0 + sgn * half_sweep)
         cx = arc_r * math.cos(ang)
-        cy = arc_r * math.sin(ang)
+        cy = -arc_r * math.sin(ang)
         # Tangent direction at that point, pointing OUT of the arc end.
         tx = sgn * math.sin(ang)
-        ty = -sgn * math.cos(ang)
+        ty = +sgn * math.cos(ang)
         # Cylinder axis along +X, spanning [-cap_l, 0] so its +X end is the free tip.
         plug = (
             cq.Workplane("XY")
-            .circle(sec_r)
+            .circle(plug_r)
             .extrude(cap_l)
             .translate((0, 0, -cap_l))
             .rotate((0, 0, 0), (0, 1, 0), 90.0)
         )
         try:
-            plug = plug.edges(">X").fillet(sec_r * 0.7)
+            plug = plug.edges(">X").fillet(plug_r * 0.7)
         except Exception:
             pass
         plug = plug.rotate((0, 0, 0), (0, 0, 1), math.degrees(math.atan2(ty, tx)))
-        body = body.union(plug.translate((cx - tx * bury, cy - ty * bury, 0)))
+        # `plug` spans [-cap_l, 0] along its own +X axis, so translating to the end
+        # centre already puts its flat base `cap_l` INSIDE the arc; `+ tx*bury` then
+        # slides it a further `bury` outward, leaving cap_l - bury of penetration.
+        body = body.union(plug.translate((cx + tx * bury, cy + ty * bury, 0)))
     return body
 
 
