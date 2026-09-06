@@ -173,5 +173,32 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["gimbal", "cup-holder", "self-leveling", "marine", "rv", "hybrid", "hyperobject", "commons"]
+  "tags": ["gimbal", "cup-holder", "self-leveling", "marine", "rv", "hybrid", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "gimbal_cup": {
+        "part_overrides": {
+          "gimbal_cup": { "geometry.body_count": { "expected": 3 } }
+        }
+      },
+      "single_axis": {
+        "part_overrides": {
+          "single_axis": { "geometry.body_count": { "expected": 2 } }
+        }
+      },
+      "wall_gimbal": {
+        "part_overrides": {
+          "wall_gimbal": { "geometry.body_count": { "expected": 3 } }
+        }
+      }
+    }
+  }
 }
