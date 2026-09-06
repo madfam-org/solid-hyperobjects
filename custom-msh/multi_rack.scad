@@ -34,6 +34,20 @@ frame_base_grid = 1;
 fn = aocl_fn();
 $fn = fn > 0 ? fn : 32;
 
+// Additive joins penetrate their neighbour by this much so the union is a
+// volumetric fuse, not a coincident-face kiss that Manifold tears apart.
+GUARD_BITE = 0.2;
+
+// How deep a debossed/raised numeral bites into the rail it is written on.
+NUM_BITE = 0.4;
+
+// Extrusion depth of a slot numeral.
+_num_depth = 0.9;
+
+// How far a full-depth divider fin overruns the rail at each end of the cavity,
+// so the fin-to-rail join is a volumetric fuse and not a coincident-face kiss.
+DIV_BITE = 0.2;
+
 // --- Derived Geometry ---
 _min_rib_w = aocl_min_rib_w();
 _slot_w = slide_slot_width(custom_slide_thickness, tolerance_z);
@@ -156,9 +170,36 @@ module rack_segment_dividers(seg_x, seg_y) {
               rotate([0, 0, 180])
                 am_ramp(_min_rib_w, _base_h, _base_h);
           }
-          slide_retention_rib(height=_actual_rib_height, depth=_cavity_y,
-                             root_w=_min_rib_w, tip_w=_min_rib_w * 0.65,
-                             chamfer_h=_chamfer_h);
+          // A full-depth fin spans the cavity and so ENDS exactly on the two
+          // rails/guards bounding it: segment 0's fins reached y = 27.8 and the
+          // junction guard begins at y = 27.8. Two coincident faces, zero
+          // penetration -- and where the tapered fin crossed the guard's window
+          // corner, Manifold snapped the pair and orphaned the corner as a
+          // 0.35 x 2.0 x 0.35 mm inverted wedge (-0.1225 mm3). That was the
+          // cartridge's last non-watertight row, and it is invisible in any
+          // isolated reproduction: walls + base plate + guards alone are
+          // watertight, and adding the fins is what breaks it.
+          //
+          // Grow the fin by DIV_BITE at each end so both joins are volumetric.
+          // The overrun is buried inside the rail, so no extent changes.
+          //
+          // The FIRST and LAST fins additionally sit flush against the two side
+          // walls: fin 0's root face lands on x = 2.0 and fin `num_slots`'s on
+          // x = 46.25, which are exactly the walls' inner faces. Those two
+          // zero-penetration joins are what left 18 non-manifold edges along
+          // z = 0 (base plate + walls alone are watertight; adding the fins is
+          // what breaks it). Widen just those two fins by DIV_BITE on their wall
+          // side, shifting each half that amount so the far face does not move.
+          _at_left  = (i == 0);
+          _at_right = (i == num_slots);
+          _grow = (_at_left || _at_right) ? DIV_BITE : 0;
+          _shift = _at_left ? -_grow / 2 : (_at_right ? _grow / 2 : 0);
+          translate([_shift, 0, 0])
+            slide_retention_rib(height=_actual_rib_height,
+                               depth=_cavity_y + 2 * DIV_BITE,
+                               root_w=_min_rib_w + _grow,
+                               tip_w=_min_rib_w * 0.65 + _grow,
+                               chamfer_h=_chamfer_h);
         }
       }
     }
@@ -168,8 +209,34 @@ module rack_segment_dividers(seg_x, seg_y) {
 // Slot numbers for one segment at explicit position with specified start number
 module rack_segment_numbers(seg_x, seg_y, start_num) {
   if (show_numbers == 1 && fn > 0) {
-    _front_y = seg_y - _pillar_w + 0.4;
-    _back_y = seg_y + _inner_y + _pillar_w - 0.4;
+    // A numeral is a 0.9 mm extrusion. On the OUTSIDE of the multi-rack it is
+    // meant to bury NUM_BITE in the end rail and stand proud of the outer face
+    // -- that is the point of raised slot numbers.
+    //
+    // On an INTERIOR junction rail there is no outer face: standing proud there
+    // means poking 0.5 mm into the neighbouring segment's open cavity,
+    // cantilevered off the rail. Every interior numeral did exactly that (the
+    // back numerals of segments 0..n-2 and the front numerals of segments
+    // 1..n-1), which is where multi_rack's 58 bodies / 25 negative came from --
+    // with `show_numbers = 0` the same model is 5 bodies. The rail is only
+    // _pillar_w = 2 mm thick, so those stubs also punched through it and left
+    // sealed voids inside it (the two -1.5442 bodies).
+    //
+    // Interior numerals are therefore engraved WITHIN the rail instead: the
+    // whole 0.9 mm sits inside the 2 mm rail, fused on all sides. Exterior
+    // numerals keep their raised profile unchanged.
+    _is_first = seg_y <= _pillar_w + 0.001;
+    _is_last  = seg_y + _inner_y + _pillar_w >= _total_y - 0.001;
+
+    // Front face: extrudes in -Y, so this is the numeral's FAR edge.
+    _front_y = _is_first
+      ? seg_y - _pillar_w + NUM_BITE            // proud of the outer face
+      : seg_y - _pillar_w + _num_depth + NUM_BITE;  // wholly inside the rail
+
+    // Back face: extrudes in +Y, so this is the numeral's NEAR edge.
+    _back_y = _is_last
+      ? seg_y + _inner_y + _pillar_w - NUM_BITE
+      : seg_y + _inner_y + _pillar_w - _num_depth - NUM_BITE;
 
     for (i = [0:num_slots - 1]) {
       _num = start_num + i;
@@ -178,38 +245,32 @@ module rack_segment_numbers(seg_x, seg_y, start_num) {
       // Front face number
       translate([_slot_center_x, _front_y, _base_h / 2])
         rotate([90, 0, 0])
-          linear_extrude(height=0.9)
+          linear_extrude(height=_num_depth)
             text(str(_num), size=_num_size, halign="center", valign="center",
                  font="Liberation Sans:style=Bold");
 
       // Back face number
       translate([_slot_center_x, _back_y, _base_h / 2])
         rotate([90, 0, 180])
-          linear_extrude(height=0.9)
+          linear_extrude(height=_num_depth)
             text(str(_num), size=_num_size, halign="center", valign="center",
                  font="Liberation Sans:style=Bold");
     }
   }
 }
 
-// Diamond grid guard in X-Z plane at Y junction (for Y-axis stacking)
-module junction_guard_xz(jy) {
-  translate([_pillar_w, jy, _base_h])
-    diamond_grid_guard(_inner_x, _pillar_w, _grid_h - _base_h);
-}
-
 // Continuous diamond grid guards on the perimeter sides
 module continuous_side_guards() {
   if (multi_stack_y == 0) {
     // X stacking: front/back guards (X-Z plane, span full inner X)
-    _guard_span_x = _total_x - 2 * _pillar_w;
+    _guard_span_x = _total_x - 2 * _pillar_w + 2 * GUARD_BITE;
 
     // Front guard (Y = 0 face)
-    translate([_pillar_w, 0, _base_h])
+    translate([_pillar_w - GUARD_BITE, 0, _base_h])
       diamond_grid_guard(_guard_span_x, _grid_thick, _grid_h - _base_h);
 
     // Back guard (Y = _body_y face)
-    translate([_pillar_w, _body_y - _grid_thick, _base_h])
+    translate([_pillar_w - GUARD_BITE, _body_y - _grid_thick, _base_h])
       diamond_grid_guard(_guard_span_x, _grid_thick, _grid_h - _base_h);
   }
 }
@@ -282,23 +343,44 @@ module multi_rack_complete() {
           rack_segment_numbers(_pillar_w, _sy, numbering_start + i * num_slots);
         }
 
-        // Junction diamond grid guards (X-Z plane between adjacent segments)
-        for (j = [0:multi_num_racks - 2]) {
-          _jy = _pillar_w + (j + 1) * _inner_y + j * _pillar_w;
-          junction_guard_xz(_jy);
-        }
-
-        // Per-segment side guards (X-Z plane diamond grid at each segment's Y boundaries)
-        for (i = [0:multi_num_racks - 1]) {
-          _sy = _pillar_w + i * (_inner_y + _pillar_w);
-
-          // Segment front side guard (Y = segment start)
-          translate([_pillar_w, _sy - _grid_thick, _base_h])
-            diamond_grid_guard(_inner_x, _grid_thick, _grid_h - _base_h);
-
-          // Segment back side guard (Y = segment end)
-          translate([_pillar_w, _sy + _inner_y, _base_h])
-            diamond_grid_guard(_inner_x, _grid_thick, _grid_h - _base_h);
+        // Perimeter and junction guards. Each Y band gets EXACTLY ONE guard.
+        //
+        // Every band used to receive up to three interpenetrating copies of the
+        // same lattice: a dedicated junction guard plus segment i's back guard
+        // and segment i+1's front guard, all in the same 2 mm slab and all
+        // sharing face planes. Rendering with any one of the three alone gives
+        // the identical volume, which is what proves the other two were pure
+        // redundancy rather than geometry anyone designed. They are not what made
+        // the model non-watertight -- the fins were -- but three coincident
+        // lattices are three times the coincident faces for the next change to
+        // trip over, so the band now carries one guard.
+        //
+        // One guard per band, full junction thickness at junctions and
+        // `_grid_thick` at the two outer faces.
+        // Each guard also bites GUARD_BITE DOWN into the base rail it stands on.
+        // Sitting exactly on z = _base_h put the guard's bottom face coplanar with
+        // the rail's top face over the whole span: a zero-penetration join that
+        // left 18 non-manifold edges along the side rails' inner faces at z = 0
+        // (the base plate alone is watertight; the guards are what break it).
+        for (i = [0:multi_num_racks]) {
+          if (i == 0) {
+            // Front outer face
+            translate([_pillar_w - GUARD_BITE, 0, _base_h - GUARD_BITE])
+              diamond_grid_guard(_inner_x + 2 * GUARD_BITE, _grid_thick,
+                                 _grid_h - _base_h + GUARD_BITE);
+          } else if (i == multi_num_racks) {
+            // Back outer face
+            translate([_pillar_w - GUARD_BITE, _total_y - _grid_thick, _base_h - GUARD_BITE])
+              diamond_grid_guard(_inner_x + 2 * GUARD_BITE, _grid_thick,
+                                 _grid_h - _base_h + GUARD_BITE);
+          } else {
+            // Internal junction: one guard spanning the whole junction rail
+            translate([_pillar_w - GUARD_BITE,
+                       _pillar_w + i * _inner_y + (i - 1) * _pillar_w,
+                       _base_h - GUARD_BITE])
+              diamond_grid_guard(_inner_x + 2 * GUARD_BITE, _pillar_w,
+                                 _grid_h - _base_h + GUARD_BITE);
+          }
         }
 
       } else {
