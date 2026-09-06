@@ -75,24 +75,30 @@ tooth_t   = max(tape_thick + 0.6, chain_w * 0.5)   # tooth thickness (out of tap
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def _tape_strip(length, width, t):
-    """A flat tape strip standing in the XZ-ish frame: length runs +Z, width runs
-    +X from x=0 (the coil edge) outward, thickness centred on Y=0."""
+    """A flat tape strip standing in the XZ-ish frame: length runs +Z from z=0, width
+    runs +X from x=0 (the coil edge) outward, thickness centred on Y=0.
+
+    `centered` is PER AXIS and its third element is Z, so `(False, True, False)`
+    already puts the box's base on z = 0. The `.translate((0, 0, length / 2))` that
+    used to follow it shifted the strip a second time: a 200 mm tape sat at
+    z = 100 .. 300 while `_half_coil` places its teeth over z = 2.25 .. 200. Only the
+    teeth above z = 100 touched anything, so a tape+coil exported as 16 loose bodies
+    instead of one solid. The strip is built where it is placed."""
     return (
         cq.Workplane("XY")
         .box(width, t, length, centered=(False, True, False))
-        .translate((0, 0, length / 2.0))
     )
 
 
-def _tooth(z):
-    """One coil tooth, a rounded nub reaching from the tape edge (x=0) toward the
-    centreline (+X toward -X side is mirrored by the other half). Fused into the
-    tape by starting slightly inside the tape (x negative overlap)."""
+def _tooth_prototype():
+    """ONE coil tooth at z = 0: a rounded nub reaching from the tape edge (x=0)
+    toward the centreline. Fused into the tape by starting slightly inside it
+    (x negative overlap)."""
     overlap = 0.8
     body = (
         cq.Workplane("XY")
         .box(tooth_w + overlap, tooth_t, tooth_h, centered=(False, True, False))
-        .translate((-overlap, 0, z))
+        .translate((-overlap, 0, 0.0))
     )
     try:
         body = body.edges("|Y").fillet(min(tooth_w, tooth_h) * 0.28)
@@ -104,14 +110,28 @@ def _tooth(z):
 def _half_coil(length, width, mirror=False):
     """One side of the zipper: a tape with a column of teeth fused along its inner
     edge. Returns a single watertight solid. `mirror=True` flips it across X so the
-    two halves face each other across the centreline gap."""
+    two halves face each other across the centreline gap.
+
+    The teeth are built ONCE and placed with `cq.Location`, then fused to the tape in
+    a SINGLE boolean. Re-filleting a fresh nub per tooth and unioning it onto the
+    growing coil one at a time is O(n) full OCCT rebuilds of an ever-larger shape: a
+    1200 mm #3 chain is 328 teeth, and that loop is what put this cartridge past
+    16 minutes of kernel time. Same solid, same volume -- the teeth do not touch each
+    other, so fusing them in one call cannot change the result.
+    """
     tape = _tape_strip(length, width, tape_thick)
     # Column of teeth from the first pitch cell up to the last that fits.
     n = max(1, int((length - tooth_h) / pitch))
-    coil = tape
     z0 = tooth_h / 2.0 + (length - (n - 1) * pitch - tooth_h) / 2.0
-    for i in range(n):
-        coil = coil.union(_tooth(z0 + i * pitch))
+    proto = _tooth_prototype().val()
+    teeth = [proto.moved(cq.Location(cq.Vector(0.0, 0.0, z0 + i * pitch)))
+             for i in range(n)]
+    fused = tape.val().fuse(*teeth)
+    try:
+        fused = fused.clean()
+    except Exception:
+        pass
+    coil = cq.Workplane(obj=fused)
     if mirror:
         coil = coil.mirror("YZ")
     return coil
@@ -143,16 +163,28 @@ def _slider_body():
     )
     body = outer.cut(left_slot).cut(right_slot).cut(exit_slot)
     # Hang lug on top for the pull tab.
+    #
+    # The lug must span WIDER than `exit_slot`, not sit inside it. The exit slot is
+    # `chain_w + 2*tape_width + 2*gap` across (17.7 mm at the defaults) and is cut
+    # right through the body's top face, so a `chain_w * 1.6` lug (8 mm) centred on
+    # the slot lands in thin air: the slider exported as 2 bodies, the lug adrift.
+    # Widen it to bridge the slot onto the solid either side, and seat its base
+    # inside the body rather than tangent to the top face.
+    lug_w = max(chain_w * 1.6, chain_w + tape_width * 2.0 + gap * 2.0 + chain_w)
+    lug_z0 = h / 2.0 - chain_w * 0.4
     lug = (
-        cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, h / 2.0 + chain_w * 0.6, 0))
-        .box(chain_w * 1.6, chain_w * 1.4, d * 0.5)
+        cq.Workplane("XY")
+        .box(lug_w, d * 0.5, chain_w * 1.4 + chain_w * 0.4,
+             centered=(True, True, False))
+        .translate((0, 0, lug_z0))
     )
     body = body.union(lug)
+    # Pull-tab hole through the lug, on the Y axis so it opens on both faces.
     lug_hole = (
         cq.Workplane("XZ")
-        .transformed(offset=cq.Vector(0, h / 2.0 + chain_w * 0.7, 0))
-        .cylinder(d, chain_w * 0.5)
+        .circle(chain_w * 0.5)
+        .extrude(d, both=True)
+        .translate((0, 0, h / 2.0 + chain_w * 0.6))
     )
     body = body.cut(lug_hole)
     return body
@@ -211,8 +243,75 @@ def build_chain(separating: bool):
     return asm
 
 
+# ── Part builders, one per DECLARED part id ──────────────────────────────────
+# The platform renders ONE PART AT A TIME: `target_part` arrives holding a part id
+# from the mode's `parts` list, not the mode id (spec geometry.py: it sets
+# `call_params["target_part"] = part`). Only `slider` had a branch here, so
+# `tape_left`, `tape_right`, `pin_box`, `top_stop` and `bottom_stop` all fell
+# through the else and each rendered the whole 5-member assembly. Every one of
+# them served the same wrong body, and the user picking "Left Tape + Coil" got a
+# complete zipper.
+#
+# Each branch below returns the single watertight solid that part actually is, in
+# its assembled position, so the parts still add up to the chain.
+_HALF_SHIFT = chain_w / 2.0 + gap / 2.0
+
+
+def build_tape_left():
+    """Left tape + coil, in its assembled position."""
+    return _half_coil(zip_length, tape_width).translate(
+        (-_HALF_SHIFT - tape_width, 0, 0))
+
+
+def build_tape_right():
+    """Right tape + coil: the mirror, shifted the other way, its teeth interleaved
+    by half a pitch so the coils mesh rather than collide."""
+    return _half_coil(zip_length, tape_width, mirror=True).translate(
+        (_HALF_SHIFT + tape_width, 0, pitch / 2.0))
+
+
+def build_top_stop():
+    """Top stop — keeps the slider from flying off the top. Present in both modes."""
+    return _stop(1.0, zip_length - pitch * 0.5)
+
+
+def build_bottom_stop():
+    """Bottom stop — closed-end only; joins the two halves at the bottom."""
+    return _stop(1.0, pitch * 0.5)
+
+
+def build_pin_box():
+    """Box/pin retainer block at the very bottom — separating (jacket) only."""
+    return (
+        cq.Workplane("XY")
+        .box(chain_w * 2.0 + gap * 2.0 + tape_width * 2.0, tooth_t + 1.6, pitch * 1.6,
+             centered=(True, True, False))
+        .translate((0, 0, 0.0))
+    )
+
+
+def build_slider(separating: bool):
+    """The slider, parked where its mode parks it: low on a separating zip (just
+    above the pin box), high on a closed one (just under the top stop)."""
+    slider_z = pitch * 2.2 if separating else zip_length - pitch * 2.4
+    return _slider_body().translate((0, 0, slider_z))
+
+
 # ── Dispatch ─────────────────────────────────────────────────────────────────
-if target_part == "slider":
+# `separating` is inferred from the part id: `pin_box` exists only on the jacket
+# zip and `bottom_stop` only on the closed one, which is what parks the slider.
+if target_part == "tape_left":
+    result = build_tape_left()
+elif target_part == "tape_right":
+    result = build_tape_right()
+elif target_part == "top_stop":
+    result = build_top_stop()
+elif target_part == "bottom_stop":
+    result = build_bottom_stop()
+elif target_part == "pin_box":
+    result = build_pin_box()
+elif target_part == "slider":
+    # The `slider` MODE is the standalone repair part: unshifted, at the origin.
     result = _slider_body()
 elif target_part == "separating":
     result = build_chain(separating=True)
