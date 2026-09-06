@@ -11,7 +11,9 @@ A cartridge needs no render when every changed file under it is either
 docs/, images (png/jpg/jpeg/gif/svg/webp) — or (b) project.json with every
 changed leaf under an allow-listed key that has no bearing on geometry:
 attribution, prose, tags, lineage, constraints (feasibility rules the
-configurator evaluates on the parameter set — they never reach the kernel).
+configurator evaluates on the parameter set — they never reach the kernel),
+animations (parametric flipbook sequences the API renders on demand from
+from_state/to_state; the cartridge's own render never reads them).
 Anything else — .scad/.py/.cq source,
 fonts/ (they change what .text() renders), parameters, parts, modes, presets,
 engine, verification, or any unknown file — keeps the cartridge in scope. A
@@ -24,6 +26,7 @@ import subprocess
 import sys
 
 ALLOW = (
+    "animations",
     "constraints",
     "hyperobject",
     "tags",
