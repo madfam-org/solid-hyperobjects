@@ -306,7 +306,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "stud_dia <= snap_dia - 4.0",
+      "severity": "error",
+      "message": {
+        "en": "stud_dia must leave at least 4 mm of disc around it (stud_dia <= snap_dia - 4): otherwise the stud eats the sewing rim and there is nowhere for the holes.",
+        "es": "stud_dia debe dejar al menos 4 mm de disco alrededor (stud_dia <= snap_dia - 4): si no, el macho se come el reborde de costura y no queda dónde poner los ojales."
+      }
+    },
+    {
+      "expression": "hole_dia + 1.2 <= (snap_dia - stud_dia)/2.0",
+      "severity": "error",
+      "message": {
+        "en": "The stitch holes do not fit the rim band: hole_dia + 1.2 mm must fit inside (snap_dia - stud_dia)/2. Enlarge snap_dia or shrink hole_dia.",
+        "es": "Los ojales no caben en la banda del reborde: hole_dia + 1.2 mm debe caber en (snap_dia - stud_dia)/2. Aumenta snap_dia o reduce hole_dia."
+      }
+    },
+    {
+      "expression": "hole_dia < 3.14159265*(snap_dia + stud_dia)/2.0/sew_holes",
+      "severity": "error",
+      "message": {
+        "en": "sew_holes at this hole_dia overlap on the stitch ring: the holes merge into a slot. Reduce sew_holes or hole_dia, or enlarge snap_dia.",
+        "es": "Con este hole_dia los sew_holes se traslapan en el anillo de costura: los ojales se funden en una ranura. Reduce sew_holes o hole_dia, o aumenta snap_dia."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

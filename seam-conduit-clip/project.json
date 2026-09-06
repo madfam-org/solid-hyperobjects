@@ -381,7 +381,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "tab_w >= hole_dia * 2.0 + 2.5",
+      "severity": "error",
+      "message": {
+        "en": "A stitch hole of hole_dia needs a tab of at least hole_dia*2 + 2.5 mm around it: below that the hole blows out the sew tab.",
+        "es": "Un barreno de costura de hole_dia necesita una pestaña de al menos hole_dia*2 + 2.5 mm: por debajo de eso el barreno revienta la pestaña."
+      }
+    },
+    {
+      "expression": "run_pitch >= clip_len + 6.0",
+      "severity": "error",
+      "message": {
+        "en": "Clips in a run are clip_len long: a run_pitch below clip_len + 6 makes neighbouring plates overlap into one blob.",
+        "es": "Los clips de una corrida miden clip_len: un run_pitch menor a clip_len + 6 hace que las placas vecinas se traslapen en un solo bloque."
+      }
+    },
+    {
+      "expression": "wall >= hole_dia / 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "A C wall thinner than half the stitch hole diameter will not survive the thread tension in the wash.",
+        "es": "Una pared del canal más delgada que la mitad del diámetro del barreno no resiste la tensión del hilo al lavar."
+      }
+    },
+    {
+      "expression": "clip_len >= wall * 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "A clip shorter than twice its channel wall is mostly end faces and will not guide the bundle.",
+        "es": "Un clip más corto que el doble de la pared de su canal es casi puro tope y no guía el mazo."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -243,7 +243,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "dimple_rows <= 1 || (0.7 * thimble_h - 1.9 * dimple_dia) / (dimple_rows - 1) >= dimple_dia",
+      "severity": "error",
+      "message": {
+        "en": "dimple_rows over the usable flank leaves rows closer than dimple_dia apart; the spherical pockets intersect and OCCT cannot stitch the knife-edge webs between them.",
+        "es": "dimple_rows sobre el flanco útil deja filas más juntas que dimple_dia; los casquetes esféricos se cruzan y OCCT no puede coser las aristas filosas entre ellos."
+      }
+    },
+    {
+      "expression": "dimple_dia * 0.40 <= wall_t * 0.55 || dimple_dia <= wall_t",
+      "severity": "warning",
+      "message": {
+        "en": "dimple_dia is deep relative to wall_t: the deboss is capped at 0.55 x wall_t so the dimples come out shallower than dimple_dia implies.",
+        "es": "dimple_dia es profundo respecto a wall_t: el rebaje se limita a 0.55 x wall_t, así que los hoyuelos salen menos hondos de lo que dimple_dia sugiere."
+      }
+    },
+    {
+      "expression": "dimple_dia * 0.5 <= 0.289 * (finger_girth / 6.2831853 + wall_t - taper)",
+      "severity": "error",
+      "message": {
+        "en": "The crown seat radius is floored at dimple_dia/2 but the crown itself is only 0.34 x the crown radius set by finger_girth, wall_t and taper; the seat cuts straight through the crown edge.",
+        "es": "El radio del asiento de la corona tiene piso en dimple_dia/2, pero la corona mide solo 0.34 x el radio fijado por finger_girth, wall_t y taper; el asiento atraviesa el borde de la corona."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

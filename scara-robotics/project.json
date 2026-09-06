@@ -442,6 +442,40 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "bore_diameter + 4.0 <= gear_module * (num_teeth - 4.0)",
+            "severity": "error",
+            "message": {
+                "en": "The wave generator body diameter is gear_module*(num_teeth - 4): a bore_diameter that large cuts the whole part away. Raise gear_module or num_teeth, or shrink the bore.",
+                "es": "El diámetro del generador de onda es gear_module*(num_teeth - 4): un bore_diameter de ese tamaño elimina la pieza completa. Sube gear_module o num_teeth, o reduce el barreno."
+            }
+        },
+        {
+            "expression": "gear_module >= 0.4",
+            "severity": "warning",
+            "message": {
+                "en": "The flexspline rim after the inner cut is 2*gear_module - 0.05 mm thick: below gear_module 0.4 that is under one FDM extrusion width.",
+                "es": "El aro del flexspline después del corte interior mide 2*gear_module - 0.05 mm: por debajo de gear_module 0.4 queda bajo el ancho de un solo cordón FDM."
+            }
+        },
+        {
+            "expression": "gear_module * num_teeth + 15.0 <= 250.0",
+            "severity": "warning",
+            "message": {
+                "en": "The circular spline outer diameter is gear_module*num_teeth + 15 mm and will not fit a 250 mm bed.",
+                "es": "El diámetro exterior del circular spline es gear_module*num_teeth + 15 mm y no entra en una cama de 250 mm."
+            }
+        },
+        {
+            "expression": "link2_length <= link1_length",
+            "severity": "warning",
+            "message": {
+                "en": "A forearm longer than the upper arm gives an unbalanced SCARA reach envelope with a dead zone near the base.",
+                "es": "Un antebrazo más largo que el brazo superior da una envolvente SCARA desbalanceada con zona muerta cerca de la base."
+            }
+        }
+    ],
     "export_formats": [
         "stl",
         "3mf",

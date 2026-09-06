@@ -253,7 +253,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "button_dia / 2.0 + 0.4 <= frame_h * 0.28",
+      "severity": "error",
+      "message": {
+        "en": "The keyhole (button_dia/2 + 0.4) breaks out through the bottom of the catch tab, destroying the retaining hook; reduce button_dia or raise frame_h.",
+        "es": "El ojo de cerradura (button_dia/2 + 0.4) rompe el borde inferior de la lengüeta y destruye el gancho de retención; reduce button_dia o aumenta frame_h."
+      }
+    },
+    {
+      "expression": "frame_h > 3.0 * wire_t",
+      "severity": "error",
+      "message": {
+        "en": "The two strap slots vanish: frame_h must exceed 3*wire_t (two rails plus the centre bar) or the frame becomes solid.",
+        "es": "Las dos ranuras de la correa desaparecen: frame_h debe superar 3*wire_t (dos rieles más la barra central) o el marco queda macizo."
+      }
+    },
+    {
+      "expression": "button_dia <= strap_w",
+      "severity": "warning",
+      "message": {
+        "en": "button_dia exceeds strap_w; the catch tab is wider than the buckle frame and the assembly looks and hangs wrong.",
+        "es": "button_dia supera strap_w; la lengüeta es más ancha que el marco de la hebilla y el conjunto se ve y cuelga mal."
+      }
+    },
+    {
+      "expression": "frame_h * 0.44 > button_dia * 0.5",
+      "severity": "warning",
+      "message": {
+        "en": "The release slot (button_dia*0.5 wide) is nearly as long as the catch tab (frame_h*0.44); the tab loses its stiffness.",
+        "es": "La ranura de liberación (ancho button_dia*0.5) es casi tan larga como la lengüeta (frame_h*0.44); la lengüeta pierde rigidez."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -151,6 +151,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "2.0 * bore_radius < width && 2.0 * bore_radius < depth",
+      "severity": "error",
+      "message": {
+        "en": "The bore is wider than the block: 2 * bore_radius must be less than both width and depth, or the cut removes the whole spacer.",
+        "es": "El barreno es más ancho que el bloque: 2 * bore_radius debe ser menor que width y que depth, o el corte elimina todo el espaciador."
+      }
+    },
+    {
+      "expression": "bore_radius + 1.5 <= width / 2.0 && bore_radius + 1.5 <= depth / 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "Less than 1.5 mm of wall between the bore and the block face: the spacer will split when the bolt is torqued.",
+        "es": "Quedan menos de 1.5 mm de pared entre el barreno y la cara del bloque: el espaciador se partirá al apretar el tornillo."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 8,

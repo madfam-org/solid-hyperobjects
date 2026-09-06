@@ -257,6 +257,40 @@
       "values": { "channel_w": 16.0, "body_len": 45.0, "body_h": 12.0, "wedge_rise": 6.0 }
     }
   ],
+  "constraints": [
+    {
+      "expression": "arm_len <= body_len - 8.0",
+      "severity": "warning",
+      "message": {
+        "en": "The cantilever roots inside a seat of body_len*0.55: arm_len above body_len - 8 is silently shortened and the barb lands over the seat instead of past it.",
+        "es": "El voladizo se ancla en un asiento de body_len*0.55: un arm_len mayor a body_len - 8 se acorta en silencio y la lengüeta cae sobre el asiento en vez de rebasarlo."
+      }
+    },
+    {
+      "expression": "arm_t <= channel_w / 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "An arm thicker than half channel_w cannot flex in the sash channel and is clamped.",
+        "es": "Un brazo más grueso que la mitad de channel_w no puede flexionar en el canal y queda recortado."
+      }
+    },
+    {
+      "expression": "pin_d <= channel_w - 3.0",
+      "severity": "error",
+      "message": {
+        "en": "The pin bore must leave 1.5 mm of block wall per side: pin_d above channel_w - 3 breaches the insert sidewalls.",
+        "es": "El barreno del pasador debe dejar 1.5 mm de pared por lado: un pin_d mayor a channel_w - 3 rompe los costados del inserto."
+      }
+    },
+    {
+      "expression": "wedge_rise <= body_h - 2.0",
+      "severity": "error",
+      "message": {
+        "en": "The wedge leading edge is body_h - wedge_rise tall: at wedge_rise above body_h - 2 the taper profile inverts and the wedge has no tip.",
+        "es": "El borde de ataque de la cuna mide body_h - wedge_rise: con wedge_rise mayor a body_h - 2 el perfil se invierte y la cuna se queda sin punta."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "household",
     "cdg_interfaces": [

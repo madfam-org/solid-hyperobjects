@@ -405,6 +405,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "width_units*height_units + length_units*height_units + length_units*width_units <= 150",
+      "severity": "warning",
+      "message": {
+        "en": "This beam builds a very large hole array (over 150 cutters) fused into one boolean; the render may time out. Reduce length_units, width_units, height_units, or switch off one of holes_x / holes_y / holes_z.",
+        "es": "Esta viga genera un arreglo de barrenos muy grande (más de 150 cortadores) fusionados en un solo booleano; el render puede exceder el tiempo. Reduce length_units, width_units, height_units, o desactiva holes_x / holes_y / holes_z."
+      }
+    },
+    {
+      "expression": "length_units <= width_units * 12 || length_units <= height_units * 12",
+      "severity": "warning",
+      "message": {
+        "en": "A beam this slender (length_units over 12x both width_units and height_units) bows under its own weight and warps off the bed. Thicken width_units or height_units.",
+        "es": "Una viga tan esbelta (length_units más de 12x width_units y height_units) se pandea por su propio peso y se despega de la cama. Engrosa width_units o height_units."
+      }
+    },
+    {
+      "expression": "arm_a_units + arm_b_units >= 3",
+      "severity": "warning",
+      "message": {
+        "en": "With arm_a_units and arm_b_units both at 1 the L collapses to a single 10 mm cell with one hole — a washer, not a brace. Raise one arm.",
+        "es": "Con arm_a_units y arm_b_units ambos en 1, la L se reduce a una sola celda de 10 mm con un barreno — una rondana, no una escuadra. Aumenta un brazo."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

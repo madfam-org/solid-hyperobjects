@@ -348,6 +348,24 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "flexure_thickness >= 0.6",
+            "severity": "warning",
+            "message": {
+                "en": "A flexure_thickness under 0.6 mm is thinner than two extrusions: the living hinge will tear on its first cycles.",
+                "es": "Un flexure_thickness menor a 0.6 mm es más delgado que dos extrusiones: la bisagra viva se romperá en sus primeros ciclos."
+            }
+        },
+        {
+            "expression": "finger_length <= base_radius*3.0",
+            "severity": "warning",
+            "message": {
+                "en": "finger_length over 3x base_radius makes a lever the wrist flange cannot carry; the hinges at the hub will yield before the fingers grip.",
+                "es": "Un finger_length mayor a 3x base_radius crea una palanca que la brida de muñeca no soporta; las bisagras del cubo cederán antes de que los dedos agarren."
+            }
+        }
+    ],
     "export_formats": [
         "stl",
         "3mf",

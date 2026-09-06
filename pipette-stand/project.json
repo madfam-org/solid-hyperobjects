@@ -236,6 +236,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "tip_hole <= 8.0",
+      "severity": "error",
+      "message": {
+        "en": "Tip holes are on the 9 mm SBS pitch: at tip_hole above 8 mm the webs between holes vanish and the tray shelf falls apart.",
+        "es": "Los barrenos van a paso SBS de 9 mm: con tip_hole mayor a 8 mm desaparecen las nervaduras y la charola se deshace."
+      }
+    },
+    {
+      "expression": "body_diameter / 2.0 + 0.6 < 8.0 + 1.5 * pipette_slots",
+      "severity": "error",
+      "message": {
+        "en": "The cradle radius exceeds the carousel ring offset: the cradles reach the centre boss and hollow out the stand.",
+        "es": "El radio de la cuna excede el desplazamiento del anillo: las cunas alcanzan el bulón central y vacían la base."
+      }
+    },
+    {
+      "expression": "tip_cols * tip_rows <= 72",
+      "severity": "warning",
+      "message": {
+        "en": "Above 72 tip holes the per-hole boolean loop makes the tray slow to render.",
+        "es": "Arriba de 72 barrenos el bucle booleano por barreno vuelve lenta la generación de la charola."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

@@ -389,7 +389,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "text_depth <= ring_t*0.4",
+      "severity": "error",
+      "message": {
+        "en": "text_depth cannot exceed 40% of ring_t: the label is debossed into both tab faces and a deeper cut punches straight through.",
+        "es": "text_depth no puede exceder el 40% de ring_t: la etiqueta se graba en ambas caras de la pestaña y un corte más profundo la perfora de lado a lado."
+      }
+    },
+    {
+      "expression": "ring_t*1.2 < rod_dia/2.0 + 0.5",
+      "severity": "error",
+      "message": {
+        "en": "ring_t is too thick for this rod_dia: the tab root is buried ring_t * 1.2 inside the bore and would cross the rail axis. Thin ring_t or use a larger rod_dia.",
+        "es": "ring_t es demasiado grueso para este rod_dia: la raíz de la pestaña se hunde ring_t * 1.2 dentro del barreno y cruzaría el eje del tubo. Adelgaza ring_t o usa un rod_dia mayor."
+      }
+    },
+    {
+      "expression": "tab_h >= ring_t*2.0",
+      "severity": "warning",
+      "message": {
+        "en": "tab_h under twice ring_t leaves a paddle shorter than the ring is thick; the size label will not be legible on the rail.",
+        "es": "Un tab_h menor al doble de ring_t deja una paleta más corta que el grosor del anillo; la talla no se leerá en el tubo."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

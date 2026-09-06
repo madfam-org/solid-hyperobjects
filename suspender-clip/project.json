@@ -222,7 +222,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "body_h >= 2.0 * slot_gap + 24.0",
+      "severity": "error",
+      "message": {
+        "en": "The two webbing slots sit at body_h/2 - 8 and slot_gap + 4 mm below it; with this body_h the lower slot runs into the grip notches at the bottom edge.",
+        "es": "Las dos ranuras del elástico van a body_h/2 - 8 y slot_gap + 4 mm más abajo; con este body_h la ranura inferior choca con las muescas del borde inferior."
+      }
+    },
+    {
+      "expression": "webbing / teeth >= 1.5",
+      "severity": "warning",
+      "message": {
+        "en": "tooth_pitch is webbing / teeth and each notch is 40 % of it; under 1.5 mm pitch the grip teeth are thinner than a nozzle pass.",
+        "es": "tooth_pitch es webbing / teeth y cada muesca es el 40 % de eso; con menos de 1.5 mm de paso los dientes quedan más delgados que una pasada de boquilla."
+      }
+    },
+    {
+      "expression": "webbing + 8.0 >= 4.0 * plate_t",
+      "severity": "warning",
+      "message": {
+        "en": "body_w is webbing + 8 mm; against this plate_t the clip is a thick stub rather than a flat plate and will not sit inside a waistband.",
+        "es": "body_w es webbing + 8 mm; frente a este plate_t la pinza es un taco grueso y no una placa plana, y no queda dentro de una pretina."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

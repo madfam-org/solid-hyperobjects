@@ -214,6 +214,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "clearance < 0.55 * 0.7056",
+      "severity": "error",
+      "message": {
+        "en": "clearance exceeds the RMS thread depth (0.55 * 0.7056 mm): the female crest no longer projects into the bore and the objective will not thread in.",
+        "es": "clearance supera la profundidad del hilo RMS (0.55 * 0.7056 mm): la cresta hembra deja de sobresalir en el barreno y el objetivo no enroscará."
+      }
+    },
+    {
+      "expression": "well_depth * 0.8 >= 4.0",
+      "severity": "warning",
+      "message": {
+        "en": "In multi_nest_block the well is scaled to well_depth * 0.8; below 4 mm the front lens of the objective bottoms out against the block floor.",
+        "es": "En multi_nest_block el pozo se escala a well_depth * 0.8; por debajo de 4 mm la lente frontal del objetivo topa contra el piso del bloque."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

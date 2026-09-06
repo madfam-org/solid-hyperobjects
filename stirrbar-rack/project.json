@@ -223,6 +223,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "max_bar_length >= 20.0",
+      "severity": "warning",
+      "message": {
+        "en": "Below max_bar_length 20 mm only the 12 mm standard bar fits, so the graded set falls back to interpolated lengths instead of the real 12/20/25/38/50 mm sizes.",
+        "es": "Por debajo de max_bar_length 20 mm solo cabe la barra estándar de 12 mm, así que el juego graduado usa longitudes interpoladas en vez de las medidas reales de 12/20/25/38/50 mm."
+      }
+    },
+    {
+      "expression": "slot_count * (bar_diameter + 4.6) + 3.0 <= 120.0",
+      "severity": "warning",
+      "message": {
+        "en": "Rack width is slot_count x (bar_diameter + 1.6 clearance + 3 mm wall) and passes 120 mm; drop slot_count or bar_diameter to keep it on a common bed.",
+        "es": "El ancho de la gradilla es slot_count x (bar_diameter + 1.6 de holgura + 3 mm de pared) y pasa de 120 mm; baja slot_count o bar_diameter para que quepa en una cama común."
+      }
+    },
+    {
+      "expression": "magnet_diameter <= bar_diameter + 6.0",
+      "severity": "warning",
+      "message": {
+        "en": "The wand handle is magnet_diameter + 8 mm across; that much wider than bar_diameter it will not pass a flask neck the bars fit through.",
+        "es": "El mango de la varilla mide magnet_diameter + 8 mm; tanto más ancho que bar_diameter no pasa por el cuello del matraz por donde sí entran las barras."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

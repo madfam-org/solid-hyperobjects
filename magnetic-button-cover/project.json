@@ -394,7 +394,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "magnet_dia + 2.0 * wall + 1.0 <= button_dia",
+      "severity": "error",
+      "message": {
+        "en": "The magnet must fit behind the button it hides: magnet_dia + 2*wall + 1 mm cannot exceed button_dia, or the magnet pocket breaks out through the cap wall.",
+        "es": "El imán debe caber detrás del botón que oculta: magnet_dia + 2*wall + 1 mm no puede superar button_dia, o la cavidad del imán rompe la pared de la tapa."
+      }
+    },
+    {
+      "expression": "hole_dia <= 1.6 * (0.5 * (button_dia + 0.4 + 2.0 * wall) - (0.5 * (magnet_dia + magnet_fit) + 0.5 * hole_dia + 0.8))",
+      "severity": "error",
+      "message": {
+        "en": "Sew holes of hole_dia do not fit between the magnet pocket and the plate rim; reduce hole_dia or magnet_dia, or raise button_dia / wall.",
+        "es": "Los orificios de costura de hole_dia no caben entre la cavidad del imán y el borde de la placa; reduce hole_dia o magnet_dia, o aumenta button_dia / wall."
+      }
+    },
+    {
+      "expression": "snap_lip <= 0.35 * button_t",
+      "severity": "warning",
+      "message": {
+        "en": "snap_lip is deep relative to button_t: the retaining lip becomes taller than the button rim it grips and the cap will not spring on.",
+        "es": "snap_lip es profundo respecto a button_t: el labio de retención supera el reborde del botón que sujeta y la tapa no entrará a presión."
+      }
+    },
+    {
+      "expression": "sew_holes * hole_dia < 3.14159 * (0.5 * (button_dia + 0.4 + 2.0 * wall) - 2.0)",
+      "severity": "warning",
+      "message": {
+        "en": "sew_holes at hole_dia crowd the plate perimeter; the webs between holes get too thin to sew through without tearing.",
+        "es": "sew_holes con hole_dia saturan el perímetro de la placa; los puentes entre orificios quedan demasiado delgados y se desgarran al coser."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

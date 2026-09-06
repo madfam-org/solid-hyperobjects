@@ -360,7 +360,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "slot_count <= 1 || (slot_count - 1) * slot_pitch + slot_w + 5.0 <= bar_length",
+      "severity": "warning",
+      "message": {
+        "en": "(slot_count - 1) x slot_pitch plus slot_w and the end margins overruns bar_length; slot_pitch is silently compressed to fit the spine.",
+        "es": "(slot_count - 1) x slot_pitch más slot_w y los márgenes de extremo rebasa bar_length; slot_pitch se comprime silenciosamente para caber en el eje."
+      }
+    },
+    {
+      "expression": "slot_w <= slot_pitch - 1.0",
+      "severity": "error",
+      "message": {
+        "en": "slot_w leaves under 1 mm of bar between adjacent sew slots; the slot row perforates the spine into a chain of gaps.",
+        "es": "slot_w deja menos de 1 mm de eje entre ranuras de costura contiguas; la fila de ranuras perfora el eje y lo vuelve una cadena de huecos."
+      }
+    },
+    {
+      "expression": "teeth <= 1 || (bar_length - 2.0 * (2.5 + tooth_w / 2.0)) / (teeth - 1.0) >= tooth_w * 1.25",
+      "severity": "warning",
+      "message": {
+        "en": "teeth x tooth_w overruns the tooth span available on bar_length; tooth_w is silently narrowed so the teeth do not touch at the roots.",
+        "es": "teeth x tooth_w rebasa el tramo de dientes disponible en bar_length; tooth_w se angosta silenciosamente para que los dientes no se toquen en la raíz."
+      }
+    },
+    {
+      "expression": "bar_h >= slot_w + 3.8",
+      "severity": "error",
+      "message": {
+        "en": "slot_h is capped at bar_h - 2.6 with a 1.2 mm floor; with this bar_h against slot_w the sew slot eats through the top rail and into the tooth roots.",
+        "es": "slot_h se limita a bar_h - 2.6 con piso de 1.2 mm; con este bar_h frente a slot_w la ranura de costura atraviesa el riel superior y llega a la raíz de los dientes."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

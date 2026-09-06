@@ -1737,6 +1737,96 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "boxChamferRadiusMm <= (internalBoxWidthXMm < internalboxLengthYMm ? internalBoxWidthXMm : internalboxLengthYMm) / 2.0 + boxWallWidthMm - 0.2",
+      "severity": "warning",
+      "message": {
+        "en": "boxChamferRadiusMm exceeds half the short shell side and is silently clamped to min(shell_x, shell_y)/2 - 0.2; the corners come out less rounded than requested. Raise internalBoxWidthXMm / internalboxLengthYMm or lower boxChamferRadiusMm.",
+        "es": "boxChamferRadiusMm supera la mitad del lado corto de la carcasa y se recorta en silencio a min(shell_x, shell_y)/2 - 0.2; las esquinas salen menos redondeadas de lo pedido. Sube internalBoxWidthXMm / internalboxLengthYMm o baja boxChamferRadiusMm."
+      }
+    },
+    {
+      "expression": "rimWidthMm <= boxWallWidthMm + 1.55",
+      "severity": "warning",
+      "message": {
+        "en": "The seal ring is clamped to boxWallWidthMm + 1.55 mm (wall + gasket inset - 0.2), so a wider rimWidthMm has no effect: the ring cannot overhang the shell face it stands on. Thicken boxWallWidthMm instead.",
+        "es": "El anillo del sello se recorta a boxWallWidthMm + 1.55 mm (pared + inserción de junta - 0.2), así que un rimWidthMm mayor no surte efecto: el anillo no puede volar sobre la cara de la carcasa donde se apoya. Engrosa boxWallWidthMm en su lugar."
+      }
+    },
+    {
+      "expression": "gasketSlotWidth > rimWidthMm",
+      "severity": "warning",
+      "message": {
+        "en": "gasketSlotWidth is not wider than rimWidthMm: the groove is forced open to ring_w + 0.05 mm so the ring still enters, and the seal closes with no squeeze. Widen gasketSlotWidth above rimWidthMm.",
+        "es": "gasketSlotWidth no supera a rimWidthMm: la ranura se abre a la fuerza a ring_w + 0.05 mm para que el anillo entre, y el sello cierra sin compresión. Amplía gasketSlotWidth por encima de rimWidthMm."
+      }
+    },
+    {
+      "expression": "gasketSlotDepth <= internalboxBottomHeightZMm + boxWallWidthMm - 1.0",
+      "severity": "error",
+      "message": {
+        "en": "The gasket groove is deeper than the base it is cut into: gasketSlotDepth must stay at least 1 mm under internalboxBottomHeightZMm + boxWallWidthMm, or the groove breaks through the base rim.",
+        "es": "La ranura de la junta es más profunda que la base donde se corta: gasketSlotDepth debe quedar al menos 1 mm por debajo de internalboxBottomHeightZMm + boxWallWidthMm, o la ranura rompe el reborde de la base."
+      }
+    },
+    {
+      "expression": "hingeTotalWidthMm * numberOfHinges + 2.0 * hingeCenterOffsetMm <= internalBoxWidthXMm + 2.0 * boxWallWidthMm",
+      "severity": "error",
+      "message": {
+        "en": "The hinge knuckles do not fit along the back edge: numberOfHinges x hingeTotalWidthMm plus the two hingeCenterOffsetMm margins overruns the shell width, so neighbouring knuckles merge into one bar and the hinge cannot turn.",
+        "es": "Los nudillos de la bisagra no caben en el borde trasero: numberOfHinges x hingeTotalWidthMm más los dos márgenes hingeCenterOffsetMm rebasa el ancho de la carcasa, así que los nudillos vecinos se funden en una sola barra y la bisagra no gira."
+      }
+    },
+    {
+      "expression": "latchSupportTotalWidth * numberOfLatches + 2.0 * latchCenterOffsetMm <= internalBoxWidthXMm + 2.0 * boxWallWidthMm",
+      "severity": "error",
+      "message": {
+        "en": "The latch catches do not fit along the front edge: numberOfLatches x latchSupportTotalWidth plus the two latchCenterOffsetMm margins overruns the shell width and the catches overlap.",
+        "es": "Los enganches del pestillo no caben en el borde frontal: numberOfLatches x latchSupportTotalWidth más los dos márgenes latchCenterOffsetMm rebasa el ancho de la carcasa y los enganches se traslapan."
+      }
+    },
+    {
+      "expression": "hingeRadiusMm > 0.5 + 0.5",
+      "severity": "error",
+      "message": {
+        "en": "The lid knuckle is turned hingeRadiusMm - 0.5 mm; at or below 1 mm it collapses to the 0.5 mm floor and the two knuckles interfere instead of running on each other.",
+        "es": "El nudillo de la tapa se hace con hingeRadiusMm - 0.5 mm; en 1 mm o menos cae al piso de 0.5 mm y los dos nudillos se interfieren en vez de girar uno sobre otro."
+      }
+    },
+    {
+      "expression": "supportRibThickness <= boxWallWidthMm",
+      "severity": "warning",
+      "message": {
+        "en": "supportRibThickness is clamped to boxWallWidthMm: the partition walls are built no thicker than the shell wall, so a larger value has no effect. Thicken boxWallWidthMm to get thicker dividers.",
+        "es": "supportRibThickness se recorta a boxWallWidthMm: los tabiques no se construyen más gruesos que la pared de la carcasa, así que un valor mayor no surte efecto. Engrosa boxWallWidthMm para obtener divisiones más gruesas."
+      }
+    },
+    {
+      "expression": "numCountainerWidthXSectionsToSkip < countainerWidthXSections",
+      "severity": "warning",
+      "message": {
+        "en": "numCountainerWidthXSectionsToSkip drops every X divider (it is clamped to countainerWidthXSections - 1), so the compartments you asked for across X merge back into one cell.",
+        "es": "numCountainerWidthXSectionsToSkip elimina todos los tabiques en X (se recorta a countainerWidthXSections - 1), así que los compartimentos pedidos en X se funden de nuevo en una sola celda."
+      }
+    },
+    {
+      "expression": "numBoxLengthYSectionsToSkip < boxLengthYSections",
+      "severity": "warning",
+      "message": {
+        "en": "numBoxLengthYSectionsToSkip drops every Y divider (it is clamped to boxLengthYSections - 1), so the compartments you asked for along Y merge back into one cell.",
+        "es": "numBoxLengthYSectionsToSkip elimina todos los tabiques en Y (se recorta a boxLengthYSections - 1), así que los compartimentos pedidos en Y se funden de nuevo en una sola celda."
+      }
+    },
+    {
+      "expression": "feetLengthMm > feetwidthMm",
+      "severity": "warning",
+      "message": {
+        "en": "The stacking foot is cut as a slot of length max(feetLengthMm, feetwidthMm + 0.01): with feetLengthMm at or below feetwidthMm the foot degenerates to a round pad and loses its anti-slide edge.",
+        "es": "El pie de apilado se corta como una ranura de largo max(feetLengthMm, feetwidthMm + 0.01): con feetLengthMm igual o menor que feetwidthMm el pie degenera en una pastilla redonda y pierde su borde antideslizante."
+      }
+    }
+  ],
   "bom": [
     {
       "item": {

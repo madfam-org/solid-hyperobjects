@@ -281,6 +281,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "clearance * 2.0 <= wall",
+      "severity": "error",
+      "message": {
+        "en": "Each slot grows by 2*clearance while the pitch adds only wall: with 2*clearance above wall adjacent slots merge and the dividing wall vanishes.",
+        "es": "Cada ranura crece 2*clearance mientras el paso solo suma wall: si 2*clearance excede wall las ranuras vecinas se fusionan y desaparece el tabique."
+      }
+    },
+    {
+      "expression": "wall >= 2.5 || wall >= clearance * 4.0",
+      "severity": "warning",
+      "message": {
+        "en": "The blank is filleted at min(3, wall + 0.5), which exceeds wall below 2.5 mm: the corner slots lose most of their outer wall.",
+        "es": "El bloque se redondea con min(3, wall + 0.5), que supera a wall por debajo de 2.5 mm: las ranuras de esquina pierden casi toda su pared exterior."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

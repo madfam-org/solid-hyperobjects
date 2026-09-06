@@ -329,7 +329,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "scoop_w >= handle_w + 4.0",
+      "severity": "error",
+      "message": {
+        "en": "scoop_w must be at least handle_w + 4 mm: the blade widens from handle to heel scoop, and an inverted taper folds the loft on itself.",
+        "es": "scoop_w debe ser al menos handle_w + 4 mm: la hoja se ensancha del mango a la pala del talón, y un ahusamiento invertido pliega el loft sobre sí mismo."
+      }
+    },
+    {
+      "expression": "hang_hole <= handle_w*0.5",
+      "severity": "error",
+      "message": {
+        "en": "hang_hole cannot exceed half of handle_w or the bore breaks out of the handle's sides.",
+        "es": "hang_hole no puede exceder la mitad de handle_w o la perforación rompe los costados del mango."
+      }
+    },
+    {
+      "expression": "hang_hole == 0.0 || hang_hole + 3.0 <= handle_w",
+      "severity": "warning",
+      "message": {
+        "en": "Less than 1.5 mm of handle each side of hang_hole: the loop will tear out. Shrink hang_hole or widen handle_w.",
+        "es": "Quedan menos de 1.5 mm de mango a cada lado de hang_hole: la argolla se desgarrará. Reduce hang_hole o amplía handle_w."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

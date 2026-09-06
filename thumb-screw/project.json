@@ -345,6 +345,40 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "head_dia * 2.5132741 / knurl_teeth >= 1.4",
+      "severity": "error",
+      "message": {
+        "en": "knurl_teeth around the thumb-nut knob (0.8 x head_dia) spaces the 0.9 mm flutes under 1.4 mm apart; the cuts merge and consume the knob rim.",
+        "es": "knurl_teeth alrededor de la perilla de la tuerca (0.8 x head_dia) deja las estrías de 0.9 mm a menos de 1.4 mm; los cortes se fusionan y se comen el borde."
+      }
+    },
+    {
+      "expression": "head_dia * 0.4 - clearance >= 3.5",
+      "severity": "error",
+      "message": {
+        "en": "The thumb nut bores head_dia x 0.4 down to the thread major radius plus clearance; this leaves under 0.5 mm of knob wall around the bore.",
+        "es": "La tuerca de mariposa barrena head_dia x 0.4 hasta el radio mayor de rosca más clearance; queda menos de 0.5 mm de pared de perilla alrededor."
+      }
+    },
+    {
+      "expression": "shaft_len >= engage_turns + 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "shaft_len is shorter than engage_turns of M6 thread plus a lead-in; the helical rib is truncated below the engagement you asked for.",
+        "es": "shaft_len es menor que engage_turns de rosca M6 más la entrada; la costilla helicoidal se trunca por debajo del enganche pedido."
+      }
+    },
+    {
+      "expression": "head_h <= head_dia * 0.75",
+      "severity": "warning",
+      "message": {
+        "en": "head_h approaching head_dia turns the knurled head into a barrel; a hand-turned head wants to be a disc, wider than it is thick.",
+        "es": "head_h cercano a head_dia convierte la cabeza moleteada en un barril; una cabeza de giro manual debe ser un disco, más ancha que gruesa."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

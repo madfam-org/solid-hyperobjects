@@ -289,6 +289,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "grid_pitch / 2.0 >= post_diameter / 2.0 + 0.3 + 5.75",
+      "severity": "error",
+      "message": {
+        "en": "In base_clamp the two grid counterbores at ±grid_pitch/2 overlap the central post seat (post_diameter/2 + 0.3); increase grid_pitch or reduce post_diameter.",
+        "es": "En base_clamp los dos avellanados de rejilla en ±grid_pitch/2 invaden el asiento central del poste (post_diameter/2 + 0.3); aumenta grid_pitch o reduce post_diameter."
+      }
+    },
+    {
+      "expression": "grid_pitch > post_diameter",
+      "severity": "error",
+      "message": {
+        "en": "post_diameter meets or exceeds grid_pitch; the post seat spans a whole grid cell and the base plate cannot bolt down.",
+        "es": "post_diameter iguala o supera grid_pitch; el asiento del poste abarca una celda completa y la base no puede atornillarse."
+      }
+    },
+    {
+      "expression": "post_height >= 2.0 * post_diameter",
+      "severity": "warning",
+      "message": {
+        "en": "post_height under twice post_diameter is a puck, not a post; the top socket and base bore consume most of its length.",
+        "es": "post_height menor al doble de post_diameter es un disco, no un poste; el casquillo superior y el barreno de base consumen casi todo su largo."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

@@ -116,6 +116,40 @@
     { "id": "slots", "label": { "en": "Tool Slots", "es": "Ranuras de Herramienta" } },
     { "id": "body",  "label": { "en": "Body",       "es": "Cuerpo" } }
   ],
+  "constraints": [
+    {
+      "expression": "slot_pitch >= slot_width + 1.5",
+      "severity": "error",
+      "message": {
+        "en": "Slots are spaced along X at slot_pitch and each is slot_width across (the obround is turned 90 deg); under slot_width + 1.5 mm the pockets merge into one trench.",
+        "es": "Las ranuras se espacian en X según slot_pitch y cada una mide slot_width de ancho (el óvalo va girado 90 grados); por debajo de slot_width + 1.5 mm se funden en una sola zanja."
+      }
+    },
+    {
+      "expression": "body_height >= slot_length + 6.0",
+      "severity": "error",
+      "message": {
+        "en": "slot_length is the pocket depth cut down from the raked top face; it must stay at least 6 mm short of body_height or the slots pierce the base.",
+        "es": "slot_length es la profundidad del alojamiento desde la cara inclinada; debe quedar al menos 6 mm por debajo de body_height o las ranuras perforan la base."
+      }
+    },
+    {
+      "expression": "body_height >= (slot_length + 2.0 * wall + 6.0) * 0.42 * rake_angle / 20.0 + 6.0",
+      "severity": "warning",
+      "message": {
+        "en": "The rake cut drops the front face by roughly half the block depth times tan(rake_angle); with this body_height, slot_length and wall the front lip is nearly cut away.",
+        "es": "El corte de inclinación baja la cara frontal cerca de la mitad de la profundidad por tan(rake_angle); con este body_height, slot_length y wall el labio frontal casi desaparece."
+      }
+    },
+    {
+      "expression": "slot_length >= slot_width * 1.2",
+      "severity": "warning",
+      "message": {
+        "en": "slot_length below 1.2 x slot_width degenerates the obround into a circle; slot2D needs a real length to stop the tool rocking in the pocket.",
+        "es": "slot_length por debajo de 1.2 x slot_width degenera el óvalo en un círculo; slot2D necesita longitud real para que la herramienta no baile en el alojamiento."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "hyperobject": {
     "domain": "industrial",

@@ -299,7 +299,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "bowl_d + 3.0 <= dish_h",
+      "severity": "error",
+      "message": {
+        "en": "The bowl is deeper than the dish is tall: bowl_d must leave at least 3 mm of body under dish_h.",
+        "es": "El cuenco es más profundo que la altura del plato: bowl_d debe dejar al menos 3 mm de cuerpo bajo dish_h."
+      }
+    },
+    {
+      "expression": "magnet_dia + 20.0 <= dish_dia",
+      "severity": "error",
+      "message": {
+        "en": "The magnet boss has no wall around it: magnet_dia must be at least 20 mm smaller than dish_dia.",
+        "es": "El buje del imán queda sin pared alrededor: magnet_dia debe ser al menos 20 mm menor que dish_dia."
+      }
+    },
+    {
+      "expression": "dish_h - bowl_d - (magnet_t + magnet_clr) - floor_t >= 0.0",
+      "severity": "error",
+      "message": {
+        "en": "The magnet pocket plus floor_t exceeds the material under the bowl floor; reduce magnet_t, bowl_d or floor_t, or raise dish_h.",
+        "es": "La cavidad del imán más floor_t supera el material bajo el piso del cuenco; reduce magnet_t, bowl_d o floor_t, o aumenta dish_h."
+      }
+    },
+    {
+      "expression": "magnet_clr < 0.495",
+      "severity": "warning",
+      "message": {
+        "en": "magnet_clr is larger than the Ø2.2 mm retention nibs can bridge; the magnet will drop out of the pocket.",
+        "es": "magnet_clr supera lo que pueden salvar los topes de retención de Ø2.2 mm; el imán se caerá de la cavidad."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

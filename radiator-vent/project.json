@@ -229,6 +229,32 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "width >= 200.0 || !tab",
+            "severity": "error",
+            "message": {
+                "en": "Louver slots span 82% of width while the mounting ears sit 18 mm inboard: below width 200 mm the top slot cuts the ears off. Widen the panel or turn tab off.",
+                "es": "Las ranuras abarcan 82% de width y las orejas de montaje quedan a 18 mm del borde: con width menor a 200 mm la ranura superior corta las orejas. Amplia el panel o desactiva tab."
+            }
+        },
+        {
+            "expression": "thickness * 12.0 >= louver_angle",
+            "severity": "warning",
+            "message": {
+                "en": "The raked face overlaps the base by only 5 mm: at a steep louver_angle with a thin panel the fold lifts off the base and the two plates barely weld.",
+                "es": "La cara inclinada solo traslapa 5 mm con la base: con louver_angle pronunciado y panel delgado el pliegue se despega y las dos placas apenas se sueldan."
+            }
+        },
+        {
+            "expression": "height / (louver_count + 1) >= 4.0",
+            "severity": "warning",
+            "message": {
+                "en": "Louver pitch below 4 mm leaves webs too thin to print between slots: lower louver_count or raise height.",
+                "es": "Un paso de rejilla menor a 4 mm deja nervaduras demasiado delgadas para imprimir: baja louver_count o sube height."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 10,

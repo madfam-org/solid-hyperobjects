@@ -256,6 +256,48 @@
       "values": { "plate_w": 44.0, "plate_h": 90.0, "plate_t": 4.0, "bolt_bore_d": 25.40, "box_screw_d": 4.8, "corner_r": 4.0 }
     }
   ],
+  "constraints": [
+    {
+      "expression": "bolt_bore_d <= plate_w - 3.0",
+      "severity": "error",
+      "message": {
+        "en": "bolt_bore_d leaves under 1.5 mm of plate each side of the bore; the deadbolt strike falls apart into two loose halves.",
+        "es": "bolt_bore_d deja menos de 1.5 mm de placa a cada lado del barreno; el cerradero de cerrojo se parte en dos mitades sueltas."
+      }
+    },
+    {
+      "expression": "latch_bore_w <= plate_w - 6.0",
+      "severity": "error",
+      "message": {
+        "en": "latch_bore_w plus its 3 mm side walls is wider than plate_w; the latch mouth cuts the strike in two.",
+        "es": "latch_bore_w más sus paredes laterales de 3 mm excede plate_w; la boca del pestillo corta el cerradero en dos."
+      }
+    },
+    {
+      "expression": "screw_head_d <= plate_w - 3.0 && screw_head_d > screw_d",
+      "severity": "error",
+      "message": {
+        "en": "screw_head_d must exceed screw_d and still leave 3 mm of plate: otherwise the countersink breaches the plate edge.",
+        "es": "screw_head_d debe superar a screw_d y aún dejar 3 mm de placa: si no, el avellanado rompe el borde."
+      }
+    },
+    {
+      "expression": "plate_h >= 2.0 * screw_head_d + 2.0 * corner_r + 8.0",
+      "severity": "error",
+      "message": {
+        "en": "plate_h is too short for the two centreline countersinks: the heads are set in by screw_head_d/2 + 1.5 mm or corner_r + 2 mm and overlap each other.",
+        "es": "plate_h es demasiado corta para los dos avellanados centrados: las cabezas se meten screw_head_d/2 + 1.5 mm o corner_r + 2 mm y se traslapan."
+      }
+    },
+    {
+      "expression": "box_screw_d + 5.0 <= plate_w / 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "The box strike sets its four screws box_screw_d/2 + 2.5 mm in from each edge; at this plate_w they crowd the bolt pocket.",
+        "es": "El cerradero de caja coloca sus cuatro tornillos a box_screw_d/2 + 2.5 mm de cada borde; con este plate_w invaden el alojamiento del cerrojo."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "infrastructure",
     "cdg_interfaces": [

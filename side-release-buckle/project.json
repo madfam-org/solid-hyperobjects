@@ -322,7 +322,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "body_t - 2.0*wall_t >= webbing_t + 0.4",
+      "severity": "error",
+      "message": {
+        "en": "The webbing channel does not fit: body_t - 2*wall_t must be at least webbing_t + 0.4 mm, or the slot cuts through the buckle's floor or ceiling.",
+        "es": "El canal de la cinta no cabe: body_t - 2*wall_t debe ser al menos webbing_t + 0.4 mm, o la ranura atraviesa el piso o el techo de la hebilla."
+      }
+    },
+    {
+      "expression": "(wall_t * 1.3 < body_t * 0.45 ? wall_t * 1.3 : body_t * 0.45) < 1.8 ? 1.8 + 2.0 * snap_clear <= body_t - wall_t : (wall_t * 1.3 < body_t * 0.45 ? wall_t * 1.3 : body_t * 0.45) + 2.0 * snap_clear <= body_t - wall_t",
+      "severity": "error",
+      "message": {
+        "en": "The female cavity is deeper than the housing: the prong plus 2*snap_clear leaves no skin over body_t. Increase body_t, or reduce wall_t or snap_clear.",
+        "es": "La cavidad de la hembra es más profunda que la carcasa: el diente más 2*snap_clear no deja piel sobre body_t. Aumenta body_t, o reduce wall_t o snap_clear."
+      }
+    },
+    {
+      "expression": "prong_len >= 3.0*wall_t",
+      "severity": "warning",
+      "message": {
+        "en": "prong_len under 3x wall_t gives a stub too stiff to squeeze: the buckle will not release. Lengthen prong_len or thin wall_t.",
+        "es": "Un prong_len menor a 3x wall_t da un muñón demasiado rígido para apretar: la hebilla no abrirá. Alarga prong_len o adelgaza wall_t."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",
