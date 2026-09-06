@@ -62,12 +62,16 @@ def build_half():
         disc = disc.edges(">Z").fillet(disc_h * 0.25)
     except Exception:
         pass
-    # Magnet pocket: a blind bore from the top.
+    # Magnet pocket: a blind bore open at the top face. The disc spans
+    # z = disc_h/2 .. 3*disc_h/2, so the pocket floor sits magnet_h below the
+    # top face and the cut overshoots past it by 1 mm so the mouth is open
+    # (a cut ending exactly on — or below — the face seals the pocket into a
+    # negative-volume void).
     pocket = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, disc_h - magnet_h / 2.0 + 0.01))
+        .transformed(offset=cq.Vector(0, 0, 1.5 * disc_h - magnet_h))
         .circle(magnet_dia / 2.0)
-        .extrude(magnet_h)
+        .extrude(magnet_h + 1.0)
     )
     disc = disc.cut(pocket)
     # Sew holes around the rim (through Z).
