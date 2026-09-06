@@ -17,7 +17,10 @@ def build(params):
     wave_frequency = float(params.get('wave_frequency', 5))
     wave_amplitude = float(params.get('wave_amplitude', 10))
     wall_thickness = float(params.get('wall_thickness', 2))
-    resolution = int(params.get('resolution', 50))
+    # project.json declares resolution's default as 100, and vase.scad uses
+    # 100. This side defaulted to 50, so any render that omitted the parameter
+    # sampled the wall profile at half the density of the OpenSCAD side.
+    resolution = int(params.get('resolution', 100))
 
     steps = max(20, resolution)
 
