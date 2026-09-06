@@ -339,6 +339,32 @@
     "wasm_multiplier": 4,
     "warning_threshold_seconds": 90
   },
+    "verification": {
+      "stages": {
+        "geometry": {
+          "checks": {
+            "watertight": {
+              "enabled": true
+            },
+            "body_count": {
+              "enabled": true,
+              "expected": 1
+            }
+          }
+        }
+      },
+      "mode_overrides": {
+        "set": {
+          "part_overrides": {
+            "set": {
+              "geometry.body_count": {
+                "expected": 2
+              }
+            }
+          }
+        }
+      }
+    },
   "hyperobject": {
     "domain": "wearable",
     "cdg_interfaces": [

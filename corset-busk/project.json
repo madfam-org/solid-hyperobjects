@@ -53,6 +53,32 @@
   ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": { "base_time": 40, "per_unit": 3, "per_part": 20, "fn_factor": 16, "wasm_multiplier": 4, "warning_threshold_seconds": 150 },
+    "verification": {
+      "stages": {
+        "geometry": {
+          "checks": {
+            "watertight": {
+              "enabled": true
+            },
+            "body_count": {
+              "enabled": true,
+              "expected": 1
+            }
+          }
+        }
+      },
+      "mode_overrides": {
+        "busk": {
+          "part_overrides": {
+            "busk": {
+              "geometry.body_count": {
+                "expected": 2
+              }
+            }
+          }
+        }
+      }
+    },
   "hyperobject": {
     "domain": "wearable",
     "cdg_interfaces": [

@@ -52,11 +52,19 @@ bore_dia = max(0.6, min(bore_dia, post_dia - 1.0))
 burr_dia = max(post_dia + 1.5, min(burr_dia, 20.0))
 
 
+# Every feature is placed ONCE: its workplane sits on the face it grows from and
+# the extrude runs from that plane. `.transformed(offset=z)` followed by
+# `.extrude(h)` spans [z, z+h] -- writing the mid-height into the offset (the old
+# idiom here) started each feature ABOVE the face it should fuse into, so the
+# post floated over the cap and nothing fused. Mating features also overlap by
+# WELD (>= 0.01 mm) because coincident faces do not fuse reliably in OCCT.
+WELD = 0.2
+
+
 def build_rivet():
-    """Domed cap on a hollow post."""
+    """Domed cap on a hollow post. Cap z:[0, cap_h]; post grows from inside it."""
     cap = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, cap_h / 2.0))
         .circle(cap_dia / 2.0)
         .extrude(cap_h)
     )
@@ -65,36 +73,35 @@ def build_rivet():
         cap = cap.edges(">Z").fillet(min(cap_h, cap_dia * 0.2) * 0.9)
     except Exception:
         pass
+    # Post starts WELD below the cap's top face so the union is volumetric.
     post = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, cap_h + post_h / 2.0))
+        .workplane(offset=cap_h - WELD)
         .circle(post_dia / 2.0)
-        .extrude(post_h)
+        .extrude(post_h + WELD)
     )
+    # Bore through the whole stack, overshooting both ends by 1 mm.
     bore = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, cap_h + post_h / 2.0))
+        .workplane(offset=-1.0)
         .circle(bore_dia / 2.0)
-        .extrude(post_h + cap_h + 2.0)
-        .translate((0, 0, -cap_h - 1.0))
+        .extrude(cap_h + post_h + 2.0)
     )
     return cap.union(post).cut(bore)
 
 
 def build_burr():
-    """Flat washer (annulus) the post flares into."""
+    """Flat washer (annulus) the post flares into. z:[0, cap_h]."""
     outer = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, cap_h / 2.0))
         .circle(burr_dia / 2.0)
         .extrude(cap_h)
     )
     bore = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, cap_h / 2.0))
+        .workplane(offset=-1.0)
         .circle((post_dia + 0.3) / 2.0)
         .extrude(cap_h + 2.0)
-        .translate((0, 0, -1.0))
     )
     return outer.cut(bore)
 

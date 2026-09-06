@@ -51,48 +51,57 @@ tack_dia   = max(2.0, min(tack_dia, socket_dia - 1.0))
 tack_h     = max(4.0, min(tack_h, 20.0))
 
 
+# Every feature is placed ONCE: its workplane sits on the face it grows from and
+# the extrude runs from that plane. `.transformed(offset=z)` followed by
+# `.extrude(h)` spans [z, z+h], so writing the mid-height into the offset (the
+# old idiom here) started the head above the socket and the shank above the tack
+# head -- neither fused. Mating features overlap by WELD (>= 0.01 mm) because
+# coincident faces do not fuse reliably in OCCT.
+WELD = 0.2
+
+
 def build_button():
-    """Domed head over a bored socket."""
+    """Domed head over a bored socket. Socket z:[0, socket_h], head above it."""
+    socket = (
+        cq.Workplane("XY")
+        .circle(socket_dia / 2.0)
+        .extrude(socket_h)
+    )
     head = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, socket_h + head_h / 2.0))
+        .workplane(offset=socket_h - WELD)
         .circle(head_dia / 2.0)
-        .extrude(head_h)
+        .extrude(head_h + WELD)
     )
     try:
         head = head.edges(">Z").fillet(min(head_h, head_dia * 0.15) * 0.9)
     except Exception:
         pass
-    socket = (
-        cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, socket_h / 2.0))
-        .circle(socket_dia / 2.0)
-        .extrude(socket_h)
-    )
+    # Blind bore for the tack shank: starts 1 mm below the socket base (so the
+    # cut breaks the bottom face cleanly) and reaches the same depth into the
+    # head as before -- socket_h + head_h - 1 above z=0, never through the dome.
     bore = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, socket_h / 2.0))
+        .workplane(offset=-1.0)
         .circle((tack_dia + 0.4) / 2.0)
         .extrude(socket_h + head_h)
-        .translate((0, 0, -1.0))
     )
-    return head.union(socket).cut(bore)
+    return socket.union(head).cut(bore)
 
 
 def build_tack():
-    """The nail: a flat head + a shank."""
+    """The nail: a flat head z:[0, flat_h] + a shank rising from inside it."""
     flat_h = 1.4
     head = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, flat_h / 2.0))
         .circle(tack_dia * 0.9)
         .extrude(flat_h)
     )
     shank = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, flat_h + tack_h / 2.0))
+        .workplane(offset=flat_h - WELD)
         .circle(tack_dia / 2.0)
-        .extrude(tack_h)
+        .extrude(tack_h + WELD)
     )
     return head.union(shank)
 
