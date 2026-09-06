@@ -38,18 +38,36 @@ def build(params):
     )
     base = base.cut(hole)
 
+    # Font and clip -- see plaque.py for the full rationale. In short: neither
+    # kernel named a font, so OpenSCAD used Liberation Sans (the CI image's
+    # font) and CadQuery used Arial, which is absent there and silently
+    # substituted by a wider face. That is this cartridge's entire parity gap
+    # (1.656 mm of bounding box at name_plaque, 2.80% of volume at door_sign).
+    # Name the font on both sides, and clip raised text to the plate so the
+    # bounding box can never grow with the string.
+    FONT = "Liberation Sans"
+
     if raised:
         text_solid = (
             cq.Workplane("XY")
             .workplane(offset=base_thickness)
-            .text(message, font_size, text_depth)
+            .text(message, font_size, text_depth, font=FONT)
         )
-        result = base.union(text_solid)
+        # The clip is the tag's own ROUNDED outline, not a plain rect, so the
+        # text is bounded by the same silhouette the plate has.
+        clip = (
+            cq.Workplane("XY", origin=(0, 0, base_thickness))
+            .rect(base_width, base_height)
+            .extrude(text_depth)
+            .edges("|Z")
+            .fillet(corner_r)
+        )
+        result = base.union(text_solid.intersect(clip))
     else:
         text_solid = (
             cq.Workplane("XY")
             .workplane(offset=base_thickness - text_depth)
-            .text(message, font_size, text_depth + 0.1)
+            .text(message, font_size, text_depth + 0.1, font=FONT)
         )
         result = base.cut(text_solid)
 

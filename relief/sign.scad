@@ -14,6 +14,15 @@ render_mode = 0;
 
 $fn = fn > 0 ? fn : 32;
 
+// Font and clip -- see plaque.scad for the full rationale. In short: neither
+// kernel named a font, so each resolved its own default face and the two set
+// the same string at the same nominal size to different widths (1.656 mm of
+// bounding box at name_plaque, 2.80% of volume at door_sign). Name the font on
+// both sides, and clip raised text to the plate so the bounding box can never
+// grow with the string.
+FONT = "Liberation Sans";
+
+
 module sign_base() {
     cube([base_width, base_height, base_thickness]);
 }
@@ -35,10 +44,18 @@ if (raised) {
         // Border frame on top
         translate([0, 0, base_thickness])
             border_frame();
-        // Raised text
-        translate([base_width / 2, base_height / 2, base_thickness])
-            linear_extrude(text_depth)
-                text(message, size = font_size, halign = "center", valign = "center");
+        // Raised text, clipped to the INNER window rather than the outer
+        // plate, so it can neither overhang the sign nor fuse into the frame.
+        intersection() {
+            translate([base_width / 2, base_height / 2, base_thickness])
+                linear_extrude(text_depth)
+                    text(message, size = font_size, font = FONT,
+                         halign = "center", valign = "center");
+            translate([border_width, border_width, base_thickness])
+                cube([base_width - border_width * 2,
+                      base_height - border_width * 2,
+                      text_depth]);
+        }
     }
 } else {
     difference() {
@@ -51,6 +68,7 @@ if (raised) {
         // Inset text
         translate([base_width / 2, base_height / 2, base_thickness - text_depth])
             linear_extrude(text_depth + 0.1)
-                text(message, size = font_size, halign = "center", valign = "center");
+                text(message, size = font_size, font = FONT,
+                     halign = "center", valign = "center");
     }
 }
