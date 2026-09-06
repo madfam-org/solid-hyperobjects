@@ -120,27 +120,51 @@ def _cage_bars():
     return rim.union(diag)
 
 
+# The housing is rotated `tilt` degrees about X before it is set on the base. That
+# rotation lifts its lowest corner off z = -out_h/2, so a base whose top face sits at
+# exactly -out_h/2 no longer touches it: at the 30 deg default the shell's underside
+# clears the base by 0.894 mm and the two export as detached bodies (untilted the two
+# faces are merely coincident, which fuses no better). The base therefore rises
+# `RISER` mm INTO the housing's swept envelope — enough for the worst case, the far
+# corner of an `out_d`-deep housing swinging up by out_d*sin(tilt) — plus a fixed
+# 0.6 mm of penetration. `base_h` still measures the clear height under the housing.
+RISER = out_d * math.sin(math.radians(tilt)) + 0.6
+
+
 def _mount_base_and_tabs():
     """A base block under the housing plus two side tabs that bolt to the frame
     plates at `mount_width` spacing. The base is what the housing tilts on."""
     base = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -out_d / 2.0, -out_h / 2.0 - base_h / 2.0))
-        .box(out_w, out_d, base_h, centered=(True, True, True))
+        .transformed(offset=cq.Vector(0, -out_d / 2.0,
+                                      -out_h / 2.0 - base_h / 2.0 + RISER / 2.0))
+        .box(out_w, out_d, base_h + RISER, centered=(True, True, True))
     )
     try:
         base = base.edges("|Y").fillet(min(1.5, base_h / 2.0 - 0.4))
     except Exception:
         pass
     # Two tabs projecting out in +/-X, each with a bolt hole through X.
+    #
+    # Each tab is a slab spanning from the base's side face OUT to `tab_span/2`, so it
+    # always shares `OVERLAP` mm of solid with the base. Sizing it `tab_thick` wide and
+    # centring it at `tab_span/2 - tab_thick/2` (the previous form) puts its inner face
+    # at exactly out_w/2 when mount_width <= out_w — a coincident face, zero
+    # penetration, which OCCT fuses into a compound of detached solids (2 bodies in
+    # every mode) — and leaves the tab floating clear of the base entirely once
+    # `mount_width` exceeds `out_w`.
     tabs = None
     tab_z = -out_h / 2.0 - base_h / 2.0
     tab_span = max(mount_width, out_w) + 2.0 * tab_thick
+    OVERLAP = 0.6
     for sx in (-1.0, 1.0):
+        tab_outer = tab_span / 2.0
+        tab_inner = out_w / 2.0 - OVERLAP        # bite into the base
+        tab_w = tab_outer - tab_inner
         tab = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(sx * (tab_span / 2.0 - tab_thick / 2.0), -out_d / 2.0, tab_z))
-            .box(tab_thick, out_d * 0.8, base_h, centered=(True, True, True))
+            .transformed(offset=cq.Vector(sx * (tab_inner + tab_w / 2.0), -out_d / 2.0, tab_z))
+            .box(tab_w, out_d * 0.8, base_h, centered=(True, True, True))
         )
         hole = (
             cq.Workplane("YZ")
