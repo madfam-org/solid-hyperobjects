@@ -545,7 +545,16 @@ jobs:
           MATRIX_RESULT: ${{ needs.render-nightly.result }}
           FAILS: ${{ steps.aggregate.outputs.fails }}
         run: |
-          if [ "$MATRIX_RESULT" = "success" ] && [ "${FAILS:-0}" -eq 0 ]; then
+          # FAIL CLOSED on a missing count. An empty FAILS means the aggregate
+          # step did not run or did not publish — i.e. nobody counted the rows,
+          # which is not the same as counting zero. Defaulting it to 0 would
+          # reinstate exactly the "silence reads as success" shape this whole
+          # change exists to abolish, one level up.
+          if [ -z "${FAILS}" ]; then
+            echo "::error title=no FAIL-row count::the aggregate step published no row count — the verdict cannot be green on an uncounted log"
+            FAILS=-1
+          fi
+          if [ "$MATRIX_RESULT" = "success" ] && [ "$FAILS" -eq 0 ]; then
             # Green ONLY if the completeness check also passes: --green with a
             # --scope that is not fully covered flips itself to the red path,
             # opens the issue with a NEVER RENDERED row per missing cartridge,
@@ -560,7 +569,7 @@ jobs:
             if [ "$MATRIX_RESULT" != "success" ]; then
               echo "::error title=nightly matrix not green::render-nightly finished as '$MATRIX_RESULT'"
             fi
-            if [ "${FAILS:-0}" -ne 0 ]; then
+            if [ "$FAILS" -gt 0 ]; then
               echo "::error title=nightly sweep has failing renders::the concatenated group logs carry $FAILS FAIL row(s); the sweep is red regardless of what the group jobs reported (run 34023334942 reported 62 of them and concluded success)"
             fi
             python3 .github/scripts/nightly_report.py \

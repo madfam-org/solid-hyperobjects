@@ -142,7 +142,11 @@ def main(argv=None) -> int:
         print(f"nightly scope: ONLY — rendering {len(render)} named "
               f"cartridge(s): {' '.join(render)}", file=sys.stderr)
     if len(render) != len(scope):
-        print(f"nightly scope: LIMITED — rendering the first {len(render)} of "
+        # "the first N" is only true of --limit; --only picks by name, and a
+        # message that misdescribes which escape hatch shortened the matrix
+        # sends the next reader looking for the wrong flag.
+        how = "named" if args.only.strip() else "the first"
+        print(f"nightly scope: LIMITED — rendering {how} {len(render)} of "
               f"{len(scope)} cartridges. The scope stays {len(scope)}, so this "
               f"run is DELIBERATELY incomplete and the completeness check must "
               f"fail the report job.", file=sys.stderr)
