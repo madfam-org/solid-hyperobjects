@@ -889,5 +889,135 @@
                 -15
             ]
         }
-    ]
+    ],
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": {
+                        "enabled": true
+                    },
+                    "body_count": {
+                        "enabled": true,
+                        "expected": 1
+                    }
+                }
+            }
+        },
+        "mode_overrides": {
+            "compliant_lock": {
+                "part_overrides": {
+                    "assembly_compliant": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "housing": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "spring_t1": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            },
+            "over_center": {
+                "part_overrides": {
+                    "hook_catch": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            },
+            "pin_tumbler": {
+                "part_overrides": {
+                    "keys": {
+                        "geometry.body_count": {
+                            "expected": 11
+                        }
+                    },
+                    "plug": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "stator": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            },
+            "slip_joint": {
+                "part_overrides": {
+                    "assembly_slip": {
+                        "geometry.body_count": {
+                            "expected": 2
+                        }
+                    },
+                    "blade": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "housing": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "spring_t2": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            },
+            "snap_latch": {
+                "part_overrides": {
+                    "latch_arm": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "striker_plate": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            },
+            "tolerance_calibration": {
+                "part_overrides": {
+                    "gauge": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    },
+                    "slider": {
+                        "geometry.body_count": {
+                            "expected": 6
+                        }
+                    }
+                }
+            },
+            "topological_interlock": {
+                "part_overrides": {
+                    "interlocking_blocks": {
+                        "geometry.body_count": {
+                            "expected": 5
+                        }
+                    },
+                    "peripheral_frame": {
+                        "geometry.body_count": {
+                            "expected": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

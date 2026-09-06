@@ -27,10 +27,18 @@ scale([1 + shrinkage_factor/100, 1 + shrinkage_factor/100, 1 + shrinkage_factor/
 if (render_mode == 0) {
     // --- Cylinder Plug ---
     difference() {
-        cyl(d=plug_d - clearance, h=core_l, orient=RIGHT, anchor=LEFT);
+        // BOSL2 resolves `anchor` in the shape's OWN frame, which `orient=RIGHT`
+        // has already rotated: `anchor=LEFT` put this plug at x -20..20 AND
+        // z -11.7..0 instead of x 0..core_l centred on the axis. The keyway and
+        // the pin chambers are placed in GLOBAL coordinates (x = 6 + i*pitch),
+        // so they cut the wrong part of the barrel — 138.95 mm3 (3.87 %) against
+        // pin_tumbler.py, which centres the barrel and shifts it by core_l/2.
+        // Anchor at CENTER and translate explicitly, as the CadQuery side does.
+        right(core_l/2)
+        cyl(d=plug_d - clearance, h=core_l, orient=RIGHT, anchor=CENTER);
         
-        // Keyway channel
-        translate([0, 0, -plug_d/4])
+        // Keyway channel — centred on the barrel, which now spans 0..core_l.
+        translate([core_l/2, 0, -plug_d/4])
         cuboid([core_l+1, key_gap, plug_d], anchor=CENTER);
         
         // Pin chambers along shear line
@@ -44,10 +52,18 @@ if (render_mode == 0) {
 if (render_mode == 1) {
     // --- Stator (Housing) ---
     difference() {
-        cyl(d=stator_d, h=core_l, orient=RIGHT, anchor=LEFT);
-        
-        // Internal plug bore
-        cyl(d=plug_d + clearance, h=core_l+1, orient=RIGHT, anchor=LEFT);
+        // One `tube()` primitive, not a cylinder minus a coaxial cylinder.
+        //
+        // Subtracting a coaxial `cyl` from a `cyl` left exactly one
+        // non-manifold edge on the shared axis at the origin, so the stator
+        // exported "not watertight — 0 boundary edge(s)" (euler 1, single
+        // component, correct positive volume). Reproduced on a bare two-cylinder
+        // tube with nothing else in the file, and present before this branch.
+        // BOSL2's own annulus builds the same solid — identical volume to
+        // 4 decimal places — without the degenerate edge.
+        right(core_l/2)
+        yrot(90)
+        tube(h=core_l, od=stator_d, id=plug_d + clearance, center=true);
         
         // Driver pin / spring chambers
         for (i=[0:num_pins-1]) {
@@ -91,17 +107,28 @@ if (render_mode == 2) {
         }
         
         // Key Bow (handle)
-        translate([0, 0, 0])
-        cyl(d=stator_d, h=key_gap - clearance, orient=RIGHT, anchor=RIGHT);
+        //
+        // `anchor=RIGHT` is resolved in the cylinder's OWN frame, which
+        // `orient=RIGHT` has already rotated: the disc came out spanning
+        // z 0..stator_d instead of centred on the axis (and x centred rather
+        // than offset). That put the key's Z extent 0.946503 mm from
+        // pin_tumbler.py's, which centres the same disc with
+        // `cq.Workplane("YZ").cylinder(...)`. Anchor at CENTER.
+        cyl(d=stator_d, h=key_gap - clearance, orient=RIGHT, anchor=CENTER);
     }
     
-    // Print-in-place horizontal pins (prevents Z-shear breakage)
+    // Print-in-place horizontal pins (prevents Z-shear breakage).
+    //
+    // Each key pin rides at z = bitting(i)/2 and the driver pin at z = 1.5, as
+    // pin_tumbler.py places them; every pin used to sit at z = 0 here, which
+    // held the key's Z extent 0.946503 mm short of the CadQuery side.
     for (i=[0:num_pins-1]) {
         translate([i*10, plug_d*1.5, 0]) {
             // Key pin (contacts key)
+            translate([0, 0, bitting(i)/2])
             cyl(d=pin_d, h=bitting(i), orient=RIGHT);
             // Driver pin (contacts spring)
-            translate([0, pin_d*2, 0])
+            translate([0, pin_d*2, 1.5])
             cyl(d=pin_d, h=3, orient=RIGHT);
         }
     }

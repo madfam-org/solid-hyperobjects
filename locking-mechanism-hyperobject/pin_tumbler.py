@@ -56,10 +56,26 @@ def generate():
         
     elif render_mode == 2:
         blade = cq.Workplane("XY").box(core_l, key_gap - clearance, plug_d*0.8).translate((core_l/2, 0, 0))
-        cuts = cq.Workplane("XY")
+
+        # The bitting cutter is the SAME tapered cone on both kernels.
+        # pin_tumbler.scad cuts `cyl(d1=pin_d*1.5, d2=0.1, h=cut_depth,
+        # anchor=TOP)` down from the blade top, clamped so the deepest bitting
+        # still leaves `_min_blade` of blade behind. This file cut a plain
+        # full-height cylinder instead AND read `pin_d*1.5` as a RADIUS where the
+        # OpenSCAD side reads it as a DIAMETER (3.75 mm vs 1.875 mm), so it
+        # removed 12.58 % more of the key. `cd` was computed and never used.
+        _min_blade = 0.8
+        cuts = None
         for i in range(num_pins):
-            cd = plug_d*0.4 - bitting(i)
-            cuts = cuts.union(cq.Workplane("XZ").cylinder(key_gap, pin_d*1.5).translate((6 + i*pin_pitch, 0, plug_d*0.4)))
+            cut_depth = max(0.2, min(bitting(i), plug_d*0.4 - _min_blade))
+            cone = cq.Solid.makeCone(pin_d*1.5/2.0, 0.1/2.0, cut_depth)
+            # anchor=TOP: the narrow (d2) end sits at the origin, the cone
+            # reaching back along -axis; then the axis is turned onto +X.
+            cutter = (cq.Workplane(obj=cone)
+                      .translate((0, 0, -cut_depth))
+                      .rotate((0,0,0), (0,1,0), 90)
+                      .translate((6 + i*pin_pitch, 0, plug_d*0.4)))
+            cuts = cutter if cuts is None else cuts.union(cutter)
         key = blade.cut(cuts).translate((0, 0, -plug_d))
         bow = cq.Workplane("YZ").cylinder(key_gap - clearance, stator_d/2).translate((0, 0, -plug_d))
         
