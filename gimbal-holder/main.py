@@ -173,44 +173,80 @@ def _ring(o_r, i_r, pin_on_x, height, cz):
 
 def _base_plate(post_radius, socket_on_x, cz, post_h):
     """A round mounting plate with a swing well and two upright posts (on the socket
-    axis) whose bosses receive the trunnion pins of the body above."""
+    axis) whose bosses receive the trunnion pins of the body above.
+
+    `post_radius` is the outer radius of the body that pivots on this plate. The disc
+    itself never clashes with that body -- the disc spans z = 0..base_t and the child
+    is lifted to z = base_t + 3 -- so the whole print-in-place clearance rests on the
+    POSTS standing clear of `post_radius` in plan.
+    """
     base = cq.Workplane("XY").circle(base_dia / 2.0).extrude(base_t)
-    has_rim = (base_dia / 2.0) > (post_radius + BOSS + 8.0)
-    if has_rim:
-        well = (
-            cq.Workplane("XY").circle(post_radius + BOSS * 0.3).extrude(base_t + 2.0)
-            .translate((0, 0, -1.0))
-        )
-        base = base.cut(well)
+
     # Posts: tall blocks rising to the pivot height on the socket axis.
+    #
+    # A post is `BOSS * 1.4` thick along the socket axis, so centring it at
+    # `post_radius + BOSS * 0.5` left its inner face at `post_radius - BOSS * 0.2` --
+    # 1.8 mm INSIDE the body it is meant to pivot. The posts cut straight through the
+    # outer ring (or, on `single_axis`, through the cup) and welded two bodies that
+    # the README describes as separate print-in-place solids into one: `gimbal_cup`
+    # rendered 2 bodies instead of 3 and `single_axis` 1 instead of 2. Seat each post
+    # so its inner face stands `pivot_gap` clear of `post_radius`.
+    post_t = BOSS * 1.4
+    post_c = post_radius + pivot_gap + post_t / 2.0
+    post_outer = post_c + post_t / 2.0
     for s in (-1.0, 1.0):
         if socket_on_x:
             post = (
-                cq.Workplane("XY").center(s * (post_radius + BOSS * 0.5), 0.0)
-                .box(BOSS * 1.4, BOSS * 1.6, post_h, centered=(True, True, False))
+                cq.Workplane("XY").center(s * post_c, 0.0)
+                .box(post_t, BOSS * 1.6, post_h, centered=(True, True, False))
             )
         else:
             post = (
-                cq.Workplane("XY").center(0.0, s * (post_radius + BOSS * 0.5))
-                .box(BOSS * 1.6, BOSS * 1.4, post_h, centered=(True, True, False))
+                cq.Workplane("XY").center(0.0, s * post_c)
+                .box(BOSS * 1.6, post_t, post_h, centered=(True, True, False))
             )
         base = base.union(post)
-    # Sockets bored into the posts, facing inward toward the body above.
+
+    # A post now sits further out than before, so the disc may no longer reach under
+    # it. Bridge each post back to the disc with a spoke along its own axis whenever
+    # there is a gap; without it the posts float off as two extra bodies (the
+    # `coffee_mug` preset puts the outer ring at r = 62.2 on a 60 mm-radius disc).
+    reach = post_c - post_t / 2.0
+    if reach > base_dia / 2.0 - 0.5:
+        for s in (-1.0, 1.0):
+            span = post_outer - (base_dia / 2.0 - 2.0)
+            mid = (base_dia / 2.0 - 2.0) + span / 2.0
+            if socket_on_x:
+                spoke = (
+                    cq.Workplane("XY").center(s * mid, 0.0)
+                    .box(span, post_t, base_t, centered=(True, True, False))
+                )
+            else:
+                spoke = (
+                    cq.Workplane("XY").center(0.0, s * mid)
+                    .box(post_t, span, base_t, centered=(True, True, False))
+                )
+            base = base.union(spoke)
+
+    # Sockets bored through the posts, facing inward toward the body above. The bore
+    # starts outside the post's outer face and runs past its inner face, so it opens
+    # on both sides rather than leaving a blind pocket.
     sr = pin_dia / 2.0 + pivot_gap
     for s in (-1.0, 1.0):
         if socket_on_x:
             sock = (
-                cq.Workplane("YZ").circle(sr).extrude(-s * (BOSS + pivot_gap + 0.5))
-                .translate((s * (post_radius + BOSS + 0.25), 0, cz))
+                cq.Workplane("YZ").circle(sr).extrude(-s * (post_t + 2.0))
+                .translate((s * (post_outer + 0.5), 0, cz))
             )
         else:
             sock = (
-                cq.Workplane("XZ").circle(sr).extrude(-s * (BOSS + pivot_gap + 0.5))
-                .translate((0, s * (post_radius + BOSS + 0.25), cz))
+                cq.Workplane("XZ").circle(sr).extrude(-s * (post_t + 2.0))
+                .translate((0, s * (post_outer + 0.5), cz))
             )
         base = base.cut(sock)
-    # Mounting screw holes near the rim (only if a rim exists).
-    if has_rim:
+
+    # Mounting screw holes near the rim, on the axis the posts do NOT occupy.
+    if base_dia / 2.0 > 12.0:
         for s in (1.0, -1.0):
             if socket_on_x:
                 cx, cy = 0.0, s * (base_dia / 2.0 - 7.0)
