@@ -23,3 +23,20 @@ def test_geometry_files_are_not():
 def test_chunking_keeps_order_and_size():
     assert rs.chunk(list("abcdefghij"), 4) == ["a b c d", "e f g h", "i j"]
     assert rs.chunk([], 8) == []
+
+
+def test_constraints_are_metadata():
+    """Feasibility rules are evaluated on the parameter set, never by the kernel."""
+    assert rs._allowed("constraints")
+    assert rs._allowed("constraints.0.expression")
+    before = {"parameters": [{"id": "wall", "default": 2}]}
+    after = {"parameters": [{"id": "wall", "default": 2}],
+             "constraints": [{"expression": "wall >= 1.2", "severity": "error"}]}
+    assert all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_parameter_change_alongside_constraints_still_renders():
+    before = {"parameters": [{"id": "wall", "default": 2}]}
+    after = {"parameters": [{"id": "wall", "default": 3}],
+             "constraints": [{"expression": "wall >= 1.2"}]}
+    assert not all(rs._allowed(p) for p in rs.changed_paths(before, after))
