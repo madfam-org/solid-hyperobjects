@@ -559,5 +559,15 @@
             "kinetic": "Aluminum-frame SCARA with commercial harmonic drives and closed-loop steppers (STM32 MCU).",
             "sensory": "Endstops, Z-probe, and vision integration hooks — the Panopticon Sensorium."
         }
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

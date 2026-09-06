@@ -265,5 +265,15 @@
       "es": "El recubrimiento de concreto es el determinante más barato de cuánto dura una estructura reforzada: el acero colocado muy superficial se oxida, el óxido expande, y el concreto se desprende décadas antes de lo debido. Las silletas son la pieza humilde que garantiza el recubrimiento, y en obras pequeñas y autoconstruidas se improvisan rutinariamente con piedras, pedazos de tabique o nada, que es exactamente como una losa termina con su acero apoyado en la cimbra. Además se venden a granel en cantidades que obligan a una obra pequeña a comprar mucho más de lo que necesita. Imprimirlas al diámetro real de varilla y al recubrimiento que pide el reglamento local — en material reciclado, del todo apropiado para una pieza que se cuela en concreto y nunca se vuelve a ver — pone el recubrimiento correcto al alcance de las obras que más tienden a omitirlo."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

@@ -287,5 +287,15 @@
       "es": "Kratky y el cultivo en agua profunda son las rutas más baratas a comida confiable en poco espacio: una cubeta, agua, nutriente y una tapa. La tapa es la única pieza sin estándar — los cultivadores perforan tapas de contenedor a mano, lo que es impreciso, desperdicia el contenedor, y es la razón de que una canastilla quede chueca y suelte su planta. Imprimir la tapa al asiento real del borde convierte el recipiente en una elección y no una restricción, permite adaptar una tapa que ya se tiene con el modo collarín en vez de comprar otra, y escala de una cubeta en un balcón a una balsa de varios sitios. PETG o PP reciclado es apropiado aquí, y el interruptor lo dice."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

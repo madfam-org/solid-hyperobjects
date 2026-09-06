@@ -360,5 +360,15 @@
             "es": "Una cuadrícula de pared cuya fijación es la propia cuadrícula no necesita herraje propietario: un gancho es una pieza impresa y una rosca, no un soporte comprado. Publicar las dimensiones de la interfaz abiertamente permite que cualquier taller imprima accesorios que encajen con paneles que no fabricó, y que un panel dañado se reemplace baldosa por baldosa en vez de rehacer una pared."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

@@ -166,5 +166,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["pet", "dog", "cat", "bowl", "slow-feeder", "household", "hyperobject", "commons"]
+  "tags": ["pet", "dog", "cat", "bowl", "slow-feeder", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

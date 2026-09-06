@@ -290,5 +290,15 @@
             "es": "Permite sostener y guiar lineas de cobre o PEX de forma limpia con clips impresos a la medida exacta de su tuberia, en lugar de comprar bolsas de herrajes de talla unica, y estandariza el barreno de la silla en ODs de tubo reales compartidos en el procomun de plomeria."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

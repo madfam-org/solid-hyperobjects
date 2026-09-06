@@ -183,5 +183,15 @@
       "es": "Un portabolígrafos dimensionado al barril real mantiene los orificios ajustados en lugar de los vasos comerciales de talla única, y la funda de agarre es una ayuda asistiva: permite a personas con artritis o poca fuerza de agarre escribir con un bolígrafo delgado común en lugar de comprar un bolígrafo adaptado especializado."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

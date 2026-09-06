@@ -162,5 +162,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["media-basket", "aquarium", "filter", "bio-media", "sump", "bio-ball", "household", "hyperobject", "commons"]
+  "tags": ["media-basket", "aquarium", "filter", "bio-media", "sump", "bio-ball", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

@@ -190,5 +190,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["pedal", "pedalboard", "guitar", "rail", "mount", "commercial", "hyperobject", "commons"]
+  "tags": ["pedal", "pedalboard", "guitar", "rail", "mount", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

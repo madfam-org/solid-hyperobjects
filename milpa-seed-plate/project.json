@@ -194,5 +194,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["milpa", "maize", "polyculture", "seed-spacing", "sowing-jig", "smallholder", "mesoamerica", "agriculture", "hyperobject", "commons"]
+  "tags": ["milpa", "maize", "polyculture", "seed-spacing", "sowing-jig", "smallholder", "mesoamerica", "agriculture", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

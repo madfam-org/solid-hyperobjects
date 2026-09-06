@@ -185,5 +185,15 @@
       "es": "Una bandeja para marcadores con montaje magnético dimensionada al marcador real mantiene organizada la pizarra de un aula o sala de reuniones sin bandejas adhesivas que se caen, y se imprime para ajustarse a los marcadores disponibles — una solución de bajo costo para escuelas que reemplaza un accesorio de plástico consumible por una impresión única."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

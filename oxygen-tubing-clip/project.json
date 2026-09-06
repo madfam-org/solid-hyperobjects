@@ -288,5 +288,15 @@
       "es": "Quienes usan oxígeno domiciliario a largo plazo tropiezan, pisan y enganchan su propia línea a diario, y una línea enganchada jala la cánula fuera de la cara — riesgo de caída e interrupción de la terapia a la vez. Los clips imprimibles sobre una serie real de Ø de tubo permiten guiar el recorrido y, al elegir una boca más abierta, que se libere ante un tirón en vez de jalar. La alternativa en la mayoría de los hogares es una pinza de ropa."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

@@ -168,5 +168,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["roof-rack", "crossbar", "thule", "yakima", "clamp", "aero", "automotive", "commercial", "hyperobject", "commons"]
+  "tags": ["roof-rack", "crossbar", "thule", "yakima", "clamp", "aero", "automotive", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

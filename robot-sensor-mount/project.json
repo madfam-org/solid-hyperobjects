@@ -183,5 +183,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["sensor", "vl53l0x", "mpu6050", "pi-camera", "bracket", "robotics", "industrial", "hyperobject", "commons"]
+  "tags": ["sensor", "vl53l0x", "mpu6050", "pi-camera", "bracket", "robotics", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }
