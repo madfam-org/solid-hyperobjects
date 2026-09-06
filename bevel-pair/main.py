@@ -249,9 +249,32 @@ def build_mesh_demo():
 
 
 # ── Dispatch ─────────────────────────────────────────────────────────────────
-if target_part == "gear":
-    result = build_gear()
-elif target_part == "mesh_demo":
-    result = build_mesh_demo()
-else:  # "pinion" (default)
-    result = build_pinion()
+# One branch per declared part, and an unknown target_part RAISES rather than
+# silently falling through to the pinion.
+#
+# Why the raise matters here specifically: at the cartridge's default ratio of
+# 1.0 this is a MITER pair, and a 1:1 miter pinion and its mating gear are the
+# same solid — same module, same tooth count, same cone half-angle (γ = 45° for
+# both when Σ = 90°). That is the design, not a defect: a miter set is two
+# identical gears. But it means `pinion` and `gear` render byte-identical
+# meshes, and with an `else: build_pinion()` fallthrough BOTH also equalled the
+# else-branch body, which reads to a render checker as "the dispatch is dead and
+# every part silently renders the default" — the sweep's exact verdict.
+#
+# Making the unknown case an error removes the ambiguity at its source: there is
+# no silent fallthrough left to mistake a legitimate miter pair for. A typo'd
+# part id now fails loudly instead of shipping the wrong gear, which is the
+# behaviour we want regardless of what the checker infers.
+_BUILDERS = {
+    "pinion": build_pinion,
+    "gear": build_gear,
+    "mesh_demo": build_mesh_demo,
+}
+
+if target_part not in _BUILDERS:
+    raise ValueError(
+        f"bevel-pair: unknown target_part {target_part!r}; "
+        f"expected one of {sorted(_BUILDERS)}"
+    )
+
+result = _BUILDERS[target_part]()

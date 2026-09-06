@@ -1,6 +1,10 @@
 // Grid — Portacosas
 // Tiled tray system: rows × cols array with snap-fit connectors
 
+// Included (not `use`d) because the grid needs desk_organizer.scad's globals as
+// well as its modules. `is_library` suppresses that file's own top-level render,
+// which otherwise drew a stray tray_base() at the origin under the grid.
+desk_organizer_as_library = true;
 include <desk_organizer.scad>
 
 // Grid parameters (overridden by manifest)

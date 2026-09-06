@@ -42,6 +42,19 @@ cols = 1;
 // Resolution
 $fn = 48;
 
+// Set by a file that INCLUDES this one, to suppress this file's own top-level
+// render. grid.scad includes desk_organizer.scad for its modules; without the
+// guard this file's selector also fires and draws a stray tray_base() at the
+// origin on top of the grid. (assembly.scad uses `use`, which never runs a
+// top-level render, so the guard is belt-and-braces there.)
+//
+// The includer sets `desk_organizer_as_library`, a name this file never assigns:
+// with `include`, OpenSCAD resolves a variable to its LAST assignment in the
+// flattened file, so a plain `is_library = false` here would silently overwrite
+// the includer's `true` (and emit an "was overwritten" warning). Reading a name
+// this file does not own avoids the collision entirely.
+is_library = !is_undef(desk_organizer_as_library) && desk_organizer_as_library;
+
 // --- Derived ---
 snap_size = 3;        // snap-fit nub size
 snap_tol = 0.2;       // snap-fit tolerance
@@ -50,8 +63,19 @@ pen_holder_w = pen_count * (pen_diameter + wall_thickness) + wall_thickness;
 pen_holder_d = pen_diameter + wall_thickness * 2;
 
 // --- Snap-fit socket/nub helpers ---
+// The nub is built pointing DOWN (-Z) directly, by tapering d1->d2 over a
+// translate, instead of `mirror([0,0,1]) snap_nub()` at the caller. mirror()
+// reverses face winding, and every component ended with one — the inverted
+// shells the render sweep reported. It also let the nub meet its parent on a
+// zero-thickness plane at z=0; the nub now overlaps its parent by snap_bite so
+// the union is volumetric and the result is a single watertight body.
+snap_bite = 0.4;   // overlap into the parent, so nub and body fuse
+
 module snap_nub(h=snap_size) {
-    cylinder(d1=snap_size, d2=snap_size*0.6, h=h);
+    // Downward nub: wide end at z=+snap_bite (inside the parent), narrow end at
+    // z=-h. Positive winding throughout — no mirror().
+    translate([0, 0, -h])
+        cylinder(d1=snap_size*0.6, d2=snap_size, h=h + snap_bite);
 }
 
 module snap_socket(h=snap_size) {
@@ -59,7 +83,10 @@ module snap_socket(h=snap_size) {
 }
 
 // --- Tray Base ---
-module tray_base() {
+module tray_base(tray_width=tray_width, tray_depth=tray_depth,
+                 wall_thickness=wall_thickness, clip_count=clip_count) {
+    base_h = wall_thickness;
+    pen_holder_w = pen_count * (pen_diameter + wall_thickness) + wall_thickness;
     difference() {
         union() {
             // Floor plate
@@ -96,8 +123,13 @@ module tray_base() {
 }
 
 // --- Pen Holder ---
-module pen_holder() {
+module pen_holder(pen_count=pen_count, pen_diameter=pen_diameter,
+                  pen_style=pen_style, wall_thickness=wall_thickness,
+                  wall_height=wall_height) {
     holder_h = wall_height * 0.7;
+    pen_holder_w = pen_count * (pen_diameter + wall_thickness) + wall_thickness;
+    pen_holder_d = pen_diameter + wall_thickness * 2;
+    union() {
     difference() {
         // Outer shell
         if (pen_style) {
@@ -120,17 +152,20 @@ module pen_holder() {
             }
         }
     }
-    // Snap nub on bottom
+    // Snap nub on bottom (built downward; see snap_nub)
     translate([pen_holder_w/2, pen_holder_d/2, 0])
-        mirror([0,0,1]) snap_nub();
+        snap_nub();
+    }
 }
 
 // --- Phone Stand ---
-module phone_stand() {
+module phone_stand(phone_width=phone_width, wall_height=wall_height,
+                   wall_thickness=wall_thickness, charging_slot=charging_slot) {
     stand_d = 40;
     stand_h = wall_height * 0.8;
     lip_h = 10;
 
+    union() {
     difference() {
         union() {
             // Back angled support — hull for smooth cradle
@@ -155,14 +190,17 @@ module phone_stand() {
                 cube([slot_w, stand_d * 0.3, slot_h]);
         }
     }
-    // Snap nub on bottom center
+    // Snap nub on bottom center (built downward; see snap_nub)
     translate([phone_width/2, stand_d/2, 0])
-        mirror([0,0,1]) snap_nub();
+        snap_nub();
+    }
 }
 
 // --- Card Slot ---
-module card_slot() {
+module card_slot(card_width=card_width, card_depth=card_depth,
+                 wall_height=wall_height, wall_thickness=wall_thickness) {
     slot_h = wall_height * 0.4;
+    union() {
     difference() {
         // Angled pocket
         hull() {
@@ -179,19 +217,22 @@ module card_slot() {
                           slot_h * 0.3 - wall_thickness]);
             }
     }
-    // Bottom platform
+    // Bottom platform — inside the union(); it used to be a third top-level
+    // sibling, so the part exported as disjoint shells rather than one solid.
     cube([card_width, card_depth + wall_thickness, wall_thickness]);
-    // Snap nub
+    // Snap nub (built downward; see snap_nub)
     translate([card_width/2, card_depth/2, 0])
-        mirror([0,0,1]) snap_nub();
+        snap_nub();
+    }
 }
 
 // --- Cable Clip ---
-module cable_clip() {
+module cable_clip(clip_diameter=clip_diameter, wall_thickness=wall_thickness) {
     clip_h = 15;
     clip_w = clip_diameter + wall_thickness * 2;
     gap = clip_diameter * 0.4; // opening gap
 
+    union() {
     difference() {
         cylinder(d=clip_w, h=clip_h);
         // Cable bore
@@ -204,12 +245,14 @@ module cable_clip() {
     // Base pad
     translate([-clip_w/2, -clip_w/2, 0])
         cube([clip_w, clip_w, wall_thickness]);
-    // Snap nub
-    mirror([0,0,1]) snap_nub();
+    // Snap nub (built downward; see snap_nub)
+    snap_nub();
+    }
 }
 
 // --- Label Plate ---
-module label_plate() {
+module label_plate(tray_width=tray_width, wall_thickness=wall_thickness,
+                   label_text=label_text, label_depth=label_depth) {
     plate_w = tray_width * 0.4;
     plate_h = 12;
     plate_d = wall_thickness;
@@ -226,10 +269,13 @@ module label_plate() {
     }
 }
 
-// --- Render Selector ---
-if (render_mode == 0) tray_base();
-if (render_mode == 1) pen_holder();
-if (render_mode == 2) phone_stand();
-if (render_mode == 3) card_slot();
-if (render_mode == 4) cable_clip();
-if (render_mode == 5) label_plate();
+// --- Render Selector: one branch per declared part ---
+// Suppressed when another file includes this one for its modules.
+if (!is_library) {
+    if (render_mode == 0) tray_base();
+    else if (render_mode == 1) pen_holder();
+    else if (render_mode == 2) phone_stand();
+    else if (render_mode == 3) card_slot();
+    else if (render_mode == 4) cable_clip();
+    else if (render_mode == 5) label_plate();
+}
