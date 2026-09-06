@@ -184,6 +184,21 @@
     "base_time": 9, "per_unit": 2, "per_part": 11,
     "fn_factor": 32, "wasm_multiplier": 4, "warning_threshold_seconds": 90
   },
+    "verification": {
+      "stages": {
+        "geometry": {
+          "checks": {
+            "watertight": {
+              "enabled": true
+            },
+            "body_count": {
+              "enabled": true,
+              "expected": 1
+            }
+          }
+        }
+      }
+    },
   "hyperobject": {
     "domain": "household",
     "cdg_interfaces": [
