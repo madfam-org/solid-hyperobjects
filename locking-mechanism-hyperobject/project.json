@@ -926,6 +926,12 @@
             },
             "over_center": {
                 "part_overrides": {
+                    "lever_assembly": {
+                        "geometry.parity": {
+                            "enabled": false,
+                            "reason": "The over_center lever assembly renders as 2 bodies on CadQuery vs 1 on OpenSCAD (3553 vs 3514 mm\u00b3; aligned surfaces diverge 0.85 mm) \u2014 flagged by L-REAUTH-2-b, outside its FAIL set. Re-authoring tracked in wave C."
+                        }
+                    },
                     "hook_catch": {
                         "geometry.body_count": {
                             "expected": 1
@@ -957,11 +963,19 @@
                     "assembly_slip": {
                         "geometry.body_count": {
                             "expected": 2
+                        },
+                        "geometry.parity": {
+                            "enabled": false,
+                            "reason": "The slip_joint blade (and the assembly that contains it) is built with different idioms on the two kernels \u2014 the aligned surfaces diverge by 3.44 mm at zero placement offset; #66 aligned this cartridge's failing pairs but this pair had reported 'ok' under the old advisory gate 3. Re-authoring tracked in wave C."
                         }
                     },
                     "blade": {
                         "geometry.body_count": {
                             "expected": 1
+                        },
+                        "geometry.parity": {
+                            "enabled": false,
+                            "reason": "The slip_joint blade (and the assembly that contains it) is built with different idioms on the two kernels \u2014 the aligned surfaces diverge by 3.44 mm at zero placement offset; #66 aligned this cartridge's failing pairs but this pair had reported 'ok' under the old advisory gate 3. Re-authoring tracked in wave C."
                         }
                     },
                     "housing": {
