@@ -30,7 +30,7 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: db65cf1e7a2732d7263efd6eb6ba533640eb536f
+  SPEC_PIN: 4541a9057f3a3c07b602c3b9f52e8fb16a4cf669
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
@@ -193,7 +193,7 @@ jobs:
           rc=0
           for slug in ${{ matrix.group }}; do
             echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
-            .venv/bin/y4d-spec check "./$slug" --render --require-openscad \
+            .venv/bin/y4d-spec check "./$slug" --render --require-openscad --parity \
               --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v || rc=1
             echo "::endgroup::"
           done
@@ -287,7 +287,7 @@ jobs:
           # `bash -e -o pipefail`, so `$?` after the pipe is the SWEEP's code,
           # not tee's — the same idiom yantra4d's spec-nightly already uses.
           status=0
-          .venv/bin/y4d-spec check $dirs --render --require-openscad \
+          .venv/bin/y4d-spec check $dirs --render --require-openscad --parity \
             --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v \
             | tee sweep-report.txt || status=$?
           {
