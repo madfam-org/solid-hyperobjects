@@ -70,24 +70,35 @@ module flex_spline() {
     translate([arch_len/2 + hinge_l/2, 0, base_h/2])
     cuboid([hinge_l, latch_width, hinge_t], anchor=CENTER);
     
-    steps = 40;
-    for(i=[0:steps-1]) {
-        t0 = i/steps; t1 = (i+1)/steps;
-        x0 = -arch_len/2 + (arch_len) * t0; x1 = -arch_len/2 + (arch_len) * t1;
-        z0 = arch_h * sin(t0 * 180); z1 = arch_h * sin(t1 * 180);
-        hull() {
-            translate([x0, 0, base_h/2 + z0])
-            cuboid([arch_len/steps*0.6, latch_width, wall_thickness*0.6], anchor=CENTER);
-            translate([x1, 0, base_h/2 + z1])
-            cuboid([arch_len/steps*0.6, latch_width, wall_thickness*0.6], anchor=CENTER);
-        }
-    }
+    // The arch is ONE sampled ribbon on both kernels. This used to be a hull()
+    // chain of 40 axis-aligned cuboids: hulling boxes across a slope sweeps
+    // extra material at every joint, so it can never match compliant_lock.py's
+    // sampled profile (74.62 mm3 of the 92.62 mm3 spring_t1 parity gap, and the
+    // chain's own step count changes the answer). Build the same closed polygon
+    // the CadQuery side builds — centreline offset below and above by
+    // wall_thickness*0.3, walked back along the top to close — at the same 10
+    // samples, then linear_extrude it to latch_width.
+    steps = 10;
+    arch_lo = [for(i=[0:steps]) let(t = i/steps)
+        [-arch_len/2 + arch_len*t, base_h/2 + arch_h*sin(t*180) - wall_thickness*0.3]];
+    arch_hi = [for(i=[steps:-1:0]) let(t = i/steps)
+        [-arch_len/2 + arch_len*t, base_h/2 + arch_h*sin(t*180) + wall_thickness*0.3]];
+    rotate([90, 0, 0])
+    linear_extrude(height=latch_width, center=true)
+    polygon(concat(arch_lo, arch_hi));
     
     translate([0, 0, base_h/2 + arch_h])
     union() {
         cuboid([wall_thickness*2, latch_width*0.6, wall_thickness*1.5], anchor=BOTTOM);
+        // The hook is the SAME triangular prism on both kernels. A prismoid
+        // tapering to a full-width rectangle is a frustum, not a wedge, and
+        // carried 18 mm3 more than compliant_lock.py's three-point profile.
         translate([0, 0, wall_thickness*1.5])
-        prismoid(size1=[wall_thickness*2, latch_width*0.6], size2=[wall_thickness, latch_width*0.6], h=hook_depth, shift=[wall_thickness/2, 0], anchor=BOTTOM);
+        rotate([90, 0, 0])
+        linear_extrude(height=latch_width*0.6, center=true)
+        polygon([[-wall_thickness, 0],
+                 [-wall_thickness + wall_thickness/2, hook_depth],
+                 [wall_thickness, 0]]);
     }
 }
 

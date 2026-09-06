@@ -59,28 +59,59 @@ def generate():
         base = apply_cdg(base, base_l)
         
         arm = cq.Workplane("XY").box(arm_l, latch_width, arm_t).translate((arm_l/2, 0, arm_t/2))
-        
+
         hook_l = hook_depth / math.tan(math.radians(35))
         ret_off = hook_depth / math.tan(math.radians(85))
-        
-        # Sink the wedges into the arm by `weld` so the fuse has real volumetric
-        # overlap. Placed flush on the arm's top/bottom faces they only touch,
-        # and a coincident-face union leaves three disjoint solids in a compound
-        # instead of one watertight body. The exposed hook and undercut profiles
-        # are unchanged — only the buried root shifts.
-        weld = arm_t * 0.5
+
+        # Both kernels now build the SAME construction. snap_latch.scad extends
+        # each hook polygon back INTO the beam by `_hook_overlap` so the boolean
+        # has volume to fuse; this file used to sink the wedges by `weld =
+        # arm_t*0.5` instead. Same intent, different solid: the OpenSCAD hook
+        # reaches 0.5 mm further back in X and sits 0.8 mm higher in Z, which is
+        # exactly the 0.692822 mm AABB parity gap (and 0.4 mm in X). Use the
+        # OpenSCAD polygons verbatim — they are the reference side.
+        hook_overlap = 0.5
 
         # extrude(latch_width/2, both=True), not extrude(latch_width, both=True):
         # `both` mirrors the extrusion about the sketch plane, so passing the
-        # full width builds a 2 x latch_width prism. The hook and the undercut
-        # came out 30 mm across against a 15 mm arm. snap_latch.scad extrudes
+        # full width builds a 2 x latch_width prism. snap_latch.scad extrudes
         # the same two profiles with `linear_extrude(height=latch_width,
         # center=true)`, which is latch_width in total.
         half_w = latch_width / 2.0
-        hook = cq.Workplane("XZ").polyline([(0,0), (-ret_off, hook_depth), (hook_l, 0)]).close().extrude(half_w, both=True).translate((arm_l, 0, arm_t - weld))
-        undercut = cq.Workplane("XZ").polyline([(0,0), (hook_l, 0), (0, -arm_t)]).close().extrude(half_w, both=True).translate((arm_l, 0, weld))
-        
-        full_arm = arm.union(hook).union(undercut).rotate((0,0,0), (0,1,0), -spring_angle).translate((0, 0, base_h/2 - arm_t/2))
+        hook = (
+            cq.Workplane("XZ")
+            .polyline([(-hook_overlap, -hook_overlap), (-ret_off, hook_depth),
+                       (hook_l, 0), (hook_l, -hook_overlap)])
+            .close().extrude(half_w, both=True).translate((arm_l, 0, arm_t))
+        )
+        undercut = (
+            cq.Workplane("XZ")
+            .polyline([(-hook_overlap, 0), (hook_l, 0), (0, -arm_t),
+                       (-hook_overlap, -arm_t)])
+            .close().extrude(half_w, both=True).translate((arm_l, 0, 0))
+        )
+
+        # Stress-relief fillets at the beam root. snap_latch.scad builds these as
+        # two BOSL2 `prismoid`s (anchor=BOTTOM+LEFT, shift=[fillet_r,0]) and this
+        # file omitted them entirely — 208.67 mm3 of the volume gap.
+        #
+        # `size2=[0, latch_width]` shifted by `fillet_r` collapses the top face to
+        # a LINE at x = fillet_r*2, so the prismoid is simply a wedge. Build it as
+        # an extruded triangle. Lofting to a 1e-6-wide top instead reproduced the
+        # volume exactly but left `BRepCheck_Analyzer` False and tessellated with
+        # 12 boundary edges — a knife-edge face OCCT meshes open.
+        fillet_r = arm_t * 1.5
+        fillet_top = (cq.Workplane("XZ")
+                      .polyline([(0, 0), (fillet_r*2, 0), (fillet_r*2, fillet_r)])
+                      .close().extrude(half_w, both=True).translate((0, 0, arm_t)))
+        fillet_bot = (cq.Workplane("XZ")
+                      .polyline([(0, 0), (fillet_r*2, 0), (fillet_r*2, -fillet_r)])
+                      .close().extrude(half_w, both=True))
+
+        full_arm = (arm.union(hook).union(undercut)
+                    .union(fillet_top).union(fillet_bot)
+                    .rotate((0,0,0), (0,1,0), -spring_angle)
+                    .translate((0, 0, base_h/2 - arm_t/2)))
         result = base.union(full_arm)
     else:
         p_l = base_length * 0.4
@@ -90,7 +121,14 @@ def generate():
         
         base = cq.Workplane("XY").box(p_l, p_w, p_h).translate((0, 0, p_h/2))
         slot = cq.Workplane("XY").box(p_l+1, latch_width + clearance*2, hook_depth + clearance).translate((0, 0, hook_z - (hook_depth+clearance)/2))
-        chamf = cq.Workplane("XY").box(p_l*1.5, latch_width + clearance*2, p_h).rotate((0,0,0),(0,1,0), 35).translate((-p_l/2, 0, p_h))
+        # BOSL2's `cuboid(..., anchor=BOTTOM)` puts the box's BASE on the origin
+        # before the rotate; cq's `.box()` centres it. Rotating a centred box
+        # dropped the chamfer cutter half a plate-height low and ate 1124.27 mm3
+        # (20.16 %) more of the plate than snap_latch.scad does. Lift the box by
+        # p_h/2 first so both kernels rotate the same bottom-anchored cutter.
+        chamf = (cq.Workplane("XY").box(p_l*1.5, latch_width + clearance*2, p_h)
+                 .translate((0, 0, p_h/2))
+                 .rotate((0,0,0),(0,1,0), 35).translate((-p_l/2, 0, p_h)))
         
         result = base.cut(slot).cut(chamf).translate((arm_l * math.cos(math.radians(spring_angle)), 0, 0))
 

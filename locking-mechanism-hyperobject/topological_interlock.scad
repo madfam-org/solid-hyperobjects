@@ -47,13 +47,19 @@ if (render_mode == 1) {
     frame_w = matrix_size * block_s + block_s;
     wall_t = 4;
     
-    translate([-block_s/2, -block_s/2, -block_s/2])
+    // anchor=BOTTOM+LEFT pins Z and -X but leaves Y CENTRED, so the frame sat
+    // 34 mm off in Y (y -41.5..26.5 instead of -7.5..60.5) while the hollow and
+    // the receptor slots were positioned as if it were front-aligned: 764.68 mm3
+    // (5.11 %) of stock that topological_interlock.py never leaves behind.
+    // Anchor all three axes, and start from the same origin the CadQuery side
+    // uses (its outer box is centred on frame_w/2, i.e. -wall_t..frame_w+wall_t).
+    translate([-block_s/2 - wall_t, -block_s/2 - wall_t, -block_s/2])
     difference() {
-        cuboid([frame_w + wall_t*2, frame_w + wall_t*2, block_s], anchor=BOTTOM+LEFT);
+        cuboid([frame_w + wall_t*2, frame_w + wall_t*2, block_s], anchor=BOTTOM+LEFT+FRONT);
         
         // Hollow out center
         translate([wall_t, wall_t, -0.1])
-        cuboid([frame_w, frame_w, block_s+1], anchor=BOTTOM+LEFT);
+        cuboid([frame_w, frame_w, block_s+1], anchor=BOTTOM+LEFT+FRONT);
         
         // Inner receptor slots for the edge blocks
         for(x=[0:matrix_size-1]) {
