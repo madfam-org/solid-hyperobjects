@@ -153,15 +153,28 @@ def parse_failures(text: str) -> list:
 
 
 def parse_summary(text: str) -> dict:
-    """The sweep's own counts, when it printed them."""
-    out = {}
+    """The sweep's own counts, SUMMED across every group's summary line.
+
+    One job printed one summary; a matrix prints one PER GROUP. Taking the
+    last one (as this did until 2026-09-06) reported the night as
+    `cartridges=1 failures=0` — the tail group's own line — on a run that
+    covered 16 cartridges. Wrong counts on an alert are worse than none: they
+    invite the reader to believe the small number.
+    """
+    lines, cartridges, failures = [], 0, 0
     for line in text.splitlines():
         m = SUMMARY_RE.search(line.strip())
         if m:
-            out = {"cartridges": int(m.group("cartridges")),
-                   "failures": int(m.group("failures")),
-                   "line": line.strip()}
-    return out
+            cartridges += int(m.group("cartridges"))
+            failures += int(m.group("failures"))
+            lines.append(line.strip())
+    if not lines:
+        return {}
+    if len(lines) == 1:
+        return {"cartridges": cartridges, "failures": failures, "line": lines[0]}
+    return {"cartridges": cartridges, "failures": failures,
+            "line": f"cartridges={cartridges} failures={failures} "
+                    f"(summed over {len(lines)} group summaries)"}
 
 
 def parse_coverage(text: str) -> set:
@@ -501,6 +514,11 @@ def selftest(fixture: str) -> int:
               f"multigroup: coverage {sorted(cov)!r}")
         scope = read_scope(str(scope_file))
         check(len(scope) == 5, f"multigroup: scope has {len(scope)} slugs")
+        msum = parse_summary(mtext)
+        check(msum.get("cartridges") == 4 and msum.get("failures") == 2,
+              f"multigroup summary must SUM the group lines, got {msum}")
+        check("summed over 2 group summaries" in msum.get("line", ""),
+              f"multigroup summary line should say it summed: {msum.get('line')!r}")
         miss = missing_cartridges(scope, mtext)
         check(miss == ["fixture-never"],
               f"completeness: expected ['fixture-never'], got {miss!r}")
