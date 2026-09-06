@@ -416,7 +416,25 @@ def build_delta(rows, previous_body, date, run_url):
 # ---------------------------------------------------------------------------
 
 def selftest(fixture: str) -> int:
-    text = open(fixture, encoding="utf-8").read()
+    """The parser's unit checks. Always run against the canonical fixtures.
+
+    `fixture` names the FIXTURES DIRECTORY to use, not the log to assert on:
+    the checks below are hardcoded to the contents of
+    `nightly-fail-sample.txt` and `nightly-multigroup-sample.txt`, so pointing
+    --selftest at some other log used to fail with four bogus "expected 3 FAIL
+    rows" complaints (dispatch 34020739707). A unit test that reports a
+    problem in its own argument rather than in the code is noise, so the
+    argument is now only a way to locate the fixture directory.
+    """
+    fixtures = pathlib.Path(fixture)
+    fixtures = fixtures.parent if fixtures.is_file() else fixtures
+    canonical = fixtures / "nightly-fail-sample.txt"
+    if not canonical.is_file():
+        print(f"nightly_report selftest: checks_failed=1\n"
+              f"  FAIL canonical fixture not found at {canonical}")
+        return 1
+    fixture = str(canonical)
+    text = canonical.read_text(encoding="utf-8")
     rows = parse_failures(text)
     summary = parse_summary(text)
     problems = []
