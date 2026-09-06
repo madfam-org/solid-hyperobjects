@@ -70,8 +70,21 @@ torus_radius = max(15.0, min(torus_radius, 60.0))
 segments     = max(40, min(segments, 300))
 scale_factor = max(0.5, min(scale_factor, 2.0))
 
-# Cross-section facets. Kept modest so the 300-station case stays buildable.
-SIDES = 20
+# Cross-section facets.
+#
+# 24, not 20, because that is what the OpenSCAD side uses. `torus_knot.scad`
+# sweeps `circle_profile(tube_radius, $fn)` with `$fn = fn > 0 ? fn : 24`, so a
+# default render there is a 24-gon tube; a 20-gon here is a different solid.
+# Both kernels inscribe their polygon in the same circle, so the mismatch shows
+# up as the difference between the two apothems, r*(cos(pi/24) - cos(pi/20)) =
+# 0.0150 mm per side at the default tube_radius=4 — and, accumulated across the
+# knot's lobes, 0.066788 mm of AABB at the defaults and the `trefoil` preset and
+# 0.130051 mm at `thick_trefoil` (tube_radius=8, where the per-side error
+# doubles). Aligning the counts takes those to 0.016 mm and 0.032 mm.
+#
+# `fn` is a platform render knob, not a manifest parameter, so it cannot be read
+# here; 24 is the .scad's own default and the number every render uses.
+SIDES = 24
 
 
 # ── Curve ────────────────────────────────────────────────────────────────────
