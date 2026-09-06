@@ -303,5 +303,15 @@
       "es": "El engranaje en ángulo recto es la articulación que permite a un motor mover un eje al que no apunta — el corazón de taladros, batidoras, winches de vela, monturas de seguimiento y toda máquina pequeña que dobla una esquina. Los juegos cónicos comerciales son fundidos, pares emparejados vendidos como unidad, así que un solo diente roto condena ambos. Generar el par desde el cono primitivo ISO 23509 convierte un engrane roto en una reimpresión, no una compra, y permite a un reparador igualar una relación o ángulo raro que ningún catálogo tiene. El demostrador de engrane se incluye a propósito: muestra la geometría rodando antes de comprometer filamento en una transmisión."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
