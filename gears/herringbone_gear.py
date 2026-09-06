@@ -1,7 +1,403 @@
+"""Herringbone gear (CadQuery twin of herringbone_gear.scad).
+
+`herringbone_gear.scad` calls BOSL2 `spur_gear(..., helical=, herringbone=true)`.
+Two things about that call decide the geometry, and this file used to get both
+of them wrong:
+
+1. **The tooth.**  BOSL2's cross-section is `_gear_tooth_profile()` from
+   `libs/BOSL2/gears.scad` (v2.0.753 / `fcfce7c7`) — a real ISO 53 / DIN 867
+   involute.  This file built a 4-point trapezoid per tooth instead (root radius
+   at +/- tooth_width_angle/2, outer radius at +/- tooth_width_angle/5).  Both
+   constructions reach the same outside diameter, so the AABB agreed to
+   ~0.019 mm by coincidence while every flank was in the wrong place.  The port
+   below reproduces BOSL2's construction: automatic profile shift, the
+   trochoidal undercut a meshing rack would carve, the rounded clearance valley,
+   the tip cap, the jaggy strip and the self-intersection clip.
+
+2. **The chevron's hand.**  BOSL2 builds the herringbone as
+   `zflip_copy() down(0.01) linear_extrude(height=thickness/2+0.01,
+   twist=twist/2)` with `twist = 360*thickness*tan(helical)/(2*PI*pitch_radius)`
+   — one half extruded up from z=-0.01 and its Z-mirror image, so the gear spans
+   [-thickness/2, +thickness/2] and both outer faces are rotated the SAME way
+   relative to the mid-plane.  Crucially OpenSCAD's `twist=+a` rotates the top
+   face by **-a**, while CadQuery's `twistExtrude(h, +a)` rotates it by **+a**:
+   the two kernels have OPPOSITE twist signs (measured, not assumed).  Feeding
+   the same number to both is the classic mirrored hand — matching bounding box,
+   diverging surfaces.  `_HELIX_SIGN` below carries that conversion.
+
+The one deliberate difference from BOSL2 is its closing
+`resample_path(n=2*steps, keep_corners=30)` — a vertex-REDUCTION pass over the
+same polyline.  We keep the full-resolution samples, so BOSL2's coarser polygon
+is inscribed in ours and the residual two-way Hausdorff distance (19-39 um at
+every preset) is BOSL2's chord error, not a construction difference.
+
+The sandbox (`apps/api/services/engine/cq_runner.py`) blocks `sys`, so a
+cartridge cannot put its own directory on `sys.path`; the profile code is
+therefore inlined here rather than imported from a sibling module.  It is kept
+byte-identical to the copy in `spur_gear.py`.
+"""
+
 import cadquery as cq
 import json
 import argparse
 import math
+
+
+# ── BOSL2 gears.scad port (degrees throughout, as in OpenSCAD) ───────────────
+
+def _sin(a):
+    return math.sin(math.radians(a))
+
+
+def _cos(a):
+    return math.cos(math.radians(a))
+
+
+def _tan(a):
+    return math.tan(math.radians(a))
+
+
+def _atan(x):
+    return math.degrees(math.atan(x))
+
+
+def _atan2(y, x):
+    return math.degrees(math.atan2(y, x))
+
+
+def _polar_to_xy(r, a):
+    return (r * _cos(a), r * _sin(a))
+
+
+def _xy_to_polar(x, y):
+    return (math.hypot(x, y), _atan2(y, x))
+
+
+def _lookup(x, tbl):
+    """OpenSCAD `lookup()`: piecewise-linear over `[key, value]` rows, clamped
+    past both ends.  Every table built here is monotone in the key."""
+    tbl = sorted(tbl, key=lambda p: p[0])
+    if x <= tbl[0][0]:
+        return tbl[0][1]
+    if x >= tbl[-1][0]:
+        return tbl[-1][1]
+    for i in range(len(tbl) - 1):
+        x0, y0 = tbl[i]
+        x1, y1 = tbl[i + 1]
+        if x0 <= x <= x1:
+            return y0 if x1 == x0 else y0 + (y1 - y0) * (x - x0) / (x1 - x0)
+    return tbl[-1][1]
+
+
+def auto_profile_shift(teeth, pressure_angle=20.0, helical=0.0, profile_shift="auto"):
+    """BOSL2 `auto_profile_shift()` — gears below the undercut limit get a
+    positive shift so their teeth are not undercut away."""
+    if profile_shift != "auto":
+        return float(profile_shift)
+    if teeth == 0:
+        return 0.0
+    pa = _atan(_tan(pressure_angle) / _cos(helical))
+    min_teeth = 2.0 / (_sin(pa) ** 2)
+    if teeth > math.floor(min_teeth):
+        return 0.0
+    return (1.0 - (teeth / min_teeth)) / _cos(helical)
+
+
+def pitch_radius(mod, teeth, helical=0.0):
+    """Transverse pitch radius.  `mod` is the NORMAL module, as BOSL2 takes it,
+    so a helical gear's cross-section grows by 1/cos(helical)."""
+    return mod * teeth / 2.0 / _cos(helical)
+
+
+def _adendum(mod, profile_shift=0.0, shorten=0.0):
+    return mod * (1.0 + profile_shift - shorten)
+
+
+def _dedendum(mod, clearance=None, profile_shift=0.0):
+    clear = 0.25 * mod if clearance is None else clearance
+    return mod * (1.0 - profile_shift) + clear
+
+
+def outer_radius(mod, teeth, helical=0.0, profile_shift=0.0, shorten=0.0):
+    return pitch_radius(mod, teeth, helical) + _adendum(mod, profile_shift, shorten)
+
+
+def root_radius_basic(mod, teeth, clearance=None, helical=0.0, profile_shift=0.0):
+    return pitch_radius(mod, teeth, helical) - _dedendum(mod, clearance, profile_shift)
+
+
+def base_radius(mod, teeth, pressure_angle=20.0, helical=0.0):
+    trans_pa = _atan(_tan(pressure_angle) / _cos(helical))
+    return pitch_radius(mod, teeth, helical) * _cos(trans_pa)
+
+
+def _line_intersection(l1, l2):
+    (x1, y1), (x2, y2) = l1[0], l1[1]
+    (x3, y3), (x4, y4) = l2[0], l2[1]
+    den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    if abs(den) < 1e-12:
+        return None
+    a = x1 * y2 - y1 * x2
+    b = x3 * y4 - y3 * x4
+    return ((a * (x3 - x4) - (x1 - x2) * b) / den,
+            (a * (y3 - y4) - (y1 - y2) * b) / den)
+
+
+def _vector_angle(p0, p1, p2):
+    """Interior angle (deg) at `p1` of the corner p0-p1-p2."""
+    v1 = (p0[0] - p1[0], p0[1] - p1[1])
+    v2 = (p2[0] - p1[0], p2[1] - p1[1])
+    n1 = math.hypot(*v1)
+    n2 = math.hypot(*v2)
+    if n1 < 1e-12 or n2 < 1e-12:
+        return 0.0
+    c = max(-1.0, min(1.0, (v1[0] * v2[0] + v1[1] * v2[1]) / (n1 * n2)))
+    return math.degrees(math.acos(c))
+
+
+def _arc_corner(n, r, corner):
+    """BOSL2 `arc(n=, r=, corner=[p0,p1,p2])` — the radius-`r` fillet tucked
+    into the corner, running from the p0 leg round to the p2 leg."""
+    p0, p1, p2 = corner
+    ang = _vector_angle(p0, p1, p2)
+    if ang <= 0.0 or ang >= 180.0:
+        return [p1]
+    d = r / _tan(ang / 2.0)
+    u1 = (p0[0] - p1[0], p0[1] - p1[1])
+    n1 = math.hypot(*u1)
+    u1 = (u1[0] / n1, u1[1] / n1)
+    u2 = (p2[0] - p1[0], p2[1] - p1[1])
+    n2 = math.hypot(*u2)
+    u2 = (u2[0] / n2, u2[1] / n2)
+    t1 = (p1[0] + u1[0] * d, p1[1] + u1[1] * d)
+    t2 = (p1[0] + u2[0] * d, p1[1] + u2[1] * d)
+    bis = (u1[0] + u2[0], u1[1] + u2[1])
+    nb = math.hypot(*bis)
+    if nb < 1e-12:
+        return [p1]
+    bis = (bis[0] / nb, bis[1] / nb)
+    cd = r / _sin(ang / 2.0)
+    cp = (p1[0] + bis[0] * cd, p1[1] + bis[1] * cd)
+    a1 = _atan2(t1[1] - cp[1], t1[0] - cp[0])
+    a2 = _atan2(t2[1] - cp[1], t2[0] - cp[0])
+    da = ((a2 - a1 + 180.0) % 360.0) - 180.0  # the short way round
+    return [(cp[0] + r * _cos(a1 + da * i / (n - 1)),
+             cp[1] + r * _sin(a1 + da * i / (n - 1))) for i in range(n)]
+
+
+def _deduplicate(path, eps=1e-9):
+    out = []
+    for p in path:
+        if not out or math.hypot(p[0] - out[-1][0], p[1] - out[-1][1]) > eps:
+            out.append(p)
+    return out
+
+
+def gear_tooth_profile(mod, teeth, pressure_angle=20.0, clearance=None,
+                       backlash=0.0, helical=0.0, profile_shift=0.0,
+                       shorten=0.0, steps=16):
+    """One external involute tooth, centred on +Y, in BOSL2's own point order
+    (root valley, left flank, tip cap, right flank, root valley).  Port of
+    BOSL2 `_gear_tooth_profile()` for `internal=false`, which is all this
+    cartridge builds.  `steps` is BOSL2's `$gear_steps` (default 16)."""
+    circ_pitch = mod * math.pi
+    clear = 0.25 * mod if clearance is None else clearance
+
+    arad = outer_radius(mod, teeth, helical, profile_shift, shorten)
+    prad = pitch_radius(mod, teeth, helical)
+    brad = base_radius(mod, teeth, pressure_angle, helical)
+    rrad = root_radius_basic(mod, teeth, clear, helical, profile_shift)
+
+    # Tooth thickness at the pitch circle, carried as the half-angle `tang`.
+    tthick = (circ_pitch / math.pi / _cos(helical)
+              * (math.pi / 2.0 + 2.0 * profile_shift * _tan(pressure_angle))
+              - backlash)
+    tang = tthick / prad / 2.0 * 180.0 / math.pi
+
+    def involute(base_r, a):
+        b = math.radians(a)
+        return (base_r * (_cos(a) + b * _sin(a)),
+                base_r * (_sin(a) - b * _cos(a)))
+
+    # radius -> (90 - polar angle) along the involute, sampled every 5 deg of
+    # roll, exactly as BOSL2 builds the table.
+    involute_lup = []
+    i = 0.0
+    limit = arad / math.pi / brad * 360.0
+    while i <= limit + 1e-12:
+        r_, a_ = _xy_to_polar(*involute(brad, i))
+        if r_ <= arad * 1.1:
+            involute_lup.append([r_, 90.0 - a_])
+        i += 5.0
+    involute_rlup = [[b, a] for (a, b) in involute_lup]  # the reverse table
+
+    soff = tang + (_lookup(brad, involute_lup) - _lookup(prad, involute_lup))
+    ma_rad = min(arad, _lookup(90.0 - soff + 0.05 * 360.0 / teeth / 2.0, involute_rlup))
+    ma_ang = _lookup(ma_rad, involute_lup)
+    cap_steps = int(math.ceil((ma_ang + soff - 90.0) / 5.0))
+    cap_step = (ma_ang + soff - 90.0) / cap_steps if cap_steps else 0.0
+
+    # `ang_adj_to_opp(pressure_angle, circ_pitch/PI)` == (circ_pitch/PI)*tan(PA)
+    ax = circ_pitch / 4.0 - (circ_pitch / math.pi) * _tan(pressure_angle)
+
+    # The undercut a meshing rack would carve out of this tooth.
+    undercut = []
+    a = _atan2(ax, rrad)
+    while a >= -90.0:
+        x = -a / 360.0 * 2.0 * math.pi * prad + ax
+        y = prad - circ_pitch / math.pi + profile_shift * circ_pitch / math.pi
+        r_, a_ = _xy_to_polar(x, y)
+        if r_ < arad * 1.05:
+            undercut.append([r_, a_ - a + 180.0 / teeth])
+        a -= 1.0
+    if undercut:
+        uc_min = min(range(len(undercut)), key=lambda k: undercut[k][0])
+        undercut_lup = undercut[uc_min:]
+    else:
+        undercut_lup = []
+
+    us = [k / steps / 2.0 for k in range(steps * 2 + 1)]
+
+    def _flank_angle(r):
+        """Inner envelope of the involute flank and the rack undercut."""
+        a1 = _lookup(r, involute_lup) + soff
+        if not undercut_lup or r < undercut_lup[0][0]:
+            return a1, False
+        a2 = _lookup(r, undercut_lup)
+        return min(a1, a2), a1 > a2
+
+    undercut_max = 0.0
+    for u in us:
+        r = rrad + (ma_rad - rrad) * u
+        aa, cut = _flank_angle(r)
+        if aa < 90.0 + 180.0 / teeth and cut:
+            undercut_max = max(undercut_max, r)
+
+    raw = []
+    for u in us:
+        r = rrad + (ma_rad - rrad) * u
+        aa, _cut = _flank_angle(r)
+        if r > (rrad + clear) and aa < 90.0 + 180.0 / teeth:
+            raw.append(_polar_to_xy(r, aa))
+    for k in range(cap_steps):
+        raw.append(_polar_to_xy(ma_rad, ma_ang + soff - k * (cap_step - 1.0)))
+    tooth_half_raw = _deduplicate(raw)
+
+    # Round out the clearance valley where the flank meets the root circle.
+    rcircum = 2.0 * math.pi * rrad
+    rpart = (180.0 / teeth - tang) / 360.0
+    line1 = [tooth_half_raw[0], tooth_half_raw[1]]
+    zr = 180.0 / teeth  # BOSL2: zrot(180/teeth, p=[[0,rrad],[1,rrad]])
+    line2 = [(-rrad * _sin(zr), rrad * _cos(zr)),
+             (_cos(zr) - rrad * _sin(zr), _sin(zr) + rrad * _cos(zr))]
+    isect_pt = _line_intersection(line1, line2)
+    rcorner = [line2[0], isect_pt, line1[0]]
+    maxr = (math.hypot(rcorner[0][0] - rcorner[1][0], rcorner[0][1] - rcorner[1][1])
+            * _tan(_vector_angle(*rcorner) / 2.0))
+    round_r = min(maxr, clear, rcircum * rpart)
+    valley = _arc_corner(8, round_r, rcorner) if round_r > 0 else [isect_pt]
+    rounded = _deduplicate(list(valley) + tooth_half_raw)
+
+    # Strip "jaggies" left where the undercut crosses back over the flank.
+    def _strip_left(path, i):
+        out = []
+        while i < len(path):
+            out.append(path[i])
+            if math.hypot(*path[i]) >= undercut_max:
+                out.extend(path[i + 1:])
+                return out
+            angs = [_atan2(path[j][1] - path[i][1], path[j][0] - path[i][0])
+                    for j in range(i + 1, len(path))
+                    if math.hypot(*path[j]) < undercut_max]
+            if not angs:
+                i += 1
+            else:
+                i += min(range(len(angs)), key=lambda k: angs[k]) + 1
+        return out
+
+    tooth_half = rounded if not undercut_max else _strip_left(rounded, 0)
+
+    # Clip any self-intersection past the tooth's angular half-pitch.
+    invalid = [k for k, p in enumerate(tooth_half)
+               if _atan2(p[1], p[0]) > 90.0 + 180.0 / teeth]
+    if invalid and invalid[-1] + 1 < len(tooth_half):
+        ind = invalid[-1]
+        ipt = _line_intersection([(0.0, 0.0), _polar_to_xy(1.0, 90.0 + 180.0 / teeth)],
+                                 [tooth_half[ind], tooth_half[ind + 1]])
+        clipped = [ipt] + list(tooth_half[ind + 1:])
+    else:
+        clipped = tooth_half
+
+    # Mirror across X to complete the tooth (BOSL2's `xflip` + `reverse`).
+    return _deduplicate(list(clipped) + [(-x, y) for (x, y) in reversed(clipped)])
+
+
+def gear_outline(mod, teeth, pressure_angle=20.0, helical=0.0, clearance=None,
+                 backlash=0.0, profile_shift="auto", shorten=0.0, steps=16):
+    """The full closed gear cross-section: one tooth repeated `teeth` times by
+    `zrot(-i*360/teeth)`, exactly as BOSL2's `spur_gear2d()` assembles `perim`.
+    Returns (x, y) tuples ready for `cq.Workplane("XY").polyline(...)`."""
+    ps = auto_profile_shift(teeth, pressure_angle, helical, profile_shift)
+    tooth = gear_tooth_profile(mod=mod, teeth=teeth, pressure_angle=pressure_angle,
+                               clearance=clearance, backlash=backlash,
+                               helical=helical, profile_shift=ps,
+                               shorten=shorten, steps=steps)
+    pts = []
+    for i in range(teeth):
+        a = -i * 360.0 / teeth
+        ca, sa = _cos(a), _sin(a)
+        pts.extend([(x * ca - y * sa, x * sa + y * ca) for (x, y) in tooth])
+    return _deduplicate(pts)
+
+
+# ── the part ─────────────────────────────────────────────────────────────────
+
+# OpenSCAD's `linear_extrude(twist=+a)` rotates the top face by -a about +Z;
+# CadQuery's `twistExtrude(h, +a)` rotates it by +a.  Measured on a plain bar,
+# not assumed.  Every twist below is a BOSL2 (OpenSCAD) angle, so it crosses
+# into CadQuery multiplied by this sign.
+_HELIX_SIGN = -1.0
+
+
+def _rotate(pts, deg):
+    ca, sa = _cos(deg), _sin(deg)
+    return [(x * ca - y * sa, x * sa + y * ca) for (x, y) in pts]
+
+
+def _fuse_halves(lower, upper):
+    """Fuse the two chevron halves across the mid-plane face they share.
+
+    A plain `.union()` of two twisted prisms whose ~1500-point profiles meet on
+    one coplanar face is the pathological OCCT boolean: 452 s here, against
+    11 s for the same fuse run in GLUE mode.  Glue mode is exactly right for
+    this case — the solids touch on a shared face and nowhere interpenetrate —
+    and it produces the identical result (1 solid, `isValid()`, volume equal to
+    the sum of the halves to 1e-9).  If the OCCT bindings are ever unavailable
+    or the glued fuse fails, fall back to the slow-but-equivalent union rather
+    than returning something different.
+    """
+    try:
+        from OCP.BRepAlgoAPI import BRepAlgoAPI_Fuse
+        from OCP.TopTools import TopTools_ListOfShape
+        from OCP.BOPAlgo import BOPAlgo_GlueEnum
+
+        args = TopTools_ListOfShape()
+        args.Append(lower.val().wrapped)
+        tools = TopTools_ListOfShape()
+        tools.Append(upper.val().wrapped)
+        op = BRepAlgoAPI_Fuse()
+        op.SetArguments(args)
+        op.SetTools(tools)
+        op.SetGlue(BOPAlgo_GlueEnum.BOPAlgo_GlueFull)
+        op.SetRunParallel(True)
+        op.Build()
+        shape = cq.Shape.cast(op.Shape())
+        if len(shape.Solids()) == 1 and shape.isValid():
+            return cq.Workplane("XY").newObject([shape])
+    except Exception:
+        pass
+    return lower.union(upper)
+
 
 def build(params):
     teeth_count = int(params.get('teeth_count', 20))
@@ -9,75 +405,56 @@ def build(params):
     thickness = float(params.get('thickness', 10.0))
     bore_diameter = float(params.get('bore_diameter', 5.0))
     helical_angle = float(params.get('helical_angle', 30.0))
-    
-    # `module_size` is the NORMAL module, as BOSL2's spur_gear(mod=, helical=)
-    # takes it. On a helical/herringbone gear the transverse module — the one
-    # that sets the radii in the XY cross-section being extruded here — is
-    # larger by 1/cos(beta):  d = m*N/cos(beta).  Omitting this correction was
-    # the whole of the 6.17 mm parity gap against herringbone_gear.scad
-    # (40/cos30 + 2*2 = 50.19 mm OD, not 20*2 + 2*2 = 44 mm).
-    m_t = module_size / math.cos(math.radians(helical_angle))
+    pressure_angle = float(params.get('pressure_angle', 20.0))
 
-    R_pitch = m_t * teeth_count / 2.0
-    R_outer = R_pitch + module_size
-    R_root = R_pitch - 1.25 * module_size
-    
-    angle_per_tooth = 360.0 / teeth_count
-    tooth_width_angle = angle_per_tooth / 2.0
-    
-    pts = []
-    for i in range(teeth_count):
-        base_angle = i * angle_per_tooth
-        
-        a1 = math.radians(base_angle - tooth_width_angle/2)
-        pts.append((R_root * math.cos(a1), R_root * math.sin(a1)))
-        
-        a2 = math.radians(base_angle - tooth_width_angle/5)
-        pts.append((R_outer * math.cos(a2), R_outer * math.sin(a2)))
-        
-        a3 = math.radians(base_angle + tooth_width_angle/5)
-        pts.append((R_outer * math.cos(a3), R_outer * math.sin(a3)))
-        
-        a4 = math.radians(base_angle + tooth_width_angle/2)
-        pts.append((R_root * math.cos(a4), R_root * math.sin(a4)))
-        
-    profile = cq.Workplane("XY").polyline(pts).close()
-    
-    # Calculate twist angle for half the thickness
-    half_t = thickness / 2.0
-    arc_length = half_t * math.tan(math.radians(helical_angle))
-    twist_deg = (arc_length / (math.pi * R_pitch)) * 180.0
-    
-    # Bottom half (twisted positive)
-    bottom = profile.twistExtrude(half_t, twist_deg)
-    
-    # Top half (twisted negative)
-    # Re-draw the profile rotated at Z=half_t, twist in opposite direction
-    rot_pts = []
-    for (x,y) in pts:
-        r = math.hypot(x,y)
-        a = math.atan2(y,x) + math.radians(twist_deg)
-        rot_pts.append((r*math.cos(a), r*math.sin(a)))
-        
-    top_profile = cq.Workplane("XY", origin=(0,0,half_t)).polyline(rot_pts).close()
-    top = top_profile.twistExtrude(half_t, -twist_deg)
-    
-    gear = bottom.union(top)
-    
+    # `module_size` is the NORMAL module, as BOSL2's spur_gear(mod=, helical=)
+    # takes it; `pitch_radius()` applies the 1/cos(beta) transverse correction.
+    pr = pitch_radius(module_size, teeth_count, helical_angle)
+
+    # BOSL2 spur_gear(): twist = 360*thickness*tan(helical)/circum, and the
+    # herringbone branch extrudes thickness/2 with twist/2 per half.
+    twist = 360.0 * thickness * _tan(helical_angle) / (2.0 * math.pi * pr)
+    half_twist = twist / 2.0
+
+    pts = gear_outline(mod=module_size, teeth=teeth_count,
+                       pressure_angle=pressure_angle, helical=helical_angle)
+
+    # Upper half: BOSL2's own `linear_extrude(height=thickness/2, twist=twist/2)`
+    # starting at the mid-plane.  Sign-converted for CadQuery.
+    upper = (cq.Workplane("XY", origin=(0, 0, 0))
+             .polyline(pts).close()
+             .twistExtrude(thickness / 2.0, _HELIX_SIGN * half_twist))
+
+    # Lower half: BOSL2's zflip_copy() mirror of the same solid.  Building it as
+    # its own extrude (rather than mirroring a solid) keeps one clean union of
+    # two solids that share the full mid-plane face.  Its bottom face therefore
+    # carries the SAME rotation the upper's top face does — the chevron — so we
+    # start from the pre-rotated profile and untwist back to the mid-plane.
+    lower_pts = _rotate(pts, _HELIX_SIGN * half_twist)
+    lower = (cq.Workplane("XY", origin=(0, 0, -thickness / 2.0))
+             .polyline(lower_pts).close()
+             .twistExtrude(thickness / 2.0, -_HELIX_SIGN * half_twist))
+
+    gear = _fuse_halves(lower, upper)
+
     if bore_diameter > 0:
-        bore = cq.Workplane("XY").circle(bore_diameter / 2.0).extrude(thickness + 2).translate((0,0,-1))
+        # Overshoot both faces by 1 mm so the bore is never a film (gotcha #26).
+        bore = (cq.Workplane("XY").circle(bore_diameter / 2.0)
+                .extrude(thickness + 2)
+                .translate((0, 0, -thickness / 2.0 - 1.0)))
         gear = gear.cut(bore)
-        
+
     return gear.clean()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--params", type=str, default="{}")
     parser.add_argument("--out", type=str, default="out.stl")
     args = parser.parse_args()
-    
+
     params = json.loads(args.params)
     res = build(params)
-    
+
     if args.out:
         cq.exporters.export(res, args.out)
