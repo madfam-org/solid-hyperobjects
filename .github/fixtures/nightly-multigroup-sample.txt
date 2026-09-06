@@ -1,0 +1,23 @@
+# Fixture log for the CHUNKED nightly reporter — NOT a real sweep.
+#
+# Since 2026-09-06 the nightly fans out over a matrix (nightly_scope.py) and the
+# report job concatenates every group's `sweep-<group>.txt` into one file. This
+# fixture is that concatenation: two group headers, the `ok` rows that make a
+# cartridge "covered", FAIL rows in both groups, and one per-group summary line
+# each. Feed it with --scope .github/fixtures/nightly-multigroup-scope.txt to
+# exercise the completeness check: the scope names five cartridges and only
+# four appear here, so `fixture-never` must be reported as NEVER RENDERED.
+#
+# The slugs are deliberately fake (`fixture-*`): no cartridge in this repo is
+# named that, so an issue raised from this file cannot be mistaken for a real
+# failure.
+=== nightly group g0 : fixture-alpha fixture-beta ===
+cartridges: 2
+  FAIL fixture-alpha: render (print, body, cadquery): FAIL — mesh is not watertight (2 open edges)
+  ok fixture-beta (./fixture-beta)
+y4d-spec check: cartridges=2 failures=1 rendered=6 presets=2
+=== nightly group g1 : fixture-gamma fixture-delta ===
+cartridges: 2
+  FAIL fixture-gamma: render (display, lid, preset 'tall', openscad): FAIL — geometry is identical to the fallback body
+  ok fixture-delta (./fixture-delta)
+y4d-spec check: cartridges=2 failures=1 rendered=5 presets=1

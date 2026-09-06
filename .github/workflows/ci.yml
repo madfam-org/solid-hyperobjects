@@ -21,6 +21,15 @@ on:
           Leave blank for a real sweep.
         required: false
         default: ""
+      nightly_limit:
+        description: >-
+          Proof-run escape hatch: render only the first N cartridges of the
+          sorted scope (e.g. 16 → the first two groups). A limited sweep is
+          DELIBERATELY incomplete, so the completeness check will fail the
+          report job and open the tracking issue — that is what it is for.
+          Leave blank for the full 500.
+        required: false
+        default: ""
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -202,43 +211,103 @@ jobs:
   # The whole commons, geometry included. Nightly rather than per-PR: 500
   # cartridges rendered at defaults AND at every preset is hours of kernel time,
   # which would make the pool unusable for everything else.
-  # A red nightly must reach a human. The 2026-08-26 availability audit found
-  # that no alert from this estate had ever done so: the sweep failed into a run
-  # log nobody opened. The `report` steps below turn a red sweep into ONE
-  # tracking issue in this repository — kept current rather than re-opened every
-  # night — and the green path closes it again. See .github/scripts/nightly_report.py.
-  render-nightly:
-    name: nightly full render sweep
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+  #
+  # WHY THIS IS A MATRIX AND NOT ONE JOB (2026-09-06)
+  # ------------------------------------------------
+  # It used to be one job with `timeout-minutes: 720`. Run 33998128926 ran
+  # 2 h 09 m and produced render rows for 454 of the 500 cartridges: the
+  # alphabetical tail — `tri-glide-slider` … `zipper-pull-assist` — plus a few
+  # others were never reached. The job did not time out and did not error on
+  # them; it simply ran out of wall clock while the runner was reclaimed, and
+  # NOTHING in the run said 46 cartridges had gone unchecked. A fail-closed bar
+  # with a silent 9 % hole in it is worse than no bar, because everyone
+  # believes it.
+  #
+  # Three jobs now, mirroring the per-PR lane that already works:
+  #   nightly-scope   — lists every cartridge on the ref and cuts a
+  #                     deterministic matrix (nightly_scope.py).
+  #   render-nightly  — one job per group; each keeps its OWN verdict and
+  #                     uploads its own `sweep-<group>.txt`, so a lost runner
+  #                     costs one group, not the night.
+  #   nightly-report  — always runs; concatenates every group's log, checks
+  #                     COMPLETENESS against the scope, and reports.
+  #
+  # The completeness check is the point of the restructure: green now means
+  # "every group job succeeded AND the union of rendered cartridges equals the
+  # scope". An incomplete sweep opens the tracking issue with a
+  # "NEVER RENDERED" row per missing cartridge and fails the report job.
+  nightly-scope:
+    name: nightly scope (cut the commons into render groups)
+    if: >-
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+      && inputs.report_fixture == ''
     runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
-    timeout-minutes: 720
-    permissions:
-      contents: read
-      issues: write
+    timeout-minutes: 10
+    outputs:
+      groups: ${{ steps.scope.outputs.groups }}
+      count: ${{ steps.scope.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cut the commons into groups
+        id: scope
+        run: |
+          groups=$(python3 .github/scripts/nightly_scope.py \
+            --chunks 8 --limit "${LIMIT:-0}" --slug-list nightly-scope.txt)
+          echo "groups=$groups" >> "$GITHUB_OUTPUT"
+          echo "count=$(wc -l < nightly-scope.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          echo "groups: $groups"
+        env:
+          # Proof-run escape hatch only. A limited sweep is DELIBERATELY
+          # incomplete: the completeness check below will fail the report job
+          # and open the issue, which is exactly what a proof run has to show.
+          LIMIT: ${{ inputs.nightly_limit }}
+
+      # The scope is an artifact rather than a job output because the report job
+      # has to compare against the exact list the matrix was handed — not
+      # re-derive it from a checkout that may have moved.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nightly-scope
+          path: nightly-scope.txt
+          retention-days: 7
+
+  render-nightly:
+    name: nightly render
+    needs: nightly-scope
+    if: >-
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+      && inputs.report_fixture == ''
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    # 90 minutes per group, not 720 for the night. Eight cartridges took 3–5
+    # minutes per group on this pool in the per-PR lane (run 34018018690), so 90
+    # is ~20x headroom for the slowest realistic group — generous enough that a
+    # timeout means something is genuinely wrong, tight enough that a wedged
+    # kernel gives the runner back the same morning instead of holding it for
+    # half a day.
+    timeout-minutes: 90
+    strategy:
+      # Never fail-fast: the whole point is that one bad group must not hide
+      # the verdict of the other sixty-odd.
+      fail-fast: false
+      # Three groups at a time. The per-PR lane runs at 2 and the pool visibly
+      # honours it (run 34018018690: jobs start in clean pairs, the rest queue),
+      # so the pool has at least 2 free slots for this repo in working hours and
+      # the nightly runs at 03:00 CDMX when the platforms' matrices are idle.
+      # 3 buys ~33 % off the night's wall clock over 2 while still leaving
+      # headroom for the manifest job and any human's PR that lands overnight;
+      # going higher would let one repo's nightly monopolise a shared pool for
+      # hours, which is the failure mode ADR-010 warns about. Revisit if the
+      # pool grows.
+      max-parallel: 3
+      matrix:
+        group: ${{ fromJson(needs.nightly-scope.outputs.groups) }}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      # Dispatch-only escape hatch: feed the reporter a committed fixture log so
-      # the issue open/update/close path can be exercised without spending hours
-      # of kernel time — and without inventing a fake failure in a real
-      # cartridge. Every heavy step below is skipped on a fixture run.
-      - name: Reporter dry run (fixture, no rendering)
-        id: fixture
-        if: inputs.report_fixture != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
-        run: |
-          fixture="${{ inputs.report_fixture }}"
-          test -f "$fixture" || { echo "::error::fixture $fixture not found"; exit 1; }
-          python3 .github/scripts/nightly_report.py --selftest "$fixture"
-          python3 .github/scripts/nightly_report.py \
-            --log "$fixture" --workflow "CI · nightly full render sweep (FIXTURE)"
-
       - name: System libraries for the CAD kernel (libGL + libXrender for OCP, fonts for text)
-        if: inputs.report_fixture == ''
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
@@ -252,7 +321,6 @@ jobs:
           fi
 
       - name: Install the spec (with geometry)
-        if: inputs.report_fixture == ''
         env:
           SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
@@ -272,53 +340,146 @@ jobs:
           .venv/bin/python -c "import cadquery" || {
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
 
-      - name: y4d-spec check --render (every cartridge)
+      - name: y4d-spec check --render (this group)
         id: sweep
-        if: inputs.report_fixture == ''
         env:
           OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
+          GROUP: ${{ matrix.group }}
         run: |
-          dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
-          echo "cartridges: $(echo $dirs | wc -w)"
-          # tee, not a redirect: the log still streams to the run so a human
-          # watching sees progress, AND the reporter below has a file to parse.
-          # `status` rather than `set -e`: the summary and the report must run
-          # even when — especially when — the sweep failed. The default shell is
-          # `bash -e -o pipefail`, so `$?` after the pipe is the SWEEP's code,
-          # not tee's — the same idiom yantra4d's spec-nightly already uses.
+          # A stable, filesystem-safe name for this group's log. The first slug
+          # is enough to identify it and keeps the artifact list readable.
+          slug_id=$(echo "$GROUP" | awk '{print $1}')
+          echo "GROUP_ID=$slug_id" >> "$GITHUB_ENV"
+          # The header the report job's parser reads back: it names the group
+          # AND the slugs it was handed, so a group whose log never arrives is
+          # still visible as a hole in the concatenation.
+          echo "=== nightly group $slug_id : $GROUP ===" | tee "sweep-$slug_id.txt"
           status=0
-          .venv/bin/y4d-spec check $dirs --render --require-openscad --parity \
-            --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v \
-            | tee sweep-report.txt || status=$?
-          {
-            echo "### y4d-spec nightly render sweep"
-            tail -1 sweep-report.txt
-            grep "FAIL" sweep-report.txt | head -40 || true
-          } >> "$GITHUB_STEP_SUMMARY"
+          for slug in $GROUP; do
+            echo "::group::render $slug ($(date -u +%H:%M:%SZ))"
+            # tee -a: every cartridge's rows land in this group's file, and the
+            # log still streams to the run so a human sees progress.
+            # `status` rather than `set -e`: the upload and the report must run
+            # even when — especially when — a render failed. The default shell
+            # is `bash -e -o pipefail`, so `$?` after the pipe is the SWEEP's
+            # code, not tee's.
+            .venv/bin/y4d-spec check "./$slug" --render --require-openscad --parity \
+              --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v \
+              2>&1 | tee -a "sweep-$slug_id.txt" || status=$?
+            echo "::endgroup::"
+          done
           exit $status
 
-      # A red sweep opens or updates the ONE tracking issue labelled
-      # `nightly-sweep`, with the failing renders as a table and a comment
-      # naming what broke and what got fixed since the previous red run.
-      - name: Report the red sweep to its tracking issue
-        if: failure() && steps.sweep.outcome == 'failure'
+      # if: always() — a group that failed is exactly the group whose log the
+      # report needs. Without this an incomplete or red group would upload
+      # nothing and the concatenation would silently lose its rows, which is
+      # the very failure this restructure exists to end.
+      - name: Upload this group's log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sweep-${{ env.GROUP_ID }}
+          path: sweep-${{ env.GROUP_ID }}.txt
+          retention-days: 7
+          if-no-files-found: warn
+
+  # A red nightly must reach a human. The 2026-08-26 availability audit found
+  # that no alert from this estate had ever done so: the sweep failed into a run
+  # log nobody opened. This job turns a red — or INCOMPLETE — sweep into ONE
+  # tracking issue in this repository, kept current rather than re-opened every
+  # night, and the green path closes it. See .github/scripts/nightly_report.py.
+  nightly-report:
+    name: nightly report (aggregate + completeness)
+    needs: [render-nightly]
+    # always(): a matrix where every group failed still has to be reported, and
+    # so does one where a group was cancelled — that is a coverage hole.
+    if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # Dispatch-only escape hatch: feed the reporter a committed fixture log so
+      # the issue open/update/close path can be exercised without spending hours
+      # of kernel time — and without inventing a fake failure in a real
+      # cartridge. The matrix is skipped entirely on a fixture run (the `if:`
+      # on nightly-scope and render-nightly), so this job is the whole run.
+      - name: Reporter dry run (fixture, no rendering)
+        id: fixture
+        if: inputs.report_fixture != ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
+          fixture="${{ inputs.report_fixture }}"
+          test -f "$fixture" || { echo "::error::fixture $fixture not found"; exit 1; }
+          python3 .github/scripts/nightly_report.py --selftest "$fixture"
           python3 .github/scripts/nightly_report.py \
-            --log sweep-report.txt \
-            --workflow "CI · nightly full render sweep"
+            --log "$fixture" --workflow "CI · nightly full render sweep (FIXTURE)"
 
-      # …and a green sweep closes it, so the alert clears itself instead of
-      # training everyone to ignore a permanently open issue.
-      - name: Close the tracking issue when the sweep is green
-        # Keyed on the SWEEP's own outcome, not merely on the job being green:
-        # a job whose sweep step never ran (a fixture dispatch, or any future
-        # skip) must not clear an alert it did not re-verify. "Did not run" and
-        # "passed" must never look the same.
-        if: success() && steps.sweep.outcome == 'success'
+      - name: Download every group's log
+        if: inputs.report_fixture == ''
+        uses: actions/download-artifact@v4
+        with:
+          path: sweep-artifacts
+
+      - name: Concatenate the groups into one report
+        id: aggregate
+        if: inputs.report_fixture == ''
+        run: |
+          # Deterministic order so two reads of the same night agree.
+          : > sweep-report.txt
+          found=0
+          for f in $(find sweep-artifacts -name 'sweep-*.txt' | sort); do
+            cat "$f" >> sweep-report.txt
+            echo "" >> sweep-report.txt
+            found=$((found + 1))
+          done
+          test -f sweep-artifacts/nightly-scope/nightly-scope.txt \
+            && cp sweep-artifacts/nightly-scope/nightly-scope.txt nightly-scope.txt \
+            || echo "::warning::the scope artifact is missing — the completeness check cannot run"
+          scope=$( [ -f nightly-scope.txt ] && wc -l < nightly-scope.txt | tr -d ' ' || echo 0 )
+          # Coverage = the cartridges that produced an `ok` or a `FAIL` row.
+          covered=$(grep -cE '^[[:space:]]*(ok|FAIL) ' sweep-report.txt || true)
+          fails=$(grep -cE '^[[:space:]]*FAIL ' sweep-report.txt || true)
+          echo "group logs: $found | scope: $scope | rows: $covered | FAIL rows: $fails"
+          {
+            echo "### y4d-spec nightly render sweep (chunked)"
+            echo ""
+            echo "\`groups=$found cartridges=$scope failures=$fails\`"
+            echo ""
+            grep -E '^[[:space:]]*FAIL ' sweep-report.txt | head -40 || true
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The verdict, in one place. Two independent conditions, both required:
+      #   1. every group job succeeded  (needs.render-nightly.result)
+      #   2. the union of rendered cartridges == the scope  (--require-complete)
+      # (2) is what run 33998128926 had no way to express. --require-complete is
+      # the only flag that lets the reporter fail a job; every other failure
+      # path in it exits 0, because an alerting path that turns a green sweep
+      # red is worse than the silence it replaces.
+      - name: Report — red, incomplete, or green
+        if: inputs.report_fixture == ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
-        run: python3 .github/scripts/nightly_report.py --green
+          MATRIX_RESULT: ${{ needs.render-nightly.result }}
+        run: |
+          if [ "$MATRIX_RESULT" = "success" ]; then
+            # Green ONLY if the completeness check also passes: --green with a
+            # --scope that is not fully covered flips itself to the red path,
+            # opens the issue with a NEVER RENDERED row per missing cartridge,
+            # and exits 1 under --require-complete.
+            python3 .github/scripts/nightly_report.py --green \
+              --log sweep-report.txt --scope nightly-scope.txt --require-complete \
+              --workflow "CI · nightly full render sweep"
+          else
+            echo "::error title=nightly matrix not green::render-nightly finished as '$MATRIX_RESULT'"
+            python3 .github/scripts/nightly_report.py \
+              --log sweep-report.txt --scope nightly-scope.txt --require-complete \
+              --workflow "CI · nightly full render sweep"
+            exit 1
+          fi
