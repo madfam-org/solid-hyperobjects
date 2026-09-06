@@ -37,7 +37,7 @@ repo is `projects/<slug>/project.json` there, unchanged.
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@308efae80b0e8d03d6e4d018d2d9c1ebce9406d6"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@db65cf1e7a2732d7263efd6eb6ba533640eb536f"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
@@ -56,6 +56,21 @@ helpers in `commons-lib/` from the repository root:
 git submodule update --init --recursive
 export OPENSCADPATH="$PWD/libs:$PWD"
 ```
+
+## How CI verifies a change
+
+- **Manifest conformance** runs on every PR for all 500 cartridges (`y4d-spec check`, seconds).
+- **Render lane** runs on every PR for the cartridges the PR touched (fork-point diff; manifest-metadata-only
+  changes are skipped), in groups of at most eight cartridges per job. Since 2026-09-05 it renders **both
+  kernels**: CadQuery through the spec's sandboxed runner and OpenSCAD through the platform's own command
+  line (`--require-openscad` — a missing binary is a failure, never a skip; the runner image ships OpenSCAD
+  2026.02.13, the version the platform image pins, per the spec's `y4d-spec render-env` contract).
+- **Nightly full sweep** renders every cartridge, both kernels, at defaults and every preset.
+- The bar per render: watertight, positive volume, no inverted (negative-volume) body, and the body count
+  the manifest declares — `verification.stages.geometry.checks.body_count.expected` at the base, with
+  per-mode/part overrides under `verification.mode_overrides.<mode>.part_overrides.<part>` using
+  **stage-qualified keys** (`"geometry.body_count"`); parametric counts use the `part_quantities`
+  expression dialect.
 
 ## Layout
 

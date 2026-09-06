@@ -8,24 +8,25 @@ or dependencies from an upstream project travel under their own terms.
 Each cartridge listed here also carries a `<slug>/NOTICE` with the full
 attribution; this file is the index, not a replacement for it.
 
-## Removed pending clean-room re-creation (operator ruling 2026-09-04, ADR-021)
+## Removed and re-created clean-room (operator ruling 2026-09-04, ADR-021 — all returned 2026-09-05)
 
 The operator ruled that any hyperobject whose origin licence is not
 CERN-OHL-W-2.0 leaves the commons and is re-created from scratch, clean-room,
 to the same final result. Five cartridges were removed from this repository at
-this commit (their history stays in git and in the archived satellite repos);
-their slugs are **reserved** and return only as clean-room implementations
-verified against the recorded final result:
+the 2026-09-04 commit (their history stays in git and in the archived
+satellite repos); their slugs were **reserved** and each has since returned as
+a clean-room implementation, verified against the recorded final result
+(baseline packs of interfaces and reference meshes — never the removed source):
 
 | Slug | Origin licence | Origin | Status |
 | :-- | :-- | :-- | :-- |
-| `keyv2` | GPL-3.0 | rsheldiii/KeyV2 | **returned** clean-room, see below |
-| `stemfie` | GPL-3.0-or-later | stemfie.org (Paulo Kiefe) | reserved |
-| `multiboard` | CC-BY-NC-SA-4.0 | Multiboard (Keep Making) | reserved |
-| `polydice` | BSD-2-Clause | (unattributed upstream) | reserved |
-| `rugged-box` | CC-BY-NC-SA-4.0 (vendored `RuggedBoxV1.scad` + parameter sets) | Super Customizable Rugged Box (Iceman) | reserved |
+| `keyv2` | GPL-3.0 | rsheldiii/KeyV2 | **returned** clean-room (#5, 2026-09-05), see below |
+| `stemfie` | GPL-3.0-or-later | stemfie.org (Paulo Kiefe) | **returned** clean-room (#3, 2026-09-05) — implements the published STEMFIE grid/pin interface only |
+| `multiboard` | CC-BY-NC-SA-4.0 | Multiboard (Keep Making) | **returned** interface-only (#7, 2026-09-05; ADR-021 §4: the 25 mm interface matches, the form is ours) |
+| `polydice` | BSD-2-Clause | (unattributed upstream) | **returned** clean-room (#14, 2026-09-05) — five regular dice from public polyhedron mathematics |
+| `rugged-box` | CC-BY-NC-SA-4.0 (vendored `RuggedBoxV1.scad` + parameter sets) | Super Customizable Rugged Box (Iceman) | **returned** interface-only (#4, 2026-09-05; ADR-021 §4: hinge/latch interfaces match, the form is ours; every parameter live) |
 
-Until each returns, the catalog counts what remains, honestly.
+All five have returned (and `gridfinity`'s OpenSCAD side, re-created in our own OpenSCAD in #2, see below); the catalog is back to 500 cartridges, every one our authoring under CERN-OHL-W-2.0. Each returned cartridge carries its acceptance evidence under `<slug>/docs/`.
 
 ### `keyv2` — returned clean-room (ADR-021 §3)
 

@@ -45,7 +45,7 @@ Never ship a `LICENSE` that contradicts your manifest's declared licence:
 ## The bar your PR has to clear
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@308efae80b0e8d03d6e4d018d2d9c1ebce9406d6"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@db65cf1e7a2732d7263efd6eb6ba533640eb536f"
 
 y4d-spec check ./<slug>            # manifest + files
 y4d-spec check ./<slug> --render   # + geometry: every (mode, part), defaults AND every preset
@@ -57,6 +57,26 @@ broken geometry is a failure, not a note. Printability findings (thin walls,
 overhangs, build volume) are measurements, never failures.
 
 CI runs exactly these commands. There is no second, hidden bar.
+
+### OpenSCAD cartridges
+
+- Include libraries by search path — `include <BOSL2/std.scad>`, `use <dotSCAD/src/…>` — never by
+  relative `../../libs/` paths; CI, the platform worker and the local harness all resolve `<Lib/…>`
+  through `OPENSCADPATH` (`libs/` for the six pinned third-party libraries, the repository root for the
+  first-party helpers in `commons-lib/`). BOSL2 is `include`-only: `use` drops its `$tags_shown` default
+  and every attachable primitive then fails BOSL2's own assertion.
+- Dispatch every declared part on `render_mode` (and, in a CadQuery twin, on the `target_part` global):
+  the checker rejects a cartridge whose parts render the same fallback body.
+- Both kernels are rendered in CI; the local CLI (`/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD
+  --backend=Manifold` on macOS) is what you run before pushing:
+  `y4d-spec check ./<slug> --render --require-openscad --openscad-path libs --openscad-path .`.
+
+### Body counts and sealed voids
+
+- A mode/part that is more than one body by design declares it (see the README's stage-qualified
+  `verification` shape); undeclared multi-body renders are flagged for review.
+- Never leave a cut ending exactly on a face, a pocket wholly inside a solid, or a decorative plate unioned
+  after the `difference()` that vents a cavity — all three export as inverted shells and fail the bar.
 
 ## Sign-off (DCO)
 
