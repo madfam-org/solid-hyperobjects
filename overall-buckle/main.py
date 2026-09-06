@@ -95,18 +95,29 @@ def build_buckle():
     return outer.union(catch)
 
 
+# WELD: mating features overlap by this much so the union is volumetric --
+# coincident faces do not fuse reliably in OCCT.
+WELD = 0.2
+
+
 def build_button():
-    """The fixed bib button: a chamfered disc on a short post."""
+    """The fixed bib button: a chamfered disc on a short post.
+
+    Post z:[0, 3]; the disc's workplane sits WELD below the post's top face and
+    extrudes up from there. The old code offset the workplane to 3 + depth/2 and
+    then extruded depth on top of that, so the disc started depth/2 ABOVE the
+    post and the two never fused."""
+    post_h = 3.0
     post = (
         cq.Workplane("XY")
         .circle(button_dia * 0.28)
-        .extrude(3.0)
+        .extrude(post_h)
     )
     disc = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, 3.0 + depth / 2.0))
+        .workplane(offset=post_h - WELD)
         .circle(button_dia / 2.0)
-        .extrude(depth)
+        .extrude(depth + WELD)
     )
     try:
         disc = disc.edges(">Z").fillet(depth * 0.4)

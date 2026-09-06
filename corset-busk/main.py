@@ -71,22 +71,38 @@ def _plate(x0):
     )
 
 
+# WELD: mating features overlap by this much so every union is volumetric --
+# coincident faces do not fuse reliably in OCCT.
+WELD = 0.2
+
+
 def build_knob_side(x0=0.0):
-    """The stud-knob plate: a plate with knobs (post + head) standing proud on top."""
+    """The stud-knob plate: a plate with knobs (post + head) standing proud on top.
+
+    The plate top face is at z = plate_t. Each knob is placed ONCE, measured from
+    that face: the post starts WELD *below* plate_t and the head starts WELD below
+    the post's top. The old code offset each workplane to `plate_t + <half the
+    feature>` and then extruded the full feature height on top of that, so the
+    post began post_dia*0.4 ABOVE the plate and the head plate_t*0.4 above the
+    post -- three floating bodies per knob."""
     body = _plate(x0)
     cx = x0 + plate_w / 2.0
+    post_h = post_dia * 0.8
+    head_h = plate_t * 0.8
     for y in _knob_ys():
         post = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(cx, y, plate_t + post_dia * 0.4))
+            .workplane(offset=plate_t - WELD)
+            .center(cx, y)
             .circle(post_dia / 2.0)
-            .extrude(post_dia * 0.8)
+            .extrude(post_h + WELD)
         )
         head = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(cx, y, plate_t + post_dia * 0.8 + plate_t * 0.4))
+            .workplane(offset=plate_t + post_h - WELD)
+            .center(cx, y)
             .circle(knob_dia / 2.0)
-            .extrude(plate_t * 0.8)
+            .extrude(head_h + WELD)
         )
         body = body.union(post).union(head)
     return body
