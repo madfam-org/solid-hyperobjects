@@ -114,9 +114,31 @@ body_h = max(socket_outer_dia, body_dia * 0.6)
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
-def central_body():
-    """A short cylindrical core all arms fuse into, centred on the origin."""
-    return cq.Workplane("XY").cylinder(body_h, body_r)
+def central_body(rise_deg=0.0):
+    """A short cylindrical core all arms fuse into, centred on the origin.
+
+    When the arms tilt UP (dome_hub / ground_anchor / any `cone` style), each arm
+    leaves the core through its TOP RIM rather than its side, and the wedge
+    between two neighbouring arms and that rim closes into a sealed pocket —
+    exported as an inverted, negative-volume body (one per arm, plus one at the
+    centre, on the shelter_ground_anchor preset). A shallow truncated cone seated
+    on the rim fills those wedges. It follows the arm rise, is scaled to 0.15 of
+    the full cone so it stays entirely inside the envelope the arms already
+    occupy (the part's bounding box is unchanged), and is skipped altogether when
+    the arms are flat and no wedge can form."""
+    core = cq.Workplane("XY").cylinder(body_h, body_r)
+    cap_h = body_r * math.tan(math.radians(min(rise_deg, 80.0))) * 0.15
+    if cap_h > 0.05:
+        cap = (
+            cq.Workplane("XY")
+            .workplane(offset=body_h / 2.0)
+            .circle(body_r)
+            .workplane(offset=cap_h)
+            .circle(max(0.5, body_r * 0.85))
+            .loft()
+        )
+        core = core.union(cap)
+    return core
 
 
 def one_arm(rise_deg):
@@ -165,7 +187,7 @@ def one_arm(rise_deg):
 
 
 def build_hub(rise_deg, with_base=False):
-    body = central_body()
+    body = central_body(rise_deg)
     step = 360.0 / struts
     for i in range(struts):
         arm = one_arm(rise_deg)
