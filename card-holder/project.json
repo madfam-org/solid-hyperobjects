@@ -499,5 +499,15 @@
     "medical",
     "hyperobject",
     "commons"
-  ]
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

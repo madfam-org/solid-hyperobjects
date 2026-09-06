@@ -171,5 +171,15 @@
       "es": "Un gancho de borde sin tornillos permite a un inquilino, estudiante o trabajador de oficina añadir repisas para dock, gestión de cables y una percha para auriculares a cualquier escritorio sin perforar agujeros ni dejar residuo de adhesivo — impreso al grosor exacto del borde en lugar de comprado en un tamaño fijo que quizás no encaje."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

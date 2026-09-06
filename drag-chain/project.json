@@ -162,5 +162,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["drag-chain", "e-chain", "cable-carrier", "motion", "industrial", "hyperobject", "commons"]
+  "tags": ["drag-chain", "e-chain", "cable-carrier", "motion", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

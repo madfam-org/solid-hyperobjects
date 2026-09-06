@@ -295,5 +295,15 @@
             "es": "Recupera aireadores que restringen el flujo y permite imprimir una carcasa de repuesto o un guardado con rosca de grifo en lugar de descartar toda una llave por una tapa de plastico agrietada, y estandariza en las mismas roscas M22/M24 que usa el resto del procomun."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

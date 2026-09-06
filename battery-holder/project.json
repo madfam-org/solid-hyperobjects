@@ -172,5 +172,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["battery", "18650", "21700", "cell", "pack", "power", "industrial", "hyperobject", "commons"]
+  "tags": ["battery", "18650", "21700", "cell", "pack", "power", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

@@ -167,5 +167,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["bobbin", "spool", "sewing", "thread", "class-15", "organizer", "textile", "household", "hyperobject", "commons"]
+  "tags": ["bobbin", "spool", "sewing", "thread", "class-15", "organizer", "textile", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

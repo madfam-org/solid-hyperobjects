@@ -786,5 +786,15 @@
       "es": "Un maniquí es la herramienta que hace posible la confección en casa y en taller pequeño, y uno bueno es caro y viene solo en pocas tallas fijas. Esta forma regenerativa da a cada cuerpo su propia superficie de ajuste a partir de medidas simples — los anillos de cuello, busto, cintura y cadera son los contornos ISO-8559 reales, verificados — para que quien confecciona imprima en 3-D (o corte en espuma) un maniquí a su medida, y los mismos números manejen tanto este cuerpo como los patrones planos del común Fashion Cabinet. Es el ancla física que convierte una biblioteca de patrones en ropa que le queda a una persona concreta."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

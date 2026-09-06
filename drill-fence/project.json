@@ -412,5 +412,15 @@
       "es": "Una guía de taladro con tope abatible convierte una mesa de taladro simple en una plantilla de barrenado repetible — hileras de pernos de estante, uniones de espiga, patrones de herrajes caen en la marca. Impresa bajo demanda, encaja en cualquier mesa de taladro o router con riel en T de 3/4 in, y el tope y el soporte se reimprimen en minutos si se pierden. Se sujeta al mismo riel que los perros de banco y los peines, haciendo crecer el común de riel en T / inglete."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
