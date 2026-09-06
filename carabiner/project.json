@@ -152,5 +152,22 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["carabiner", "clip", "keychain", "s-hook", "utility", "household", "hyperobject", "commons"]
+  "tags": ["carabiner", "clip", "keychain", "s-hook", "utility", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "s_hook": {
+        "part_overrides": {
+          "s_hook": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

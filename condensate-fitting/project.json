@@ -291,5 +291,15 @@
             "es": "Mantiene el condensado de aire acondicionado y deshumidificador fluyendo donde un tamano de tubo atipico o una esquina significarian una ida a la ferreteria o una linea doblada y un desborde, permitiendo imprimir la espiga, el codo o el adaptador de tocon exacto que necesita la linea."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

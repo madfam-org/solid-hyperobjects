@@ -261,5 +261,15 @@
             "es": "Pone accesorios de drenaje imprimibles y tolerantes a quimicos al alcance para reparaciones y geometrias de gabinete atipicas donde los angulos del kit rigido estandar no encajan, reduciendo viajes y el PVC desechado en un arreglo simple bajo el fregadero."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

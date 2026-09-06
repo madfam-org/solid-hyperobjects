@@ -173,5 +173,15 @@
       "es": "Un soporte de tarjetas impreso al ancho exacto de la tarjeta y al grosor de la pila da a un pequeño negocio, un puesto de mercado o una mesa de conferencia una forma ordenada de presentar tarjetas y notas sin comprar soportes de acrílico — el estante escalonado convierte un puñado de filamento en un exhibidor que de otro modo sería una compra minorista."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

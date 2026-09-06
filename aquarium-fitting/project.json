@@ -160,5 +160,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["aquarium", "fish", "hose", "lily-pipe", "feeding-ring", "household", "hyperobject", "commons"]
+  "tags": ["aquarium", "fish", "hose", "lily-pipe", "feeding-ring", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

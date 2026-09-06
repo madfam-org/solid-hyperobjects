@@ -467,5 +467,15 @@
       "es": "La holgura es enemiga de la precisión: una tuerca de husillo gastada o floja convierte una impresora o CNC en una lotería dimensional. Una tuerca anti-holgura T8 impresa con resorte de precarga restaura el movimiento sin juego por el costo de unos gramos de filamento, reemplazando una tuerca metálica propietaria que puede costar más que el husillo de la máquina. Es la pieza de reparación canónica para el ubicuo eje Z T8, y el `clearance` ajustable permite a cualquier impresora hacer una tuerca que encaje en su propio husillo."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
