@@ -13,6 +13,14 @@ on:
     # Nightly full render sweep, 09:00Z (03:00 CDMX).
     - cron: "0 9 * * *"
   workflow_dispatch:
+    inputs:
+      report_fixture:
+        description: >-
+          Exercise the tracking-issue reporter against a committed fixture log
+          instead of rendering (e.g. .github/fixtures/nightly-fail-sample.txt).
+          Leave blank for a real sweep.
+        required: false
+        default: ""
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -194,17 +202,43 @@ jobs:
   # The whole commons, geometry included. Nightly rather than per-PR: 500
   # cartridges rendered at defaults AND at every preset is hours of kernel time,
   # which would make the pool unusable for everything else.
+  # A red nightly must reach a human. The 2026-08-26 availability audit found
+  # that no alert from this estate had ever done so: the sweep failed into a run
+  # log nobody opened. The `report` steps below turn a red sweep into ONE
+  # tracking issue in this repository — kept current rather than re-opened every
+  # night — and the green path closes it again. See .github/scripts/nightly_report.py.
   render-nightly:
     name: nightly full render sweep
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
     timeout-minutes: 720
+    permissions:
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
+      # Dispatch-only escape hatch: feed the reporter a committed fixture log so
+      # the issue open/update/close path can be exercised without spending hours
+      # of kernel time — and without inventing a fake failure in a real
+      # cartridge. Every heavy step below is skipped on a fixture run.
+      - name: Reporter dry run (fixture, no rendering)
+        id: fixture
+        if: inputs.report_fixture != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
+        run: |
+          fixture="${{ inputs.report_fixture }}"
+          test -f "$fixture" || { echo "::error::fixture $fixture not found"; exit 1; }
+          python3 .github/scripts/nightly_report.py --selftest "$fixture"
+          python3 .github/scripts/nightly_report.py \
+            --log "$fixture" --workflow "CI · nightly full render sweep (FIXTURE)"
+
       - name: System libraries for the CAD kernel (libGL + libXrender for OCP, fonts for text)
+        if: inputs.report_fixture == ''
         run: |
           if command -v apt-get >/dev/null 2>&1; then
             SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
@@ -218,6 +252,7 @@ jobs:
           fi
 
       - name: Install the spec (with geometry)
+        if: inputs.report_fixture == ''
         env:
           SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
@@ -238,10 +273,48 @@ jobs:
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
 
       - name: y4d-spec check --render (every cartridge)
+        id: sweep
+        if: inputs.report_fixture == ''
         env:
           OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
           echo "cartridges: $(echo $dirs | wc -w)"
+          # tee, not a redirect: the log still streams to the run so a human
+          # watching sees progress, AND the reporter below has a file to parse.
+          # `status` rather than `set -e`: the summary and the report must run
+          # even when — especially when — the sweep failed. The default shell is
+          # `bash -e -o pipefail`, so `$?` after the pipe is the SWEEP's code,
+          # not tee's — the same idiom yantra4d's spec-nightly already uses.
+          status=0
           .venv/bin/y4d-spec check $dirs --render --require-openscad \
-            --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v
+            --openscad-path "$GITHUB_WORKSPACE/libs" --openscad-path "$GITHUB_WORKSPACE" -v \
+            | tee sweep-report.txt || status=$?
+          {
+            echo "### y4d-spec nightly render sweep"
+            tail -1 sweep-report.txt
+            grep "FAIL" sweep-report.txt | head -40 || true
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      # A red sweep opens or updates the ONE tracking issue labelled
+      # `nightly-sweep`, with the failing renders as a table and a comment
+      # naming what broke and what got fixed since the previous red run.
+      - name: Report the red sweep to its tracking issue
+        if: failure() && steps.sweep.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
+        run: |
+          python3 .github/scripts/nightly_report.py \
+            --log sweep-report.txt \
+            --workflow "CI · nightly full render sweep"
+
+      # …and a green sweep closes it, so the alert clears itself instead of
+      # training everyone to ignore a permanently open issue.
+      - name: Close the tracking issue when the sweep is green
+        if: success() && inputs.report_fixture == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
+        run: python3 .github/scripts/nightly_report.py --green
