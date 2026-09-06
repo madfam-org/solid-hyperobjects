@@ -290,8 +290,8 @@ jobs:
     # gives the runner back the same morning instead of holding it for half a
     # day.
     #
-    # The one group this is NOT generous for is `zipper`, whose local render was
-    # still going at 33 min (see nightly_scope.SLOW). If its dedicated group
+    # The one group this is NOT generous for is `zipper`: 39 min 12 s locally
+    # for that single cartridge (see nightly_scope.SLOW). If its dedicated group
     # ever hits 90 minutes the timeout is the correct outcome and the report
     # will say so precisely — that group's log is uploaded `if: always()`, its
     # cartridge is absent from the coverage union, and the completeness check
