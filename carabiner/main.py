@@ -32,6 +32,8 @@ Sandbox contract (apps/api/services/engine/cq_runner.py):
   - Assign the final solid to a top-level name `result`.
 """
 
+import math
+
 import cadquery as cq
 
 
@@ -93,10 +95,13 @@ def ring_body(total_len, outer_w, stock, thick):
 
 
 # ── Thread idiom (inlined; imports of repo libs are blocked in sandbox) ───────
-def _helix_path(pitch, height):
-    """A helical wire centred on Z (radius ~0 so a swept profile already at the
-    target radius traces the true helix)."""
-    return cq.Wire.makeHelix(pitch=pitch, height=height, radius=1e-6)
+def _helix_path(pitch, height, radius):
+    """A helical wire of the rib's REAL radius, centred on Z.
+
+    A placeholder radius (1e-6) is numerically a straight line: it renders on
+    macOS but segfaults OCCT on the Linux render pool, and it inverts the thread
+    fuse. Always pass the post's actual radius, floored at 1e-3."""
+    return cq.Wire.makeHelix(pitch=pitch, height=height, radius=max(1e-3, radius))
 
 
 def male_thread(shaft_r, pitch, thread_h, thr_depth, overlap):
@@ -104,6 +109,9 @@ def male_thread(shaft_r, pitch, thread_h, thr_depth, overlap):
     `overlap`; crest sticks out to shaft_r + thr_depth. ~2-3 turns."""
     root_r = max(0.5, shaft_r - overlap)
     crest_r = shaft_r + thr_depth
+    # The profile is authored in absolute XZ coordinates (root_r..crest_r from the
+    # axis) and the path is the rib's own helix, so the extents are unchanged —
+    # only the sweep's path is now a real helix instead of a degenerate line.
     prof = (
         cq.Workplane("XZ")
         .polyline([
@@ -114,7 +122,7 @@ def male_thread(shaft_r, pitch, thread_h, thr_depth, overlap):
         ])
         .close()
     )
-    rib = prof.sweep(_helix_path(pitch, thread_h), isFrenet=True)
+    rib = prof.sweep(_helix_path(pitch, thread_h, root_r), isFrenet=True)
     return rib.translate((0, 0, pitch * 0.5))
 
 
@@ -203,33 +211,68 @@ def build_screw_link():
     return body
 
 
+def _arc_band(cx, cy, r_mid, stock, a_start, a_end, thick, n=64):
+    """One closed prism: an annular sector (centreline radius `r_mid`, radial
+    width `stock`) from `a_start` to `a_end`, extruded `thick` in Z.
+
+    The loop is a single polyline — outer arc out, inner arc back — so the band
+    has no internal join at all."""
+    ro = r_mid + stock / 2.0
+    ri = r_mid - stock / 2.0
+    pts = []
+    for i in range(n + 1):
+        a = a_start + (a_end - a_start) * i / n
+        pts.append((cx + ro * math.cos(a), cy + ro * math.sin(a)))
+    for i in range(n, -1, -1):
+        a = a_start + (a_end - a_start) * i / n
+        pts.append((cx + ri * math.cos(a), cy + ri * math.sin(a)))
+    return cq.Workplane("XY").polyline(pts).close().extrude(thick)
+
+
 def build_s_hook():
-    """An open S / double hook: a flat racetrack ring split so both ends open, giving
-    the classic double-hook silhouette. Robust flat-stock variant for hanging."""
+    """An open S / double hook: ONE strand of flat stock bent into an S.
+
+    An S-hook has no closed loop anywhere — it is a single strand whose two ends
+    curl in opposite directions. The old construction built the closed racetrack
+    ring and cut two opposed gaps in it; cutting a closed loop twice always yields
+    two arcs, so it was 2 bodies by topology and no cutter bound could fix it.
+
+    Built here as three overlapping prisms fused in ONE step:
+      * upper eye  — an open C from just above +X anticlockwise round to the bottom,
+      * lower eye  — the same C point-mirrored through the origin (mouth on -X),
+      * shank      — the straight bar joining the two eyes, overlapping each by a
+                     full `stock` so both joins are volumetric fuses rather than
+                     coincident-face kisses.
+    """
     thick = spine
     stock = spine
-    outer_w = inner_w + 2.0 * stock
-    body = ring_body(length, outer_w, stock, thick)
-    # Open BOTH ends: cut a gap on +X near the top and on −X near the bottom so the
-    # ring becomes an S of two opposed hooks.
-    half_w = outer_w / 2.0
-    gap = max(opening, stock * 1.5)
-    top_cut = (
+    r_mid = (inner_w + stock) / 2.0          # centreline radius of each hook eye
+    # Eye centres set so the overall Y extent comes out at `length`.
+    y_c = max(r_mid * 0.15, length / 2.0 - (r_mid + stock / 2.0))
+
+    # Mouth half-angle from the requested clear opening (the chord between the two
+    # strand tips), bounded so the mouth can never swallow the whole eye.
+    max_gap = 2.0 * r_mid - stock * 1.2
+    gap = max(1.5, min(opening, max_gap))
+    half_open = math.asin(min(0.995, (gap / 2.0 + stock / 2.0) / r_mid))
+
+    upper = _arc_band(0.0, y_c, r_mid, stock, half_open, 1.5 * math.pi, thick)
+    lower = _arc_band(0.0, -y_c, r_mid, stock,
+                      half_open + math.pi, 2.5 * math.pi, thick)
+
+    y_top = y_c - r_mid                      # bottom of the upper eye
+    y_bot = -y_c + r_mid                     # top of the lower eye
+    shank_len = max(0.2, y_top - y_bot) + 2.0 * stock
+    shank = (
         cq.Workplane("XY")
-        .box(spine * 3.0, gap, thick + 2.0, centered=(True, True, True))
-        .translate((half_w, length / 2.0 - gap / 2.0 - stock, thick / 2.0))
+        .rect(stock, shank_len)
+        .extrude(thick)
+        .translate((0.0, (y_top + y_bot) / 2.0, 0.0))
     )
-    bot_cut = (
-        cq.Workplane("XY")
-        .box(spine * 3.0, gap, thick + 2.0, centered=(True, True, True))
-        .translate((-half_w, -length / 2.0 + gap / 2.0 + stock, thick / 2.0))
+
+    return (
+        cq.Workplane("XY").add(upper).add(lower).add(shank).combine(clean=True)
     )
-    body = body.cut(top_cut).cut(bot_cut)
-    try:
-        body = body.clean()
-    except Exception:
-        pass
-    return body
 
 
 # ── Dispatch ─────────────────────────────────────────────────────────────────
