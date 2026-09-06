@@ -46,21 +46,27 @@ if (head_style_id == 0) {
 }
 
 // Half-section of a cylinder (radius r, height h) with its TOP OUTER edge
-// rounded to `fr`: the wall runs up to the fillet's tangent, the fillet arc
-// turns the corner, and the flat top closes it on the axis.
-module _button_profile(r, h, fr) {
+// rounded to `fr`, as ONE closed polygon: up the wall to the fillet's tangent,
+// round the fillet arc, then flat in to the axis.
+//
+// This was a `hull()` of the body square and a clipped fillet disc. A hull is
+// the convex closure of its members, and the square reaches the axis, so the
+// hull filled the whole near-axis wedge: revolving it planted 193 vertices on
+// and around the rotation axis INSIDE the head (z = 30.1 .. 31.9 on the M8
+// button), where `bolt.py`'s filleted solid has none at all. Those phantom
+// interior points are what the parity gate measured as "the surfaces diverge
+// too" -- a 3.233791mm Hausdorff proxy on a pair whose outer silhouettes
+// already agreed to within a facet.
+//
+// Sampling the arc explicitly also makes the segment count ours rather than
+// OpenSCAD's, so the revolved surface matches bolt.py's analytic fillet.
+module _button_profile(r, h, fr, seg = 64) {
   fr_c = min(max(fr, 0), min(r, h));
-  hull() {
-    // Body below the fillet's tangent line.
-    square([r, h - fr_c]);
-    // Fillet: a disc of radius fr_c centred at the arc's centre, clipped to the
-    // profile's quadrant by the hull with the body below it.
-    translate([r - fr_c, h - fr_c])
-      intersection() {
-        circle(r = fr_c, $fn = 64);
-        translate([-fr_c, 0]) square([fr_c * 2, fr_c]);
-      }
-  }
+  cx = r - fr_c;
+  cz = h - fr_c;
+  arc = [for (i = [0:seg]) let(t = i * 90 / seg)
+           [cx + fr_c * cos(t), cz + fr_c * sin(t)]];
+  polygon(concat([[0, 0], [r, 0]], arc, [[0, h]]));
 }
 
 // Shaft with or without thread
