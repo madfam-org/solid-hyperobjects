@@ -192,6 +192,24 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "extrusion_length >= profile_scale * 20",
+            "severity": "error",
+            "message": {
+                "es": "El largo debe superar 20 veces la escala de perfil o el riel es más corto que su sección.",
+                "en": "Length must exceed 20x the profile scale or the rail is shorter than its own section."
+            }
+        },
+        {
+            "expression": "degradation_state <= 8",
+            "severity": "warning",
+            "message": {
+                "es": "Estados de degradación altos comen el chaflán y adelgazan la esquina del perfil.",
+                "en": "High degradation states eat the chamfer and thin the profile corner."
+            }
+        }
+    ],
     "parameters": [
         {
             "id": "extrusion_length",

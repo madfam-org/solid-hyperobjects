@@ -295,7 +295,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "reduction_mm <= head_circ / 20",
+      "severity": "error",
+      "message": {
+        "es": "La reducción no puede pasar de una vigésima del contorno: más de eso ya no es un ajuste de talla.",
+        "en": "The take-up cannot exceed a twentieth of the circumference: beyond that it is no longer a size adjustment."
+      }
+    },
+    {
+      "expression": "rib_depth <= band_t / 1.5",
+      "severity": "error",
+      "message": {
+        "es": "La nervadura no puede pasar de band_t / 1.5 o atraviesa la tira y la parte.",
+        "en": "The rib cannot exceed band_t / 1.5 or it cuts through the strip and splits it."
+      }
+    },
+    {
+      "expression": "strip_length >= reduction_mm * 4",
+      "severity": "error",
+      "message": {
+        "es": "La tira debe medir al menos 4 veces la reducción o no hay arco donde repartir el material.",
+        "en": "The strip must be at least 4x the take-up or there is no arc over which to spread the material."
+      }
+    },
+    {
+      "expression": "rib_count * 4 <= strip_length",
+      "severity": "warning",
+      "message": {
+        "es": "Nervaduras muy juntas para el largo de tira; se funden en una superficie lisa al imprimir.",
+        "en": "Ribs too close for the strip length; they merge into a smooth surface when printed."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

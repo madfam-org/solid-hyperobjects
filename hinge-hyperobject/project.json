@@ -121,6 +121,40 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "clearance <= pin_diameter / 4",
+            "severity": "error",
+            "message": {
+                "es": "La holgura no puede pasar de un cuarto del pasador o el nudillo lo suelta.",
+                "en": "Clearance cannot exceed a quarter of the pin or the knuckle releases it."
+            }
+        },
+        {
+            "expression": "num_knuckles * pin_diameter <= hinge_width",
+            "severity": "error",
+            "message": {
+                "es": "Los nudillos deben caber a lo ancho de la bisagra (num_knuckles * pin_diameter <= hinge_width).",
+                "en": "The knuckles must fit across the hinge width (num_knuckles * pin_diameter <= hinge_width)."
+            }
+        },
+        {
+            "expression": "socket_diameter >= pin_diameter * 2",
+            "severity": "error",
+            "message": {
+                "es": "La cuenca de la rótula debe duplicar el pasador o no queda pared que retenga la esfera.",
+                "en": "The ball socket must be twice the pin or no wall remains to retain the ball."
+            }
+        },
+        {
+            "expression": "leaf_length >= hinge_width / 3",
+            "severity": "warning",
+            "message": {
+                "es": "Hojas cortas frente al ancho de bisagra; la bisagra se arranca del panel al abrir.",
+                "en": "Short leaves relative to the hinge width; the hinge tears out of the panel on opening."
+            }
+        }
+    ],
     "parameters": [
         {
             "id": "hinge_width",

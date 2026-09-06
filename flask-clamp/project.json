@@ -237,6 +237,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "neck_diameter < vessel_diameter",
+      "severity": "error",
+      "message": {
+        "es": "El cuello del matraz debe ser menor que el cuerpo o el soporte invertido no lo retiene.",
+        "en": "The flask neck must be smaller than the body or the inverted holder does not retain it."
+      }
+    },
+    {
+      "expression": "rod_diameter <= vessel_diameter / 4",
+      "severity": "error",
+      "message": {
+        "es": "La varilla de soporte no puede pasar de un cuarto del cuerpo o el barreno atraviesa la pared del anillo.",
+        "en": "The support rod cannot exceed a quarter of the body or the bore cuts through the ring wall."
+      }
+    },
+    {
+      "expression": "neck_holes * (neck_diameter + 6) <= 260",
+      "severity": "warning",
+      "message": {
+        "es": "Muchas posiciones de secado con cuellos anchos hacen una placa más larga que la cama típica.",
+        "en": "Many drying positions with wide necks make a plate longer than a typical bed."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

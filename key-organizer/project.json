@@ -271,6 +271,48 @@
       "values": { "body_len": 62.0, "body_w": 22.0, "plate_t": 8.0, "pivot_d": 5.2, "hex_af": 6.35, "bit_count": 4 }
     }
   ],
+  "constraints": [
+    {
+      "expression": "pivot_head_d <= body_w - 4",
+      "severity": "error",
+      "message": {
+        "es": "La cabeza del pivote debe dejar 2 mm de placa por lado (pivot_head_d <= body_w - 4).",
+        "en": "The pivot head must leave 2 mm of plate per side (pivot_head_d <= body_w - 4)."
+      }
+    },
+    {
+      "expression": "pivot_head_d >= pivot_d + 2.5",
+      "severity": "error",
+      "message": {
+        "es": "La cabeza debe superar el vástago del pivote en 2.5 mm o el avellanado no asienta.",
+        "en": "The head must exceed the pivot shank by 2.5 mm or the counterbore does not seat."
+      }
+    },
+    {
+      "expression": "key_blade_w <= body_w - 6",
+      "severity": "error",
+      "message": {
+        "es": "La hoja de llave debe dejar 3 mm de placa por lado o la llave sobresale del organizador.",
+        "en": "The key blade must leave 3 mm of plate per side or the key stands proud of the organizer."
+      }
+    },
+    {
+      "expression": "key_blade_t <= plate_t - 1",
+      "severity": "error",
+      "message": {
+        "es": "La hoja debe dejar 1 mm de placa o el espaciador se corta en dos.",
+        "en": "The blade must leave 1 mm of plate or the spacer is cut in two."
+      }
+    },
+    {
+      "expression": "hex_af <= body_w - 8",
+      "severity": "error",
+      "message": {
+        "es": "El hexágono de la punta debe dejar 4 mm de placa por lado (hex_af <= body_w - 8).",
+        "en": "The bit hex must leave 4 mm of plate per side (hex_af <= body_w - 8)."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "household",
     "cdg_interfaces": [

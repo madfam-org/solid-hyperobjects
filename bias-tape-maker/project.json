@@ -276,7 +276,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "throat_len <= tool_len / 2",
+      "severity": "error",
+      "message": {
+        "es": "La garganta paralela no puede pasar de la mitad del largo de la herramienta: no quedaría cono de plegado.",
+        "en": "The parallel throat cannot exceed half the tool length: no folding taper would remain."
+      }
+    },
+    {
+      "expression": "tape_width >= 4 * fabric_t",
+      "severity": "error",
+      "message": {
+        "es": "El ancho de cinta debe ser al menos 4 veces el grueso de tela: si no, los dos dobleces no caben en el canal.",
+        "en": "Tape width must be at least 4x the fabric thickness, or the two folds do not fit in the channel."
+      }
+    },
+    {
+      "expression": "hang_hole <= tape_width",
+      "severity": "warning",
+      "message": {
+        "es": "El barreno de colgado es grande frente a la cinta; puede romper la pared del canal.",
+        "en": "The hang hole is large relative to the tape; it may break through the channel wall."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

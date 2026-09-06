@@ -298,6 +298,16 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "depth_clear <= wall / 2",
+      "severity": "warning",
+      "message": {
+        "es": "Holgura de profundidad grande frente a la pared (wall): la tuerca se hunde y el tornillo no alcanza.",
+        "en": "Depth clearance is large relative to the wall: the nut sinks and the screw cannot reach."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

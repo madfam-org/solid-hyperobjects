@@ -329,7 +329,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "corner_r <= strap_width / 3",
+      "severity": "error",
+      "message": {
+        "es": "El radio de esquina no puede pasar de un tercio del ancho de correa o el marco pierde su lado recto.",
+        "en": "Corner radius cannot exceed a third of the strap width or the frame loses its straight side."
+      }
+    },
+    {
+      "expression": "bar_dia <= strap_width / 4",
+      "severity": "error",
+      "message": {
+        "es": "La barra central no puede pasar de un cuarto del ancho de correa: cerraría el paso de la correa.",
+        "en": "The centre bar cannot exceed a quarter of the strap width: it would close the strap opening."
+      }
+    },
+    {
+      "expression": "prong_d <= frame_t + 1.5",
+      "severity": "warning",
+      "message": {
+        "es": "Espiga gruesa frente a la varilla del marco (frame_t); el rizo sobresaldrá del plano del marco.",
+        "en": "Prong is thick relative to the frame rod (frame_t); the curl will stand proud of the frame plane."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -201,7 +201,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "wire_t <= webbing / 4",
+      "severity": "error",
+      "message": {
+        "es": "La sección no puede pasar de un cuarto del ancho de cincha o el aro cierra su propia luz.",
+        "en": "The section cannot exceed a quarter of the webbing width or the ring closes its own opening."
+      }
+    },
+    {
+      "expression": "bow_depth >= wire_h + 4",
+      "severity": "error",
+      "message": {
+        "es": "La profundidad del arco debe superar la altura de sección más 4 mm o no queda luz para la cincha.",
+        "en": "Bow depth must exceed the section height plus 4 mm or no opening remains for the webbing."
+      }
+    },
+    {
+      "expression": "wire_h >= wire_t * 0.5",
+      "severity": "warning",
+      "message": {
+        "es": "Sección muy plana frente a su grueso (wire_t): el aro se dobla de canto bajo carga.",
+        "en": "Very flat section relative to its thickness (wire_t): the ring folds edgewise under load."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -193,7 +193,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "tip_w <= base_w - 1",
+      "severity": "error",
+      "message": {
+        "es": "La punta debe ser al menos 1 mm más angosta que la base o la varilla deja de tener conicidad.",
+        "en": "The tip must be at least 1 mm narrower than the base or the stay loses its taper."
+      }
+    },
+    {
+      "expression": "stay_len >= base_w * 3",
+      "severity": "error",
+      "message": {
+        "es": "Una varilla más corta que 3 veces su base no sostiene la punta del cuello.",
+        "en": "A stay shorter than 3x its base does not hold the collar point."
+      }
+    },
+    {
+      "expression": "stay_t <= base_w / 5",
+      "severity": "warning",
+      "message": {
+        "es": "Varilla gruesa frente a su ancho de base (base_w): marca su relieve a través de la tela del cuello.",
+        "en": "Stay is thick relative to its base width (base_w): it shows through the collar fabric."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

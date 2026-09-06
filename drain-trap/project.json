@@ -229,6 +229,32 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "clearance <= wall / 3",
+            "severity": "error",
+            "message": {
+                "es": "La holgura del casquillo no puede pasar de un tercio de la pared o la boca queda sin material.",
+                "en": "Socket clearance cannot exceed a third of the wall or the socket mouth is left with no material."
+            }
+        },
+        {
+            "expression": "socket_depth >= wall * 3",
+            "severity": "warning",
+            "message": {
+                "es": "Casquillo poco profundo frente a la pared (wall): la junta deslizante no agarra tubo suficiente.",
+                "en": "Shallow socket relative to the wall: the slip joint does not grip enough tube."
+            }
+        },
+        {
+            "expression": "leg >= bend_radius",
+            "severity": "warning",
+            "message": {
+                "es": "Tramo recto más corto que el radio de curva: no queda recta donde asentar la tuerca.",
+                "en": "Straight run shorter than the bend radius: no straight section remains to seat the nut."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 14,

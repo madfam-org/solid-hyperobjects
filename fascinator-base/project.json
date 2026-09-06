@@ -336,7 +336,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "dome_h <= base_dia * 0.45",
+      "severity": "error",
+      "message": {
+        "es": "La altura de copa no puede pasar de 0.45 del diámetro o la cúpula se cierra sobre sí misma.",
+        "en": "Crown rise cannot exceed 0.45 of the diameter or the dome closes on itself."
+      }
+    },
+    {
+      "expression": "comb_w <= base_dia * 0.75",
+      "severity": "error",
+      "message": {
+        "es": "El peine no puede pasar de 0.75 del diámetro de la base o sus ranuras salen por el borde.",
+        "en": "The comb cannot exceed 0.75 of the base diameter or its slots break out of the rim."
+      }
+    },
+    {
+      "expression": "hole_dia <= brim_w / 2",
+      "severity": "error",
+      "message": {
+        "es": "El barreno de costura no puede pasar de la mitad del ala o rompe el borde de costura.",
+        "en": "The sew hole cannot exceed half the brim or it breaks through the sewing edge."
+      }
+    },
+    {
+      "expression": "comb_t <= base_t * 2",
+      "severity": "warning",
+      "message": {
+        "es": "Peine grueso frente a la cáscara (base_t): la ranura sobresale por la cara vista.",
+        "en": "Comb is thick relative to the shell (base_t): the slot shows on the face side."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -322,7 +322,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "pin_dia + 2 * cheek_t <= webbing_w",
+      "severity": "error",
+      "message": {
+        "es": "El eje y las dos mejillas deben caber en el ancho de cincha o el cuerpo no la deja pasar.",
+        "en": "The pin and both cheeks must fit inside the webbing width or the body will not pass the tape."
+      }
+    },
+    {
+      "expression": "cam_throw >= webbing_t",
+      "severity": "error",
+      "message": {
+        "es": "El recorrido de la leva debe superar el grueso de la cincha o la leva nunca la muerde.",
+        "en": "Cam throw must exceed the webbing thickness or the cam never bites the tape."
+      }
+    },
+    {
+      "expression": "pin_clear <= pin_dia / 6",
+      "severity": "error",
+      "message": {
+        "es": "La holgura del eje no puede pasar de un sexto de su diámetro o la leva se sale del pivote.",
+        "en": "Pin clearance cannot exceed a sixth of the pin diameter or the cam falls off the pivot."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

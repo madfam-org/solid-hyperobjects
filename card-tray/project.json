@@ -257,6 +257,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "card_wid < card_len",
+      "severity": "error",
+      "message": {
+        "es": "El ancho de tarjeta debe ser menor que el largo o la ranura no coincide con la tarjeta.",
+        "en": "Card width must be less than card length or the groove does not match the card."
+      }
+    },
+    {
+      "expression": "stack_mm <= card_wid / 2",
+      "severity": "warning",
+      "message": {
+        "es": "Pila alta frente al ancho de tarjeta (card_wid): la bandeja se vuelca hacia adelante.",
+        "en": "Tall stack relative to the card width (card_wid): the tray tips forward."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

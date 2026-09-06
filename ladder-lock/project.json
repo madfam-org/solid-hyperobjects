@@ -257,7 +257,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "body_h >= webbing_t * 2 + 1",
+      "severity": "error",
+      "message": {
+        "es": "La altura del marco debe alojar dos pasadas de cincha más 1 mm o la cincha no pasa dos veces.",
+        "en": "The frame height must hold two passes of webbing plus 1 mm or the tape cannot double back."
+      }
+    },
+    {
+      "expression": "bar_w <= webbing_w / 4",
+      "severity": "error",
+      "message": {
+        "es": "La barra central no puede pasar de un cuarto del ancho de cincha o cierra el paso.",
+        "en": "The centre bar cannot exceed a quarter of the webbing width or it closes the opening."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

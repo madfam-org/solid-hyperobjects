@@ -393,6 +393,56 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "screw_head_d <= strap_w / 2 - 1",
+      "severity": "error",
+      "message": {
+        "es": "El avellanado no puede pasar de la mitad del ancho de placa menos 1 mm o rompe el canto.",
+        "en": "The countersink cannot exceed half the plate width less 1 mm or it breaks the edge."
+      }
+    },
+    {
+      "expression": "screw_head_d >= screw_d + 2",
+      "severity": "error",
+      "message": {
+        "es": "La cabeza avellanada debe superar el vástago en 2 mm o el tornillo no asienta.",
+        "en": "The countersunk head must exceed the shank by 2 mm or the screw does not seat."
+      }
+    },
+    {
+      "expression": "hinge_d >= plate_t + 2",
+      "severity": "error",
+      "message": {
+        "es": "El barrilete de bisagra debe superar el espesor de placa en 2 mm o no queda pared alrededor del pasador.",
+        "en": "The hinge barrel must exceed the plate thickness by 2 mm or no wall remains around the pin."
+      }
+    },
+    {
+      "expression": "pin_d <= hinge_d - 2",
+      "severity": "error",
+      "message": {
+        "es": "El pasador debe dejar 1 mm de pared por lado dentro del barrilete (pin_d <= hinge_d - 2).",
+        "en": "The pin must leave 1 mm of wall per side inside the barrel (pin_d <= hinge_d - 2)."
+      }
+    },
+    {
+      "expression": "shackle_d <= strap_w - 8",
+      "severity": "error",
+      "message": {
+        "es": "La ranura del arco no puede dejar menos de 4 mm de placa por lado (shackle_d <= strap_w - 8).",
+        "en": "The shackle slot cannot leave less than 4 mm of plate per side (shackle_d <= strap_w - 8)."
+      }
+    },
+    {
+      "expression": "strap_len >= strap_w",
+      "severity": "warning",
+      "message": {
+        "es": "Una placa más ancha que larga no alcanza a cruzar la junta de la puerta.",
+        "en": "A plate wider than it is long does not reach across the door joint."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "infrastructure",
     "cdg_interfaces": [

@@ -368,6 +368,48 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "tail_w <= cam_w - 4",
+      "severity": "error",
+      "message": {
+        "es": "La ranura del vástago debe dejar 2 mm de leva por lado (tail_w <= cam_w - 4).",
+        "en": "The tailpiece slot must leave 2 mm of cam per side (tail_w <= cam_w - 4)."
+      }
+    },
+    {
+      "expression": "tail_len <= cam_w - 2",
+      "severity": "error",
+      "message": {
+        "es": "La ranura no puede ser más larga que el ancho de leva menos 2 mm o sale por el canto.",
+        "en": "The slot cannot be longer than the cam width less 2 mm or it breaks out of the edge."
+      }
+    },
+    {
+      "expression": "tail_len >= tail_w",
+      "severity": "error",
+      "message": {
+        "es": "La ranura del vástago debe ser al menos tan larga como ancha o deja de aceptar el vástago plano.",
+        "en": "The tailpiece slot must be at least as long as it is wide or it stops accepting the flat tailpiece."
+      }
+    },
+    {
+      "expression": "screw_d <= tail_w - 0.5",
+      "severity": "error",
+      "message": {
+        "es": "El tornillo de fijación debe caber dentro de la ranura menos 0.5 mm o se unen en un solo corte.",
+        "en": "The fixing screw must fit inside the slot less 0.5 mm or they merge into one cut."
+      }
+    },
+    {
+      "expression": "cam_reach >= body_d",
+      "severity": "error",
+      "message": {
+        "es": "El alcance de la leva debe superar el diámetro del cuerpo o la leva no sale del cilindro.",
+        "en": "Cam reach must exceed the lock body diameter or the cam never clears the cylinder."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "infrastructure",
     "cdg_interfaces": [

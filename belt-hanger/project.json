@@ -338,7 +338,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "hook_reach >= spine_t + 8",
+      "severity": "error",
+      "message": {
+        "es": "El alcance del gancho debe superar el grueso del espinazo más 8 mm o el gancho no abre boca.",
+        "en": "Hook reach must exceed the spine thickness plus 8 mm or the hook has no open throat."
+      }
+    },
+    {
+      "expression": "spine_w >= strap_w * 0.4",
+      "severity": "warning",
+      "message": {
+        "es": "Espinazo estrecho frente a la correa (strap_w): la correa colgará torcida sobre el gancho.",
+        "en": "Narrow spine relative to the strap (strap_w): the strap will hang skewed on the hook."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

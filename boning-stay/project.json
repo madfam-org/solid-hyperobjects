@@ -180,7 +180,24 @@
       "values": { "stay_length": 60.0, "stay_width": 5.0, "stay_t": 1.0 }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "stay_length >= stay_width * 4",
+      "severity": "warning",
+      "message": {
+        "es": "Una varilla más corta que 4 veces su ancho no guía una costura; es una placa, no una ballena.",
+        "en": "A stay shorter than 4x its width does not guide a seam; it is a plate, not a bone."
+      }
+    },
+    {
+      "expression": "channel_clear >= stay_t * 0.1",
+      "severity": "warning",
+      "message": {
+        "es": "Holgura escasa frente al grueso de la varilla (stay_t): la varilla se atora en el canal.",
+        "en": "Tight clearance relative to the stay thickness (stay_t): the stay jams in the channel."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

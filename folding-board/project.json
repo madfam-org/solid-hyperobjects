@@ -367,7 +367,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "pin_dia <= panel_t * 1.6",
+      "severity": "error",
+      "message": {
+        "es": "El pasador no puede pasar de 1.6 veces el grueso del panel o el nudillo queda sin pared.",
+        "en": "The pin cannot exceed 1.6x the panel thickness or the knuckle has no wall."
+      }
+    },
+    {
+      "expression": "fold_h >= fold_w * 0.7",
+      "severity": "error",
+      "message": {
+        "es": "Un tablero más ancho que alto invierte el doblez: la prenda no cierra en rectángulo.",
+        "en": "A board wider than it is tall inverts the fold: the garment does not close to a rectangle."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

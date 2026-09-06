@@ -407,7 +407,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "slope <= shoulder_w * 0.16",
+      "severity": "error",
+      "message": {
+        "es": "La caída de hombro no puede pasar de 0.16 del vano o los extremos bajan por debajo del cuerpo del gancho.",
+        "en": "Shoulder drop cannot exceed 0.16 of the span or the ends fall below the hanger body."
+      }
+    },
+    {
+      "expression": "hook_wire <= hook_rod / 3",
+      "severity": "error",
+      "message": {
+        "es": "El alambre del gancho no puede pasar de un tercio del tubo o el gancho no abraza la barra del clóset.",
+        "en": "The hook wire cannot exceed a third of the rod or the hook does not wrap the closet rail."
+      }
+    },
+    {
+      "expression": "shoulder_t <= shoulder_h",
+      "severity": "error",
+      "message": {
+        "es": "El hombro no puede ser más grueso que alto o la sección deja de ser un hombro y se vuelve un bloque.",
+        "en": "The shoulder cannot be thicker than it is tall or the section stops being a shoulder and becomes a block."
+      }
+    },
+    {
+      "expression": "bar_drop >= slope * 2",
+      "severity": "warning",
+      "message": {
+        "es": "La barra de pantalón cuelga cerca de la caída de hombro; el pantalón rozará el saco.",
+        "en": "The trouser bar hangs close to the shoulder drop; trousers will rub the jacket."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

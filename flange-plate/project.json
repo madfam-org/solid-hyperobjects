@@ -211,6 +211,48 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "bolt_circle_radius + bolt_hole_radius <= plate_radius - 2",
+      "severity": "error",
+      "message": {
+        "es": "El círculo de barrenos debe dejar 2 mm de brida más allá del último barreno o los barrenos salen por el canto.",
+        "en": "The bolt circle must leave 2 mm of flange beyond the last hole or the holes break out of the rim."
+      }
+    },
+    {
+      "expression": "bolt_circle_radius - bolt_hole_radius >= bore_radius + 2",
+      "severity": "error",
+      "message": {
+        "es": "El círculo de barrenos debe dejar 2 mm de material hacia el barreno central o los cortes se unen en una ranura.",
+        "en": "The bolt circle must leave 2 mm of material toward the centre bore or the cuts merge into a slot."
+      }
+    },
+    {
+      "expression": "bore_radius <= plate_radius - 4",
+      "severity": "error",
+      "message": {
+        "es": "El barreno central no puede dejar menos de 4 mm de brida o la placa se vuelve un anillo frágil.",
+        "en": "The centre bore cannot leave less than 4 mm of flange or the plate becomes a fragile ring."
+      }
+    },
+    {
+      "expression": "edge_chamfer <= thickness / 3",
+      "severity": "error",
+      "message": {
+        "es": "El chaflán no puede pasar de un tercio del espesor o consume la cara superior de la placa.",
+        "en": "The chamfer cannot exceed a third of the thickness or it consumes the plate's top face."
+      }
+    },
+    {
+      "expression": "bolt_spacing_deg * bolt_count <= 360",
+      "severity": "warning",
+      "message": {
+        "es": "El grafo no evalúa expresiones: el espaciado debe ser 360 / bolt_count o los barrenos se solapan al dar la vuelta.",
+        "en": "The graph evaluates no expressions: spacing should be 360 / bolt_count or the holes overlap on the way round."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

@@ -273,6 +273,16 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "cradle_frac >= 0.5",
+      "severity": "warning",
+      "message": {
+        "es": "Con un abrazo (cradle_frac) menor a 0.5 la celda no queda retenida y se sale de la cuna.",
+        "en": "Below a 0.5 wrap the cell is not retained and falls out of the cradle."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

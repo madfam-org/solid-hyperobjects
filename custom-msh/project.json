@@ -432,6 +432,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "tolerance_xy <= wall_thickness / 3",
+      "severity": "warning",
+      "message": {
+        "es": "Tolerancia XY grande frente a la pared (wall_thickness): el sustrato baila en la ranura.",
+        "en": "XY tolerance is large relative to the wall: the substrate rattles in the slot."
+      }
+    },
+    {
+      "expression": "substrate_width <= substrate_length",
+      "severity": "warning",
+      "message": {
+        "es": "El ancho de sustrato mayor que su largo invierte la orientación esperada del rack.",
+        "en": "A substrate wider than it is long inverts the rack's expected orientation."
+      }
+    }
+  ],
   "parameters": [
     {
       "id": "assembly_level",

@@ -284,7 +284,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "pitch >= plate_w + 1",
+      "severity": "error",
+      "message": {
+        "es": "El paso debe superar el ancho de placa en 1 mm o las placas vecinas se solapan en una sola.",
+        "en": "The pitch must exceed the plate width by 1 mm or neighbouring plates merge into one."
+      }
+    },
+    {
+      "expression": "rivet_hole_dia <= plate_w * 0.45",
+      "severity": "error",
+      "message": {
+        "es": "El barreno de remache no puede pasar de 0.45 del ancho de placa o rompe el canto.",
+        "en": "The rivet hole cannot exceed 0.45 of the plate width or it breaks the plate edge."
+      }
+    },
+    {
+      "expression": "cord_dia + 0.5 <= plate_w",
+      "severity": "error",
+      "message": {
+        "es": "La boca del gancho (cord_dia + 0.5) debe caber en el ancho de placa o el gancho no cierra su garganta.",
+        "en": "The hook mouth (cord_dia + 0.5) must fit in the plate width or the hook has no closed throat."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

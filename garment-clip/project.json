@@ -382,7 +382,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "flex_t <= jaw_t * 0.55",
+      "severity": "error",
+      "message": {
+        "es": "El flexor no puede pasar de 0.55 del grueso de mordaza: deja de ser resorte y se agrieta como bisagra.",
+        "en": "The flexure cannot exceed 0.55 of the jaw thickness: it stops being a spring and cracks like a hinge."
+      }
+    },
+    {
+      "expression": "flex_len <= jaw_len * 0.9",
+      "severity": "error",
+      "message": {
+        "es": "El flexor no puede ser más largo que 0.9 de la mordaza o no queda mordaza que muerda.",
+        "en": "The flexure cannot be longer than 0.9 of the jaw or no jaw remains to bite."
+      }
+    },
+    {
+      "expression": "bite_gap <= jaw_len / 4",
+      "severity": "warning",
+      "message": {
+        "es": "Boca abierta grande frente a la mordaza (jaw_len): la pinza agarra sólo con la punta.",
+        "en": "Large open bite relative to the jaw (jaw_len): the clip grips with the tip only."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",
