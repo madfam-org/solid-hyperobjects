@@ -75,8 +75,17 @@ FAIL_RE = re.compile(r"^\s*FAIL\s+(?P<slug>[^\s:]+):\s*(?P<rest>.*)$")
 
 # A cartridge the sweep actually reached, as `-v` prints it:
 #
-#   "  ok <slug> (./<slug>)"      — cleared the bar
-#   "  FAIL <slug>: <rest>"       — reached, and failed
+#   "  ok <slug> (./<slug>, N render(s) verified)"   — cleared the bar
+#   "  FAIL <slug>: <rest>"                           — reached, and failed
+#   "  note <slug>: <rest>"                           — reached, with a note
+#
+# Those three are the ONLY per-cartridge shapes y4d_spec/cli.py emits (`  ok
+# {name} ({d}{suffix})`, `  FAIL {name}: {prob}`, `  note {name}: {note}`), so
+# matching them is matching "the sweep reached this cartridge". Deliberately
+# anchored and deliberately narrow: a pattern that also matched, say, a stray
+# "ok" inside a reason string would inflate coverage and re-open the very hole
+# this check exists to close. Fail closed — an unrecognised line is NOT
+# coverage.
 #
 # The union of both is the COVERAGE of a sweep. Since 2026-09-06 the nightly
 # fans out over a matrix and the report concatenates every group's log, so the
@@ -84,7 +93,8 @@ FAIL_RE = re.compile(r"^\s*FAIL\s+(?P<slug>[^\s:]+):\s*(?P<rest>.*)$")
 # against the scope is the only thing that can tell an incomplete sweep from a
 # green one. Run 33998128926 rendered 454 of 500 and reported no error at all
 # for the 46 it never reached.
-OK_RE = re.compile(r"^\s*(?:ok|OK|SKIP|skip)\s+(?P<slug>[^\s:(]+)\s*(?:\(|$)")
+OK_RE = re.compile(r"^\s{1,4}ok\s+(?P<slug>[^\s:(]+)\s+\(")
+NOTE_RE = re.compile(r"^\s{1,4}note\s+(?P<slug>[^\s:]+):")
 
 # The matrix runner writes one of these at the top of each group's log so a
 # concatenated report can say which group a row came from, and so a group whose
@@ -163,6 +173,10 @@ def parse_coverage(text: str) -> set:
             seen.add(m.group("slug"))
             continue
         m = FAIL_RE.match(line)
+        if m:
+            seen.add(m.group("slug"))
+            continue
+        m = NOTE_RE.match(line)
         if m:
             seen.add(m.group("slug"))
     return seen
@@ -475,6 +489,25 @@ def selftest(fixture: str) -> int:
         crows = completeness_rows(miss)
         check(len(crows) == 1 and "NEVER RENDERED" in crows[0]["reason"],
               "completeness: NEVER RENDERED row not built")
+        # Fail CLOSED: lines that merely mention a slug must not count as
+        # coverage, or the check re-opens the hole it exists to close. Only
+        # y4d_spec's own three per-cartridge shapes count.
+        decoys = (
+            "       render (print, body, cadquery): ok",   # a -v render detail
+            "  FAIL other: render (x, y): FAIL — ok fixture-never (./x)",
+            "ok fixture-never (./fixture-never)",          # no leading indent
+            "                ok fixture-never (./x)",      # over-indented
+            "  okay fixture-never (./fixture-never)",
+        )
+        for d in decoys:
+            check(parse_coverage(d) - {"other"} == set(),
+                  f"coverage must not be claimed by: {d!r} -> {parse_coverage(d)}")
+        # …and the three real shapes DO count, including a `note` row.
+        check(parse_coverage("  ok fixture-x (./fixture-x, 6 render(s) verified)")
+              == {"fixture-x"}, "an ok row must count as coverage")
+        check(parse_coverage("  note fixture-y: declared 2 bodies") == {"fixture-y"},
+              "a note row must count as coverage")
+
         # A complete log must report NO missing cartridge — the check has to be
         # able to say "fine", or it is just noise that gets muted.
         check(missing_cartridges(scope[:4], mtext) == [],
