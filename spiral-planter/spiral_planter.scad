@@ -22,16 +22,39 @@ top_r = base_r + turns * spacing;
 drainage_hole_d = 5;
 drainage_count = 4;
 
+// Inner-wall taper: the radius the hollow gains per mm of height. The hollow
+// spans z = wall_thickness .. height, so its slope is measured over THAT span
+// (not over `height`), which is what puts the rim wall at exactly
+// `wall_thickness`.
+_inner_slope = (top_r - base_r) / (height - wall_thickness);
+_cut_over = 1;  // cut overshoot past the rim (mm)
+
 // Outer wall with spiral texture
 module planter_body() {
     difference() {
         // Outer tapered cylinder with spiral groove
         cylinder(h=height, r1=base_r, r2=top_r, $fn=$fn);
 
-        // Inner hollow
+        // Inner hollow.
+        //
+        // The cut cone has to overshoot the RIM without changing its taper, and
+        // must not touch the floor. This used to read `h = height + 1` while
+        // keeping the end radii `base_r - wall_thickness` -> `top_r -
+        // wall_thickness`: that spreads the same radius span over 81 mm instead
+        // of the 78 mm the hollow actually occupies, so the cone is FLATTER than
+        // the outer wall and falls short of it by a widening margin. At the
+        // defaults the rim wall came out 2.889 mm against the declared 2.000 mm,
+        // and the shell carried 15.3 % more material than spiral_planter.py's,
+        // which lands the wall at exactly `wall_thickness` at every height.
+        //
+        // Extend it past the rim ALONG ITS OWN SLOPE instead. The base stays at
+        // z = wall_thickness: overshooting downward as well would bore straight
+        // through the floor the drainage holes are cut in.
         translate([0, 0, wall_thickness])
-            cylinder(h=height + 1, r1=base_r - wall_thickness,
-                     r2=top_r - wall_thickness, $fn=$fn);
+            cylinder(h=height - wall_thickness + _cut_over,
+                     r1=base_r - wall_thickness,
+                     r2=top_r - wall_thickness + _inner_slope * _cut_over,
+                     $fn=$fn);
 
         // Spiral groove on exterior
         for (i = [0 : turns * 36 - 1]) {
