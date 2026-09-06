@@ -41,7 +41,13 @@ Thread strategy (VERIFIED watertight + fast — four traps avoided):
   non-watertight even at a half-integer; real fittings engage a few turns so the
   cap costs nothing. 5) Socket depth is bounded by the material that actually
   exists, and the hub plate's slab is capped so a socket never outruns the depth
-  at which its rib still fuses.
+  at which its rib still fuses. 6) The sweep path is a helix of the rib's REAL
+  radius, never a token `radius=1e-6`. A near-zero helix is numerically a straight
+  line, and past about four turns fusing the rib swept along it onto its core
+  returns one INVERTED shell (faces valid, volume negative, `isValid()` False).
+  macOS OCCT carries that solid all the way to a watertight STL; the Linux OCP
+  build segfaults on the next boolean against it — this cartridge killed the CI
+  renderer twice with no traceback before the radius was made real.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -106,8 +112,21 @@ turns = max(1.5, min(turns, 4.5))
 
 
 # ── Thread primitives (inlined — repo-lib imports are blocked in sandbox) ─────
-def _helix_path(pitch, hgt):
-    return cq.Wire.makeHelix(pitch=pitch, height=hgt, radius=1e-6)
+def _helix_path(pitch, hgt, radius):
+    """The sweep path for one helical thread rib.
+
+    `radius` MUST be the real helical radius the rib winds at — never a token
+    near-zero. `cq.Wire.makeHelix(radius=1e-6)` looks like "spin the profile about
+    the axis", and for a few turns it behaves: OCCT sweeps the profile along what
+    is numerically a straight line and the rib comes out valid. Past about four
+    turns the degenerate path defeats the fuse instead: `core.union(rib)` returns a
+    single INVERTED shell (every face individually valid, total volume NEGATIVE,
+    `isValid()` False). macOS OCCT tolerates that solid all the way to a watertight
+    STL; the Linux OCP build SEGFAULTS on the next boolean taken against it, which
+    is how this cartridge killed the CI renderer with no Python traceback at all.
+    A real radius also builds the same rib about six times faster (10.4 s → 1.7 s
+    at 4.5 turns), because the pipe shell no longer degenerates."""
+    return cq.Wire.makeHelix(pitch=pitch, height=hgt, radius=max(1e-3, radius))
 
 
 def female_thread(bore_r, pitch, thread_h, thr_depth, overlap):
@@ -122,7 +141,9 @@ def female_thread(bore_r, pitch, thread_h, thr_depth, overlap):
             (crest_r, pitch * 0.14), (root_r, pitch * 0.32),
         ]).close()
     )
-    return prof.sweep(_helix_path(pitch, thread_h), isFrenet=True).translate((0, 0, pitch * 0.5))
+    return prof.sweep(
+        _helix_path(pitch, thread_h, bore_r), isFrenet=True
+    ).translate((0, 0, pitch * 0.5))
 
 
 def male_thread(shaft_r, pitch, thread_h, thr_depth, overlap):
@@ -137,7 +158,9 @@ def male_thread(shaft_r, pitch, thread_h, thr_depth, overlap):
             (crest_r, pitch * 0.14), (root_r, pitch * 0.32),
         ]).close()
     )
-    return prof.sweep(_helix_path(pitch, thread_h), isFrenet=True).translate((0, 0, pitch * 0.5))
+    return prof.sweep(
+        _helix_path(pitch, thread_h, shaft_r), isFrenet=True
+    ).translate((0, 0, pitch * 0.5))
 
 
 def male_stud(size, clear, length, z0, thru_r=0.0):
