@@ -146,6 +146,21 @@
     "base_time": 10, "per_unit": 2, "per_part": 12,
     "fn_factor": 32, "wasm_multiplier": 4, "warning_threshold_seconds": 60
   },
+    "verification": {
+      "stages": {
+        "geometry": {
+          "checks": {
+            "watertight": {
+              "enabled": true
+            },
+            "body_count": {
+              "enabled": true,
+              "expected": 2
+            }
+          }
+        }
+      }
+    },
   "hyperobject": {
     "domain": "commercial",
     "cdg_interfaces": [

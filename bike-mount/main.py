@@ -111,34 +111,49 @@ def _clamp_ears(z_lo, z_hi):
     return ear
 
 
-def build_clamp_base():
-    """Lower clamp half: the accessory-carrying half. A half-cylinder body with a
-    semicircular saddle cut from its TOP, plus bolt ears at the split plane.
+# WELD: how far a mating feature penetrates the body it fuses into. OCCT does
+# not reliably fuse coincident faces, so every join is a volumetric overlap.
+WELD = 0.6
+ROOF_T = 4.0                                     # solid material over the saddle (mm)
 
-    Returns (solid, top_z) where top_z is the flat top surface the accessory sits on.
-    The body occupies z:[0, top_z]; the saddle is a half-bore centred at z=top_z."""
-    body_h = BLOCK_R                              # from base plane up to the split (bar centre)
-    # Solid half-cylinder (a full cylinder trimmed to the lower half in Y is awkward;
-    # instead build a block and round it). Use a rounded rectangular body so the flat
-    # top gives a clean accessory pad.
+
+def build_clamp_base():
+    """The accessory-carrying clamp half: a slab whose UNDERSIDE carries a
+    semicircular saddle for the bar, with bolt ears at the split plane and a
+    solid roof above the saddle for the accessory to stand on.
+
+    Returns (solid, top_z) -- the flat top face the accessory is built on.
+
+    The saddle is a half-bore of radius SADDLE_R centred on the split plane; it
+    spans the block's whole width in X, so at the split plane the half is void
+    for |x| <= SADDLE_R. The old code made the split plane the block's TOP
+    (`body_h = BLOCK_R`, saddle centred at z = body_h) and returned that same z
+    as the accessory seat, so the GoPro fingers / 1/4-20 boss / strap loop were
+    unioned into the middle of the saddle VOID and floated off as their own
+    bodies. Here the split plane is z = 0 (the saddle opens DOWNWARD, which is
+    also how the pair prints: this half roof-up, the cap flat) and the block
+    carries SADDLE_R + ROOF_T of material above it, so the accessory seat is
+    solid across the full width."""
+    top_z = SADDLE_R + ROOF_T
     body = (
         cq.Workplane("XY")
-        .box(2.0 * BLOCK_R, clamp_w, body_h, centered=(True, True, False))
+        .box(2.0 * BLOCK_R, clamp_w, top_z, centered=(True, True, False))
     )
     try:
-        body = body.edges("|Y and <Z").fillet(min(BLOCK_R * 0.6, body_h - 0.5))
+        body = body.edges("|Y and >Z").fillet(min(BLOCK_R * 0.6, ROOF_T - 0.5))
     except Exception:
         pass
-    # Saddle: a half-cylinder cavity opening upward, axis along Y at z = body_h.
+    # Saddle: a half-cylinder cavity opening downward, axis along Y at z = 0.
+    # Overshoot the width so the cut breaks both end faces cleanly.
     saddle = (
         cq.Workplane("XZ")
         .circle(SADDLE_R)
-        .extrude(clamp_w / 2.0, both=True)
-        .translate((0, 0, body_h))
+        .extrude(clamp_w / 2.0 + 1.0, both=True)
     )
     body = body.cut(saddle)
-    body = body.union(_clamp_ears(0.0, body_h))
-    return body, body_h
+    # Ears bridge the split plane (z = 0) upward through the saddle band.
+    body = body.union(_clamp_ears(0.0, SADDLE_R))
+    return body, top_z
 
 
 def build_clamp_cap(y_offset):
@@ -173,18 +188,26 @@ def _gopro_clevis(top_z):
     knuckle_r = PIVOT_D / 2.0 + 2.2
     pitch = FINGER_T + FINGER_GAP
     xs = [-pitch / 2.0, pitch / 2.0]
+    # Pivot centre one knuckle-radius BELOW the finger top, so the knuckle sits
+    # wholly inside the finger's Z span. Centring it ON the finger's top face
+    # (the old `top_z + reach`) left the two touching across a face that the
+    # PIVOT HOLE then cut away entirely -- the hole radius (2.5 mm) is larger
+    # than the finger is thick (FINGER_T = 3.0 mm), so it ate the whole junction
+    # and every knuckle came off as its own body. Seated here, the bore always
+    # leaves knuckle_r - PIVOT_D/2 = 2.2 mm of wall all round.
+    pivot_z = top_z + reach - knuckle_r
     fingers = None
     for x in xs:
         shaft = (
             cq.Workplane("XY")
-            .box(FINGER_T, knuckle_r * 2.0, reach, centered=(True, True, False))
-            .translate((x, 0, top_z))
+            .box(FINGER_T, knuckle_r * 2.0, reach + WELD, centered=(True, True, False))
+            .translate((x, 0, top_z - WELD))
         )
         knuckle = (
             cq.Workplane("XZ")
             .circle(knuckle_r)
             .extrude(FINGER_T / 2.0, both=True)
-            .translate((x, 0, top_z + reach))
+            .translate((x, 0, pivot_z))
         )
         f = shaft.union(knuckle)
         fingers = f if fingers is None else fingers.union(f)
@@ -193,7 +216,7 @@ def _gopro_clevis(top_z):
         cq.Workplane("YZ")
         .circle(PIVOT_D / 2.0)
         .extrude(pitch * 2.0, both=True)
-        .translate((0, 0, top_z + reach))
+        .translate((0, 0, pivot_z))
     )
     fingers = fingers.cut(hole)
     return fingers
@@ -206,16 +229,18 @@ def _quarter20_pad(top_z):
     boss_h = 8.0
     boss = (
         cq.Workplane("XY")
-        .cylinder(boss_h, boss_r, centered=(True, True, False))
-        .translate((0, 0, top_z))
+        .cylinder(boss_h + WELD, boss_r, centered=(True, True, False))
+        .translate((0, 0, top_z - WELD))
     )
     # Cosmetic socket bore (not a slow helix): a straight bore at the 1/4-20 minor-ish
     # envelope, plus a lead-in chamfer.
+    # Blind socket bore, opened at the boss's top face (overshoot by 1 mm) and
+    # stopping short of the roof so it never breaks into the saddle.
     bore = (
         cq.Workplane("XY")
         .circle(5.5 / 2.0)
         .extrude(boss_h + 1.0)
-        .translate((0, 0, top_z - 0.5))
+        .translate((0, 0, top_z + 0.5))
     )
     boss = boss.cut(bore)
     try:
@@ -231,8 +256,9 @@ def _strap_bracket(top_z):
     if interface == "phone_tab":
         tab = (
             cq.Workplane("XY")
-            .box(min(phone_w, 2.0 * BLOCK_R + 2.0 * EAR_LEN), 3.0, 22.0, centered=(True, True, False))
-            .translate((0, 0, top_z))
+            .box(min(phone_w, 2.0 * BLOCK_R + 2.0 * EAR_LEN), 3.0, 22.0 + WELD,
+                 centered=(True, True, False))
+            .translate((0, 0, top_z - WELD))
         )
         try:
             tab = tab.edges("|Y and >Z").fillet(1.4)
@@ -243,8 +269,8 @@ def _strap_bracket(top_z):
     wall_h = 14.0
     loop = (
         cq.Workplane("XY")
-        .box(2.0 * BLOCK_R, 4.0, wall_h, centered=(True, True, False))
-        .translate((0, 0, top_z))
+        .box(2.0 * BLOCK_R, 4.0, wall_h + WELD, centered=(True, True, False))
+        .translate((0, 0, top_z - WELD))
     )
     slot = (
         cq.Workplane("XY")
