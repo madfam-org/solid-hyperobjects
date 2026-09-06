@@ -912,7 +912,18 @@
           "geometry",
           "printability",
           "assembly_fit"
-        ]
+        ],
+        "part_overrides": {
+          "cable_clip": {
+            "geometry.body_count": {
+              "expected": "clip_count",
+              "description": {
+                "es": "Los clips de cable son piezas sueltas: el ensamble coloca clip_count clips a lo largo del borde trasero, uno por cuerpo.",
+                "en": "The cable clips are loose pieces: the assembly places clip_count clips along the back edge, one body each."
+              }
+            }
+          }
+        }
       },
       "grid": {
         "stages": [
