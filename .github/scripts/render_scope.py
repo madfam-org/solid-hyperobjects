@@ -10,7 +10,9 @@ A cartridge needs no render when every changed file under it is either
 (a) a non-geometry file — NOTICE, LICENSE*, README*, any *.md, anything under
 docs/, images (png/jpg/jpeg/gif/svg/webp) — or (b) project.json with every
 changed leaf under an allow-listed key that has no bearing on geometry:
-attribution, prose, tags, lineage. Anything else — .scad/.py/.cq source,
+attribution, prose, tags, lineage, constraints (feasibility rules the
+configurator evaluates on the parameter set — they never reach the kernel).
+Anything else — .scad/.py/.cq source,
 fonts/ (they change what .text() renders), parameters, parts, modes, presets,
 engine, verification, or any unknown file — keeps the cartridge in scope. A
 manifest that fails to parse on either side keeps the cartridge in scope too:
@@ -22,6 +24,7 @@ import subprocess
 import sys
 
 ALLOW = (
+    "constraints",
     "hyperobject",
     "tags",
     "project.attribution",
