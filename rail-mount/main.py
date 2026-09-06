@@ -21,6 +21,8 @@ Sandbox contract (apps/api/services/engine/cq_runner.py):
   - Assign the final solid to a top-level name `result`.
 """
 
+import math
+
 import cadquery as cq
 
 
@@ -143,12 +145,18 @@ def build_rod_holder_mount():
     )
     tube = tube.rotate((0, 0, 0), (0, 1, 0), rod_angle)
     tube = tube.translate((0, 0, top_z - 6.0))
-    # A short solid pedestal fuses tube to block for a clean weld.
+    # A short solid pedestal fuses tube to block for a clean weld. It must reach
+    # BELOW the tilted tube's lowest bottom-rim point: the tube's flat bottom face
+    # is tipped by rod_angle, so a pedestal that stops at the tube's nominal base
+    # leaves a hairline lens between that tipped face, the pedestal's side, and
+    # the clamp block's x = ±block_w/2 face — a sealed sliver exported as a
+    # negative-volume body (-0.0430 mm³ at the defaults).
+    ped_drop = tube_or * math.sin(math.radians(rod_angle)) + 1.0
     ped = (
         cq.Workplane("XY")
         .circle(tube_or)
-        .extrude(8.0)
-        .translate((0, 0, top_z - 6.0))
+        .extrude(8.0 + ped_drop)
+        .translate((0, 0, top_z - 6.0 - ped_drop))
     )
     body = base.union(ped).union(tube)
     try:

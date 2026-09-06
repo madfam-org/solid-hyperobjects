@@ -65,13 +65,19 @@ slot_h = web_t + 0.6          # webbing slot height (thickness direction) + clea
 
 
 # ── Shared webbing-slot helper ────────────────────────────────────────────────
-def webbing_slot(strap_w, strap_t, length, clearance):
+def webbing_slot(strap_w, strap_t, length, clearance, y_overshoot=0.0):
     """A rounded prism sized to a webbing cross-section: strap WIDTH along Y,
     strap THICKNESS (the slot's short dimension) along Z, and the pass-through
     LENGTH along X. Cut this from a bar to form the slot a strap threads through.
     `clearance` widens both cross-section dims. Reused by every part so all
-    webbing slots in this cartridge share one definition."""
-    w = strap_w + clearance
+    webbing slots in this cartridge share one definition.
+
+    `y_overshoot` extends the Y span past the nominal webbing width on BOTH
+    sides without changing the slot the strap actually rides in; a cut used as a
+    through-slot needs it, because a slot narrower than the body it is cut from
+    leaves a sealed pocket (an inverted, negative-volume body) instead of an
+    opening."""
+    w = strap_w + clearance + 2.0 * y_overshoot
     t = strap_t + clearance
     r = min(t / 2.0 - 0.01, 0.8)
     slot = cq.Workplane("XY").box(length, w, t, centered=(True, True, True))
@@ -99,7 +105,11 @@ def bar_frame(outer_w, outer_l, thick, slot_len, n_slots):
         start = -(step * (n_slots - 1)) / 2.0
         xs = [start + i * step for i in range(n_slots)]
     for x in xs:
-        slot = webbing_slot(web_w, web_t, slot_len, 0.6)
+        # Through-slot: overshoot both Y faces of the frame (outer_w spans
+        # web_w + 2*wall) so the strap opening is genuinely open. Cut at the
+        # nominal width it would seal into a six-sided cavity.
+        slot = webbing_slot(web_w, web_t, slot_len, 0.6,
+                            y_overshoot=(outer_w - web_w) / 2.0 + 2.0)
         slot = slot.translate((x, 0, 0))
         body = body.cut(slot)
     return body
@@ -139,9 +149,15 @@ def _female_half():
         )
         body = body.cut(win)
 
-    # Webbing slot at the closed (-X) end, strap exits along X.
-    slot = webbing_slot(web_w, web_t, 3.0 * wall, 0.6)
-    slot = slot.translate((-length * 0.5 + wall + 1.5, 0, 0))
+    # Webbing slot at the closed (-X) end, strap exits along X. Overshoot both
+    # Y faces (the housing is cav_w wide, wider than the webbing) so the slot is
+    # a real opening; cut at the nominal width it seals into a cavity.
+    slot = webbing_slot(web_w, web_t, 3.0 * wall, 0.6,
+                        y_overshoot=(cav_w - web_w) / 2.0 + 2.0)
+    # Seat it so a full `wall` of material stays outboard of the slot: the old
+    # offset (wall + 1.5) left a 0.3 mm web at the -X end that only held together
+    # because the slot was sealed.
+    slot = slot.translate((-length * 0.5 + wall + 1.5 * wall, 0, 0))
     body = body.cut(slot)
     return body, length, inner_w, inner_h
 
@@ -157,7 +173,10 @@ def _male_half(inner_w, inner_h):
     bar_w = min(web_w * 0.5, inner_w - 2.0 * snap_clear - 4.0)   # narrow central web
     bar_w = max(bar_w, 6.0)
     body = cq.Workplane("XY").box(bar_l, web_w + 2.0 * wall, bar_h, centered=(True, True, True))
-    # Webbing slot at the -X end of the bar.
+    # Webbing slot at the -X end of the bar. No Y overshoot here: the bar is
+    # exactly bar_h = slot thickness tall, so this cut already opens through the
+    # bar's top and bottom faces, and the side rails it leaves in Y are what hold
+    # the end cap on. Widening it in Y would sever that cap into a loose body.
     slot = webbing_slot(web_w, web_t, 3.0 * wall, 0.6)
     slot = slot.translate((-bar_l * 0.5 + wall + 1.5, 0, 0))
     body = body.cut(slot)
