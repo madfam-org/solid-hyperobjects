@@ -161,6 +161,42 @@
     "commons_license": "CERN-OHL-W-2.0"
   },
   "tags": ["capsule", "canister", "waterproof", "thread", "edc", "household", "hyperobject", "commons"],
+  "animations": [
+    {
+      "id": "size-sweep",
+      "label": {
+        "en": "Bore 10 → 80 mm",
+        "es": "Interior 10 → 80 mm"
+      },
+      "from_state": {
+        "inner_dia": 10.0
+      },
+      "to_state": {
+        "inner_dia": 80.0
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "capsule"
+    },
+    {
+      "id": "length-sweep",
+      "label": {
+        "en": "Length 15 → 160 mm",
+        "es": "Longitud 15 → 160 mm"
+      },
+      "from_state": {
+        "inner_len": 15.0
+      },
+      "to_state": {
+        "inner_len": 160.0
+      },
+      "frames": 5,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "capsule"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

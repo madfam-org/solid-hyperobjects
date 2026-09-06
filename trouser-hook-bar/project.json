@@ -283,6 +283,42 @@
     "hyperobject",
     "commons"
   ],
+  "animations": [
+    {
+      "id": "width-sweep",
+      "label": {
+        "en": "Hook 6 → 20 mm",
+        "es": "Gancho 6 → 20 mm"
+      },
+      "from_state": {
+        "hook_width": 6.0
+      },
+      "to_state": {
+        "hook_width": 20.0
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "set"
+    },
+    {
+      "id": "sew-holes",
+      "label": {
+        "en": "Sew holes 2 → 8",
+        "es": "Perforaciones 2 → 8"
+      },
+      "from_state": {
+        "sew_holes": 2
+      },
+      "to_state": {
+        "sew_holes": 8
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "set"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

@@ -162,6 +162,44 @@
     "commons_license": "CERN-OHL-W-2.0"
   },
   "tags": ["hook", "eye", "hook-and-eye", "closure", "fastener", "bra", "lingerie", "wearable", "hyperobject", "commons"],
+  "animations": [
+    {
+      "id": "tape-grow",
+      "label": {
+        "en": "Tape 1×1 → 6×4",
+        "es": "Cinta 1×1 → 6×4"
+      },
+      "from_state": {
+        "columns": 1,
+        "rows": 1
+      },
+      "to_state": {
+        "columns": 6,
+        "rows": 4
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "bra_tape"
+    },
+    {
+      "id": "size-sweep",
+      "label": {
+        "en": "Hook 4 → 20 mm",
+        "es": "Corchete 4 → 20 mm"
+      },
+      "from_state": {
+        "size_mm": 4.0
+      },
+      "to_state": {
+        "size_mm": 20.0
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "bra_tape"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

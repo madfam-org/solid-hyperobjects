@@ -2069,6 +2069,42 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
+  "animations": [
+    {
+      "id": "box-grow",
+      "label": {
+        "en": "Box 20 → 300 mm",
+        "es": "Caja 20 → 300 mm"
+      },
+      "from_state": {
+        "internalBoxWidthXMm": 20
+      },
+      "to_state": {
+        "internalBoxWidthXMm": 300
+      },
+      "frames": 7,
+      "duration_ms": 3500,
+      "easing": "ease-in-out",
+      "mode": "complete"
+    },
+    {
+      "id": "rib-count",
+      "label": {
+        "en": "Side ribs 0 → 6",
+        "es": "Refuerzos laterales 0 → 6"
+      },
+      "from_state": {
+        "numSideSupportRibs": 0
+      },
+      "to_state": {
+        "numSideSupportRibs": 6
+      },
+      "frames": 7,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "complete"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

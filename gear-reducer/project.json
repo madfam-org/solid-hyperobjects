@@ -901,6 +901,42 @@
         "wasm_multiplier": 5,
         "warning_threshold_seconds": 120
     },
+    "animations": [
+        {
+            "id": "ratio-sweep",
+            "label": {
+                "en": "Ratio 12:16 → 12:80",
+                "es": "Relación 12:16 → 12:80"
+            },
+            "from_state": {
+                "output_teeth": 16
+            },
+            "to_state": {
+                "output_teeth": 80
+            },
+            "frames": 8,
+            "duration_ms": 3500,
+            "easing": "ease-in-out",
+            "mode": "assembly"
+        },
+        {
+            "id": "stack-height",
+            "label": {
+                "en": "Gear stack 4 → 20 mm",
+                "es": "Espesor de engrane 4 → 20 mm"
+            },
+            "from_state": {
+                "gear_thickness": 4
+            },
+            "to_state": {
+                "gear_thickness": 20
+            },
+            "frames": 5,
+            "duration_ms": 2000,
+            "easing": "ease-in-out",
+            "mode": "assembly"
+        }
+    ],
     "hyperobject": {
         "commons_license": "CERN-OHL-W-2.0"
     }

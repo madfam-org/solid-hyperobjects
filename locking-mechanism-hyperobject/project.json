@@ -789,6 +789,42 @@
             "cost_per_kg": 35
         }
     ],
+    "animations": [
+        {
+            "id": "latch-width",
+            "label": {
+                "en": "Latch 5 → 40 mm",
+                "es": "Pestillo 5 → 40 mm"
+            },
+            "from_state": {
+                "latch_width": 5
+            },
+            "to_state": {
+                "latch_width": 40
+            },
+            "frames": 6,
+            "duration_ms": 2500,
+            "easing": "ease-in-out",
+            "mode": "slip_joint"
+        },
+        {
+            "id": "clearance-sweep",
+            "label": {
+                "en": "Clearance 0.2 → 1.0 mm",
+                "es": "Holgura 0.2 → 1.0 mm"
+            },
+            "from_state": {
+                "clearance": 0.2
+            },
+            "to_state": {
+                "clearance": 1.0
+            },
+            "frames": 5,
+            "duration_ms": 2000,
+            "easing": "ease-in-out",
+            "mode": "slip_joint"
+        }
+    ],
     "kinematics": [
         {
             "part": "blade",

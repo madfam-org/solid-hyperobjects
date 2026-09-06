@@ -610,6 +610,42 @@
         },
         "commons_license": "CERN-OHL-W-2.0"
     },
+    "animations": [
+        {
+            "id": "nema-sweep",
+            "label": {
+                "en": "NEMA 17 → 34",
+                "es": "NEMA 17 → 34"
+            },
+            "from_state": {
+                "nema_size": 17
+            },
+            "to_state": {
+                "nema_size": 34
+            },
+            "frames": 5,
+            "duration_ms": 2500,
+            "easing": "ease-in-out",
+            "mode": "mount"
+        },
+        {
+            "id": "wall-sweep",
+            "label": {
+                "en": "Wall 3 → 8 mm",
+                "es": "Pared 3 → 8 mm"
+            },
+            "from_state": {
+                "wall_thickness": 3
+            },
+            "to_state": {
+                "wall_thickness": 8
+            },
+            "frames": 5,
+            "duration_ms": 2000,
+            "easing": "ease-in-out",
+            "mode": "mount"
+        }
+    ],
     "tags": [
         "nema",
         "motor",

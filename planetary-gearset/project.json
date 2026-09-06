@@ -199,6 +199,42 @@
     "commons_license": "CERN-OHL-W-2.0"
   },
   "tags": ["gear", "planetary", "epicyclic", "reduction", "involute", "industrial", "hyperobject", "commons"],
+  "animations": [
+    {
+      "id": "planet-count",
+      "label": {
+        "en": "Planets 2 → 8",
+        "es": "Planetas 2 → 8"
+      },
+      "from_state": {
+        "planets": 2
+      },
+      "to_state": {
+        "planets": 8
+      },
+      "frames": 7,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "assembly"
+    },
+    {
+      "id": "ratio-sweep",
+      "label": {
+        "en": "Sun 6 → 48 teeth",
+        "es": "Sol 6 → 48 dientes"
+      },
+      "from_state": {
+        "sun_teeth": 6
+      },
+      "to_state": {
+        "sun_teeth": 48
+      },
+      "frames": 7,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "assembly"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

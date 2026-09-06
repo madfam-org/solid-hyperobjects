@@ -463,6 +463,44 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
+  "animations": [
+    {
+      "id": "resize",
+      "label": {
+        "en": "Frame 200 → 600 mm",
+        "es": "Marco 200 → 600 mm"
+      },
+      "from_state": {
+        "width": 200,
+        "height": 250
+      },
+      "to_state": {
+        "width": 600,
+        "height": 750
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "frame"
+    },
+    {
+      "id": "depth-sweep",
+      "label": {
+        "en": "Depth 10 → 100 mm",
+        "es": "Profundidad 10 → 100 mm"
+      },
+      "from_state": {
+        "depth": 10
+      },
+      "to_state": {
+        "depth": 100
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-out",
+      "mode": "frame"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

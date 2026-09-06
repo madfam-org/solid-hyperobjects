@@ -1116,6 +1116,44 @@
     "download": "public",
     "export": "public"
   },
+  "animations": [
+    {
+      "id": "tray-grow",
+      "label": {
+        "en": "Tray 120 → 300 mm",
+        "es": "Bandeja 120 → 300 mm"
+      },
+      "from_state": {
+        "tray_width": 120,
+        "tray_depth": 60
+      },
+      "to_state": {
+        "tray_width": 300,
+        "tray_depth": 200
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "unit"
+    },
+    {
+      "id": "pen-bank",
+      "label": {
+        "en": "Pen bank 3 → 8",
+        "es": "Portalápices 3 → 8"
+      },
+      "from_state": {
+        "pen_count": 3
+      },
+      "to_state": {
+        "pen_count": 8
+      },
+      "frames": 6,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "unit"
+    }
+  ],
   "hyperobject": {
     "commons_license": "CERN-OHL-W-2.0"
   }
