@@ -300,8 +300,22 @@ module face_sticker(axis, sign, fc, face_index=0) {
     sticker_thick = sticker_depth;
     sticker_rounding = min(safe_rounding * 0.6, sticker_size / 2 - 0.01);
 
-    // Position: offset from cubie center to just outside the face
-    offset_dist = cubie_size / 2 + sticker_thick / 2 - 0.01;
+    // Position: offset from cubie center to just outside the face.
+    //
+    // How far the sticker stands PROUD of the face is clamped to less than half
+    // the inter-cubie gap. A sticker seated flush stands `sticker_thick - 0.01`
+    // proud (0.29 mm at the defaults) against a `clearance` of 0.3 mm, so two
+    // stickers FACING each other across a gap interpenetrate by 0.28 mm and the
+    // two cubies fuse into one body. In the solved cube every sticker points
+    // outward and nothing faces anything, which is why this only shows up once a
+    // layer is turned: at `checkerboard` (all six faces at 90 deg) exactly two
+    // pairs come to face each other and `cubies` rendered 25 bodies instead of
+    // N*N*N - (N-2)^3 = 26. Sinking the sticker instead of clamping it would
+    // change every solved render; clamping changes only the turned ones, and
+    // only by the 0.04 mm the sticker is pulled back at the defaults.
+    max_proud = max(0, clearance / 2 - 0.02);
+    proud = min(sticker_thick - 0.01, max_proud);
+    offset_dist = cubie_size / 2 - sticker_thick / 2 + proud;
 
     if (sticker_style == "tactile") {
         // Tactile mode: raised dot patterns instead of colored stickers
@@ -327,7 +341,10 @@ module face_sticker(axis, sign, fc, face_index=0) {
         }
 
         // Render raised dots on top of the sticker
-        dot_offset = cubie_size / 2 + sticker_thick;
+        // Sit the overlay on the sticker's OUTER face, which the clamp above may
+        // have pulled back; `cubie_size/2 + sticker_thick` assumed the unclamped
+        // seating and would push the raised pattern back across the gap.
+        dot_offset = offset_dist + sticker_thick / 2;
         if (axis == 0) {
             translate([sign * dot_offset, 0, 0])
                 rotate([0, sign * 90, 0])
@@ -360,7 +377,10 @@ module face_sticker(axis, sign, fc, face_index=0) {
                        rounding=sticker_rounding, edges="Z");
         }
         // Raised pattern on top
-        dot_offset = cubie_size / 2 + sticker_thick;
+        // Sit the overlay on the sticker's OUTER face, which the clamp above may
+        // have pulled back; `cubie_size/2 + sticker_thick` assumed the unclamped
+        // seating and would push the raised pattern back across the gap.
+        dot_offset = offset_dist + sticker_thick / 2;
         pattern_module = sticker_style;
         color(body_color)
         if (axis == 0) {
@@ -552,6 +572,29 @@ module cubie(gx, gy, gz) {
         cubie_stickers(gx, gy, gz);
     }
 
+    // Anti-pop torpedo fins on the EDGE pieces (DaYan 2011).
+    //
+    // `torpedo_slot()` was already cut into every corner piece, but `torpedo_fin()`
+    // — the fin that slides into that slot — was dead code, so `enable_torpedoes`
+    // only ever removed material and never added the mating half. The fins are
+    // additive, so they sit outside the difference() above, and only on the two
+    // internal +/-X faces the edge piece presents to its neighbouring corners —
+    // the same frame `edge_cubie_internal()` and `edge_magnet_cavities()` use.
+    //
+    // A fin reaches `cubie_size/2 - 0.1 + torpedo_thickness/2` from the cubie
+    // centre, i.e. `torpedo_thickness/2 - 0.1` proud of the face. The manifest's
+    // own constraint keeps `torpedo_length` inside the cubie, but nothing bounded
+    // the proud height against `clearance`, so at the slider's 1.5 mm maximum a
+    // fin stood 0.65 mm proud into a 0.3 mm gap and fused the edge to its
+    // neighbour. Seat the fin so it never crosses half the gap; it still engages,
+    // because the corner's slot is cut `mechanism_clearance` oversize and reaches
+    // 0.5 mm INTO the corner.
+    if (mechanism_detail == "functional" && enable_torpedoes && exposed_count == 2) {
+        color(body_color)
+        for (direction = [-1, 1])
+            torpedo_fin(direction);
+    }
+
     // Notation overlay on center cubies (requires N >= 3)
     if (show_notation && N >= 3) {
         notation_offset = cubie_size / 2 + 0.01;
@@ -689,16 +732,25 @@ module center_cubie_internal(face_axis, face_sign) {
 
     // T-track rail slot on opposite (internal) face — allows adjacent cubies to slide
     // Orient the track perpendicular to the exposed face axis
+    // The flared mouths ride with the slot: `corner_cut_bevel` is part of the same
+    // subtractive shape, so both are cut out of the cubie in one difference().
+    track_len = cubie_size * 0.8;
     if (face_axis == 2) {
         // Z-exposed: track on internal -Z/+Z face
-        translate([0, 0, -face_sign * cubie_size / 2])
-            cube([track_width, cubie_size * 0.8, track_depth * 2], center=true);
+        translate([0, 0, -face_sign * cubie_size / 2]) {
+            cube([track_width, track_len, track_depth * 2], center=true);
+            corner_cut_bevel(track_width, track_depth, track_len, 2);
+        }
     } else if (face_axis == 1) {
-        translate([0, -face_sign * cubie_size / 2, 0])
-            cube([track_width, track_depth * 2, cubie_size * 0.8], center=true);
+        translate([0, -face_sign * cubie_size / 2, 0]) {
+            cube([track_width, track_depth * 2, track_len], center=true);
+            corner_cut_bevel(track_width, track_depth, track_len, 1);
+        }
     } else {
-        translate([-face_sign * cubie_size / 2, 0, 0])
-            cube([track_depth * 2, track_width, cubie_size * 0.8], center=true);
+        translate([-face_sign * cubie_size / 2, 0, 0]) {
+            cube([track_depth * 2, track_width, track_len], center=true);
+            corner_cut_bevel(track_width, track_depth, track_len, 0);
+        }
     }
 
     // Spring cavity (axle-aligned, opens toward core)
@@ -735,7 +787,15 @@ module torpedo_fin(direction) {
         fin_w = torpedo_thickness;
         fin_l = torpedo_length;
         fin_h = cubie_size * 0.3;
-        translate([direction * (cubie_size / 2 - 0.1), 0, -cubie_size / 2 + fin_h / 2])
+        // Seat the fin so it stands at most half the inter-cubie gap proud of the
+        // face. `cubie_size/2 - 0.1` was authored against a 0.8 mm default fin and
+        // leaves `fin_w/2 - 0.1` outside the cubie — 0.65 mm at the slider's 1.5 mm
+        // maximum, against a `clearance` of 0.3 mm, which would fuse the edge to
+        // its neighbour the moment the fin was actually built.
+        max_proud = max(0, clearance / 2 - 0.02);
+        proud = min(fin_w / 2 - 0.1, max_proud);
+        translate([direction * (cubie_size / 2 - fin_w / 2 + proud), 0,
+                   -cubie_size / 2 + fin_h / 2])
             cube([fin_w, fin_l, fin_h], center=true);
     }
 }
@@ -756,24 +816,80 @@ module torpedo_slot() {
 }
 
 // ── Corner Cutting bevels (DaYan 2010) ──
-// Beveled entries on T-track rails allow misaligned turning.
-module corner_cut_bevel(track_w, track_d, axis) {
+// Beveled entries on the T-track rail: the mouth at each END of the slot is
+// flared out by `track_bevel` at `corner_cut_angle`, so a cubie arriving on a
+// layer that is still a few degrees out of line cams into the track instead of
+// jamming on its square lip. That flare is what "corner cutting" means.
+//
+// This module used to be dead code — nothing called it, so `enable_corner_cutting`
+// changed no geometry at all (`presets[15]`, `[16]` and `[17]` all rendered the
+// identical 84721.94 mm3). It also could not have worked as written: it placed
+// its cutters at +/-track_w*0.4, which is 0.4 of the track's WIDTH and lands
+// INSIDE the slot rather than at its mouths; it hard-coded 45 deg and ignored
+// `corner_cut_angle` entirely; and its `axis` argument did not follow the
+// face_axis convention its only plausible caller uses.
+//
+// Re-authored as a wedge per mouth. `run` is how far along the track the flare
+// reaches for a `track_bevel` of lateral opening at `corner_cut_angle`; the
+// wedge is an extruded right triangle so the flare grows linearly from nothing
+// at `run` inside the mouth to `track_bevel` at the lip.
+//
+//   face_axis  track long axis   cross-section
+//     2 (Z)         Y             X = width, Z = depth
+//     1 (Y)         Z             X = width, Y = depth
+//     0 (X)         Z             Y = width, X = depth
+//
+// `track_len` is the slot's own length, so the mouths move with the cubie.
+
+// One mouth flare, in the track's own frame: along-track is Y, across-track is X,
+// depth is Z. A triangle per wall, mirrored to both walls, extruded through the
+// depth. Defined at file scope because OpenSCAD does not accept a module
+// definition inside an `if` block.
+module _track_mouth(track_w, track_d, half, bevel, run, end_sign) {
+    for (side = [-1, 1]) {
+        translate([side * track_w / 2, end_sign * half, 0])
+            // `track_d * 2`, the SLOT's own depth, not more: the slot cube is
+            // `track_depth * 2` deep and seated on the face, so it reaches
+            // track_depth into the cubie. A deeper flare gouges past the slot
+            // floor and separates material — at `track_d * 4` the centre cubies
+            // split and `cubies` rendered 30 bodies instead of 26.
+            linear_extrude(height = track_d * 2, center = true)
+                polygon([[0, 0],
+                         [side * bevel, 0],
+                         [0, -end_sign * run]]);
+    }
+}
+
+module corner_cut_bevel(track_w, track_d, track_len, face_axis) {
     if (enable_corner_cutting) {
         bevel = track_bevel;
-        // Add chamfered entries at both ends of the track slot
+        // At corner_cut_angle from the track wall: opening `bevel` over `run`.
+        run = bevel / tan(corner_cut_angle);
+        half = track_len / 2;
+
         for (end_sign = [-1, 1]) {
-            if (axis == 0) {
-                translate([0, end_sign * track_w * 0.4, 0])
-                    rotate([0, 0, 45])
-                        cube([bevel, bevel, track_d * 2], center=true);
-            } else if (axis == 1) {
-                translate([end_sign * track_w * 0.4, 0, 0])
-                    rotate([0, 0, 45])
-                        cube([bevel, bevel, track_d * 2], center=true);
+            if (face_axis == 2) {
+                // Track runs along Y, depth along Z — the mouth frame as authored.
+                _track_mouth(track_w, track_d, half, bevel, run, end_sign);
+            } else if (face_axis == 1) {
+                // Track runs along Z, width along X, depth along Y:
+                // rotate([90,0,0]) sends the mouth frame's along-track Y to Z and
+                // its depth Z to -Y, leaving width on X. Correct.
+                rotate([90, 0, 0])
+                    _track_mouth(track_w, track_d, half, bevel, run, end_sign);
             } else {
-                translate([end_sign * track_w * 0.4, 0, 0])
-                    rotate([45, 0, 0])
-                        cube([track_d * 2, bevel, bevel], center=true);
+                // Track runs along Z, width along Y, depth along X.
+                //
+                // `rotate([90,0,0]) rotate([0,0,90])` composes to Rx(90)*Rz(90),
+                // which sends width to Z, along-track to -X and depth to -Y — the
+                // flare landed across the slot instead of at its mouths and carved
+                // four enclosed voids in the two +/-X centre cubies, which OpenSCAD
+                // exported as NEGATIVE-volume shells (-3.9845 mm3 each; `cubies`
+                // came out 30 bodies instead of 26). `rotate([90,0,90])` is the
+                // single rotation that sends width to Y, along-track to Z and depth
+                // to X, which is the frame this branch's slot actually uses.
+                rotate([90, 0, 90])
+                    _track_mouth(track_w, track_d, half, bevel, run, end_sign);
             }
         }
     }
