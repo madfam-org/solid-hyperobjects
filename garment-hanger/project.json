@@ -555,6 +555,42 @@
     "hyperobject",
     "commons"
   ],
+  "animations": [
+    {
+      "id": "bar-drop",
+      "label": {
+        "en": "Bar drop 50 → 220 mm",
+        "es": "Caída de barra 50 → 220 mm"
+      },
+      "from_state": {
+        "bar_drop": 50.0
+      },
+      "to_state": {
+        "bar_drop": 220.0
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "trouser_bar"
+    },
+    {
+      "id": "shoulder-span",
+      "label": {
+        "en": "Shoulder 250 → 500 mm",
+        "es": "Hombro 250 → 500 mm"
+      },
+      "from_state": {
+        "shoulder_w": 250.0
+      },
+      "to_state": {
+        "shoulder_w": 500.0
+      },
+      "frames": 5,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "trouser_bar"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

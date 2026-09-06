@@ -293,6 +293,42 @@
     "hyperobject",
     "commons"
   ],
+  "animations": [
+    {
+      "id": "length-sweep",
+      "label": {
+        "en": "Zip 60 → 600 mm",
+        "es": "Cierre 60 → 600 mm"
+      },
+      "from_state": {
+        "zip_length": 60
+      },
+      "to_state": {
+        "zip_length": 600
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "set"
+    },
+    {
+      "id": "coil-gauge",
+      "label": {
+        "en": "Coil 1.5 → 4 mm",
+        "es": "Espiral 1.5 → 4 mm"
+      },
+      "from_state": {
+        "coil_dia": 1.5
+      },
+      "to_state": {
+        "coil_dia": 4.0
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "set"
+    }
+  ],
   "verification": {
     "stages": {
       "geometry": {

@@ -1289,6 +1289,42 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
+  "animations": [
+    {
+      "id": "capacity",
+      "label": {
+        "en": "Capacity 1 → 100 slides",
+        "es": "Capacidad 1 → 100 portaobjetos"
+      },
+      "from_state": {
+        "num_slots": 1
+      },
+      "to_state": {
+        "num_slots": 100
+      },
+      "frames": 8,
+      "duration_ms": 3500,
+      "easing": "ease-in-out",
+      "mode": "slide_box"
+    },
+    {
+      "id": "slide-format",
+      "label": {
+        "en": "Slide 40 → 100 mm",
+        "es": "Portaobjetos 40 → 100 mm"
+      },
+      "from_state": {
+        "custom_slide_length": 40
+      },
+      "to_state": {
+        "custom_slide_length": 100
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "slide_box"
+    }
+  ],
   "tags": [
     "lab",
     "microscope",

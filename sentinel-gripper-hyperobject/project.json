@@ -424,6 +424,42 @@
             "optimization_objective": "minimize_sigma_under_load"
         }
     },
+    "animations": [
+        {
+            "id": "finger-reach",
+            "label": {
+                "en": "Finger 40 → 120 mm",
+                "es": "Dedo 40 → 120 mm"
+            },
+            "from_state": {
+                "finger_length": 40
+            },
+            "to_state": {
+                "finger_length": 120
+            },
+            "frames": 6,
+            "duration_ms": 2500,
+            "easing": "ease-in-out",
+            "mode": "full_assembly"
+        },
+        {
+            "id": "flexure-sweep",
+            "label": {
+                "en": "Flexure 0.4 → 3.0 mm",
+                "es": "Flexura 0.4 → 3.0 mm"
+            },
+            "from_state": {
+                "flexure_thickness": 0.4
+            },
+            "to_state": {
+                "flexure_thickness": 3.0
+            },
+            "frames": 5,
+            "duration_ms": 2000,
+            "easing": "ease-in-out",
+            "mode": "full_assembly"
+        }
+    ],
     "verification": {
         "stages": {
             "geometry": {

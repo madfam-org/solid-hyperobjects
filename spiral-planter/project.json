@@ -608,6 +608,42 @@
     "wasm_multiplier": 4,
     "warning_threshold_seconds": 60
   },
+  "animations": [
+    {
+      "id": "turn-sweep",
+      "label": {
+        "en": "Turns 1 → 6",
+        "es": "Vueltas 1 → 6"
+      },
+      "from_state": {
+        "turns": 1
+      },
+      "to_state": {
+        "turns": 6
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "planter"
+    },
+    {
+      "id": "height-sweep",
+      "label": {
+        "en": "Height 40 → 200 mm",
+        "es": "Altura 40 → 200 mm"
+      },
+      "from_state": {
+        "height": 40
+      },
+      "to_state": {
+        "height": 200
+      },
+      "frames": 5,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "planter"
+    }
+  ],
   "hyperobject": {
     "commons_license": "CERN-OHL-W-2.0"
   }
