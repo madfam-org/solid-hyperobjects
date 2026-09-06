@@ -211,6 +211,40 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "web_t + slot_clear + 1.6 <= frame_t",
+      "severity": "error",
+      "message": {
+        "en": "The webbing slot severs the slab: frame_t must exceed web_t + slot_clear by at least 1.6 mm.",
+        "es": "La ranura de la cincha corta la placa: frame_t debe superar web_t + slot_clear en al menos 1.6 mm."
+      }
+    },
+    {
+      "expression": "bar_w >= web_t",
+      "severity": "warning",
+      "message": {
+        "en": "bar_w is narrower than web_t; the centre bar cannot develop the friction that holds the adjuster setting.",
+        "es": "bar_w es más angosta que web_t; la barra central no genera la fricción que fija el ajuste."
+      }
+    },
+    {
+      "expression": "rail_t <= frame_t",
+      "severity": "warning",
+      "message": {
+        "en": "rail_t exceeds frame_t; the outer rail is thicker than the frame it borders and the part prints top-heavy.",
+        "es": "rail_t supera frame_t; el riel exterior es más grueso que el marco que bordea y la pieza se imprime desequilibrada."
+      }
+    },
+    {
+      "expression": "staple_t + slot_clear + 2.0 * rail_t <= 3.0 * frame_t",
+      "severity": "warning",
+      "message": {
+        "en": "The mask-hook throat (staple_t + slot_clear) plus 2*rail_t drives the hook far thicker than frame_t; reduce staple_t or rail_t.",
+        "es": "La garganta del gancho (staple_t + slot_clear) más 2*rail_t hace el gancho mucho más grueso que frame_t; reduce staple_t o rail_t."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 6,

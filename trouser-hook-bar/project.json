@@ -190,7 +190,40 @@
       "values": { "hook_width": 16.0, "plate_len": 20.0, "plate_t": 2.4, "wire_d": 2.4, "sew_holes": 6, "gap": 0.45 }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "hook_width >= 2.0 * wire_d + 1.6",
+      "severity": "error",
+      "message": {
+        "en": "hook_width leaves no flat core between the corner fillets for the tongue and the bridge posts to stand on; they graze the rounded corners instead of fusing.",
+        "es": "hook_width no deja núcleo plano entre los redondeos de esquina donde apoyar la lengüeta y los postes del puente; rozan las esquinas en vez de fundirse."
+      }
+    },
+    {
+      "expression": "wire_d <= hook_width * 0.35 && wire_d <= plate_len * 0.25",
+      "severity": "warning",
+      "message": {
+        "en": "wire_d is silently clamped to 0.35 x hook_width and 0.25 x plate_len; the built tongue and crossbar come out thinner than requested.",
+        "es": "wire_d se recorta silenciosamente a 0.35 x hook_width y 0.25 x plate_len; la lengüeta y el travesaño salen más delgados de lo pedido."
+      }
+    },
+    {
+      "expression": "plate_len - 2.0 * (wire_d * 0.5 + 1.2) >= (sew_holes - 1) * 1.1 * wire_d",
+      "severity": "warning",
+      "message": {
+        "en": "sew_holes at this plate_len packs the row tighter than 2.2 hole radii; the count is silently reduced to keep material between the holes.",
+        "es": "sew_holes con este plate_len aprieta la fila a menos de 2.2 radios de agujero; el conteo se reduce silenciosamente para dejar material entre ellos."
+      }
+    },
+    {
+      "expression": "plate_t + wire_d + gap + wire_d / 2.0 <= plate_len * 0.6",
+      "severity": "warning",
+      "message": {
+        "en": "The hook mouth stack (plate_t + wire_d + gap) sets the bend radius; against this plate_len the folded tongue reaches back past the sew-hole row.",
+        "es": "El apilado de la boca del gancho (plate_t + wire_d + gap) fija el radio del doblez; frente a este plate_len la lengüeta doblada llega más allá de la fila de agujeros."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

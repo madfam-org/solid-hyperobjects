@@ -232,6 +232,32 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "depth >= 2.0 * wall",
+            "severity": "warning",
+            "message": {
+                "en": "A clip shorter than twice its wall thickness has almost no grip length: raise depth or lower wall.",
+                "es": "Un clip más corto que el doble de su pared casi no agarra: sube depth o baja wall."
+            }
+        },
+        {
+            "expression": "standoff >= wall + 3.0",
+            "severity": "error",
+            "message": {
+                "en": "With standoff below wall + 3 mm the screw holes through the post base fall into the cradle pocket and break the standoff.",
+                "es": "Con standoff menor que wall + 3 mm los barrenos de tornillo del poste caen dentro de la silla y rompen el separador."
+            }
+        },
+        {
+            "expression": "clearance <= wall / 3.0",
+            "severity": "warning",
+            "message": {
+                "en": "Bore clearance above a third of wall makes a loose grip: the C-clip will not retain the pipe.",
+                "es": "Una holgura mayor que un tercio de wall deja el agarre flojo: el clip en C no retendrá la tubería."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 8,

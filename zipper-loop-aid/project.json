@@ -306,7 +306,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "clip_arm * 2.0 >= tab_t + 0.25",
+      "severity": "warning",
+      "message": {
+        "en": "The two clip arms carry clip_arm of material each around a tab_t + 0.25 mm slot; thinner than the slot itself they yield instead of springing back.",
+        "es": "Los dos brazos de la pinza llevan clip_arm de material cada uno alrededor de una ranura de tab_t + 0.25 mm; más delgados que la ranura ceden en vez de recuperar."
+      }
+    },
+    {
+      "expression": "ring_w * 1.6 <= (tab_w + 1.0 + 2.0 * clip_arm) * 0.7",
+      "severity": "warning",
+      "message": {
+        "en": "The neck is min(0.7 x clip length, 1.6 x ring_w) wide; with this ring_w against tab_w and clip_arm the clip's width sets the neck, so the ring joins on a narrow waist.",
+        "es": "El cuello mide min(0.7 x largo de la pinza, 1.6 x ring_w); con este ring_w frente a tab_w y clip_arm la pinza fija el cuello, y el anillo se une por una cintura angosta."
+      }
+    },
+    {
+      "expression": "part_t <= tab_w * 0.6",
+      "severity": "warning",
+      "message": {
+        "en": "clip_t is min(part_t, max(2, 0.6 x tab_w)): this part_t is thicker than the clip can be, so ring and clip print at different thicknesses.",
+        "es": "clip_t es min(part_t, max(2, 0.6 x tab_w)): este part_t supera lo que la pinza puede medir, así que anillo y pinza salen con espesores distintos."
+      }
+    },
+    {
+      "expression": "ring_id >= 2.0 * ring_w",
+      "severity": "warning",
+      "message": {
+        "en": "ring_w against this ring_id makes the annulus wall as thick as the finger opening; the ring reads as a washer with a hole rather than a grab loop.",
+        "es": "ring_w frente a este ring_id hace la pared del anillo tan gruesa como el hueco para el dedo; queda una rondana con agujero, no un asa."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

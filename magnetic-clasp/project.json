@@ -223,7 +223,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "magnet_dia + 4.0 <= disc_dia",
+      "severity": "error",
+      "message": {
+        "en": "The magnet bore leaves no rim: magnet_dia must be at least 4 mm smaller than disc_dia.",
+        "es": "El barreno del imán no deja borde: magnet_dia debe ser al menos 4 mm menor que disc_dia."
+      }
+    },
+    {
+      "expression": "magnet_h + 1.0 <= disc_h",
+      "severity": "error",
+      "message": {
+        "en": "The magnet pocket would break through the disc: magnet_h must leave at least 1 mm of floor under disc_h.",
+        "es": "La cavidad del imán atravesaría el disco: magnet_h debe dejar al menos 1 mm de piso bajo disc_h."
+      }
+    },
+    {
+      "expression": "(disc_dia + magnet_dia) / 4.0 - 1.1 >= magnet_dia / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "The Ø2.2 mm sew holes sit on a radius that overlaps the magnet pocket; increase disc_dia or reduce magnet_dia.",
+        "es": "Los orificios de costura de Ø2.2 mm quedan en un radio que invade la cavidad del imán; aumenta disc_dia o reduce magnet_dia."
+      }
+    },
+    {
+      "expression": "(disc_dia + magnet_dia) / 4.0 + 1.1 <= disc_dia / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "The sew-hole ring breaks out through the disc rim; increase disc_dia or reduce magnet_dia.",
+        "es": "El anillo de orificios de costura rompe el borde del disco; aumenta disc_dia o reduce magnet_dia."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

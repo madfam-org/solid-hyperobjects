@@ -331,7 +331,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "stud_flange >= stud_shank + 2.0",
+      "severity": "error",
+      "message": {
+        "en": "stud_flange must be at least stud_shank + 2 mm: the counterbore has to seat a flange wider than the bore that runs through it.",
+        "es": "stud_flange debe ser al menos stud_shank + 2 mm: el rebaje debe alojar una pestaña más ancha que el barreno que lo atraviesa."
+      }
+    },
+    {
+      "expression": "disc_dia >= stud_flange + 8.0",
+      "severity": "error",
+      "message": {
+        "en": "disc_dia must clear stud_flange by 8 mm: the boss plus a real sewing rim on every side. Otherwise the stitch ring falls off the disc.",
+        "es": "disc_dia debe librar a stud_flange por 8 mm: el buje más un reborde de costura real en todo el contorno. Si no, el anillo de puntadas cae fuera del disco."
+      }
+    },
+    {
+      "expression": "hole_dia + 1.4 <= (disc_dia - (stud_flange + 3.0 < disc_dia - 5.0 ? stud_flange + 3.0 : disc_dia - 5.0)) / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "The stitch holes do not fit between the boss and the rim: hole_dia + 1.4 mm exceeds the available band. Enlarge disc_dia or shrink hole_dia / stud_flange.",
+        "es": "Los ojales no caben entre el buje y el borde: hole_dia + 1.4 mm excede la banda disponible. Aumenta disc_dia o reduce hole_dia / stud_flange."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

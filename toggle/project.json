@@ -202,7 +202,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "cord_dia <= barrel_dia - 3.0",
+      "severity": "error",
+      "message": {
+        "en": "cord_dia leaves under 1.5 mm of barrel wall each side of the cord bore; the toggle splits along the hole.",
+        "es": "cord_dia deja menos de 1.5 mm de pared del barril a cada lado del barreno; el pasador se parte a lo largo del agujero."
+      }
+    },
+    {
+      "expression": "cord_dia <= barrel_dia * 0.7 - 3.0",
+      "severity": "warning",
+      "message": {
+        "en": "The 'bar' variant runs the same cord_dia through 0.7 x barrel_dia, leaving under 1.5 mm of wall there even though the barrel toggle is fine.",
+        "es": "La variante 'bar' pasa el mismo cord_dia por 0.7 x barrel_dia y deja menos de 1.5 mm de pared ahí, aunque el pasador de barril sí funcione."
+      }
+    },
+    {
+      "expression": "cords == 1 || barrel_len * 0.44 >= cord_dia + 2.0",
+      "severity": "error",
+      "message": {
+        "en": "With cords = 2 the bores sit at +/-0.22 x barrel_len; that spacing is under cord_dia + 2 mm, so the two channels merge into one slot.",
+        "es": "Con cords = 2 los barrenos van a +/-0.22 x barrel_len; esa separación es menor a cord_dia + 2 mm, así que los dos canales se fusionan en una ranura."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

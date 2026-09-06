@@ -276,7 +276,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "edge_bevel <= tool_t / 2.5",
+      "severity": "error",
+      "message": {
+        "en": "A bevel over tool_t / 2.5 consumes the whole blade thickness and the chamfer tears the outline.",
+        "es": "Un bisel mayor que tool_t / 2.5 consume todo el espesor de la hoja y el chaflán rompe el contorno."
+      }
+    },
+    {
+      "expression": "edge_bevel <= presser_w / 8.0",
+      "severity": "error",
+      "message": {
+        "en": "A bevel over presser_w / 8 eats past the waist of the profile and the chamfer fails.",
+        "es": "Un bisel mayor que presser_w / 8 rebasa la cintura del perfil y el chaflán falla."
+      }
+    },
+    {
+      "expression": "grip_pocket <= tool_t / 3.0",
+      "severity": "error",
+      "message": {
+        "en": "Two opposed thumb dishes of grip_pocket depth meet through the blade when grip_pocket exceeds tool_t / 3.",
+        "es": "Dos huellas de pulgar opuestas de profundidad grip_pocket se atraviesan cuando grip_pocket excede tool_t / 3."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

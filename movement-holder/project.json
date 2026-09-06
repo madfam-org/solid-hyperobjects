@@ -113,6 +113,24 @@
     { "id": "movement", "label": { "en": "Movement (Calibre)", "es": "Movimiento (Calibre)" } },
     { "id": "holder",   "label": { "en": "Holder Body",        "es": "Cuerpo del Soporte" } }
   ],
+  "constraints": [
+    {
+      "expression": "base_height > movement_height + 1.0",
+      "severity": "error",
+      "message": {
+        "en": "The stem relief and the movement seat collide: base_height must exceed movement_height + 1 mm or the two bores meet and the cup loses its floor.",
+        "es": "El alivio de tija y el asiento del calibre chocan: base_height debe superar movement_height + 1 mm o los dos barrenos se encuentran y la copa pierde su piso."
+      }
+    },
+    {
+      "expression": "base_height >= 2.0 * movement_height",
+      "severity": "warning",
+      "message": {
+        "en": "base_height is thin relative to movement_height; the floor between the movement seat and the stem relief becomes fragile.",
+        "es": "base_height es delgado respecto a movement_height; el piso entre el asiento del calibre y el alivio de tija queda frágil."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "hyperobject": {
     "domain": "commercial",

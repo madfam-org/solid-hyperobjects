@@ -200,6 +200,32 @@
     { "id": "quality", "label": { "es": "Calidad", "en": "Quality" } },
     { "id": "appearance", "label": { "es": "Apariencia", "en": "Appearance" } }
   ],
+  "constraints": [
+    {
+      "expression": "rounding_corner + rounding_edge <= die_size * 0.15",
+      "severity": "error",
+      "message": {
+        "en": "Combined rounding above 15% of die_size tears the solid into sliver shells (measured: d4 at die_size 40 with rounding_corner 5 and rounding_edge 3).",
+        "es": "Un redondeo combinado mayor al 15% de die_size desgarra el sólido en cáscaras delgadas (medido: d4 con die_size 40, rounding_corner 5 y rounding_edge 3)."
+      }
+    },
+    {
+      "expression": "font_depth < die_size * 0.0665",
+      "severity": "warning",
+      "message": {
+        "en": "On the smallest faces (d12, d20) an engraving deeper than 6.6% of die_size is clamped: font_depth will not take effect.",
+        "es": "En las caras más pequeñas (d12, d20) un grabado más profundo que 6.6% de die_size se recorta: font_depth no surtirá efecto."
+      }
+    },
+    {
+      "expression": "font_size <= die_size * 0.5",
+      "severity": "warning",
+      "message": {
+        "en": "A numeral over half of die_size cannot fit any face and is clamped to the face inscribed radius.",
+        "es": "Un numeral mayor que la mitad de die_size no cabe en ninguna cara y se recorta al radio inscrito de la cara."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "off", "glb", "obj"],
   "camera_views": [
     { "id": "iso", "label": { "es": "Isometrico", "en": "Isometric" }, "position": [60, 60, 60] },

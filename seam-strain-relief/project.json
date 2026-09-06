@@ -330,7 +330,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "plate_w >= cable_dia + 8.0",
+      "severity": "error",
+      "message": {
+        "en": "plate_w must be at least cable_dia + 8 mm: the groove plus a stitch lane on each side. Narrower and the sew holes break into the cable channel.",
+        "es": "plate_w debe ser al menos cable_dia + 8 mm: la canaleta más un carril de puntadas de cada lado. Si es menor, los ojales se abren dentro del canal del cable."
+      }
+    },
+    {
+      "expression": "(cable_dia - grip)/2.0 + hole_dia + 1.8 <= plate_w/2.0",
+      "severity": "error",
+      "message": {
+        "en": "The stitch lane has no room: (cable_dia - grip)/2 + hole_dia + 1.8 must fit within plate_w/2. Widen plate_w, shrink hole_dia, or use a thinner cable.",
+        "es": "El carril de puntadas no cabe: (cable_dia - grip)/2 + hole_dia + 1.8 debe caber en plate_w/2. Amplía plate_w, reduce hole_dia o usa un cable más delgado."
+      }
+    },
+    {
+      "expression": "plate_t - 0.8 >= (cable_dia - grip)/2.0 * 0.4",
+      "severity": "warning",
+      "message": {
+        "en": "plate_t is thin for this cable: the groove is capped at plate_t - 0.8 mm, so less than 40% of the jacket is captured and the clamp will slip.",
+        "es": "plate_t es delgada para este cable: la canaleta se limita a plate_t - 0.8 mm, así que sujeta menos del 40% de la funda y la mordaza resbalará."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

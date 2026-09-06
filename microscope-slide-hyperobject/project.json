@@ -173,6 +173,24 @@
       "group": "slide"
     }
   ],
+  "constraints": [
+    {
+      "expression": "custom_slide_width <= custom_slide_length",
+      "severity": "warning",
+      "message": {
+        "en": "custom_slide_width exceeds custom_slide_length; the slide comes out wider than it is long, which no holder in the commons will accept.",
+        "es": "custom_slide_width supera custom_slide_length; la laminilla sale más ancha que larga y ningún portaobjetos del acervo la aceptará."
+      }
+    },
+    {
+      "expression": "custom_slide_thickness <= custom_slide_width / 4.0",
+      "severity": "warning",
+      "message": {
+        "en": "custom_slide_thickness is large relative to custom_slide_width; the result is a bar, not a slide, and will not seat in a slide groove.",
+        "es": "custom_slide_thickness es grande respecto a custom_slide_width; el resultado es una barra, no una laminilla, y no asentará en una ranura portaobjetos."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

@@ -335,7 +335,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "ball_w <= shoe_len*0.48",
+      "severity": "error",
+      "message": {
+        "en": "ball_w cannot exceed 48% of shoe_len: no last is that wide, and the toe loft inverts against the shank.",
+        "es": "ball_w no puede exceder el 48% de shoe_len: ninguna horma es tan ancha, y el loft de la punta se invierte contra el enfranque."
+      }
+    },
+    {
+      "expression": "heel_h <= toe_h*2.6",
+      "severity": "warning",
+      "message": {
+        "en": "heel_h far above toe_h makes the heel pad tower over the toe form; the shank ribbon twists instead of bending. Raise toe_h or lower heel_h.",
+        "es": "Un heel_h muy superior a toe_h hace que el talón sobresalga sobre la punta; la cinta del enfranque se retuerce en vez de flexionar. Sube toe_h o baja heel_h."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

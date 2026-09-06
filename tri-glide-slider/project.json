@@ -254,7 +254,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "bar_w >= webbing_t",
+      "severity": "warning",
+      "message": {
+        "en": "bar_w narrower than webbing_t gives a bar the tape rolls over instead of gripping; the glide slips under load.",
+        "es": "bar_w más angosto que webbing_t da una barra sobre la que la cinta rueda en vez de morder; la corredera se resbala con carga."
+      }
+    },
+    {
+      "expression": "body_h >= webbing_t",
+      "severity": "warning",
+      "message": {
+        "en": "body_h under webbing_t makes the frame thinner than the tape it holds; the bars flex and the setting creeps.",
+        "es": "body_h menor a webbing_t hace el marco más delgado que la cinta que sujeta; las barras flexionan y el ajuste se corre."
+      }
+    },
+    {
+      "expression": "rail_t >= bar_w * 0.5",
+      "severity": "warning",
+      "message": {
+        "en": "rail_t under half bar_w makes the outer frame the weak link: the rails bow outward before the bars ever take load.",
+        "es": "rail_t menor a la mitad de bar_w hace del marco exterior el eslabón débil: los rieles se abren antes de que las barras trabajen."
+      }
+    },
+    {
+      "expression": "(webbing_w + 1.0 + 2.0 * rail_t) * (2.0 * (webbing_t + 1.2) + (2.0 * webbing_t + 1.4) + 2.0 * bar_w + 2.0 * rail_t) <= 2400.0",
+      "severity": "warning",
+      "message": {
+        "en": "The frame footprint from webbing_w, webbing_t, bar_w and rail_t passes 24 cm2; a glide this bulky adds more hardware than the tape it adjusts.",
+        "es": "La huella del marco según webbing_w, webbing_t, bar_w y rail_t pasa de 24 cm2; una corredera así de voluminosa pesa más que la cinta que ajusta."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

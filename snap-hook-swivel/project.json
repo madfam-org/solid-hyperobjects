@@ -321,7 +321,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "gate_t*2.2 <= stock_d",
+      "severity": "error",
+      "message": {
+        "en": "The gate root land is gate_t * 2.2 tall and must fit inside the hook stock: with gate_t this thick the land stands proud of stock_d instead of blending into the C.",
+        "es": "El asiento de la raíz del pestillo mide gate_t * 2.2 de alto y debe caber en el redondo del gancho: con este gate_t el asiento sobresale de stock_d en vez de integrarse a la C."
+      }
+    },
+    {
+      "expression": "hook_r >= stock_d",
+      "severity": "error",
+      "message": {
+        "en": "hook_r must be at least stock_d: a throat narrower than the rod it is bent from cannot pass the strap it is meant to hook.",
+        "es": "hook_r debe ser al menos stock_d: una garganta más estrecha que el redondo del que se forma no deja pasar la correa que debe enganchar."
+      }
+    },
+    {
+      "expression": "swivel_d <= stock_d + 2.0",
+      "severity": "warning",
+      "message": {
+        "en": "swivel_d far above stock_d puts a post fatter than the neck that carries it; the hook will snap at the neck before the swivel yields.",
+        "es": "Un swivel_d muy superior a stock_d pone un perno más grueso que el cuello que lo sostiene; el gancho romperá en el cuello antes de que ceda el giratorio."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

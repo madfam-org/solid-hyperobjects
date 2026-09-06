@@ -314,7 +314,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "hole_dia / 2.0 + (hole_count == 2 ? 0.5 : 0.7071) * hole_spacing + 0.4 <= button_ligne * 0.635 / 2.0 - (0.8 > button_ligne * 0.04445 ? 0.8 : button_ligne * 0.04445)",
+      "severity": "error",
+      "message": {
+        "en": "The hole pattern spills out of the thread dish: at this button_ligne, hole_count and hole_spacing the holes reach the rim wall. Raise button_ligne or lower hole_spacing / hole_dia.",
+        "es": "El patrón de ojales se sale del rebaje de hilo: con este button_ligne, hole_count y hole_spacing los ojales llegan a la pared del borde. Sube button_ligne o baja hole_spacing / hole_dia."
+      }
+    },
+    {
+      "expression": "hole_spacing >= hole_dia + 0.5",
+      "severity": "error",
+      "message": {
+        "en": "hole_spacing must exceed hole_dia by at least 0.5 mm of web, or adjacent holes merge into one slot.",
+        "es": "hole_spacing debe superar a hole_dia por al menos 0.5 mm de alma, o los ojales contiguos se funden en una sola ranura."
+      }
+    },
+    {
+      "expression": "dish_depth <= thickness*0.45",
+      "severity": "warning",
+      "message": {
+        "en": "dish_depth over 45% of thickness leaves too little material under the dish; the button will crack at the stitch. It is clamped to thickness * 0.45 on render.",
+        "es": "Un dish_depth mayor al 45% de thickness deja muy poco material bajo el rebaje; el botón se partirá en la puntada. Al renderizar se limita a thickness * 0.45."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

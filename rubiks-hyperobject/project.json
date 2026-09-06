@@ -2317,6 +2317,48 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "(size - (N + 1) * clearance) / N >= 8.0",
+      "severity": "warning",
+      "message": {
+        "en": "cubie_size = (size - (N+1)*clearance)/N falls below 8 mm: the cubies are too small to print or handle. Raise size or lower N.",
+        "es": "cubie_size = (size - (N+1)*clearance)/N cae por debajo de 8 mm: los cubos son demasiado pequeños para imprimir o manipular. Sube size o baja N."
+      }
+    },
+    {
+      "expression": "corner_rounding < (size - (N + 1) * clearance) / N / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "corner_rounding at or above half the derived cubie_size leaves no flat face: the cubie degenerates into a sphere.",
+        "es": "Un corner_rounding igual o mayor a la mitad del cubie_size derivado no deja cara plana: el cubo degenera en esfera."
+      }
+    },
+    {
+      "expression": "!enable_magnets || (magnet_dia < (size - (N + 1) * clearance) / N && 2.0 * (magnet_depth + 0.2) < (size - (N + 1) * clearance) / N)",
+      "severity": "error",
+      "message": {
+        "en": "Magnet pockets are cut from opposite faces: magnet_dia or twice (magnet_depth + 0.2) exceeding the derived cubie_size punches straight through the cubie.",
+        "es": "Las cavidades de imán se cortan desde caras opuestas: si magnet_dia o el doble de (magnet_depth + 0.2) excede el cubie_size derivado, la cavidad atraviesa el cubo."
+      }
+    },
+    {
+      "expression": "!enable_torpedoes || torpedo_length + 2.0 * mechanism_clearance < (size - (N + 1) * clearance) / N",
+      "severity": "error",
+      "message": {
+        "en": "The torpedo slot is torpedo_length + 2*mechanism_clearance long: longer than the derived cubie_size and the four slots meet and split the cubie.",
+        "es": "La ranura de torpedo mide torpedo_length + 2*mechanism_clearance: si supera el cubie_size derivado las cuatro ranuras se cruzan y parten el cubo."
+      }
+    },
+    {
+      "expression": "!enable_maglev || maglev_ring_dia > screw_dia + 1.0",
+      "severity": "error",
+      "message": {
+        "en": "The maglev ring inner radius is screw_dia/2 + 0.5: with maglev_ring_dia at or below screw_dia + 1 the ring inverts and disappears.",
+        "es": "El radio interior del anillo maglev es screw_dia/2 + 0.5: con maglev_ring_dia igual o menor a screw_dia + 1 el anillo se invierte y desaparece."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

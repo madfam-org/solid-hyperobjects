@@ -225,6 +225,32 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "bite_gap + 2.0 * jaw_t <= jaw_len",
+      "severity": "warning",
+      "message": {
+        "en": "The C profile is taller than it is deep: bite_gap + 2*jaw_t exceeds jaw_len, so the clip levers off the garment instead of gripping it.",
+        "es": "El perfil en C es más alto que profundo: bite_gap + 2*jaw_t supera jaw_len, así que la pinza se desprende de la prenda en vez de sujetarla."
+      }
+    },
+    {
+      "expression": "jaw_t * 1.5 <= jaw_len - 1.5",
+      "severity": "error",
+      "message": {
+        "en": "The lead-in flare (jaw_t * 1.5) has no room inside jaw_len; the wedge cut reaches through the arm and splits the clip.",
+        "es": "El chaflán de entrada (jaw_t * 1.5) no cabe dentro de jaw_len; el corte en cuña atraviesa el brazo y parte la pinza."
+      }
+    },
+    {
+      "expression": "wall >= 0.4 * tube_od",
+      "severity": "warning",
+      "message": {
+        "en": "wall is thin relative to tube_od; the channel boss flexes open and the tubing pops out of the clip.",
+        "es": "wall es delgada respecto a tube_od; el buje del canal se abre por flexión y la manguera se sale de la pinza."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 6,

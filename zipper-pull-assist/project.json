@@ -355,6 +355,40 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "body_w * retain <= body_w + 2.0 * clamp_clear - 1.2",
+      "severity": "error",
+      "message": {
+        "en": "The retaining mouth must stay at least 1.2 mm narrower than the pocket or no lip survives and the clamp falls straight off the slider.",
+        "es": "La boca de retención debe quedar al menos 1.2 mm más angosta que el alojamiento o no sobrevive el labio y la abrazadera se cae del cursor."
+      }
+    },
+    {
+      "expression": "lever_w <= body_w + 2.0 * clamp_clear + 2.0 * wall",
+      "severity": "error",
+      "message": {
+        "en": "lever_w exceeds the clamp's outer height (body_w + 2 x clamp_clear + 2 x wall); the arm overhangs the block and the weld is a tangent kiss, not a volume.",
+        "es": "lever_w supera la altura exterior de la abrazadera (body_w + 2 x clamp_clear + 2 x wall); el brazo sobresale y la unión es un beso tangente, no un volumen."
+      }
+    },
+    {
+      "expression": "lever_t <= body_h + 2.0 * clamp_clear",
+      "severity": "warning",
+      "message": {
+        "en": "lever_t thicker than the clamp depth (body_h + 2 x clamp_clear) stands the arm proud of both clamp faces; it will catch on the garment.",
+        "es": "lever_t más grueso que la profundidad de la abrazadera (body_h + 2 x clamp_clear) deja el brazo sobresaliendo de ambas caras; se atorará con la prenda."
+      }
+    },
+    {
+      "expression": "bar_dia * 0.75 <= body_w + 2.0 * clamp_clear + 2.0 * wall",
+      "severity": "error",
+      "message": {
+        "en": "The T stem is 0.75 x bar_dia wide; wider than the clamp's outer height it hangs off the block instead of welding into it.",
+        "es": "El vástago de la T mide 0.75 x bar_dia; más ancho que la altura exterior de la abrazadera queda colgando en vez de fundirse con el bloque."
+      }
+    }
+  ],
   "export_formats": [
     "stl",
     "3mf",

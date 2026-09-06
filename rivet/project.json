@@ -275,7 +275,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "post_dia <= cap_dia - 1.0",
+      "severity": "error",
+      "message": {
+        "en": "The post must stay at least 1 mm inside the cap or the shank swallows the head and there is no rivet cap left.",
+        "es": "El poste debe quedar al menos 1 mm dentro de la cabeza o el vástago se traga el cap y no queda cabeza de remache."
+      }
+    },
+    {
+      "expression": "bore_dia <= post_dia - 1.0",
+      "severity": "error",
+      "message": {
+        "en": "The hollow bore must leave at least 0.5 mm of post wall per side: bore_dia at or above post_dia - 1 removes the shank entirely.",
+        "es": "El barreno hueco debe dejar al menos 0.5 mm de pared por lado: un bore_dia igual o mayor a post_dia - 1 elimina el vástago por completo."
+      }
+    },
+    {
+      "expression": "burr_dia >= post_dia + 1.5",
+      "severity": "error",
+      "message": {
+        "en": "The burr bore is post_dia + 0.3 wide: with burr_dia below post_dia + 1.5 the washer has no annulus left.",
+        "es": "El barreno de la arandela mide post_dia + 0.3: con burr_dia menor a post_dia + 1.5 no queda corona en la arandela."
+      }
+    },
+    {
+      "expression": "post_h > cap_h",
+      "severity": "warning",
+      "message": {
+        "en": "A post shorter than the cap cannot pass through fabric and flare into the burr.",
+        "es": "Un poste más corto que la cabeza no puede atravesar la tela ni abocardarse en la arandela."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

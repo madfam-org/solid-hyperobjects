@@ -111,6 +111,48 @@
     { "id": "body",   "label": { "en": "Vise Body",    "es": "Cuerpo del Berbiquí" } },
     { "id": "block",  "label": { "en": "Bench Block",  "es": "Bloque de Banco" } }
   ],
+  "constraints": [
+    {
+      "expression": "collet_bore + 3.0 < body_dia",
+      "severity": "error",
+      "message": {
+        "en": "The collet seat (collet_bore + 3 mm) equals or exceeds body_dia; the bore has no wall and the body opens up.",
+        "es": "El asiento de la boquilla (collet_bore + 3 mm) iguala o supera body_dia; el barreno queda sin pared y el cuerpo se abre."
+      }
+    },
+    {
+      "expression": "collet_bore / 2.0 < (body_dia / 2.0 - 1.0) * 0.6",
+      "severity": "error",
+      "message": {
+        "en": "In collet mode the bore is wider than the cone's small end ((body_dia/2 - 1) * 0.6); the jaws vanish and the loft self-intersects.",
+        "es": "En modo boquilla el barreno supera el extremo menor del cono ((body_dia/2 - 1) * 0.6); las mordazas desaparecen y el loft se autointerseca."
+      }
+    },
+    {
+      "expression": "handle_bore + 2.0 < body_dia",
+      "severity": "error",
+      "message": {
+        "en": "The handle cavity leaves no wall: handle_bore must be at least 2 mm under body_dia.",
+        "es": "La cavidad del mango no deja pared: handle_bore debe ser al menos 2 mm menor que body_dia."
+      }
+    },
+    {
+      "expression": "3.14159 * body_dia / flute_count * 0.5 - 0.15 >= 0.5",
+      "severity": "warning",
+      "message": {
+        "en": "flute_count is too high for body_dia; the grip flutes overlap into a knife-edge scallop instead of separate ribs.",
+        "es": "flute_count es excesivo para body_dia; las estrías de agarre se solapan en un festón en filo en vez de nervios separados."
+      }
+    },
+    {
+      "expression": "jaw_opening / 2.0 + 4.0 < (body_dia + 10.0) / 2.0",
+      "severity": "error",
+      "message": {
+        "en": "In bench_block_vise the V-groove (jaw_opening/2 + 3) cuts past the block height (body_dia + 10) and severs the block.",
+        "es": "En bench_block_vise la ranura en V (jaw_opening/2 + 3) rebasa la altura del bloque (body_dia + 10) y lo corta en dos."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "hyperobject": {
     "domain": "industrial",

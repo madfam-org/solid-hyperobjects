@@ -297,7 +297,48 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "recess_dia + 12.0 <= weight_dia",
+      "severity": "error",
+      "message": {
+        "en": "The finger recess reaches the rim: recess_dia must be at least 12 mm smaller than weight_dia.",
+        "es": "El rebaje para el dedo alcanza el borde: recess_dia debe ser al menos 12 mm menor que weight_dia."
+      }
+    },
+    {
+      "expression": "recess_d <= weight_h / 2.5",
+      "severity": "error",
+      "message": {
+        "en": "recess_d exceeds weight_h/2.5; the finger recess punches through the weight and leaves no mass.",
+        "es": "recess_d supera weight_h/2.5; el rebaje atraviesa el peso y no deja masa."
+      }
+    },
+    {
+      "expression": "boss_h <= weight_h / 4.0",
+      "severity": "error",
+      "message": {
+        "en": "boss_h exceeds weight_h/4; the stacking moat and the underside socket meet and sever the body.",
+        "es": "boss_h supera weight_h/4; el foso de apilado y el zócalo inferior se encuentran y cortan el cuerpo."
+      }
+    },
+    {
+      "expression": "rim_chamfer <= weight_h / 3.0",
+      "severity": "error",
+      "message": {
+        "en": "rim_chamfer exceeds weight_h/3; the top and bottom chamfers meet and the rim goes to a knife edge.",
+        "es": "rim_chamfer supera weight_h/3; los chaflanes superior e inferior se juntan y el borde queda en filo."
+      }
+    },
+    {
+      "expression": "recess_dia + 8.0 + 2.0 * boss_h + 2.0 * stack_clear <= weight_dia",
+      "severity": "warning",
+      "message": {
+        "en": "The stacking boss (recess_dia + 8 mm) plus boss_h and stack_clear leaves no land inside weight_dia; weights will not register when stacked.",
+        "es": "El buje de apilado (recess_dia + 8 mm) más boss_h y stack_clear no deja meseta dentro de weight_dia; los pesos no registrarán al apilarse."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",
