@@ -172,35 +172,51 @@ def build_holster():
         pass
     body = body.cut(cavity)
 
-    # Belt loop: a web slab on the -Y face, standing off to make a tunnel.
+    # Belt loop: an outer web slab standing off the -Y face, joined back to the body
+    # by two side cheeks so the pair encloses a vertical belt tunnel.
+    #
+    # The belt's WIDTH runs along X here (the same convention `build_clip` uses: the
+    # tongue is `belt_w` wide in Y across a plate whose thickness is X; the holster's
+    # wide face is X). The previous form had the loop's X and Y extents transposed —
+    # the web was `tunnel + 2*web_t` wide in X and `loop_span` DEEP in Y, so it ran
+    # back through the pocket instead of standing off it, and the cheeks were
+    # `web_t` deep in Y placed at y = +/-(belt_w/2 + web_t/2) = +/-20.5 mm, entirely
+    # outside a body that only spans |y| <= outer_d/2 = 11 mm. Nothing joined the
+    # loop to the holster, so the mode exported as 3 detached bodies.
     tunnel = belt_t + loop_clear
     web_t = wall
-    loop_span = belt_w + 2.0 * wall
-    loop_y = -outer_d / 2.0 - (tunnel + web_t) / 2.0
+    loop_span = belt_w + 2.0 * wall          # loop width across X
+    loop_h = belt_w + 2.0 * wall             # loop height along Z
+    back_y = -outer_d / 2.0                  # the holster's back face
+    loop_y = back_y - tunnel - web_t / 2.0   # outer web centre, one tunnel behind it
     loop_z = outer_h * 0.62
+    z0 = loop_z - loop_h / 2.0
     loop = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, loop_y, loop_z - loop_span / 2.0))
-        .box(tunnel + 2.0 * web_t, loop_span, loop_span, centered=(True, False, False))
+        .transformed(offset=cq.Vector(0, loop_y, z0))
+        .box(loop_span, web_t, loop_h, centered=(True, True, False))
     )
-    # Fuse the loop back to the body with side cheeks so the tunnel is enclosed.
-    for sy in (-1.0, 1.0):
+    # Side cheeks: two slabs bridging the back face to the outer web across the
+    # tunnel. They overlap BOTH ends by `web_t` so every join is volumetric.
+    cheek_y0 = back_y - tunnel - web_t
+    cheek_depth = (back_y + web_t) - cheek_y0
+    for sx in (-1.0, 1.0):
         cheek = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(0, 0, loop_z - loop_span / 2.0))
-            .box(outer_d + tunnel + 2.0 * web_t, web_t, loop_span, centered=(True, False, False))
-            .translate((0, sy * (belt_w / 2.0 + web_t / 2.0), 0))
+            .transformed(offset=cq.Vector(sx * (belt_w / 2.0 + web_t / 2.0),
+                                          cheek_y0 + cheek_depth / 2.0, z0))
+            .box(web_t, cheek_depth, loop_h, centered=(True, True, False))
         )
         body = body.union(cheek)
     body = body.union(loop)
 
-    # Belt pass-through: cut the tunnel through the loop so the belt runs
-    # vertically (Z) between the loop web and the pocket back. Sized to the belt
-    # cross-section with loop_clear (same sizing rule as the webbing-slot helper).
+    # Belt pass-through: clear the tunnel between the outer web and the pocket back
+    # so the belt runs vertically (Z). Overshoot top and bottom so it is a slot, not
+    # a cavity. Sized to the belt cross-section with loop_clear.
     tunnel_cut = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, loop_y, loop_z - loop_span / 2.0 - 2.0))
-        .box(tunnel, belt_w + loop_clear, loop_span + 6.0, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, back_y - tunnel / 2.0, z0 - 3.0))
+        .box(belt_w + loop_clear, tunnel, loop_h + 6.0, centered=(True, True, False))
     )
     body = body.cut(tunnel_cut)
     return body
