@@ -184,5 +184,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["gauge", "pod", "car", "automotive", "commercial", "hyperobject", "commons"]
+  "tags": ["gauge", "pod", "car", "automotive", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

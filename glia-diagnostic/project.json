@@ -226,5 +226,15 @@
             "es": "Herramientas de diagnóstico de código abierto para salud — reduce barreras de costo al acceso de equipamiento médico"
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

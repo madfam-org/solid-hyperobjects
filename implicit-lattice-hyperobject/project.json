@@ -168,5 +168,15 @@
       "es": "Retículas TPMS por campos para componentes estructurales ligeros y andamios biomédicos"
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

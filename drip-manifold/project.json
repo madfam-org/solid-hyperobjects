@@ -175,5 +175,15 @@
       "es": "El riego por goteo ahorra agua al entregarla en la raiz, pero los manifolds comerciales vienen en numeros y disposiciones fijas de salidas. Un manifold impreso al numero exacto de lineas de goteo que necesita un bancal — en linea, radial o una Y simple — permite a un jardinero o pequeno productor ramificar el riego bajo demanda desde el estandar de pua de 1/4 in, y reparar un distribuidor agrietado en campo en vez de reemplazar todo el tramo."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

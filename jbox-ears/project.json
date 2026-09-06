@@ -175,5 +175,15 @@
       "es": "El retrofit electrico esta lleno de cajas demasiado profundas, montadas en yeso desmoronado o sin punto de fijacion tras una remodelacion. Orejas, separadores y anillos impresos sobre el patron estandar #6-32 permiten a un instalador o aficionado recuperar una caja existente — dejarla al ras de un nuevo acabado, levantarla de una superficie irregular o agregar una brida de pared — sin cortar una nueva abertura, con geometria segun norma."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

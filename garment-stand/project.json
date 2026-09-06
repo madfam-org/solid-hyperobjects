@@ -615,5 +615,15 @@
       "es": "Un taller que hace sombreros, bolsos o cinturones necesita expositores para venderlos, y los expositores comerciales vienen en pocas tallas fijas a precios que un pequeño productor no justifica para un solo escaparate. Estos soportes se regeneran a partir de medidas simples — contorno de cabeza para la horma, ancho de hombros para el yugo, contorno de cintura para el aro — así que quien fabrica imprime la forma exacta para la que cortó la pieza, y otra cuando cambia la talla. Los mismos números que trazan un patrón plano en el común Fashion Cabinet dimensionan el pedestal sobre el que se fotografiará, lo que permite a un taller pequeño presentar su trabajo tan bien como una marca, sin comprar un almacén de utilería."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

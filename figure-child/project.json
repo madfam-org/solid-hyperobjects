@@ -697,5 +697,15 @@
       "es": "La ropa infantil es lo más difícil de ajustar y lo que más rápido se queda chico, y un maniquí infantil es la herramienta que casi nadie puede comprar — los comerciales existen en unas pocas tallas fijas a precio de maniquí adulto. Esta forma regenerativa da a cualquier cuerpo infantil su propia superficie de ajuste a partir de medidas simples, y rechaza el atajo de encoger un adulto: las proporciones que de verdad hacen que un niño sea un niño — el torso más largo, las piernas más cortas, la cintura ausente del infante, el vientre que proyecta — se modelan desde relaciones de crecimiento reales y no desde un factor de escala, así que una prenda ajustada aquí le queda al niño y no a un adulto pequeño. Los mismos números manejan este cuerpo y los patrones planos del común Fashion Cabinet, de modo que una persona cuidadora, una cooperativa de uniformes escolares o un taller pequeño pueden medir, ajustar y coser para un niño en crecimiento desde un solo juego de medidas — y regenerar la forma una talla más grande el año siguiente en vez de comprar otra."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

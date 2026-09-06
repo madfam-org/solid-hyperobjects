@@ -453,5 +453,15 @@
       "es": "GT2 es el estándar abierto de correa de la fabricación de escritorio — impresoras, cortadoras láser, plóters y CNC pequeños lo usan. Poleas y soportes tensores impresos permiten enrutar y tensar una correa en cualquier esquina sobre un rodamiento 608, reemplazando kits de polea propietarios y reparando un tensor roto en minutos. Engranan el mismo perfil GT2 que belt-clamp y timing-pulley y giran sobre el mismo asiento 608 que bearing-housing y linear-wheel, uniendo los comunes de correa síncrona y rodamiento."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

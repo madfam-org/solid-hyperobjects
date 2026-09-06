@@ -318,5 +318,15 @@
             "es": "Permite a propietarios y talleres HVAC pequenos fabricar transiciones de ducto de tamano atipico y redondo-a-rectangular bajo demanda en lugar de buscar accesorios de lamina descontinuados, reduciendo desperdicio y mejorando el balance de flujo en remodelaciones."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

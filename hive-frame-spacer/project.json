@@ -182,5 +182,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["beekeeping", "apiculture", "langstroth", "bee-space", "hive-frame", "castellated-spacer", "pollinator", "agriculture", "hyperobject", "commons"]
+  "tags": ["beekeeping", "apiculture", "langstroth", "bee-space", "hive-frame", "castellated-spacer", "pollinator", "agriculture", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

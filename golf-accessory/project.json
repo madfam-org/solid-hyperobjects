@@ -153,5 +153,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["golf", "tee", "ball-marker", "alignment", "sports", "commercial", "hyperobject", "commons"]
+  "tags": ["golf", "tee", "ball-marker", "alignment", "sports", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }
