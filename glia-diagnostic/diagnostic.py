@@ -62,15 +62,26 @@ def build_stethoscope(params):
 
     head = head.union(connector).cut(air_hole)
 
-    # Locking groove for the diaphragm retaining ring. The outer radius is clamped
-    # to the body radius (outer_d), not outer_d + 0.1: an oversized cutter leaves a
-    # zero-thickness skin of body wall behind, which is another source of
-    # non-manifold geometry.
+    # Locking groove for the diaphragm retaining ring: an annulus from the
+    # chamber wall out to the body wall, z = 18 .. 20.
+    #
+    # OpenSCAD cannot cut this annulus at its exact nominal radii. Its outer
+    # circle would be coincident with the body's outer face and its inner
+    # circle with the sound chamber's wall, and two faceted circles of the
+    # same nominal diameter but different facet PHASE do not cancel -- they
+    # cross and leave knife-edge slivers standing at z = 20, r = 22. So
+    # diagnostic.scad opens the annulus by GROOVE_EPS on both radii.
+    #
+    # B-Rep does not need that relief, but parity does: cutting the exact
+    # annulus here while OpenSCAD cuts the relieved one left 27.5 mm^3 of the
+    # volume gap between the kernels. Apply the same EPS so both remove the
+    # same solid. It only widens a groove that is already open on both sides.
+    GROOVE_EPS = 0.1
     groove = (
         cq.Workplane("XY", origin=(0, 0, 18.0))
-        .circle(outer_d / 2.0)
-        .circle(diaphragm_size_mm / 2.0)
-        .extrude(2.0)
+        .circle(outer_d / 2.0 + GROOVE_EPS)
+        .circle(diaphragm_size_mm / 2.0 - GROOVE_EPS)
+        .extrude(2.0 + GROOVE_EPS)
     )
     head = head.cut(groove)
 
