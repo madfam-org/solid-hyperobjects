@@ -10,6 +10,7 @@ bore_diameter = 8;    // Input shaft bore
 link1_length = 200;   // Shoulder link L1
 link2_length = 150;   // Elbow link L2
 z_travel = 100;       // Z-axis travel
+harmonic_ratio = 50;  // Strain-wave reduction ratio (sets the tooth differential)
 rail_width = 12;      // MGN rail width (9 | 12 | 15)
 motor_frame_size = "nema17";  // nema17 | nema23
 
@@ -22,7 +23,13 @@ motor_frame_size = "nema17";  // nema17 | nema23
 render_mode = 0;
 
 // Derived
-flex_teeth = num_teeth - 2;
+// `harmonic_ratio` was declared in project.json and read by nothing; the tooth
+// differential was hard-coded to 2. In a strain-wave drive the reduction IS the
+// differential, so the slider sets it here and in robot.py identically. At the
+// defaults (num_teeth 100, harmonic_ratio 50) tooth_diff is 2 — the same solid
+// every preset rendered before.
+tooth_diff = max(1, round(num_teeth / (harmonic_ratio + 1)));
+flex_teeth = num_teeth - tooth_diff;
 pitch_diam = gear_module * num_teeth;
 flex_pitch_diam = gear_module * flex_teeth;
 thickness = 10;
@@ -66,28 +73,57 @@ module wave_generator() {
 
 module flexspline() {
     color("#e24a4a")
-    diff() {
-        union() {
-            // Body
-            cylinder(h=thickness, d=flex_pitch_diam - 0.1, center=true, $fn=64);
-            // Discrete Teeth
-            component_teeth(flex_teeth, (flex_pitch_diam/2), tooth_w, tooth_h, thickness);
-            // Base flange
-            down(thickness/2)
-            cylinder(h=2, d=flex_pitch_diam + 10, anchor=TOP, $fn=64);
+    // The flange is unioned AFTER the cup is subtracted, exactly as robot.py
+    // orders it (`res.cut(cup)` then `.union(flange)`). Inside the diff() the
+    // cup's 0.1 mm overshoot (h = thickness + 0.1, centred) reached 0.05 mm past
+    // the body into the flange and shaved a 23.5 mm-radius disc off it — 86.75
+    // of the 89.14 mm3 (1.23 %) flexspline parity gap. Same solid, one boolean
+    // reordered.
+    //
+    // These three discs stay at $fn=64 even though robot.py inscribes them as
+    // `.polygon(128, ...)`, which leaves 2.54 mm3 (0.035 %) of faceting between
+    // the kernels. Raising them to 128 to close that is NOT available here: the
+    // cup's radius is `flex_pitch_diam/2 - gear_module*2` = 23.5 mm, which is
+    // EXACTLY the tooth root radius (`flex_pitch_diam/2 - tooth_h/2`), so the cup
+    // wall is tangent to all 98 tooth roots. At $fn=64 the polygon apothem
+    // (23.4717) clears them; at 128 it rises to 23.4929 and CGAL produces a
+    // degenerate mesh — "not watertight, 0 boundary edge(s)", euler -11/-19,
+    // measured on the body and the cup independently (the flange at 128 is fine).
+    // OCCT tolerates the same tangency, which is why the CadQuery side can hold
+    // 128. The volume is right either way (the 128 mesh measures 7309.8772 mm3
+    // against CadQuery's 7309.88) — only the tessellation is degenerate.
+    //
+    // Closing the last 0.035 % needs the tangency removed (give the cup a radial
+    // overshoot past the tooth roots on BOTH kernels), which changes the solid
+    // rather than its faceting; deferred rather than smuggled in here.
+    union() {
+        diff() {
+            union() {
+                // Body
+                cylinder(h=thickness, d=flex_pitch_diam - 0.1, center=true, $fn=64);
+                // Discrete Teeth
+                component_teeth(flex_teeth, (flex_pitch_diam/2), tooth_w, tooth_h, thickness);
+            }
+            // Subtraction for cup
+            tag("remove")
+            cylinder(h=thickness + 0.1, d=flex_pitch_diam - (gear_module * 4), center=true, $fn=64);
         }
-        // Subtraction for cup
-        tag("remove")
-        cylinder(h=thickness + 0.1, d=flex_pitch_diam - (gear_module * 4), center=true, $fn=64);
+        // Base flange
+        down(thickness/2)
+        cylinder(h=2, d=flex_pitch_diam + 10, anchor=TOP, $fn=64);
     }
 }
 
 module circular_spline() {
     color("#2d2d2d")
+    // $fn=128, not 64: robot.py builds every one of these discs as
+    // `.polygon(128, d, circumscribed=False)`. At 64 the two kernels inscribe a
+    // different polygon in the same circle, which is the whole 22.25 mm3
+    // (0.17 %) circular_spline gap. At 128 the volumes agree to 0.0001 %.
     diff() {
-        cylinder(h=thickness, d=pitch_diam + 15, center=true, $fn=64);
+        cylinder(h=thickness, d=pitch_diam + 15, center=true, $fn=128);
         tag("remove") {
-            cylinder(h=thickness+1, d=pitch_diam + 0.1, center=true, $fn=64);
+            cylinder(h=thickness+1, d=pitch_diam + 0.1, center=true, $fn=128);
             // Internal teeth (subtracted)
             component_teeth(num_teeth, (pitch_diam/2), tooth_w, tooth_h, thickness+1);
         }

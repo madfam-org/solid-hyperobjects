@@ -259,7 +259,16 @@ def build(params, part="all"):
     gear_module = float(params.get('gear_module', 0.5))
     bore_diameter = float(params.get('bore_diameter', 8.0))
 
-    flex_teeth = num_teeth - 2
+    # `harmonic_ratio` used to be declared in project.json and read by nothing:
+    # the tooth differential was hard-coded to 2. In a strain-wave drive the
+    # reduction IS the differential — ratio = flex_teeth / (num_teeth -
+    # flex_teeth) — so the slider now sets it. At the defaults (num_teeth 100,
+    # harmonic_ratio 50) this yields a differential of 2 and the identical
+    # solid every preset rendered before, so no preset changes meaning.
+    harmonic_ratio = float(params.get('harmonic_ratio', 50))
+    tooth_diff = max(1, round(num_teeth / (harmonic_ratio + 1.0)))
+
+    flex_teeth = num_teeth - tooth_diff
     pitch_diam = gear_module * num_teeth
     flex_pitch_diam = gear_module * flex_teeth
     thickness = 10.0
