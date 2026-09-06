@@ -106,6 +106,17 @@ else:
     plate_h_min = 22.0
 
 
+# ── Geometry conventions ─────────────────────────────────────────────────────
+# The plate's FRONT face is the y=0 plane. Pegs enter the board toward +Y;
+# every forward feature (hook, bin, tongue) grows toward -Y. Note that a
+# `cq.Workplane("XZ")` extrudes toward -Y for a POSITIVE distance, so a peg
+# that must go into +Y uses `.extrude(-depth)`.
+#
+# WELD is how far a mating feature penetrates the body it fuses into. OCCT does
+# not reliably fuse coincident faces, so every join is a volumetric overlap.
+WELD = 0.6
+
+
 # ── Peg / insert helpers ─────────────────────────────────────────────────────
 def _peg_y_positions():
     """Vertical centres (Z, measured from plate base) of the pegs on the plate."""
@@ -128,16 +139,20 @@ def round_peg(z):
     (into the board, away from the front face at y=0)."""
     depth = spec["board_t"] + 3.0
     r = spec["peg_dia"] / 2.0
+    # XZ extrudes toward -Y for a positive distance, so go negative for +Y.
+    # Start WELD inside the plate so the union with the plate is volumetric.
     peg = (
         cq.Workplane("XZ")
         .center(0, z)
         .circle(r)
-        .extrude(depth)               # extrudes toward +Y
+        .extrude(-(depth + WELD))
+        .translate((0, -WELD, 0))
     )
-    # Retention lip: a small downward tab at the far end of the peg.
+    # Retention lip: a small downward tab at the far end of the peg, hanging
+    # below it and overlapping the peg body by WELD so the two fuse.
     lip = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, depth - r, z - r - 1.2))
+        .transformed(offset=cq.Vector(0, depth - r, z - r - 3.0 + WELD))
         .box(spec["peg_dia"], r * 1.4, 3.0, centered=(True, True, False))
     )
     return peg.union(lip)
@@ -150,15 +165,16 @@ def slot_peg(z):
     t = min(spec["slot_w"] - 0.6, 3.6)          # tongue thickness (fits the slot)
     w = min(spec["slot_h"] - 2.0, 11.0)          # tongue width (along Z, up the slot)
     reach = spec["board_t"] + 2.5
+    # Tongue spans y:[-WELD, reach] so it bites into the plate (y <= 0).
     tongue = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, z - w / 2.0))
-        .box(t, reach, w, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, (reach - WELD) / 2.0, z - w / 2.0))
+        .box(t, reach + WELD, w, centered=(True, True, False))
     )
-    # Downward catch behind the board.
+    # Downward catch behind the board, overlapping the tongue in Z so it fuses.
     catch = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, reach - t, z - w / 2.0 - 6.0))
+        .transformed(offset=cq.Vector(0, reach - t / 2.0, z - w / 2.0 - 6.0))
         .box(t, t + 1.2, 6.0 + w, centered=(True, True, False))
     )
     return tongue.union(catch)
@@ -175,10 +191,16 @@ def add_pegs(body):
 
 def back_plate(w, h):
     """A flat back plate whose FRONT face sits at y=0, thickness toward -Y,
-    base at z=0. Pegs grow from the front face into the board (+Y)."""
+    base at z=0. Pegs grow from the front face into the board (+Y).
+
+    `.box(..., centered=(True, True, False))` centres the box in X and Y on the
+    workplane origin, so offsetting the origin to -plate_thick put the plate at
+    y:[-1.5*plate_thick, -0.5*plate_thick] -- its front face was at
+    -0.5*plate_thick, NOT at y=0 as documented, and every feature grown from
+    y=0 floated. Offset by half the thickness instead: y:[-plate_thick, 0]."""
     plate = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -plate_thick, 0))
+        .transformed(offset=cq.Vector(0, -plate_thick / 2.0, 0))
         .box(w, plate_thick, h, centered=(True, True, False))
     )
     try:
@@ -214,22 +236,28 @@ def build_hook():
         if z0 < r + 2.0:                          # no room below → go above the peg
             z0 = pegs[0] + peg_half + r + 3.0
 
-    # Build the J (bar + up-return) as ONE solid, overlapping ~2 mm INTO the
-    # plate (from y=+2 back into the plate body) so the plate union is a deep
-    # volumetric overlap, never a surface tangency.
-    overlap = 2.0
+    # Build the J (bar + up-return) as ONE solid, overlapping `overlap` mm INTO
+    # the plate so the plate union is a deep volumetric overlap, never a surface
+    # tangency. A `cq.Workplane("XZ")` extrudes toward -Y for a POSITIVE
+    # distance: the old code used `extrude(-(reach + overlap))`, which sent the
+    # whole bar out the BACK of the plate (y:[+2, +39]) while the up-return sat
+    # correctly at y=-reach, so bar and return were two floating bodies.
+    overlap = min(2.0, plate_thick - 0.5)
     bar = (
         cq.Workplane("XZ")
         .center(0, z0)
         .circle(r)
-        .extrude(-(reach + overlap))
+        .extrude(reach + overlap)
         .translate((0, overlap, 0))
     )
+    # Up-return at the tip. Its base must sit at the bar's LOWER tangent, not on
+    # the bar's centreline: two cylinders that meet on the axis touch along a
+    # single line and OCC fuses them into an invalid (non-manifold) shape.
     ret = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -reach, z0))
+        .transformed(offset=cq.Vector(0, -(reach - r), z0 - r))
         .circle(r)
-        .extrude(up + r)
+        .extrude(up + 2.0 * r)
     )
     try:
         ret = ret.edges(">Z").fillet(min(r - 0.4, up / 2.0))
@@ -251,17 +279,21 @@ def build_bin():
     ht = max(20.0, min(bin_h, h))
     wall = max(1.6, bin_wall)
 
-    # Outer box grows forward (-Y): y from 0 to -d, base at z=0.
+    # Outer box grows forward (-Y): y from +WELD (biting into the plate) to -d.
+    # `.box(centered=(True, True, False))` centres in Y on the workplane origin,
+    # so the origin belongs at the box's Y MIDPOINT. The old code put it at -d,
+    # which parked the box at y:[-1.5d, -0.5d] -- a d/2 gap in front of the
+    # plate, and the box floated.
     outer = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -d, 0))
-        .box(w, d, ht, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, (WELD - d) / 2.0, 0))
+        .box(w, d + WELD, ht, centered=(True, True, False))
     )
     # Hollow the cavity, leaving the back wall (against the plate) and a floor.
     cavity = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -d + wall, wall))
-        .box(w - 2.0 * wall, d - 2.0 * wall, ht, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, (WELD - d) / 2.0, wall))
+        .box(w - 2.0 * wall, d + WELD - 2.0 * wall, ht, centered=(True, True, False))
     )
     box = outer.cut(cavity)
     # Drain / visibility slot in the front face keeps it light and printable.
@@ -275,9 +307,10 @@ def _bin_front_slot(box, w, d, ht, wall):
     slot_h = ht * 0.4
     if slot_w < 6 or slot_h < 6:
         return box
+    # Front wall spans y:[-d, -d + wall]; overshoot it both ways by 1 mm.
     cutter = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -d - 1.0, wall + 4.0))
+        .transformed(offset=cq.Vector(0, -d + wall / 2.0, wall + 4.0))
         .box(slot_w, wall + 2.0, slot_h, centered=(True, True, False))
     )
     try:
@@ -299,17 +332,20 @@ def build_tool_holder():
     depth = pad_r * 2.0                           # tongue depth out from the plate
     z0 = min(14.0, h / 2.0)                        # tongue centre height
 
-    # Forward tongue: a slab centred at z0, growing -Y.
+    # Forward tongue: a slab centred at z0 spanning y:[-depth, +WELD]. As with
+    # the bin, the Y offset is the slab's MIDPOINT, not its far face -- the old
+    # code offset by -depth and left the tongue floating depth/2 in front of the
+    # plate.
     tongue = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, -depth, z0 - pad_r))
-        .box(pad_r * 2.0, depth, pad_r * 2.0, centered=(True, True, False))
+        .transformed(offset=cq.Vector(0, (WELD - depth) / 2.0, z0 - pad_r))
+        .box(pad_r * 2.0, depth + WELD, pad_r * 2.0, centered=(True, True, False))
     )
     try:
         tongue = tongue.edges("|Z").fillet(min(pad_r - 0.5, ring))
     except Exception:
         pass
-    # Bore the tool hole vertically through the tongue.
+    # Bore the tool hole vertically through the tongue, clear of the plate.
     bore = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, -pad_r, z0 - pad_r - 1.0))
