@@ -558,6 +558,85 @@ def selftest(fixture: str) -> int:
     else:
         problems.append(f"multigroup fixture missing next to {fixture}")
 
+    # --- the false green of run 34023334942 --------------------------------
+    # Two groups, the scope FULLY covered, every job "succeeded" — and one
+    # cartridge with FAIL rows, followed by a green cartridge in the same
+    # group. Completeness cannot catch this (nothing is missing) and the matrix
+    # result cannot (every job was green), so the ROWS have to. A reporter
+    # handed this with --green must refuse and take the red path, and the
+    # issue table must list the failing renders.
+    fg = pathlib.Path(fixture).with_name("nightly-false-green-sample.txt")
+    fg_scope = pathlib.Path(fixture).with_name("nightly-false-green-scope.txt")
+    if fg.is_file() and fg_scope.is_file():
+        ftext = fg.read_text(encoding="utf-8")
+        fscope = read_scope(str(fg_scope))
+        # Precondition: this fixture must NOT be catchable by completeness —
+        # otherwise it would pass for the wrong reason and stop guarding the
+        # regression the day someone "fixes" the coverage.
+        check(missing_cartridges(fscope, ftext) == [],
+              "false-green fixture: coverage must be COMPLETE, else the test "
+              "passes for the wrong reason")
+        frows = parse_failures(ftext)
+        check(len(frows) == 2,
+              f"false-green: expected 2 FAIL rows, parsed {len(frows)}")
+        check({r["cartridge"] for r in frows} == {"fixture-gamma"},
+              f"false-green: failing cartridge {[r['cartridge'] for r in frows]!r}")
+        # A green cartridge AFTER the failing one in the same group: the shape
+        # a last-writer-wins verdict would have reported as clean.
+        check("fixture-delta" in parse_coverage(ftext),
+              "false-green: the green cartridge after the failing one is missing")
+        fsum = parse_summary(ftext)
+        check(fsum.get("failures") == 1,
+              f"false-green: summed failures {fsum.get('failures')}")
+        # …and the red path builds a table that names the failing renders.
+        fbody = build_body(frows, fsum, "2026-09-06", "https://example/run", "CI",
+                           coverage={"scope": 4, "covered": 4, "missing": 0})
+        check("`fixture-gamma`" in fbody,
+              "false-green: the issue table does not list the failing cartridge")
+        check("Volumes differ" in fbody,
+              "false-green: the parity reason did not reach the table")
+        check("— complete" in fbody,
+              "false-green: coverage line should read complete, not missing")
+
+        # The refusal itself, end to end through main(): --green + a red log
+        # must exit 1. No token is set here, so main() short-circuits at the
+        # auth check and returns _verdict() — which is exactly the value under
+        # test, and no network call is made.
+        env_backup = {k: os.environ.get(k)
+                      for k in ("GITHUB_REPOSITORY", "GH_TOKEN",
+                                "GH_TOKEN_FALLBACK", "GITHUB_STEP_SUMMARY")}
+        try:
+            for k in env_backup:
+                os.environ.pop(k, None)
+            rc_green = main(["--green", "--log", str(fg),
+                             "--scope", str(fg_scope), "--require-complete"])
+            check(rc_green == 1,
+                  f"--green on a log with FAIL rows must exit 1, got {rc_green}")
+            # …and the same call on a log with NO FAIL rows still exits 0, or
+            # the refusal would turn every green night red — the failure mode
+            # this whole script is written to avoid.
+            clean = pathlib.Path(fixture).with_name("nightly-selftest-clean.txt")
+            clean.write_text(
+                "=== nightly group g0 : fixture-alpha ===\n"
+                "  ok fixture-alpha (./fixture-alpha, 5 render(s) verified)\n"
+                "y4d-spec check: cartridges=1 failures=0\n", encoding="utf-8")
+            clean_scope = pathlib.Path(fixture).with_name("nightly-selftest-clean-scope.txt")
+            clean_scope.write_text("fixture-alpha\n", encoding="utf-8")
+            try:
+                rc_clean = main(["--green", "--log", str(clean),
+                                 "--scope", str(clean_scope), "--require-complete"])
+                check(rc_clean == 0,
+                      f"--green on a clean log must still exit 0, got {rc_clean}")
+            finally:
+                clean.unlink(missing_ok=True)
+                clean_scope.unlink(missing_ok=True)
+        finally:
+            for k, v in env_backup.items():
+                if v is not None:
+                    os.environ[k] = v
+    else:
+        problems.append(f"false-green fixture missing next to {fixture}")
+
     print(f"nightly_report selftest: checks_failed={len(problems)}")
     for p in problems:
         print(f"  FAIL {p}")
@@ -572,7 +651,10 @@ def main(argv=None) -> int:
     ap.add_argument("--workflow", default="nightly sweep",
                     help="name used in the issue title and body")
     ap.add_argument("--green", action="store_true",
-                    help="the sweep passed: close any open tracking issue")
+                    help="the sweep passed: close any open tracking issue. "
+                         "REFUSED (exit 1, ::error, red path taken instead) if "
+                         "the --log it is given contains FAIL rows — the rows "
+                         "outrank the flag.")
     ap.add_argument("--selftest", metavar="FIXTURE",
                     help="run the parser's unit checks against a fixture log")
     ap.add_argument("--scope", metavar="FILE",
@@ -605,6 +687,11 @@ def main(argv=None) -> int:
     # about the sweep, not about GitHub. It is also the ONE thing here that may
     # fail a job (with --require-complete) — everything else about this script
     # exits 0 so an alerting path can never turn a green sweep red.
+    # The caller's INTENT, captured before the completeness check below may
+    # already have cleared args.green. Both verdicts have to be able to speak:
+    # a night that is red AND incomplete must print both annotations, and a
+    # test that asserts one must not be silenced by the other firing first.
+    green_requested = args.green
     text = ""
     if args.log and os.path.isfile(args.log):
         text = open(args.log, encoding="utf-8", errors="replace").read()
@@ -643,7 +730,34 @@ def main(argv=None) -> int:
     else:
         rows_extra = []
 
+    # --- --green must never be taken on a log that carries FAIL rows -------
+    # Belt and braces with the caller's own check (ci.yml reads the same rows
+    # into a step output). Run 34023334942 called this script with --green on a
+    # concatenated log holding 62 FAIL rows, because every group job had
+    # reported success — a pipefail bug in the group step. The script had no
+    # opinion of its own and closed the night as green. It has one now: the
+    # rows it was handed outrank the flag it was passed. Failing CLOSED here is
+    # the exception to "reporting never fails the sweep" for the same reason
+    # --require-complete is: a green verdict that contradicts its own evidence
+    # is not silence, it is a lie, and the tracking issue would have been
+    # CLOSED on a red night.
+    green_refused = False
+    if green_requested:
+        fail_rows = parse_failures(text)
+        if fail_rows:
+            slugs = sorted({r["cartridge"] for r in fail_rows})
+            print(f"::error title=--green refused: the sweep log is red::"
+                  f"{len(fail_rows)} FAIL row(s) across {len(slugs)} cartridge(s) "
+                  f"in {args.log!r} — {' '.join(slugs[:20])}"
+                  + (" …" if len(slugs) > 20 else "")
+                  + ". A caller asked to close the tracking issue on a log that "
+                    "says the sweep failed; reporting the red instead.")
+            args.green = False
+            green_refused = True
+
     def _verdict():
+        if green_refused:
+            return 1
         return 1 if (missing and args.require_complete) else 0
 
     if not repo or not token:

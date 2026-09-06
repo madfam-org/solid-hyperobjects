@@ -120,3 +120,60 @@ def test_no_limit_means_scope_equals_what_is_rendered(tmp_path, capsys):
     groups = json.loads(capsys.readouterr().out)
     rendered = [s for g in groups for s in g.split()]
     assert sorted(rendered) == sorted(listing.read_text().split())
+
+
+def test_only_restricts_the_matrix_but_never_the_scope(tmp_path, capsys):
+    """--only exists because --limit can only take a PREFIX of the scope.
+
+    Proving the group-verdict fix needed the `fasteners` group, at render
+    index 147: no small --limit can reach it. --only picks named cartridges
+    and keeps the same asymmetry — the scope artifact stays whole, so the
+    completeness check still has a real shortfall to catch.
+    """
+    for name in ("alpha", "beta", "gamma", "delta"):
+        (tmp_path / name).mkdir()
+        (tmp_path / name / "project.json").write_text("{}")
+    listing = tmp_path / "scope.txt"
+    rc = ns.main(["--root", str(tmp_path), "--chunks", "8",
+                  "--only", "gamma,alpha", "--slug-list", str(listing)])
+    assert rc == 0
+    out = capsys.readouterr()
+    # Rendered in SCOPE order, not in the order they were named.
+    assert json.loads(out.out) == ["alpha gamma"]
+    assert listing.read_text().split() == ["alpha", "beta", "delta", "gamma"]
+    assert "DELIBERATELY incomplete" in out.err
+
+
+def test_only_accepts_spaces_as_well_as_commas(tmp_path, capsys):
+    for name in ("alpha", "beta"):
+        (tmp_path / name).mkdir()
+        (tmp_path / name / "project.json").write_text("{}")
+    ns.main(["--root", str(tmp_path), "--chunks", "8", "--only", "beta alpha"])
+    assert json.loads(capsys.readouterr().out) == ["alpha beta"]
+
+
+def test_only_rejects_a_slug_that_is_not_a_cartridge(tmp_path, capsys):
+    """Fail loud: a typo'd slug must not quietly render nothing."""
+    (tmp_path / "alpha").mkdir()
+    (tmp_path / "alpha" / "project.json").write_text("{}")
+    rc = ns.main(["--root", str(tmp_path), "--only", "alpha,typo-slug"])
+    assert rc == 1
+    assert "typo-slug" in capsys.readouterr().err
+
+
+def test_only_ignores_the_limit_prefix(tmp_path, capsys):
+    """--only is an explicit pick; a named slug outside --limit is still rendered."""
+    for i in range(10):
+        (tmp_path / f"c{i:02d}").mkdir()
+        (tmp_path / f"c{i:02d}" / "project.json").write_text("{}")
+    ns.main(["--root", str(tmp_path), "--chunks", "8", "--limit", "2",
+             "--only", "c09"])
+    assert json.loads(capsys.readouterr().out) == ["c09"]
+
+
+def test_no_only_leaves_the_matrix_alone(tmp_path, capsys):
+    for name in ("alpha", "beta"):
+        (tmp_path / name).mkdir()
+        (tmp_path / name / "project.json").write_text("{}")
+    ns.main(["--root", str(tmp_path), "--chunks", "8", "--only", ""])
+    assert json.loads(capsys.readouterr().out) == ["alpha beta"]

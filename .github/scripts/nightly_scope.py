@@ -106,6 +106,14 @@ def main(argv=None) -> int:
                          "deliberately short of the bar, so the completeness "
                          "check has something real to catch. Never use it for "
                          "a real nightly.")
+    ap.add_argument("--only", default="",
+                    help="proof-run escape hatch: RENDER only these cartridges "
+                         "(comma- or space-separated slugs), while the scope "
+                         "stays the whole commons. Same asymmetry as --limit, "
+                         "but --limit can only take a PREFIX of the "
+                         "alphabetical scope; proving the group-verdict fix "
+                         "needed `fasteners` at render index 147. Applied "
+                         "after --limit. Never use it for a real nightly.")
     ap.add_argument("--slug-list", metavar="FILE",
                     help="also write the full scope, one slug per line, here "
                          "(the completeness check reads it back)")
@@ -119,6 +127,20 @@ def main(argv=None) -> int:
     # check compare N against N and pass, which is exactly the false green this
     # lane exists to make impossible.
     render = scope[:args.limit] if args.limit and args.limit > 0 else scope
+    if args.only.strip():
+        wanted = [s for s in args.only.replace(",", " ").split() if s]
+        unknown = [s for s in wanted if s not in scope]
+        if unknown:
+            print(f"nightly scope: --only names {len(unknown)} slug(s) that are "
+                  f"not cartridges in this checkout: {' '.join(unknown)}",
+                  file=sys.stderr)
+            return 1
+        # Intersect with the scope (never with the --limit prefix): --only is
+        # an explicit pick, and silently dropping a named slug because it fell
+        # outside a limit would make the proof run prove the wrong thing.
+        render = [s for s in scope if s in set(wanted)]
+        print(f"nightly scope: ONLY — rendering {len(render)} named "
+              f"cartridge(s): {' '.join(render)}", file=sys.stderr)
     if len(render) != len(scope):
         print(f"nightly scope: LIMITED — rendering the first {len(render)} of "
               f"{len(scope)} cartridges. The scope stays {len(scope)}, so this "
