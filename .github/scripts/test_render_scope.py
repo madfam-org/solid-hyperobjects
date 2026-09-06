@@ -61,3 +61,53 @@ def test_parameter_change_alongside_animations_still_renders():
              "animations": [{"id": "explode", "from_state": {"explode_factor": 0},
                              "to_state": {"explode_factor": 40}}]}
     assert not all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_verification_changes_keep_the_cartridge_in_scope():
+    """A parity exemption or a declared body count lives under `verification`.
+
+    Those are the manifest's own claims about what the render must produce, so
+    changing one has to be re-proven by a render — the allow-list must never
+    grow to cover them, or a cartridge could widen its own tolerance and skip
+    the gate that would have checked it.
+    """
+    assert not rs._allowed("verification")
+    assert not rs._allowed("verification.stages.geometry.checks.body_count.expected")
+    assert not rs._allowed(
+        "verification.mode_overrides.bolt.part_overrides.bolt.geometry.parity.tolerance"
+    )
+    before = {"verification": {"stages": {"geometry": {"checks": {"body_count": {"expected": 1}}}}}}
+    after = {"verification": {"stages": {"geometry": {"checks": {"body_count": {"expected": 2}}}}}}
+    assert not all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_unparseable_manifest_fails_closed(tmp_path, monkeypatch):
+    """A manifest that does not parse on either side keeps the cartridge in scope.
+
+    The lane must never read "I could not tell" as "nothing to render".
+    """
+    import subprocess as sp
+
+    repo = tmp_path / "repo"
+    (repo / "widget").mkdir(parents=True)
+    env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@e", "GIT_COMMITTER_NAME": "t",
+           "GIT_COMMITTER_EMAIL": "t@e", "PATH": "/usr/bin:/bin:/usr/local/bin"}
+
+    def git(*args):
+        sp.run(["git", *args], cwd=repo, check=True, capture_output=True, env=env)
+
+    git("init", "-q")
+    (repo / "widget" / "project.json").write_text('{"project": {"name": "a"}}')
+    git("add", "-A")
+    git("commit", "-qm", "base")
+    base = sp.run(["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True,
+                  env=env).stdout.strip()
+    (repo / "widget" / "project.json").write_text('{"project": {"name": "b",,}')  # invalid JSON
+    git("add", "-A")
+    git("commit", "-qm", "broken")
+    head = sp.run(["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True,
+                  env=env).stdout.strip()
+
+    monkeypatch.chdir(repo)
+    assert rs._manifest_at(head, "widget") is None
+    assert rs.needs_render(base, head, "widget")

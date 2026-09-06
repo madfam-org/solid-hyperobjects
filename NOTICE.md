@@ -40,7 +40,7 @@ default keycap was two disjoint solids with a free-floating stem, which cannot
 be printed; the re-creation fuses the stem to the keytop), are recorded in
 `keyv2/docs/CLEANROOM-VERIFICATION.md`.
 
-## `gridfinity` — OpenSCAD side removed (ADR-021), GPL submodule dropped
+## `gridfinity` — OpenSCAD side removed (ADR-021) and re-created clean-room, GPL submodule dropped
 
 The cartridge's CadQuery modes (`bin`, `baseplate`, `main.py`) are MADFAM-authored
 implementations of the published Gridfinity standard (Zack Freedman, MIT — a
@@ -49,8 +49,14 @@ specification, not code) and stay. Its three OpenSCAD modes (`cup`,
 GPL-3.0) and its ancestor `gridfinity_openscad` (vector76, MIT) per the
 cartridge's own README/NOTICE; they were removed on 2026-09-04 together with the
 `gridfinity/gridfinity_extended` git submodule (no remaining file included it).
-Those three modes are reserved and return only as clean-room CadQuery
-re-creations verified against a recorded baseline.
+All three have since **returned** (#2, 2026-09-05) as clean-room OpenSCAD
+re-creations — `cup.scad`, `baseplate.scad`, `lid.scad` and the geometry they
+share in `gridfinity_std.scad` — authored from a recorded final-result baseline
+and the published Gridfinity standard, without access to the removed cartridge
+or to any upstream implementation. The cartridge again declares five modes
+(`bin`, `baseplate` on CadQuery; `cup`, `baseplate_scad`, `lid` on OpenSCAD).
+The acceptance evidence is in `gridfinity/docs/CLEANROOM-VERIFICATION.md`, and
+the full provenance statement in `gridfinity/NOTICE`.
 
 ## Third-party libraries, not vendored
 
