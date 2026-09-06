@@ -30,7 +30,7 @@
         "label": "Polar bolt circle",
         "geometry_type": "bolt_pattern",
         "standard": "ISO 273 medium clearance",
-        "parameters": ["bolt_circle_radius", "bolt_hole_radius", "bolt_count", "bolt_spacing_deg"]
+        "parameters": ["bolt_circle_radius", "bolt_hole_radius", "bolt_count"]
       },
       {
         "id": "center_bore",
@@ -174,24 +174,8 @@
       "binding": "boltring.count",
       "label": { "en": "Bolt count", "es": "Número de tornillos" },
       "tooltip": {
-        "en": "How many holes around the circle. Set the spacing below to 360 divided by this number.",
-        "es": "Cuántos agujeros alrededor del círculo. Ajusta el espaciamiento a 360 dividido entre este número."
-      }
-    },
-    {
-      "id": "bolt_spacing_deg",
-      "type": "slider",
-      "default": 60.0,
-      "min": 5.0,
-      "max": 180.0,
-      "step": 1.0,
-      "group": "bolts",
-      "modes": ["flange"],
-      "binding": "boltring.angle",
-      "label": { "en": "Bolt spacing (degrees)", "es": "Espaciamiento (grados)" },
-      "tooltip": {
-        "en": "Angle between neighbouring holes. For an evenly spaced circle use 360 / bolt count (6 holes = 60°).",
-        "es": "Ángulo entre agujeros vecinos. Para un círculo uniforme usa 360 / número de tornillos (6 agujeros = 60°)."
+        "en": "How many holes around the circle. The spacing is derived from it, so the circle is always even.",
+        "es": "Cuántos agujeros alrededor del círculo. El espaciamiento se deriva de él, así que el círculo siempre queda parejo."
       }
     },
     {
@@ -242,14 +226,6 @@
       "message": {
         "es": "El chaflán no puede pasar de un tercio del espesor o consume la cara superior de la placa.",
         "en": "The chamfer cannot exceed a third of the thickness or it consumes the plate's top face."
-      }
-    },
-    {
-      "expression": "bolt_spacing_deg * bolt_count <= 360",
-      "severity": "warning",
-      "message": {
-        "es": "El grafo no evalúa expresiones: el espaciado debe ser 360 / bolt_count o los barrenos se solapan al dar la vuelta.",
-        "en": "The graph evaluates no expressions: spacing should be 360 / bolt_count or the holes overlap on the way round."
       }
     }
   ],
