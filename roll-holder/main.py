@@ -120,9 +120,15 @@ def build_wall_holder():
     plate = _screw_holes(plate, plate_w, plate_h, wall, n=2)
 
     # Spindle: built along +Z, rotate to point along +Y (out from the wall).
+    #
+    # `cq.Workplane("XZ").box(..., centered=(True, False, False))` already puts the
+    # plate at y in [-wall, 0]; the extra `.translate((0, -wall, 0))` above pushes it
+    # to [-2*wall, -wall]. The spindle, rotated to run along +Y, starts at y = 0 — a
+    # full `wall` mm of air between the two, so the mode exported as 2 detached
+    # bodies. Start the spindle inside the plate's front face and bury it by the
+    # cartridge's own `OV` overlap.
     sp = spindle(spindle_len).rotate((0, 0, 0), (1, 0, 0), -90)
-    # Place the spindle centre at the plate centre height, protruding from y=0.
-    sp = sp.translate((0, 0, plate_h / 2.0))
+    sp = sp.translate((0, -wall - OV, plate_h / 2.0))
     body = plate.union(sp)
     try:
         body = body.clean()
@@ -168,16 +174,34 @@ def build_counter_stand():
     except Exception:
         pass
     # Hollow ring under the base to save plastic but keep a heavy rim (weighted).
-    pocket = cq.Workplane("XY").circle(base_r - wall * 2.0).extrude(base_h - wall).translate((0, 0, wall))
+    #
+    # The pocket is an ANNULUS, not a full disc: it must leave a solid hub under the
+    # post. Cut as a plain `circle(base_r - 2*wall)` it reached radius 24 mm and, being
+    # `base_h - wall` tall from z = wall, ran from z = 3 to z = 10.5 — past the 7.5 mm
+    # base top. That removed every bit of material the post lands on, so the post (with
+    # the spindle on it) and the base disc exported as two detached bodies. Keep the
+    # pocket below the base top and leave a hub `post_r + wall` wide.
+    post_r = wall * 1.6
+    hub_r = post_r + wall
+    pocket = (
+        cq.Workplane("XY")
+        .circle(base_r - wall * 2.0)
+        .circle(hub_r)
+        .extrude(base_h - wall)
+        .translate((0, 0, -0.001))
+    )
     base = base.cut(pocket)
 
     # Vertical post rising from the base centre.
-    post = cq.Workplane("XY").circle(wall * 1.6).extrude(post_h).translate((0, 0, base_h - OV))
+    post = cq.Workplane("XY").circle(post_r).extrude(post_h).translate((0, 0, base_h - OV))
     stand = base.union(post)
 
-    # Top spindle: cantilevers out along +Y from the post top.
+    # Top spindle: cantilevers out along +Y from the post top. Its flange starts at
+    # y = 0, i.e. on the post's own axis, so it is already buried in the post — but
+    # only over the post's `wall * 1.6` radius. Pull it back by `OV` as well so the
+    # penetration is volumetric rather than a tangent through the post's centre line.
     sp = spindle(spindle_len).rotate((0, 0, 0), (1, 0, 0), -90)
-    sp = sp.translate((0, 0, base_h + post_h - shoulder_r - wall))
+    sp = sp.translate((0, -(wall * 1.6 + OV), base_h + post_h - shoulder_r - wall))
     body = stand.union(sp)
     try:
         body = body.clean()
