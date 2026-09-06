@@ -196,5 +196,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["trim", "clip", "car", "fastener", "automotive", "commercial", "hyperobject", "commons"]
+  "tags": ["trim", "clip", "car", "fastener", "automotive", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

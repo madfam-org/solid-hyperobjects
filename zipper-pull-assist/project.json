@@ -453,5 +453,15 @@
       "es": "Vestirse de forma independiente es de lo primero que se pierde con artritis, hemiparesia o pinza débil, y el cierre suele ser la barrera concreta. Las ayudas comerciales para cierres se venden a precio de dispositivo de asistencia por unos gramos de plástico. Una mordaza sobre el cuerpo del carro multiplica la fuerza disponible por la longitud del brazo y, al estar parametrizada, puede ajustarse al cierre y a la mano de la persona en vez de a un promedio de ambos."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

@@ -215,5 +215,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["terrain", "wargame", "modular", "magnet", "commercial", "hyperobject", "commons"]
+  "tags": ["terrain", "wargame", "modular", "magnet", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

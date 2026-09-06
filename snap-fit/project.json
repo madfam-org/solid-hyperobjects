@@ -185,5 +185,27 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["snap-fit", "cantilever", "clip", "latch", "connector", "industrial", "hyperobject", "commons"]
+  "tags": ["snap-fit", "cantilever", "clip", "latch", "connector", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "annular_snap": {
+        "part_overrides": {
+          "annular_snap": { "geometry.body_count": { "expected": 2 } }
+        }
+      },
+      "cantilever_pair": {
+        "part_overrides": {
+          "cantilever_pair": { "geometry.body_count": { "expected": 2 } }
+        }
+      }
+    }
+  }
 }

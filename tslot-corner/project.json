@@ -394,5 +394,15 @@
       "es": "La cuadrícula de perfil T-slot de 20 mm es el estándar abierto del mundo maker — bastidores de impresoras 3D, pórticos CNC, bancos de trabajo y gabinetes se ensamblan sobre ella. Los soportes de esquina impresos reemplazan uniones de fundición propietarias a una fracción del costo, permiten reforzar un ángulo raro que ninguna pieza de catálogo cubre, y reparar una unión dañada en el campo. Hacen crecer el común de t-slot-extrusion junto al propio perfil, los peines y las ruedas V-slot."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

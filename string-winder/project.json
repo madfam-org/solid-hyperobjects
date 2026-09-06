@@ -149,5 +149,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["guitar", "string-winder", "tuner", "peg", "bridge-pin", "luthier", "music", "commercial", "hyperobject", "commons"]
+  "tags": ["guitar", "string-winder", "tuner", "peg", "bridge-pin", "luthier", "music", "commercial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

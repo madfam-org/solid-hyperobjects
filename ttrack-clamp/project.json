@@ -430,5 +430,15 @@
       "es": "El riel en T de 3/4 in es el estándar compartido de plantillas, vallas, trineos y mesas de taladro. Sujeciones, bloques escalonados y topes impresos permiten al carpintero fijar cualquier pieza a cualquier plantilla con riel sin comprar un juego de prensas propietario, e imprimir un repuesto en cuanto una se rompe. Corren por el mismo riel que los perros de banco y los peines, haciendo crecer el común de riel en T / inglete."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

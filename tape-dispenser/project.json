@@ -172,5 +172,15 @@
       "es": "Un dispensador dimensionado al núcleo exacto convierte un rollo de cinta desnudo en un dispensador de escritorio de una mano, y el eje de pared mantiene los rollos grandes de cinta de embalar y etiquetas fuera de la mesa — impreso para ajustarse a núcleos de 1 o 3 pulgadas en lugar de comprar un dispensador separado para cada tamaño de rollo."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

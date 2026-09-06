@@ -155,5 +155,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["cuff", "flexure", "print-in-place", "flexible", "tpu", "am-fashion", "trim", "wearable", "hyperobject", "commons"]
+  "tags": ["cuff", "flexure", "print-in-place", "flexible", "tpu", "am-fashion", "trim", "wearable", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

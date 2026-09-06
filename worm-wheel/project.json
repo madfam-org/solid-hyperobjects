@@ -321,5 +321,15 @@
       "es": "Un par sinfín hace dos trabajos que ninguna otra etapa hace sola: dobla una esquina y sostiene. Los sinfines de una entrada son autobloqueantes, así que la carga no puede retroimpulsar el motor — por eso viven dentro de abrepuertas, sillas de ruedas, monturas de telescopio, clavijas de afinación y todo polipasto que no debe soltarse al perder energía. Esa propiedad de seguridad se compra comercialmente dentro de cajas selladas de bronce a un precio que la aleja de las reparaciones pequeñas. Generar el par desde la geometría DIN 3975 pone una reducción autobloqueante al alcance de un carrete de filamento, y exponer entradas y ángulo de avance permite al fabricante decidir deliberadamente si la transmisión debe sostener o debe rodar libre."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

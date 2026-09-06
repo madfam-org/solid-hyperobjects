@@ -177,5 +177,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["scale-mail", "scales", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"]
+  "tags": ["scale-mail", "scales", "print-in-place", "flexible", "tpu", "textile", "am-fashion", "wearable", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }
