@@ -118,10 +118,14 @@ def build_stem():
     # watertight because it stops short of the platform).
     bore_r = max(0.0, stem_tip_r - wall)
     if bore_r > 2.0:
-        bore_h = stem_depth - wall
+        # Start the cut 1 mm BELOW the tip face and add that 1 mm back to the
+        # run, so the bore is genuinely open at the bottom. Starting it at
+        # -stem_depth + 0.001 left a 1-micron film across the tip that sealed the
+        # cut into a cavity, exported as a single inverted, negative-volume body.
+        bore_h = stem_depth - wall + 1.0
         bore = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(0, 0, -stem_depth + 0.001))
+            .transformed(offset=cq.Vector(0, 0, -stem_depth - 1.0))
             .circle(bore_r)
             .extrude(bore_h)
         )
