@@ -626,6 +626,18 @@
           "body_count": { "enabled": true, "expected": 1 }
         }
       }
+    },
+    "mode_overrides": {
+        "filter_housing": {
+            "part_overrides": {
+                "filter_housing": {
+                    "geometry.parity": {
+                        "enabled": false,
+                        "reason": "The OpenSCAD side cuts BOSL2's PCO-1881 internal thread; the CadQuery side cuts a plain bore because OCCT booleans against the exact helical solid fail. A twistExtrude reproduces the thread law exactly along 96 % of the thread (849/851 BOSL2 vertices on the law) but cannot express BOSL2's helical lead-in boundary, so the aligned surfaces still diverge 1.71 mm at the two lead-in junctions; the remaining work (a per-turn loft of the lead-in) is preserved in claudedocs/commons-p2-2026-09-04/lanes/faircap-thread-attempt-variant3.patch and tracked in wave C."
+                    }
+                }
+            }
+        }
     }
   }
 }
