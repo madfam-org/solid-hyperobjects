@@ -161,13 +161,6 @@
           "body_count": { "enabled": true, "expected": 1 }
         }
       }
-    },
-    "mode_overrides": {
-      "s_hook": {
-        "part_overrides": {
-          "s_hook": { "geometry.body_count": { "expected": 2 } }
-        }
-      }
     }
   }
 }

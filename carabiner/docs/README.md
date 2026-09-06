@@ -20,7 +20,7 @@ keys, bags, cables, tools, and organisation.
 | :--- | :--- | :--- |
 | **Spring Carabiner** | `spring_carabiner` | Racetrack body + a printed cantilever sprung gate that flexes open and springs shut. |
 | **Screw Link** | `screw_link` | A quick-link whose gap is flanked by a **real threaded post** (volumetric-rib helix, ~2.5 turns) so a printed sleeve/nut screws down to close it. |
-| **S-Hook** | `s_hook` | An open S / double hook for hanging. |
+| **S-Hook** | `s_hook` | An open S / double hook for hanging — **one strand**, no closed loop. |
 
 ## Parameters
 
@@ -35,7 +35,8 @@ keys, bags, cables, tools, and organisation.
 ## Thread technique (Screw Link)
 
 The threaded post uses the repo's watertight thread idiom: a trapezoidal profile
-swept along a real `makeHelix` path for ~2.5 turns, unioned as a rib whose root is
+swept along a real `makeHelix` path of the rib's own radius for ~2.5 turns, unioned
+as a rib whose root is
 pushed **into** the post wall (the overlap). The post extends a full pitch beyond the
 thread on both ends so the helix start/end embed in solid material — this is what
 keeps the union watertight and the render fast (~1.5 s).
@@ -62,4 +63,19 @@ keeps the union watertight and the render fast (~1.5 s).
 - Engine: **CadQuery** (`main.py`). Exports STL / 3MF / STEP / GLB / GLTF / OBJ.
 - Self-contained (sandbox-safe): parameters read via a `PARAM(lambda: name,
   default)` guard; final solid assigned to `result`.
-- All shipped presets and defaults render **watertight**.
+- All shipped presets and defaults render **watertight, 1 body, 0 negative**.
+
+### S-Hook construction
+
+An S-hook has no closed loop anywhere: it is a single strand whose two ends curl in
+opposite directions. It is built as three overlapping prisms fused in one step — an
+upper open-C eye, the same C point-mirrored for the lower eye, and the shank joining
+them, overlapping each eye by a full stock width so both joins are volumetric fuses.
+Earlier the part cut two opposed gaps into the closed racetrack ring; cutting a closed
+loop twice always yields two arcs, so it was 2 bodies by topology.
+
+### Thread path
+
+The threaded post's helix is built at the rib's **real** radius. A placeholder radius
+(`1e-6`) is numerically a straight line: it renders on macOS but segfaults OCCT on the
+Linux render pool and inverts the thread fuse.
