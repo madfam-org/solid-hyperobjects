@@ -232,6 +232,16 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "bore_diameter <= optic_diameter / 2",
+      "severity": "error",
+      "message": {
+        "es": "El barreno de eje no puede pasar de la mitad del diámetro de óptica o el cubo devora los alojamientos.",
+        "en": "The shaft bore cannot exceed half the optic diameter or the hub swallows the pockets."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "estimate_constants": {
     "base_time": 10,

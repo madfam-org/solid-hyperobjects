@@ -203,7 +203,32 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "wire_d <= strap_w / 3",
+      "severity": "error",
+      "message": {
+        "es": "La sección no puede pasar de un tercio del ancho de tirante o el aro cierra su propia luz.",
+        "en": "The section cannot exceed a third of the strap width or the ring closes its own opening."
+      }
+    },
+    {
+      "expression": "slider_h >= wire_d + 1.5",
+      "severity": "error",
+      "message": {
+        "es": "La altura del pasador debe superar la sección más 1.5 mm o no quedan dos barras que sujeten el tirante.",
+        "en": "Slider height must exceed the section plus 1.5 mm or there are no two bars to hold the strap."
+      }
+    },
+    {
+      "expression": "wire_d >= 2",
+      "severity": "warning",
+      "message": {
+        "es": "Secciones menores a 2 mm se rompen a la primera tensión del tirante.",
+        "en": "Sections under 2 mm snap at the first pull on the strap."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

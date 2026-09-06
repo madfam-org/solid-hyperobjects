@@ -378,7 +378,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "frame_w >= hole_dia + 3",
+      "severity": "error",
+      "message": {
+        "es": "El riel (frame_w) debe medir al menos hole_dia + 3 mm: si no, el barreno de costura sale por el canto.",
+        "en": "The rail (frame_w) must be at least hole_dia + 3 mm, otherwise the sew hole breaks out of the edge."
+      }
+    },
+    {
+      "expression": "sew_pitch >= hole_dia + 3",
+      "severity": "error",
+      "message": {
+        "es": "El paso de costura debe superar hole_dia + 3 mm o los barrenos vecinos se funden en una ranura.",
+        "en": "Sew pitch must exceed hole_dia + 3 mm or neighbouring holes merge into a slot."
+      }
+    },
+    {
+      "expression": "corner_r <= bay_w / 3 and corner_r <= bay_h / 3",
+      "severity": "error",
+      "message": {
+        "es": "El radio de esquina no puede pasar de un tercio del lado menor del hueco (bay_w, bay_h).",
+        "en": "Corner radius cannot exceed a third of the shorter bay side (bay_w, bay_h)."
+      }
+    },
+    {
+      "expression": "lip <= frame_w * 0.6",
+      "severity": "error",
+      "message": {
+        "es": "El labio de retención no puede exceder 0.6 del ancho del riel o se come el riel completo.",
+        "en": "The retention lip cannot exceed 0.6 of the rail width or it consumes the rail."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

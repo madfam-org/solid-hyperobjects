@@ -354,6 +354,16 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "clearance <= wall / 4",
+      "severity": "error",
+      "message": {
+        "es": "La holgura de rosca no puede pasar de un cuarto de la pared o la cresta desaparece.",
+        "en": "Thread clearance cannot exceed a quarter of the wall or the crest disappears."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

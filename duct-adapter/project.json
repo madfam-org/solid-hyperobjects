@@ -258,6 +258,24 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "length >= collar * 2",
+            "severity": "error",
+            "message": {
+                "es": "El largo de transición debe alojar los dos collarines de extremo (length >= collar * 2).",
+                "en": "The transition length must hold both end collars (length >= collar * 2)."
+            }
+        },
+        {
+            "expression": "collar >= wall * 4",
+            "severity": "warning",
+            "message": {
+                "es": "Collarín corto frente a la pared (wall): la cinta de ducto no encuentra dónde agarrar.",
+                "en": "Short collar relative to the wall: duct tape has nothing to grip."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 12,

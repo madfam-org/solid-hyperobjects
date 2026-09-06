@@ -111,6 +111,32 @@
     { "id": "post",  "label": { "en": "Post / Column",   "es": "Poste / Columna" } },
     { "id": "base",  "label": { "en": "Base Plate",       "es": "Placa Base" } }
   ],
+  "constraints": [
+    {
+      "expression": "column_dia >= stem_dia + 6",
+      "severity": "error",
+      "message": {
+        "es": "La columna debe superar el vástago en 6 mm o el barreno de sujeción la atraviesa.",
+        "en": "The column must exceed the stem by 6 mm or the clamp bore cuts through it."
+      }
+    },
+    {
+      "expression": "base_width >= column_dia * 2",
+      "severity": "error",
+      "message": {
+        "es": "La base debe duplicar el diámetro de columna o el conjunto se vuelca con el indicador montado.",
+        "en": "The base must be twice the column diameter or the assembly tips with the indicator fitted."
+      }
+    },
+    {
+      "expression": "post_height <= base_width * 2",
+      "severity": "warning",
+      "message": {
+        "es": "Columna alta frente a la base (base_width): el conjunto pierde estabilidad al palpar.",
+        "en": "Tall column relative to the base: the assembly loses stability while probing."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "hyperobject": {
     "domain": "industrial",

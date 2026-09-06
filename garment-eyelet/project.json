@@ -304,7 +304,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "flange_dia >= inner_dia + 2 * wall + 1",
+      "severity": "error",
+      "message": {
+        "es": "La brida debe librar la pared del barril por 1 mm de cara (flange_dia >= inner_dia + 2*wall + 1).",
+        "en": "The flange must clear the barrel wall by 1 mm of face (flange_dia >= inner_dia + 2*wall + 1)."
+      }
+    },
+    {
+      "expression": "washer_t <= barrel_h",
+      "severity": "error",
+      "message": {
+        "es": "La arandela no puede ser más gruesa que el barril o el ojal no alcanza a cerrar sobre la tela.",
+        "en": "The washer cannot be thicker than the barrel or the eyelet cannot close over the fabric."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

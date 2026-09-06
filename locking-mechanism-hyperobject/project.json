@@ -363,6 +363,32 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "clearance <= hook_depth / 2",
+            "severity": "error",
+            "message": {
+                "es": "La holgura no puede pasar de la mitad de la profundidad de gancho o el pestillo nunca engancha.",
+                "en": "Clearance cannot exceed half the hook depth or the latch never engages."
+            }
+        },
+        {
+            "expression": "lever_length <= base_length",
+            "severity": "error",
+            "message": {
+                "es": "La palanca no puede ser más larga que la base o el mecanismo sobre-centro no cierra sobre sí mismo.",
+                "en": "The lever cannot be longer than the base or the over-centre mechanism does not close on itself."
+            }
+        },
+        {
+            "expression": "over_center_offset <= lever_length / 5",
+            "severity": "error",
+            "message": {
+                "es": "El desfase sobre-centro no puede pasar de un quinto de la palanca o el enlace se traba en el punto muerto.",
+                "en": "The over-centre offset cannot exceed a fifth of the lever or the linkage jams at dead centre."
+            }
+        }
+    ],
     "parameters": [
         {
             "id": "latch_width",

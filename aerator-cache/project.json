@@ -244,6 +244,24 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "cache_depth <= housing_h + 12",
+            "severity": "warning",
+            "message": {
+                "es": "Cavidad mucho más profunda que la altura del alojamiento: la cápsula sobresale del cuerpo roscado y deja de ocultarse en el aireador.",
+                "en": "Cavity far deeper than the housing height: the capsule stands proud of the threaded body and no longer hides in the aerator."
+            }
+        },
+        {
+            "expression": "housing_h >= 2 * wall + 6",
+            "severity": "error",
+            "message": {
+                "es": "El alojamiento debe alojar dos paredes más 6 mm de rosca (housing_h >= 2*wall + 6) o no quedan vueltas que enrosquen.",
+                "en": "The housing must hold two walls plus 6 mm of thread (housing_h >= 2*wall + 6) or no turns remain to screw on."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 12,

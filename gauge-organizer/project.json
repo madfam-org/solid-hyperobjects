@@ -129,6 +129,24 @@
     { "id": "index",  "label": { "en": "Drill Index",    "es": "Índice de Brocas" } },
     { "id": "body",   "label": { "en": "Body",           "es": "Cuerpo" } }
   ],
+  "constraints": [
+    {
+      "expression": "body_height >= max_bit_dia * 1.5",
+      "severity": "error",
+      "message": {
+        "es": "El cuerpo debe medir al menos 1.5 veces la broca mayor o el alojamiento la atraviesa.",
+        "en": "The body must be at least 1.5x the largest bit or the pocket cuts through it."
+      }
+    },
+    {
+      "expression": "index_cols * index_rows >= 6",
+      "severity": "warning",
+      "message": {
+        "es": "Una parrilla de menos de 6 posiciones no organiza un juego de brocas real.",
+        "en": "A grid under 6 positions does not organise a real drill set."
+      }
+    }
+  ],
   "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
   "hyperobject": {
     "domain": "industrial",

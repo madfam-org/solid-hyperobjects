@@ -352,7 +352,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "pin_dia <= tip_w * taper * 0.55 and pin_dia <= tip_l * taper * 0.55",
+      "severity": "error",
+      "message": {
+        "es": "El barreno del pivote no puede pasar de 0.55 de la cara de suelo menor o la punta queda sin pared.",
+        "en": "The pin bore cannot exceed 0.55 of the smaller ground face or the tip is left with no wall."
+      }
+    },
+    {
+      "expression": "pin_depth <= tip_h - 0.8",
+      "severity": "error",
+      "message": {
+        "es": "El barreno ciego debe dejar 0.8 mm de piso o atraviesa la cara de desgaste.",
+        "en": "The blind bore must leave 0.8 mm of floor or it breaks through the wearing face."
+      }
+    },
+    {
+      "expression": "corner_r <= tip_w / 2.5 and corner_r <= tip_l / 2.5",
+      "severity": "error",
+      "message": {
+        "es": "El radio de esquina no puede pasar de un 2.5-avo del lado menor o el tacón cuadrado se vuelve redondo.",
+        "en": "The corner radius cannot exceed a 2.5th of the shorter side or the square tip goes round."
+      }
+    },
+    {
+      "expression": "edge_ch <= tip_h / 4",
+      "severity": "error",
+      "message": {
+        "es": "El chaflán de desgaste no puede pasar de un cuarto de la altura o consume la punta entera.",
+        "en": "The wearing chamfer cannot exceed a quarter of the height or it consumes the whole tip."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -299,7 +299,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "track_w <= rail_w - 6",
+      "severity": "error",
+      "message": {
+        "es": "La corredera de cola de milano debe dejar 3 mm de riel a cada lado (track_w <= rail_w - 6).",
+        "en": "The dovetail track must leave 3 mm of rail either side (track_w <= rail_w - 6)."
+      }
+    },
+    {
+      "expression": "pitch * 2 <= rail_len",
+      "severity": "error",
+      "message": {
+        "es": "El riel debe alojar al menos dos intervalos de botón o la regla no marca nada.",
+        "en": "The rail must hold at least two button intervals or the gauge marks nothing."
+      }
+    },
+    {
+      "expression": "slider_len <= rail_len / 3",
+      "severity": "warning",
+      "message": {
+        "es": "Corredera larga frente al riel; el recorrido útil se reduce a muy pocos intervalos.",
+        "en": "Slider is long relative to the rail; the usable travel drops to very few intervals."
+      }
+    },
+    {
+      "expression": "slide_clr <= rail_t / 8",
+      "severity": "warning",
+      "message": {
+        "es": "Holgura grande frente al grueso del riel (rail_t): la corredera baila y pierde el paso.",
+        "en": "Clearance is large relative to the rail thickness (rail_t): the slider rocks and loses the pitch."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

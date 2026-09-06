@@ -312,7 +312,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "tip_w <= band_w - 1.5",
+      "severity": "error",
+      "message": {
+        "es": "La punta debe ser al menos 1.5 mm más angosta que la banda o el ahusado desaparece.",
+        "en": "The tip must be at least 1.5 mm narrower than the band or the taper disappears."
+      }
+    },
+    {
+      "expression": "taper_len <= head_width * 0.35",
+      "severity": "error",
+      "message": {
+        "es": "El ahusado no puede pasar de 0.35 del ancho de cabeza o los dos extremos se encuentran en la corona.",
+        "en": "The taper cannot exceed 0.35 of the head width or the two ends meet at the crown."
+      }
+    },
+    {
+      "expression": "hole_dia <= tip_w - 2.4",
+      "severity": "error",
+      "message": {
+        "es": "El barreno de costura debe dejar 1.2 mm de material por lado en la punta (hole_dia <= tip_w - 2.4).",
+        "en": "The sew hole must leave 1.2 mm of material per side at the tip (hole_dia <= tip_w - 2.4)."
+      }
+    },
+    {
+      "expression": "sew_holes * hole_dia * 2 <= taper_len",
+      "severity": "warning",
+      "message": {
+        "es": "Barrenos muy juntos a lo largo del ahusado; el extremo se convierte en una perforación continua.",
+        "en": "Holes too close along the taper; the end becomes a continuous perforation."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

@@ -276,7 +276,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "socket_dia <= head_dia - 3",
+      "severity": "error",
+      "message": {
+        "es": "El casquillo debe dejar 1.5 mm de ala por lado bajo la cabeza (socket_dia <= head_dia - 3).",
+        "en": "The socket must leave 1.5 mm of skirt per side under the head (socket_dia <= head_dia - 3)."
+      }
+    },
+    {
+      "expression": "tack_dia <= socket_dia - 1",
+      "severity": "error",
+      "message": {
+        "es": "La espiga debe dejar 0.5 mm de pared por lado dentro del casquillo (tack_dia <= socket_dia - 1).",
+        "en": "The tack must leave 0.5 mm of wall per side inside the socket (tack_dia <= socket_dia - 1)."
+      }
+    },
+    {
+      "expression": "tack_h >= socket_h",
+      "severity": "error",
+      "message": {
+        "es": "La espiga debe ser al menos tan larga como el casquillo o no llega a remacharse.",
+        "en": "The tack must be at least as long as the socket or it never reaches to be set."
+      }
+    },
+    {
+      "expression": "head_h <= head_dia / 3",
+      "severity": "warning",
+      "message": {
+        "es": "Cabeza gruesa frente a su diámetro; el botón engancha en la mesa y en el forro.",
+        "en": "Thick head relative to its diameter; the button catches on tables and lining."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

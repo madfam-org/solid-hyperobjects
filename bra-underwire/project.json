@@ -279,7 +279,24 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "cap_wall <= cap_len / 3",
+      "severity": "error",
+      "message": {
+        "es": "La pared de la funda no puede pasar de un tercio de su largo: el fondo cerrado devora la cavidad.",
+        "en": "Cap wall cannot exceed a third of its length: the closed end swallows the cavity."
+      }
+    },
+    {
+      "expression": "cap_len >= wire_d * 2",
+      "severity": "warning",
+      "message": {
+        "es": "Fundas cortas frente al alambre (wire_d) se salen del extremo con el uso.",
+        "en": "Caps short relative to the wire (wire_d) slip off the end in use."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

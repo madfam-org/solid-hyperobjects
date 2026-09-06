@@ -249,6 +249,32 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "wall <= 3.0",
+            "severity": "warning",
+            "message": {
+                "es": "Con paredes de más de 3 mm el barreno del racor toca su piso de 3 mm y estrangula el paso del tubo más chico.",
+                "en": "Above a 3 mm wall the fitting bore hits its 3 mm floor and chokes the smallest tube's flow."
+            }
+        },
+        {
+            "expression": "barb_count * 5.2 + 2 <= bend_radius",
+            "severity": "error",
+            "message": {
+                "es": "La pila de crestas debe caber en el radio del codo (barb_count * 5.2 + 2 <= bend_radius) o las boquillas se cruzan en la curva.",
+                "en": "The ridge stack must fit inside the elbow radius (barb_count * 5.2 + 2 <= bend_radius) or the nozzles cross in the bend."
+            }
+        },
+        {
+            "expression": "clearance <= wall / 3",
+            "severity": "error",
+            "message": {
+                "es": "La holgura del casquillo no puede pasar de un tercio de la pared o la boca del casquillo queda sin material.",
+                "en": "Socket clearance cannot exceed a third of the wall or the socket mouth is left with no material."
+            }
+        }
+    ],
     "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
     "estimate_constants": {
         "base_time": 10,

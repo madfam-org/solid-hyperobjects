@@ -285,7 +285,16 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "bell_flare * (cord_dia + 0.3 + 2 * wall) <= cord_dia * 4",
+      "severity": "warning",
+      "message": {
+        "es": "Campana muy abierta frente al cordón (cord_dia); la boca se atora en el ojal.",
+        "en": "Very open bell relative to the cord (cord_dia); the mouth snags in the eyelet."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

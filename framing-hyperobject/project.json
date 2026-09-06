@@ -339,6 +339,32 @@
       "group": "components"
     }
   ],
+  "constraints": [
+    {
+      "expression": "mat_width * 2 < width",
+      "severity": "error",
+      "message": {
+        "es": "Los dos lados del passepartout deben caber en el ancho o la ventana se cierra por completo.",
+        "en": "Both sides of the mat must fit inside the width or the window closes entirely."
+      }
+    },
+    {
+      "expression": "mat_width * 2 < height",
+      "severity": "error",
+      "message": {
+        "es": "Los dos lados del passepartout deben caber en el alto o la ventana se cierra por completo.",
+        "en": "Both sides of the mat must fit inside the height or the window closes entirely."
+      }
+    },
+    {
+      "expression": "depth <= width / 3",
+      "severity": "warning",
+      "message": {
+        "es": "Marco muy profundo frente a su ancho; el perfil pesa más que el arte que enmarca.",
+        "en": "Very deep frame relative to its width; the profile outweighs the art it frames."
+      }
+    }
+  ],
   "estimate_constants": {
     "base_time": 5,
     "per_unit": 1,

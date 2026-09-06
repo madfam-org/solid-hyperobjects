@@ -199,7 +199,40 @@
       "values": { "coil_dia": 2.5, "tape_thick": 1.2, "pull_length": 30, "gap": 0.3 }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "coil_dia >= tape_thick + 0.4",
+      "severity": "error",
+      "message": {
+        "es": "La cuenta debe superar el grueso de cinta en 0.4 mm o la espiral queda enterrada y no engrana.",
+        "en": "The bead must exceed the tape thickness by 0.4 mm or the coil is buried and does not mesh."
+      }
+    },
+    {
+      "expression": "coil_dia <= tape_width * 0.6",
+      "severity": "error",
+      "message": {
+        "es": "La cuenta no puede pasar de 0.6 del ancho de cinta o se traga el margen de costura.",
+        "en": "The bead cannot exceed 0.6 of the tape width or it swallows the sewing allowance."
+      }
+    },
+    {
+      "expression": "gap <= coil_dia / 3",
+      "severity": "error",
+      "message": {
+        "es": "La holgura no puede pasar de un tercio de la cuenta o las dos mitades no engranan.",
+        "en": "Clearance cannot exceed a third of the bead or the two halves do not mesh."
+      }
+    },
+    {
+      "expression": "zip_length >= pull_length * 3",
+      "severity": "warning",
+      "message": {
+        "es": "Cremallera corta frente al tirador (pull_length): el tirador cubre buena parte del recorrido.",
+        "en": "Short zip relative to the pull: the pull covers much of the travel."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

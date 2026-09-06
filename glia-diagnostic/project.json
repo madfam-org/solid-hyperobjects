@@ -161,6 +161,16 @@
             }
         }
     ],
+    "constraints": [
+        {
+            "expression": "speculum_size_mm <= diaphragm_size_mm / 8",
+            "severity": "error",
+            "message": {
+                "es": "La punta del espéculo no puede pasar de un octavo del diafragma: fuera de esa razón deja de ser la familia otoscopio-estetoscopio.",
+                "en": "The speculum tip cannot exceed an eighth of the diaphragm: outside that ratio it leaves the otoscope-stethoscope family."
+            }
+        }
+    ],
     "export_formats": [
         "stl",
         "3mf",

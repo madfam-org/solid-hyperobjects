@@ -317,6 +317,24 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "block_h >= gauge_boss_h",
+      "severity": "error",
+      "message": {
+        "es": "El bloque guía debe ser al menos tan alto como la torre de prueba o no la envuelve.",
+        "en": "The guide block must be at least as tall as the test boss or it does not surround it."
+      }
+    },
+    {
+      "expression": "seat_depth <= wall / 2",
+      "severity": "warning",
+      "message": {
+        "es": "Rebaje de asiento grande frente a la pared (wall): el inserto queda hundido y el tornillo no agarra rosca completa.",
+        "en": "Large seat offset relative to the wall: the insert sinks and the screw loses full thread engagement."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

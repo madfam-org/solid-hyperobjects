@@ -330,7 +330,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "loop_t <= loop_dia / 4",
+      "severity": "error",
+      "message": {
+        "es": "El alambre del lazo no puede pasar de un cuarto del diámetro del botón o el lazo no pasa por el ojal.",
+        "en": "The loop wire cannot exceed a quarter of the button diameter or the loop will not pass the buttonhole."
+      }
+    },
+    {
+      "expression": "loop_depth <= loop_dia",
+      "severity": "error",
+      "message": {
+        "es": "La profundidad del lazo no puede exceder su diámetro o el lazo deja de ser un lazo abierto.",
+        "en": "Loop depth cannot exceed its diameter or the loop stops being an open loop."
+      }
+    },
+    {
+      "expression": "neck_len >= loop_dia * 0.6",
+      "severity": "warning",
+      "message": {
+        "es": "Cuello corto frente al botón (loop_dia): los dedos chocan con la tela antes de enganchar.",
+        "en": "Short neck relative to the button (loop_dia): fingers hit the fabric before the hook engages."
+      }
+    },
+    {
+      "expression": "grip_t <= grip_w",
+      "severity": "error",
+      "message": {
+        "es": "El mango no puede ser más grueso que ancho: deja de ser agarrable con una mano.",
+        "en": "The handle cannot be thicker than it is wide: it stops being graspable one-handed."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

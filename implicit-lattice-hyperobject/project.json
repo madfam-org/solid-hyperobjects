@@ -130,6 +130,16 @@
       }
     }
   ],
+  "constraints": [
+    {
+      "expression": "frequency <= 12",
+      "severity": "warning",
+      "message": {
+        "es": "Frecuencias altas dan paredes por debajo del ancho de extrusión: la malla se imprime como polvo.",
+        "en": "High frequencies give walls below the extrusion width: the mesh prints as dust."
+      }
+    }
+  ],
   "hyperobject": {
     "domain": "industrial",
     "parity_status": "scad_only",

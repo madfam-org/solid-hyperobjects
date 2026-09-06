@@ -354,7 +354,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "hook_d <= blade_t * 1.6",
+      "severity": "error",
+      "message": {
+        "es": "La varilla del gancho no puede pasar de 1.6 veces el grueso de la hoja o la unión deja de ser estanca.",
+        "en": "The hook rod cannot exceed 1.6x the blade thickness or the union stops being watertight."
+      }
+    },
+    {
+      "expression": "hook_d <= blade_t - 0.35 or hook_d >= blade_t + 0.35",
+      "severity": "error",
+      "message": {
+        "es": "La varilla no puede medir casi exactamente el grueso de la hoja: queda tangente a las caras y la unión se rompe.",
+        "en": "The rod must not almost exactly match the blade thickness: it lands tangent to the faces and the union breaks."
+      }
+    },
+    {
+      "expression": "hook_r >= hook_d * 0.8",
+      "severity": "error",
+      "message": {
+        "es": "El radio de garganta debe superar 0.8 veces la varilla o el gancho se cierra sobre sí mismo.",
+        "en": "Throat radius must exceed 0.8x the rod diameter or the hook closes on itself."
+      }
+    },
+    {
+      "expression": "handle_dia >= blade_w * 0.8",
+      "severity": "warning",
+      "message": {
+        "es": "Mango delgado frente a la hoja (blade_w); la raíz del mango es el punto donde se parte al tirar.",
+        "en": "Handle is thin relative to the blade (blade_w); the handle root is where it snaps under pull."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",

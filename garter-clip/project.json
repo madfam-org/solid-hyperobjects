@@ -321,7 +321,40 @@
       }
     }
   ],
-  "constraints": [],
+  "constraints": [
+    {
+      "expression": "head_over < nub_d",
+      "severity": "error",
+      "message": {
+        "es": "El vuelo de la cabeza debe ser menor que el poste o la cabeza no pasa por el ojal de cerradura.",
+        "en": "The head overhang must be smaller than the post or the head cannot pass the keyhole."
+      }
+    },
+    {
+      "expression": "plate_t >= strap_t",
+      "severity": "error",
+      "message": {
+        "es": "La placa debe ser al menos tan gruesa como la correa o la ranura corta la placa en dos.",
+        "en": "The plate must be at least as thick as the strap or the slot cuts the plate in two."
+      }
+    },
+    {
+      "expression": "nub_d <= strap_w / 2",
+      "severity": "error",
+      "message": {
+        "es": "El poste no puede pasar de la mitad del ancho de correa o la ranura rompe el canto de la placa.",
+        "en": "The post cannot exceed half the strap width or the slot breaks the plate edge."
+      }
+    },
+    {
+      "expression": "grip_clear <= nub_d / 8",
+      "severity": "warning",
+      "message": {
+        "es": "Holgura grande frente al poste (nub_d): el broche se suelta solo al caminar.",
+        "en": "Large clearance relative to the post (nub_d): the grip releases itself while walking."
+      }
+    }
+  ],
   "camera_views": [
     {
       "id": "iso",
