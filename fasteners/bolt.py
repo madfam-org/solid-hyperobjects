@@ -23,18 +23,33 @@ def create_thread(diameter, pitch, length):
 
     ISO 60-degree metric: thread depth 0.6134*pitch, crest at the nominal
     (major) radius, root 0.6134*pitch inside it.
+
+    The shaft is always exactly `length` tall. `round(length / pitch)` truncates
+    it to a whole number of pitches, so any length that is not a multiple of the
+    pitch comes out SHORT -- M5 x 25 at pitch 0.8 gives 31 turns and stops at
+    z = 24.800, while `build()` places the head at z = length = 25.000. The
+    0.2 mm gap left the head as a second, detached body (CadQuery 2 bodies
+    against OpenSCAD's 1, where `y4d_standard_thread(l=length)` always spans the
+    full length). Round UP and trim the last, partial pitch back to `length`.
     """
     major_r = diameter / 2.0
     minor_r = max(0.4, major_r - 0.6134 * pitch)
-    n = max(1, int(round(length / pitch)))
+    n = max(1, int(math.ceil(length / pitch)))
     pts = [(0.0, 0.0), (minor_r, 0.0)]
     z0 = 0.0
     for _ in range(n):
-        pts.append((major_r, z0 + pitch * 0.5))
-        pts.append((minor_r, z0 + pitch))
+        # Clamp each profile vertex to the shaft top so the last (partial) pitch
+        # ends flat at z = length instead of overshooting it.
+        pts.append((major_r, min(z0 + pitch * 0.5, length)))
+        pts.append((minor_r, min(z0 + pitch, length)))
         z0 += pitch
-    pts.append((0.0, z0))
-    face = cq.Workplane("XZ").polyline(pts).close()
+    pts.append((0.0, length))
+    # Drop duplicate points the clamp may have produced at the top.
+    dedup = [pts[0]]
+    for pt in pts[1:]:
+        if abs(pt[0] - dedup[-1][0]) > 1e-9 or abs(pt[1] - dedup[-1][1]) > 1e-9:
+            dedup.append(pt)
+    face = cq.Workplane("XZ").polyline(dedup).close()
     return face.revolve(360, (0, 0, 0), (0, 1, 0))
 
 
