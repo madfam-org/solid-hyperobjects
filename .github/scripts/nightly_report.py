@@ -51,6 +51,7 @@ import argparse
 import datetime as _dt
 import json
 import os
+import pathlib
 import re
 import sys
 import urllib.error
@@ -71,6 +72,34 @@ API = "https://api.github.com"
 # apart below, so a sweep that grows a new parenthetical does not stop being
 # reported — it just lands in the reason column.
 FAIL_RE = re.compile(r"^\s*FAIL\s+(?P<slug>[^\s:]+):\s*(?P<rest>.*)$")
+
+# A cartridge the sweep actually reached, as `-v` prints it:
+#
+#   "  ok <slug> (./<slug>, N render(s) verified)"   — cleared the bar
+#   "  FAIL <slug>: <rest>"                           — reached, and failed
+#   "  note <slug>: <rest>"                           — reached, with a note
+#
+# Those three are the ONLY per-cartridge shapes y4d_spec/cli.py emits (`  ok
+# {name} ({d}{suffix})`, `  FAIL {name}: {prob}`, `  note {name}: {note}`), so
+# matching them is matching "the sweep reached this cartridge". Deliberately
+# anchored and deliberately narrow: a pattern that also matched, say, a stray
+# "ok" inside a reason string would inflate coverage and re-open the very hole
+# this check exists to close. Fail closed — an unrecognised line is NOT
+# coverage.
+#
+# The union of both is the COVERAGE of a sweep. Since 2026-09-06 the nightly
+# fans out over a matrix and the report concatenates every group's log, so the
+# coverage of the whole night is the union across groups — and comparing it
+# against the scope is the only thing that can tell an incomplete sweep from a
+# green one. Run 33998128926 rendered 454 of 500 and reported no error at all
+# for the 46 it never reached.
+OK_RE = re.compile(r"^\s{1,4}ok\s+(?P<slug>[^\s:(]+)\s+\(")
+NOTE_RE = re.compile(r"^\s{1,4}note\s+(?P<slug>[^\s:]+):")
+
+# The matrix runner writes one of these at the top of each group's log so a
+# concatenated report can say which group a row came from, and so a group whose
+# log is MISSING entirely (lost runner, cancelled job) is still visible.
+GROUP_RE = re.compile(r"^===\s*nightly group\s+(?P<group>\S+)\s*:\s*(?P<slugs>.*?)\s*===\s*$")
 
 # "render (<mode>, <part>[, preset '<p>'][, <engine>]): FAIL — <reason>"
 RENDER_RE = re.compile(
@@ -124,15 +153,84 @@ def parse_failures(text: str) -> list:
 
 
 def parse_summary(text: str) -> dict:
-    """The sweep's own counts, when it printed them."""
-    out = {}
+    """The sweep's own counts, SUMMED across every group's summary line.
+
+    One job printed one summary; a matrix prints one PER GROUP. Taking the
+    last one (as this did until 2026-09-06) reported the night as
+    `cartridges=1 failures=0` — the tail group's own line — on a run that
+    covered 16 cartridges. Wrong counts on an alert are worse than none: they
+    invite the reader to believe the small number.
+    """
+    lines, cartridges, failures = [], 0, 0
     for line in text.splitlines():
         m = SUMMARY_RE.search(line.strip())
         if m:
-            out = {"cartridges": int(m.group("cartridges")),
-                   "failures": int(m.group("failures")),
-                   "line": line.strip()}
+            cartridges += int(m.group("cartridges"))
+            failures += int(m.group("failures"))
+            lines.append(line.strip())
+    if not lines:
+        return {}
+    if len(lines) == 1:
+        return {"cartridges": cartridges, "failures": failures, "line": lines[0]}
+    return {"cartridges": cartridges, "failures": failures,
+            "line": f"cartridges={cartridges} failures={failures} "
+                    f"(summed over {len(lines)} group summaries)"}
+
+
+def parse_coverage(text: str) -> set:
+    """Every cartridge the sweep actually reached, across all group logs."""
+    seen = set()
+    for line in text.splitlines():
+        m = OK_RE.match(line)
+        if m:
+            seen.add(m.group("slug"))
+            continue
+        m = FAIL_RE.match(line)
+        if m:
+            seen.add(m.group("slug"))
+            continue
+        m = NOTE_RE.match(line)
+        if m:
+            seen.add(m.group("slug"))
+    return seen
+
+
+def parse_groups(text: str) -> list:
+    """The group headers a concatenated multi-group report carries."""
+    out = []
+    for line in text.splitlines():
+        m = GROUP_RE.match(line)
+        if m:
+            out.append((m.group("group"), m.group("slugs").split()))
     return out
+
+
+def read_scope(path: str) -> list:
+    """The scope the matrix was SUPPOSED to cover, one slug per line."""
+    if not path or not os.path.isfile(path):
+        return []
+    with open(path, encoding="utf-8") as fh:
+        return [ln.strip() for ln in fh if ln.strip()]
+
+
+def missing_cartridges(scope, text: str) -> list:
+    """Scope minus coverage: the cartridges this night never rendered.
+
+    This is the completeness check. A sweep that ran out of wall clock exits
+    with rows for the cartridges it reached and NOTHING for the rest; without
+    this comparison such a night looks exactly like a green one.
+    """
+    if not scope:
+        return []
+    return sorted(set(scope) - parse_coverage(text))
+
+
+def completeness_rows(missing) -> list:
+    """Table rows for cartridges that were never rendered at all."""
+    return [{"cartridge": slug, "mode_part": "", "preset": "", "engine": "",
+             "reason": "NEVER RENDERED — the sweep never reached this "
+                       "cartridge (no ok and no FAIL row in any group log)"}
+            for slug in missing]
 
 
 def row_key(row: dict) -> str:
@@ -240,7 +338,8 @@ class Api:
 # body assembly
 # ---------------------------------------------------------------------------
 
-def build_body(rows, summary, date, run_url, workflow, previous_body=""):
+def build_body(rows, summary, date, run_url, workflow, previous_body="",
+               coverage=None):
     counts = (f"`{summary['line']}`" if summary
               else f"{len(rows)} failing render(s) parsed from the log")
     parts = [
@@ -249,6 +348,15 @@ def build_body(rows, summary, date, run_url, workflow, previous_body=""):
         f"- last red run: **{date}** — [run log]({run_url})",
         f"- failing renders in that run: **{len(rows)}**",
         f"- sweep summary: {counts}",
+    ]
+    if coverage:
+        parts.append(
+            f"- coverage: **{coverage['covered']}/{coverage['scope']}** "
+            f"cartridge(s) rendered"
+            + (f" — **{coverage['missing']} NEVER RENDERED** (the sweep did "
+               f"not reach them; an incomplete night is not a green night)"
+               if coverage.get("missing") else " — complete"))
+    parts += [
         "",
         "This is the single tracking issue for the nightly sweep: a later red "
         "run rewrites the table below and comments the delta; the first green "
@@ -321,7 +429,25 @@ def build_delta(rows, previous_body, date, run_url):
 # ---------------------------------------------------------------------------
 
 def selftest(fixture: str) -> int:
-    text = open(fixture, encoding="utf-8").read()
+    """The parser's unit checks. Always run against the canonical fixtures.
+
+    `fixture` names the FIXTURES DIRECTORY to use, not the log to assert on:
+    the checks below are hardcoded to the contents of
+    `nightly-fail-sample.txt` and `nightly-multigroup-sample.txt`, so pointing
+    --selftest at some other log used to fail with four bogus "expected 3 FAIL
+    rows" complaints (dispatch 34020739707). A unit test that reports a
+    problem in its own argument rather than in the code is noise, so the
+    argument is now only a way to locate the fixture directory.
+    """
+    fixtures = pathlib.Path(fixture)
+    fixtures = fixtures.parent if fixtures.is_file() else fixtures
+    canonical = fixtures / "nightly-fail-sample.txt"
+    if not canonical.is_file():
+        print(f"nightly_report selftest: checks_failed=1\n"
+              f"  FAIL canonical fixture not found at {canonical}")
+        return 1
+    fixture = str(canonical)
+    text = canonical.read_text(encoding="utf-8")
     rows = parse_failures(text)
     summary = parse_summary(text)
     problems = []
@@ -369,6 +495,69 @@ def selftest(fixture: str) -> int:
     delta2 = build_delta(later, body2, "2026-09-08", "https://example/run3")
     check("No change" in delta2, f"identical runs should read as no change:\n{delta2}")
 
+    # --- the chunked path: a concatenated multi-group report ---------------
+    # The parser is line-based, so a concatenation of group logs should Just
+    # Work — "should" is not evidence, so this asserts it against a fixture
+    # with two group headers, two group summaries, ok rows and FAIL rows.
+    multi = pathlib.Path(fixture).with_name("nightly-multigroup-sample.txt")
+    scope_file = pathlib.Path(fixture).with_name("nightly-multigroup-scope.txt")
+    if multi.is_file() and scope_file.is_file():
+        mtext = multi.read_text(encoding="utf-8")
+        mrows = parse_failures(mtext)
+        check(len(mrows) == 2, f"multigroup: expected 2 FAIL rows, got {len(mrows)}")
+        groups = parse_groups(mtext)
+        check([g for g, _ in groups] == ["g0", "g1"],
+              f"multigroup: group headers parsed as {[g for g, _ in groups]!r}")
+        cov = parse_coverage(mtext)
+        check(cov == {"fixture-alpha", "fixture-beta", "fixture-gamma",
+                      "fixture-delta"},
+              f"multigroup: coverage {sorted(cov)!r}")
+        scope = read_scope(str(scope_file))
+        check(len(scope) == 5, f"multigroup: scope has {len(scope)} slugs")
+        msum = parse_summary(mtext)
+        check(msum.get("cartridges") == 4 and msum.get("failures") == 2,
+              f"multigroup summary must SUM the group lines, got {msum}")
+        check("summed over 2 group summaries" in msum.get("line", ""),
+              f"multigroup summary line should say it summed: {msum.get('line')!r}")
+        miss = missing_cartridges(scope, mtext)
+        check(miss == ["fixture-never"],
+              f"completeness: expected ['fixture-never'], got {miss!r}")
+        crows = completeness_rows(miss)
+        check(len(crows) == 1 and "NEVER RENDERED" in crows[0]["reason"],
+              "completeness: NEVER RENDERED row not built")
+        # Fail CLOSED: lines that merely mention a slug must not count as
+        # coverage, or the check re-opens the hole it exists to close. Only
+        # y4d_spec's own three per-cartridge shapes count.
+        decoys = (
+            "       render (print, body, cadquery): ok",   # a -v render detail
+            "  FAIL other: render (x, y): FAIL — ok fixture-never (./x)",
+            "ok fixture-never (./fixture-never)",          # no leading indent
+            "                ok fixture-never (./x)",      # over-indented
+            "  okay fixture-never (./fixture-never)",
+        )
+        for d in decoys:
+            check(parse_coverage(d) - {"other"} == set(),
+                  f"coverage must not be claimed by: {d!r} -> {parse_coverage(d)}")
+        # …and the three real shapes DO count, including a `note` row.
+        check(parse_coverage("  ok fixture-x (./fixture-x, 6 render(s) verified)")
+              == {"fixture-x"}, "an ok row must count as coverage")
+        check(parse_coverage("  note fixture-y: declared 2 bodies") == {"fixture-y"},
+              "a note row must count as coverage")
+
+        # A complete log must report NO missing cartridge — the check has to be
+        # able to say "fine", or it is just noise that gets muted.
+        check(missing_cartridges(scope[:4], mtext) == [],
+              "completeness: a complete sweep must report nothing missing")
+        # …and the coverage line has to reach the issue body.
+        cbody = build_body(crows + mrows, parse_summary(mtext), "2026-09-06",
+                           "https://example/run", "CI",
+                           coverage={"scope": 5, "covered": 4, "missing": 1})
+        check("NEVER RENDERED" in cbody,
+              "completeness: the issue body does not say a cartridge was never rendered")
+        check("**4/5**" in cbody, f"completeness: coverage line missing from body")
+    else:
+        problems.append(f"multigroup fixture missing next to {fixture}")
+
     print(f"nightly_report selftest: checks_failed={len(problems)}")
     for p in problems:
         print(f"  FAIL {p}")
@@ -386,6 +575,17 @@ def main(argv=None) -> int:
                     help="the sweep passed: close any open tracking issue")
     ap.add_argument("--selftest", metavar="FIXTURE",
                     help="run the parser's unit checks against a fixture log")
+    ap.add_argument("--scope", metavar="FILE",
+                    help="the slug list the matrix was supposed to cover "
+                         "(nightly_scope.py --slug-list). Enables the "
+                         "completeness check: any scoped cartridge with no ok "
+                         "and no FAIL row in the concatenated log is reported "
+                         "as NEVER RENDERED.")
+    ap.add_argument("--require-complete", action="store_true",
+                    help="exit 1 when the completeness check finds a scoped "
+                         "cartridge that was never rendered. This is the only "
+                         "flag that lets this script fail a job: an incomplete "
+                         "sweep must not be able to look green.")
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -399,10 +599,57 @@ def main(argv=None) -> int:
     run_url = f"{server}/{repo}/actions/runs/{run_id}" if run_id else server
     date = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%d")
 
+    # --- the completeness check ------------------------------------------
+    # Computed BEFORE any network call, and its verdict is returned even when
+    # the API is unreachable: "this night did not cover the commons" is a fact
+    # about the sweep, not about GitHub. It is also the ONE thing here that may
+    # fail a job (with --require-complete) — everything else about this script
+    # exits 0 so an alerting path can never turn a green sweep red.
+    text = ""
+    if args.log and os.path.isfile(args.log):
+        text = open(args.log, encoding="utf-8", errors="replace").read()
+    scope = read_scope(args.scope)
+    missing = missing_cartridges(scope, text) if scope else []
+    coverage = None
+    if scope:
+        coverage = {"scope": len(scope), "covered": len(scope) - len(missing),
+                    "missing": len(missing)}
+        groups = parse_groups(text)
+        print(f"nightly_report: completeness — scope={len(scope)} "
+              f"covered={coverage['covered']} missing={len(missing)} "
+              f"group_logs={len(groups)}")
+        if missing:
+            print(f"::error title=incomplete nightly sweep::"
+                  f"{len(missing)} of {len(scope)} cartridge(s) were never "
+                  f"rendered: {' '.join(missing[:20])}"
+                  + (" …" if len(missing) > 20 else ""))
+            # A sweep that skipped cartridges is not green, whatever the group
+            # jobs said. Force the red path so the tracking issue opens.
+            args.green = False
+            rows_extra = completeness_rows(missing)
+        else:
+            rows_extra = []
+        summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+        if summary_file:
+            with open(summary_file, "a", encoding="utf-8") as fh:
+                fh.write(f"\n### Completeness\n\n"
+                         f"`scope={len(scope)} covered={coverage['covered']} "
+                         f"never_rendered={len(missing)}`\n")
+                if missing:
+                    fh.write("\nNever rendered: "
+                             + ", ".join(f"`{m}`" for m in missing[:60])
+                             + ("\n" if len(missing) <= 60 else
+                                f" …and {len(missing) - 60} more\n"))
+    else:
+        rows_extra = []
+
+    def _verdict():
+        return 1 if (missing and args.require_complete) else 0
+
     if not repo or not token:
         print("::error::nightly_report: GITHUB_REPOSITORY or GH_TOKEN is unset "
               "— the sweep result was NOT reported to an issue.")
-        return 0
+        return _verdict()
 
     api = Api(repo, token, fallback)
     try:
@@ -422,22 +669,25 @@ def main(argv=None) -> int:
                          {"state": "closed", "state_reason": "completed"})
                 print(f"nightly_report: sweep green — closed #{number}.")
             print(f"nightly_report: auth path = {api.path_name}")
-            return 0
+            return _verdict()
 
         if not args.log or not os.path.isfile(args.log):
             print(f"::error::nightly_report: log {args.log!r} not found — the "
                   f"red sweep was NOT reported to an issue.")
-            return 0
+            return _verdict()
 
-        text = open(args.log, encoding="utf-8", errors="replace").read()
-        rows = parse_failures(text)
+        # NEVER RENDERED rows go FIRST: a night with a coverage hole is a
+        # worse problem than any single bad geometry, and the table is what a
+        # human reads before the log.
+        rows = rows_extra + parse_failures(text)
         summary = parse_summary(text)
         api.ensure_label()
 
         if existing is None:
             issue = api.call("POST", f"/repos/{repo}/issues", {
                 "title": f"Nightly render sweep is red ({date})",
-                "body": build_body(rows, summary, date, run_url, args.workflow),
+                "body": build_body(rows, summary, date, run_url, args.workflow,
+                                   coverage=coverage),
                 "labels": [LABEL]})
             print(f"nightly_report: opened #{issue['number']} — "
                   f"{issue['html_url']} ({len(rows)} failing render(s))")
@@ -446,7 +696,8 @@ def main(argv=None) -> int:
             previous = existing.get("body") or ""
             api.call("PATCH", f"/repos/{repo}/issues/{number}", {
                 "body": build_body(rows, summary, date, run_url,
-                                   args.workflow, previous)})
+                                   args.workflow, previous,
+                                   coverage=coverage)})
             api.call("POST", f"/repos/{repo}/issues/{number}/comments",
                      {"body": build_delta(rows, previous, date, run_url)})
             print(f"nightly_report: updated #{number} — "
@@ -466,7 +717,7 @@ def main(argv=None) -> int:
     except Exception as exc:  # noqa: BLE001 - alerting must not fail the sweep
         print(f"::error::nightly_report: {type(exc).__name__}: {exc} — the "
               f"sweep result was NOT reported.")
-    return 0
+    return _verdict()
 
 
 if __name__ == "__main__":
