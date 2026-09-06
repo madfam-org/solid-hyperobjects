@@ -255,6 +255,37 @@
       "glass": true
     }
   ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "assembly": {
+        "part_overrides": {
+          "rack": {
+            "geometry.body_count": {
+              "expected": 3
+            }
+          },
+          "slides": {
+            "geometry.body_count": {
+              "expected": 30
+            }
+          }
+        }
+      }
+    }
+  },
   "presets": [
     {
       "id": "default_holder",
@@ -943,7 +974,10 @@
         "en": "Load substrates into staining rack",
         "es": "Cargar sustratos en el rack de tinción"
       },
-      "visible_parts": ["rack", "slides"],
+      "visible_parts": [
+        "rack",
+        "slides"
+      ],
       "notes": {
         "en": "Insert up to 10 substrates into the rack slots.",
         "es": "Inserte hasta 10 sustratos en las ranuras del rack."
@@ -955,7 +989,11 @@
         "en": "Place racks into storage box",
         "es": "Colocar racks en la caja de almacenamiento"
       },
-      "visible_parts": ["rack", "slides", "box_base"],
+      "visible_parts": [
+        "rack",
+        "slides",
+        "box_base"
+      ],
       "notes": {
         "en": "Slide 1-3 loaded racks into the box base. Guide rails keep racks aligned.",
         "es": "Deslice 1-3 racks cargados en la base de la caja. Los rieles guía mantienen los racks alineados."
@@ -967,7 +1005,12 @@
         "en": "Close with snap-fit lid",
         "es": "Cerrar con tapa a presión"
       },
-      "visible_parts": ["rack", "slides", "box_base", "box_lid"],
+      "visible_parts": [
+        "rack",
+        "slides",
+        "box_base",
+        "box_lid"
+      ],
       "notes": {
         "en": "Press lid onto box base. Snap-fit latches lock automatically.",
         "es": "Presione la tapa sobre la base de la caja. Los pestillos a presión se bloquean automáticamente."

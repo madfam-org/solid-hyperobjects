@@ -68,16 +68,81 @@ module aocl_snap_catch(w, h, d) {
 // span: primary extent (X), thickness: panel depth (Y), height: panel height (Z)
 // step: lattice cell size, bar: lattice line thickness
 module diamond_grid_guard(span, thickness, height, step=8, bar=1.5) {
+  // ONE construction: resolve the whole panel as a 2D region in the X-Z plane and
+  // extrude it once through the panel thickness.
+  //
+  // It used to be a 3D `intersection()` of an envelope cube against loose
+  // 45-degree bar cubes, and that carried two defects:
+  //
+  //   * Disjoint panel. With no perimeter frame the panel is only as connected as
+  //     the bars' own crossings; above a span of roughly 45 mm the two families
+  //     stop overlapping and the guard exported as 2 separate bodies (this is the
+  //     rack at `num_slots` >= 11). A retaining grid wants a frame anyway -- an
+  //     unframed lattice has bar ends cantilevered into thin air all round.
+  //
+  //   * Severed slivers. Any bar that ends tangent to an edge of the region it is
+  //     clipped against leaves a wedge that the union can orphan. The wedges were
+  //     tiny (-0.02 to -0.56 mm3) and they tracked placement and span exactly,
+  //     which is what identifies a tangency rather than a boolean tolerance.
+  //
+  // KNOWN RESIDUAL: chamfering removes every wedge at the shipped spans -- the
+  // whole `y4d-spec` matrix (23 renders, 14 presets) is watertight with 0
+  // negative bodies -- but it protects CORNERS, and at a few non-default spans a
+  // bar can still run tangent to a straight window EDGE. `multi_rack` at
+  // `num_slots` 5 and 15 shows 6 and 12 such wedges of -0.02 to -0.05 mm3.
+  // Clipping the lattice to the panel outline instead of the window removes
+  // those but reintroduces wedges at the DEFAULT span, so it is strictly worse;
+  // the real cure is a lattice whose period divides the window, which changes
+  // the visible grid and belongs to a design decision, not a repair lane.
+  //
+  // The construction below addresses both. The ring and BOTH bar families are
+  // unioned as polygons and the union is clipped ONCE to the panel outline, and
+  // `linear_extrude` of a well-formed 2D region is always a closed solid -- so
+  // the panel is one connected piece by construction rather than by luck. The
+  // chamfered window corners then remove the corner tangency, which is what the
+  // shipped spans actually hit.
+  //
+  // The window is clamped positive so a panel narrower or shorter than two frame
+  // widths degenerates to a solid plate rather than to an inside-out difference.
+  _frame = bar;
+  _wx = max(0.01, span - 2 * _frame);
+  _wz = max(0.01, height - 2 * _frame);
   _max = max(span, height) + step;
-  intersection() {
-    cube([span, thickness, height]);
-    for (x = [-_max : step : span + _max]) {
-      translate([x, 0, 0]) rotate([0, 45, 0])
-        translate([0, 0, -_max]) cube([bar, thickness, _max * 3]);
-      translate([x, 0, 0]) rotate([0, -45, 0])
-        translate([0, 0, -_max]) cube([bar, thickness, _max * 3]);
-    }
-  }
+
+  // The 2D profile lives in X-Z; rotate it upright and pull it back so the solid
+  // occupies x [0, span], y [0, thickness], z [0, height] -- the same box every
+  // caller already positions.
+  rotate([90, 0, 0])
+    translate([0, 0, -thickness])
+      linear_extrude(height = thickness)
+        intersection() {
+          square([span, height]);
+          union() {
+            // Perimeter ring, its window corners chamfered at 45 degrees so the
+            // window edge runs PARALLEL to the bar family that would otherwise
+            // slice a triangle off a sharp corner and orphan it.
+            difference() {
+              square([span, height]);
+              _cx = min(bar, _wx / 2);
+              _cz = min(bar, _wz / 2);
+              polygon([
+                [_frame + _cx,       _frame],
+                [_frame + _wx - _cx, _frame],
+                [_frame + _wx,       _frame + _cz],
+                [_frame + _wx,       _frame + _wz - _cz],
+                [_frame + _wx - _cx, _frame + _wz],
+                [_frame + _cx,       _frame + _wz],
+                [_frame,             _frame + _wz - _cz],
+                [_frame,             _frame + _cz],
+              ]);
+            }
+            // 45-degree lattice, both families.
+            for (x = [-_max : step : span + _max]) {
+              translate([x, 0]) rotate(-45) translate([0, -_max]) square([bar, _max * 3]);
+              translate([x, 0]) rotate(45)  translate([0, -_max]) square([bar, _max * 3]);
+            }
+          }
+        }
 }
 
 module slide_retention_rib(height, depth, root_w, tip_w, chamfer_h = 0) {

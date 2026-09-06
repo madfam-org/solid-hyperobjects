@@ -43,6 +43,24 @@ side_guards = 1; // 1 = True (adds 45-degree mid-height diamond grid to side wal
 fn = aocl_fn(); // Curved geometry quality. Defaults to 32.
 $fn = fn > 0 ? fn : 32;
 
+// Every additive join in this file penetrates its neighbour by this much, so the
+// union is a volumetric fuse rather than a coincident-face kiss. OpenSCAD's
+// Manifold backend -- which is what the platform and `y4d-spec check --render`
+// both use -- snaps near-coincident vertices and tears such a join apart, while
+// CGAL welds it and hides the defect. 0.2 mm is far below print resolution and
+// every use of it is buried inside a wall, so no extent changes.
+GUARD_BITE = 0.2;
+
+// Slot numerals: how deep one bites into its rail, and how far it stands proud.
+// NUM_PROUD must stay BELOW assembly.scad's _rack_clearance (0.5 mm), or
+// stacked racks' numerals touch and seal voids between them.
+NUM_BITE = 0.4;
+NUM_PROUD = 0.15;
+
+// How far a full-depth divider fin overruns the rail/wall it lands on, so the
+// join is a volumetric fuse and not a coincident-face kiss.
+DIV_BITE = 0.2;
+
 // --- Derived Geometry / Math ---
 // These equations figure out how big the rack needs to be based on the number of slots and tolerances.
 
@@ -171,17 +189,28 @@ module rack_body() {
   }
 
   // Side Guards (Diamond Grid Retaining Walls)
+  //
+  // The guards spanned x = _pillar_w .. _body_x - _pillar_w, i.e. they ENDED
+  // exactly on the two side walls' inner faces -- a zero-overlap coincident-face
+  // join at each end, and every lattice bar that reached an end carried one.
+  // That is the rack's first non-watertight root cause: with side_guards = 0 the
+  // rack is watertight, and reproducing just (two walls + two rails + two
+  // guards) is enough to break it again.
+  //
+  // Each guard now runs GUARD_BITE past both walls' inner faces so both ends are
+  // volumetric fuses. The overrun is buried inside the walls, so the rack's
+  // extents are unchanged.
   if (side_guards == 1) {
     _grid_h = _body_z * 0.6;
     _grid_thick = 1.5;
-    _guard_span_x = _body_x - 2 * _pillar_w;
+    _guard_span_x = _body_x - 2 * _pillar_w + 2 * GUARD_BITE;
 
     // Front Guard (Y = 0)
-    translate([_pillar_w, 0, _base_h])
+    translate([_pillar_w - GUARD_BITE, 0, _base_h])
       diamond_grid_guard(_guard_span_x, _grid_thick, _grid_h - _base_h);
 
     // Back Guard (Y = _body_y - _grid_thick)
-    translate([_pillar_w, _body_y - _grid_thick, _base_h])
+    translate([_pillar_w - GUARD_BITE, _body_y - _grid_thick, _base_h])
       diamond_grid_guard(_guard_span_x, _grid_thick, _grid_h - _base_h);
   }
 
@@ -236,7 +265,27 @@ module rack_body() {
                  am_ramp(_min_rib_w, _base_h, _base_h);
           }
 
-          slide_retention_rib(height=_actual_rib_height, depth=_cavity_y, root_w=_min_rib_w, tip_w=_min_rib_w * 0.65, chamfer_h=_chamfer_h);
+          // The fin spans the cavity exactly, so it ENDS on the front and back
+          // rails' inner faces; and fins 0 and num_slots additionally sit flush
+          // against the two side walls (the comment above says so in as many
+          // words). Every one of those is a zero-penetration coincident-face
+          // join. They are the same joins that left the multi-rack's 18
+          // non-manifold edges and its inverted corner wedge, so give them all a
+          // real overlap here too rather than leaving the defect latent.
+          //
+          // Depth grows by DIV_BITE at each end; the two end fins grow by
+          // DIV_BITE on their wall side and shift half that, so no outer face
+          // moves and the overrun stays buried in the wall.
+          _at_left  = (i == 0);
+          _at_right = (i == num_slots);
+          _grow  = (_at_left || _at_right) ? DIV_BITE : 0;
+          _shift = _at_left ? -_grow / 2 : (_at_right ? _grow / 2 : 0);
+          translate([_shift, 0, 0])
+            slide_retention_rib(height=_actual_rib_height,
+                                depth=_cavity_y + 2 * DIV_BITE,
+                                root_w=_min_rib_w + _grow,
+                                tip_w=_min_rib_w * 0.65 + _grow,
+                                chamfer_h=_chamfer_h);
         }
       }
     }
@@ -257,17 +306,28 @@ module slot_numbers() {
       // (accounts for the _min_rib_w/2 symmetry offset applied to the divider translate)
       _slot_center_x = _pillar_w + _min_rib_w + _slot_w / 2 + i * _pitch;
 
-      // Position the number on the front face of the base rail, extruding
-      // 0.4mm INTO the rail (ensuring union/merge) + 0.5mm outward (raised text).
-      translate([_slot_center_x, 0.4, _base_h / 2])
+      // The numeral buries NUM_BITE in the rail (so the union is a volumetric
+      // fuse) and stands NUM_PROUD off the face.
+      //
+      // NUM_PROUD used to be 0.5 mm, which is exactly `_rack_clearance` in
+      // assembly.scad. Three racks stacked in the box therefore had each rack's
+      // raised numerals meeting the next rack's numerals face to face across a
+      // gap they consumed entirely -- 40 sealed voids in the
+      // `assembly_box_nolid` / `assembly_box_lid` renders (each ~0.5 x 0.6 x
+      // 0.7 mm at the rack-to-rack planes). With `show_numbers = 0` the same
+      // assembly is 3 bodies, 0 negative, which is the design count.
+      //
+      // NUM_PROUD = 0.15 mm still reads and prints as raised text and leaves
+      // 0.35 mm of the 0.5 mm rack clearance actually clear.
+      translate([_slot_center_x, NUM_BITE, _base_h / 2])
         rotate([90, 0, 0])
-          linear_extrude(height=0.9)
+          linear_extrude(height=NUM_BITE + NUM_PROUD)
             text(str(_num), size=_num_size, halign="center", valign="center", font="Liberation Sans:style=Bold");
 
       // Position the identical number on the back face of the base rail
-      translate([_slot_center_x, _body_y - 0.4, _base_h / 2])
+      translate([_slot_center_x, _body_y - NUM_BITE, _base_h / 2])
         rotate([90, 0, 180]) // Flip text 180 deg around Z to face matching orientation outwards
-          linear_extrude(height=0.9)
+          linear_extrude(height=NUM_BITE + NUM_PROUD)
             text(str(_num), size=_num_size, halign="center", valign="center", font="Liberation Sans:style=Bold");
     }
   }
