@@ -481,5 +481,15 @@
       "es": "Las cuatro bases de lámpara dominantes — E26, E27, GU10 y B22 — dividen el mundo por geografía y tipo de luminaria, así que un foco comprado en una región o para una lámpara a menudo no encaja en el portalámparas que tienes. Un adaptador de base universal impreso permite a un hogar reutilizar focos y luminarias entre los cuatro estándares en vez de desecharlos, y revivir una lámpara cuyo estándar de casquillo quedó huérfano. Precaución: implica cableado de voltaje de red — véase la nota de seguridad eléctrica en la documentación."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

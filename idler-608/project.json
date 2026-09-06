@@ -406,5 +406,15 @@
       "es": "El rodamiento 608 de patín es el componente de movimiento más disponible del mundo — centavos cada uno, en cualquier ferretería. Las poleas impresas convierten un 608 y un tornillo M8 en un tensor de correa, guía de cuerda o rodillo para una impresora, CNC, telar o transportador, reemplazando poleas propietarias que cuestan mucho más. Comparten el mismo asiento de 22 mm que los cartuchos linear-wheel y bearing-housing, así el constructor tiene un solo rodamiento e imprime lo que corra sobre él."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

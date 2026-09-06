@@ -436,5 +436,15 @@
       "es": "Los sistemas modulares de enmarcado y contención permiten la reutilización mediante interfaces mecánicas estandarizadas"
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

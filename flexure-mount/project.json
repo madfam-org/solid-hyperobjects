@@ -170,5 +170,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["hybrid", "flexure", "compliant-mechanism", "precision", "hyperobject", "commons"]
+  "tags": ["hybrid", "flexure", "compliant-mechanism", "precision", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

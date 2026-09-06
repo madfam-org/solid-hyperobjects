@@ -579,5 +579,15 @@
       "es": "La lencería es la prenda más difícil de ajustar y la que se ajusta con menos honestidad: la talla de brasier reduce una medida de dos números — busto y bajo busto — a una letra, y la mayoría de los maniquíes de exhibición no tienen anillo de bajo busto, así que una banda que no queda igual se ve bien en el pedestal. Esta forma lleva ambos círculos como contornos ISO-8559 reales y verificados, lo que permite que quien confecciona o un taller pequeño imprima una superficie de ajuste para un cuerpo real y vea dónde va a quedar de verdad la banda. Los mismos números manejan los patrones planos del común Fashion Cabinet, así que patrón y forma nunca se contradicen, y quien tiene medidas fuera del rango estrecho del tallaje comercial por fin tiene un maniquí."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
