@@ -190,5 +190,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["wheel", "hub", "shaft", "tt-motor", "pulley", "robotics", "industrial", "hyperobject", "commons"]
+  "tags": ["wheel", "hub", "shaft", "tt-motor", "pulley", "robotics", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

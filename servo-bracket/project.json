@@ -170,5 +170,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["servo", "sg90", "mg996r", "bracket", "pan-tilt", "robotics", "industrial", "hyperobject", "commons"]
+  "tags": ["servo", "sg90", "mg996r", "bracket", "pan-tilt", "robotics", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

@@ -565,5 +565,15 @@
       "es": "Las transmisiones pequeñas son una Torre de Babel de perfiles de eje — ejes D de motor de 5 mm, encoders redondos de 6 mm, puntas hexagonales de 1/4 in — y una incompatibilidad normalmente implica un acoplador mecanizado caro o abandonar una reparación. Un acoplador universal imprimible con barrenos redondo/D/hex seleccionables de forma independiente permite a un maker unir los dos ejes que tenga, o reducir un barreno gastado a uno nuevo, manteniendo motores, perillas y electrodomésticos en servicio."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

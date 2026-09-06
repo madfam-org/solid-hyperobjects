@@ -157,5 +157,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["soap", "sponge", "dish", "drainage", "household", "hyperobject", "commons"]
+  "tags": ["soap", "sponge", "dish", "drainage", "household", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

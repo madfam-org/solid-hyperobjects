@@ -282,5 +282,15 @@
       "es": "La fotografía y la óptica de campo funcionan sobre tres interfaces efectivamente abiertas — las dos roscas UNC de cámara son más antiguas que cualquier empresa que aún las venda, y Arca-Swiss es un estándar de facto que nadie hace cumplir — y sin embargo los pequeños adaptadores que las unen se venden como metal maquinado a precios fijados por la escasez y no por el costo. Un equipo termina con un cajón de bujes de un solo propósito, y un reductor de 3/8 a 1/4 faltante puede inutilizar un montaje que por lo demás funciona, en pleno campo. Generarlos desde la geometría nominal de la rosca vuelve gratuita la capa de adaptadores y, más útil aún, la vuelve componible: la placa concentradora es una pieza que ningún catálogo vende, porque solo tiene sentido cuando puedes definir tu propia combinación de alojamientos en vez de comprar la de alguien más."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
