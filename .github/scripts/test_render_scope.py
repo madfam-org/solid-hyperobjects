@@ -40,3 +40,24 @@ def test_parameter_change_alongside_constraints_still_renders():
     after = {"parameters": [{"id": "wall", "default": 3}],
              "constraints": [{"expression": "wall >= 1.2"}]}
     assert not all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_animations_are_metadata():
+    """Flipbook sequences are interpolated into render parameters by the API on
+    demand; the cartridge's own CI render never reads the animations block."""
+    assert rs._allowed("animations")
+    assert rs._allowed("animations.0.to_state.explode_factor")
+    before = {"parameters": [{"id": "explode_factor", "default": 0}]}
+    after = {"parameters": [{"id": "explode_factor", "default": 0}],
+             "animations": [{"id": "explode", "label": {"en": "Explode"},
+                             "from_state": {"explode_factor": 0},
+                             "to_state": {"explode_factor": 40}, "frames": 8}]}
+    assert all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_parameter_change_alongside_animations_still_renders():
+    before = {"parameters": [{"id": "explode_factor", "default": 0}]}
+    after = {"parameters": [{"id": "explode_factor", "default": 5}],
+             "animations": [{"id": "explode", "from_state": {"explode_factor": 0},
+                             "to_state": {"explode_factor": 40}}]}
+    assert not all(rs._allowed(p) for p in rs.changed_paths(before, after))
