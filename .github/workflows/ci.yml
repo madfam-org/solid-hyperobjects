@@ -285,10 +285,19 @@ jobs:
     runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
     # 90 minutes per group, not 720 for the night. Eight cartridges took 3–5
     # minutes per group on this pool in the per-PR lane (run 34018018690), so 90
-    # is ~20x headroom for the slowest realistic group — generous enough that a
-    # timeout means something is genuinely wrong, tight enough that a wedged
-    # kernel gives the runner back the same morning instead of holding it for
-    # half a day.
+    # is ~20x headroom for an ordinary group — generous enough that a timeout
+    # means something is genuinely wrong, tight enough that a wedged kernel
+    # gives the runner back the same morning instead of holding it for half a
+    # day.
+    #
+    # The one group this is NOT generous for is `zipper`, whose local render was
+    # still going at 33 min (see nightly_scope.SLOW). If its dedicated group
+    # ever hits 90 minutes the timeout is the correct outcome and the report
+    # will say so precisely — that group's log is uploaded `if: always()`, its
+    # cartridge is absent from the coverage union, and the completeness check
+    # names it as NEVER RENDERED instead of letting the night pass. That is the
+    # difference from the old single job, which simply stopped 46 cartridges
+    # short and said nothing.
     timeout-minutes: 90
     strategy:
       # Never fail-fast: the whole point is that one bad group must not hide

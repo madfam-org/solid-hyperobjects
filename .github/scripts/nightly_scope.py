@@ -49,9 +49,14 @@ import sys
 # Keep the measurement in the comment: an unexplained entry here is an
 # unfalsifiable claim about a runner nobody re-measures.
 SLOW = (
-    # 2026-09-06, local (M-series, nice -n 10): a single `closed`/`tape_left`
-    # cadquery render of the 200 mm print-in-place coil took > 16 min at
-    # 458 MB RSS. 3 modes x 4 parts x 4 preset states x 2 kernels behind that.
+    # zipper, measured 2026-09-06 02:13–02:47 CDMX, local (M-series,
+    # `nice -n 10`, both --openscad-path roots, -v): the process ran
+    # 33 min at ~326 MB RSS and had still not printed its first `ok`/`FAIL`
+    # line — working, not hung. An earlier attempt was killed at 16 min 38 s,
+    # also with no output. So the honest figure is a LOWER BOUND: zipper's
+    # 200 mm print-in-place coil costs > 33 min for the cartridge, against
+    # 3–5 min for a whole group of eight elsewhere on this pool. It has
+    # 3 modes x 4 parts x 4 preset states x 2 kernels to get through.
     "zipper",
 )
 
