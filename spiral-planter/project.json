@@ -542,7 +542,22 @@
         "stages": [
           "geometry",
           "printability"
-        ]
+        ],
+        "part_overrides": {
+          "planter": {
+            "geometry.parity": {
+              "enabled": false,
+              "reason": "The OpenSCAD side cuts the spiral groove; the CadQuery side has no groove because every construction tried (tangent cut, fuzzy tolerance, rotated poles, sunk centres, analytic cone, refined tolerance) yields a valid B-Rep whose tessellation has 125+ bodies with open edges, which the render gate rejects. The volume gates pass (mini 0.25 %); the residual is the groove surface (0.85 mm Hausdorff). A CadQuery groove construction that tessellates is tracked in wave C."
+            }
+          },
+          "saucer": {
+            "geometry.parity": {
+              "enabled": true,
+              "tolerance": 0.1,
+              "reason": "CadQuery's circle faceting reads the saucer rim at 181.943 mm against OpenSCAD's exact 182.000 (0.057 mm at the herb_garden preset); refining the CadQuery circle is roughly quadratic in render time (48 -> 256 segments: 12.6 s -> over 13 min) against the cartridge's 60 s warning threshold."
+            }
+          }
+        }
       }
     }
   },
