@@ -14,141 +14,448 @@
     },
     "thumbnail": "/projects/zipper.webp",
     "difficulty": "intermediate",
-    "tags": ["zipper", "closure", "coil", "slider", "separating", "garment", "wearable", "hyperobject", "commons"],
-    "hyperobject": { "is_hyperobject": true },
+    "tags": [
+      "zipper",
+      "closure",
+      "coil",
+      "slider",
+      "separating",
+      "garment",
+      "wearable",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
     "force_backend": true
   },
   "modes": [
     {
       "id": "closed",
-      "label": { "en": "Closed-end chain", "es": "Cadena de extremo cerrado" },
+      "label": {
+        "en": "Closed-end chain",
+        "es": "Cadena de extremo cerrado"
+      },
       "scad_file": "main.py",
       "cq_file": "main.py",
-      "parts": ["tape_left", "tape_right", "slider"],
-      "estimate": { "base_time": 40, "per_unit": 3, "per_part": 20 }
+      "parts": [
+        "tape_left",
+        "tape_right",
+        "bottom_stop",
+        "top_stop",
+        "slider"
+      ],
+      "estimate": {
+        "base_time": 40,
+        "per_unit": 3,
+        "per_part": 20
+      }
     },
     {
       "id": "separating",
-      "label": { "en": "Separating (jacket)", "es": "Separable (chamarra)" },
+      "label": {
+        "en": "Separating (jacket)",
+        "es": "Separable (chamarra)"
+      },
       "scad_file": "main.py",
       "cq_file": "main.py",
-      "parts": ["tape_left", "tape_right", "slider", "pin_box"],
-      "estimate": { "base_time": 44, "per_unit": 3, "per_part": 20 }
+      "parts": [
+        "tape_left",
+        "tape_right",
+        "pin_box",
+        "top_stop",
+        "slider"
+      ],
+      "estimate": {
+        "base_time": 44,
+        "per_unit": 3,
+        "per_part": 20
+      }
     },
     {
       "id": "slider",
-      "label": { "en": "Slider only", "es": "Solo deslizador" },
+      "label": {
+        "en": "Slider only",
+        "es": "Solo deslizador"
+      },
       "scad_file": "main.py",
       "cq_file": "main.py",
-      "parts": ["slider"],
-      "estimate": { "base_time": 8, "per_unit": 2, "per_part": 10 }
+      "parts": [
+        "slider"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 2,
+        "per_part": 10
+      }
     }
   ],
   "parts": [
-    { "id": "tape_left", "label": { "en": "Left Tape + Coil", "es": "Cinta + espiral izquierda" }, "render_mode": 0, "color": "#3a5468" },
-    { "id": "tape_right", "label": { "en": "Right Tape + Coil", "es": "Cinta + espiral derecha" }, "render_mode": 0, "color": "#3a5468" },
-    { "id": "slider", "label": { "en": "Slider", "es": "Deslizador" }, "render_mode": 0, "color": "#8a99a6" },
-    { "id": "pin_box", "label": { "en": "Pin Box", "es": "Caja de inserción" }, "render_mode": 0, "color": "#26333f" }
+    {
+      "id": "tape_left",
+      "label": {
+        "en": "Left Tape + Coil",
+        "es": "Cinta + espiral izquierda"
+      },
+      "render_mode": 0,
+      "color": "#3a5468"
+    },
+    {
+      "id": "tape_right",
+      "label": {
+        "en": "Right Tape + Coil",
+        "es": "Cinta + espiral derecha"
+      },
+      "render_mode": 0,
+      "color": "#3a5468"
+    },
+    {
+      "id": "slider",
+      "label": {
+        "en": "Slider",
+        "es": "Deslizador"
+      },
+      "render_mode": 0,
+      "color": "#8a99a6"
+    },
+    {
+      "id": "pin_box",
+      "label": {
+        "en": "Pin Box",
+        "es": "Caja de inserción"
+      },
+      "render_mode": 0,
+      "color": "#26333f"
+    },
+    {
+      "id": "top_stop",
+      "label": {
+        "en": "Top Stop",
+        "es": "Tope superior"
+      },
+      "render_mode": 0,
+      "color": "#26333f"
+    },
+    {
+      "id": "bottom_stop",
+      "label": {
+        "en": "Bottom Stop",
+        "es": "Tope inferior"
+      },
+      "render_mode": 0,
+      "color": "#26333f"
+    }
   ],
   "parameter_groups": [
-    { "id": "chain", "label": { "en": "Chain", "es": "Cadena" } },
-    { "id": "tape", "label": { "en": "Tape", "es": "Cinta" } },
-    { "id": "fit", "label": { "en": "Print Fit", "es": "Ajuste de impresión" } }
+    {
+      "id": "chain",
+      "label": {
+        "en": "Chain",
+        "es": "Cadena"
+      }
+    },
+    {
+      "id": "tape",
+      "label": {
+        "en": "Tape",
+        "es": "Cinta"
+      }
+    },
+    {
+      "id": "fit",
+      "label": {
+        "en": "Print Fit",
+        "es": "Ajuste de impresión"
+      }
+    }
   ],
   "parameters": [
     {
-      "id": "zip_length", "type": "slider", "default": 200, "min": 20, "max": 1200, "step": 5,
-      "group": "chain", "modes": ["closed", "separating"],
-      "label": { "en": "Zipper Length (mm)", "es": "Largo de cremallera (mm)" },
-      "tooltip": { "en": "Working coil length — maps from a garment opening's length", "es": "Largo útil de la espiral — se mapea del largo de una abertura de prenda" },
-      "preview_hint": { "type": "axis_scale", "axis": "z", "scale_factor": 1.0 }
+      "id": "zip_length",
+      "type": "slider",
+      "default": 200,
+      "min": 20,
+      "max": 1200,
+      "step": 5,
+      "group": "chain",
+      "modes": [
+        "closed",
+        "separating"
+      ],
+      "label": {
+        "en": "Zipper Length (mm)",
+        "es": "Largo de cremallera (mm)"
+      },
+      "tooltip": {
+        "en": "Working coil length — maps from a garment opening's length",
+        "es": "Largo útil de la espiral — se mapea del largo de una abertura de prenda"
+      },
+      "preview_hint": {
+        "type": "axis_scale",
+        "axis": "z",
+        "scale_factor": 1.0
+      }
     },
     {
-      "id": "chain_size", "type": "select", "default": "5",
-      "group": "chain", "modes": ["closed", "separating", "slider"],
-      "label": { "en": "Chain Size (gauge)", "es": "Calibre de cadena" },
-      "tooltip": { "en": "Nominal gauge = closed-chain width in mm (#5 ≈ 5 mm, the jacket standard)", "es": "Calibre nominal = ancho de cadena cerrada en mm (#5 ≈ 5 mm, estándar de chamarra)" },
+      "id": "chain_size",
+      "type": "select",
+      "default": "5",
+      "group": "chain",
+      "modes": [
+        "closed",
+        "separating",
+        "slider"
+      ],
+      "label": {
+        "en": "Chain Size (gauge)",
+        "es": "Calibre de cadena"
+      },
+      "tooltip": {
+        "en": "Nominal gauge = closed-chain width in mm (#5 ≈ 5 mm, the jacket standard)",
+        "es": "Calibre nominal = ancho de cadena cerrada en mm (#5 ≈ 5 mm, estándar de chamarra)"
+      },
       "options": [
-        { "value": "3", "label": { "en": "#3 (light / dresses)", "es": "#3 (ligera / vestidos)" } },
-        { "value": "5", "label": { "en": "#5 (jackets)", "es": "#5 (chamarras)" } },
-        { "value": "8", "label": { "en": "#8 (bags / heavy)", "es": "#8 (bolsas / pesada)" } },
-        { "value": "10", "label": { "en": "#10 (outerwear)", "es": "#10 (abrigos)" } }
+        {
+          "value": "3",
+          "label": {
+            "en": "#3 (light / dresses)",
+            "es": "#3 (ligera / vestidos)"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "#5 (jackets)",
+            "es": "#5 (chamarras)"
+          }
+        },
+        {
+          "value": "8",
+          "label": {
+            "en": "#8 (bags / heavy)",
+            "es": "#8 (bolsas / pesada)"
+          }
+        },
+        {
+          "value": "10",
+          "label": {
+            "en": "#10 (outerwear)",
+            "es": "#10 (abrigos)"
+          }
+        }
       ]
     },
     {
-      "id": "tape_width", "type": "slider", "default": 6.0, "min": 4.0, "max": 20.0, "step": 0.5,
-      "group": "tape", "modes": ["closed", "separating"],
-      "label": { "en": "Tape Width (mm)", "es": "Ancho de cinta (mm)" },
-      "tooltip": { "en": "Width of one tape strip, the sewn allowance beside the coil", "es": "Ancho de una cinta, el margen cosido junto a la espiral" }
+      "id": "tape_width",
+      "type": "slider",
+      "default": 6.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "tape",
+      "modes": [
+        "closed",
+        "separating"
+      ],
+      "label": {
+        "en": "Tape Width (mm)",
+        "es": "Ancho de cinta (mm)"
+      },
+      "tooltip": {
+        "en": "Width of one tape strip, the sewn allowance beside the coil",
+        "es": "Ancho de una cinta, el margen cosido junto a la espiral"
+      }
     },
     {
-      "id": "tape_thick", "type": "slider", "default": 1.4, "min": 1.0, "max": 3.0, "step": 0.1,
-      "group": "tape", "modes": ["closed", "separating"],
-      "label": { "en": "Tape Thickness (mm)", "es": "Grosor de cinta (mm)" },
-      "tooltip": { "en": "Tape thickness", "es": "Grosor de la cinta" }
+      "id": "tape_thick",
+      "type": "slider",
+      "default": 1.4,
+      "min": 1.0,
+      "max": 3.0,
+      "step": 0.1,
+      "group": "tape",
+      "modes": [
+        "closed",
+        "separating"
+      ],
+      "label": {
+        "en": "Tape Thickness (mm)",
+        "es": "Grosor de cinta (mm)"
+      },
+      "tooltip": {
+        "en": "Tape thickness",
+        "es": "Grosor de la cinta"
+      }
     },
     {
-      "id": "gap", "type": "slider", "default": 0.35, "min": 0.15, "max": 0.8, "step": 0.05,
-      "group": "fit", "modes": ["closed", "separating", "slider"],
-      "label": { "en": "Print Clearance (mm)", "es": "Holgura de impresión (mm)" },
-      "tooltip": { "en": "Clearance between the two halves and inside the slider channel — tune to your printer", "es": "Holgura entre las dos mitades y dentro del canal del deslizador — ajusta a tu impresora" }
+      "id": "gap",
+      "type": "slider",
+      "default": 0.35,
+      "min": 0.15,
+      "max": 0.8,
+      "step": 0.05,
+      "group": "fit",
+      "modes": [
+        "closed",
+        "separating",
+        "slider"
+      ],
+      "label": {
+        "en": "Print Clearance (mm)",
+        "es": "Holgura de impresión (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance between the two halves and inside the slider channel — tune to your printer",
+        "es": "Holgura entre las dos mitades y dentro del canal del deslizador — ajusta a tu impresora"
+      }
     }
   ],
   "presets": [
     {
-      "id": "dress_back", "mode": "closed",
-      "label": { "en": "Dress Back (#3, 55 cm)", "es": "Espalda de vestido (#3, 55 cm)" },
-      "values": { "zip_length": 550, "chain_size": "3", "tape_width": 5, "tape_thick": 1.2 }
+      "id": "dress_back",
+      "mode": "closed",
+      "label": {
+        "en": "Dress Back (#3, 55 cm)",
+        "es": "Espalda de vestido (#3, 55 cm)"
+      },
+      "values": {
+        "zip_length": 550,
+        "chain_size": "3",
+        "tape_width": 5,
+        "tape_thick": 1.2
+      }
     },
     {
-      "id": "jacket_front", "mode": "separating",
-      "label": { "en": "Jacket Front (#5, 65 cm)", "es": "Frente de chamarra (#5, 65 cm)" },
-      "values": { "zip_length": 650, "chain_size": "5", "tape_width": 6, "tape_thick": 1.4 }
+      "id": "jacket_front",
+      "mode": "separating",
+      "label": {
+        "en": "Jacket Front (#5, 65 cm)",
+        "es": "Frente de chamarra (#5, 65 cm)"
+      },
+      "values": {
+        "zip_length": 650,
+        "chain_size": "5",
+        "tape_width": 6,
+        "tape_thick": 1.4
+      }
     },
     {
-      "id": "duffel", "mode": "closed",
-      "label": { "en": "Duffel Bag (#8, 80 cm)", "es": "Bolsa de viaje (#8, 80 cm)" },
-      "values": { "zip_length": 800, "chain_size": "8", "tape_width": 8, "tape_thick": 1.8 }
+      "id": "duffel",
+      "mode": "closed",
+      "label": {
+        "en": "Duffel Bag (#8, 80 cm)",
+        "es": "Bolsa de viaje (#8, 80 cm)"
+      },
+      "values": {
+        "zip_length": 800,
+        "chain_size": "8",
+        "tape_width": 8,
+        "tape_thick": 1.8
+      }
     }
   ],
   "constraints": [
     {
       "expression": "tape_thick >= 1.0",
       "severity": "error",
-      "message": { "en": "Tape must be at least 1 mm to print without gaps", "es": "La cinta debe medir al menos 1 mm para imprimirse sin huecos" }
+      "message": {
+        "en": "Tape must be at least 1 mm to print without gaps",
+        "es": "La cinta debe medir al menos 1 mm para imprimirse sin huecos"
+      }
     },
     {
       "expression": "gap <= 0.6",
       "severity": "warning",
-      "message": { "en": "Large clearances let the coil slip; tighten if the zip won't hold", "es": "Holguras grandes hacen que la espiral se zafe; reduce si la cremallera no sostiene" }
+      "message": {
+        "en": "Large clearances let the coil slip; tighten if the zip won't hold",
+        "es": "Holguras grandes hacen que la espiral se zafe; reduce si la cremallera no sostiene"
+      }
     }
   ],
   "camera_views": [
-    { "id": "iso", "label": { "en": "Isometric", "es": "Isométrico" }, "position": [90, 90, 220] },
-    { "id": "front", "label": { "en": "Front", "es": "Frontal" }, "position": [0, -180, 120] },
-    { "id": "detail", "label": { "en": "Slider Detail", "es": "Detalle del deslizador" }, "position": [40, -60, 20] }
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        90,
+        220
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -180,
+        120
+      ]
+    },
+    {
+      "id": "detail",
+      "label": {
+        "en": "Slider Detail",
+        "es": "Detalle del deslizador"
+      },
+      "position": [
+        40,
+        -60,
+        20
+      ]
+    }
   ],
-  "export_formats": ["stl", "3mf", "step", "glb", "gltf", "obj"],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
   "estimate_constants": {
-    "base_time": 40, "per_unit": 3, "per_part": 20,
-    "fn_factor": 32, "wasm_multiplier": 4, "warning_threshold_seconds": 120
+    "base_time": 40,
+    "per_unit": 3,
+    "per_part": 20,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
   },
   "hyperobject": {
     "domain": "wearable",
     "cdg_interfaces": [
       {
         "id": "tape_edge",
-        "label": { "en": "Sewn Tape Edge", "es": "Canto de cinta cosido" },
+        "label": {
+          "en": "Sewn Tape Edge",
+          "es": "Canto de cinta cosido"
+        },
         "geometry_type": "flange",
         "standard": "internal",
-        "parameters": ["tape_width", "tape_thick", "zip_length"]
+        "parameters": [
+          "tape_width",
+          "tape_thick",
+          "zip_length"
+        ]
       },
       {
         "id": "slider_channel",
-        "label": { "en": "Slider Channel", "es": "Canal del deslizador" },
+        "label": {
+          "en": "Slider Channel",
+          "es": "Canal del deslizador"
+        },
         "geometry_type": "socket",
         "standard": "internal",
-        "parameters": ["chain_size", "gap"]
+        "parameters": [
+          "chain_size",
+          "gap"
+        ]
       }
     ],
     "material_awareness": {
@@ -198,5 +505,15 @@
       "mode": "separating"
     }
   ],
-  "tags": ["zipper", "closure", "coil", "slider", "separating", "garment", "wearable", "hyperobject", "commons"]
+  "tags": ["zipper", "closure", "coil", "slider", "separating", "garment", "wearable", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }
