@@ -85,7 +85,13 @@ def test_main_emits_a_json_matrix_and_a_slug_list(tmp_path, capsys):
     assert listing.read_text().split() == ["alpha", "beta", "zipper"]
 
 
-def test_limit_truncates_the_scope_for_a_proof_run(tmp_path, capsys):
+def test_limit_shortens_the_matrix_but_never_the_scope(tmp_path, capsys):
+    """--limit must leave a REAL shortfall for the completeness check to catch.
+
+    The first cut of this flag truncated the slug list too, so the report
+    compared 16 against 16, found nothing missing, and passed — reproducing in
+    the proof run the exact false green the lane exists to abolish.
+    """
     for i in range(20):
         (tmp_path / f"c{i:02d}").mkdir()
         (tmp_path / f"c{i:02d}" / "project.json").write_text("{}")
@@ -94,8 +100,23 @@ def test_limit_truncates_the_scope_for_a_proof_run(tmp_path, capsys):
              "--slug-list", str(listing)])
     out = capsys.readouterr()
     groups = json.loads(out.out)
+    # 16 rendered, in two full groups…
     assert [len(g.split()) for g in groups] == [8, 8]
-    # The slug list is the LIMITED scope, so the completeness check compares
-    # against what the matrix was actually told to render.
-    assert len(listing.read_text().split()) == 16
-    assert "deliberately incomplete" in out.err
+    # …against a scope that is still all 20. The four never rendered are the
+    # shortfall the report job has to fail on.
+    written = listing.read_text().split()
+    assert len(written) == 20
+    rendered = [s for g in groups for s in g.split()]
+    assert sorted(set(written) - set(rendered)) == ["c16", "c17", "c18", "c19"]
+    assert "DELIBERATELY incomplete" in out.err
+
+
+def test_no_limit_means_scope_equals_what_is_rendered(tmp_path, capsys):
+    for i in range(5):
+        (tmp_path / f"c{i}").mkdir()
+        (tmp_path / f"c{i}" / "project.json").write_text("{}")
+    listing = tmp_path / "scope.txt"
+    ns.main(["--root", str(tmp_path), "--chunks", "8", "--slug-list", str(listing)])
+    groups = json.loads(capsys.readouterr().out)
+    rendered = [s for g in groups for s in g.split()]
+    assert sorted(rendered) == sorted(listing.read_text().split())

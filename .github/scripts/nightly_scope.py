@@ -94,26 +94,35 @@ def main(argv=None) -> int:
     ap.add_argument("--chunks", type=int, default=8,
                     help="maximum cartridges per matrix group (default 8)")
     ap.add_argument("--limit", type=int, default=0,
-                    help="proof-run escape hatch: keep only the first N "
-                         "cartridges of the sorted scope. A limited run is "
-                         "DELIBERATELY incomplete and the completeness check "
-                         "must say so; never use it for a real nightly.")
+                    help="proof-run escape hatch: RENDER only the first N "
+                         "cartridges, while the scope stays the whole commons. "
+                         "That asymmetry is the point: the matrix is "
+                         "deliberately short of the bar, so the completeness "
+                         "check has something real to catch. Never use it for "
+                         "a real nightly.")
     ap.add_argument("--slug-list", metavar="FILE",
                     help="also write the full scope, one slug per line, here "
                          "(the completeness check reads it back)")
     args = ap.parse_args(argv)
 
-    slugs = cartridges(args.root)
-    total = len(slugs)
-    if args.limit and args.limit > 0:
-        slugs = slugs[:args.limit]
-        print(f"nightly scope: LIMITED to the first {len(slugs)} of {total} "
-              f"cartridges — this run is deliberately incomplete.",
-              file=sys.stderr)
-    groups = plan(slugs, args.chunks)
+    scope = cartridges(args.root)
+    # The SCOPE is always the whole commons — it is the bar. --limit shortens
+    # only what the matrix is told to RENDER, so a limited run under-covers the
+    # scope on purpose and the completeness check has a real shortfall to
+    # catch. Writing the shortened list as the scope instead would make the
+    # check compare N against N and pass, which is exactly the false green this
+    # lane exists to make impossible.
+    render = scope[:args.limit] if args.limit and args.limit > 0 else scope
+    if len(render) != len(scope):
+        print(f"nightly scope: LIMITED — rendering the first {len(render)} of "
+              f"{len(scope)} cartridges. The scope stays {len(scope)}, so this "
+              f"run is DELIBERATELY incomplete and the completeness check must "
+              f"fail the report job.", file=sys.stderr)
+    groups = plan(render, args.chunks)
     if args.slug_list:
         with open(args.slug_list, "w", encoding="utf-8") as fh:
-            fh.write("\n".join(slugs) + ("\n" if slugs else ""))
+            fh.write("\n".join(scope) + ("\n" if scope else ""))
+    slugs = render
     print(f"nightly scope: {len(slugs)} cartridge(s) in {len(groups)} group(s) "
           f"of at most {args.chunks}; {len([g for g in groups if ' ' not in g and g in SLOW])} "
           f"dedicated slow group(s).", file=sys.stderr)

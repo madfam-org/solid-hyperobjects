@@ -23,11 +23,12 @@ on:
         default: ""
       nightly_limit:
         description: >-
-          Proof-run escape hatch: render only the first N cartridges of the
-          sorted scope (e.g. 16 → the first two groups). A limited sweep is
-          DELIBERATELY incomplete, so the completeness check will fail the
-          report job and open the tracking issue — that is what it is for.
-          Leave blank for the full 500.
+          Proof-run escape hatch: RENDER only the first N cartridges (e.g. 16 →
+          the first two groups) while the scope stays the whole commons. The
+          run is therefore DELIBERATELY incomplete: the completeness check must
+          fail the report job and open the tracking issue with a NEVER RENDERED
+          row per missing cartridge — that is what it is for. Leave blank for
+          the full 500.
         required: false
         default: ""
 
@@ -258,9 +259,12 @@ jobs:
           echo "count=$(wc -l < nightly-scope.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
           echo "groups: $groups"
         env:
-          # Proof-run escape hatch only. A limited sweep is DELIBERATELY
-          # incomplete: the completeness check below will fail the report job
-          # and open the issue, which is exactly what a proof run has to show.
+          # Proof-run escape hatch only. It shortens the MATRIX, never the
+          # scope artifact, so the run under-covers the bar on purpose: the
+          # completeness check below then fails the report job and opens the
+          # issue, which is exactly what a proof run has to show. Shortening
+          # the scope too would make the check compare N against N and pass —
+          # the same false green this restructure exists to abolish.
           LIMIT: ${{ inputs.nightly_limit }}
 
       # The scope is an artifact rather than a job output because the report job
