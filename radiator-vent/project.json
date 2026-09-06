@@ -261,5 +261,15 @@
             "es": "Mejora el confort y la eficiencia de calefaccion en habitaciones donde los muebles o la ubicacion en la pared bloquean una rejilla, permitiendo imprimir un deflector o reemplazar una cubierta de zocalo rota en lugar de vivir con puntos frios o comprar toda una nueva carcasa de calefactor."
         },
         "commons_license": "CERN-OHL-W-2.0"
+    },
+    "verification": {
+        "stages": {
+            "geometry": {
+                "checks": {
+                    "watertight": { "enabled": true },
+                    "body_count": { "enabled": true, "expected": 1 }
+                }
+            }
+        }
     }
 }

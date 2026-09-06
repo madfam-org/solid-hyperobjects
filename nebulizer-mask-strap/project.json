@@ -248,5 +248,15 @@
       "es": "Una mascarilla de nebulizador suele desecharse cuando su elástico se degrada, aunque el cuerpo esté intacto — el elástico vive en un flujo cálido y húmedo y se lava. Los herrajes imprimibles sobre el estándar de cincha existente permiten volver a sujetar la misma mascarilla con cincha común y hacen el ajuste regulable para un niño o un paciente que no tolera el elástico de fábrica."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

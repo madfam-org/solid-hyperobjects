@@ -161,5 +161,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["ratchet", "pawl", "one-way", "mechanism", "industrial", "hyperobject", "commons"]
+  "tags": ["ratchet", "pawl", "one-way", "mechanism", "industrial", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

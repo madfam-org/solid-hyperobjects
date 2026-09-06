@@ -1978,5 +1978,32 @@
       "es": "Un estuche sellado impreso a la medida de lo que protege mantiene instrumentos, medicamentos y electrónica de campo secos e intactos sin comprar un estuche propietario. Las medidas del sello, la bisagra y el pestillo están publicadas, así que una tapa, una junta o un pestillo impreso en cualquier lugar encaja en un estuche impreso en otro."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    },
+    "mode_overrides": {
+      "complete": {
+        "part_overrides": {
+          "latches": { "geometry.body_count": { "expected": "numberOfLatches" } }
+        }
+      },
+      "latches": {
+        "part_overrides": {
+          "latches": { "geometry.body_count": { "expected": "numberOfLatches" } }
+        }
+      },
+      "feet": {
+        "part_overrides": {
+          "feet": { "geometry.body_count": { "expected": 4 } }
+        }
+      }
+    }
   }
 }

@@ -453,5 +453,15 @@
       "es": "La brida de casquillo Porter-Cable es el estándar abierto del fresado con plantilla — plantillas de cola de milano, kits de incrustación, plantillas de bisagra y plantillas de letreros la referencian. Un casquillo perdido o de tamaño raro detiene un trabajo; imprimir el DE de barril exacto, un adaptador de base para una fresadora no estándar, o un collar de desplazamiento preciso restaura el corte en minutos y cuesta centavos, en vez de comprar un juego completo. El `wall` y `bit_clear` ajustables permiten adaptar un casquillo a una broca y un desplazamiento de plantilla específicos."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

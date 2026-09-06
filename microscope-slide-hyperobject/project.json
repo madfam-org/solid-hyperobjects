@@ -189,5 +189,15 @@
     "fn_factor": 32,
     "wasm_multiplier": 3,
     "warning_threshold_seconds": 60
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

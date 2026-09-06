@@ -319,5 +319,15 @@
       "es": "Una etapa planetaria concentra una gran reducción en un cilindro coaxial, por eso vive dentro de taladros inalámbricos, extrusores de impresora, cabezales de cámara y todo actuador que deba ser fuerte y corto a la vez. Comprar una es comprar una caja sellada: cuando un solo planeta de nylon se barre, la unidad entera es chatarra. Imprimir los tres engranes desde un módulo compartido convierte eso en una reimpresión de diez gramos, y como los números de dientes están expuestos y no fijos, un fabricante puede reajustar la relación al trabajo en vez de ajustar el trabajo al catálogo. Es también la forma honesta más barata de enseñar movimiento epicíclico — la relación se ve en los dientes, no oculta en una hoja de datos."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

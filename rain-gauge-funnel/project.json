@@ -208,5 +208,15 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["rain-gauge", "pluviometer", "hydrology", "citizen-science", "weather", "bottle-thread", "pco-1881", "infrastructure", "hyperobject", "commons"]
+  "tags": ["rain-gauge", "pluviometer", "hydrology", "citizen-science", "weather", "bottle-thread", "pco-1881", "infrastructure", "hyperobject", "commons"],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
+  }
 }

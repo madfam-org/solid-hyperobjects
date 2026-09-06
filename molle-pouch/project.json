@@ -303,5 +303,15 @@
       "es": "PALS es algo raro: una rejilla de carga genuinamente abierta, sin patente y cosida en millones de mochilas, chalecos, bolsas y paneles ya en circulación. Eso la convierte en el estándar de sujeción más duradero al que un fabricante puede apuntar — lo construido para ella sigue siendo útil entre marcas y décadas. Lo que falta en el ecosistema es el herraje pequeño, porque las bolsas se venden como artículos cosidos completos y un solo clip roto obliga a reemplazar la bolsa entera. Imprimir el clip, la presilla y un cuerpo de bolsa simple al paso real de PALS convierte un producto fijo en un sistema adaptable: una persona en silla de ruedas puede colgar una herramienta donde la alcance, un paramédico puede acomodar su kit a su manera, y una bolsa gastada recibe un clip nuevo en vez de un viaje al relleno sanitario."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

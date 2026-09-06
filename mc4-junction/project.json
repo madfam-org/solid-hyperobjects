@@ -271,5 +271,15 @@
       "es": "Todo arreglo en techo o aislado termina en un nido de conectores MC4, y los conectores mismos son lo único que alguien especifica — el trabajo mecánico de sostenerlos fuera de la membrana del techo, lejos del agua estancada y libres de tensión del cable se deja a cinchos y esperanza. Los cables sin alivio se endurecen por trabajo en el prensaestopas y fallan de una forma cara de encontrar. Una cuna impresa cuesta gramos y convierte ese modo de falla oculto en uno resuelto, lo que importa más justo en las instalaciones que no pueden pagar una visita técnica: sistemas rurales, comunitarios y autoconstruidos. La pieza es deliberadamente no conductora y no estructural — organiza, y deja que los conectores certificados hagan todo el trabajo eléctrico."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }

@@ -410,5 +410,15 @@
       "es": "Los rieles Picatinny, NATO y Arca-Swiss dominan cada uno un mundo distinto — óptica/armas, accesorios tácticos y fotografía — y ninguno encaja con los demás. Un puente impreso de doble cara permite a un fotógrafo sujetar una rótula Arca en un riel NATO, o a un maker montar un accesorio Picatinny en una placa de trípode, sin comprar un adaptador cruzado propietario para cada combinación. Un bloque abierto colapsa tres ecosistemas incompatibles en uno interoperable."
     },
     "commons_license": "CERN-OHL-W-2.0"
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": { "enabled": true },
+          "body_count": { "enabled": true, "expected": 1 }
+        }
+      }
+    }
   }
 }
