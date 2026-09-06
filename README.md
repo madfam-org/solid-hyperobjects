@@ -37,7 +37,7 @@ repo is `projects/<slug>/project.json` there, unchanged.
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@308efae80b0e8d03d6e4d018d2d9c1ebce9406d6"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@db65cf1e7a2732d7263efd6eb6ba533640eb536f"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
