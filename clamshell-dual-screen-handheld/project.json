@@ -1,6 +1,7 @@
 {
   "project": {
     "name": "Clamshell Dual-Screen Handheld",
+    "thumbnail": "/projects/clamshell-dual-screen-handheld.webp",
     "slug": "clamshell-dual-screen-handheld",
     "version": "0.1.0",
     "engine": "cadquery",
