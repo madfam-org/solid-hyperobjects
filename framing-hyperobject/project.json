@@ -79,6 +79,9 @@
   "parameters": [
     {
       "id": "target_material",
+      "intentionally_unused": {
+        "reason": "Hidden manifest metadata (hidden: true, so the UI offers no control): it records the print material the cartridge's tolerances were authored against, for the platform's material-aware estimates. The frame, backing board and glazing are identical for every option, and this cartridge declares no material-driven compensation (hyperobject.material_awareness is false on all three flags)."
+      },
       "type": "select",
       "default": "polymaker-polylite-pla",
       "options": [
@@ -314,6 +317,9 @@
     },
     {
       "id": "mat_width",
+      "intentionally_unused": {
+        "reason": "The mat (passepartout) is not a printed part of this cartridge: the three declared parts are the frame, the backing board and the glazing, and the mat is board the framer cuts. mat_width is declared so the two feasibility constraints ('mat_width * 2 < width' and '< height') can reject a mat that closes the window, and so the rabbet_joint CDG interface publishes the mount-board width a mating cartridge has to clear."
+      },
       "type": "slider",
       "default": 50,
       "min": 0,

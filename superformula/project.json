@@ -154,6 +154,9 @@
     },
     {
       "id": "m2",
+      "intentionally_unused": {
+        "reason": "The vase is a skin through superformula CROSS-SECTIONS: only the angular symmetry m1 shapes a section, and the vertical profile is the sinusoidal taper inside _ring()/ring(), not a second superformula. m2 is the Gielis formula's latitudinal symmetry, which this construction never evaluates; wiring it would change the shape every preset renders today. Kept because the five presets (each setting m2 = m1) and the README pin it."
+      },
       "type": "slider",
       "default": 5,
       "min": 1,

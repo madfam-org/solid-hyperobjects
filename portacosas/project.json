@@ -446,6 +446,9 @@
     },
     {
       "id": "phone_angle",
+      "intentionally_unused": {
+        "reason": "The cradle's recline is fixed by the hull in desk_organizer.scad's phone_stand(), which falls from stand_h = wall_height * 0.8 to lip_h = 10 over stand_d = 40 - about 53 degrees, not the 65 this slider declares as its default. Wiring it would therefore change the solid that the defaults and all five presets render today, so the mismatch is recorded here as debt instead: the fix is to rebuild phone_stand() around the angle in a change that restates the presets."
+      },
       "type": "slider",
       "default": 65,
       "min": 45,
@@ -523,6 +526,9 @@
     },
     {
       "id": "card_angle",
+      "intentionally_unused": {
+        "reason": "The card pocket's taper is fixed by the hull in desk_organizer.scad's card_slot(), which falls from slot_h = wall_height * 0.4 to slot_h * 0.3 over card_depth = 60 - about 20 degrees, at the top of this slider's 5-20 range and twice its declared 10-degree default. Wiring it would change the solid the defaults and all five presets render today, so the mismatch is recorded here as debt: the fix is to rebuild card_slot() around the angle in a change that restates the presets."
+      },
       "type": "slider",
       "default": 10,
       "min": 5,

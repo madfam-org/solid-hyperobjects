@@ -656,6 +656,9 @@
         },
         {
             "id": "kinematic_value",
+            "intentionally_unused": {
+                "reason": "Actuation, not geometry: it drives the manifest's `kinematics` articulation in the viewer (blade in slip_joint, lever_assembly in over_center, latch_arm in snap_latch - exactly the three modes this parameter is visible in) between 0 = at rest and 1 = fully actuated. The printed solid must be the same body at every position of the slider, so no source reads it."
+            },
             "type": "slider",
             "default": 0,
             "min": 0,

@@ -240,6 +240,9 @@
     "parameters": [
         {
             "id": "target_material",
+            "intentionally_unused": {
+                "reason": "Feeds the material-aware behaviour this cartridge declares (hyperobject.material_awareness: shrinkage_compensation and tolerance_by_material both true), which the platform applies outside the geometry source. main.py models the same rigid core and the same compliant fingers for every option - printing the elastic zones in TPU is a material choice, and the flexures' stiffness is set geometrically by flexure_thickness."
+            },
             "type": "select",
             "default": "bambu-tpu-95a",
             "options": [
