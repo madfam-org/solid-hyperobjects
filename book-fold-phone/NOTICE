@@ -1,0 +1,128 @@
+NOTICE — provenance and what the named presets are
+==================================================
+
+Book-Fold Phone (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+No third-party code or design files are vendored in this cartridge.
+
+
+An archetype, not a replica
+---------------------------
+
+This cartridge models a FAMILY — two rigid half-frames on a fold axis along the
+long edge, one continuous display folded inward across both of them, a second
+display on the outside of one half — which is ours to license. It does not model
+any manufacturer's product.
+
+Named devices appear only as PRESETS. A preset is a set of numbers, and every
+number in it is either:
+
+  * a DIMENSION THE MANUFACTURER PUBLISHED, carried from Telesia's device
+    geometry registry (`data/registry/device-geometry.json`), where each value
+    records its source tier, URL, retrieval date and the line it was quoted
+    from; or
+
+  * a value DERIVED from such a dimension by an archetype rule that is OURS and
+    is written down (docs/README.md, "Archetype derivation rules"); or
+
+  * an ARCHETYPE DEFAULT that is ours outright.
+
+Nothing else. In particular this cartridge reproduces no logo, no wordmark, no
+badge, no colourway, no textures, no vents, no parting lines, no button glyphs,
+and no surface detail of any kind beyond what a published outline, a published
+display active area and a published port list imply. It is deliberately a pair
+of plain slabs: the shape you get is the archetype's, not the product's.
+
+**A preset is a fit envelope, not a likeness.** It is there so a cradle, a dock,
+a travel shell or a repair fixture can be built to the right size.
+
+
+What is SOURCED here that the clamshell cartridge had to guess
+--------------------------------------------------------------
+
+Worth stating plainly, because it is what makes this family's presets stronger
+than the clamshell's: manufacturers in this family publish BOTH a closed and an
+open envelope, and three of this model's load-bearing numbers fall straight out
+of that pair rather than out of a rule of ours.
+
+  * `half_thickness` is the published OPEN depth. The open body is one half.
+  * The hinge gap is the published closed depth LESS TWICE the published open
+    depth. It is recorded per preset under `registry.hinge_gap_mm`.
+  * `camera_half_width` is the published open width LESS the published closed
+    width. A book fold closes because one half is narrower than the other, and
+    that difference is the manufacturer's own arithmetic.
+
+On 26 of the 27 presets the model's closed AND open bounding boxes reproduce
+the published figures to 0.000 mm on every axis. The exception is noted below.
+
+
+What is ours, specifically
+--------------------------
+
+These are the archetype's own decisions. They are not, and must not be read as,
+statements about any device:
+
+  * Corner radius. No manufacturer in this family publishes one — 0 of the
+    registry's 84 devices — so every corner radius here is ours. So is the
+    decision to round only the OPENING edge and leave the spine square in plan.
+  * The crease relief: its radius, its running clearance and how far it runs.
+    The hinge leaf in its entirety. A real free-stop teardrop hinge is a
+    multi-link mechanism no published source describes for any device in this
+    family.
+  * Display recess depth, and where each display sits within its frame (the
+    presets centre it; no manufacturer publishes a bezel split). Where a display
+    active area is unresolved in the registry, the WINDOW is the published
+    envelope inset by an archetype bezel — the envelope is the manufacturer's,
+    the inset is ours, and the preset names it as a fallback.
+  * The camera island in its entirety: its size, its position, the number of
+    apertures and their size. The registry records no camera geometry for any
+    device in this family. It is also modelled as a RECESS rather than a raised
+    bump, because every depth published in this family excludes the camera bump
+    and none publishes its height — raising one would invent a dimension.
+  * Every button's size, position and count. The registry's only control kind in
+    this family is `fingerprint`, on 4 of 28 devices, and it records no button
+    geometry.
+  * The port opening sizes and where along a face they sit. Only the PRESENCE of
+    a port is sourced.
+  * The card tray in its entirety apart from its presence.
+  * The speaker grille in its entirety.
+
+
+Where the published numbers disagree with each other
+-----------------------------------------------------
+
+One device's two published figures cannot both hold for a body of two equal
+halves, and this cartridge says so rather than quietly splitting the difference:
+
+  * OPPO Find N3 (`oppo-find-n3`) — OPPO publishes a closed depth of 11.7 mm and
+    an open depth of 5.9 mm; twice 5.9 is 11.8. The CLOSED envelope is the one
+    this cartridge asserts against, so the half thickness is derived from it
+    (5.825 mm) and the preset names that as a fallback. The model's open depth is
+    therefore 0.075 mm from OPPO's published figure, which is reported in the
+    verification table rather than hidden. OPPO also publishes no open width or
+    open height for this model, so its camera half falls back to the cover half's
+    width and its open envelope is a model output, not a device claim.
+
+
+Devices with no preset
+----------------------
+
+One device the registry files in this family has no preset, because its closed
+envelope is unresolved and this cartridge will not invent one:
+
+  * Samsung Galaxy Z Fold Special Edition (`samsung-galaxy-z-fold-special-edition`)
+    — Samsung's Korean launch release gives a closed thickness (10.6 mm) and a
+    mass, but no closed height or width and no open envelope at all.
+
+`null = unresolved, never guessed`.
+
+
+Trademarks
+----------
+
+Product and company names that appear in preset labels and in provenance lines
+are the trademarks of their respective owners and are used only to say which
+published measurements a preset carries. Their use here is nominative: no
+affiliation, sponsorship or endorsement is claimed or implied.
