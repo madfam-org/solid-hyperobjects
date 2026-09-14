@@ -476,6 +476,9 @@
     },
     {
       "id": "amputation_level",
+      "intentionally_unused": {
+        "reason": "Legacy control of the OpenSCAD implementation (socket.scad) that this cartridge no longer ships: the CadQuery modes select below- from above-knee by mode and target_part ('transtibial' / 'transfemoral'), so main.py has no use for the flag. Kept because the three *_scad presets still set it; retiring the whole legacy vocabulary with those presets is one coherent follow-up, not a partial strip."
+      },
       "type": "slider",
       "default": 0,
       "min": 0,
@@ -493,6 +496,9 @@
     },
     {
       "id": "circumference_top",
+      "intentionally_unused": {
+        "reason": "Legacy OpenSCAD (socket.scad) limb measurement; the CadQuery socket sizes its brim from proximal_dia, a diameter rather than a circumference, and socket.scad is no longer shipped. Kept because the three *_scad presets still set it."
+      },
       "type": "slider",
       "default": 350,
       "min": 200,
@@ -510,6 +516,9 @@
     },
     {
       "id": "circumference_bottom",
+      "intentionally_unused": {
+        "reason": "Legacy OpenSCAD (socket.scad) limb measurement; the CadQuery socket sizes its distal end from distal_dia, a diameter rather than a circumference, and socket.scad is no longer shipped. Kept because the three *_scad presets still set it."
+      },
       "type": "slider",
       "default": 250,
       "min": 150,
@@ -540,6 +549,9 @@
     },
     {
       "id": "voronoi_density",
+      "intentionally_unused": {
+        "reason": "Legacy OpenSCAD (socket.scad) control of the Voronoi breathing shell; the CadQuery socket's breathability is the ring pattern driven by `ventilation` and `vent_density`, and no Voronoi surface is modelled here. Kept with the rest of the legacy vocabulary the docs and the three *_scad presets still describe."
+      },
       "type": "slider",
       "default": 10,
       "min": 5,
@@ -556,20 +568,10 @@
       "group": "pattern"
     },
     {
-      "id": "wall_thickness",
-      "type": "slider",
-      "default": 4,
-      "min": 3,
-      "max": 8,
-      "step": 0.5,
-      "label": {
-        "en": "Wall Thickness (mm)",
-        "es": "Grosor de Pared (mm)"
-      },
-      "group": "structure"
-    },
-    {
       "id": "fn",
+      "intentionally_unused": {
+        "reason": "Legacy OpenSCAD `$fn` quality control from socket.scad; main.py is CadQuery/B-Rep, its lofted elliptical sections are analytic and there is no facet count to set. Kept with the rest of the legacy vocabulary the docs still describe."
+      },
       "type": "slider",
       "default": 0,
       "min": 0,

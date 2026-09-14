@@ -82,6 +82,9 @@
   "parameters": [
     {
       "id": "target_material",
+      "intentionally_unused": {
+        "reason": "Hidden manifest metadata (hidden: true, so the UI offers no control): it records the print material the lattice is destined for, for the platform's material-aware estimates. The surface is identical for every option and this cartridge declares no material-driven compensation (hyperobject.material_awareness is false on all three flags)."
+      },
       "type": "select",
       "default": "polymaker-polylite-pla",
       "options": [
@@ -106,6 +109,9 @@
     },
     {
       "id": "topology_type",
+      "intentionally_unused": {
+        "reason": "Read by the implicit engine this cartridge declares (project.engine = 'implicit'), which is configured from project.hyperobject.implicit_field ('topology': 'gyroid', matching this slider's default 0) - not by tpms.py. tpms.py is only the bounding-volume proxy the CadQuery render path needs, and a proxy whose box changed with the field parameters would misreport the lattice's bounds."
+      },
       "type": "slider",
       "widget": {
         "type": "custom"
@@ -120,6 +126,9 @@
     },
     {
       "id": "frequency",
+      "intentionally_unused": {
+        "reason": "Read by the implicit engine this cartridge declares (project.engine = 'implicit'), which is configured from project.hyperobject.implicit_field ('base_frequency': 5.0, matching this slider's default) - not by tpms.py, which is only the bounding-volume proxy for the CadQuery render path and deliberately renders the same box at every frequency."
+      },
       "type": "slider",
       "min": 1,
       "max": 20,

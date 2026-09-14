@@ -234,6 +234,9 @@
     "parameters": [
         {
             "id": "target_material",
+            "intentionally_unused": {
+                "reason": "Print-material metadata for the material-aware tolerancing this cartridge declares (hyperobject.material_awareness.tolerance_by_material is true), which the platform applies outside the geometry source. robot.py and robot.scad build the same ten parts for every option - PLA against SLA is a print-time decision, not a geometric one."
+            },
             "type": "select",
             "default": "polymaker-polylite-pla",
             "options": [
@@ -365,6 +368,9 @@
         },
         {
             "id": "drive_type",
+            "intentionally_unused": {
+                "reason": "Documents which transmission the build targets. Only the harmonic option is modelled: the `harmonic_drive` mode builds the wave generator, flexspline and circular spline, while the GT2-belt and spur-gear configurations have no parts in this research-stage pack (README, 'What is not here (yet)'). No source can branch on it until those parts exist."
+            },
             "type": "select",
             "default": "harmonic",
             "options": [

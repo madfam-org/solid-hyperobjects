@@ -764,6 +764,9 @@
     },
     {
       "id": "drainage_angle",
+      "intentionally_unused": {
+        "reason": "Reserved for a fluid-drainage feature that is not modelled yet: rack.scad drains through the open skeletal base (open_bottom), it never tilts the slots, and the source, the tooltip and both READMEs already say so. Kept rather than removed so the default_rack preset that already carries the value keeps validating until the tilt is built."
+      },
       "type": "slider",
       "default": 5,
       "min": 0,

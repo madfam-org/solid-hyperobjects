@@ -73,14 +73,18 @@ the three modes render as three distinct geometries.
 | Breathability | `ventilation` | off | Ring pattern of wall holes (forced on for check socket). |
 | Breathability | `vent_density` | 8 | Holes per ventilation ring. |
 
-### OpenSCAD-extended parameters
+### Legacy OpenSCAD parameters
 
-The legacy OpenSCAD modes (`transtibial_socket`, `transfemoral_socket`) add their
-own parameters by group — a **Limb Type** group (`amputation_level`), a
-**Measurements** group (`circumference_top`, `circumference_bottom`, `length`), a
-**Pattern** group (`voronoi_density`, driving the breathable Voronoi shell), a
-**Structure** group (`wall_thickness`), and a **Quality** group (`fn`, $fn). Only
-the OpenSCAD modes expose these legacy rows.
+`socket.scad` is no longer shipped, so the rows it drove now drive nothing: a
+**Limb Type** group (`amputation_level`), a **Measurements** group
+(`circumference_top`, `circumference_bottom`, `length`), a **Pattern** group
+(`voronoi_density`, which drove the breathable Voronoi shell) and a **Quality**
+group (`fn`, `$fn`). Each carries `intentionally_unused` in the manifest saying
+what now does its job, and they are kept only because the three
+`*_scad` presets still set them — retiring the vocabulary together with those
+presets is the outstanding cleanup. The duplicate `wall_thickness` row was
+removed: `wall`, in the same **Structure** group and under the same label, is the
+live control.
 
 ## Presets
 

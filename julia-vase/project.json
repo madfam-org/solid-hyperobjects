@@ -99,6 +99,9 @@
     },
     {
       "id": "twist_angle",
+      "intentionally_unused": {
+        "reason": "Both sources build a surface of revolution whose radius depends only on height (rotate_extrude in vase.scad, .revolve() in vase.py), so the solid is rotationally symmetric about Z and twisting the profile by any angle yields the identical body - the control cannot change this geometry until the cross-section stops being a circle. Kept because four presets (smooth_cylinder 0 through fractal_complex 540) and the README pin it, and it is the control that becomes live the day a lobed section is added."
+      },
       "type": "slider",
       "label": {
         "en": "Twist Angle",
