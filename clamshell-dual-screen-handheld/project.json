@@ -2701,7 +2701,7 @@
       "path": "data/registry/device-geometry.json",
       "schema": "telesia.device_geometry.v1",
       "snapshot": "2026-09-13",
-      "sha256": "129bb8678a5ac9805867755a7ef3bb007e02cf3bac76e2fcf8122d27cd39bb3c",
+      "sha256": "ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0",
       "rule": "null = unresolved, never guessed; every number carries its source"
     },
     "family": "clamshell-dual-screen-handheld",

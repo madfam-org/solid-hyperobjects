@@ -136,33 +136,33 @@ displays, features).
 
 | Preset | Closed H × W × D (mm) | Open H × W × D (mm) | Gap (mm) | Registry source (tier `primary`) | Groups that fell back to the archetype |
 |---|---|---|---|---|---|
-| `xiaomi-mix-fold-3` | 161.2 × 73.5 × 10.96 | 161.2 × 143.28 × 5.26 | 0.44 | mi.com/xiaomi-mix-fold-3/specs | display windows (inner + cover) |
-| `xiaomi-mix-fold-4` | 159.37 × 73.1 × 9.47 | 159.37 × 143.3 × 4.59 | 0.29 | mi.com/prod/xiaomi-mix-fold-4/specs | display windows (inner + cover) |
-| `vivo-x-fold-3-pro` | 159.96 × 72.55 × 11.2 | 159.96 × 142.4 × 5.2 | 0.8 | vivo.com/en/products/param/x-fold3-pro | display windows (inner + cover) |
-| `vivo-x-fold-5` | 159.68 × 72.6 × 9.2 | 159.68 × 142.29 × 4.3 | 0.6 | vivo.com/en/products/param/x-fold5 | display windows (inner + cover) |
-| `oppo-find-n3` ‡ | 153.4 × 73.3 × 11.7 | — × — × 5.9 | 0.05 | oppo.com/en/smartphones/series-find-n/find-n3/specs/ | half thickness (see ‡); camera-half width (no published open width); display windows |
-| `oppo-find-n5` | 160.87 × 74.42 × 8.93 | 160.87 × 146.58 × 4.21 | 0.51 | oppo.com/en/smartphones/series-find-n/find-n5/specs/ | display windows (inner + cover) |
-| `honor-magic-v2` | 156.7 × 74.0 × 10.1 | 156.7 × 145.4 × 4.8 | 0.5 | honor.com/global/phones/honor-magic-v2/spec/ | display windows (inner + cover) |
-| `honor-magic-v3` | 156.6 × 74.0 × 9.3 | 156.6 × 145.3 × 4.4 | 0.5 | honor.com/global/phones/honor-magic-v3/spec/ | display windows (inner + cover) |
-| `honor-magic-v5` | 156.8 × 74.3 × 9.0 | 156.8 × 145.9 × 4.2 | 0.6 | honor.com/global/phones/honor-magic-v5/spec/ | display windows (inner + cover) |
-| `huawei-mate-x3` | 156.9 × 72.4 × 11.08 | 156.9 × 141.5 × 5.3 | 0.48 | consumer.huawei.com/om/phones/mate-x3/specs/ | display windows (inner + cover) |
-| `huawei-mate-x5` | 156.9 × 72.4 × 11.08 | 156.9 × 141.5 × 5.3 | 0.48 | web.archive.org/…/consumer.huawei.com/cn/phones/mate-x5/specs/ | display windows (inner + cover) |
-| `huawei-mate-x6` | 156.6 × 73.78 × 9.9 | 156.6 × 144.04 × 4.6 | 0.7 | consumer.huawei.com/en/phones/mate-x6/specs/ | display windows (inner + cover) |
-| `oneplus-open` | 153.4 × 73.3 × 11.9 | 153.4 × 143.1 × 5.9 | 0.1 | oneplus.com/us/open/specs | display windows (inner + cover) |
-| `google-pixel-fold` | 139.7 × 79.5 × 12.1 | 139.7 × 158.7 × 5.8 | 0.5 | web.archive.org/…/store.google.com/gb/product/pixel_fold_specs | display windows (inner + cover) |
-| `google-pixel-10-pro-fold` | 155.2 × 76.3 × 10.8 | 155.2 × 150.4 × 5.2 | 0.4 | store.google.com/gb/product/pixel_10_pro_fold_specs | display windows (inner + cover) |
-| `samsung-galaxy-fold` | 160.9 × 62.8 × 17.1 | 160.9 × 117.9 × 7.6 | 1.9 | news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category… | display windows (inner + cover) |
-| `samsung-galaxy-z-fold2` | 159.2 × 68.0 × 16.8 | 159.2 × 128.2 × 6.9 | 3.0 | news.samsung.com/global/introducing-the-galaxy-z-fold2… | display windows (inner + cover) |
-| `samsung-galaxy-z-fold3` | 158.2 × 67.1 × 16.0 | 158.2 × 128.1 × 6.4 | 3.2 | news.samsung.com/global/the-next-chapter-in-mobile-innovation… | display windows; sim card slot |
-| `samsung-galaxy-z-fold4` | 155.1 × 67.1 × 15.8 | 155.1 × 130.1 × 6.3 | 3.2 | news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4… | display windows; sim card slot |
-| `samsung-galaxy-z-fold5` | 154.9 × 67.1 × 13.4 | 154.9 × 129.9 × 6.1 | 1.2 | news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5… | display windows; sim card slot |
-| `samsung-galaxy-z-fold6` | 153.5 × 68.1 × 12.1 | 153.5 × 132.6 × 5.6 | 0.9 | news.samsung.com/global/samsung-galaxy-z-fold-6-and-z-flip-6… | display windows; sim card slot |
-| `samsung-galaxy-z-fold7` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.2 | 0.5 | news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones | display windows; sim card slot |
-| `samsung-galaxy-z-fold8` | 123.9 × 81.9 × 9.7 | 123.9 × 161.4 × 4.5 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | display windows (inner + cover) |
-| `samsung-galaxy-z-fold8-ultra` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.1 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | display windows; sim card slot |
-| `google-pixel-9-pro-fold` | 155.2 × 77.1 × 10.5 | 155.2 × 150.2 × 5.1 | 0.3 | store.google.com/gb/product/pixel_9_pro_fold_specs | display windows (inner + cover) |
-| `google-pixel-11-pro-fold` | 155.2 × 76 × 10.1 | 155.2 × 150.4 × 5.0 | 0.1 | store.google.com/gb/product/pixel_11_pro_fold_specs | display windows (inner + cover) |
-| `apple-iphone-duo` † | 117.8 × 84.1 × 11.3 | 117.8 × 164.6 × 5.2 | 0.9 | apple.com/iphone-duo/specs/ | **none** |
+| `xiaomi-mix-fold-3` | 161.2 × 73.5 × 10.96 | 161.2 × 143.28 × 5.26 | 0.44 | mi.com/xiaomi-mix-fold-3/specs | — |
+| `xiaomi-mix-fold-4` | 159.37 × 73.1 × 9.47 | 159.37 × 143.3 × 4.59 | 0.29 | mi.com/prod/xiaomi-mix-fold-4/specs | — |
+| `vivo-x-fold-3-pro` | 159.96 × 72.55 × 11.2 | 159.96 × 142.4 × 5.2 | 0.8 | vivo.com/en/products/param/x-fold3-pro | — |
+| `vivo-x-fold-5` | 159.68 × 72.6 × 9.2 | 159.68 × 142.29 × 4.3 | 0.6 | vivo.com/en/products/param/x-fold5 | — |
+| `oppo-find-n3` ‡ | 153.4 × 73.3 × 11.7 | — × — × 5.9 | 0.05 | oppo.com/en/smartphones/series-find-n/find-n3/specs/ | half thickness (the published open depth and closed depth cannot both hold with two equal halves), camera-half width (no published open width), inner display active area |
+| `oppo-find-n5` | 160.87 × 74.42 × 8.93 | 160.87 × 146.58 × 4.21 | 0.51 | oppo.com/en/smartphones/series-find-n/find-n5/specs/ | inner display active area |
+| `honor-magic-v2` | 156.7 × 74.0 × 10.1 | 156.7 × 145.4 × 4.8 | 0.5 | honor.com/global/phones/honor-magic-v2/spec/ | — |
+| `honor-magic-v3` | 156.6 × 74.0 × 9.3 | 156.6 × 145.3 × 4.4 | 0.5 | honor.com/global/phones/honor-magic-v3/spec/ | — |
+| `honor-magic-v5` | 156.8 × 74.3 × 9.0 | 156.8 × 145.9 × 4.2 | 0.6 | honor.com/global/phones/honor-magic-v5/spec/ | — |
+| `huawei-mate-x3` | 156.9 × 72.4 × 11.08 | 156.9 × 141.5 × 5.3 | 0.48 | consumer.huawei.com/om/phones/mate-x3/specs/ | — |
+| `huawei-mate-x5` | 156.9 × 72.4 × 11.08 | 156.9 × 141.5 × 5.3 | 0.48 | web.archive.org/…/consumer.huawei.com/cn/phones/mate-x5/specs/ | — |
+| `huawei-mate-x6` | 156.6 × 73.78 × 9.9 | 156.6 × 144.04 × 4.6 | 0.7 | consumer.huawei.com/en/phones/mate-x6/specs/ | — |
+| `oneplus-open` | 153.4 × 73.3 × 11.9 | 153.4 × 143.1 × 5.9 | 0.1 | oneplus.com/us/open/specs | — |
+| `google-pixel-fold` | 139.7 × 79.5 × 12.1 | 139.7 × 158.7 × 5.8 | 0.5 | web.archive.org/…/store.google.com/gb/product/pixel_fold_specs | — |
+| `google-pixel-10-pro-fold` | 155.2 × 76.3 × 10.8 | 155.2 × 150.4 × 5.2 | 0.4 | store.google.com/gb/product/pixel_10_pro_fold_specs | — |
+| `samsung-galaxy-fold` | 160.9 × 62.8 × 17.1 | 160.9 × 117.9 × 7.6 | 1.9 | news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category… | — |
+| `samsung-galaxy-z-fold2` | 159.2 × 68.0 × 16.8 | 159.2 × 128.2 × 6.9 | 3.0 | news.samsung.com/global/introducing-the-galaxy-z-fold2… | — |
+| `samsung-galaxy-z-fold3` | 158.2 × 67.1 × 16.0 | 158.2 × 128.1 × 6.4 | 3.2 | news.samsung.com/global/the-next-chapter-in-mobile-innovation… | sim card slot |
+| `samsung-galaxy-z-fold4` | 155.1 × 67.1 × 15.8 | 155.1 × 130.1 × 6.3 | 3.2 | news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4… | sim card slot |
+| `samsung-galaxy-z-fold5` | 154.9 × 67.1 × 13.4 | 154.9 × 129.9 × 6.1 | 1.2 | news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5… | sim card slot |
+| `samsung-galaxy-z-fold6` | 153.5 × 68.1 × 12.1 | 153.5 × 132.6 × 5.6 | 0.9 | news.samsung.com/global/samsung-galaxy-z-fold-6-and-z-flip-6… | sim card slot |
+| `samsung-galaxy-z-fold7` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.2 | 0.5 | news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones | sim card slot |
+| `samsung-galaxy-z-fold8` | 123.9 × 81.9 × 9.7 | 123.9 × 161.4 × 4.5 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | — |
+| `samsung-galaxy-z-fold8-ultra` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.1 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | sim card slot |
+| `google-pixel-9-pro-fold` | 155.2 × 77.1 × 10.5 | 155.2 × 150.2 × 5.1 | 0.3 | store.google.com/gb/product/pixel_9_pro_fold_specs | — |
+| `google-pixel-11-pro-fold` | 155.2 × 76 × 10.1 | 155.2 × 150.4 × 5.0 | 0.1 | store.google.com/gb/product/pixel_11_pro_fold_specs | — |
+| `apple-iphone-duo` † | 117.8 × 84.1 × 11.3 | 117.8 × 164.6 × 5.2 | 0.9 | apple.com/iphone-duo/specs/ | — |
 
 † **The iPhone Duo is the only preset in this family with no fallback at all.**
 Apple publishes a pixel count *and a ppi* for both displays, so the registry can
@@ -192,36 +192,36 @@ that as a note, and it is the expected one.
 **R** = the registry's port list carries the entry. **no R** = the
 manufacturer's own port list is sourced and does NOT contain it — a sourced
 *absence*, which is a zero, not an unknown. **A** = the registry does not resolve
-it and the archetype's default applies.
+it and the archetype's default applies. `R·d` means the registry holds the value as a *derived* active area — computed by Telesia's `scripts/device-registry-derive.py` from the published diagonal and resolution and carried at tier `derived` with the formula as its source — so it is a registry number with a computation behind it, not an archetype default.
 
 | Preset | inner display | cover display | crease | USB-C | card tray | camera island | buttons |
 |---|---|---|---|---|---|---|---|
-| `xiaomi-mix-fold-3` | A | A | — | yes R | **no R** | archetype | archetype |
-| `xiaomi-mix-fold-4` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `vivo-x-fold-3-pro` | A | A | — | yes R | yes R | archetype | archetype |
-| `vivo-x-fold-5` | A | A | — | yes R | yes R | archetype | archetype |
-| `oppo-find-n3` | A | A | — | yes R | yes R | archetype | archetype |
-| `oppo-find-n5` | A | A | — | yes R | yes R | archetype | archetype |
-| `honor-magic-v2` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `honor-magic-v3` | A | A | — | yes R | yes R | archetype | archetype |
-| `honor-magic-v5` | A | A | — | yes R | yes R | archetype | archetype |
-| `huawei-mate-x3` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `huawei-mate-x5` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `huawei-mate-x6` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `oneplus-open` | A | A | teardrop R | yes R | yes R | archetype | archetype |
-| `google-pixel-fold` | A | A | — | yes R | yes R | archetype | archetype |
-| `google-pixel-10-pro-fold` | A | A | — | yes R | yes R | archetype | archetype |
-| `samsung-galaxy-fold` | A | A | — | yes R | **no R** | archetype | archetype |
-| `samsung-galaxy-z-fold2` | A | A | — | yes R | **no R** | archetype | archetype |
-| `samsung-galaxy-z-fold3` | A | A | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold4` | A | A | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold5` | A | A | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold6` | A | A | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold7` | A | A | teardrop R | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold8` | A | A | — | yes R | **no R** | archetype | archetype |
-| `samsung-galaxy-z-fold8-ultra` | A | A | — | yes R | yes A | archetype | archetype |
-| `google-pixel-9-pro-fold` | A | A | — | yes R | yes R | archetype | archetype |
-| `google-pixel-11-pro-fold` | A | A | — | yes R | yes R | archetype | archetype |
+| `xiaomi-mix-fold-3` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
+| `xiaomi-mix-fold-4` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `vivo-x-fold-3-pro` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `vivo-x-fold-5` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `oppo-find-n3` | A | R·d | — | yes R | yes R | archetype | archetype |
+| `oppo-find-n5` | A | R·d | — | yes R | yes R | archetype | archetype |
+| `honor-magic-v2` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `honor-magic-v3` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `honor-magic-v5` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `huawei-mate-x3` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `huawei-mate-x5` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `huawei-mate-x6` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `oneplus-open` | R·d | R·d | teardrop R | yes R | yes R | archetype | archetype |
+| `google-pixel-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `google-pixel-10-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `samsung-galaxy-fold` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
+| `samsung-galaxy-z-fold2` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
+| `samsung-galaxy-z-fold3` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold4` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold5` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold6` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold7` | R·d | R·d | teardrop R | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold8` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
+| `samsung-galaxy-z-fold8-ultra` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `google-pixel-9-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
+| `google-pixel-11-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
 | `apple-iphone-duo` | **R, derived** | **R, derived** | — | yes R | **no R** (eSIM only) | archetype | archetype |
 
 The `crease` column is what the registry knows about the hinge itself: seven

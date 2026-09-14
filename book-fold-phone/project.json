@@ -2426,7 +2426,7 @@
       "path": "data/registry/device-geometry.json",
       "schema": "telesia.device_geometry.v1",
       "snapshot": "2026-09-13",
-      "sha256": "129bb8678a5ac9805867755a7ef3bb007e02cf3bac76e2fcf8122d27cd39bb3c",
+      "sha256": "ce75eed4ecfe7e3078a4a05eac9ebd720653cd0f2923cd46f022440d8008e0f0",
       "rule": "null = unresolved, never guessed; every number carries its source"
     },
     "family": "book-fold-phone",
@@ -2468,17 +2468,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.44,
         "published_open_mm": {
           "height": 161.2,
           "width": 143.28,
           "depth": 5.26
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -2494,15 +2494,15 @@
         "hinge_cavity_span": 151.528,
         "hinge_leaf_radius": 2.287,
         "hinge_leaf_span": 150.928,
-        "inner_display_width": 156.2,
-        "inner_display_cover_span": 71,
-        "inner_display_camera_span": 67.28,
-        "inner_display_cover_center_y": 35.5,
-        "inner_display_camera_center_y": 33.64,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.51,
+        "inner_display_camera_span": 65.79,
+        "inner_display_cover_center_y": 34.755,
+        "inner_display_camera_center_y": 32.895,
         "inner_display_cover_cut_center_z": -0.62,
         "inner_display_camera_cut_center_z": 0.62,
-        "cover_display_width": 156.2,
-        "cover_display_height": 68.5,
+        "cover_display_width": 153.2,
+        "cover_display_height": 65.6,
         "cover_display_center_y": 36.75,
         "cover_display_cut_center_z": -5.08,
         "lens_island_width": 29.3076,
@@ -2551,17 +2551,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.29,
         "published_open_mm": {
           "height": 159.37,
           "width": 143.3,
           "depth": 4.59
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -2577,15 +2577,15 @@
         "hinge_cavity_span": 149.8078,
         "hinge_leaf_radius": 1.9105,
         "hinge_leaf_span": 149.2078,
-        "inner_display_width": 154.37,
-        "inner_display_cover_span": 70.6,
-        "inner_display_camera_span": 67.7,
-        "inner_display_cover_center_y": 35.3,
-        "inner_display_camera_center_y": 33.85,
+        "inner_display_width": 151.1,
+        "inner_display_cover_span": 69,
+        "inner_display_camera_span": 66.1,
+        "inner_display_cover_center_y": 34.5,
+        "inner_display_camera_center_y": 33.05,
         "inner_display_cover_cut_center_z": -0.545,
         "inner_display_camera_cut_center_z": 0.545,
-        "cover_display_width": 154.37,
-        "cover_display_height": 68.1,
+        "cover_display_width": 153.2,
+        "cover_display_height": 65.6,
         "cover_display_center_y": 36.55,
         "cover_display_cut_center_z": -4.335,
         "lens_island_width": 29.484,
@@ -2634,17 +2634,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.8,
         "published_open_mm": {
           "height": 159.96,
           "width": 142.4,
           "depth": 5.2
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -2660,15 +2660,15 @@
         "hinge_cavity_span": 150.3624,
         "hinge_leaf_radius": 2.44,
         "hinge_leaf_span": 149.7624,
-        "inner_display_width": 154.96,
-        "inner_display_cover_span": 70.05,
-        "inner_display_camera_span": 67.35,
-        "inner_display_cover_center_y": 35.025,
-        "inner_display_camera_center_y": 33.675,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.05,
+        "inner_display_camera_span": 66.35,
+        "inner_display_cover_center_y": 34.525,
+        "inner_display_camera_center_y": 33.175,
         "inner_display_cover_cut_center_z": -0.8,
         "inner_display_camera_cut_center_z": 0.8,
-        "cover_display_width": 154.96,
-        "cover_display_height": 67.55,
+        "cover_display_width": 152.6,
+        "cover_display_height": 65.1,
         "cover_display_center_y": 36.275,
         "cover_display_cut_center_z": -5.2,
         "lens_island_width": 29.337,
@@ -2716,17 +2716,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.6,
         "published_open_mm": {
           "height": 159.68,
           "width": 142.29,
           "depth": 4.3
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -2742,15 +2742,15 @@
         "hinge_cavity_span": 150.0992,
         "hinge_leaf_radius": 1.935,
         "hinge_leaf_span": 149.4992,
-        "inner_display_width": 154.68,
-        "inner_display_cover_span": 70.1,
-        "inner_display_camera_span": 67.19,
-        "inner_display_cover_center_y": 35.05,
-        "inner_display_camera_center_y": 33.595,
+        "inner_display_width": 152.6,
+        "inner_display_cover_span": 69.155,
+        "inner_display_camera_span": 66.245,
+        "inner_display_cover_center_y": 34.5775,
+        "inner_display_camera_center_y": 33.1225,
         "inner_display_cover_cut_center_z": -0.7,
         "inner_display_camera_cut_center_z": 0.7,
-        "cover_display_width": 154.68,
-        "cover_display_height": 67.6,
+        "cover_display_width": 152.6,
+        "cover_display_height": 65.1,
         "cover_display_center_y": 36.3,
         "cover_display_cut_center_z": -4.2,
         "lens_island_width": 29.2698,
@@ -2804,8 +2804,7 @@
         "archetype_fallbacks": [
           "half thickness (the published open depth and closed depth cannot both hold with two equal halves)",
           "camera-half width (no published open width)",
-          "inner display active area",
-          "cover display active area"
+          "inner display active area"
         ],
         "hinge_gap_mm": 0.05,
         "published_open_mm": {
@@ -2813,7 +2812,9 @@
           "width": null,
           "depth": 5.9
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -2836,8 +2837,8 @@
         "inner_display_camera_center_y": 35.4,
         "inner_display_cover_cut_center_z": -0.425,
         "inner_display_camera_cut_center_z": 0.425,
-        "cover_display_width": 148.4,
-        "cover_display_height": 68.3,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.7,
         "cover_display_center_y": 36.65,
         "cover_display_cut_center_z": -5.45,
         "lens_island_width": 30.68,
@@ -2889,8 +2890,7 @@
           "ports"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
+          "inner display active area"
         ],
         "hinge_gap_mm": 0.51,
         "published_open_mm": {
@@ -2898,7 +2898,9 @@
           "width": 146.58,
           "depth": 4.21
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -2921,8 +2923,8 @@
         "inner_display_camera_center_y": 34.83,
         "inner_display_cover_cut_center_z": -0.655,
         "inner_display_camera_cut_center_z": 0.655,
-        "cover_display_width": 155.87,
-        "cover_display_height": 69.42,
+        "cover_display_width": 154.1,
+        "cover_display_height": 67.2,
         "cover_display_center_y": 37.21,
         "cover_display_cut_center_z": -4.065,
         "lens_island_width": 30.3072,
@@ -2972,17 +2974,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.5,
         "published_open_mm": {
           "height": 156.7,
           "width": 145.4,
           "depth": 4.8
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -2998,15 +3000,15 @@
         "hinge_cavity_span": 147.298,
         "hinge_leaf_radius": 2.11,
         "hinge_leaf_span": 146.698,
-        "inner_display_width": 151.7,
-        "inner_display_cover_span": 71.5,
-        "inner_display_camera_span": 68.9,
-        "inner_display_cover_center_y": 35.75,
-        "inner_display_camera_center_y": 34.45,
+        "inner_display_width": 148.1,
+        "inner_display_cover_span": 69.4,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.7,
+        "inner_display_camera_center_y": 33.4,
         "inner_display_cover_cut_center_z": -0.65,
         "inner_display_camera_cut_center_z": 0.65,
-        "cover_display_width": 151.7,
-        "cover_display_height": 69,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
         "cover_display_center_y": 37,
         "cover_display_cut_center_z": -4.65,
         "lens_island_width": 29.988,
@@ -3057,17 +3059,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.5,
         "published_open_mm": {
           "height": 156.6,
           "width": 145.3,
           "depth": 4.4
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3083,15 +3085,15 @@
         "hinge_cavity_span": 147.204,
         "hinge_leaf_radius": 1.93,
         "hinge_leaf_span": 146.604,
-        "inner_display_width": 151.6,
-        "inner_display_cover_span": 71.5,
-        "inner_display_camera_span": 68.8,
-        "inner_display_cover_center_y": 35.75,
-        "inner_display_camera_center_y": 34.4,
+        "inner_display_width": 148.1,
+        "inner_display_cover_span": 69.45,
+        "inner_display_camera_span": 66.75,
+        "inner_display_cover_center_y": 34.725,
+        "inner_display_camera_center_y": 33.375,
         "inner_display_cover_cut_center_z": -0.65,
         "inner_display_camera_cut_center_z": 0.65,
-        "cover_display_width": 151.6,
-        "cover_display_height": 69,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
         "cover_display_center_y": 37,
         "cover_display_cut_center_z": -4.25,
         "lens_island_width": 29.946,
@@ -3141,17 +3143,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.6,
         "published_open_mm": {
           "height": 156.8,
           "width": 145.9,
           "depth": 4.2
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3167,15 +3169,15 @@
         "hinge_cavity_span": 147.392,
         "hinge_leaf_radius": 1.89,
         "hinge_leaf_span": 146.792,
-        "inner_display_width": 151.8,
-        "inner_display_cover_span": 71.8,
-        "inner_display_camera_span": 69.1,
-        "inner_display_cover_center_y": 35.9,
-        "inner_display_camera_center_y": 34.55,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 69.85,
+        "inner_display_camera_span": 67.15,
+        "inner_display_cover_center_y": 34.925,
+        "inner_display_camera_center_y": 33.575,
         "inner_display_cover_cut_center_z": -0.7,
         "inner_display_camera_cut_center_z": 0.7,
-        "cover_display_width": 151.8,
-        "cover_display_height": 69.3,
+        "cover_display_width": 149.2,
+        "cover_display_height": 66.5,
         "cover_display_center_y": 37.15,
         "cover_display_cut_center_z": -4.1,
         "lens_island_width": 30.072,
@@ -3224,17 +3226,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.48,
         "published_open_mm": {
           "height": 156.9,
           "width": 141.5,
           "depth": 5.3
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -3250,15 +3252,15 @@
         "hinge_cavity_span": 147.486,
         "hinge_leaf_radius": 2.325,
         "hinge_leaf_span": 146.886,
-        "inner_display_width": 151.9,
-        "inner_display_cover_span": 69.9,
-        "inner_display_camera_span": 66.6,
-        "inner_display_cover_center_y": 34.95,
-        "inner_display_camera_center_y": 33.3,
+        "inner_display_width": 148.9,
+        "inner_display_cover_span": 67.95,
+        "inner_display_camera_span": 64.65,
+        "inner_display_cover_center_y": 33.975,
+        "inner_display_camera_center_y": 32.325,
         "inner_display_cover_cut_center_z": -0.64,
         "inner_display_camera_cut_center_z": 0.64,
-        "cover_display_width": 151.9,
-        "cover_display_height": 67.4,
+        "cover_display_width": 149.3,
+        "cover_display_height": 64.4,
         "cover_display_center_y": 36.2,
         "cover_display_cut_center_z": -5.14,
         "lens_island_width": 29.022,
@@ -3307,17 +3309,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.48,
         "published_open_mm": {
           "height": 156.9,
           "width": 141.5,
           "depth": 5.3
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -3333,15 +3335,15 @@
         "hinge_cavity_span": 147.486,
         "hinge_leaf_radius": 2.325,
         "hinge_leaf_span": 146.886,
-        "inner_display_width": 151.9,
-        "inner_display_cover_span": 69.9,
-        "inner_display_camera_span": 66.6,
-        "inner_display_cover_center_y": 34.95,
-        "inner_display_camera_center_y": 33.3,
+        "inner_display_width": 148.9,
+        "inner_display_cover_span": 67.95,
+        "inner_display_camera_span": 64.65,
+        "inner_display_cover_center_y": 33.975,
+        "inner_display_camera_center_y": 32.325,
         "inner_display_cover_cut_center_z": -0.64,
         "inner_display_camera_cut_center_z": 0.64,
-        "cover_display_width": 151.9,
-        "cover_display_height": 67.4,
+        "cover_display_width": 149.3,
+        "cover_display_height": 64.4,
         "cover_display_center_y": 36.2,
         "cover_display_cut_center_z": -5.14,
         "lens_island_width": 29.022,
@@ -3390,17 +3392,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.7,
         "published_open_mm": {
           "height": 156.6,
           "width": 144.04,
           "depth": 4.6
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -3416,15 +3418,15 @@
         "hinge_cavity_span": 147.204,
         "hinge_leaf_radius": 2.12,
         "hinge_leaf_span": 146.604,
-        "inner_display_width": 151.6,
-        "inner_display_cover_span": 71.28,
-        "inner_display_camera_span": 67.76,
-        "inner_display_cover_center_y": 35.64,
-        "inner_display_camera_center_y": 33.88,
+        "inner_display_width": 148.4,
+        "inner_display_cover_span": 69.86,
+        "inner_display_camera_span": 66.34,
+        "inner_display_cover_center_y": 34.93,
+        "inner_display_camera_center_y": 33.17,
         "inner_display_cover_cut_center_z": -0.75,
         "inner_display_camera_cut_center_z": 0.75,
-        "cover_display_width": 151.6,
-        "cover_display_height": 68.78,
+        "cover_display_width": 149.8,
+        "cover_display_height": 66.3,
         "cover_display_center_y": 36.89,
         "cover_display_cut_center_z": -4.55,
         "lens_island_width": 29.5092,
@@ -3475,17 +3477,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.1,
         "published_open_mm": {
           "height": 153.4,
           "width": 143.1,
           "depth": 5.9
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -3501,15 +3503,15 @@
         "hinge_cavity_span": 144.196,
         "hinge_leaf_radius": 2.405,
         "hinge_leaf_span": 143.596,
-        "inner_display_width": 148.4,
-        "inner_display_cover_span": 70.8,
-        "inner_display_camera_span": 67.3,
-        "inner_display_cover_center_y": 35.4,
-        "inner_display_camera_center_y": 33.65,
+        "inner_display_width": 145.5,
+        "inner_display_cover_span": 69.35,
+        "inner_display_camera_span": 65.85,
+        "inner_display_cover_center_y": 34.675,
+        "inner_display_camera_center_y": 32.925,
         "inner_display_cover_cut_center_z": -0.45,
         "inner_display_camera_cut_center_z": 0.45,
-        "cover_display_width": 148.4,
-        "cover_display_height": 68.3,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.7,
         "cover_display_center_y": 36.65,
         "cover_display_cut_center_z": -5.55,
         "lens_island_width": 29.316,
@@ -3560,17 +3562,17 @@
           "materials",
           "ports"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.5,
         "published_open_mm": {
           "height": 139.7,
           "width": 158.7,
           "depth": 5.8
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3586,15 +3588,15 @@
         "hinge_cavity_span": 131.318,
         "hinge_leaf_radius": 2.56,
         "hinge_leaf_span": 130.718,
-        "inner_display_width": 134.7,
-        "inner_display_cover_span": 77,
-        "inner_display_camera_span": 76.7,
-        "inner_display_cover_center_y": 38.5,
-        "inner_display_camera_center_y": 38.35,
+        "inner_display_width": 123.6,
+        "inner_display_cover_span": 74.3,
+        "inner_display_camera_span": 74,
+        "inner_display_cover_center_y": 37.15,
+        "inner_display_camera_center_y": 37,
         "inner_display_cover_cut_center_z": -0.65,
         "inner_display_camera_cut_center_z": 0.65,
-        "cover_display_width": 134.7,
-        "cover_display_height": 74.5,
+        "cover_display_width": 130.9,
+        "cover_display_height": 67.6,
         "cover_display_center_y": 39.75,
         "cover_display_cut_center_z": -5.65,
         "lens_island_width": 27.94,
@@ -3646,17 +3648,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.4,
         "published_open_mm": {
           "height": 155.2,
           "width": 150.4,
           "depth": 5.2
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3672,15 +3674,15 @@
         "hinge_cavity_span": 145.888,
         "hinge_leaf_radius": 2.24,
         "hinge_leaf_span": 145.288,
-        "inner_display_width": 150.2,
-        "inner_display_cover_span": 73.8,
-        "inner_display_camera_span": 71.6,
-        "inner_display_cover_center_y": 36.9,
-        "inner_display_camera_center_y": 35.8,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 71.65,
+        "inner_display_camera_span": 69.45,
+        "inner_display_cover_center_y": 35.825,
+        "inner_display_camera_center_y": 34.725,
         "inner_display_cover_cut_center_z": -0.6,
         "inner_display_camera_cut_center_z": 0.6,
-        "cover_display_width": 150.2,
-        "cover_display_height": 71.3,
+        "cover_display_width": 147.9,
+        "cover_display_height": 67.6,
         "cover_display_center_y": 38.15,
         "cover_display_cut_center_z": -5,
         "lens_island_width": 31.04,
@@ -3729,17 +3731,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 1.9,
         "published_open_mm": {
           "height": 160.9,
           "width": 117.9,
           "depth": 7.6
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3755,15 +3757,15 @@
         "hinge_cavity_span": 151.246,
         "hinge_leaf_radius": 4.07,
         "hinge_leaf_span": 150.646,
-        "inner_display_width": 155.9,
-        "inner_display_cover_span": 60.3,
-        "inner_display_camera_span": 52.6,
-        "inner_display_cover_center_y": 30.15,
-        "inner_display_camera_center_y": 26.3,
+        "inner_display_width": 150.9,
+        "inner_display_cover_span": 57.7,
+        "inner_display_camera_span": 50,
+        "inner_display_cover_center_y": 28.85,
+        "inner_display_camera_center_y": 25,
         "inner_display_cover_cut_center_z": -1.35,
         "inner_display_camera_cut_center_z": 1.35,
-        "cover_display_width": 155.9,
-        "cover_display_height": 57.8,
+        "cover_display_width": 107.4,
+        "cover_display_height": 46,
         "cover_display_center_y": 31.4,
         "cover_display_cut_center_z": -8.15,
         "lens_island_width": 23.142,
@@ -3813,17 +3815,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 3,
         "published_open_mm": {
           "height": 159.2,
           "width": 128.2,
           "depth": 6.9
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3839,15 +3841,15 @@
         "hinge_cavity_span": 149.648,
         "hinge_leaf_radius": 4.305,
         "hinge_leaf_span": 149.048,
-        "inner_display_width": 154.2,
-        "inner_display_cover_span": 65.5,
-        "inner_display_camera_span": 57.7,
-        "inner_display_cover_center_y": 32.75,
-        "inner_display_camera_center_y": 28.85,
+        "inner_display_width": 150.7,
+        "inner_display_cover_span": 64.25,
+        "inner_display_camera_span": 56.45,
+        "inner_display_cover_center_y": 32.125,
+        "inner_display_camera_center_y": 28.225,
         "inner_display_cover_cut_center_z": -1.9,
         "inner_display_camera_cut_center_z": 1.9,
-        "cover_display_width": 154.2,
-        "cover_display_height": 63,
+        "cover_display_width": 148.1,
+        "cover_display_height": 53.5,
         "cover_display_center_y": 34,
         "cover_display_cut_center_z": -8,
         "lens_island_width": 25.284,
@@ -3898,8 +3900,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 3.2,
@@ -3908,7 +3908,10 @@
           "width": 128.1,
           "depth": 6.4
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -3924,15 +3927,15 @@
         "hinge_cavity_span": 148.708,
         "hinge_leaf_radius": 4.18,
         "hinge_leaf_span": 148.108,
-        "inner_display_width": 153.2,
-        "inner_display_cover_span": 64.6,
-        "inner_display_camera_span": 58.5,
-        "inner_display_cover_center_y": 32.3,
-        "inner_display_camera_center_y": 29.25,
+        "inner_display_width": 150.7,
+        "inner_display_cover_span": 63.4,
+        "inner_display_camera_span": 57.3,
+        "inner_display_cover_center_y": 31.7,
+        "inner_display_camera_center_y": 28.65,
         "inner_display_cover_cut_center_z": -2,
         "inner_display_camera_cut_center_z": 2,
-        "cover_display_width": 153.2,
-        "cover_display_height": 62.1,
+        "cover_display_width": 147.8,
+        "cover_display_height": 54.2,
         "cover_display_center_y": 33.55,
         "cover_display_cut_center_z": -7.6,
         "lens_island_width": 25.62,
@@ -3983,8 +3986,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 3.2,
@@ -3993,7 +3994,10 @@
           "width": 130.1,
           "depth": 6.3
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4009,15 +4013,15 @@
         "hinge_cavity_span": 145.794,
         "hinge_leaf_radius": 4.135,
         "hinge_leaf_span": 145.194,
-        "inner_display_width": 150.1,
-        "inner_display_cover_span": 64.6,
-        "inner_display_camera_span": 60.5,
-        "inner_display_cover_center_y": 32.3,
-        "inner_display_camera_center_y": 30.25,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 63.8,
+        "inner_display_camera_span": 59.7,
+        "inner_display_cover_center_y": 31.9,
+        "inner_display_camera_center_y": 29.85,
         "inner_display_cover_cut_center_z": -2,
         "inner_display_camera_cut_center_z": 2,
-        "cover_display_width": 150.1,
-        "cover_display_height": 62.1,
+        "cover_display_width": 146.7,
+        "cover_display_height": 57.3,
         "cover_display_center_y": 33.55,
         "cover_display_cut_center_z": -7.5,
         "lens_island_width": 26.46,
@@ -4068,8 +4072,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 1.2,
@@ -4078,7 +4080,10 @@
           "width": 129.9,
           "depth": 6.1
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4094,15 +4099,15 @@
         "hinge_cavity_span": 145.606,
         "hinge_leaf_radius": 3.045,
         "hinge_leaf_span": 145.006,
-        "inner_display_width": 149.9,
-        "inner_display_cover_span": 64.6,
-        "inner_display_camera_span": 60.3,
-        "inner_display_cover_center_y": 32.3,
-        "inner_display_camera_center_y": 30.15,
+        "inner_display_width": 148.3,
+        "inner_display_cover_span": 63.9,
+        "inner_display_camera_span": 59.6,
+        "inner_display_cover_center_y": 31.95,
+        "inner_display_camera_center_y": 29.8,
         "inner_display_cover_cut_center_z": -1,
         "inner_display_camera_cut_center_z": 1,
-        "cover_display_width": 149.9,
-        "cover_display_height": 62.1,
+        "cover_display_width": 146.7,
+        "cover_display_height": 57.3,
         "cover_display_center_y": 33.55,
         "cover_display_cut_center_z": -6.3,
         "lens_island_width": 26.376,
@@ -4153,8 +4158,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 0.9,
@@ -4163,7 +4166,10 @@
           "width": 132.6,
           "depth": 5.6
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4179,15 +4185,15 @@
         "hinge_cavity_span": 144.29,
         "hinge_leaf_radius": 2.67,
         "hinge_leaf_span": 143.69,
-        "inner_display_width": 148.5,
-        "inner_display_cover_span": 65.6,
-        "inner_display_camera_span": 62,
-        "inner_display_cover_center_y": 32.8,
-        "inner_display_camera_center_y": 31,
+        "inner_display_width": 146.4,
+        "inner_display_cover_span": 64.7,
+        "inner_display_camera_span": 61.1,
+        "inner_display_cover_center_y": 32.35,
+        "inner_display_camera_center_y": 30.55,
         "inner_display_cover_cut_center_z": -0.85,
         "inner_display_camera_cut_center_z": 0.85,
-        "cover_display_width": 148.5,
-        "cover_display_height": 63.1,
+        "cover_display_width": 148.2,
+        "cover_display_height": 60.4,
         "cover_display_center_y": 34.05,
         "cover_display_cut_center_z": -5.65,
         "lens_island_width": 27.09,
@@ -4238,8 +4244,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 0.5,
@@ -4248,7 +4252,10 @@
           "width": 143.2,
           "depth": 4.2
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": "teardrop"
       },
       "values": {
@@ -4264,15 +4271,15 @@
         "hinge_cavity_span": 148.896,
         "hinge_leaf_radius": 1.84,
         "hinge_leaf_span": 148.296,
-        "inner_display_width": 153.4,
-        "inner_display_cover_span": 70.3,
-        "inner_display_camera_span": 67.9,
-        "inner_display_cover_center_y": 35.15,
-        "inner_display_camera_center_y": 33.95,
+        "inner_display_width": 151,
+        "inner_display_cover_span": 69.2,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.6,
+        "inner_display_camera_center_y": 33.4,
         "inner_display_cover_cut_center_z": -0.65,
         "inner_display_camera_cut_center_z": 0.65,
-        "cover_display_width": 153.4,
-        "cover_display_height": 67.8,
+        "cover_display_width": 151.8,
+        "cover_display_height": 65,
         "cover_display_center_y": 36.4,
         "cover_display_cut_center_z": -4.05,
         "lens_island_width": 29.568,
@@ -4322,17 +4329,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.7,
         "published_open_mm": {
           "height": 123.9,
           "width": 161.4,
           "depth": 4.5
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4348,15 +4355,15 @@
         "hinge_cavity_span": 116.466,
         "hinge_leaf_radius": 2.075,
         "hinge_leaf_span": 115.866,
-        "inner_display_width": 118.9,
-        "inner_display_cover_span": 79.4,
-        "inner_display_camera_span": 77,
-        "inner_display_cover_center_y": 39.7,
-        "inner_display_camera_center_y": 38.5,
+        "inner_display_width": 116.3,
+        "inner_display_cover_span": 78.25,
+        "inner_display_camera_span": 75.85,
+        "inner_display_cover_center_y": 39.125,
+        "inner_display_camera_center_y": 37.925,
         "inner_display_cover_cut_center_z": -0.75,
         "inner_display_camera_cut_center_z": 0.75,
-        "cover_display_width": 118.9,
-        "cover_display_height": 76.9,
+        "cover_display_width": 118,
+        "cover_display_height": 74.7,
         "cover_display_center_y": 40.95,
         "cover_display_cut_center_z": -4.45,
         "lens_island_width": 24.78,
@@ -4406,8 +4413,6 @@
           "released"
         ],
         "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area",
           "sim card slot"
         ],
         "hinge_gap_mm": 0.7,
@@ -4416,7 +4421,10 @@
           "width": 143.2,
           "depth": 4.1
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4432,15 +4440,15 @@
         "hinge_cavity_span": 148.896,
         "hinge_leaf_radius": 1.895,
         "hinge_leaf_span": 148.296,
-        "inner_display_width": 153.4,
-        "inner_display_cover_span": 70.3,
-        "inner_display_camera_span": 67.9,
-        "inner_display_cover_center_y": 35.15,
-        "inner_display_camera_center_y": 33.95,
+        "inner_display_width": 151,
+        "inner_display_cover_span": 69.2,
+        "inner_display_camera_span": 66.8,
+        "inner_display_cover_center_y": 34.6,
+        "inner_display_camera_center_y": 33.4,
         "inner_display_cover_cut_center_z": -0.75,
         "inner_display_camera_cut_center_z": 0.75,
-        "cover_display_width": 153.4,
-        "cover_display_height": 67.8,
+        "cover_display_width": 151.8,
+        "cover_display_height": 65,
         "cover_display_center_y": 36.4,
         "cover_display_cut_center_z": -4.05,
         "lens_island_width": 29.568,
@@ -4491,17 +4499,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.3,
         "published_open_mm": {
           "height": 155.2,
           "width": 150.2,
           "depth": 5.1
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4517,15 +4525,15 @@
         "hinge_cavity_span": 145.888,
         "hinge_leaf_radius": 2.145,
         "hinge_leaf_span": 145.288,
-        "inner_display_width": 150.2,
-        "inner_display_cover_span": 74.6,
-        "inner_display_camera_span": 70.6,
-        "inner_display_cover_center_y": 37.3,
-        "inner_display_camera_center_y": 35.3,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 72.55,
+        "inner_display_camera_span": 68.55,
+        "inner_display_cover_center_y": 36.275,
+        "inner_display_camera_center_y": 34.275,
         "inner_display_cover_cut_center_z": -0.55,
         "inner_display_camera_cut_center_z": 0.55,
-        "cover_display_width": 150.2,
-        "cover_display_height": 72.1,
+        "cover_display_width": 146.2,
+        "cover_display_height": 65.1,
         "cover_display_center_y": 38.55,
         "cover_display_cut_center_z": -4.85,
         "lens_island_width": 30.702,
@@ -4575,17 +4583,17 @@
           "ports",
           "released"
         ],
-        "archetype_fallbacks": [
-          "inner display active area",
-          "cover display active area"
-        ],
+        "archetype_fallbacks": [],
         "hinge_gap_mm": 0.1,
         "published_open_mm": {
           "height": 155.2,
           "width": 150.4,
           "depth": 5
         },
-        "derived_active_areas": [],
+        "derived_active_areas": [
+          "cover",
+          "inner"
+        ],
         "hinge_crease": null
       },
       "values": {
@@ -4601,15 +4609,15 @@
         "hinge_cavity_span": 145.888,
         "hinge_leaf_radius": 2,
         "hinge_leaf_span": 145.288,
-        "inner_display_width": 150.2,
-        "inner_display_cover_span": 73.5,
-        "inner_display_camera_span": 71.9,
-        "inner_display_cover_center_y": 36.75,
-        "inner_display_camera_center_y": 35.95,
+        "inner_display_width": 146.2,
+        "inner_display_cover_span": 71.35,
+        "inner_display_camera_span": 69.75,
+        "inner_display_cover_center_y": 35.675,
+        "inner_display_camera_center_y": 34.875,
         "inner_display_cover_cut_center_z": -0.45,
         "inner_display_camera_cut_center_z": 0.45,
-        "cover_display_width": 150.2,
-        "cover_display_height": 71,
+        "cover_display_width": 149.9,
+        "cover_display_height": 69.1,
         "cover_display_center_y": 38,
         "cover_display_cut_center_z": -4.65,
         "lens_island_width": 31.04,
