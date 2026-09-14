@@ -52,7 +52,9 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: 3aa57133186573b26279417f8de59b6c47ed9027
+  # 3aa5713 + the vocabulary sync of hyperobjects-spec#27 (branch spec-pin/vocabulary-on-3aa5713);
+  # moving to main also adopts G-DEADPARAM (#25), which ten cartridges fail today.
+  SPEC_PIN: 7838015a65ef8f432f5f340b625632e379857ab7
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
