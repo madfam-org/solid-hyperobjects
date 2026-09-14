@@ -1,0 +1,88 @@
+NOTICE — provenance and what the named presets are
+==================================================
+
+Clamshell Dual-Screen Handheld (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+No third-party code or design files are vendored in this cartridge.
+
+
+An archetype, not a replica
+---------------------------
+
+This cartridge models a FAMILY — two rigid decks on a knuckle hinge along the
+long edge, a display in each, controls and ports on the lower deck — which is
+ours to license. It does not model any manufacturer's product.
+
+Named devices appear only as PRESETS. A preset is a set of numbers, and every
+number in it is either:
+
+  * a DIMENSION THE MANUFACTURER PUBLISHED, carried from Telesia's device
+    geometry registry (`data/registry/device-geometry.json`), where each value
+    records its source tier, URL, retrieval date and the line it was quoted
+    from; or
+
+  * a value DERIVED from such a dimension by an archetype rule that is OURS and
+    is written down (docs/README.md, "Archetype derivation rules"); or
+
+  * an ARCHETYPE DEFAULT that is ours outright.
+
+Nothing else. In particular this cartridge reproduces no logo, no wordmark, no
+badge, no colourway, no textures, no vents, no parting lines, no button glyphs,
+and no surface detail of any kind beyond what a published outline, a published
+display active area, a published control count and a published port list imply.
+It is deliberately a plain rounded slab: the shape you get is the archetype's,
+not the product's.
+
+**A preset is a fit envelope, not a likeness.** It is there so a cradle, a dock,
+a travel shell or a repair fixture can be built to the right size.
+
+
+What is ours, specifically
+--------------------------
+
+These are the archetype's own decisions. They are not, and must not be read as,
+statements about any device:
+
+  * The split of the published closed thickness into an upper and a lower deck.
+    The SUM is the manufacturer's figure; the 45/55 split is ours.
+  * Corner radius. No manufacturer in this family publishes one — 0 of the
+    registry's 84 devices — so every corner radius here is ours.
+  * Hinge barrel radius, running clearance, knuckle count, knuckle length and
+    the extent of the hinge run.
+  * Display recess depth, and where each display sits within its deck (the
+    presets centre it; no manufacturer publishes a bezel split).
+  * Every control's size and position — the registry records how many buttons a
+    device has, never how large they are or where they sit.
+  * The port opening sizes, and where along a face they sit. The 3.5 mm figure
+    is the connector's nominal diameter, which is the registry's own port kind.
+  * The cartridge slot in its entirety: the registry's port vocabulary has no
+    game-card kind, so nothing about this component is sourced for any preset.
+  * The speaker grille in its entirety.
+
+
+Devices with no preset
+----------------------
+
+Three devices the registry files in this family have no preset, because their
+closed envelope is unresolved and this cartridge will not invent one:
+
+  * AYN Thor (`ayn-thor`) — AYN publishes no dimensions and no mass on its own
+    site. Telesia's plan gates it on a calibrated measurement of a physical unit
+    (`docs/DEVICE_GEOMETRY.md` gate H7).
+  * Sony Tablet P (`sony-tablet-p`) — every Sony page refused to be read; the
+    entry has zero sources.
+  * OneXPlayer ONEXSUGAR Sugar 1 (`onexplayer-onexsugar`) — no closed dimensions
+    from the manufacturer.
+
+`null = unresolved, never guessed`.
+
+
+Trademarks
+----------
+
+Product and company names that appear in preset labels and in provenance lines
+are the trademarks of their respective owners and are used only to say which
+published measurements a preset carries. Their use here is nominative: no
+affiliation, sponsorship or endorsement is claimed or implied.
