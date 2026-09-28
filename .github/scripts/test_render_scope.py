@@ -3,6 +3,8 @@
 import importlib.util
 import pathlib
 
+import pytest
+
 spec = importlib.util.spec_from_file_location("render_scope", pathlib.Path(__file__).with_name("render_scope.py"))
 rs = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(rs)
@@ -113,12 +115,13 @@ def test_unparseable_manifest_fails_closed(tmp_path, monkeypatch):
     assert rs.needs_render(base, head, "widget")
 
 
-def test_spec_pin_change_includes_unchanged_graph_cartridges(monkeypatch):
+@pytest.mark.parametrize("source_key", ["scad_file", "cq_file", "graph_file"])
+def test_spec_pin_change_includes_unchanged_graph_cartridges(monkeypatch, source_key):
     import json
     objects = {
         "base:.github/workflows/ci.yml": "env:\n  SPEC_PIN: old\n",
         "head:.github/workflows/ci.yml": "env:\n  SPEC_PIN: new\n",
-        "head:graph/project.json": json.dumps({"modes": [{"graph_file": "part.graph.json"}]}),
+        "head:graph/project.json": json.dumps({"modes": [{source_key: "part.graph.json"}]}),
         "head:plain/project.json": json.dumps({"modes": [{"cq_file": "main.py"}]}),
     }
     def git(*args):

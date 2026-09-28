@@ -138,7 +138,11 @@ def graph_scope_on_spec_change(base, head):
         if len(parts) != 2 or parts[1] != "project.json":
             continue
         manifest = json.loads(_git("show", f"{head}:{path}"))
-        if any(mode.get("graph_file") for mode in manifest.get("modes", [])):
+        if any(
+            isinstance(mode.get(key), str) and mode[key].endswith(".graph.json")
+            for mode in manifest.get("modes", [])
+            for key in ("cq_file", "scad_file", "graph_file")
+        ):
             graphs.append(parts[0])
     print(f"render scope: SPEC_PIN changed; graph cartridges={len(graphs)}", file=sys.stderr)
     return sorted(graphs)
