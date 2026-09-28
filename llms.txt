@@ -1,0 +1,10 @@
+# Solid Hyperobjects
+
+Owns solid-geometry cartridges and their manifests, source geometry, presets and provenance. Yantra4D owns the platform and render service; hyperobjects-spec owns shared schemas and validators. Soft pattern representations belong to soft-hyperobjects.
+
+Read README.md for setup and AGENTS.md for operating instructions.
+Entry points: README.md, CONTRIBUTING.md, GOVERNANCE.md, cartridge project.json files.
+See docs/PUBLIC_REPO_BOUNDARY.md for public/private data boundaries.
+Verification commands and required external capabilities are defined in the
+repository's CI and contributor documentation. Never infer a successful render
+from schema conformance or from a skipped kernel-dependent check.

@@ -1,5 +1,7 @@
 # AGENTS.md — orientation for an automated contributor
 
+> Last Updated: 2026-09-28
+
 You are changing a **fail-closed geometry commons**: 500 cartridges, each a
 manifest plus source that turns a parameter point into geometry, each verified
 by rendering it. Nothing here is checked by review alone — if you cannot render
@@ -101,3 +103,8 @@ The three that most often survive review and die in CI:
   a missing reason is a conformance failure, caught without `--render`.
 - Never declare the body count a defect happens to produce. Declare the
   design's count — the declaration is how a later regression becomes visible.
+
+## Repository boundary
+
+Read [the public repository boundary](./docs/PUBLIC_REPO_BOUNDARY.md).
+Owns solid-geometry cartridges and their manifests, source geometry, presets and provenance. Yantra4D owns the platform and render service; hyperobjects-spec owns shared schemas and validators. Soft pattern representations belong to soft-hyperobjects.

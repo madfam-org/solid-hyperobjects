@@ -1,0 +1,20 @@
+# Solid Hyperobjects: implementation and verification context
+
+Owns solid-geometry cartridges and their manifests, source geometry, presets and provenance. Yantra4D owns the platform and render service; hyperobjects-spec owns shared schemas and validators. Soft pattern representations belong to soft-hyperobjects.
+
+Navigation: README.md, CONTRIBUTING.md, GOVERNANCE.md, cartridge project.json files.
+Read README.md and AGENTS.md before editing. Preserve the owning repository for
+each API, schema, renderer and cartridge; consume shared code through explicit
+package or submodule revisions. Follow CONTRIBUTING.md and GOVERNANCE.md where
+present. Licensing, ranked-band ratification and new access require the
+operator's existing decision process.
+
+Test the capability changed: manifest checks establish schema conformance;
+geometry checks need the actual kernel; package imports establish loading,
+not modeling correctness. Keep absent prerequisites and skipped checks visible.
+Use exact revision evidence for CI and deployments. Do not report queued or
+running checks as successful or publish experimental geometry as verified.
+
+Public/private handling: docs/PUBLIC_REPO_BOUNDARY.md. Never commit credentials,
+private customer data or raw operational logs. Routine production operations
+use Enclii; approved secret material uses its intake flow.
