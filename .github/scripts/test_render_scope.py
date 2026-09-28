@@ -111,3 +111,31 @@ def test_unparseable_manifest_fails_closed(tmp_path, monkeypatch):
     monkeypatch.chdir(repo)
     assert rs._manifest_at(head, "widget") is None
     assert rs.needs_render(base, head, "widget")
+
+
+def test_spec_pin_change_includes_unchanged_graph_cartridges(monkeypatch):
+    import json
+    objects = {
+        "base:.github/workflows/ci.yml": "env:\n  SPEC_PIN: old\n",
+        "head:.github/workflows/ci.yml": "env:\n  SPEC_PIN: new\n",
+        "head:graph/project.json": json.dumps({"modes": [{"graph_file": "part.graph.json"}]}),
+        "head:plain/project.json": json.dumps({"modes": [{"cq_file": "main.py"}]}),
+    }
+    def git(*args):
+        if args[0] == "ls-tree":
+            return "plain/project.json\ngraph/project.json\ndocs/nested/project.json\n"
+        return objects[args[1]]
+    monkeypatch.setattr(rs, "_git", git)
+    assert rs.graph_scope_on_spec_change("base", "head") == ["graph"]
+
+
+def test_unchanged_spec_pin_does_not_expand_scope(monkeypatch):
+    monkeypatch.setattr(rs, "_git", lambda *args: "env:\n  SPEC_PIN: same\n")
+    assert rs.graph_scope_on_spec_change("base", "head") == []
+
+
+def test_missing_spec_pin_fails_closed(monkeypatch):
+    import pytest
+    monkeypatch.setattr(rs, "_git", lambda *args: "env: {}")
+    with pytest.raises(ValueError, match="Cannot resolve SPEC_PIN"):
+        rs.graph_scope_on_spec_change("base", "head")

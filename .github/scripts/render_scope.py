@@ -22,6 +22,7 @@ the lane fails closed, never open.
 """
 
 import json
+import re
 import subprocess
 import sys
 
@@ -119,6 +120,30 @@ def chunk(slugs, size):
     return [" ".join(slugs[i : i + size]) for i in range(0, len(slugs), size)]
 
 
+def graph_scope_on_spec_change(base, head):
+    """Re-prove graph cartridges when the package owning their transpiler moves."""
+    def pin(revision):
+        workflow = _git("show", f"{revision}:.github/workflows/ci.yml")
+        match = re.search(r"^\s+SPEC_PIN:\s*(\S+)", workflow, re.MULTILINE)
+        if not match:
+            raise ValueError(f"Cannot resolve SPEC_PIN at {revision}")
+        return match.group(1)
+
+    if pin(base) == pin(head):
+        return []
+    paths = _git("ls-tree", "-r", "--name-only", head).splitlines()
+    graphs = []
+    for path in paths:
+        parts = path.split("/")
+        if len(parts) != 2 or parts[1] != "project.json":
+            continue
+        manifest = json.loads(_git("show", f"{head}:{path}"))
+        if any(mode.get("graph_file") for mode in manifest.get("modes", [])):
+            graphs.append(parts[0])
+    print(f"render scope: SPEC_PIN changed; graph cartridges={len(graphs)}", file=sys.stderr)
+    return sorted(graphs)
+
+
 def main(argv):
     args = list(argv[1:])
     chunks = None
@@ -132,7 +157,8 @@ def main(argv):
         print("usage: render_scope.py [--chunks N] BASE HEAD [SLUG ...]", file=sys.stderr)
         return 2
     base, head, slugs = args[0], args[1], args[2:]
-    keep = [s for s in slugs if needs_render(base, head, s)]
+    keep = sorted(set(s for s in slugs if needs_render(base, head, s)) |
+                  set(graph_scope_on_spec_change(base, head)))
     skipped = sorted(set(slugs) - set(keep))
     if skipped:
         print(
