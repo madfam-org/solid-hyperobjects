@@ -52,7 +52,7 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: a2c295fdf9fc38ab6eca8b0b9a1e6545159a434c
+  SPEC_PIN: 38df6b49424f41def96a84168d78b5ed7e868e87
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
@@ -67,20 +67,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install the spec (manifest bar only — no CAD kernel)
-        env:
-          SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
-          # hyperobjects-spec is private today: use the read token when the secret is set,
-          # fall back to the public URL, and fail LOUD naming the operator step otherwise.
-          if [ -n "${SPEC_READ_TOKEN}" ]; then
-            SPEC_URL="git+https://x-access-token:${SPEC_READ_TOKEN}@github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          else
-            SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          fi
+          # The keystone is public; installing it needs no private read credential.
+          SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
           if ! .venv/bin/pip install "hyperobjects-spec @ ${SPEC_URL}"; then
-            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — the repo is private and no read token reached this job. Operator step: make madfam-org/hyperobjects-spec public (RFC 0038 §9 keystone posture) or set the repository secret MADFAM_BOT_PAT with read access to it."
+            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — check the public package revision and installation error above."
             exit 1
           fi
 
@@ -200,20 +193,13 @@ jobs:
           fi
 
       - name: Install the spec (with geometry)
-        env:
-          SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
-          # hyperobjects-spec is private today: use the read token when the secret is set,
-          # fall back to the public URL, and fail LOUD naming the operator step otherwise.
-          if [ -n "${SPEC_READ_TOKEN}" ]; then
-            SPEC_URL="git+https://x-access-token:${SPEC_READ_TOKEN}@github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          else
-            SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          fi
+          # The keystone is public; installing it needs no private read credential.
+          SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
           if ! .venv/bin/pip install "hyperobjects-spec[geometry] @ ${SPEC_URL}"; then
-            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — the repo is private and no read token reached this job. Operator step: make madfam-org/hyperobjects-spec public (RFC 0038 §9 keystone posture) or set the repository secret MADFAM_BOT_PAT with read access to it."
+            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — check the public package revision and installation error above."
             exit 1
           fi
           .venv/bin/python -c "import cadquery" || {
@@ -365,20 +351,13 @@ jobs:
           fi
 
       - name: Install the spec (with geometry)
-        env:
-          SPEC_READ_TOKEN: ${{ secrets.MADFAM_BOT_PAT }}
         run: |
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
-          # hyperobjects-spec is private today: use the read token when the secret is set,
-          # fall back to the public URL, and fail LOUD naming the operator step otherwise.
-          if [ -n "${SPEC_READ_TOKEN}" ]; then
-            SPEC_URL="git+https://x-access-token:${SPEC_READ_TOKEN}@github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          else
-            SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          fi
+          # The keystone is public; installing it needs no private read credential.
+          SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
           if ! .venv/bin/pip install "hyperobjects-spec[geometry] @ ${SPEC_URL}"; then
-            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — the repo is private and no read token reached this job. Operator step: make madfam-org/hyperobjects-spec public (RFC 0038 §9 keystone posture) or set the repository secret MADFAM_BOT_PAT with read access to it."
+            echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — check the public package revision and installation error above."
             exit 1
           fi
           .venv/bin/python -c "import cadquery" || {
