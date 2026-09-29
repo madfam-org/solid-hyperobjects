@@ -1,5 +1,7 @@
 # Contributing a cartridge
 
+Last Updated: 2026-09-29
+
 ## One cartridge per PR
 
 A pull request adds or changes exactly one `<slug>/`. That keeps the render lane
@@ -45,7 +47,7 @@ Never ship a `LICENSE` that contradicts your manifest's declared licence:
 ## The bar your PR has to clear
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@3aa57133186573b26279417f8de59b6c47ed9027"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@38df6b49424f41def96a84168d78b5ed7e868e87"
 
 y4d-spec check ./<slug>            # manifest + files
 y4d-spec check ./<slug> --render --require-openscad --parity \
@@ -83,7 +85,7 @@ command above locally, then read CI's Linux result as the verdict.
 
 ### Declaring body counts
 
-498 of the 500 cartridges declare a body count; a new cartridge is expected to.
+500 of the 502 cartridges declare a body count; a new cartridge is expected to.
 Declare the *design's* count, never the count a defect happens to produce — the
 declaration is how a later regression becomes visible.
 
@@ -137,7 +139,7 @@ exemptions (`fasteners`, `spiral-planter`, `faircap-filter`, `relief`,
 
 ### Feasibility constraints
 
-Every manifest on `main` carries at least one constraint (500/500). A constraint
+Every manifest on `main` carries at least one constraint (502/502). A constraint
 is a rule the **configurator** evaluates on the parameter set before anything is
 rendered; it never reaches a kernel, which is why a constraints-only manifest
 change is skipped by the render lane.
@@ -207,7 +209,7 @@ almost every new cartridge:
   say so; a `keep`-tagged child is never bored. Check both sides of a
   `diff()`/`difference()` pair render the same voids.
 - **Name your font.** Neither kernel defaults to the same face, so unnamed
-  `.text()` diverges by millimetres. Pin the font, and expect glyph outlines to
+  `.text()` diverges by millimetres. Pin the font ([keytag](keytag/docs/README.md) is a worked example), and expect glyph outlines to
   still differ slightly between OCCT and FreeType.
 - **OpenSCAD silently accepts an unknown `-D`.** A parameter declared in the
   manifest but never referenced by the `.scad` is a dead slider, and nothing
