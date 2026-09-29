@@ -41,6 +41,11 @@
       }
     ]
   },
+  "verification": {
+    "stages": {
+      "geometry": { "checks": { "body_count": { "expected": 1 } } }
+    }
+  },
   "modes": [
     {
       "id": "flange",
