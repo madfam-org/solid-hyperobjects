@@ -190,16 +190,14 @@ def _try_text_shifted(plate, txt, y, fontsize, mode, x_shift):
     if not txt.strip():
         return plate
     try:
-        # Cross the plate surface instead of leaving coincident text/plate faces.
-        # Preserve the visible emboss height and deboss floor exactly.
-        overlap = 0.01
-        offset = thick - overlap if mode == "emboss" else thick + overlap
-        distance = text_depth + overlap if mode == "emboss" else -(text_depth + overlap)
+        # Arial is not part of the shared render environment. OCCT can fall
+        # back to different families by host; use its installed metric-compatible
+        # sans face explicitly so glyph outlines and tessellation are repeatable.
         glyphs = (
             cq.Workplane("XY")
-            .workplane(offset=offset)
+            .workplane(offset=thick)
             .center(x_shift, y)
-            .text(txt, fontsize, distance, combine=False)
+            .text(txt, fontsize, text_depth if mode == "emboss" else -text_depth, combine=False, font="Liberation Sans")
         )
         out = plate.union(glyphs) if mode == "emboss" else plate.cut(glyphs)
         if out.val().isValid():
