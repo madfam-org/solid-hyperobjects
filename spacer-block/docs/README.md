@@ -15,6 +15,14 @@ sandboxed CadQuery program by yantra4d's graph engine.
 Both variants come from the same graph: the solid chain chamfers the base box
 directly, the bored chain cuts a centered cylinder first.
 
+## Verification
+
+Both variants are designed as one connected block. The
+[manifest](../project.json) declares one body so disconnected geometry fails the
+shared [cartridge gate](../../CONTRIBUTING.md#the-bar-your-pr-has-to-clear).
+The gate renders both default modes; this cartridge currently has no presets.
+This declaration does not certify every parameter combination or printability.
+
 ## Parameters
 
 Every control is a manifest **binding** into the graph:
