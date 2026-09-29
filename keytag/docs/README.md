@@ -1,5 +1,7 @@
 # Keychain / Tag
 
+Last Updated: 2026-09-29
+
 A flat keychain tag with an embossed or debossed name/number and a ring hole,
 generated with **CadQuery** (B-Rep). The personalization gateway: pick a shape,
 type a label, print.
@@ -33,18 +35,22 @@ Shapes: **rounded rectangle**, **circle**, **dog tag**, **bone**.
 
 ## Text robustness
 
-Text is applied via CadQuery `text()`, and the boolean result is **validated with
-`.val().isValid()`** inside the sandbox. Findings that shaped the design:
+Text uses **Liberation Sans**, supplied by the shared render environment's
+`fonts-liberation` package. Install that family before rendering locally. The
+[cartridge source](../main.py) selects it explicitly: CadQuery's default Arial
+request can fall back to different installed families on different hosts, changing
+glyph outlines and even mesh validity. A local Linux reproduction with Liberation
+Mono left four boundary edges in the luggage preset; the six shipped default and
+preset renders pass with Liberation Sans under the same verifier.
 
-- ASCII labels are watertight in **both** deboss and emboss.
-- Some **accented glyphs break a debossed cut** (the resulting solid is invalid /
-  non-manifold) but emboss cleanly. So the code **tries the requested mode, and if
-  the solid is invalid, automatically falls back to the other mode**, then finally
-  to a blank (but watertight) plate.
-- A missing CJK/glyph font degrades to a blank plate rather than crashing.
-
-Result: **every shipped variant renders watertight**, including accented text — the
-accented-deboss case transparently falls back to emboss.
+The boolean result is validated with `.val().isValid()` inside the sandbox.
+If a requested text operation produces an invalid solid, the script tries the
+other mode (emboss/deboss), then a blank plate. This fallback does not establish
+mesh validity: the [commons render gate](../../CONTRIBUTING.md) separately checks
+B-Rep validity, watertightness, positive volume and the declared body count.
+Arbitrary user-entered text and every parameter combination are not exhaustively
+verified. Inspect the result before printing, especially when fallback changes
+or omits a label.
 
 ## Presets
 
@@ -68,4 +74,5 @@ accented-deboss case transparently falls back to emboss.
 - Engine: **CadQuery** (`main.py`). Exports STL / 3MF / STEP / GLB / GLTF / OBJ.
 - Self-contained (sandbox-safe): parameters read via a `PARAM(lambda: name,
   default)` guard; final solid assigned to `result`.
-- All shipped presets and defaults render **watertight** (text included).
+- The [manifest](../project.json) defines the three modes and three presets checked
+  by the render gate; a local pass still requires the authoritative Linux CI verdict.

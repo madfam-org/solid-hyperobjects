@@ -190,11 +190,14 @@ def _try_text_shifted(plate, txt, y, fontsize, mode, x_shift):
     if not txt.strip():
         return plate
     try:
+        # Arial is not part of the shared render environment. OCCT can fall
+        # back to different families by host; use its installed metric-compatible
+        # sans face explicitly so glyph outlines and tessellation are repeatable.
         glyphs = (
             cq.Workplane("XY")
             .workplane(offset=thick)
             .center(x_shift, y)
-            .text(txt, fontsize, text_depth if mode == "emboss" else -text_depth, combine=False)
+            .text(txt, fontsize, text_depth if mode == "emboss" else -text_depth, combine=False, font="Liberation Sans")
         )
         out = plate.union(glyphs) if mode == "emboss" else plate.cut(glyphs)
         if out.val().isValid():
