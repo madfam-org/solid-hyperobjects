@@ -29,6 +29,11 @@
     "societal_benefit": "Exact spacers, shims and risers on demand reduce scrapped fixtures and one-off machining; the graph source keeps the design remixable at node level.",
     "material_awareness": true
   },
+  "verification": {
+    "stages": {
+      "geometry": { "checks": { "body_count": { "expected": 1 } } }
+    }
+  },
   "modes": [
     {
       "id": "spacer",
