@@ -20,6 +20,14 @@ This is the cartridge that exercises the graph vocabulary beyond primitives:
   from the plate in a single boolean
 - `chamfer` on `>Z` — breaks the top edges, including around every hole
 
+## Verification
+
+Both variants are designed as one connected plate. The
+[manifest](../project.json) declares one body so disconnected geometry fails the
+shared [cartridge gate](../../CONTRIBUTING.md#the-bar-your-pr-has-to-clear).
+The gate renders both default modes; this cartridge currently has no presets.
+This declaration does not certify every parameter combination or printability.
+
 ## Parameters
 
 All eight controls are manifest **bindings** into node params. `edge_chamfer`
