@@ -69,9 +69,14 @@ module _button_profile(r, h, fr, seg = 64) {
   polygon(concat([[0, 0], [r, 0]], arc, [[0, h]]));
 }
 
+// Overlap the shaft inside the head: coincident end faces can leave a
+// non-manifold seam in the button-head union. The under-head length stays
+// unchanged because this extension is entirely inside the head.
+_join_overlap = 0.01;
+
 // Shaft with or without thread
 if (thread_enabled) {
-  y4d_standard_thread(d=diameter, p=pitch, l=length, anchor=BOT);
+  y4d_standard_thread(d=diameter, p=pitch, l=length + _join_overlap, anchor=BOT);
 } else {
-  cylinder(d=diameter, h=length, anchor=BOT);
+  cylinder(d=diameter, h=length + _join_overlap, anchor=BOT);
 }
