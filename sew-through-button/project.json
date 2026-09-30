@@ -143,7 +143,7 @@
       "default": 3.0,
       "min": 1.0,
       "max": 6.0,
-      "step": 0.2,
+      "step": 0.01,
       "group": "size",
       "modes": [
         "button",
@@ -185,7 +185,7 @@
       "default": 1.5,
       "min": 1.0,
       "max": 3.0,
-      "step": 0.1,
+      "step": 0.01,
       "group": "holes",
       "modes": [
         "button",
@@ -206,7 +206,7 @@
       "default": 4.0,
       "min": 2.0,
       "max": 12.0,
-      "step": 0.5,
+      "step": 0.005,
       "group": "holes",
       "modes": [
         "button",
@@ -227,7 +227,7 @@
       "default": 0.8,
       "min": 0.0,
       "max": 2.0,
-      "step": 0.1,
+      "step": 0.01,
       "group": "size",
       "modes": [
         "button",
@@ -311,6 +311,50 @@
         "hole_spacing": 3.5,
         "dish_depth": 0.6,
         "card_count": 8
+      }
+    },
+    {
+      "id": "infant_precise",
+      "mode": "button",
+      "label": {
+        "en": "Infant button (18 L, fine dimensions)",
+        "es": "Botón infantil (18 L, dimensiones finas)"
+      },
+      "values": {
+        "button_ligne": 18,
+        "thickness": 1.62,
+        "hole_count": 2,
+        "hole_dia": 1.08,
+        "hole_spacing": 3.24,
+        "dish_depth": 0.36
+      }
+    },
+    {
+      "id": "placket_precise",
+      "mode": "button",
+      "label": {
+        "en": "Shirt placket button (24 L, 5.08 mm spacing)",
+        "es": "Botón de cartera (24 L, separación de 5.08 mm)"
+      },
+      "values": {
+        "button_ligne": 24,
+        "hole_count": 4,
+        "hole_spacing": 5.08,
+        "hole_dia": 1.8
+      }
+    },
+    {
+      "id": "small_precise",
+      "mode": "button",
+      "label": {
+        "en": "Small button (15 L, 3.175 mm spacing)",
+        "es": "Botón pequeño (15 L, separación de 3.175 mm)"
+      },
+      "values": {
+        "button_ligne": 15,
+        "hole_count": 4,
+        "hole_spacing": 3.175,
+        "hole_dia": 1.6
       }
     }
   ],
