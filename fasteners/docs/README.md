@@ -20,7 +20,18 @@ The CadQuery modes render watertight and export STEP. The legacy OpenSCAD modes 
 
 ## Parameters
 
-The CadQuery modes expose the core parametric controls (see `project.json` → `parameters`). The OpenSCAD-extended modes add their own legacy parameters, grouped in the manifest and visible only in those modes.
+The [manifest](../project.json) scopes controls with `visible_in_modes`. Diameter
+is shared by every mode; length belongs to bolts and pitch to threaded bolts/nuts.
+CadQuery's named head/nut styles, thread options and washer type appear only in
+their own modes. OpenSCAD uses numeric head/nut styles and its own dimensions;
+a bolt never shows nut-only dimensions or an unrelated CadQuery head selector.
+Parameter defaults and geometry sources are unchanged.
+
+El [manifiesto](../project.json) limita los controles con `visible_in_modes`.
+Todos los modos comparten diámetro; longitud corresponde a tornillos y paso a
+tornillos/tuercas. Cada modo muestra únicamente sus estilos y dimensiones:
+los controles de CadQuery no aparecen en OpenSCAD, ni los de tuerca en tornillo.
+Los valores predeterminados y las fuentes geométricas no cambian.
 
 ## Hyperobject Profile
 
