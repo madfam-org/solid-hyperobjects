@@ -49,7 +49,7 @@ module slide_retention_rib(height, depth, root_w, tip_w, chamfer_h) {
     ],
     faces=[
       [0, 1, 2, 3],                                        // base
-      [8, 9, 10, 11],                                      // tip
+      [11, 10, 9, 8],                                      // tip (opposite base winding)
       [0, 4, 5, 1], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0],       // prism sides
       [4, 8, 9, 5], [5, 9, 10, 6], [6, 10, 11, 7], [7, 11, 8, 4],   // chamfer sides
     ]

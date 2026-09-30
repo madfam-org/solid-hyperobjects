@@ -14,3 +14,7 @@ The vendored code is licensed under the CERN Open Hardware Licence
 Version 2 - Weakly Reciprocal (CERN-OHL-W-2.0); the upstream LICENSE file
 is preserved at libs/microscope-slide-hyperobject/LICENSE. Copyright
 remains with the upstream authors (MADFAM / Yantra4D Commons).
+
+Local modification: the retention-rib polyhedron tip face is wound opposite
+to its base so each shared edge has consistent orientation. This removes
+Manifold repair warnings without changing the declared vertices or dimensions.

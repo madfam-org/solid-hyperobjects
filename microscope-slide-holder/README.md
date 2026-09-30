@@ -151,3 +151,15 @@ Design based on `docs/RESEARCH.pdf` (*Parametric Architectures for Microscope Sl
 
 ---
 *Generated from `project.json` v2.0.0 — Hyperobjects Commons*
+
+## Retention-rib mesh integrity
+
+The vendored retention rib is one closed polyhedron. Its top face must wind in
+the opposite direction to its bottom face; inconsistent winding caused
+`PolySet -> Manifold conversion failed: NotManifold` and automatic repair in
+box/drawer renders even when their exported meshes passed conformance. The
+correction changes face orientation only, preserving vertices and dimensions.
+See [dependency provenance](NOTICE) and the [commons render gate](../CONTRIBUTING.md#the-bar-your-pr-has-to-clear).
+
+La cara superior de la nervadura tiene orientación opuesta a la base para evitar
+reparaciones automáticas de Manifold. La corrección conserva sus vértices y dimensiones.
