@@ -1,8 +1,8 @@
 # AGENTS.md — orientation for an automated contributor
 
-> Last Updated: 2026-09-28
+> Last Updated: 2026-09-29
 
-You are changing a **fail-closed geometry commons**: 500 cartridges, each a
+You are changing a **fail-closed geometry commons**: 502 cartridges, each a
 manifest plus source that turns a parameter point into geometry, each verified
 by rendering it. Nothing here is checked by review alone — if you cannot render
 it, you cannot claim it works.
@@ -22,7 +22,7 @@ this repo a red run.
 ## The one command that decides your PR
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@3aa57133186573b26279417f8de59b6c47ed9027"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@3ff3736e5989f381ebc841a4af38ff43cd9d0b51"
 
 y4d-spec check ./<slug> --render --require-openscad --parity \
   --openscad-path libs --openscad-path .
@@ -36,7 +36,7 @@ never from memory, and never edit a doc to match a pin you assumed.
 
 | Lane | Trigger | What it does |
 | :-- | :-- | :-- |
-| `manifests` | every PR | `y4d-spec check` on all 500, plus `pytest .github/scripts` and the reporter selftest |
+| `manifests` | every PR | `y4d-spec check` on all 502, plus `pytest .github/scripts` and the reporter selftest |
 | `render-scope` | every PR | fork-point diff → which cartridges need geometry |
 | `render-changed` | every PR | renders them, groups of ≤ 8, `max-parallel: 2`, 60-min jobs |
 | `nightly-scope` | 09:00Z | cuts the whole commons into deterministic groups of ≤ 8 |
