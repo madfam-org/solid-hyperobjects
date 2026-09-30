@@ -237,7 +237,9 @@
       "modes": [
         "bolt_cq",
         "nut_cq",
-        "washer"
+        "washer",
+        "bolt",
+        "nut"
       ],
       "label": {
         "en": "Nominal Diameter (mm)",
@@ -251,7 +253,14 @@
         "type": "axis_scale",
         "axis": "radial",
         "scale_factor": 1.0
-      }
+      },
+      "visible_in_modes": [
+        "bolt_cq",
+        "nut_cq",
+        "washer",
+        "bolt",
+        "nut"
+      ]
     },
     {
       "id": "length",
@@ -262,7 +271,8 @@
       "step": 1,
       "group": "dimensions",
       "modes": [
-        "bolt_cq"
+        "bolt_cq",
+        "bolt"
       ],
       "label": {
         "en": "Length (mm)",
@@ -276,7 +286,11 @@
         "type": "axis_scale",
         "axis": "z",
         "scale_factor": 1.0
-      }
+      },
+      "visible_in_modes": [
+        "bolt_cq",
+        "bolt"
+      ]
     },
     {
       "id": "pitch",
@@ -288,7 +302,9 @@
       "group": "thread",
       "modes": [
         "bolt_cq",
-        "nut_cq"
+        "nut_cq",
+        "bolt",
+        "nut"
       ],
       "advanced": true,
       "label": {
@@ -298,7 +314,13 @@
       "tooltip": {
         "en": "Axial distance between thread crests (M5 coarse = 0.8)",
         "es": "Distancia axial entre crestas de rosca (M5 grueso = 0.8)"
-      }
+      },
+      "visible_in_modes": [
+        "bolt_cq",
+        "nut_cq",
+        "bolt",
+        "nut"
+      ]
     },
     {
       "id": "thread_enabled",
@@ -316,7 +338,11 @@
       "tooltip": {
         "en": "Draw a thread; off = plain shaft / bore",
         "es": "Dibujar rosca; apagado = vástago / barreno liso"
-      }
+      },
+      "visible_in_modes": [
+        "bolt_cq",
+        "nut_cq"
+      ]
     },
     {
       "id": "thread_style",
@@ -350,6 +376,10 @@
             "es": "Helicoidal Real"
           }
         }
+      ],
+      "visible_in_modes": [
+        "bolt_cq",
+        "nut_cq"
       ]
     },
     {
@@ -372,7 +402,11 @@
       "tooltip": {
         "en": "Per-side clearance so printed parts mate",
         "es": "Holgura por lado para que las piezas impresas acoplen"
-      }
+      },
+      "visible_in_modes": [
+        "nut_cq",
+        "washer"
+      ]
     },
     {
       "id": "head_style",
@@ -412,6 +446,9 @@
             "es": "Botón (ISO 7380)"
           }
         }
+      ],
+      "visible_in_modes": [
+        "bolt_cq"
       ]
     },
     {
@@ -452,6 +489,9 @@
             "es": "Nyloc"
           }
         }
+      ],
+      "visible_in_modes": [
+        "nut_cq"
       ]
     },
     {
@@ -485,6 +525,9 @@
             "es": "Presión / Partida"
           }
         }
+      ],
+      "visible_in_modes": [
+        "washer"
       ]
     },
     {
@@ -507,8 +550,7 @@
         "bolt"
       ],
       "visible_in_modes": [
-        "bolt",
-        "nut"
+        "bolt"
       ]
     },
     {
@@ -532,8 +574,7 @@
       ],
       "advanced": true,
       "visible_in_modes": [
-        "bolt",
-        "nut"
+        "bolt"
       ]
     },
     {
@@ -557,8 +598,7 @@
       ],
       "advanced": true,
       "visible_in_modes": [
-        "bolt",
-        "nut"
+        "bolt"
       ]
     },
     {
@@ -581,7 +621,6 @@
         "nut"
       ],
       "visible_in_modes": [
-        "bolt",
         "nut"
       ]
     },
@@ -606,7 +645,6 @@
       ],
       "advanced": true,
       "visible_in_modes": [
-        "bolt",
         "nut"
       ]
     },
@@ -631,7 +669,6 @@
       ],
       "advanced": true,
       "visible_in_modes": [
-        "bolt",
         "nut"
       ]
     },
@@ -913,8 +950,13 @@
     "stages": {
       "geometry": {
         "checks": {
-          "watertight": { "enabled": true },
-          "body_count": { "enabled": true, "expected": 1 }
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
         }
       }
     },
