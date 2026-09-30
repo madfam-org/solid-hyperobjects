@@ -15,9 +15,8 @@ and free of inverted bodies, at its defaults **and** at every preset it ships.
 returned as clean-room re-creations (see [`NOTICE.md`](./NOTICE.md)). Licensed
 CERN-OHL-W-2.0, with the carve-outs recorded there.
 
-Measured on 2026-09-29: 502 manifests · **500** with a declared body
-count (the two graph-only cartridges, `flange-plate` and `spacer-block`, still
-lack a base body-count declaration) · **502/502** carrying at least
+Measured on 2026-09-29: 502 manifests · **502/502** with a declared body
+count · **502/502** carrying at least
 one feasibility constraint · **20** animated assemblies · **5** cartridges with a
 reasoned cross-kernel parity exemption or widened tolerance.
 
@@ -46,11 +45,14 @@ repo is `projects/<slug>/project.json` there, unchanged.
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@38df6b49424f41def96a84168d78b5ed7e868e87"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@3ff3736e5989f381ebc841a4af38ff43cd9d0b51"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
-y4d-spec check ./*/ -v                     # the whole commons, manifests only
+# Whole commons, manifests only; exclude library/helper directories.
+for manifest in */project.json; do
+  y4d-spec check "${manifest%/project.json}" -v || exit 1
+done
 y4d-spec rules                             # what is checked, and where each rule came from
 ```
 
@@ -68,9 +70,13 @@ export OPENSCADPATH="$PWD/libs:$PWD"
 
 ## How CI verifies a change
 
-The keystone pin CI installs is `38df6b49` (`SPEC_PIN` in
+The keystone pin CI installs is `3ff3736e` (`SPEC_PIN` in
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)). Every gate below is
 that package's, run from this repo — there is no second, hidden bar.
+Compiler warning/error lines are retained as bounded notes identified by mode,
+part and preset, even when OpenSCAD exports a valid partial mesh. Review them:
+a geometry pass is not proof that every include or module resolved. Notes stay
+nonblocking until whole-commons false-positive analysis supports a stronger rule.
 
 - **Manifest conformance** runs on every PR for all 502 cartridges
   (`y4d-spec check`, seconds), alongside the unit tests for this repo's own CI

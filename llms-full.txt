@@ -16,13 +16,13 @@ Preserve those boundaries and explicit package/submodule revisions.
 
 ## Current evidence and verification
 
-The 2026-09-29 manifest census has 502 cartridges, 500 base body-count declarations,
+The 2026-09-29 manifest census has 502 cartridges, 502 base body-count declarations,
 502 manifests with constraints, 20 animated cartridges and five cartridges with
 reasoned parity exemptions or widened tolerances. These are dated inventory
 counts, not proof that every geometry is currently valid. Read current CI for
 its checked revision, render scope, failures, notes and skips.
 
-[CI](.github/workflows/ci.yml) pins verifier `38df6b49424f41def96a84168d78b5ed7e868e87` at this checkpoint;
+[CI](.github/workflows/ci.yml) pins verifier `3ff3736e5989f381ebc841a4af38ff43cd9d0b51` at this checkpoint;
 read `SPEC_PIN` there before installing. Its per-PR lane renders changed
 cartridges; its nightly lane checks the whole commons and validates completeness.
 The [contributor verification command](CONTRIBUTING.md) supplies both `libs` and
@@ -56,3 +56,5 @@ intake flow. Licensing, access and governance rulings remain with the operator.
 
 Navigation: [compact index](llms.txt), [README](README.md),
 [agent instructions](AGENTS.md), [contribution rules](CONTRIBUTING.md).
+
+Compiler warning/error notes identify the render target and preserve partial-mesh diagnostics. Follow the [README verification contract](README.md#how-ci-verifies-a-change); do not interpret those nonblocking notes as resolved defects.

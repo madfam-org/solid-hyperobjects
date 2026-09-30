@@ -47,7 +47,7 @@ Never ship a `LICENSE` that contradicts your manifest's declared licence:
 ## The bar your PR has to clear
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@38df6b49424f41def96a84168d78b5ed7e868e87"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@3ff3736e5989f381ebc841a4af38ff43cd9d0b51"
 
 y4d-spec check ./<slug>            # manifest + files
 y4d-spec check ./<slug> --render --require-openscad --parity \
@@ -85,7 +85,7 @@ command above locally, then read CI's Linux result as the verdict.
 
 ### Declaring body counts
 
-500 of the 502 cartridges declare a body count; a new cartridge is expected to.
+All 502 cartridges declare a body count; a new cartridge is expected to.
 Declare the *design's* count, never the count a defect happens to produce — the
 declaration is how a later regression becomes visible.
 
