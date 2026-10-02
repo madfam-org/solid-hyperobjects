@@ -47,7 +47,7 @@ style     = str(  PARAM(lambda: style,   "open"))   # open | angled-front | hand
 lip       = float(PARAM(lambda: lip,        4.0))   # stacking-lip height (mm, 0 = none)
 lip_clear = float(PARAM(lambda: lip_clear,  0.4))   # lip-to-rim clearance (print fit)
 front_cut = float(PARAM(lambda: front_cut, 40.0))   # open-front sill height (angled)
-div_x     = int(  PARAM(lambda: div_x,        0))   # interior dividers along X
+div_x     = int(  PARAM(lambda: div_x,        1))   # interior dividers along X
 div_y     = int(  PARAM(lambda: div_y,        0))   # interior dividers along Y
 div_thick = float(PARAM(lambda: div_thick,  1.6))   # divider thickness (mm)
 
