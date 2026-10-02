@@ -19,7 +19,7 @@ def PARAM(getter, default):
 # ── Parameters ───────────────────────────────────────────────────────────────
 lever_length = float(PARAM(lambda: lever_length, 30))
 over_center_offset = float(PARAM(lambda: over_center_offset, 2))
-wall_thickness = float(PARAM(lambda: wall_thickness, 2.5))
+wall_thickness = float(PARAM(lambda: wall_thickness, 2))
 latch_width = float(PARAM(lambda: latch_width, 15))
 base_length = float(PARAM(lambda: base_length, 40))
 clearance = float(PARAM(lambda: clearance, 0.3))
