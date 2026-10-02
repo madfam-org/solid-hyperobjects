@@ -566,6 +566,29 @@
       }
     },
     {
+      "id": "fit_clearance_slide",
+      "type": "slider",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "group": "tolerance",
+      "visible_in_modes": ["box", "staining_rack", "cabinet_drawer"],
+      "visibility_level": "advanced",
+      "label": {
+        "en": "Extra slide-fit clearance (mm)",
+        "es": "Holgura extra de ajuste deslizante (mm)",
+        "fr": "Jeu supplémentaire d'ajustement glissant (mm)",
+        "pt": "Folga extra de ajuste deslizante (mm)"
+      },
+      "tooltip": {
+        "en": "Added to every slot width of the OpenSCAD box, staining rack and cabinet drawer (slot = slide thickness + Z tolerance + this + 0.1 mm). 0 adds nothing. The staining rack keeps a 5 mm minimum pitch, so there it only matters for thick slides. A caller that resolves a sliding-fit clearance elsewhere passes the number here.",
+        "es": "Se suma al ancho de cada ranura de la caja, el bastidor de tinción y el cajón de gabinete en OpenSCAD (ranura = grosor de laminilla + tolerancia Z + este valor + 0.1 mm). 0 no añade nada. El bastidor de tinción mantiene un paso mínimo de 5 mm, así que ahí solo influye con laminillas gruesas. Quien resuelve una holgura de ajuste deslizante en otro lugar pasa aquí el número.",
+        "fr": "S'ajoute à la largeur de chaque fente de la boîte, du portoir de coloration et du tiroir de cabinet OpenSCAD (fente = épaisseur de lame + tolérance Z + cette valeur + 0,1 mm). 0 n'ajoute rien. Le portoir de coloration garde un pas minimal de 5 mm : il n'y compte que pour les lames épaisses. Un appelant qui calcule ailleurs un jeu d'ajustement glissant transmet ici la valeur.",
+        "pt": "Somada à largura de cada ranhura da caixa, do suporte de coloração e da gaveta de gabinete em OpenSCAD (ranhura = espessura da lâmina + tolerância Z + este valor + 0,1 mm). 0 não acrescenta nada. O suporte de coloração mantém um passo mínimo de 5 mm, então ali só influi com lâminas grossas. Quem resolve uma folga de ajuste deslizante em outro lugar passa aqui o número."
+      }
+    },
+    {
       "id": "density",
       "type": "select",
       "default": 1,
