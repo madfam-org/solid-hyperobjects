@@ -12,7 +12,7 @@ def PARAM(getter, default):
         return default
 
 
-extrusion_length = float(PARAM(lambda: extrusion_length, 150))
+extrusion_length = float(PARAM(lambda: extrusion_length, 100))
 profile_scale = float(PARAM(lambda: profile_scale, 1.0))
 
 # Polymer track body
