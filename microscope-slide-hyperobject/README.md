@@ -25,6 +25,11 @@ The following standard parameters are available in the configurator, rendering t
 - **3: ISO 8255 #1 Cover Glass:** 22.0mm x 22.0mm x 0.15mm
 - **4: Custom:** Dynamically adjust length, width (10-55mm), and thickness (down to 0.1mm for microfluidics coverslips).
 
+### Scale and fit compensation
+- **`scale_comp_x`, `scale_comp_y`, `scale_comp_z`** (unitless, default 1.0, range 0.9-1.1): scale factors applied to the slide body in both kernels. A caller that resolves shrinkage elsewhere (for example a semantic layer that knows the print material) passes the numbers here; the cartridge itself names no material.
+- **`fit_clearance_slide`** (mm, default 0.0): extra clearance that the library function `slide_slot_width()` adds to a slot. It is a library input for cartridges that build slots from `slide.scad`, such as `microscope-slide-holder`; this cartridge renders no slot and does not declare it.
+- Legacy: while the Yantra4D flag `RENDER_MATERIAL_INJECTION` is on, a request naming `target_material` still injects `mat_shrinkage_*` and `mat_clear_slide`, and an injected value wins over the explicit parameter, so those renders are unchanged. That branch is marked in `slide.scad` for removal when the flag is turned off.
+
 ## Using as a CDG Library (Backward Compatibility)
 To include the slide retention geometries in your own Yantra4D project, add this repository as a submodule:
 
