@@ -58,7 +58,7 @@ def bar_diameter(key):
 # ── Parameters ───────────────────────────────────────────────────────────────
 target_part = str(PARAM(lambda: target_part, "gopro_mount"))  # gopro_mount|quarter20_mount|strap_mount
 bar_dia     = str(PARAM(lambda: bar_dia,      "22.2"))         # handlebar diameter standard
-interface   = str(PARAM(lambda: interface,    "gopro"))        # gopro | 1/4-20 | phone_tab | light
+interface   = str(PARAM(lambda: interface,    "light"))        # light | phone_tab (strap_mount)
 
 clamp_w     = float(PARAM(lambda: clamp_w,     16.0))          # clamp width along the bar (mm)
 wall        = float(PARAM(lambda: wall,         4.0))          # material around the saddle (mm)
