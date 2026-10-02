@@ -5,7 +5,7 @@ include <BOSL2/std.scad>
 // Yantra4D Parameters
 lever_length = 30;
 over_center_offset = 2; // Distance past geometric center for snapping
-wall_thickness = 2.5;
+wall_thickness = 2;
 latch_width = 15;
 base_length = 40;
 clearance = 0.3; // Nominal sliding fit
