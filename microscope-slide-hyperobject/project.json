@@ -171,6 +171,72 @@
         "en": "Custom Thickness (mm)"
       },
       "group": "slide"
+    },
+    {
+      "id": "scale_comp_x",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.9,
+      "max": 1.1,
+      "step": 0.001,
+      "label": {
+        "en": "Scale compensation X (factor)",
+        "es": "Compensación de escala X (factor)",
+        "fr": "Compensation d'échelle X (facteur)",
+        "pt": "Compensação de escala X (fator)"
+      },
+      "tooltip": {
+        "en": "Unitless factor applied to the slide body along X; 1.0 leaves it unscaled. A caller that resolves shrinkage elsewhere passes the number here.",
+        "es": "Factor sin unidades aplicado al cuerpo de la laminilla en X; 1.0 lo deja sin escalar. Quien resuelve la contracción en otro lugar pasa aquí el número.",
+        "fr": "Facteur sans unité appliqué au corps de la lame selon X ; 1,0 le laisse inchangé. Un appelant qui calcule le retrait ailleurs transmet ici la valeur.",
+        "pt": "Fator sem unidade aplicado ao corpo da lâmina em X; 1,0 não altera a escala. Quem resolve a contração em outro lugar passa aqui o número."
+      },
+      "group": "compensation",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "scale_comp_y",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.9,
+      "max": 1.1,
+      "step": 0.001,
+      "label": {
+        "en": "Scale compensation Y (factor)",
+        "es": "Compensación de escala Y (factor)",
+        "fr": "Compensation d'échelle Y (facteur)",
+        "pt": "Compensação de escala Y (fator)"
+      },
+      "tooltip": {
+        "en": "Unitless factor applied to the slide body along Y; 1.0 leaves it unscaled. A caller that resolves shrinkage elsewhere passes the number here.",
+        "es": "Factor sin unidades aplicado al cuerpo de la laminilla en Y; 1.0 lo deja sin escalar. Quien resuelve la contracción en otro lugar pasa aquí el número.",
+        "fr": "Facteur sans unité appliqué au corps de la lame selon Y ; 1,0 le laisse inchangé. Un appelant qui calcule le retrait ailleurs transmet ici la valeur.",
+        "pt": "Fator sem unidade aplicado ao corpo da lâmina em Y; 1,0 não altera a escala. Quem resolve a contração em outro lugar passa aqui o número."
+      },
+      "group": "compensation",
+      "visibility_level": "advanced"
+    },
+    {
+      "id": "scale_comp_z",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.9,
+      "max": 1.1,
+      "step": 0.001,
+      "label": {
+        "en": "Scale compensation Z (factor)",
+        "es": "Compensación de escala Z (factor)",
+        "fr": "Compensation d'échelle Z (facteur)",
+        "pt": "Compensação de escala Z (fator)"
+      },
+      "tooltip": {
+        "en": "Unitless factor applied to the slide body along Z; 1.0 leaves it unscaled. A caller that resolves shrinkage elsewhere passes the number here.",
+        "es": "Factor sin unidades aplicado al cuerpo de la laminilla en Z; 1.0 lo deja sin escalar. Quien resuelve la contracción en otro lugar pasa aquí el número.",
+        "fr": "Facteur sans unité appliqué au corps de la lame selon Z ; 1,0 le laisse inchangé. Un appelant qui calcule le retrait ailleurs transmet ici la valeur.",
+        "pt": "Fator sem unidade aplicado ao corpo da lâmina em Z; 1,0 não altera a escala. Quem resolve a contração em outro lugar passa aqui o número."
+      },
+      "group": "compensation",
+      "visibility_level": "advanced"
     }
   ],
   "constraints": [
