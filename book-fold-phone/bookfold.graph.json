@@ -54,7 +54,7 @@
     { "id": "lenswindow_island_box", "type": "box", "params": { "w": 30.24, "d": 30.24, "h": 0.6 } },
     { "id": "lenswindow_island_place", "type": "translate", "inputs": { "shape": "lenswindow_island_box" }, "params": { "x": 56.88, "y": 21.12, "z": 4.7 } },
     { "id": "lenswindow_lens_cyl", "type": "cylinder", "params": { "r": 3.9312, "h": 1.8 } },
-    { "id": "lenswindow_lens_place", "type": "translate", "inputs": { "shape": "lenswindow_lens_cyl" }, "params": { "x": 47.736, "y": 21.12, "z": 4.1 } },
+    { "id": "lenswindow_lens_place", "type": "translate", "inputs": { "shape": "lenswindow_lens_cyl" }, "params": { "x": 47.808, "y": 21.12, "z": 4.1 } },
     { "id": "lenswindow_row", "type": "pattern_linear", "inputs": { "shape": "lenswindow_lens_place" }, "params": { "count": 3, "dx": 9.072, "dy": 0, "dz": 0 } },
     { "id": "lenswindow_tool", "type": "union", "inputs": { "a": "lenswindow_island_place", "b": "lenswindow_row" } },
     { "id": "asm_camera_flat", "type": "cut", "inputs": { "a": "asm_camera_inner", "b": "lenswindow_tool" } },
