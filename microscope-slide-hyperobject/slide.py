@@ -28,6 +28,15 @@ def build(params):
     else:
         length, width, thickness = SLIDE_DIMS.get(standard, SLIDE_DIMS[0])
 
+    # Scale compensation (unitless, 1.0 = none), the explicit parameters that
+    # slide.scad applies with scale() about the origin. The body is centred,
+    # so scaling its dimensions is the same transform. This twin never read
+    # the legacy injected mat_shrinkage_* values and still does not: its
+    # output with yantra4d RENDER_MATERIAL_INJECTION on is unchanged.
+    length *= float(params.get('scale_comp_x', 1.0))
+    width *= float(params.get('scale_comp_y', 1.0))
+    thickness *= float(params.get('scale_comp_z', 1.0))
+
     # CQ box() is centered by default, matching OpenSCAD center=true.
     result = cq.Workplane("XY").box(length, width, thickness)
     return result.clean()
