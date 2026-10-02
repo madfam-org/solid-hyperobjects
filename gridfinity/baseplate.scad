@@ -28,7 +28,7 @@ include <gridfinity_std.scad>
 
 // -- Manifest parameters (injected with -D by the platform) ------------------
 width_units           = 2;      // grid units in X            [1 .. 6]
-depth_units           = 2;      // grid units in Y            [1 .. 6]
+depth_units           = 1;      // grid units in Y            [1 .. 6]
 bp_enable_magnets     = 0;      // 6 x 2 mm magnet cavities under each socket
 bp_enable_screws      = 0;      // M3 screw holes through the plate corners
 bp_corner_radius      = 3.75;   // radius of the PLATE outline  [0 .. 10]
