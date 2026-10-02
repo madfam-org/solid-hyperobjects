@@ -34,7 +34,7 @@ render_mode = -1;
 show_base = (assembly_level >= 2);
 show_lid = (assembly_level >= 3);
 
-stack_along_y = 0; // If 1, expand box along the Y-axis instead of the X-axis
+stack_along_y = 1; // If 1, expand box along the Y-axis instead of the X-axis
 
 // --- Physical Dimensions ---
 // Note: We redefine the core measurements here so that our assembly math perfectly 

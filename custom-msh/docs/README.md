@@ -31,7 +31,7 @@ Official Visualizer and Configurator: Yantra4D
 | `assembly_level` | slider | 3 | 1-3 | (hidden) | Assembly detail level (1=rack+slides, 2=+box, 3=+lid) |
 | `substrate_length` | slider | 25.4 | 15.0-76.0 (step 0.1) | all | Substrate length along rack Y-axis (mm). AOCL square: 25.4 mm; standard slide: 76 mm |
 | `substrate_width` | slider | 25.4 | 15.0-52.0 (step 0.1) | all | Substrate width along rack Z-axis (mm). AOCL square: 25.4 mm; standard slide: 26 mm |
-| `stack_along_y` | checkbox | No | | box, assembly, base, lid | Stack racks along Y-axis instead of X-axis |
+| `stack_along_y` | checkbox | Yes | | box, assembly, base, lid | Stack racks along Y-axis instead of X-axis |
 | `tolerance_xy` | slider | 0.4 | 0.1-0.8 (step 0.05) | all | Horizontal clearance for FDM shrinkage compensation |
 | `tolerance_z` | slider | 0.2 | 0.05-0.5 (step 0.05) | rack, multi_rack, assembly | Slot width clearance over substrate thickness |
 | `wall_thickness` | slider | 2.0 | 1.2-4.0 (step 0.2) | all | Outer wall and pillar thickness |
