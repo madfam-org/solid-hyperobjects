@@ -53,7 +53,7 @@ def PARAM(getter, default):
 target_part = str(PARAM(lambda: target_part, "net_cup"))  # net_cup | collar | lid_grommet
 
 top_od = float(PARAM(lambda: top_od, 44.0))       # body top outer diameter (mm)
-base_od = float(PARAM(lambda: base_od, 30.0))     # body base outer diameter (mm)
+base_od = float(PARAM(lambda: base_od, 35.0))     # body base outer diameter (mm)
 cup_h = float(PARAM(lambda: cup_h, 48.0))         # basket height (mm)
 wall = float(PARAM(lambda: wall, 2.0))            # basket wall thickness (mm)
 lip_w = float(PARAM(lambda: lip_w, 3.0))          # rim lip radial overhang (mm)
