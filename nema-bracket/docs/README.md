@@ -61,6 +61,12 @@ rounded edge, keeping every mode watertight.
     standard output face.
   - **Mount Holes** (`bolt_pattern`, *internal*) — the base / corner mounting
     holes, defined by `base_bolt_d`, `base_len`.
+  - **Mating frames:** `flat_bracket_motor_face` (top face at the bolt-square
+    centre, normal up toward the motor; male, symmetry 4, size key from `nema`)
+    and `extrusion_mount_foot_slot` (foot underside on the slot line, normal
+    toward the extrusion; male, symmetry 2, `tslot-2020-6mm`). The motor faces of
+    the L-bracket and extrusion mount are not framed yet: their height follows
+    `nema`, whose option values are not numbers a frame expression can read.
 - **Material awareness:** `tolerance_by_material` is declared — bolt/pilot
   clearances can be tuned per material (stiff PLA vs tougher PETG/nylon).
 - **Societal benefit:** stepper motors outlive their machines; an on-demand
