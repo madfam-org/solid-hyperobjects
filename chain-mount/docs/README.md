@@ -54,6 +54,10 @@ it inter-operates with the drag-chain family in the commons.
     `chain_hole`.
   - **Surface Mount** (`bolt_pattern`, *internal*) — the surface / T-nut / slot
     mounting, defined by `mount_d`, `slot_len`, `foot_len`.
+  - **Mating frame** (extrusion bracket): `extrusion_bracket_foot_slot` — the
+    foot underside on its bolt line, normal toward the extrusion, `x_axis`
+    along it; male, symmetry 2, `tslot-2020-6mm`. The chain-end face is not
+    framed: no catalog part or vocabulary key describes a chain-end pattern.
 - **Material awareness:** `tolerance_by_material` is declared — bolt clearances can
   be tuned per material.
 - **Societal benefit:** a printed mount that presents the chain-end bolt holes and

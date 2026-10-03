@@ -86,7 +86,8 @@
       "tooltip": { "en": "Material margin around the holes", "es": "Margen de material alrededor de los agujeros" }
     },
     {
-      "id": "mount_d", "type": "slider", "default": 4.5, "min": 2.5, "max": 6.5, "step": 0.1,
+      "id": "mount_d", "type": "slider",
+      "id": "mount_d", "unit": "mm", "default": 4.5, "min": 2.5, "max": 6.5, "step": 0.1,
       "group": "mount", "modes": ["end_bracket", "extrusion_bracket", "moving_end"],
       "label": { "en": "Mount Bolt (mm)", "es": "Tornillo de Montaje (mm)" },
       "tooltip": { "en": "Surface / T-nut bolt clearance (4.5 = M4/M5)", "es": "Holgura del tornillo de superficie / tuerca T (4.5 = M4/M5)" }
@@ -98,7 +99,8 @@
       "tooltip": { "en": "Moving-end adjustment slot travel", "es": "Recorrido de la ranura de ajuste del extremo movil" }
     },
     {
-      "id": "foot_len", "type": "slider", "default": 30.0, "min": 20.0, "max": 60.0, "step": 1,
+      "id": "foot_len", "type": "slider",
+      "id": "foot_len", "unit": "mm", "default": 30.0, "min": 20.0, "max": 60.0, "step": 1,
       "group": "mount", "modes": ["extrusion_bracket"],
       "label": { "en": "Foot Length (mm)", "es": "Largo de Pie (mm)" },
       "tooltip": { "en": "Extrusion foot length (T-nut holes on 20 mm centres)", "es": "Largo del pie de extrusion (agujeros de tuerca T a 20 mm)" }
@@ -160,6 +162,25 @@
         "geometry_type": "bolt_pattern",
         "standard": "internal",
         "parameters": ["mount_d", "slot_len", "foot_len"]
+      },
+      {
+        "id": "extrusion_bracket_foot_slot",
+        "label": {
+          "en": "Foot seat on the extrusion slot (extrusion bracket)",
+          "es": "Asiento del pie en la ranura del perfil (soporte a perfil)"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 T-slot extrusion, M5 T-nuts on the slot centre-line",
+        "parameters": ["foot_len", "mount_d"],
+        "frame": {
+          "part": "extrusion_bracket",
+          "origin": [0, 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
       }
     ],
     "material_awareness": {
