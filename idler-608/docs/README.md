@@ -54,6 +54,10 @@ The seat pocket bore = bearing OD (± `press_fit`); the axle bore = bearing ID
   - **608 Press-Fit Seat** (`socket`, 608 bearing ISO 15 — 8×22×7) — defined by
     `bearing`, `press_fit`, `width`. Shares the 22 mm bearing seat with
     `linear-wheel` and `bearing-housing`.
+  - **Mating frames:** `flat_idler_bearing_seat` and `round_idler_bearing_seat`
+    sit at the seat entrance on the top face (`z = width`), on the axis, normal
+    out of the seat toward the incoming bearing; female, symmetry 0, size key
+    from `bearing` (`bearing-608` for a 608).
 - **Material awareness:** `tolerance_by_material` plus `press_fit` let the seat
   be tuned to the filament for a firm, rattle-free press.
 - **Commons license:** CERN-OHL-W-2.0
@@ -117,6 +121,10 @@ rodamiento + holgura y atraviesa todo para no atrapar vacíos.
   - **Asiento a Presión 608** (`socket`, rodamiento 608 ISO 15 — 8×22×7) —
     definido por `bearing`, `press_fit`, `width`. Comparte el asiento de 22 mm
     con `linear-wheel` y `bearing-housing`.
+  - **Marcos de acople:** `flat_idler_bearing_seat` y `round_idler_bearing_seat`
+    están en la entrada del asiento sobre la cara superior (`z = width`), en el
+    eje, normal hacia fuera del asiento, hacia el rodamiento que entra; hembra,
+    simetría 0, clave de tamaño según `bearing` (`bearing-608` para un 608).
 - **Conciencia de material:** `tolerance_by_material` y `press_fit` permiten
   ajustar el asiento al filamento para un ajuste firme y sin holgura.
 - **Licencia commons:** CERN-OHL-W-2.0
