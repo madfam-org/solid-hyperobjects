@@ -62,6 +62,26 @@ and the landing-skid, so a motor that bolts to one bolts to all.
   motor life, matched to the exact arm and bolt pattern.
 - **License:** CERN-OHL-W-2.0
 
+## Mating frames (assemblies)
+
+Both interfaces carry a SEM-1 frame on the `soft_mount` part, in model
+coordinates (mm), so an assembly can place the pod between a frame arm and a
+motor. Both size keys follow `motor_pattern` (`9x9` → `motor-mount-9x9-m2`,
+`16x16` → `motor-mount-16x16-m3`, `19x19` → `motor-mount-19x19-m3`); symmetry 4.
+
+| Interface | Side | Origin | Normal | Polarity |
+| :-- | :-- | :-- | :-- | :-- |
+| `motor_bolt_pattern` | top: the motor base sits here | `(0, 0, 0)`, the plate's top face | `+z` | male (the screws come up through the plate into the motor) |
+| `arm_clamp` | underneath: the frame arm's top face meets the slot ceiling | `(0, 0, -plate_thick - iso_gap - clamp_wall)` | `-z` | female (the clamp receives the arm) |
+
+`x_axis` is `+x`, the direction the arm runs through the clamp. The frames are
+verified against the rendered part at the defaults and every preset
+(`y4d-spec check --render`).
+
+**Requirements.** The `soft_mount` part requires FFF in `tpu-95a`: the comb neck
+only isolates the motor when it is compliant. The rigid and skid parts state no
+material.
+
 ## Engine notes
 
 - Engine: **CadQuery** (`main.py`). Exports STL / 3MF / STEP / GLB / GLTF / OBJ.
