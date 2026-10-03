@@ -67,6 +67,11 @@ Rexroth / OpenBuilds / Misumi HFS nominal profiles.
     into the same extrusion. Cross-commons compatible with the
     `extrusion-hyperobject` and `framing-hyperobject` projects that model the
     extrusion stock itself.
+  - **Mating frames** (corner bracket): `corner_bracket_leg_a` and
+    `corner_bracket_leg_b` sit on each leg's seat face at the centre of its
+    adjustment slot, normal toward the extrusion, `x_axis` along it; male,
+    symmetry 2, size key from `slot_series` (`tslot-2020-6mm` for 2020). T-nuts
+    and clips carry no frame.
 - **Material awareness:** `slot_fit_clearance` is exposed so the fit can be tuned
   per material/printer; `tolerance_by_material` is declared.
 - **Societal benefit:** frees maker-space and industrial framing from proprietary
