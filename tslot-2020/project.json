@@ -343,6 +343,7 @@
     {
       "id": "bracket_leg",
       "type": "slider",
+      "unit": "mm",
       "default": 30,
       "min": 15,
       "max": 80,
@@ -363,6 +364,7 @@
     {
       "id": "bracket_thick",
       "type": "slider",
+      "unit": "mm",
       "default": 5.0,
       "min": 3.0,
       "max": 10.0,
@@ -599,6 +601,58 @@
           "roller-bracket",
           "seed-tray"
         ]
+      },
+      {
+        "id": "corner_bracket_leg_a",
+        "label": {
+          "en": "Leg A seat on the extrusion slot (corner bracket)",
+          "es": "Asiento de la pata A en la ranura del perfil (escuadra)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, adjustable bolt slot on the slot centre-line (2020: 6 mm slot)",
+        "parameters": ["slot_series", "bracket_leg", "bracket_thick"],
+        "frame": {
+          "part": "corner_bracket",
+          "origin": ["(bracket_thick + max(15 + 7.5 * min(2, max(0, (slot_series - 2020) / 1010)), bracket_leg)) / 2", 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "slot_series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_bracket_leg_b",
+        "label": {
+          "en": "Leg B seat on the extrusion slot (corner bracket)",
+          "es": "Asiento de la pata B en la ranura del perfil (escuadra)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, adjustable bolt slot on the slot centre-line (2020: 6 mm slot)",
+        "parameters": ["slot_series", "bracket_leg", "bracket_thick"],
+        "frame": {
+          "part": "corner_bracket",
+          "origin": [0, 0, "(bracket_thick + max(15 + 7.5 * min(2, max(0, (slot_series - 2020) / 1010)), bracket_leg)) / 2"],
+          "normal": [-1, 0, 0],
+          "x_axis": [0, 0, 1]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "slot_series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
       }
     ],
     "material_awareness": {
