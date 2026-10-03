@@ -56,19 +56,22 @@
   ],
   "parameters": [
     {
-      "id": "hole_span", "type": "slider", "default": 9.5, "min": 4.0, "max": 16.0, "step": 0.1,
+      "id": "hole_span", "type": "slider",
+      "id": "hole_span", "unit": "mm", "default": 9.5, "min": 4.0, "max": 16.0, "step": 0.1,
       "group": "switch", "modes": ["switch_bracket", "extrusion_endstop"],
       "label": { "en": "Switch Hole Spacing (mm)", "es": "Separacion de Agujeros (mm)" },
       "tooltip": { "en": "Microswitch bolt centres (Omron SS/D2F ≈ 9.5 mm)", "es": "Centros de tornillos del microinterruptor (Omron SS/D2F ≈ 9.5 mm)" }
     },
     {
-      "id": "switch_hole", "type": "slider", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
+      "id": "switch_hole", "type": "slider",
+      "id": "switch_hole", "unit": "mm", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
       "group": "switch", "modes": ["switch_bracket", "extrusion_endstop"],
       "label": { "en": "Switch Bolt (mm)", "es": "Tornillo de Interruptor (mm)" },
       "tooltip": { "en": "Microswitch bolt clearance (2.2 = M2)", "es": "Holgura del tornillo del microinterruptor (2.2 = M2)" }
     },
     {
-      "id": "plate_t", "type": "slider", "default": 3.0, "min": 2.0, "max": 6.0, "step": 0.5,
+      "id": "plate_t", "type": "slider",
+      "id": "plate_t", "unit": "mm", "default": 3.0, "min": 2.0, "max": 6.0, "step": 0.5,
       "group": "plate", "modes": ["switch_bracket", "optical_endstop", "extrusion_endstop"],
       "label": { "en": "Plate Thickness (mm)", "es": "Grosor de Placa (mm)" },
       "tooltip": { "en": "Bracket plate thickness", "es": "Grosor de la placa del soporte" }
@@ -104,7 +107,8 @@
       "tooltip": { "en": "Optical PCB bolt clearance (3.2 = M3)", "es": "Holgura del tornillo del PCB optico (3.2 = M3)" }
     },
     {
-      "id": "foot_len", "type": "slider", "default": 28.0, "min": 20.0, "max": 60.0, "step": 1,
+      "id": "foot_len", "type": "slider",
+      "id": "foot_len", "unit": "mm", "default": 28.0, "min": 20.0, "max": 60.0, "step": 1,
       "group": "mount", "modes": ["extrusion_endstop"],
       "label": { "en": "Foot Length (mm)", "es": "Largo de Pie (mm)" },
       "tooltip": { "en": "Extrusion foot length (T-nut holes on 20 mm centres)", "es": "Largo del pie de extrusion (agujeros de tuerca T a 20 mm)" }
@@ -165,6 +169,43 @@
         "geometry_type": "bolt_pattern",
         "standard": "internal",
         "parameters": ["mount_d", "slot_len", "foot_len"]
+      },
+      {
+        "id": "extrusion_endstop_foot_slot",
+        "label": {
+          "en": "Foot seat on the extrusion slot (extrusion endstop)",
+          "es": "Asiento del pie en la ranura del perfil (final de carrera a perfil)"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 T-slot extrusion, M5 T-nuts on the slot centre-line",
+        "parameters": ["foot_len", "mount_d"],
+        "frame": {
+          "part": "extrusion_endstop",
+          "origin": [0, 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
+      },
+      {
+        "id": "extrusion_endstop_switch_face",
+        "label": {
+          "en": "Microswitch seat on the upstand (extrusion endstop)",
+          "es": "Asiento del microinterruptor en el montante (final de carrera a perfil)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "two-screw microswitch pattern on hole_span centres (Omron SS-class at 9.5)",
+        "parameters": ["foot_len", "plate_t", "hole_span", "switch_hole"],
+        "frame": {
+          "part": "extrusion_endstop",
+          "origin": ["plate_t / 2 - foot_len / 2", 0, "(hole_span + switch_hole + 8) / 2 + plate_t"],
+          "normal": [-1, 0, 0],
+          "x_axis": [0, 1, 0]
+        },
+        "polarity": "female",
+        "symmetry": 2
       }
     ],
     "material_awareness": {
