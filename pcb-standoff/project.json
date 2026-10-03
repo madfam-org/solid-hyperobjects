@@ -9,8 +9,8 @@
     },
     "engine": "cadquery",
     "description": {
-      "en": "Standoffs to mount a PCB above a surface. A hole pattern — the four corners of a W×D rectangle, or a rows×cols grid — drives the standoff positions; each standoff is a bored tube. Choose a connecting base plate for a one-piece mounting plate, a thin runner for a loose set, or a single tubular spacer.\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Soportes (standoffs) para montar una PCB sobre una superficie. Un patrón de orificios — las cuatro esquinas de un rectángulo W×D, o una cuadrícula filas×columnas — define las posiciones; cada standoff es un tubo perforado. Elige una placa base conectora para una placa de montaje de una pieza, un riel delgado para un juego suelto, o un separador tubular individual.\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "Standoffs to mount a PCB above a surface. A hole pattern — the four corners of a W×D rectangle, or a rows×cols grid — drives the standoff positions; each standoff is a bored tube. Choose a connecting base plate for a one-piece mounting plate, a thin runner for a loose set, a single tubular spacer, or a plate at a standard flight-controller stack pattern (30.5×30.5 or 20×20).\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Soportes (standoffs) para montar una PCB sobre una superficie. Un patrón de orificios — las cuatro esquinas de un rectángulo W×D, o una cuadrícula filas×columnas — define las posiciones; cada standoff es un tubo perforado. Elige una placa base conectora para una placa de montaje de una pieza, un riel delgado para un juego suelto, un separador tubular individual, o una placa con un patrón estándar de pila de controlador de vuelo (30.5×30.5 o 20×20).\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/pcb-standoff.webp",
     "difficulty": "beginner",
@@ -42,12 +42,21 @@
       "cq_file": "main.py",
       "parts": ["spacer"],
       "estimate": { "base_time": 4, "per_unit": 1, "per_part": 5 }
+    },
+    {
+      "id": "fc_stack",
+      "label": { "en": "Flight-Controller Stack Plate", "es": "Placa para Pila de Controlador de Vuelo" },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": ["fc_stack"],
+      "estimate": { "base_time": 8, "per_unit": 2, "per_part": 10 }
     }
   ],
   "parts": [
     { "id": "plate", "label": { "en": "Plate", "es": "Placa" }, "render_mode": 0, "color": "#3f7d5a" },
     { "id": "standoffs", "label": { "en": "Loose Standoffs", "es": "Standoffs Sueltos" }, "render_mode": 0, "color": "#5aa87c" },
-    { "id": "spacer", "label": { "en": "Single Spacer", "es": "Separador Único" }, "render_mode": 0, "color": "#78c39a" }
+    { "id": "spacer", "label": { "en": "Single Spacer", "es": "Separador Único" }, "render_mode": 0, "color": "#78c39a" },
+    { "id": "fc_stack", "label": { "en": "Flight-Controller Stack Plate", "es": "Placa para Pila de Controlador de Vuelo" }, "render_mode": 0, "color": "#2f6a4a" }
   ],
   "parameter_groups": [
     { "id": "pattern", "label": { "en": "Hole Pattern", "es": "Patrón de Orificios" } },
@@ -55,6 +64,17 @@
     { "id": "plate", "label": { "en": "Base Plate", "es": "Placa Base" } }
   ],
   "parameters": [
+    {
+      "id": "stack_pattern", "type": "select", "default": "30.5x30.5-m3",
+      "group": "pattern", "modes": ["fc_stack"],
+      "label": { "en": "Stack Pattern", "es": "Patrón de la Pila" },
+      "tooltip": { "en": "Flight-controller stack hole square and screw: sets the corner spacing and the screw size", "es": "Cuadrado de orificios y tornillo de la pila del controlador de vuelo: define la separación de esquinas y el tamaño de tornillo" },
+      "options": [
+        { "value": "30.5x30.5-m3", "label": { "en": "30.5 × 30.5 mm (M3)", "es": "30.5 × 30.5 mm (M3)" } },
+        { "value": "20x20-m3", "label": { "en": "20 × 20 mm (M3)", "es": "20 × 20 mm (M3)" } },
+        { "value": "20x20-m2", "label": { "en": "20 × 20 mm (M2)", "es": "20 × 20 mm (M2)" } }
+      ]
+    },
     {
       "id": "pattern", "type": "select", "default": "corners",
       "group": "pattern", "modes": ["plate", "standoffs"],
@@ -96,8 +116,8 @@
       "tooltip": { "en": "Hole-to-hole spacing in grid mode", "es": "Separación entre orificios en modo cuadrícula" }
     },
     {
-      "id": "standoff_h", "type": "slider", "default": 6.0, "min": 1.5, "max": 40.0, "step": 0.5,
-      "group": "standoff", "modes": ["plate", "standoffs", "spacer"],
+      "id": "standoff_h", "type": "slider", "unit": "mm", "default": 6.0, "min": 1.5, "max": 40.0, "step": 0.5,
+      "group": "standoff", "modes": ["plate", "standoffs", "spacer", "fc_stack"],
       "label": { "en": "Standoff Height (mm)", "es": "Altura de Standoff (mm)" },
       "tooltip": { "en": "Height of each standoff / spacer", "es": "Altura de cada standoff / separador" },
       "preview_hint": { "type": "axis_scale", "axis": "z", "scale_factor": 1.0 }
@@ -114,8 +134,8 @@
       ]
     },
     {
-      "id": "plate_t", "type": "slider", "default": 2.0, "min": 0.0, "max": 6.0, "step": 0.2,
-      "group": "plate", "modes": ["plate"],
+      "id": "plate_t", "type": "slider", "unit": "mm", "default": 2.0, "min": 0.0, "max": 6.0, "step": 0.2,
+      "group": "plate", "modes": ["plate", "fc_stack"],
       "label": { "en": "Base Plate Thickness (mm)", "es": "Grosor de Placa Base (mm)" },
       "tooltip": { "en": "Connecting plate thickness (0 uses a thin default slab)", "es": "Grosor de la placa conectora (0 usa una losa delgada por defecto)" }
     }
@@ -135,6 +155,16 @@
       "id": "tall_spacer", "mode": "spacer",
       "label": { "en": "Tall M3 Spacer", "es": "Separador M3 Alto" },
       "values": { "standoff_h": 15, "screw_size": "M3" }
+    },
+    {
+      "id": "fc_stack_30x30", "mode": "fc_stack",
+      "label": { "en": "FC Stack 30.5×30.5 (M3)", "es": "Pila FC 30.5×30.5 (M3)" },
+      "values": { "stack_pattern": "30.5x30.5-m3", "standoff_h": 6, "plate_t": 2.0 }
+    },
+    {
+      "id": "fc_stack_20x20_m2", "mode": "fc_stack",
+      "label": { "en": "FC Stack 20×20 (M2)", "es": "Pila FC 20×20 (M2)" },
+      "values": { "stack_pattern": "20x20-m2", "standoff_h": 5, "plate_t": 1.6 }
     }
   ],
   "constraints": [
@@ -175,6 +205,20 @@
         "geometry_type": "socket",
         "standard": "ISO metric (M2/M2.5/M3)",
         "parameters": ["screw_size", "standoff_h"]
+      },
+      {
+        "id": "fc_stack_underside",
+        "label": { "en": "FC Stack Plate Underside", "es": "Cara Inferior de la Placa para Pila FC" },
+        "geometry_type": "bolt_pattern",
+        "standard": "Flight-controller stack 30.5x30.5 M3 / 20x20 M3 / 20x20 M2",
+        "parameters": ["stack_pattern"],
+        "frame": { "part": "fc_stack", "origin": [0, 0, 0], "normal": [0, 0, -1], "x_axis": [1, 0, 0] },
+        "polarity": "female",
+        "size_key": {
+          "param": "stack_pattern",
+          "map": { "30.5x30.5-m3": "stack-30.5x30.5-m3", "20x20-m3": "stack-20x20-m3", "20x20-m2": "stack-20x20-m2" }
+        },
+        "symmetry": 4
       }
     ],
     "material_awareness": {

@@ -10,6 +10,8 @@ Modes are dispatched via `target_part`:
   * "plate"     — standoffs standing on a connecting base plate.
   * "standoffs" — the same standoffs joined by a thin strip (loose set, no plate).
   * "spacer"    — a single tubular spacer/standoff.
+  * "fc_stack"  — a plate at a standard flight-controller stack pattern
+                  (30.5x30.5 M3, 20x20 M3, 20x20 M2), chosen by `stack_pattern`.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -61,7 +63,22 @@ standoff_h = float(PARAM(lambda: standoff_h, 6.0))     # standoff height
 screw_size = str(PARAM(lambda: screw_size, "M3"))      # "M2" | "M2.5" | "M3"
 plate_t    = float(PARAM(lambda: plate_t,   2.0))      # base plate thickness (0 = none)
 
-target_part = str(PARAM(lambda: target_part, "plate"))  # plate|standoffs|spacer
+stack_pattern = str(PARAM(lambda: stack_pattern, "30.5x30.5-m3"))  # fc_stack only
+
+target_part = str(PARAM(lambda: target_part, "plate"))  # plate|standoffs|spacer|fc_stack
+
+# ── Flight-controller stack patterns (fc_stack mode) ─────────────────────────
+# Hole-square side (mm) and screw per standard FC/ESC stack. In fc_stack mode the
+# stack pattern replaces the free corner spacing and screw size, so the part's
+# hole layout is always one of these sizes (its interface size key follows it).
+FC_STACKS = {
+    "30.5x30.5-m3": (30.5, "M3"),
+    "20x20-m3":     (20.0, "M3"),
+    "20x20-m2":     (20.0, "M2"),
+}
+if target_part == "fc_stack":
+    _side, screw_size = FC_STACKS.get(stack_pattern, FC_STACKS["30.5x30.5-m3"])
+    pattern, rect_w, rect_d = "corners", _side, _side
 
 # ── Derived ──────────────────────────────────────────────────────────────────
 spec = screw_spec(screw_size)
@@ -191,5 +208,5 @@ if target_part == "standoffs":
     result = build_standoffs()
 elif target_part == "spacer":
     result = build_spacer()
-else:
+else:  # "plate" and "fc_stack" (a corners plate at the stack pattern)
     result = build_plate()
