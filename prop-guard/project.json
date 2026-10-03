@@ -147,6 +147,7 @@
     {
       "id": "prop_dia",
       "type": "slider",
+      "unit": "mm",
       "default": 127.0,
       "min": 40.0,
       "max": 260.0,
@@ -218,6 +219,7 @@
     {
       "id": "ring_height",
       "type": "slider",
+      "unit": "mm",
       "default": 10.0,
       "min": 4.0,
       "max": 30.0,
@@ -281,6 +283,7 @@
     {
       "id": "hub_bore",
       "type": "slider",
+      "unit": "mm",
       "default": 10.0,
       "min": 4.0,
       "max": 24.0,
@@ -520,12 +523,58 @@
         "parameters": [
           "motor_pattern",
           "prop_dia",
-          "hub_bore"
+          "hub_bore",
+          "ring_height"
         ],
         "compatible_with": [
           "landing-skid",
           "motor-soft-mount"
-        ]
+        ],
+        "frame": {
+          "part": "ring_guard",
+          "origin": [0, 0, "ring_height"],
+          "normal": [0, 0, 1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "motor_pattern",
+          "map": {
+            "9x9": "motor-mount-9x9-m2",
+            "16x16": "motor-mount-16x16-m3",
+            "19x19": "motor-mount-19x19-m3"
+          }
+        },
+        "symmetry": 4
+      },
+      {
+        "id": "hub_underside",
+        "label": {
+          "en": "Hub Underside",
+          "es": "Cara Inferior del Cubo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "16x16 / 19x19 / 9x9 brushless motor mount",
+        "parameters": [
+          "motor_pattern",
+          "hub_bore"
+        ],
+        "frame": {
+          "part": "ring_guard",
+          "origin": [0, 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "motor_pattern",
+          "map": {
+            "9x9": "motor-mount-9x9-m2",
+            "16x16": "motor-mount-16x16-m3",
+            "19x19": "motor-mount-19x19-m3"
+          }
+        },
+        "symmetry": 4
       },
       {
         "id": "prop_disc_envelope",
