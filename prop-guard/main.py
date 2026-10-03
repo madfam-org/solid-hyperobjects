@@ -67,7 +67,13 @@ target_part   = str(PARAM(lambda: target_part, "ring_guard"))
 ring_r_in = max(6.0, prop_dia / 2.0 + clearance)     # inner radius of the guard
 ring_r_out = ring_r_in + max(1.0, ring_wall)         # outer radius
 screw_r = max(0.8, motor_screw_d(motor_pattern) / 2.0)
-hub_r = max(screw_r + 3.5, hub_bore / 2.0 + 3.0)     # hub outer radius (holds bolt pattern)
+# Hub outer radius: it must hold the bolt pattern. The screw holes sit on the
+# pattern's half-diagonal (11.3 mm for 16x16, 13.4 for 19x19), so a hub sized only
+# from the screw and the bore (8 mm at the defaults) left the 16x16 and 19x19
+# holes outside the hub — the motor-mount interface had no holes. Keep 2 mm of
+# land outside each hole.
+pattern_r = MOTOR_PATTERNS.get(motor_pattern, 16.0) / 2.0 * math.sqrt(2.0)
+hub_r = max(screw_r + 3.5, hub_bore / 2.0 + 3.0, pattern_r + screw_r + 2.0)
 hub_bore_r = max(1.0, min(hub_bore / 2.0, hub_r - screw_r - 2.0))
 arm_count = max(2, min(arm_count, 8))
 
