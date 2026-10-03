@@ -56,21 +56,21 @@
   ],
   "parameters": [
     {
-      "id": "pack_w", "type": "slider", "default": 35.0, "min": 15.0, "max": 70.0, "step": 1,
+      "id": "pack_w", "type": "slider", "unit": "mm", "default": 35.0, "min": 15.0, "max": 70.0, "step": 1,
       "group": "pack", "modes": ["flat_pad", "tray", "wedge"],
       "label": { "en": "Pack Width (mm)", "es": "Ancho del Pack (mm)" },
       "tooltip": { "en": "Battery pack width", "es": "Ancho del pack de bateria" },
       "preview_hint": { "type": "axis_scale", "axis": "x", "scale_factor": 1.0 }
     },
     {
-      "id": "pack_l", "type": "slider", "default": 70.0, "min": 25.0, "max": 150.0, "step": 1,
+      "id": "pack_l", "type": "slider", "unit": "mm", "default": 70.0, "min": 25.0, "max": 150.0, "step": 1,
       "group": "pack", "modes": ["flat_pad", "tray", "wedge"],
       "label": { "en": "Pack Length (mm)", "es": "Largo del Pack (mm)" },
       "tooltip": { "en": "Battery pack length", "es": "Largo del pack de bateria" },
       "preview_hint": { "type": "axis_scale", "axis": "y", "scale_factor": 1.0 }
     },
     {
-      "id": "strap_w", "type": "slider", "default": 20.0, "min": 6.0, "max": 40.0, "step": 1,
+      "id": "strap_w", "type": "slider", "unit": "mm", "default": 20.0, "min": 6.0, "max": 40.0, "step": 1,
       "group": "pack", "modes": ["flat_pad", "tray", "wedge"],
       "label": { "en": "Strap Width (mm)", "es": "Ancho de Correa (mm)" },
       "tooltip": { "en": "Battery strap width the channel accepts", "es": "Ancho de la correa que acepta el canal" }
@@ -82,7 +82,7 @@
       "tooltip": { "en": "Pad overhang beyond the pack footprint", "es": "Voladizo del pad mas alla de la huella del pack" }
     },
     {
-      "id": "pad_thick", "type": "slider", "default": 3.0, "min": 1.5, "max": 6.0, "step": 0.5,
+      "id": "pad_thick", "type": "slider", "unit": "mm", "default": 3.0, "min": 1.5, "max": 6.0, "step": 0.5,
       "group": "grip", "modes": ["flat_pad", "tray", "wedge"],
       "label": { "en": "Pad Thickness (mm)", "es": "Grosor del Pad (mm)" },
       "tooltip": { "en": "Base pad thickness", "es": "Grosor de la base del pad" }
@@ -165,7 +165,11 @@
         "label": { "en": "Battery Strap Channel", "es": "Canal de Correa de Bateria" },
         "geometry_type": "profile",
         "standard": "internal",
-        "parameters": ["strap_w", "pack_l"]
+        "parameters": ["strap_w", "pack_l", "pad_thick"],
+        "frame": { "part": "flat_pad", "origin": [0, 0, "-pad_thick"], "normal": [0, 0, -1], "x_axis": [0, 1, 0] },
+        "polarity": "male",
+        "size_key": "battery-strap-20mm",
+        "symmetry": 2
       },
       {
         "id": "pack_footprint",
