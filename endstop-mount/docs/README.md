@@ -55,6 +55,12 @@ keeping every mode watertight.
     switch footprint.
   - **Frame Mount** (`bolt_pattern`, *internal*) — the slot / foot mounting holes,
     defined by `mount_d`, `slot_len`, `foot_len`.
+  - **Mating frames** (extrusion endstop): `extrusion_endstop_foot_slot` (foot
+    underside on the bolt line, normal toward the extrusion; male, symmetry 2,
+    `tslot-2020-6mm`) and `extrusion_endstop_switch_face` (the upstand's outer
+    face at the centre of the switch-hole pair, `x_axis` along the pair;
+    female, symmetry 2). The switch face has no size key yet: `hole_span` is a
+    slider, and only a select may choose a size.
 - **Material awareness:** `tolerance_by_material` is declared — bolt clearances can
   be tuned per material.
 - **Societal benefit:** a printed mount cut to the standard Omron microswitch
