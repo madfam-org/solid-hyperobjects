@@ -382,6 +382,114 @@
           "featherboard",
           "linear-wheel"
         ]
+      },
+      {
+        "id": "corner_2way_leg_x",
+        "label": {
+          "en": "Horizontal leg seat on the extrusion slot (two-way brace)",
+          "es": "Asiento de la pata horizontal en la ranura del perfil (escuadra de dos vías)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": ["series"],
+        "frame": {
+          "part": "corner_2way",
+          "origin": ["10 + 5 * min(2, max(0, (series - 2040) / 990))", 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_2way_leg_z",
+        "label": {
+          "en": "Vertical leg seat on the extrusion slot (two-way brace)",
+          "es": "Asiento de la pata vertical en la ranura del perfil (escuadra de dos vías)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": ["series"],
+        "frame": {
+          "part": "corner_2way",
+          "origin": [0, 0, "10 + 5 * min(2, max(0, (series - 2040) / 990))"],
+          "normal": [-1, 0, 0],
+          "x_axis": [0, 0, 1]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_gusset_leg_x",
+        "label": {
+          "en": "Horizontal leg seat on the extrusion slot (gusseted brace)",
+          "es": "Asiento de la pata horizontal en la ranura del perfil (escuadra con refuerzo)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": ["series"],
+        "frame": {
+          "part": "corner_gusset",
+          "origin": ["10 + 5 * min(2, max(0, (series - 2040) / 990))", 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_gusset_leg_z",
+        "label": {
+          "en": "Vertical leg seat on the extrusion slot (gusseted brace)",
+          "es": "Asiento de la pata vertical en la ranura del perfil (escuadra con refuerzo)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": ["series"],
+        "frame": {
+          "part": "corner_gusset",
+          "origin": [0, 0, "10 + 5 * min(2, max(0, (series - 2040) / 990))"],
+          "normal": [-1, 0, 0],
+          "x_axis": [0, 0, 1]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
       }
     ],
     "material_awareness": {

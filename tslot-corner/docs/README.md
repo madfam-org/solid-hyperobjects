@@ -53,6 +53,10 @@ slot centre-line, so a printed bracket registers exactly like a die-cast one.
     6 mm slot, M5) — the interface, defined by `series`, `leg_len`, `width`,
     `bolt_dia`. Shares the T-slot extrusion standard with `tslot-2020`,
     `featherboard`, and `linear-wheel`.
+  - **Mating frames** (two-way and gusseted braces): `<part>_leg_x` and
+    `<part>_leg_z` sit on each leg's seat face at the bolt centre, normal
+    toward the extrusion, `x_axis` along it; male, symmetry 2, size key
+    `tslot-2020-6mm` for 2020/2040. The three-way block carries no frame yet.
 - **Material awareness:** `tolerance_by_material` lets the M-clearance be tuned
   per filament so drop-in nuts thread cleanly.
 - **Commons license:** CERN-OHL-W-2.0
@@ -117,6 +121,11 @@ una de fundición.
     20 mm, ranura de 6 mm, M5) — la interfaz, definida por `series`, `leg_len`,
     `width`, `bolt_dia`. Comparte el estándar de extrusión T-slot con
     `tslot-2020`, `featherboard` y `linear-wheel`.
+  - **Marcos de acople** (escuadras de dos vías y con refuerzo):
+    `<part>_leg_x` y `<part>_leg_z` están en la cara de asiento de cada pata,
+    en el centro del perno, normal hacia el perfil, `x_axis` a lo largo de él;
+    macho, simetría 2, clave de tamaño `tslot-2020-6mm` para 2020/2040. El
+    bloque de tres vías aún no tiene marco.
 - **Conciencia de material:** `tolerance_by_material` permite ajustar la holgura
   M por filamento para que las tuercas entren limpiamente.
 - **Licencia commons:** CERN-OHL-W-2.0
