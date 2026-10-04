@@ -67,7 +67,7 @@
       ]
     },
     {
-      "id": "tilt", "type": "slider", "default": 30.0, "min": 0.0, "max": 55.0, "step": 1,
+      "id": "tilt", "unit": "deg", "type": "slider", "default": 30.0, "min": 0.0, "max": 55.0, "step": 1,
       "group": "camera", "modes": ["cage", "tilt_mount", "naked_mount"],
       "label": { "en": "Camera Tilt (deg)", "es": "Inclinacion de Camara (grados)" },
       "tooltip": { "en": "Up-tilt angle for the camera (higher = faster flight)", "es": "Angulo de inclinacion hacia arriba (mayor = vuelo mas rapido)" }
@@ -85,7 +85,7 @@
       "tooltip": { "en": "Cradle wall thickness", "es": "Grosor de la pared de la cuna" }
     },
     {
-      "id": "cam_clear", "type": "slider", "default": 0.4, "min": 0.1, "max": 1.0, "step": 0.05,
+      "id": "cam_clear", "unit": "mm", "type": "slider", "default": 0.4, "min": 0.1, "max": 1.0, "step": 0.05,
       "group": "housing", "modes": ["cage", "tilt_mount"], "advanced": true,
       "label": { "en": "Camera Clearance (mm)", "es": "Holgura de Camara (mm)" },
       "tooltip": { "en": "Per-side gap around the camera body", "es": "Espacio por lado alrededor del cuerpo de la camara" }
@@ -170,6 +170,114 @@
         "geometry_type": "bolt_pattern",
         "standard": "internal",
         "parameters": ["mount_width", "tab_thick", "tab_hole_d"]
+      },
+      {
+        "id": "cage_cradle_floor",
+        "label": {
+          "en": "Cradle floor (cage)",
+          "es": "Fondo de la cuna (jaula)"
+        },
+        "geometry_type": "pocket",
+        "standard": "FPV camera body, nano 14 / micro 19 / mini 21 mm class; the camera's front (lens) face seats on the floor and looks out through the lens aperture",
+        "parameters": [
+          "cam_size",
+          "cam_clear",
+          "tilt"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "pocket_d": "cw * 0.85 + 2 * cam_clear",
+          "t": "max(0, min(tilt, 55))"
+        },
+        "frame": {
+          "part": "cage",
+          "origin": [
+            0,
+            "-pocket_d * cos(t)",
+            "pocket_d * sin(t)"
+          ],
+          "normal": [
+            0,
+            "cos(t)",
+            "-sin(t)"
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "cam_size",
+          "map": {
+            "nano": "fpv-camera-nano-14mm",
+            "micro": "fpv-camera-micro-19mm",
+            "mini": "fpv-camera-mini-21mm"
+          }
+        },
+        "symmetry": 4
+      },
+      {
+        "id": "tilt_mount_cradle_floor",
+        "label": {
+          "en": "Cradle floor (tilt bracket)",
+          "es": "Fondo de la cuna (soporte inclinable)"
+        },
+        "geometry_type": "pocket",
+        "standard": "FPV camera body, nano 14 / micro 19 / mini 21 mm class; the camera's front (lens) face seats on the floor and looks out through the lens aperture",
+        "parameters": [
+          "cam_size",
+          "cam_clear",
+          "tilt"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "pocket_d": "cw * 0.85 + 2 * cam_clear",
+          "t": "max(0, min(tilt, 55))"
+        },
+        "frame": {
+          "part": "tilt_mount",
+          "origin": [
+            0,
+            "-pocket_d * cos(t)",
+            "pocket_d * sin(t)"
+          ],
+          "normal": [
+            0,
+            "cos(t)",
+            "-sin(t)"
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "cam_size",
+          "map": {
+            "nano": "fpv-camera-nano-14mm",
+            "micro": "fpv-camera-micro-19mm",
+            "mini": "fpv-camera-mini-21mm"
+          }
+        },
+        "symmetry": 4
       }
     ],
     "material_awareness": {

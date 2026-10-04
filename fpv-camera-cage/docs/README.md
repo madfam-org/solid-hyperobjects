@@ -52,6 +52,21 @@ joined to the base, exactly like a real cam mount.
     Any camera of the selected form factor drops in.
   - **Frame Mount Tabs** (`bolt_pattern`, *internal*) — the two side tabs and
     bolt holes, defined by `mount_width`, `tab_thick`, `tab_hole_d`.
+  - **Mating frames (ASM-1 v1.1):** `cage_cradle_floor` and
+    `tilt_mount_cradle_floor` — the pocket floor (the closed wall with the lens
+    aperture), normal toward the open side, tilted with the housing (`let`:
+    camera width from `cam_size`, pocket depth, clamped tilt; degree trig).
+    Female, symmetry 4, size key from `cam_size` (`fpv-camera-nano-14mm`,
+    `fpv-camera-micro-19mm`, `fpv-camera-mini-21mm`). The housing tilts its open
+    side DOWN and its floor's aperture UP, so the camera that looks up through the
+    aperture seats here by its **front (lens) face** — the catalog camera's
+    `front_face`. Needs hyperobjects-spec ≥ 0.4.0 with the FPV camera-chain keys.
+  - **Not framed: the frame-mount tabs.** At every preset the housing is wider
+    than a 19–20 mm side-plate camera bay (micro: 19 + 2·0.4 + 2·2 = 23.8 mm),
+    and the tabs' outer faces stand `max(mount_width, out_w) + 2·tab_thick`
+    apart (29.8 mm at the defaults), so `mount_width` never governs the spacing
+    at any preset. Neither tab face can meet a side plate, so no tab frame is
+    claimed until the mount itself is redesigned.
 - **Material awareness:** `tolerance_by_material` is declared — the cam clearance
   and wall are exposed so the pocket fit can be tuned per material/printer.
 - **Societal benefit:** the camera is the most-crashed and most-swapped part on
