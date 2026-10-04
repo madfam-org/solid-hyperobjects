@@ -9,6 +9,7 @@ the pinned keystone.
 
 | Slug | Kind | What it composes |
 | :-- | :-- | :-- |
+| [`fpv-5in-freestyle`](./fpv-5in-freestyle/) | product | a 5-inch X frame (catalog class), four 2207 motors on TPU soft-mount pods, a micro camera between the side plates, stack standoffs, a battery pad |
 
 Rules for a document here:
 
