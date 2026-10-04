@@ -219,6 +219,51 @@
           "map": { "30.5x30.5-m3": "stack-30.5x30.5-m3", "20x20-m3": "stack-20x20-m3", "20x20-m2": "stack-20x20-m2" }
         },
         "symmetry": 4
+      },
+      {
+        "id": "fc_stack_top",
+        "label": {
+          "en": "FC stack seat (standoff tops)",
+          "es": "Asiento de la pila FC (cimas de los separadores)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "Flight-controller stack 30.5x30.5 M3 / 20x20 M3 / 20x20 M2",
+        "parameters": [
+          "stack_pattern",
+          "plate_t",
+          "standoff_h"
+        ],
+        "let": {
+          "t": "iif(plate_t > 0.05, plate_t, 1.6)"
+        },
+        "frame": {
+          "part": "fc_stack",
+          "origin": [
+            0,
+            0,
+            "t + max(1.5, standoff_h)"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "stack_pattern",
+          "map": {
+            "30.5x30.5-m3": "stack-30.5x30.5-m3",
+            "20x20-m3": "stack-20x20-m3",
+            "20x20-m2": "stack-20x20-m2"
+          }
+        },
+        "symmetry": 4
       }
     ],
     "material_awareness": {

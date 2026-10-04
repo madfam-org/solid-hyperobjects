@@ -68,10 +68,13 @@ rise through the plate). Its size key follows `stack_pattern`: `stack-30.5x30.5-
 `stack-20x20-m3` or `stack-20x20-m2`. The frame is verified against the rendered
 part at the defaults and every preset (`y4d-spec check --render`).
 
-The top of the standoffs (where the boards sit) has no frame yet. Its origin, the
-centre of the hole square, has no material, and on a 30.5 mm square the
-standoffs stand 21.6 mm from that centre. The render-time gate looks for a face
-within 15 mm, so it cannot verify that frame.
+`fc_stack_top` frames the standoff tops, where the boards sit: origin
+`(0, 0, t + standoff_h)` with `t` the plate thickness (1.6 mm when `plate_t` is
+0), normal `+z`, `x_axis` `+x`, symmetry 4, polarity **male** (the standoffs rise
+through the boards' holes), the same `stack_pattern` size key. The centre of the
+hole square has no material; on a 30.5 mm square the standoff tops stand 21.6 mm
+from it, so the gate's progressive search (ASM-1 v1.1, keystone 0.4.0 or later)
+finds them in the 22.5 mm ring; on 20 × 20 they are found within 15 mm.
 
 ## Engine notes
 
