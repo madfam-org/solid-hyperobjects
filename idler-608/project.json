@@ -184,6 +184,7 @@
     {
       "id": "width",
       "type": "slider",
+      "unit": "mm",
       "default": 10.0,
       "min": 8.0,
       "max": 30.0,
@@ -394,6 +395,60 @@
           "linear-wheel",
           "bearing-housing"
         ]
+      },
+      {
+        "id": "flat_idler_bearing_seat",
+        "label": {
+          "en": "Bearing seat entrance (flat idler)",
+          "es": "Entrada del asiento del rodamiento (polea loca plana)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 15 deep-groove ball bearing outer-ring seat (608: 8 x 22 x 7)",
+        "parameters": ["bearing", "width", "press_fit"],
+        "frame": {
+          "part": "flat_idler",
+          "origin": [0, 0, "width"],
+          "normal": [0, 0, 1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "bearing",
+          "map": {
+            "608": "bearing-608",
+            "623": "bearing-623",
+            "625": "bearing-625",
+            "6900": "bearing-6900"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "round_idler_bearing_seat",
+        "label": {
+          "en": "Bearing seat entrance (round-groove idler)",
+          "es": "Entrada del asiento del rodamiento (polea loca de ranura redonda)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 15 deep-groove ball bearing outer-ring seat (608: 8 x 22 x 7)",
+        "parameters": ["bearing", "width", "press_fit"],
+        "frame": {
+          "part": "round_idler",
+          "origin": [0, 0, "width"],
+          "normal": [0, 0, 1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "bearing",
+          "map": {
+            "608": "bearing-608",
+            "623": "bearing-623",
+            "625": "bearing-625",
+            "6900": "bearing-6900"
+          }
+        },
+        "symmetry": 0
       }
     ],
     "material_awareness": {
