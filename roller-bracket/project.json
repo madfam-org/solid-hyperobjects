@@ -82,6 +82,23 @@
         "per_unit": 3,
         "per_part": 14
       }
+    },
+    {
+      "id": "extrusion_bracket",
+      "label": {
+        "en": "2020 Axle Bracket",
+        "es": "Soporte de Eje para Perfil 2020"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "extrusion_bracket"
+      ],
+      "estimate": {
+        "base_time": 9,
+        "per_unit": 2,
+        "per_part": 11
+      }
     }
   ],
   "parts": [
@@ -111,6 +128,15 @@
       },
       "render_mode": 0,
       "color": "#6a9aac"
+    },
+    {
+      "id": "extrusion_bracket",
+      "label": {
+        "en": "2020 Axle Bracket",
+        "es": "Soporte de Eje para Perfil 2020"
+      },
+      "render_mode": 0,
+      "color": "#3a6a7c"
     }
   ],
   "parameter_groups": [
@@ -147,6 +173,7 @@
     {
       "id": "shaft_dia",
       "type": "slider",
+      "unit": "mm",
       "default": 8.0,
       "min": 2.0,
       "max": 40.0,
@@ -155,7 +182,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "label": {
         "en": "Shaft Diameter (mm)",
@@ -205,6 +233,7 @@
     {
       "id": "mount_height",
       "type": "slider",
+      "unit": "mm",
       "default": 40.0,
       "min": 12.0,
       "max": 200.0,
@@ -213,7 +242,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "label": {
         "en": "Shaft Centre Height (mm)",
@@ -232,6 +262,7 @@
     {
       "id": "web_thick",
       "type": "slider",
+      "unit": "mm",
       "default": 8.0,
       "min": 3.0,
       "max": 25.0,
@@ -240,7 +271,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "label": {
         "en": "Web Thickness (mm)",
@@ -262,7 +294,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "label": {
         "en": "Web Width (mm)",
@@ -284,7 +317,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "label": {
         "en": "Foot Length (mm)",
@@ -306,7 +340,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "advanced": true,
       "label": {
@@ -370,7 +405,8 @@
       "modes": [
         "bracket",
         "bearing_bracket",
-        "bracket_pair"
+        "bracket_pair",
+        "extrusion_bracket"
       ],
       "advanced": true,
       "label": {
@@ -459,6 +495,20 @@
         "mount_height": 50,
         "pair_gap": 150,
         "bearing_seat": true
+      }
+    },
+    {
+      "id": "idler_608_2020",
+      "mode": "extrusion_bracket",
+      "label": {
+        "en": "608 Idler Axle on 2020",
+        "es": "Eje de Polea Loca 608 sobre Perfil 2020"
+      },
+      "values": {
+        "shaft_dia": 8,
+        "mount_height": 35,
+        "web_thick": 8,
+        "web_width": 20
       }
     }
   ],
@@ -586,6 +636,86 @@
           "linear-wheel",
           "tslot-2020"
         ]
+      },
+      {
+        "id": "extrusion_bracket_shaft_bore",
+        "label": {
+          "en": "2020 Axle Bracket Shaft Bore",
+          "es": "Barreno del Eje del Soporte para Perfil 2020"
+        },
+        "geometry_type": "socket",
+        "standard": "8 mm ground shaft (shaft-8mm) at shaft_dia 8",
+        "parameters": [
+          "shaft_dia",
+          "mount_height",
+          "web_thick"
+        ],
+        "let": {
+          "sd": "max(2, min(shaft_dia, 40))",
+          "wt": "max(3, min(web_thick, 25))",
+          "axis_z": "max(sd + 8, min(mount_height, 200))"
+        },
+        "frame": {
+          "part": "extrusion_bracket",
+          "origin": [
+            "wt / 2",
+            0,
+            "axis_z"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "shaft_dia",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "extrusion_bracket_foot_slot",
+        "label": {
+          "en": "2020 Axle Bracket Foot on the Slot",
+          "es": "Pie del Soporte de Eje sobre la Ranura"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 T-slot extrusion, 6 mm slot; the key in the slot opening, M5 screws into T-nuts on the slot line",
+        "parameters": [
+          "foot_len",
+          "web_width",
+          "mount_dia"
+        ],
+        "frame": {
+          "part": "extrusion_bracket",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
       }
     ],
     "material_awareness": {
