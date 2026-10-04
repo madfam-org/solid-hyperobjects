@@ -15,6 +15,7 @@ Sandbox contract (apps/api/services/engine/cq_runner.py):
 """
 
 import cadquery as cq
+import math
 
 
 # ── Sandbox-safe parameter access ────────────────────────────────────────────
@@ -51,6 +52,7 @@ bolt_span   = float(PARAM(lambda: bolt_span,   12.0))   # base bolt hole spacing
 tube_d      = float(PARAM(lambda: tube_d,       4.0))   # rigid tube-antenna diameter (tube mode)
 tube_len    = float(PARAM(lambda: tube_len,    28.0))   # tube capture length (tube mode)
 clip_gap    = float(PARAM(lambda: clip_gap,     4.0))   # frame-plate thickness the clip grips (clip mode)
+jack_body_d = float(PARAM(lambda: jack_body_d,  9.5))   # SMA bracket: clearance bore for a rear-mounted jack
 
 target_part = str(PARAM(lambda: target_part, "tube_mount"))
 # "tube_mount" | "sma_bracket" | "clip"
@@ -62,6 +64,21 @@ exit_r = max(0.8, exit_d / 2.0)
 stalk_r = max(exit_r + 1.6, stalk_d / 2.0)
 back_angle = max(0.0, min(back_angle, 45.0))
 bolt_r = max(0.6, bolt_d / 2.0)
+
+# ── SMA bracket: a REAR-mounted pigtail jack (owner decision O2(a)) ──────────
+# The jack comes up from below: its rear body and hex travel the whole stalk and
+# its shoulder bears on the cap's UNDERSIDE, its thread through the cap's exit
+# hole. So below the cap the bore is a full-length clearance bore of `jack_body_d`
+# (never less than 1 mm over the exit hole), open through the foot; the exit
+# hole stays only through the cap. The stalk keeps a 1.6 mm wall round that bore,
+# and the foot's two bolt holes move ACROSS the lean (along X), outside the stalk
+# by a screw head's room: along Y the leaned stalk passes over the +Y bolt.
+sma_bore_r = max(jack_body_d, exit_d + 1.0) / 2.0
+sma_stalk_r = max(stalk_r, sma_bore_r + 1.6)
+SMA_HEAD_ROOM = 2.0
+sma_bolt_span = max(bolt_span, 2.0 * (sma_stalk_r + bolt_r + SMA_HEAD_ROOM))
+sma_base_w = max(base_w, sma_bolt_span + 2.0 * (bolt_r + 2.0))
+sma_base_l = max(base_l, 2.0 * sma_stalk_r / math.cos(math.radians(back_angle)) + 3.0)
 
 
 def _foot():
@@ -130,32 +147,55 @@ def build_tube_mount():
 
 
 def build_sma_bracket():
-    """Foot + a stalk ending in a flat SMA bulkhead face: the stalk top is capped
-    by a small plate with the SMA through-hole, so an SMA bulkhead nut clamps the
-    antenna there and routes the coax down the stalk bore."""
-    foot = _foot()
-    # Build stalk + bulkhead cap upright, then lean them together so the cap face
-    # stays perpendicular to the (leaned) stalk axis.
-    stalk = _stalk(stalk_h, stalk_r, exit_r, lean=False)
+    """Foot + a stalk ending in a flat bulkhead cap for a REAR-mounted SMA pigtail
+    jack: the jack's body comes up the stalk's clearance bore (open through the
+    foot), its shoulder seats on the cap's underside, its thread passes the cap's
+    exit hole, and the nut and antenna go on top."""
+    foot = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(0, 0, -base_h / 2.0))
+        .box(sma_base_w, sma_base_l, base_h, centered=(True, True, True))
+    )
+    try:
+        foot = foot.edges("|Z").fillet(min(2.0, sma_base_w / 2.0 - 0.5, sma_base_l / 2.0 - 0.5))
+    except Exception:
+        pass
+    for sx in (-1.0, 1.0):
+        hole = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(sx * sma_bolt_span / 2.0, 0, -base_h / 2.0))
+            .circle(bolt_r)
+            .extrude(base_h * 2.0, both=True)
+        )
+        foot = foot.cut(hole)
+    # Stalk + cap built upright, then leaned together so the cap stays square to it.
+    stalk = cq.Workplane("XY").circle(sma_stalk_r).extrude(stalk_h)
     cap_t = max(2.0, base_h)
     cap = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, 0, stalk_h + cap_t / 2.0))
-        .box(stalk_r * 2.6, stalk_r * 2.6, cap_t, centered=(True, True, True))
+        .box(sma_stalk_r * 2.6, sma_stalk_r * 2.6, cap_t, centered=(True, True, True))
     )
     try:
-        cap = cap.edges("|Z").fillet(min(2.0, stalk_r - 0.4))
+        cap = cap.edges("|Z").fillet(min(2.0, sma_stalk_r - 0.4))
     except Exception:
         pass
-    hole = (
+    exit_hole = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, 0, stalk_h + cap_t / 2.0))
         .circle(exit_r)
         .extrude(cap_t, both=True)
     )
-    cap = cap.cut(hole)
-    top = _lean(stalk.union(cap))
-    return foot.union(top)
+    top = _lean(stalk.union(cap).cut(exit_hole))
+    # The clearance bore: from below the foot up to the cap's underside, leaned
+    # with the stalk, cut from foot and stalk together.
+    bore = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(0, 0, -base_h * 3.0))
+        .circle(sma_bore_r)
+        .extrude(stalk_h + base_h * 3.0)
+    )
+    return foot.union(top).cut(_lean(bore))
 
 
 def build_clip():

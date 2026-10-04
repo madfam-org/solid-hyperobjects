@@ -67,43 +67,43 @@
       ]
     },
     {
-      "id": "stalk_h", "type": "slider", "default": 35.0, "min": 10.0, "max": 60.0, "step": 1,
+      "id": "stalk_h", "unit": "mm", "type": "slider", "default": 35.0, "min": 10.0, "max": 60.0, "step": 1,
       "group": "stalk", "modes": ["tube_mount", "sma_bracket", "clip"],
       "label": { "en": "Stalk Height (mm)", "es": "Altura del Tallo (mm)" },
       "tooltip": { "en": "How high the stalk lifts the antenna above the props", "es": "Cuanto sube el tallo la antena sobre las helices" }
     },
     {
-      "id": "stalk_d", "type": "slider", "default": 8.0, "min": 4.0, "max": 12.0, "step": 0.5,
+      "id": "stalk_d", "unit": "mm", "type": "slider", "default": 8.0, "min": 4.0, "max": 12.0, "step": 0.5,
       "group": "stalk", "modes": ["tube_mount", "sma_bracket", "clip"],
       "label": { "en": "Stalk Diameter (mm)", "es": "Diametro del Tallo (mm)" },
       "tooltip": { "en": "Stalk outer diameter", "es": "Diametro exterior del tallo" }
     },
     {
-      "id": "back_angle", "type": "slider", "default": 25.0, "min": 0.0, "max": 45.0, "step": 1,
+      "id": "back_angle", "unit": "deg", "type": "slider", "default": 25.0, "min": 0.0, "max": 45.0, "step": 1,
       "group": "stalk", "modes": ["tube_mount", "sma_bracket"],
       "label": { "en": "Rearward Lean (deg)", "es": "Inclinacion Trasera (grados)" },
       "tooltip": { "en": "Lean the stalk back so the antenna clears the props", "es": "Inclina el tallo atras para que la antena libre las helices" }
     },
     {
-      "id": "base_w", "type": "slider", "default": 18.0, "min": 10.0, "max": 30.0, "step": 1,
+      "id": "base_w", "unit": "mm", "type": "slider", "default": 18.0, "min": 10.0, "max": 30.0, "step": 1,
       "group": "base", "modes": ["tube_mount", "sma_bracket", "clip"],
       "label": { "en": "Base Width (mm)", "es": "Ancho de Base (mm)" },
       "tooltip": { "en": "Foot base width", "es": "Ancho de la base" }
     },
     {
-      "id": "base_l", "type": "slider", "default": 18.0, "min": 10.0, "max": 30.0, "step": 1,
+      "id": "base_l", "unit": "mm", "type": "slider", "default": 18.0, "min": 10.0, "max": 30.0, "step": 1,
       "group": "base", "modes": ["tube_mount", "sma_bracket"],
       "label": { "en": "Base Length (mm)", "es": "Largo de Base (mm)" },
       "tooltip": { "en": "Foot base length", "es": "Largo de la base" }
     },
     {
-      "id": "bolt_d", "type": "slider", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
+      "id": "bolt_d", "unit": "mm", "type": "slider", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
       "group": "base", "modes": ["tube_mount", "sma_bracket"], "advanced": true,
       "label": { "en": "Bolt Hole (mm)", "es": "Agujero de Tornillo (mm)" },
       "tooltip": { "en": "Base bolt hole diameter (M2 = 2.2)", "es": "Diametro del agujero de la base (M2 = 2.2)" }
     },
     {
-      "id": "bolt_span", "type": "slider", "default": 12.0, "min": 6.0, "max": 24.0, "step": 0.5,
+      "id": "bolt_span", "unit": "mm", "type": "slider", "default": 12.0, "min": 6.0, "max": 24.0, "step": 0.5,
       "group": "base", "modes": ["tube_mount", "sma_bracket"], "advanced": true,
       "label": { "en": "Bolt Spacing (mm)", "es": "Separacion de Tornillos (mm)" },
       "tooltip": { "en": "Distance between the two base bolt holes", "es": "Distancia entre los dos agujeros de la base" }
@@ -125,6 +125,12 @@
       "group": "tube", "modes": ["clip"],
       "label": { "en": "Clip Gap (mm)", "es": "Separacion del Clip (mm)" },
       "tooltip": { "en": "Frame-plate thickness the clip grips", "es": "Grosor de la placa que sujeta el clip" }
+    },
+    {
+      "id": "jack_body_d", "unit": "mm", "type": "slider", "default": 9.5, "min": 6.0, "max": 14.0, "step": 0.5,
+      "group": "connector", "modes": ["sma_bracket"],
+      "label": { "en": "Jack Clearance Bore (mm)", "es": "Barreno de Paso del Conector (mm)" },
+      "tooltip": { "en": "Bore up the stalk and through the foot for a REAR-mounted pigtail jack: it must pass the jack's rear body and hex (9.5 clears a hex up to 8.2 mm across flats). Read it from your jack's drawing.", "es": "Barreno por el tallo y a traves del pie para un conector pigtail montado POR DETRAS: debe pasar el cuerpo trasero y el hexagono del conector (9.5 libra un hexagono de hasta 8.2 mm entre caras). Tomalo del plano de tu conector." }
     }
   ],
   "presets": [
@@ -142,6 +148,32 @@
       "id": "ufl_clip", "mode": "clip",
       "label": { "en": "U.FL Frame Clip", "es": "Clip de Cuadro U.FL" },
       "values": { "connector": "U.FL", "stalk_h": 24, "stalk_d": 6, "clip_gap": 4 }
+    },
+    {
+      "id": "sma_stalk_upright",
+      "mode": "sma_bracket",
+      "label": {
+        "en": "SMA Stalk Upright",
+        "es": "Tallo SMA Vertical"
+      },
+      "values": {
+        "connector": "SMA",
+        "stalk_h": 35,
+        "back_angle": 0
+      }
+    },
+    {
+      "id": "sma_stalk_45",
+      "mode": "sma_bracket",
+      "label": {
+        "en": "SMA Stalk 45 deg",
+        "es": "Tallo SMA 45 grados"
+      },
+      "values": {
+        "connector": "SMA",
+        "stalk_h": 30,
+        "back_angle": 45
+      }
     }
   ],
   "constraints": [
@@ -182,6 +214,52 @@
         "geometry_type": "bolt_pattern",
         "standard": "internal",
         "parameters": ["bolt_span", "bolt_d", "clip_gap"]
+      },
+      {
+        "id": "sma_bracket_jack_seat",
+        "label": {
+          "en": "Rear-mounted jack seat (cap underside)",
+          "es": "Asiento del conector montado por detras (cara inferior de la tapa)"
+        },
+        "geometry_type": "thread",
+        "standard": "SMA bulkhead jack, rear-mounted: shoulder on the cap underside, .250-36 thread through the exit hole (U.FL: the coax exit)",
+        "parameters": [
+          "connector",
+          "stalk_h",
+          "back_angle",
+          "jack_body_d"
+        ],
+        "let": {
+          "a": "iif(back_angle > 0.1, max(0, min(back_angle, 45)), 0)",
+          "h": "stalk_h"
+        },
+        "frame": {
+          "part": "sma_bracket",
+          "origin": [
+            0,
+            "h * sin(a)",
+            "h * cos(a)"
+          ],
+          "normal": [
+            0,
+            "-sin(a)",
+            "-cos(a)"
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "connector",
+          "map": {
+            "SMA": "sma-bulkhead",
+            "U.FL": "u-fl-cable-exit"
+          }
+        },
+        "symmetry": 0
       }
     ],
     "material_awareness": {
