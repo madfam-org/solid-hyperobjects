@@ -16,20 +16,26 @@ Document licence: CERN-OHL-W-2.0.
   - Four 2207 motors (`motor-2207`) bolt to the pods' `motor_bolt_pattern`.
   - The frame's motor-mount `x_axis` points outward along each arm, so every pod aligns
     at `rotation_index` 0.
-- **The camera between the side plates.**
-  - The micro camera (`fpv-camera-micro-19mm`) bolts by its side screws to the frame's
-    side plates: `camera_plate_left ↔ side_face_left` and
-    `camera_plate_right ↔ side_face_right` (hyperobjects-spec#38). That is how a micro
-    camera sits in this frame class.
-  - The two plate mates form a cycle. The second mate closes only when the 19 mm body
-    width equals the frame's `camera_bay_width_mm`, which defaults to 19. With a 20 mm
-    bay the cycle misses by 1.0000 mm.
-  - The left mate sets the tilt: `angle_deg` −30, which aims the optical axis 30° up.
-  - The right plate faces the opposite way, so the same physical tilt reads +30 there.
-    The document states +30, the angle the geometry realises.
-  - The validator does not check the angle of a symmetry-0 mate that closes a cycle; it
-    checks only origin and axis. The stated +30 is therefore documentation that matches
-    the measured value, not something the check enforces.
+- **The camera cage on the side plates.**
+  - The `fpv-camera-cage` (`cage`, micro, 30° tilt, `mount_width` 24; TPU intended) hangs
+    on the frame's camera side plates by two ears.
+  - Each ear's inner face bolts to a plate's **outer** face:
+    `camera_plate_left_outer ↔ cage_ear_left` and
+    `camera_plate_right_outer ↔ cage_ear_right`, both at `angle_deg` 0. The catalog
+    places those faces at `camera_bay_width_mm` + 2 × `side_plate_thickness_mm` =
+    19 + 2 × 2.5 = 24 mm apart (keystone `8c12194`). The ears are in
+    solid-hyperobjects#133.
+  - The two ear mates form a cycle, so it closes only when the cage's `mount_width`
+    equals the plates' outer spacing. With ears at 19 mm (the inner spacing) the cycle
+    misses by 5.0000 mm; at 25 mm it misses by 1.0000 mm.
+- **The camera in the cage.**
+  - The micro camera (`fpv-camera-micro-19mm`) seats **lens-first** on the cage's cradle
+    floor: `cage_cradle_floor ↔ front_face`, `rotation_index` 0.
+  - The floor carries the lens aperture and is tilted by the cage's `tilt` (30°), so the
+    optical axis points 30° up from the frame's forward axis.
+  - The validator cannot tell `front_face` from `back_face`: both close, and
+    `back_face` would aim the camera 30° down. The face choice follows the cage geometry
+    (#133), not the check.
 - **The stack and the battery.**
   - `pcb-standoff` in `fc_stack` mode (30.5 × 30.5 M3) sits on the frame's stack mount.
   - `battery-pad` (`flat_pad`) sits on the top plate's strap station.
@@ -40,27 +46,15 @@ Every mate states its rotation.
 ## Requirements roll-up
 
 `requirements_rollup` is true. The roll-up reports only what the cartridges declare:
-today that is `motor-soft-mount`'s `soft_mount` part (FFF, TPU 95A).
+today that is `motor-soft-mount`'s `soft_mount` part (FFF, TPU 95A). The cage is meant
+to be printed in TPU, but `fpv-camera-cage` declares no material: no documentary
+evidence for TPU has been recorded on it, so none is claimed.
 
 ## Gaps (documented, not claimed)
 
-- **The TPU camera mount is not in this assembly.** The owner's brief asks for
-  `fpv-camera-cage`, but the cage as modelled cannot attach to this frame:
-  - it is about 23.8 mm wide, and its tab faces stand about 29.8 mm apart;
-  - the side plates are 19–20 mm apart, so the tabs miss by 10.8 mm
-    (hyperobjects-spec#38, P4-AUTH-C).
-
-  How the cage should attach is an open owner decision. A cage with no mate to the frame
-  would be unreachable and would fail the check, so it is left out.
-- **Camera in the cage, proven separately.** `cage_cradle_floor ↔ front_face` (the camera
-  seats lens-first) closes on its own (solid-hyperobjects#126). It joins this document
-  once the cage has a frame attachment. A render probe found that, at a tilt above 0, a
-  19 × 19 × 20 camera body on that floor intersects the cage's base block; this was
-  reported to P4-AUTH-C.
-- **The antenna chain is not included.** The antenna mount is stopped pending an owner
-  design decision.
-- **No props and no flight-controller board.** Neither is in the brief. A board on the
-  standoffs also needs a framed standoff top.
+- **The antenna chain is not included in this round.** The rear-mount antenna mount
+  (solid-hyperobjects#135) has merged and can join a later round.
+- **No props and no flight-controller board.** Neither is in the brief.
 - **No collision claim.** `--collision` is a stub in keystone 0.4.0. It is not run.
 
 ## Check it
@@ -87,16 +81,16 @@ Licencia del documento: CERN-OHL-W-2.0.
   diseño copiado.
 - **Las cuatro cadenas de motor.** Cada una va del brazo del marco a una base de TPU
   (`motor-soft-mount`) y de ahí a un motor 2207. Todas alinean con `rotation_index` 0.
-- **La cámara.** La cámara micro se atornilla por sus tornillos laterales a las dos
-  placas laterales del marco, con 30° de inclinación hacia arriba. Las dos uniones
-  forman un ciclo que cierra solo si el ancho del hueco es de 19 mm.
+- **La jaula de cámara.** La jaula (pensada en TPU; el cartucho no declara material)
+  cuelga de las caras **exteriores** de las placas laterales por dos orejas, separadas
+  24 mm (19 + 2 × 2.5). Las dos uniones forman un ciclo: con orejas a 19 mm falla por
+  5 mm.
+- **La cámara.** La cámara micro asienta con la lente al frente en la cuna de la jaula,
+  a 30° hacia arriba.
 - **La pila y la batería.** Los separadores de la pila (30.5 × 30.5 M3) van sobre el
   montaje de la pila, y la almohadilla de batería sobre la placa superior.
 
 **Lo que no incluye**
 
-- **La montura de cámara de TPU (`fpv-camera-cage`).** Tal como está modelada, no puede
-  fijarse al marco: sus pestañas quedan a unos 29.8 mm y las placas a 19–20 mm. Es una
-  decisión pendiente del dueño. La cámara en la cuna se demuestra por separado (#126).
-- **La cadena de antena.** Está detenida por una decisión de diseño del dueño.
+- **La cadena de antena** queda fuera de esta ronda.
 - **Verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0.
