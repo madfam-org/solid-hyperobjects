@@ -168,7 +168,7 @@
         "parameters": ["strap_w", "pack_l", "pad_thick"],
         "frame": { "part": "flat_pad", "origin": [0, 0, "-pad_thick"], "normal": [0, 0, -1], "x_axis": [0, 1, 0] },
         "polarity": "male",
-        "size_key": "battery-strap-20mm",
+        "size_key": {"param": "strap_w", "map": {"20": "battery-strap-20mm"}},
         "symmetry": 2
       },
       {
