@@ -37,6 +37,7 @@ never from memory, and never edit a doc to match a pin you assumed.
 | Lane | Trigger | What it does |
 | :-- | :-- | :-- |
 | `manifests` | every PR | `y4d-spec check` on all 502, plus `pytest .github/scripts` and the reporter selftest |
+| `assemblies` | every PR | `y4d-spec assembly check` on every `assemblies/*/assembly.json` (ASM-1 §3), catalog from the pinned keystone |
 | `render-scope` | every PR | fork-point diff → which cartridges need geometry |
 | `render-changed` | every PR | renders them, groups of ≤ 8, `max-parallel: 2`, 60-min jobs |
 | `nightly-scope` | 09:00Z | cuts the whole commons into deterministic groups of ≤ 8 |
