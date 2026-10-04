@@ -160,13 +160,13 @@
       "id": "mini_cage_55",
       "mode": "cage",
       "label": {
-        "en": "Mini Cage 55 deg (wide bay)",
-        "es": "Jaula Mini 55 grados (hueco ancho)"
+        "en": "Mini Cage 55 deg (long ears)",
+        "es": "Jaula Mini 55 grados (orejas largas)"
       },
       "values": {
         "cam_size": "mini",
         "tilt": 55,
-        "mount_width": 25,
+        "mount_width": 24,
         "ear_reach": 20
       }
     }
