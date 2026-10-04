@@ -63,7 +63,9 @@ no two rendered parts intersect (see the evidence in the PR).
   not run and nothing here claims it.
 - **The 608 idler is not a Voron part.** It is a commons idler, not taken from any Voron
   design, and no cited Voron 2.4 placement for it was found. Its position on `frame_x` is
-  a layout choice, not a Voron fact.
+  a layout choice, not a Voron fact. It was accepted as a layout convention on 2026-10-04.
+  The Voron 2.4r2 assembly manual is being checked for a cited idler mount, which may move
+  it in a later PR.
 - **The idler's seat floor touches the 608's inner ring.** `idler-608`'s 3 mm seat floor
   is an annulus from r 4.2 to 11, so it contacts the face of the 608's stationary inner
   ring. Fixing it needs a cited inner-ring land diameter. It is accepted for now
@@ -118,5 +120,7 @@ Cada unión declara su rotación.
   y no se ejecuta.
 - **La polea loca 608 no es una pieza Voron.** Va sobre un eje de 8 mm en un soporte para
   perfil 2020, sobre la cara exterior de `frame_x`. Esa posición es una decisión de
-  arreglo, no una colocación Voron citada. El fondo del asiento de la polea toca el anillo
-  interior del 608; se acepta por ahora.
+  arreglo, no una colocación Voron citada; se aceptó como convención de arreglo el
+  2026-10-04. Se revisa el manual de ensamble Voron 2.4r2 en busca de una colocación
+  citada, que podría moverla en un PR posterior. El fondo del asiento de la polea toca el
+  anillo interior del 608; se acepta por ahora.
