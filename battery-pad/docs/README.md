@@ -67,16 +67,19 @@ where the pad sits at an airframe's battery-strap station:
   underside, which rests on the top plate between the strap slots. Normal `-z`.
 - **Orientation:** `x_axis` `+y`, the pack length, so the pack lies along the
   airframe's forward axis. Symmetry 2.
-- **Polarity and size key:** polarity male; size key `battery-strap-20mm`.
+- **Polarity and size key:** polarity male; size key
+  `{param: strap_w, map: {"20": battery-strap-20mm}}` (ASM-1 v1.1 slider key):
+  the key resolves only at exactly 20 mm.
 
 The frame is verified against the rendered part at the defaults and every preset
 (`y4d-spec check --render`).
 
 Limits:
 
-- **Strap width.** The size key states a 20 mm strap, which matches the default
-  `strap_w`. `strap_w` is a free slider, so at another width (the 6S tray preset
-  uses 25 mm) the key still says 20 mm.
+- **Strap width.** The size key follows `strap_w`: at 20 mm (the default) it is
+  `battery-strap-20mm`; at any other width (the 6S tray preset uses 25 mm) the
+  pad honestly has no size key, so an assembly mate that needs one fails and
+  names the slider value.
 - **Channel count.** A pack 45 mm or longer gets two strap channels at
   ±`pack_l`/4. A single central strap station then passes between them, across
   the ribs.
