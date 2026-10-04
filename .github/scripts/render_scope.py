@@ -19,6 +19,14 @@ fonts/ (they change what .text() renders), parameters, parts, modes, presets,
 engine, verification, or any unknown file — keeps the cartridge in scope. A
 manifest that fails to parse on either side keeps the cartridge in scope too:
 the lane fails closed, never open.
+
+`hyperobject` is metadata EXCEPT the interface fields the keystone's render-time
+frame gate judges (ASM-1 §8): a change to any cdg_interfaces entry's `frame`,
+`size_key`, `polarity`, `symmetry`, `let` or `geometry_type` (GATED_INTERFACE_KEYS)
+keeps the cartridge in scope, because `y4d-spec check --render` is the only thing
+that compares a frame with the geometry. Without this, a frames-only PR skipped the
+render lane and its frames were proven by nothing but the nightly sweep (F6).
+A label- or prose-only interface change is still metadata.
 """
 
 import json
@@ -40,6 +48,12 @@ ALLOW = (
     "project.hyperobject",
     "project.version",
 )
+
+# cdg_interfaces fields the frame gate reads (`geometry_type` picks its rule, `let`
+# feeds the frame, the rest are what a mate and the gate verify). A change to any of
+# them, on any interface, forces a render.
+GATED_INTERFACE_KEYS = ("frame", "size_key", "polarity", "symmetry", "let", "geometry_type")
+INTERFACE_LISTS = (("hyperobject", "cdg_interfaces"), ("project", "hyperobject", "cdg_interfaces"))
 
 # Files whose change can never move geometry. fonts/ is deliberately absent:
 # a bundled font changes what Workplane.text() renders.
@@ -78,6 +92,31 @@ def changed_paths(before, after):
     return {p for p in set(a) | set(b) if a.get(p, _MISSING) != b.get(p, _MISSING)}
 
 
+def _gated_interfaces(manifest):
+    """{(list path, interface id or position): {gated key: canonical JSON}} for every
+    interface that carries at least one gated key."""
+    out = {}
+    for path in INTERFACE_LISTS:
+        node = manifest
+        for key in path:
+            node = node.get(key) if isinstance(node, dict) else None
+        for pos, iface in enumerate(node if isinstance(node, list) else []):
+            if not isinstance(iface, dict):
+                continue
+            fields = {k: json.dumps(iface[k], sort_keys=True) for k in GATED_INTERFACE_KEYS
+                      if k in iface}
+            if fields:
+                ident = iface.get("id") if isinstance(iface.get("id"), str) else f"#{pos}"
+                out[(".".join(path), ident)] = fields
+    return out
+
+
+def frame_fields_changed(before, after):
+    """True when any interface's frame-gate fields differ between the two manifests
+    (added, removed or edited)."""
+    return _gated_interfaces(before) != _gated_interfaces(after)
+
+
 def _git(*args):
     return subprocess.run(["git", *args], check=True, capture_output=True, text=True).stdout
 
@@ -106,6 +145,8 @@ def needs_render(base, head, slug):
     before, after = _manifest_at(base, slug), _manifest_at(head, slug)
     if before is None or after is None:
         return True
+    if frame_fields_changed(before, after):
+        return True  # the frame gate must re-judge them (F6)
     return not all(_allowed(p) for p in changed_paths(before, after))
 
 
