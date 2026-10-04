@@ -51,6 +51,8 @@ rounded edge, keeping every mode watertight.
 - **NEMA 17 L-Bracket** — the classic right-angle mount.
 - **NEMA 23 Flat Plate** — a panel plate for the larger motor.
 - **NEMA 17 on 2020** — foot for aluminium-extrusion frames.
+- **NEMA 23 L** — the right-angle mount for the larger motor (gusset on).
+- **NEMA 23 on 2020** — the extrusion foot for the larger motor.
 
 ## Hyperobject Profile
 
@@ -64,9 +66,14 @@ rounded edge, keeping every mode watertight.
   - **Mating frames:** `flat_bracket_motor_face` (top face at the bolt-square
     centre, normal up toward the motor; male, symmetry 4, size key from `nema`)
     and `extrusion_mount_foot_slot` (foot underside on the slot line, normal
-    toward the extrusion; male, symmetry 2, `tslot-2020-6mm`). The motor faces of
-    the L-bracket and extrusion mount are not framed yet: their height follows
-    `nema`, whose option values are not numbers a frame expression can read.
+    toward the extrusion; male, symmetry 2, `tslot-2020-6mm`), plus
+    `l_bracket_motor_face` and `extrusion_mount_motor_face` (the vertical plate's
+    outer face on the motor axis, normal away from the base toward the motor; male,
+    symmetry 4, size key from `nema`). Their axis height follows `nema` through a
+    `let` lookup of the bolt square, bolt hole and body width (ASM-1 v1.1, keystone
+    0.4.0 or later).
+  - **Gusset clearance:** the gusset web is capped 1 mm below the pilot bore, so it
+    never fills the pilot (or the shaft path behind it) at either NEMA size.
 - **Material awareness:** `tolerance_by_material` is declared — bolt/pilot
   clearances can be tuned per material (stiff PLA vs tougher PETG/nylon).
 - **Societal benefit:** stepper motors outlive their machines; an on-demand
