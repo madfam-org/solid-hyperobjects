@@ -58,6 +58,29 @@ for a 35×70 pack captures a 35×70 pack.
   put, and the CG wedge lets a builder tune balance without buying tune parts.
 - **License:** CERN-OHL-W-2.0
 
+## Mating frames (assemblies)
+
+`battery_strap_channel` carries a SEM-1 frame on the `flat_pad` part, which marks
+where the pad sits at an airframe's battery-strap station:
+
+- **Origin and normal:** origin `(0, 0, -pad_thick)`, the centre of the pad's
+  underside, which rests on the top plate between the strap slots. Normal `-z`.
+- **Orientation:** `x_axis` `+y`, the pack length, so the pack lies along the
+  airframe's forward axis. Symmetry 2.
+- **Polarity and size key:** polarity male; size key `battery-strap-20mm`.
+
+The frame is verified against the rendered part at the defaults and every preset
+(`y4d-spec check --render`).
+
+Limits:
+
+- **Strap width.** The size key states a 20 mm strap, which matches the default
+  `strap_w`. `strap_w` is a free slider, so at another width (the 6S tray preset
+  uses 25 mm) the key still says 20 mm.
+- **Channel count.** A pack 45 mm or longer gets two strap channels at
+  ±`pack_l`/4. A single central strap station then passes between them, across
+  the ribs.
+
 ## Engine notes
 
 - Engine: **CadQuery** (`main.py`). Exports STL / 3MF / STEP / GLB / GLTF / OBJ.
