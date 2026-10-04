@@ -195,6 +195,7 @@
     {
       "id": "plate_t",
       "type": "slider",
+      "unit": "mm",
       "default": 5.0,
       "min": 3.0,
       "max": 10.0,
@@ -239,6 +240,7 @@
     {
       "id": "base_len",
       "type": "slider",
+      "unit": "mm",
       "default": 45.0,
       "min": 25.0,
       "max": 90.0,
@@ -469,6 +471,50 @@
         "compatible_with": [
           "nema-bracket"
         ]
+      },
+      {
+        "id": "flat_bracket_motor_face",
+        "label": {
+          "en": "Motor face seat (flat bracket)",
+          "es": "Asiento de la cara del motor (placa plana)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA ICS 16 face (frame size 17 / 23), clearance holes, motor on the top face",
+        "parameters": ["nema", "plate_t"],
+        "frame": {
+          "part": "flat_bracket",
+          "origin": [0, 0, "plate_t"],
+          "normal": [0, 0, 1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "nema",
+          "map": {
+            "NEMA17": "nema-17-face",
+            "NEMA23": "nema-23-face"
+          }
+        },
+        "symmetry": 4
+      },
+      {
+        "id": "extrusion_mount_foot_slot",
+        "label": {
+          "en": "Foot seat on the extrusion slot (extrusion mount)",
+          "es": "Asiento del pie en la ranura del perfil (montaje a perfil)"
+        },
+        "geometry_type": "profile",
+        "standard": "2020 T-slot extrusion, M5 T-nuts on the slot centre-line",
+        "parameters": ["base_len"],
+        "frame": {
+          "part": "extrusion_mount",
+          "origin": [0, 0, 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "size_key": "tslot-2020-6mm",
+        "symmetry": 2
       }
     ],
     "material_awareness": {
