@@ -73,13 +73,19 @@
       "tooltip": { "en": "Up-tilt angle for the camera (higher = faster flight)", "es": "Angulo de inclinacion hacia arriba (mayor = vuelo mas rapido)" }
     },
     {
+      "id": "cam_len", "unit": "mm", "type": "slider", "default": 20.0, "min": 10.0, "max": 30.0, "step": 0.5,
+      "group": "camera", "modes": ["cage", "tilt_mount", "naked_mount"],
+      "label": { "en": "Camera Length (mm)", "es": "Largo de Camara (mm)" },
+      "tooltip": { "en": "Camera body length, lens face to back (micro class 19 x 19 x 20); the pocket takes the whole body", "es": "Largo del cuerpo de la camara, de la cara del lente a la parte trasera (clase micro 19 x 19 x 20); la cuna aloja el cuerpo completo" }
+    },
+    {
       "id": "lens_hole", "type": "checkbox", "default": true,
       "group": "camera", "modes": ["cage", "tilt_mount", "naked_mount"],
       "label": { "en": "Lens Aperture", "es": "Abertura de Lente" },
       "tooltip": { "en": "Cut an aperture so the lens / focus is reachable", "es": "Corta una abertura para alcanzar el lente / enfoque" }
     },
     {
-      "id": "wall", "type": "slider", "default": 2.0, "min": 1.0, "max": 4.0, "step": 0.2,
+      "id": "wall", "unit": "mm", "type": "slider", "default": 2.0, "min": 1.0, "max": 4.0, "step": 0.2,
       "group": "housing", "modes": ["cage", "tilt_mount", "naked_mount"],
       "label": { "en": "Wall Thickness (mm)", "es": "Grosor de Pared (mm)" },
       "tooltip": { "en": "Cradle wall thickness", "es": "Grosor de la pared de la cuna" }
@@ -91,45 +97,78 @@
       "tooltip": { "en": "Per-side gap around the camera body", "es": "Espacio por lado alrededor del cuerpo de la camara" }
     },
     {
-      "id": "base_h", "type": "slider", "default": 6.0, "min": 2.0, "max": 16.0, "step": 0.5,
+      "id": "base_h", "unit": "mm", "type": "slider", "default": 6.0, "min": 2.0, "max": 16.0, "step": 0.5,
       "group": "mount", "modes": ["cage", "tilt_mount", "naked_mount"],
       "label": { "en": "Base Height (mm)", "es": "Altura de Base (mm)" },
       "tooltip": { "en": "Mount base height below the cradle", "es": "Altura de la base debajo de la cuna" }
     },
     {
-      "id": "mount_width", "type": "slider", "default": 19.0, "min": 8.0, "max": 40.0, "step": 0.5,
+      "id": "mount_width", "unit": "mm", "type": "slider", "default": 24.0, "min": 8.0, "max": 40.0, "step": 0.5,
       "group": "mount", "modes": ["cage", "tilt_mount", "naked_mount"],
-      "label": { "en": "Mount Tab Spacing (mm)", "es": "Separacion de Pestanas (mm)" },
-      "tooltip": { "en": "Distance between the frame-plate mount tabs", "es": "Distancia entre las pestanas de montaje al cuadro" }
+      "label": { "en": "Side-Plate Outer Spacing (mm)", "es": "Separacion Exterior de Placas (mm)" },
+      "tooltip": { "en": "Distance across the OUTSIDE of the frame's camera side plates; the ears' inner faces sit exactly here (19 mm bay + 2 x 2.5 mm plates = 24)", "es": "Distancia por FUERA de las placas laterales de camara del cuadro; las caras interiores de las orejas quedan justo aqui (hueco de 19 mm + 2 x 2.5 mm = 24)" }
     },
     {
-      "id": "tab_thick", "type": "slider", "default": 3.0, "min": 1.5, "max": 6.0, "step": 0.5,
+      "id": "tab_thick", "unit": "mm", "type": "slider", "default": 3.0, "min": 1.5, "max": 6.0, "step": 0.5,
       "group": "mount", "modes": ["cage", "tilt_mount", "naked_mount"],
-      "label": { "en": "Tab Thickness (mm)", "es": "Grosor de Pestana (mm)" },
-      "tooltip": { "en": "Mount tab thickness", "es": "Grosor de la pestana de montaje" }
+      "label": { "en": "Ear Thickness (mm)", "es": "Grosor de Oreja (mm)" },
+      "tooltip": { "en": "Thickness of the two ears that bolt to the side plates", "es": "Grosor de las dos orejas que se atornillan a las placas laterales" }
     },
     {
-      "id": "tab_hole_d", "type": "slider", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
+      "id": "tab_hole_d", "unit": "mm", "type": "slider", "default": 2.2, "min": 1.6, "max": 4.0, "step": 0.1,
       "group": "mount", "modes": ["cage", "tilt_mount", "naked_mount"], "advanced": true,
-      "label": { "en": "Tab Hole (mm)", "es": "Agujero de Pestana (mm)" },
-      "tooltip": { "en": "Mount bolt hole diameter (M2 = 2.2)", "es": "Diametro del agujero (M2 = 2.2)" }
+      "label": { "en": "Ear Screw Hole (mm)", "es": "Agujero de Oreja (mm)" },
+      "tooltip": { "en": "Ear screw hole diameter (M2 = 2.2)", "es": "Diametro del agujero de la oreja (M2 = 2.2)" }
+    },
+    {
+      "id": "ear_reach", "unit": "mm", "type": "slider", "default": 12.0, "min": 6.0, "max": 40.0, "step": 0.5,
+      "group": "mount", "modes": ["cage", "tilt_mount", "naked_mount"],
+      "label": { "en": "Ear Reach (mm)", "es": "Alcance de Oreja (mm)" },
+      "tooltip": { "en": "How far behind the housing's pivot the ear screws sit; set it past how far your side plates reach ahead of their camera screw holes (never less than 4 mm behind the tilted housing)", "es": "Cuanto detras del pivote de la carcasa quedan los tornillos de las orejas; ajustalo mas alla de lo que sobresalen tus placas laterales por delante de sus agujeros de camara (nunca menos de 4 mm detras de la carcasa inclinada)" }
     }
   ],
   "presets": [
     {
       "id": "micro_cage_30", "mode": "cage",
       "label": { "en": "Micro Cage 30 deg", "es": "Jaula Micro 30 grados" },
-      "values": { "cam_size": "micro", "tilt": 30, "wall": 2.0, "mount_width": 19 }
+      "values": { "cam_size": "micro", "tilt": 30, "wall": 2.0, "mount_width": 24 }
     },
     {
       "id": "nano_tilt_40", "mode": "tilt_mount",
       "label": { "en": "Nano Tilt 40 deg", "es": "Nano Inclinado 40 grados" },
-      "values": { "cam_size": "nano", "tilt": 40, "wall": 1.6, "mount_width": 14 }
+      "values": { "cam_size": "nano", "tilt": 40, "wall": 1.6, "mount_width": 24 }
     },
     {
       "id": "mini_naked_20", "mode": "naked_mount",
       "label": { "en": "Mini Naked 20 deg", "es": "Mini Minima 20 grados" },
-      "values": { "cam_size": "mini", "tilt": 20, "wall": 2.0, "mount_width": 21 }
+      "values": { "cam_size": "mini", "tilt": 20, "wall": 2.0, "mount_width": 24 }
+    },
+    {
+      "id": "micro_cage_level",
+      "mode": "cage",
+      "label": {
+        "en": "Micro Cage 0 deg",
+        "es": "Jaula Micro 0 grados"
+      },
+      "values": {
+        "cam_size": "micro",
+        "tilt": 0,
+        "mount_width": 24
+      }
+    },
+    {
+      "id": "mini_cage_55",
+      "mode": "cage",
+      "label": {
+        "en": "Mini Cage 55 deg (wide bay)",
+        "es": "Jaula Mini 55 grados (hueco ancho)"
+      },
+      "values": {
+        "cam_size": "mini",
+        "tilt": 55,
+        "mount_width": 25,
+        "ear_reach": 20
+      }
     }
   ],
   "constraints": [
@@ -166,10 +205,10 @@
       },
       {
         "id": "frame_mount_tabs",
-        "label": { "en": "Frame Mount Tabs", "es": "Pestanas de Montaje" },
+        "label": { "en": "Frame Mount Ears", "es": "Orejas de Montaje" },
         "geometry_type": "bolt_pattern",
         "standard": "internal",
-        "parameters": ["mount_width", "tab_thick", "tab_hole_d"]
+        "parameters": ["mount_width", "tab_thick", "tab_hole_d", "ear_reach"]
       },
       {
         "id": "cage_cradle_floor",
@@ -180,7 +219,7 @@
         "geometry_type": "pocket",
         "standard": "FPV camera body, nano 14 / micro 19 / mini 21 mm class; the camera's front (lens) face seats on the floor and looks out through the lens aperture",
         "parameters": [
-          "cam_size",
+          "cam_size", "cam_len",
           "cam_clear",
           "tilt"
         ],
@@ -193,7 +232,7 @@
               "mini": 21
             }
           },
-          "pocket_d": "cw * 0.85 + 2 * cam_clear",
+          "pocket_d": "cam_len + 2 * cam_clear",
           "t": "max(0, min(tilt, 55))"
         },
         "frame": {
@@ -234,7 +273,7 @@
         "geometry_type": "pocket",
         "standard": "FPV camera body, nano 14 / micro 19 / mini 21 mm class; the camera's front (lens) face seats on the floor and looks out through the lens aperture",
         "parameters": [
-          "cam_size",
+          "cam_size", "cam_len",
           "cam_clear",
           "tilt"
         ],
@@ -247,7 +286,7 @@
               "mini": 21
             }
           },
-          "pocket_d": "cw * 0.85 + 2 * cam_clear",
+          "pocket_d": "cam_len + 2 * cam_clear",
           "t": "max(0, min(tilt, 55))"
         },
         "frame": {
@@ -278,6 +317,324 @@
           }
         },
         "symmetry": 4
+      },
+      {
+        "id": "cage_ear_left",
+        "label": {
+          "en": "Ear on the frame's left side plate (cage)",
+          "es": "Oreja sobre la placa lateral izquierda del cuadro (jaula)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "cage",
+          "origin": [
+            "mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
+      },
+      {
+        "id": "cage_ear_right",
+        "label": {
+          "en": "Ear on the frame's right side plate (cage)",
+          "es": "Oreja sobre la placa lateral derecha del cuadro (jaula)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "cage",
+          "origin": [
+            "-mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
+      },
+      {
+        "id": "tilt_mount_ear_left",
+        "label": {
+          "en": "Ear on the frame's left side plate (tilt bracket)",
+          "es": "Oreja sobre la placa lateral izquierda del cuadro (soporte inclinable)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "tilt_mount",
+          "origin": [
+            "mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
+      },
+      {
+        "id": "tilt_mount_ear_right",
+        "label": {
+          "en": "Ear on the frame's right side plate (tilt bracket)",
+          "es": "Oreja sobre la placa lateral derecha del cuadro (soporte inclinable)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "tilt_mount",
+          "origin": [
+            "-mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
+      },
+      {
+        "id": "naked_mount_ear_left",
+        "label": {
+          "en": "Ear on the frame's left side plate (naked mount)",
+          "es": "Oreja sobre la placa lateral izquierda del cuadro (montura minima)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "naked_mount",
+          "origin": [
+            "mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
+      },
+      {
+        "id": "naked_mount_ear_right",
+        "label": {
+          "en": "Ear on the frame's right side plate (naked mount)",
+          "es": "Oreja sobre la placa lateral derecha del cuadro (montura minima)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "FPV frame camera side plate, outer face, on the camera side-screw axis",
+        "parameters": [
+          "mount_width",
+          "ear_reach",
+          "cam_size",
+          "cam_clear",
+          "wall",
+          "tilt",
+          "tab_hole_d"
+        ],
+        "let": {
+          "cw": {
+            "param": "cam_size",
+            "map": {
+              "nano": 14,
+              "micro": 19,
+              "mini": 21
+            }
+          },
+          "t": "max(0, min(tilt, 55))",
+          "out_h": "cw + 2 * cam_clear + 2 * wall",
+          "bar": "max(1.4, wall * 0.7)",
+          "ear_y": "max(ear_reach, out_h / 2 * sin(t) + bar * cos(t) + 4)"
+        },
+        "frame": {
+          "part": "naked_mount",
+          "origin": [
+            "-mount_width / 2",
+            "ear_y",
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "fpv-camera-side-plate-screw",
+        "symmetry": 0
       }
     ],
     "material_awareness": {
