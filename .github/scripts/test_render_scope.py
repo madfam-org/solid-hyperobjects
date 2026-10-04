@@ -142,3 +142,92 @@ def test_missing_spec_pin_fails_closed(monkeypatch):
     monkeypatch.setattr(rs, "_git", lambda *args: "env: {}")
     with pytest.raises(ValueError, match="Cannot resolve SPEC_PIN"):
         rs.graph_scope_on_spec_change("base", "head")
+
+
+# ── F6: frames-only diffs force a render ─────────────────────────────────────
+def _iface(**extra):
+    base = {"id": "motor_face", "label": {"en": "Motor face"}, "geometry_type": "bolt_pattern"}
+    base.update(extra)
+    return base
+
+
+FRAME = {"part": "plate", "origin": [0, 0, "plate_t"], "normal": [0, 0, 1], "x_axis": [1, 0, 0]}
+
+
+@pytest.mark.parametrize(
+    "field, before_value, after_value",
+    [
+        ("frame", None, FRAME),
+        ("frame", FRAME, {**FRAME, "origin": [0, 0, "plate_t + 1"]}),
+        ("size_key", None, "nema-17-face"),
+        ("size_key", "nema-17-face", {"param": "nema", "map": {"NEMA17": "nema-17-face"}}),
+        ("polarity", "male", "female"),
+        ("symmetry", 4, 2),
+        ("let", None, {"pilot_r": {"param": "nema", "map": {"NEMA17": 11}}}),
+        ("let", {"h": "plate_t"}, {"h": "plate_t * 2"}),
+        ("geometry_type", "bolt_pattern", "flange"),
+    ],
+)
+def test_a_frame_gate_field_change_forces_a_render(field, before_value, after_value):
+    def manifest(value):
+        iface = _iface()
+        if value is not None:
+            iface[field] = value
+        return {"hyperobject": {"cdg_interfaces": [iface]}}
+
+    before, after = manifest(before_value), manifest(after_value)
+    # The allow-list alone would skip it: `hyperobject` is metadata…
+    assert all(rs._allowed(p) for p in rs.changed_paths(before, after))
+    # …but the frame gate must re-judge the interface.
+    assert rs.frame_fields_changed(before, after)
+
+
+def test_the_nested_project_hyperobject_list_is_gated_too():
+    before = {"project": {"hyperobject": {"cdg_interfaces": [_iface()]}}}
+    after = {"project": {"hyperobject": {"cdg_interfaces": [_iface(frame=FRAME)]}}}
+    assert rs.frame_fields_changed(before, after)
+
+
+def test_a_label_only_interface_change_stays_metadata():
+    before = {"hyperobject": {"cdg_interfaces": [_iface(frame=FRAME)]}}
+    after = {"hyperobject": {"cdg_interfaces": [
+        {**_iface(frame=FRAME), "label": {"en": "Motor face", "es": "Cara del motor"},
+         "standard": "NEMA 17", "compatible_with": ["motor-mount"]}]}}
+    assert not rs.frame_fields_changed(before, after)
+    assert all(rs._allowed(p) for p in rs.changed_paths(before, after))
+
+
+def test_removing_a_framed_interface_forces_a_render():
+    before = {"hyperobject": {"cdg_interfaces": [_iface(frame=FRAME), _iface(id="other")]}}
+    after = {"hyperobject": {"cdg_interfaces": [_iface(id="other")]}}
+    assert rs.frame_fields_changed(before, after)
+
+
+def test_needs_render_keeps_a_frames_only_pr_in_scope(tmp_path, monkeypatch):
+    """End to end through git: a PR that only adds a frame is rendered."""
+    import json
+    import subprocess as sp
+
+    repo = tmp_path / "repo"
+    (repo / "widget").mkdir(parents=True)
+    env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@e", "GIT_COMMITTER_NAME": "t",
+           "GIT_COMMITTER_EMAIL": "t@e", "PATH": "/usr/bin:/bin:/usr/local/bin"}
+
+    def git(*args):
+        return sp.run(["git", *args], cwd=repo, check=True, capture_output=True, text=True,
+                      env=env).stdout.strip()
+
+    def commit(manifest, msg):
+        (repo / "widget" / "project.json").write_text(json.dumps(manifest))
+        git("add", "-A")
+        git("commit", "-qm", msg)
+        return git("rev-parse", "HEAD")
+
+    git("init", "-q")
+    base = commit({"hyperobject": {"cdg_interfaces": [_iface()]}}, "base")
+    framed = commit({"hyperobject": {"cdg_interfaces": [_iface(frame=FRAME)]}}, "frame")
+    relabelled = commit({"hyperobject": {"cdg_interfaces": [
+        {**_iface(frame=FRAME), "label": {"en": "Motor face (top)"}}]}}, "label")
+    monkeypatch.chdir(repo)
+    assert rs.needs_render(base, framed, "widget")
+    assert not rs.needs_render(framed, relabelled, "widget")
