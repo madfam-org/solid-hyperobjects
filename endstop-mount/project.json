@@ -56,11 +56,10 @@
   ],
   "parameters": [
     {
-      "id": "hole_span", "type": "slider",
-      "id": "hole_span", "unit": "mm", "default": 9.5, "min": 4.0, "max": 16.0, "step": 0.1,
+      "id": "hole_span", "type": "slider", "unit": "mm", "default": 9.5, "min": 4.0, "max": 16.0, "step": 0.1,
       "group": "switch", "modes": ["switch_bracket", "extrusion_endstop"],
       "label": { "en": "Switch Hole Spacing (mm)", "es": "Separacion de Agujeros (mm)" },
-      "tooltip": { "en": "Microswitch bolt centres (Omron SS/D2F ≈ 9.5 mm)", "es": "Centros de tornillos del microinterruptor (Omron SS/D2F ≈ 9.5 mm)" }
+      "tooltip": { "en": "Microswitch bolt centres (Omron SS class ≈ 9.5 mm; Omron D2F 6.5 mm)", "es": "Centros de tornillos del microinterruptor (clase Omron SS ≈ 9.5 mm; Omron D2F 6.5 mm)" }
     },
     {
       "id": "switch_hole", "type": "slider",
@@ -129,6 +128,20 @@
       "id": "endstop_2020", "mode": "extrusion_endstop",
       "label": { "en": "2020 Endstop Foot", "es": "Pie Endstop 2020" },
       "values": { "foot_len": 40, "hole_span": 9.5, "mount_d": 5.2 }
+    },
+    {
+      "id": "endstop_2020_d2f",
+      "mode": "extrusion_endstop",
+      "label": {
+        "en": "2020 Endstop Foot, D2F switch",
+        "es": "Pie Endstop 2020, interruptor D2F"
+      },
+      "values": {
+        "foot_len": 40,
+        "hole_span": 6.5,
+        "switch_hole": 2.2,
+        "mount_d": 5.2
+      }
     }
   ],
   "constraints": [
@@ -191,12 +204,13 @@
       },
       {
         "id": "extrusion_endstop_switch_face",
+        "size_key": {"param": "hole_span", "map": {"6.5": "omron-d2f-mount-m2"}},
         "label": {
           "en": "Microswitch seat on the upstand (extrusion endstop)",
           "es": "Asiento del microinterruptor en el montante (final de carrera a perfil)"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "two-screw microswitch pattern on hole_span centres (Omron SS-class at 9.5)",
+        "standard": "two-screw microswitch pattern on hole_span centres (Omron SS class at 9.5; Omron D2F at 6.5, size key omron-d2f-mount-m2)",
         "parameters": ["foot_len", "plate_t", "hole_span", "switch_hole"],
         "frame": {
           "part": "extrusion_endstop",
