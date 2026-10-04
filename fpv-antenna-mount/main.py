@@ -73,9 +73,19 @@ bolt_r = max(0.6, bolt_d / 2.0)
 # hole stays only through the cap. The stalk keeps a 1.6 mm wall round that bore,
 # and the foot's two bolt holes move ACROSS the lean (along X), outside the stalk
 # by a screw head's room: along Y the leaned stalk passes over the +Y bolt.
-sma_bore_r = max(jack_body_d, exit_d + 1.0) / 2.0
-sma_stalk_r = max(stalk_r, sma_bore_r + 1.6)
 SMA_HEAD_ROOM = 2.0
+SMA_WALL = 1.6
+_bore_req_r = max(jack_body_d, exit_d + 1.0) / 2.0
+_bore_min_r = exit_r + 0.5                 # the shoulder still needs a 0.5 mm annulus
+# A requested span that can hold the stalk round the smallest bore is KEPT, and the
+# jack bore is capped to fit inside it: a foot on a fixed pattern (bolt_span 20 on the
+# frame's 20 x 20 VTX seat) never moves its holes, whatever jack_body_d asks for. A span
+# too small for even that is widened as before (the 12 mm default -> 18.9 mm).
+if max(stalk_r, _bore_min_r + SMA_WALL) + bolt_r + SMA_HEAD_ROOM <= bolt_span / 2.0 + 1e-9:
+    sma_bore_r = min(_bore_req_r, bolt_span / 2.0 - bolt_r - SMA_HEAD_ROOM - SMA_WALL)
+else:
+    sma_bore_r = _bore_req_r
+sma_stalk_r = max(stalk_r, sma_bore_r + SMA_WALL)
 sma_bolt_span = max(bolt_span, 2.0 * (sma_stalk_r + bolt_r + SMA_HEAD_ROOM))
 sma_base_w = max(base_w, sma_bolt_span + 2.0 * (bolt_r + 2.0))
 sma_base_l = max(base_l, 2.0 * sma_stalk_r / math.cos(math.radians(back_angle)) + 3.0)

@@ -174,6 +174,37 @@
         "stalk_h": 30,
         "back_angle": 45
       }
+    },
+    {
+      "id": "sma_vtx20",
+      "mode": "sma_bracket",
+      "label": {
+        "en": "SMA Stalk on a 20x20 VTX Seat",
+        "es": "Tallo SMA sobre Asiento VTX 20x20"
+      },
+      "values": {
+        "connector": "SMA",
+        "stalk_h": 35,
+        "back_angle": 25,
+        "bolt_span": 20
+      }
+    },
+    {
+      "id": "sma_vtx20_limits",
+      "mode": "sma_bracket",
+      "label": {
+        "en": "SMA 20x20 Seat, Largest Jack and Bolts",
+        "es": "Asiento 20x20, Conector y Tornillos Maximos"
+      },
+      "values": {
+        "connector": "SMA",
+        "stalk_h": 30,
+        "back_angle": 45,
+        "bolt_span": 20,
+        "jack_body_d": 14,
+        "bolt_d": 4,
+        "stalk_d": 12
+      }
     }
   ],
   "constraints": [
@@ -186,6 +217,14 @@
       "expression": "back_angle <= 45",
       "severity": "error",
       "message": { "en": "Lean angle must be 45 deg or less", "es": "El angulo de inclinacion debe ser 45 grados o menos" }
+    },
+    {
+      "expression": "bolt_span < 14.7 + bolt_d || jack_body_d <= bolt_span - bolt_d - 7.2",
+      "severity": "warning",
+      "message": {
+        "en": "SMA bracket: the jack bore is capped at bolt_span - bolt_d - 7.2 mm so the stalk fits between the bolt holes (the span is kept); check that your jack's rear body and hex clear it",
+        "es": "Soporte SMA: el barreno del conector se limita a bolt_span - bolt_d - 7.2 mm para que el tallo quepa entre los tornillos (la separacion se respeta); verifica que el cuerpo y el hexagono de tu conector pasen"
+      }
     }
   ],
   "camera_views": [
@@ -260,6 +299,44 @@
           }
         },
         "symmetry": 0
+      },
+      {
+        "id": "sma_bracket_foot",
+        "label": {
+          "en": "Foot on a 20 x 20 VTX seat (one row)",
+          "es": "Pie sobre un asiento VTX de 20 x 20 (una fila)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "20 x 20 mm VTX pattern; the foot's two bolts use one 20 mm row (bolt_span 20, across the lean)",
+        "parameters": [
+          "bolt_span"
+        ],
+        "frame": {
+          "part": "sma_bracket",
+          "origin": [
+            0,
+            "-bolt_span / 2",
+            -3
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "bolt_span",
+          "map": {
+            "20": "vtx-mount-20x20"
+          }
+        },
+        "symmetry": 4
       }
     ],
     "material_awareness": {
