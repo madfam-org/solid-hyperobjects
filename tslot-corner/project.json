@@ -206,6 +206,7 @@
     },
     {
       "id": "width",
+      "unit": "mm",
       "type": "slider",
       "default": 20.0,
       "min": 12.0,
@@ -233,6 +234,7 @@
     },
     {
       "id": "bolt_dia",
+      "unit": "mm",
       "type": "slider",
       "default": 0.0,
       "min": 0.0,
@@ -478,6 +480,210 @@
           "origin": [0, 0, "10 + 5 * min(2, max(0, (series - 2040) / 990))"],
           "normal": [-1, 0, 0],
           "x_axis": [0, 0, 1]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_3way_arm_x",
+        "label": {
+          "en": "X-arm seat on the extrusion slot (three-way vertex)",
+          "es": "Asiento del brazo X en la ranura del perfil (vértice de tres vías)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": [
+          "series",
+          "width",
+          "bolt_dia"
+        ],
+        "let": {
+          "module": {
+            "param": "series",
+            "map": {
+              "2020": 20,
+              "2040": 20,
+              "3030": 30,
+              "4040": 40
+            }
+          },
+          "table_bolt": {
+            "param": "series",
+            "map": {
+              "2020": 5.5,
+              "2040": 5.5,
+              "3030": 6.6,
+              "4040": 9
+            }
+          },
+          "bolt": "max(2.5, min(iif(bolt_dia > 0.1, bolt_dia, table_bolt), 12))",
+          "w": "max(bolt + 6, min(width, module * 2))",
+          "cube": "min(max(w, module) * 0.9, module * 1.6)",
+          "arm_w": "min(w, cube)",
+          "bolt_out": "cube + module / 2"
+        },
+        "frame": {
+          "part": "corner_3way",
+          "origin": [
+            "bolt_out",
+            "arm_w / 2",
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_3way_arm_y",
+        "label": {
+          "en": "Y-arm seat on the extrusion slot (three-way vertex)",
+          "es": "Asiento del brazo Y en la ranura del perfil (vértice de tres vías)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": [
+          "series",
+          "width",
+          "bolt_dia"
+        ],
+        "let": {
+          "module": {
+            "param": "series",
+            "map": {
+              "2020": 20,
+              "2040": 20,
+              "3030": 30,
+              "4040": 40
+            }
+          },
+          "table_bolt": {
+            "param": "series",
+            "map": {
+              "2020": 5.5,
+              "2040": 5.5,
+              "3030": 6.6,
+              "4040": 9
+            }
+          },
+          "bolt": "max(2.5, min(iif(bolt_dia > 0.1, bolt_dia, table_bolt), 12))",
+          "w": "max(bolt + 6, min(width, module * 2))",
+          "cube": "min(max(w, module) * 0.9, module * 1.6)",
+          "arm_w": "min(w, cube)",
+          "bolt_out": "cube + module / 2"
+        },
+        "frame": {
+          "part": "corner_3way",
+          "origin": [
+            "arm_w / 2",
+            "bolt_out",
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "series",
+          "map": {
+            "2020": "tslot-2020-6mm",
+            "2040": "tslot-2020-6mm",
+            "3030": "tslot-3030-8mm",
+            "4040": "tslot-4040-8mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "corner_3way_arm_z",
+        "label": {
+          "en": "Z-arm seat on the extrusion slot (three-way vertex)",
+          "es": "Asiento del brazo Z en la ranura del perfil (vértice de tres vías)"
+        },
+        "geometry_type": "profile",
+        "standard": "T-slot extrusion slot, one bolt on the slot centre-line (2020/2040: 6 mm slot, M5)",
+        "parameters": [
+          "series",
+          "width",
+          "bolt_dia"
+        ],
+        "let": {
+          "module": {
+            "param": "series",
+            "map": {
+              "2020": 20,
+              "2040": 20,
+              "3030": 30,
+              "4040": 40
+            }
+          },
+          "table_bolt": {
+            "param": "series",
+            "map": {
+              "2020": 5.5,
+              "2040": 5.5,
+              "3030": 6.6,
+              "4040": 9
+            }
+          },
+          "bolt": "max(2.5, min(iif(bolt_dia > 0.1, bolt_dia, table_bolt), 12))",
+          "w": "max(bolt + 6, min(width, module * 2))",
+          "cube": "min(max(w, module) * 0.9, module * 1.6)",
+          "arm_w": "min(w, cube)",
+          "bolt_out": "cube + module / 2"
+        },
+        "frame": {
+          "part": "corner_3way",
+          "origin": [
+            0,
+            "arm_w / 2",
+            "bolt_out"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
         },
         "polarity": "male",
         "size_key": {

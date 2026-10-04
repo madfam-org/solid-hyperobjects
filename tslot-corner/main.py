@@ -172,18 +172,24 @@ def build_three_way():
     cube = max(width, module) * 0.9
     cube = min(cube, module * 1.6)
     arm_w = min(width, cube)
+    # Each arm's bolt sits on the slot centre-line, bolt_off past the cube face, and the
+    # X/Y arms counter-bore it from the top. An arm shorter than that bolt plus its head
+    # radius cut the hole (and the counter-bore) through the arm's end: at the defaults
+    # the hole centre was 28 mm out on a 30 mm arm with r 2.75. Every arm now reaches
+    # at least 1 mm past the counter-bore's rim; a longer leg_len is kept as given.
+    arm_len = max(leg_len, cube + bolt_off + head_d / 2.0 + 1.0)
 
     # Central cube at the origin corner.
     body = cq.Workplane("XY").box(cube, cube, cube, centered=(False, False, False))
     # Arms: rectangular prisms extending each axis beyond the cube.
-    arm_x = cq.Workplane("XY").box(leg_len, arm_w, t, centered=(False, False, False))
+    arm_x = cq.Workplane("XY").box(arm_len, arm_w, t, centered=(False, False, False))
     arm_y = (
         cq.Workplane("XY")
-        .box(arm_w, leg_len, t, centered=(False, False, False))
+        .box(arm_w, arm_len, t, centered=(False, False, False))
     )
     arm_z = (
         cq.Workplane("XY")
-        .box(t, arm_w, leg_len, centered=(False, False, False))
+        .box(t, arm_w, arm_len, centered=(False, False, False))
     )
     body = body.union(arm_x).union(arm_y).union(arm_z)
 

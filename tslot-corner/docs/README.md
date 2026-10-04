@@ -56,7 +56,15 @@ slot centre-line, so a printed bracket registers exactly like a die-cast one.
   - **Mating frames** (two-way and gusseted braces): `<part>_leg_x` and
     `<part>_leg_z` sit on each leg's seat face at the bolt centre, normal
     toward the extrusion, `x_axis` along it; male, symmetry 2, size key
-    `tslot-2020-6mm` for 2020/2040. The three-way block carries no frame yet.
+    `tslot-2020-6mm` for 2020/2040.
+  - **Three-way block frames:** `corner_3way_arm_x`, `_arm_y` (arm undersides,
+    normal −z) and `_arm_z` (the Z arm's back face, normal −x), each at its bolt
+    centre, male, symmetry 2, the same `series` size key. The clamp chain
+    (bolt override → width floor → cube → arm width) is a `let` block (ASM-1
+    v1.1, keystone 0.4.0 or later).
+  - **Arm length:** every three-way arm reaches at least 1 mm past its bolt's
+    counter-bore rim (`cube + module/2 + head/2 + 1`), so the hole never breaks
+    out of the arm end; a longer `leg_len` is kept as given.
 - **Material awareness:** `tolerance_by_material` lets the M-clearance be tuned
   per filament so drop-in nuts thread cleanly.
 - **Commons license:** CERN-OHL-W-2.0
@@ -124,8 +132,16 @@ una de fundición.
   - **Marcos de acople** (escuadras de dos vías y con refuerzo):
     `<part>_leg_x` y `<part>_leg_z` están en la cara de asiento de cada pata,
     en el centro del perno, normal hacia el perfil, `x_axis` a lo largo de él;
-    macho, simetría 2, clave de tamaño `tslot-2020-6mm` para 2020/2040. El
-    bloque de tres vías aún no tiene marco.
+    macho, simetría 2, clave de tamaño `tslot-2020-6mm` para 2020/2040.
+  - **Marcos del bloque de tres vías:** `corner_3way_arm_x`, `_arm_y` (caras
+    inferiores de los brazos, normal −z) y `_arm_z` (cara trasera del brazo Z,
+    normal −x), cada uno en el centro de su perno; macho, simetría 2, la misma
+    clave de tamaño por `series`. La cadena de límites (perno manual → ancho
+    mínimo → cubo → ancho del brazo) es un bloque `let` (ASM-1 v1.1, keystone
+    0.4.0 o posterior).
+  - **Largo de brazo:** cada brazo de tres vías llega al menos 1 mm más allá del
+    borde del avellanado de su perno (`cube + module/2 + head/2 + 1`), así el
+    barreno nunca rompe el extremo del brazo; un `leg_len` mayor se respeta.
 - **Conciencia de material:** `tolerance_by_material` permite ajustar la holgura
   M por filamento para que las tuercas entren limpiamente.
 - **Licencia commons:** CERN-OHL-W-2.0
