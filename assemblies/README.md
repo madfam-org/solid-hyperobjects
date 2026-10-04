@@ -9,6 +9,7 @@ the pinned keystone.
 
 | Slug | Kind | What it composes |
 | :-- | :-- | :-- |
+| [`voron-2-4-class-350-motion-frame`](./voron-2-4-class-350-motion-frame/) | producer | a 2020 frame corner with braces, MGN12 rail and block, the Voron Stealthburner (external, GPL-3.0), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop and a drag-chain anchor |
 
 Rules for a document here:
 
