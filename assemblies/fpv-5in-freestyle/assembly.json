@@ -8,8 +8,8 @@
     "es": "Cuadricóptero FPV freestyle de 5 pulgadas"
   },
   "description": {
-    "en": "A type-level 5-inch FPV quadcopter: a generic 225 mm X carbon frame (catalog class, not a copied design), four 2207 motors on four TPU soft-mount pods, the camera cage on the frame's side plates with a micro camera in its cradle, flight-controller stack standoffs and a battery pad.",
-    "es": "Un cuadricóptero FPV de 5 pulgadas a nivel de tipo: un marco X genérico de carbono de 225 mm (clase de catálogo, no un diseño copiado), cuatro motores 2207 sobre cuatro bases suaves de TPU, la jaula de cámara sobre las placas laterales del marco con una cámara micro en su cuna, separadores de la pila del controlador de vuelo y una almohadilla de batería."
+    "en": "A type-level 5-inch FPV quadcopter: a generic 225 mm X carbon frame (catalog class, not a copied design), four 2207 motors on four TPU soft-mount pods, a micro camera between the frame's side plates at a 30° up-tilt, flight-controller stack standoffs and a battery pad.",
+    "es": "Un cuadricóptero FPV de 5 pulgadas a nivel de tipo: un marco X genérico de carbono de 225 mm (clase de catálogo, no un diseño copiado), cuatro motores 2207 sobre cuatro bases suaves de TPU, una cámara micro entre las placas laterales del marco con 30° de inclinación hacia arriba, separadores de la pila del controlador de vuelo y una almohadilla de batería."
   },
   "license": "CERN-OHL-W-2.0",
   "root": "frame",
@@ -169,27 +169,10 @@
       }
     },
     {
-      "id": "camera_cage",
-      "label": {
-        "en": "Camera cage, micro, 30° tilt (TPU intended; the cartridge declares no material yet)",
-        "es": "Jaula de cámara, micro, 30° de inclinación (pensada en TPU; el cartucho aún no declara material)"
-      },
-      "source": {
-        "type": "cartridge",
-        "commons": "solid",
-        "slug": "fpv-camera-cage",
-        "mode": "cage",
-        "part": null,
-        "parameters": {
-          "cam_size": "micro"
-        }
-      }
-    },
-    {
       "id": "camera",
       "label": {
-        "en": "Micro FPV camera, 19 mm",
-        "es": "Cámara FPV micro, 19 mm"
+        "en": "Micro FPV camera, 19 mm, 30° up-tilt",
+        "es": "Cámara FPV micro, 19 mm, 30° hacia arriba"
       },
       "source": {
         "type": "standard",
@@ -319,40 +302,28 @@
       "rotation_index": 0
     },
     {
-      "id": "cage_tab_left_on_frame",
+      "id": "camera_on_left_plate",
       "a": {
         "component": "frame",
         "interface": "camera_plate_left"
       },
       "b": {
-        "component": "camera_cage",
-        "interface": "cage_tab_left"
+        "component": "camera",
+        "interface": "side_face_left"
       },
-      "angle_deg": 0
+      "angle_deg": -30
     },
     {
-      "id": "cage_tab_right_on_frame",
+      "id": "camera_on_right_plate",
       "a": {
         "component": "frame",
         "interface": "camera_plate_right"
       },
       "b": {
-        "component": "camera_cage",
-        "interface": "cage_tab_right"
-      },
-      "angle_deg": 0
-    },
-    {
-      "id": "camera_in_cradle",
-      "a": {
-        "component": "camera_cage",
-        "interface": "cage_cradle_floor"
-      },
-      "b": {
         "component": "camera",
-        "interface": "front_face"
+        "interface": "side_face_right"
       },
-      "rotation_index": 0
+      "angle_deg": 30
     }
   ],
   "requirements_rollup": true

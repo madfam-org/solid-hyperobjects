@@ -16,16 +16,20 @@ Document licence: CERN-OHL-W-2.0.
   - Four 2207 motors (`motor-2207`) bolt to the pods' `motor_bolt_pattern`.
   - The frame's motor-mount `x_axis` points outward along each arm, so every pod aligns
     at `rotation_index` 0.
-- **The camera mount.**
-  - The `fpv-camera-cage` (`cage`, micro, 30° tilt; TPU intended) is meant to mount by
-    two tabs to the frame's side plates. The side plates are `camera_plate_left` and
-    `camera_plate_right` in the catalog frame (hyperobjects-spec#38).
-  - The two tab mates form a cycle that must close.
-  - The micro camera (`fpv-camera-micro-19mm`) seats **lens-first**:
-    `cage_cradle_floor ↔ front_face`. The floor carries the lens aperture and tilts up by
-    the cage's `tilt` (solid-hyperobjects#126, hyperobjects-spec#38).
-  - The cage is **not** mated into the frame's 19–20 mm camera bay. At micro size the
-    cage is about 23.8 mm wide, so that mate would be physically false.
+- **The camera between the side plates.**
+  - The micro camera (`fpv-camera-micro-19mm`) bolts by its side screws to the frame's
+    side plates: `camera_plate_left ↔ side_face_left` and
+    `camera_plate_right ↔ side_face_right` (hyperobjects-spec#38). That is how a micro
+    camera sits in this frame class.
+  - The two plate mates form a cycle. The second mate closes only when the 19 mm body
+    width equals the frame's `camera_bay_width_mm`, which defaults to 19. With a 20 mm
+    bay the cycle misses by 1.0000 mm.
+  - The left mate sets the tilt: `angle_deg` −30, which aims the optical axis 30° up.
+  - The right plate faces the opposite way, so the same physical tilt reads +30 there.
+    The document states +30, the angle the geometry realises.
+  - The validator does not check the angle of a symmetry-0 mate that closes a cycle; it
+    checks only origin and axis. The stated +30 is therefore documentation that matches
+    the measured value, not something the check enforces.
 - **The stack and the battery.**
   - `pcb-standoff` in `fc_stack` mode (30.5 × 30.5 M3) sits on the frame's stack mount.
   - `battery-pad` (`flat_pad`) sits on the top plate's strap station.
@@ -36,34 +40,28 @@ Every mate states its rotation.
 ## Requirements roll-up
 
 `requirements_rollup` is true. The roll-up reports only what the cartridges declare:
-today that is `motor-soft-mount`'s `soft_mount` part (FFF, TPU 95A). The owner's brief
-asks for a TPU camera mount, but `fpv-camera-cage` declares no material yet: no
-documentary evidence for TPU has been recorded on it, so none is claimed here.
+today that is `motor-soft-mount`'s `soft_mount` part (FFF, TPU 95A).
 
-## Status and gaps
+## Gaps (documented, not claimed)
 
-- **The camera mates are not ready.**
-  - **Cage to frame: blocked on an owner decision.** The cage as modelled cannot reach
-    the side plates. Its tab outer faces stand about 29.8 mm apart at the defaults, while
-    the plates are 19–20 mm apart (P4-AUTH-C, solid-hyperobjects#126). The tab interface
-    names in `assembly.json` (`cage_tab_left`, `cage_tab_right`) are placeholders until
-    that decision is made.
-  - **Camera in the cradle: waiting on two PRs.** It needs hyperobjects-spec#38 merged
-    and `SPEC_PIN` bumped, and then solid-hyperobjects#126.
-  - **A probe finding.** At a tilt above 0, a 19 × 19 × 20 mm camera proxy seated on the
-    gate-proven cradle floor intersects the cage's base: 463, 1309 and 2165 mm³ at 15°,
-    30° and 55°, against 51 mm³ at 0°. The tilted pocket does not clear the base block.
-    This comes from a scratch render probe, not from the validator, and is reported to
-    P4-AUTH-C.
-  - Until all of this is resolved, the check fails on those mates and the assembly is
-    not merged.
-- **The antenna chain is not included.**
-  - The catalog chain mount → `sma-bulkhead-jack` → `vtx-antenna-sma` closes.
-  - Two interfaces are still missing: the mount's SMA seat, and an interface that ties
-    `fpv-antenna-mount` to the frame. The catalog frame has no antenna-mount station.
-- **No props or flight-controller board.** Neither is in the brief. A board on the
+- **The TPU camera mount is not in this assembly.** The owner's brief asks for
+  `fpv-camera-cage`, but the cage as modelled cannot attach to this frame:
+  - it is about 23.8 mm wide, and its tab faces stand about 29.8 mm apart;
+  - the side plates are 19–20 mm apart, so the tabs miss by 10.8 mm
+    (hyperobjects-spec#38, P4-AUTH-C).
+
+  How the cage should attach is an open owner decision. A cage with no mate to the frame
+  would be unreachable and would fail the check, so it is left out.
+- **Camera in the cage, proven separately.** `cage_cradle_floor ↔ front_face` (the camera
+  seats lens-first) closes on its own (solid-hyperobjects#126). It joins this document
+  once the cage has a frame attachment. A render probe found that, at a tilt above 0, a
+  19 × 19 × 20 camera body on that floor intersects the cage's base block; this was
+  reported to P4-AUTH-C.
+- **The antenna chain is not included.** The antenna mount is stopped pending an owner
+  design decision.
+- **No props and no flight-controller board.** Neither is in the brief. A board on the
   standoffs also needs a framed standoff top.
-- **No collision claim.** `--collision` is a stub in keystone 0.4.0 and is not run.
+- **No collision claim.** `--collision` is a stub in keystone 0.4.0. It is not run.
 
 ## Check it
 
@@ -89,22 +87,16 @@ Licencia del documento: CERN-OHL-W-2.0.
   diseño copiado.
 - **Las cuatro cadenas de motor.** Cada una va del brazo del marco a una base de TPU
   (`motor-soft-mount`) y de ahí a un motor 2207. Todas alinean con `rotation_index` 0.
-- **La cámara.** La jaula (pensada en TPU; el cartucho aún no declara material) se monta con sus pestañas en las placas laterales del
-  marco, y la cámara micro va en su cuna. La jaula **no** entra en el hueco de cámara de
-  19–20 mm, porque mide unos 23.8 mm de ancho.
+- **La cámara.** La cámara micro se atornilla por sus tornillos laterales a las dos
+  placas laterales del marco, con 30° de inclinación hacia arriba. Las dos uniones
+  forman un ciclo que cierra solo si el ancho del hueco es de 19 mm.
 - **La pila y la batería.** Los separadores de la pila (30.5 × 30.5 M3) van sobre el
   montaje de la pila, y la almohadilla de batería sobre la placa superior.
 
-**Pendientes**
+**Lo que no incluye**
 
-- **Jaula al marco: espera una decisión del dueño.** La jaula, tal como está modelada, no
-  alcanza las placas laterales: sus pestañas quedan a unos 29.8 mm y las placas a
-  19–20 mm. Los nombres `cage_tab_left` y `cage_tab_right` son provisionales.
-- **Cámara en la cuna: espera dos PR.** Primero hyperobjects-spec#38 y el nuevo
-  `SPEC_PIN`, y después solid-hyperobjects#126. La cámara asienta por su cara frontal.
-- **Hallazgo de la sonda de render.** Con inclinación mayor que 0, la cámara (como caja
-  de 19 × 19 × 20 mm) se cruza con la base de la jaula.
-- Hasta resolverlo, la verificación falla y el ensamble no se fusiona.
-- **La cadena de antena no se incluye.** Faltan el asiento SMA de la montura y una
-  interfaz que la fije al marco.
-- **No hay verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0.
+- **La montura de cámara de TPU (`fpv-camera-cage`).** Tal como está modelada, no puede
+  fijarse al marco: sus pestañas quedan a unos 29.8 mm y las placas a 19–20 mm. Es una
+  decisión pendiente del dueño. La cámara en la cuna se demuestra por separado (#126).
+- **La cadena de antena.** Está detenida por una decisión de diseño del dueño.
+- **Verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0.
