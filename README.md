@@ -81,6 +81,15 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
 - **Manifest conformance** runs on every PR for all 502 cartridges
   (`y4d-spec check`, seconds), alongside the unit tests for this repo's own CI
   scripts (`python3 -m pytest .github/scripts`) and the reporter's selftest.
+- **Assembly check** runs on every PR for every
+  [`assemblies/<slug>/assembly.json`](./assemblies/) (ASM-1 §3, §7):
+  `y4d-spec assembly check --commons . --standard-parts <the pinned keystone's
+  catalog>` through [`.github/scripts/assembly_check.py`](./.github/scripts/assembly_check.py).
+  It fails on any validation error (an unresolved component, a mate that breaks
+  the mating rule, a mate or cycle that does not close within 0.05 mm / 0.5°, an
+  unreachable component) and on a directory under `assemblies/` with no
+  `assembly.json`. The keystone's `--collision` option is a stub in 0.4.0 and is
+  not run, so a green check makes no collision claim.
 - **Render lane (per PR, chunked).** `render-scope` takes the fork-point diff and
   decides *which* cartridges need geometry, then `render-changed` runs them as a
   matrix of groups of at most eight (`max-parallel: 2`, 60-minute jobs). Each
