@@ -3,8 +3,9 @@ FPV Camera Cage — Yantra4D Hyperobject Cartridge (CadQuery / B-Rep).
 
 Protects and angles a micro FPV camera. The camera drops into a cradle pocket
 sized to the standard form factor (nano 14 mm, micro 19 mm, mini 21 mm) and the
-whole assembly tilts to a chosen up-angle, with tabs that bolt to the frame's
-side plates. Three modes trade protection for weight: a full protective cage, an
+whole assembly tilts to a chosen up-angle. The cage sits AHEAD of the frame: two
+ears reach back along the outside of the frame's camera side plates and bolt
+through them on the camera side-screw axis. Three modes trade protection for weight: a full protective cage, an
 open tilt bracket, and a minimal naked mount.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
@@ -45,9 +46,11 @@ cam_size    = str(  PARAM(lambda: cam_size, "micro"))    # nano | micro | mini
 tilt        = float(PARAM(lambda: tilt,        30.0))    # camera up-tilt angle (deg)
 wall        = float(PARAM(lambda: wall,         2.0))    # cradle wall thickness
 cam_clear   = float(PARAM(lambda: cam_clear,    0.4))    # per-side clearance around the cam
-mount_width = float(PARAM(lambda: mount_width, 19.0))    # frame plate spacing (tab centres)
-tab_thick   = float(PARAM(lambda: tab_thick,    3.0))    # mount tab thickness
-tab_hole_d  = float(PARAM(lambda: tab_hole_d,   2.2))    # tab bolt hole (M2 default)
+mount_width = float(PARAM(lambda: mount_width, 24.0))    # side plates' OUTER spacing = ear inner faces
+tab_thick   = float(PARAM(lambda: tab_thick,    3.0))    # ear thickness
+tab_hole_d  = float(PARAM(lambda: tab_hole_d,   2.2))    # ear screw hole (M2 default)
+ear_reach   = float(PARAM(lambda: ear_reach,   12.0))    # ear screw distance behind the pivot
+cam_len     = float(PARAM(lambda: cam_len,     20.0))    # camera body length, lens face to back
 base_h      = float(PARAM(lambda: base_h,       6.0))    # mount base height below the cradle
 lens_hole   = bool( PARAM(lambda: lens_hole,   True))    # cut a lens aperture in the front
 
@@ -59,12 +62,22 @@ target_part = str(PARAM(lambda: target_part, "cage"))
 cw, ch, cd = cam_body(cam_size)
 pocket_w = cw + 2.0 * cam_clear
 pocket_h = ch + 2.0 * cam_clear
-pocket_d = cd + 2.0 * cam_clear
+# The pocket takes the whole body: the camera seats LENS-FIRST on the floor (its
+# lens looks out through the aperture) and its back stays inside the open side.
+# The old depth (0.85 * width) left a 20 mm micro body standing 3 mm proud of the
+# open face, into the guard bars and, once tilted, into the base.
+pocket_d = cam_len + 2.0 * cam_clear
 out_w = pocket_w + 2.0 * wall
 out_h = pocket_h + 2.0 * wall
 out_d = pocket_d + wall               # closed at the back only
 tilt = max(0.0, min(tilt, 55.0))
 tab_r = max(0.6, tab_hole_d / 2.0)
+BAR = max(1.4, wall * 0.7)                 # guard-bar section (cage mode)
+# The ear screws sit on the pivot's height, `ear_reach` behind the pivot -- but always
+# at least 4 mm behind the rearmost point the tilted housing (and its guard bars)
+# swings back to, so the frame plate's edge fits ahead of the screw.
+ear_y = max(ear_reach,
+            out_h / 2.0 * math.sin(math.radians(tilt)) + BAR * math.cos(math.radians(tilt)) + 4.0)
 lens_r = max(2.0, min(cw, ch) * 0.32)
 
 
@@ -100,7 +113,7 @@ def _cage_bars():
     """Protective bars across the open front for the full-cage mode: a rim frame
     plus a diagonal cross that shields the lens from impacts while leaving the
     view mostly clear."""
-    bar = max(1.4, wall * 0.7)
+    bar = BAR
     rim_w, rim_h = out_w, out_h
     # Build the 4-sided front rim frame by unioning four bars just ahead of the
     # open pocket face (Y ~ 0).
@@ -132,49 +145,55 @@ RISER = out_d * math.sin(math.radians(tilt)) + 0.6
 
 
 def _mount_base_and_tabs():
-    """A base block under the housing plus two side tabs that bolt to the frame
-    plates at `mount_width` spacing. The base is what the housing tilts on."""
+    """A base block under the housing plus two EARS that bolt to the outside of the
+    frame's camera side plates (owner decision O1(a)).
+
+    Each ear is a slab whose inner face stands exactly `mount_width / 2` from the
+    centre -- the side plates' OUTER faces -- running from the base back past the
+    housing to a screw hole on the pivot's height at `ear_y`. The base widens to the
+    ears' outer faces so the ears always share solid with it, whatever the spacing."""
+    base_w = max(out_w, mount_width + 2.0 * tab_thick)
     base = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(0, -out_d / 2.0,
                                       -out_h / 2.0 - base_h / 2.0 + RISER / 2.0))
-        .box(out_w, out_d, base_h + RISER, centered=(True, True, True))
+        .box(base_w, out_d, base_h + RISER, centered=(True, True, True))
     )
     try:
         base = base.edges("|Y").fillet(min(1.5, base_h / 2.0 - 0.4))
     except Exception:
         pass
-    # Two tabs projecting out in +/-X, each with a bolt hole through X.
-    #
-    # Each tab is a slab spanning from the base's side face OUT to `tab_span/2`, so it
-    # always shares `OVERLAP` mm of solid with the base. Sizing it `tab_thick` wide and
-    # centring it at `tab_span/2 - tab_thick/2` (the previous form) puts its inner face
-    # at exactly out_w/2 when mount_width <= out_w — a coincident face, zero
-    # penetration, which OCCT fuses into a compound of detached solids (2 bodies in
-    # every mode) — and leaves the tab floating clear of the base entirely once
-    # `mount_width` exceeds `out_w`.
-    tabs = None
-    tab_z = -out_h / 2.0 - base_h / 2.0
-    tab_span = max(mount_width, out_w) + 2.0 * tab_thick
-    OVERLAP = 0.6
+    pad = tab_r + 2.5                       # material around the ear screw
+    z_bot = -out_h / 2.0 - base_h
+    y_lo, y_hi = -out_d, ear_y + pad
+    ears = None
     for sx in (-1.0, 1.0):
-        tab_outer = tab_span / 2.0
-        tab_inner = out_w / 2.0 - OVERLAP        # bite into the base
-        tab_w = tab_outer - tab_inner
-        tab = (
+        ear = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(sx * (tab_inner + tab_w / 2.0), -out_d / 2.0, tab_z))
-            .box(tab_w, out_d * 0.8, base_h, centered=(True, True, True))
+            .transformed(offset=cq.Vector(sx * (mount_width / 2.0 + tab_thick / 2.0),
+                                          (y_lo + y_hi) / 2.0, (z_bot + pad) / 2.0))
+            .box(tab_thick, y_hi - y_lo, pad - z_bot, centered=(True, True, True))
         )
         hole = (
             cq.Workplane("YZ")
-            .transformed(offset=cq.Vector(-out_d / 2.0, tab_z, sx * (tab_span / 2.0)))
+            .transformed(offset=cq.Vector(ear_y, 0.0, sx * (mount_width / 2.0 + tab_thick / 2.0)))
             .circle(tab_r)
             .extrude(tab_thick * 2.0, both=True)
         )
-        tab = tab.cut(hole)
-        tabs = tab if tabs is None else tabs.union(tab)
-    return base.union(tabs)
+        ear = ear.cut(hole)
+        ears = ear if ears is None else ears.union(ear)
+    return base.union(ears)
+
+
+def _pocket_cavity():
+    """The cradle pocket as a cutter, tilted like the housing. Cut from the finished
+    part so nothing -- the base's riser above all -- intrudes where the camera sits."""
+    cav = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(0, -pocket_d / 2.0, 0))
+        .box(pocket_w, pocket_d, pocket_h, centered=(True, True, True))
+    )
+    return cav.rotate((0, 0, 0), (1, 0, 0), -tilt)
 
 
 def _tilt_and_place(housing):
@@ -188,14 +207,14 @@ def build_cage():
     """Full protective cage: shell + front guard bars, on the tilting mount."""
     shell = _cam_shell().union(_cage_bars())
     shell = _tilt_and_place(shell)
-    return shell.union(_mount_base_and_tabs())
+    return shell.union(_mount_base_and_tabs()).cut(_pocket_cavity())
 
 
 def build_tilt_mount():
     """Open tilt bracket: the shell (no front bars) on the tilting mount — the
     lightest weather/impact-tolerant option that still cradles the cam."""
     shell = _tilt_and_place(_cam_shell())
-    return shell.union(_mount_base_and_tabs())
+    return shell.union(_mount_base_and_tabs()).cut(_pocket_cavity())
 
 
 def build_naked_mount():
