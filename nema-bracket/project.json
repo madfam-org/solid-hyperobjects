@@ -217,6 +217,7 @@
     },
     {
       "id": "margin",
+      "unit": "mm",
       "type": "slider",
       "default": 6.0,
       "min": 3.0,
@@ -261,6 +262,7 @@
     },
     {
       "id": "base_t",
+      "unit": "mm",
       "type": "slider",
       "default": 5.0,
       "min": 3.0,
@@ -361,6 +363,33 @@
         "nema": "NEMA17",
         "base_len": 60,
         "base_bolt_d": 5.2
+      }
+    },
+    {
+      "id": "nema23_l",
+      "mode": "l_bracket",
+      "label": {
+        "en": "NEMA 23 L",
+        "es": "NEMA 23 L"
+      },
+      "values": {
+        "nema": "NEMA23",
+        "plate_t": 6,
+        "base_len": 60,
+        "gusset": true
+      }
+    },
+    {
+      "id": "nema23_2020",
+      "mode": "extrusion_mount",
+      "label": {
+        "en": "NEMA 23 on 2020",
+        "es": "NEMA 23 en 2020"
+      },
+      "values": {
+        "nema": "NEMA23",
+        "base_len": 60,
+        "plate_t": 6
       }
     }
   ],
@@ -515,6 +544,142 @@
         "polarity": "male",
         "size_key": "tslot-2020-6mm",
         "symmetry": 2
+      },
+      {
+        "id": "l_bracket_motor_face",
+        "label": {
+          "en": "Motor face seat (L-bracket)",
+          "es": "Asiento de la cara del motor (escuadra en L)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA ICS 16 face (frame size 17 / 23), clearance holes, motor on the outer face",
+        "parameters": [
+          "nema",
+          "margin",
+          "base_len",
+          "base_t",
+          "plate_t"
+        ],
+        "let": {
+          "bolt_sq": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 31,
+              "NEMA23": 47.14
+            }
+          },
+          "bolt_d": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 3.4,
+              "NEMA23": 5.2
+            }
+          },
+          "body_w": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 42.3,
+              "NEMA23": 57
+            }
+          },
+          "plate_side": "max(bolt_sq + 2 * (bolt_d / 2 + max(3, margin)), body_w + 4)",
+          "axis_z": "plate_side / 2 + max(3, base_t)"
+        },
+        "frame": {
+          "part": "l_bracket",
+          "origin": [
+            "-base_len / 2",
+            0,
+            "axis_z"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "nema",
+          "map": {
+            "NEMA17": "nema-17-face",
+            "NEMA23": "nema-23-face"
+          }
+        },
+        "symmetry": 4
+      },
+      {
+        "id": "extrusion_mount_motor_face",
+        "label": {
+          "en": "Motor face seat (extrusion mount)",
+          "es": "Asiento de la cara del motor (montaje a perfil)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "NEMA ICS 16 face (frame size 17 / 23), clearance holes, motor on the outer face",
+        "parameters": [
+          "nema",
+          "margin",
+          "base_len",
+          "base_t",
+          "plate_t"
+        ],
+        "let": {
+          "bolt_sq": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 31,
+              "NEMA23": 47.14
+            }
+          },
+          "bolt_d": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 3.4,
+              "NEMA23": 5.2
+            }
+          },
+          "body_w": {
+            "param": "nema",
+            "map": {
+              "NEMA17": 42.3,
+              "NEMA23": 57
+            }
+          },
+          "plate_side": "max(bolt_sq + 2 * (bolt_d / 2 + max(3, margin)), body_w + 4)",
+          "axis_z": "plate_side / 2 + max(3, base_t)"
+        },
+        "frame": {
+          "part": "extrusion_mount",
+          "origin": [
+            "-max(base_len, 40) / 2 + max(3, plate_t) / 2",
+            0,
+            "axis_z"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "nema",
+          "map": {
+            "NEMA17": "nema-17-face",
+            "NEMA23": "nema-23-face"
+          }
+        },
+        "symmetry": 4
       }
     ],
     "material_awareness": {
