@@ -40,6 +40,23 @@ Document licence: CERN-OHL-W-2.0.
   - `pcb-standoff` in `fc_stack` mode (30.5 × 30.5 M3) sits on the frame's stack mount.
   - `battery-pad` (`flat_pad`) sits on the top plate's strap station.
   - The pad's long axis follows the frame's fore-aft axis.
+- **The antenna chain.**
+  - The antenna mount (`fpv-antenna-mount` `sma_bracket`; SMA, 35 mm stalk, 25°
+    back-lean, `bolt_span` 20, the values of preset `sma_vtx20`) seats its two-bolt foot
+    on the top plate's rear 20 × 20 VTX pattern: `rear_vtx_mount ↔ sma_bracket_foot`,
+    `rotation_index` 3 (keystone `f7e1947`, solid-hyperobjects#137).
+  - The catalog's `rear_mount_x_mm` is a convention, default −45. At that default the
+    foot spans x −64 … −46, which leaves 7 mm to the battery pad's rear edge at −39, so
+    the default is kept.
+  - `rotation_index` 3 picks the rear row of the pattern. The other three rows also pass
+    the check, but the render probe shows each of them overlapping the battery pad by
+    367–774 mm³.
+  - The foot's size key matches the plate's only at `bolt_span` exactly 20. At 19.5 the
+    mate fails, because the foot then has no size key.
+  - An SMA bulkhead jack (`sma-bulkhead-jack`) seats in the mount's jack bore
+    (`sma_bracket_jack_seat ↔ panel`, `angle_deg` 0). The VTX antenna
+    (`vtx-antenna-sma`) screws onto the jack's coupling (`coupling ↔ connector`,
+    `angle_deg` 0). The antenna leans 25° to the rear.
 
 Every mate states its rotation.
 
@@ -52,8 +69,6 @@ evidence for TPU has been recorded on it, so none is claimed.
 
 ## Gaps (documented, not claimed)
 
-- **The antenna chain is not included in this round.** The rear-mount antenna mount
-  (solid-hyperobjects#135) has merged and can join a later round.
 - **No props and no flight-controller board.** Neither is in the brief.
 - **No collision claim.** `--collision` is a stub in keystone 0.4.0. It is not run.
 
@@ -89,8 +104,12 @@ Licencia del documento: CERN-OHL-W-2.0.
   a 30° hacia arriba.
 - **La pila y la batería.** Los separadores de la pila (30.5 × 30.5 M3) van sobre el
   montaje de la pila, y la almohadilla de batería sobre la placa superior.
+- **La cadena de antena.** El soporte de antena (SMA, mástil de 35 mm, 25° hacia atrás)
+  apoya su pie de dos tornillos en la fila trasera del patrón de VTX de 20 × 20 de la
+  placa superior (`rotation_index` 3). Con el valor por defecto `rear_mount_x_mm` −45,
+  el pie queda a 7 mm de la almohadilla de batería. El conector SMA de mampara entra en
+  el barreno del soporte, y la antena se enrosca en él.
 
 **Lo que no incluye**
 
-- **La cadena de antena** queda fuera de esta ronda.
 - **Verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0.
