@@ -55,7 +55,7 @@ to the ears' outer faces, so the ears always share solid with it.
 - **Nano Tilt 40°** — light racing bracket for a nano cam.
 - **Mini Naked 20°** — flat board-cam mount for a mini sensor.
 - **Micro Cage 0°** — level camera.
-- **Mini Cage 55° (wide bay)** — the steepest tilt, ears 25 mm apart for a 20 mm bay, longer reach.
+- **Mini Cage 55° (long ears)** — the steepest tilt on the catalog frame's 24 mm plate spacing, with `ear_reach` 20 so the tilted housing clears the side plates' land round the screws (at the default 12 it clips them at 55°). For a 20 mm bay (outer spacing 25) set `mount_width` 25.
 
 ## Hyperobject Profile
 
