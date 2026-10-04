@@ -61,11 +61,29 @@ no two rendered parts intersect (see the evidence in the PR).
   fixes where its connector points; that is a choice, not a Voron fact.
 - **No collision claim.** The keystone's `--collision` option is a stub in 0.4.0. It is
   not run and nothing here claims it.
-- **The 608 idler is not a Voron part.** It is a commons idler, not taken from any Voron
-  design, and no cited Voron 2.4 placement for it was found. Its position on `frame_x` is
-  a layout choice, not a Voron fact. It was accepted as a layout convention on 2026-10-04.
-  The Voron 2.4r2 assembly manual is being checked for a cited idler mount, which may move
-  it in a later PR.
+- **The 608 idler is not a Voron part, and its position is a layout convention.** It is
+  a commons idler, not taken from any Voron design. Its position on `frame_x` was accepted
+  as a layout convention on 2026-10-04. The Voron 2.4r2 build guide
+  ([`Manual/Assembly_Manual_2.4r2.pdf`](https://github.com/VoronDesign/Voron-2/blob/a192410e27ea345644ae5c4b29b4c9c40cbe1a73/Manual/Assembly_Manual_2.4r2.pdf),
+  version 2023-07-04, GPL-3.0) was checked, and no cited Voron idler maps onto this one:
+  - **Bearings.** The guide's hardware reference places flanged F695 bearings in the
+    gantry and 625 bearings in the Z drives, and GT2 idlers (p. 8,
+    *Hardware Reference*). A text search of all 263 pages finds no 608.
+  - **Z idlers.** Each one is a GT2 20-tooth idler, 9 mm wide, on an M5x30 BHCS (p. 48,
+    *Z Drives and Idlers*). It bolts with two M5 T-nuts to a top horizontal extrusion and
+    is pressed into the top frame corner against the upright, at each of the four corners
+    (pp. 49–50).
+  - **A/B idlers.** Each one is a stack of F695 bearings with M5 shims on an M5x40 SHCS
+    (pp. 65 and 69, *A/B Drives and Idlers*). They belong to the gantry (p. 83, *Gantry*,
+    overview) and sit flush on the front ends of the gantry's Y-axis extrusions
+    (pp. 91–93). The XY joints carry the same F695 and GT2 idlers on M5x40 (pp. 97–100).
+  - **Why the convention stands.** Every cited idler turns on M5 hardware, not on an 8 mm
+    axle, so this 608 chain cannot represent one faithfully. The A/B and XY-joint idlers
+    are gantry parts, and this subset has no gantry. The Z idler's place, the inside top
+    corner of a blind-jointed frame, has no counterpart in this subset: its single corner
+    is braced, and every inside corner holds a brace.
+  - **The guide confirms the X rail.** The guide's X axis uses an MGN12 rail (p. 101), as
+    this subset does. Its Y axes use MGN9 (p. 88).
 - **The idler's seat floor touches the 608's inner ring.** `idler-608`'s 3 mm seat floor
   is an annulus from r 4.2 to 11, so it contacts the face of the 608's stationary inner
   ring. Fixing it needs a cited inner-ring land diameter. It is accepted for now
@@ -121,6 +139,16 @@ Cada unión declara su rotación.
 - **La polea loca 608 no es una pieza Voron.** Va sobre un eje de 8 mm en un soporte para
   perfil 2020, sobre la cara exterior de `frame_x`. Esa posición es una decisión de
   arreglo, no una colocación Voron citada; se aceptó como convención de arreglo el
-  2026-10-04. Se revisa el manual de ensamble Voron 2.4r2 en busca de una colocación
-  citada, que podría moverla en un PR posterior. El fondo del asiento de la polea toca el
+  2026-10-04. Se revisó la guía de ensamble Voron 2.4r2 (versión 2023-07-04) y ninguna
+  polea Voron citada corresponde a esta:
+  - **Rodamientos.** La guía usa rodamientos F695 con brida en el pórtico, 625 en los
+    accionamientos Z y poleas GT2 (p. 8). No menciona el 608.
+  - **Poleas Z.** Son poleas GT2 de 20 dientes y 9 mm sobre tornillos M5x30, en la esquina
+    superior del marco (pp. 48–50).
+  - **Poleas A/B.** Son pilas de F695 sobre tornillos M5x40 (pp. 65 y 69), en los extremos
+    delanteros de los perfiles Y del pórtico (pp. 83, 91–93).
+
+  Todas giran sobre tornillería M5, no sobre un eje de 8 mm, así que la cadena del 608 no
+  las representa fielmente. Este subconjunto no tiene pórtico, y su única esquina está
+  arriostrada. Por eso la convención se mantiene. El fondo del asiento de la polea toca el
   anillo interior del 608; se acepta por ahora.
