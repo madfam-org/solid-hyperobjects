@@ -43,9 +43,12 @@ whole stalk and opens through the foot, so a pigtail jack is fed up from below
 (before the mount is bolted down) until its shoulder bears on the cap's
 underside; its thread passes the cap and the nut and antenna go on top. The
 stalk keeps a 1.6 mm wall round that bore. The foot's two bolt holes sit across
-the lean (along X), `max(bolt_span, 2·(stalk_r + bolt_r + 2))` apart, and the
-foot widens to carry them, so the leaned stalk and the cap never cover a bolt
-head. The front-mounted option (jack from above, shoulder on the cap's top) is
+the lean (along X). A `bolt_span` that can hold the stalk round the smallest
+bore is **kept** and the jack bore is capped to fit inside it
+(`bolt_span − bolt_d − 7.2` mm; Studio warns when the cap engages); a span too
+small for even that widens to `2·(stalk_r + bolt_r + 2)` (the 12 mm default becomes
+18.9 mm). The foot widens to carry the holes, so the leaned stalk and the cap never
+cover a bolt head. The front-mounted option (jack from above, shoulder on the cap's top) is
 **not offered**: no frame claims it, and its nut would have to be threaded
 inside the stalk bore.
 
@@ -58,6 +61,15 @@ jack), female, symmetry 0. Size key from `connector`: `SMA` → `sma-bulkhead`
 `mount.sma_bracket_jack_seat ↔ sma-bulkhead-jack.panel`, then
 `jack.coupling ↔ vtx-antenna-sma.connector`.
 
+**Foot frame.** `sma_bracket_foot` puts the SMA bracket on a frame's 20 × 20 mm VTX
+seat (catalog `fpv-frame-5in-x-225.rear_vtx_mount`), its two bolts through one 20 mm
+row: origin `(0, −bolt_span/2, −3)` — the pattern's centre, on the foot's underside,
+on the side away from the lean — normal `−z`, male, symmetry 4. Size key
+`{bolt_span: "20" → vtx-mount-20x20}`: only at exactly 20 mm, and the cap above keeps
+the holes at ±10 mm for every jack bore, bolt and stalk size. On the catalog frame,
+`rotation_index` 3 puts the foot on the pattern's rear row with the antenna leaning
+back. Preset **SMA Stalk on a 20x20 VTX Seat** sets it up.
+
 **Known, not changed (tube mount and clip).** In `tube_mount` the coax bore is
 still blind at the foot and the leaned stalk passes over the +Y bolt hole; in
 `clip` the bore stops at the clip's top wall. Both are separate fixes.
@@ -69,6 +81,8 @@ still blind at the foot and the leaned stalk passes over the +Y bolt hole; in
 - **U.FL Frame Clip** — bolt-free clip for a light micro build.
 - **SMA Stalk Upright** — the SMA bracket with no lean.
 - **SMA Stalk 45°** — the steepest lean, 30 mm stalk.
+- **SMA Stalk on a 20x20 VTX Seat** — `bolt_span` 20, for a frame's rear VTX pattern.
+- **SMA 20x20 Seat, Largest Jack and Bolts** — the cap at its limit (jack 14, M4-size holes, 12 mm stalk at 45°): the holes stay 20 mm apart.
 
 ## Hyperobject Profile
 
