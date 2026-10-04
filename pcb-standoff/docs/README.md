@@ -15,6 +15,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | **Plate** | `plate` | Standoffs standing on a solid connecting base plate — one printable mounting plate. |
 | **Loose Standoffs** | `standoffs` | The same standoffs joined by a thin runner strip so they print as one set and snap apart. |
 | **Single Spacer** | `spacer` | One tubular spacer/standoff, bored through. |
+| **Flight-Controller Stack Plate** | `fc_stack` | A corners plate locked to a standard FC/ESC stack pattern (`stack_pattern`: 30.5×30.5 M3, 20×20 M3, 20×20 M2). |
 
 Render each mode with `target_part` set to that mode's part id to see the
 distinct part.
@@ -23,6 +24,7 @@ distinct part.
 
 | Group | Parameter | Default | Notes |
 | :--- | :--- | :--- | :--- |
+| Hole Pattern | `stack_pattern` | 30.5x30.5-m3 | `fc_stack` only: `30.5x30.5-m3`, `20x20-m3` or `20x20-m2`. Sets the corner spacing and the screw size. |
 | Hole Pattern | `pattern` | corners | `corners` (W×D) or `grid` (rows×cols). |
 | Hole Pattern | `rect_w` / `rect_d` | 58 / 49 mm | Corner hole spacing X / Y. |
 | Hole Pattern | `grid_rows` / `grid_cols` | 3 / 3 | Grid standoff count. |
@@ -36,6 +38,8 @@ distinct part.
 - **Pi HAT Plate (58×49)** — corner pattern at the HAT hole rectangle, M2.5.
 - **Prototype Grid (4×4)** — a 16-standoff grid at 18 mm pitch, M3.
 - **Tall M3 Spacer** — a single 15 mm spacer.
+- **FC Stack 30.5×30.5 (M3)** — the common 5-inch flight-controller stack.
+- **FC Stack 20×20 (M2)** — the small-quad stack.
 
 ## Hyperobject Profile
 
@@ -46,12 +50,28 @@ distinct part.
     `screw_size`. Any board sharing that hole pattern bolts to these standoffs.
   - **Standoff Screw Bore** (`socket`, ISO metric M2/M2.5/M3) — `screw_size`,
     `standoff_h`: the bore each standoff presents to the mounting screw.
+  - **FC Stack Plate Underside** (`bolt_pattern`) — the `fc_stack` plate's
+    bottom face, where it sits on an airframe's stack mount (see below).
 - **Material awareness:** the bore is sized slightly under nominal so a
   thread-forming screw bites plastic directly; `tolerance_by_material` is
   declared for per-filament tuning.
 - **Societal benefit:** the simplest reprinted electronics primitive — raise any
   board off any surface at the exact height and hole pattern needed.
 - **License:** CERN-OHL-W-2.0
+
+## Mating frames (assemblies)
+
+`fc_stack_underside` carries a SEM-1 frame on the `fc_stack` part: origin
+`(0, 0, 0)` (the centre of the hole square, on the plate's bottom face), normal
+`-z`, `x_axis` `+x`, symmetry 4, polarity **female** (the airframe's stack bolts
+rise through the plate). Its size key follows `stack_pattern`: `stack-30.5x30.5-m3`,
+`stack-20x20-m3` or `stack-20x20-m2`. The frame is verified against the rendered
+part at the defaults and every preset (`y4d-spec check --render`).
+
+The top of the standoffs (where the boards sit) has no frame yet. Its origin, the
+centre of the hole square, has no material, and on a 30.5 mm square the
+standoffs stand 21.6 mm from that centre. The render-time gate looks for a face
+within 15 mm, so it cannot verify that frame.
 
 ## Engine notes
 
