@@ -2,8 +2,9 @@
 
 A **limit-switch / endstop mount**, generated with **CadQuery** (B-Rep). It holds
 a switch at a repeatable position on a motion axis. The switch face carries the
-**Omron-style microswitch footprint** — two M2 holes on ~9.5 mm centres for a
-~20 x 6 mm subminiature switch (SS / D2F family) — and adjustment slots dial in
+**Omron-style microswitch footprint** — two M2 holes on `hole_span` centres
+(~9.5 mm for the Omron SS class, 6.5 mm for the smaller Omron D2F) — and
+adjustment slots dial in
 the trigger point.
 
 Part of the **Yantra4D Hyperobjects Commons**. Official visualizer and
@@ -21,7 +22,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 
 | Group | Parameter | Default | Notes |
 | :--- | :--- | :--- | :--- |
-| Switch | `hole_span` | 9.5 mm | Microswitch bolt centres (Omron SS/D2F). |
+| Switch | `hole_span` | 9.5 mm | Microswitch bolt centres (Omron SS class 9.5; Omron D2F 6.5). |
 | Switch | `switch_hole` | 2.2 mm | Switch bolt clearance (M2). |
 | Plate | `plate_t` | 3.0 mm | Bracket thickness. |
 | Plate | `plate_w` | 14 mm | Plate width across the switch. |
@@ -33,9 +34,9 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 
 ## The switch footprint (why it fits)
 
-A subminiature microswitch (Omron SS, D2F and clones) mounts through **two M2
-holes on ~9.5 mm centres**. The bracket cuts exactly that pattern so any of these
-interchangeable switches bolts on. The adjustment slots then let the whole bracket
+A subminiature microswitch mounts through **two M2 holes**: ~9.5 mm apart on the
+Omron SS class, 6.5 mm on the smaller Omron D2F. The bracket cuts the pattern at
+`hole_span`, so set it to the switch you have. The adjustment slots then let the whole bracket
 slide along the frame bolt, so the trigger point is set mechanically instead of in
 firmware. Plates are filleted **as clean blanks before** holes and slots are cut,
 keeping every mode watertight.
@@ -45,6 +46,7 @@ keeping every mode watertight.
 - **Omron Microswitch** — the standard slotted switch bracket.
 - **Optical PCB** — mount for a fork optical endstop board.
 - **2020 Endstop Foot** — extrusion-frame foot with a switch upstand.
+- **2020 Endstop Foot, D2F switch** — the same foot drilled for an Omron D2F (6.5 mm).
 
 ## Hyperobject Profile
 
@@ -59,8 +61,10 @@ keeping every mode watertight.
     underside on the bolt line, normal toward the extrusion; male, symmetry 2,
     `tslot-2020-6mm`) and `extrusion_endstop_switch_face` (the upstand's outer
     face at the centre of the switch-hole pair, `x_axis` along the pair;
-    female, symmetry 2). The switch face has no size key yet: `hole_span` is a
-    slider, and only a select may choose a size.
+    female, symmetry 2). The switch face's size key follows `hole_span`
+    (ASM-1 v1.1 slider key): exactly 6.5 mm resolves `omron-d2f-mount-m2`, the
+    Omron D2F pattern; any other spacing (the 9.5 mm SS-class default) has no
+    key, so a D2F mate needs `hole_span` 6.5 (preset `endstop_2020_d2f`).
 - **Material awareness:** `tolerance_by_material` is declared — bolt clearances can
   be tuned per material.
 - **Societal benefit:** a printed mount cut to the standard Omron microswitch
