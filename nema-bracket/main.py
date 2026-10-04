@@ -161,6 +161,20 @@ def build_flat_bracket():
     return plate.cut(cutter)
 
 
+# The gusset must stay clear of the motor's pilot boss and shaft. On the motor plate
+# the pilot bore is centred at the axis height (plate_side / 2 above the base top) with
+# radius pilot_d / 2, so a gusset taller than plate_side / 2 - pilot_d / 2 fills the
+# bottom of the pilot (and the shaft path behind it). Every gusset is therefore capped
+# GUSSET_CLEAR mm below the pilot; at the smallest plate (NEMA 17, margin 3) that still
+# leaves a 10.65 mm web.
+GUSSET_CLEAR = 1.0
+
+
+def gusset_height(length):
+    """The gusset web's height at the plate: as before, but never into the pilot."""
+    return min(plate_side * 0.6, length, plate_side / 2.0 - pilot_d / 2.0 - GUSSET_CLEAR)
+
+
 def build_l_bracket():
     """Vertical motor plate + horizontal base, sharing the bottom edge, with an
     optional triangular gusset. Motor bolts on the vertical face; base bolts down
@@ -186,7 +200,7 @@ def build_l_bracket():
     if gusset:
         # Right-triangle gusset in the XZ plane bridging plate ↔ base.
         gl = min(base_len * 0.7, plate_side * 0.6)
-        gz = min(plate_side * 0.6, gl)
+        gz = gusset_height(gl)
         gw = min(plate_side * 0.5, body_w * 0.5)
         tri = (
             cq.Workplane("XZ")
@@ -224,7 +238,7 @@ def build_extrusion_mount():
 
     if gusset:
         gl = min(foot_len * 0.5, plate_side * 0.55)
-        gz = min(plate_side * 0.6, gl)
+        gz = gusset_height(gl)
         gw = min(plate_side * 0.5, body_w * 0.5)
         tri = (
             cq.Workplane("XZ")
