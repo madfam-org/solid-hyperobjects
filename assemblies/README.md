@@ -10,7 +10,6 @@ the pinned keystone.
 | Slug | Kind | What it composes |
 | :-- | :-- | :-- |
 | [`voron-2-4-class-350-motion-frame`](./voron-2-4-class-350-motion-frame/) | producer | a 2020 frame corner with braces, MGN12 rail and block, the Voron Stealthburner (external, GPL-3.0), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop and a drag-chain anchor |
-| [`fpv-5in-freestyle`](./fpv-5in-freestyle/) | product | a 5-inch X frame (catalog class), four 2207 motors on TPU soft-mount pods, the camera cage with a micro camera, stack standoffs, a battery pad |
 
 Rules for a document here:
 
