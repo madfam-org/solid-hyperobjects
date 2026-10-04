@@ -28,6 +28,16 @@ composed into one placed, closed type-level assembly:
   switch (`microswitch-d2f`), with `hole_span` 6.5 mm, the D2F pattern. A `chain-mount`
   `extrusion_bracket` anchors the drag chain.
 
+- **A 608 idler on an 8 mm axle.**
+  - A `roller-bracket` `extrusion_bracket` (preset `idler_608_2020`: `shaft_dia` 8, axis
+    35 mm above the face, web 8 × 20) stands on `frame_x`'s outer face at its a-end slot
+    station (30 mm). It holds a catalog `shaft-8mm`.
+  - A `bearing-608` rides on the axle's journal, and the `idler-608` `flat_idler` sits on
+    the bearing's outer race.
+  - Three mates: `extrusion_bracket_shaft_bore ↔ host_end`,
+    `bearing_journal ↔ bore` and `outer_race ↔ flat_idler_bearing_seat`, all at
+    `angle_deg` 0 (solid-hyperobjects#140, hyperobjects-spec#42).
+
 Every mate states its rotation (`rotation_index`, or `angle_deg` for the continuous
 shaft ↔ bore mate). The layout of the four b-end faces of `frame_x` was chosen so that
 no two rendered parts intersect (see the evidence in the PR).
@@ -51,10 +61,13 @@ no two rendered parts intersect (see the evidence in the PR).
   fixes where its connector points; that is a choice, not a Voron fact.
 - **No collision claim.** The keystone's `--collision` option is a stub in 0.4.0. It is
   not run and nothing here claims it.
-- **The 608 idler is not here yet.** `idler-608` with a catalog `bearing-608` mates on
-  its own, but nothing in the commons or the catalog carries a male `bearing-608-bore`
-  (an 8 mm axle or bolt). The pair therefore cannot be reached from the frame, and an
-  unreachable component fails the check. It joins once such a carrier exists.
+- **The 608 idler is not a Voron part.** It is a commons idler, not taken from any Voron
+  design, and no cited Voron 2.4 placement for it was found. Its position on `frame_x` is
+  a layout choice, not a Voron fact.
+- **The idler's seat floor touches the 608's inner ring.** `idler-608`'s 3 mm seat floor
+  is an annulus from r 4.2 to 11, so it contacts the face of the 608's stationary inner
+  ring. Fixing it needs a cited inner-ring land diameter. It is accepted for now
+  (P4-AUTH-D).
 
 ## Check it
 
@@ -103,6 +116,7 @@ Cada unión declara su rotación.
 - **Es estático.** No modela movimiento, bandas ni tensión.
 - **No hay verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0
   y no se ejecuta.
-- **La polea loca con 608 todavía no está.** `idler-608` con un `bearing-608` sí ensambla
-  por separado, pero ninguna pieza del acervo ni del catálogo ofrece un eje macho
-  `bearing-608-bore` de 8 mm. Sin ese eje, el par no se puede alcanzar desde el marco.
+- **La polea loca 608 no es una pieza Voron.** Va sobre un eje de 8 mm en un soporte para
+  perfil 2020, sobre la cara exterior de `frame_x`. Esa posición es una decisión de
+  arreglo, no una colocación Voron citada. El fondo del asiento de la polea toca el anillo
+  interior del 608; se acepta por ahora.
