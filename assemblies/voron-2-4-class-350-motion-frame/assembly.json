@@ -8,8 +8,8 @@
     "es": "Subconjunto de marco y movimiento clase Voron 2.4"
   },
   "description": {
-    "en": "A type-level subset of a Voron 2.4-class CoreXY printer: one frame corner of 2020 extrusions with corner braces, an MGN12 rail and block carrying the Voron Stealthburner (an external GPL-3.0 design, referenced and never copied), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop and a drag-chain anchor. Static: no motion is modelled.",
-    "es": "Subconjunto a nivel de tipo de una impresora CoreXY clase Voron 2.4: una esquina del marco de perfiles 2020 con escuadras, un riel MGN12 con su carro que lleva el Voron Stealthburner (diseño externo GPL-3.0, referenciado y nunca copiado), un NEMA 17 sobre un soporte para perfil con polea GT2, un final de carrera y un anclaje de cadena portacables. Estático: no modela movimiento."
+    "en": "A type-level subset of a Voron 2.4-class CoreXY printer: one frame corner of 2020 extrusions with corner braces, an MGN12 rail and block carrying the Voron Stealthburner (an external GPL-3.0 design, referenced and never copied), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop, a drag-chain anchor and a 608 idler on an 8 mm axle in a 2020 bracket. Static: no motion is modelled.",
+    "es": "Subconjunto a nivel de tipo de una impresora CoreXY clase Voron 2.4: una esquina del marco de perfiles 2020 con escuadras, un riel MGN12 con su carro que lleva el Voron Stealthburner (diseño externo GPL-3.0, referenciado y nunca copiado), un NEMA 17 sobre un soporte para perfil con polea GT2, un final de carrera, un anclaje de cadena portacables y una polea loca 608 sobre un eje de 8 mm en un soporte para perfil 2020. Estático: no modela movimiento."
   },
   "license": "CERN-OHL-W-2.0",
   "root": "frame_x",
@@ -261,6 +261,65 @@
         "type": "standard",
         "key": "microswitch-d2f"
       }
+    },
+    {
+      "id": "idler_bracket",
+      "label": {
+        "en": "Idler axle bracket on the 2020 extrusion (preset idler_608_2020)",
+        "es": "Soporte del eje de la polea loca sobre el perfil 2020 (preajuste idler_608_2020)"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "roller-bracket",
+        "mode": "extrusion_bracket",
+        "part": null,
+        "parameters": {
+          "shaft_dia": 8,
+          "mount_height": 35,
+          "web_thick": 8,
+          "web_width": 20
+        }
+      }
+    },
+    {
+      "id": "idler_axle",
+      "label": {
+        "en": "8 mm idler axle",
+        "es": "Eje de 8 mm de la polea loca"
+      },
+      "source": {
+        "type": "standard",
+        "key": "shaft-8mm"
+      }
+    },
+    {
+      "id": "idler_bearing",
+      "label": {
+        "en": "608 bearing",
+        "es": "Rodamiento 608"
+      },
+      "source": {
+        "type": "standard",
+        "key": "bearing-608"
+      }
+    },
+    {
+      "id": "idler_pulley",
+      "label": {
+        "en": "608 idler pulley",
+        "es": "Polea loca 608"
+      },
+      "source": {
+        "type": "cartridge",
+        "commons": "solid",
+        "slug": "idler-608",
+        "mode": "flat_idler",
+        "part": null,
+        "parameters": {
+          "bearing": "608"
+        }
+      }
     }
   ],
   "mates": [
@@ -443,6 +502,54 @@
         "interface": "mount_a"
       },
       "rotation_index": 0
+    },
+    {
+      "id": "idler_bracket_on_frame",
+      "a": {
+        "component": "frame_x",
+        "interface": "slot_xn_a"
+      },
+      "b": {
+        "component": "idler_bracket",
+        "interface": "extrusion_bracket_foot_slot"
+      },
+      "rotation_index": 0
+    },
+    {
+      "id": "axle_in_bracket",
+      "a": {
+        "component": "idler_bracket",
+        "interface": "extrusion_bracket_shaft_bore"
+      },
+      "b": {
+        "component": "idler_axle",
+        "interface": "host_end"
+      },
+      "angle_deg": 0
+    },
+    {
+      "id": "bearing_on_axle",
+      "a": {
+        "component": "idler_axle",
+        "interface": "bearing_journal"
+      },
+      "b": {
+        "component": "idler_bearing",
+        "interface": "bore"
+      },
+      "angle_deg": 0
+    },
+    {
+      "id": "pulley_on_bearing",
+      "a": {
+        "component": "idler_bearing",
+        "interface": "outer_race"
+      },
+      "b": {
+        "component": "idler_pulley",
+        "interface": "flat_idler_bearing_seat"
+      },
+      "angle_deg": 0
     }
   ],
   "capability_profile": {
