@@ -13,7 +13,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | Mode | Part | Description |
 | :--- | :--- | :--- |
 | **Tube Mount** | `tube_mount` | Foot + leaning stalk with a top socket that captures a rigid tube / pagoda antenna. |
-| **SMA Bulkhead Bracket** | `sma_bracket` | Foot + stalk capped by a bulkhead face with the SMA through-hole; an SMA nut clamps the antenna there. |
+| **SMA Bulkhead Bracket** | `sma_bracket` | Foot + stalk capped by a bulkhead face for a **rear-mounted** SMA pigtail jack: the jack comes up the stalk's clearance bore (open through the foot), its shoulder seats on the cap's underside and the nut clamps it on top. |
 | **Frame Clip** | `clip` | A bolt-free C-clip that snaps onto a frame plate and carries a short routing stalk. |
 
 ## Parameters
@@ -24,7 +24,8 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | Stalk | `stalk_h` / `stalk_d` | 35 / 8 mm | Stalk height (prop clearance) and diameter. |
 | Stalk | `back_angle` | 25° | Rearward lean (tube / SMA modes). |
 | Base | `base_w` / `base_l` | 18 / 18 mm | Foot footprint. |
-| Base | `bolt_d` / `bolt_span` | 2.2 / 12 mm | Base bolt holes (M2). |
+| Base | `bolt_d` / `bolt_span` | 2.2 / 12 mm | Base bolt holes (M2). In the SMA bracket they run ACROSS the lean (along X) and the span and foot widen as needed so the stalk never covers them. |
+| Connector | `jack_body_d` | 9.5 mm | SMA bracket: the clearance bore up the stalk and through the foot for the jack's rear body and hex (9.5 clears a hex up to 8.2 mm across flats; read yours from the jack's drawing). |
 | Tube / Clip | `tube_d` / `tube_len` | 4 / 28 mm | Tube socket size and depth (tube mode). |
 | Tube / Clip | `clip_gap` | 4 mm | Frame-plate thickness the clip grips (clip mode). |
 
@@ -36,11 +37,38 @@ axial bore of the stalk. The stalk is built upright with its top feature (tube
 socket or bulkhead cap), then the whole assembly is leaned back by `back_angle`
 so the exit stays coaxial with the leaned stalk.
 
+**SMA bracket (rear-mounted jack, owner decision O2(a)).** The Ø6.5 exit hole
+runs only through the 3 mm cap. Below it a `jack_body_d` clearance bore runs the
+whole stalk and opens through the foot, so a pigtail jack is fed up from below
+(before the mount is bolted down) until its shoulder bears on the cap's
+underside; its thread passes the cap and the nut and antenna go on top. The
+stalk keeps a 1.6 mm wall round that bore. The foot's two bolt holes sit across
+the lean (along X), `max(bolt_span, 2·(stalk_r + bolt_r + 2))` apart, and the
+foot widens to carry them, so the leaned stalk and the cap never cover a bolt
+head. The front-mounted option (jack from above, shoulder on the cap's top) is
+**not offered**: no frame claims it, and its nut would have to be threaded
+inside the stalk bore.
+
+**Mating frame.** `sma_bracket_jack_seat`: the cap's underside on the stalk
+axis, `(0, h·sin a, h·cos a)` with `h = stalk_h` and `a` the clamped lean
+(`let`; degree trig), normal `(0, −sin a, −cos a)` (down the stalk, toward the
+jack), female, symmetry 0. Size key from `connector`: `SMA` → `sma-bulkhead`
+(mates the catalog's `sma-bulkhead-jack.panel`), `U.FL` → `u-fl-cable-exit`
+(a cable route with no catalog partner). Chain for an assembly:
+`mount.sma_bracket_jack_seat ↔ sma-bulkhead-jack.panel`, then
+`jack.coupling ↔ vtx-antenna-sma.connector`.
+
+**Known, not changed (tube mount and clip).** In `tube_mount` the coax bore is
+still blind at the foot and the leaned stalk passes over the +Y bolt hole; in
+`clip` the bore stops at the clip's top wall. Both are separate fixes.
+
 ## Presets
 
 - **SMA Stalk 25°** — the standard rear-leaning SMA bracket.
 - **Pagoda Tube Mount** — captures a rigid pagoda/tube antenna.
 - **U.FL Frame Clip** — bolt-free clip for a light micro build.
+- **SMA Stalk Upright** — the SMA bracket with no lean.
+- **SMA Stalk 45°** — the steepest lean, 30 mm stalk.
 
 ## Hyperobject Profile
 
