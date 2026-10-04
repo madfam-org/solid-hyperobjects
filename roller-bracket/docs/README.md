@@ -16,6 +16,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | **Roller Bracket** | `bracket` | Single upright with a plain shaft slot + foot. |
 | **Bearing Bracket** | `bearing_bracket` | Single upright with a 608 bearing seat pocket. |
 | **Bracket Pair** | `bracket_pair` | Two uprights facing each other on one shared base. |
+| **2020 Axle Bracket** | `extrusion_bracket` | Single upright with a closed plain bore on a 2020 foot: the axle bracket of an idler (an 8 mm shaft in the bore, a 608 on the shaft beside the web). |
 
 ## Parameters
 
@@ -27,7 +28,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | Web & Foot | `mount_height` | 40 mm | Shaft axis height above the foot. |
 | Web & Foot | `web_thick` / `web_width` | 8 / 30 mm | Upright web thickness and width. |
 | Web & Foot | `foot_len` / `foot_thick` | 45 / 6 mm | Mounting foot length and thickness. |
-| Mounting | `mount` | bolt_down | `bolt_down` / `extrusion` (2020) / `wall`. |
+| Mounting | `mount` | bolt_down | `bolt_down` / `extrusion` (2020) / `wall` (Roller and Bearing Bracket modes; the 2020 Axle Bracket is always `extrusion`). |
 | Mounting | `mount_dia` | 5.5 mm | Mounting screw clearance diameter. |
 | Pair | `pair_gap` | 100 mm | Clear span between the two uprights (roller length). |
 
@@ -37,6 +38,36 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 - **608 Idler Bracket** — a bearing seat for a standard 608 idler.
 - **2020 Extrusion Roller** — a tab that drops into 2020 T-slot framing.
 - **Conveyor Roller Pair (Ø10, 150)** — two bearing brackets 150 mm apart.
+- **608 Idler Axle on 2020** — the 2020 Axle Bracket for an 8 mm idler axle, axis 35 mm
+  above the extrusion face.
+
+## On a 2020 extrusion
+
+The `extrusion` mount (and the 2020 Axle Bracket) seats the foot on a 20 × 20 series-5
+extrusion: a 5.8 mm key drops into the 6 mm slot opening, only as deep as the slot's
+2 mm lips, so the foot's underside rests on the extrusion face and the cavity under the
+lips stays free for T-nuts. Two `mount_dia` clearance holes on the slot line, one each
+side of the web, take the screws into those T-nuts. Slot dimensions: MISUMI HFS5
+"T Slot Dimensions" (6 mm opening, 2 mm lip, 4 mm below the lip),
+<https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf>. Before 2026-10 the key was 8 mm deep,
+deeper than the 6 mm slot, and the four corner holes fell outside the 20 mm extrusion.
+
+## Mating frames (ASM-1)
+
+On the 2020 Axle Bracket (`extrusion_bracket`):
+
+- **`extrusion_bracket_shaft_bore`** — female, `socket`, symmetry 0: the bore's entrance
+  on the web's +X face, on the shaft axis (`x = web_thick / 2`, `z = mount_height`), with
+  the normal +X out of the bore. At `shaft_dia` 8 its size key is `shaft-8mm`, the
+  catalog 8 mm ground shaft (`shaft-8mm.host_end`); at any other diameter it has none.
+  The shaft carries the 608 (`shaft-8mm.bearing_journal` ↔ `bearing-608.bore`) on the +X
+  side, one washer off the web, and an `idler-608` pulley on the bearing's outer ring.
+- **`extrusion_bracket_foot_slot`** — male, `profile`, symmetry 2, `tslot-2020-6mm`: the
+  foot's underside at the origin, normal −Z toward the extrusion, `x_axis` +Y along the
+  slot (the key and the two screws lie on that line).
+
+Both frames are verified against the rendered part at the defaults and at every preset
+(`y4d-spec check --render`).
 
 ## Hyperobject Profile
 
@@ -49,6 +80,8 @@ configurator: [Yantra4D](https://app.yantra4d.com).
     `mount_dia`, `foot_len`.
   - **2020 Extrusion Tab** (`rail`, *2020 T-slot, 6 mm slot*) — the drop-in tab
     for aluminium framing.
+  - **2020 Axle Bracket Shaft Bore** and **Foot on the Slot** — the two framed
+    interfaces above.
 - **Material awareness:** `tolerance_by_material` is declared so the bearing/axle
   fit can be tuned per material and printer.
 - **Societal benefit:** line-side roller support for DIY conveyors — one bracket

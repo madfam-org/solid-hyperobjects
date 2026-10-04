@@ -7,10 +7,13 @@ axle, or a round pocket sized for a 608 bearing OD 22 mm) above a mounting foot.
 The foot mounts three ways: bolt-down (foot with holes), extrusion (a tab for
 2020 T-slot), or wall.
 
-Three build targets are dispatched by `target_part`:
-  - "bracket"         : single upright with a plain shaft slot + foot
-  - "bearing_bracket" : single upright with a 608 bearing seat pocket
-  - "bracket_pair"    : two brackets positioned facing each other on one base
+Four build targets are dispatched by `target_part`:
+  - "bracket"           : single upright with a plain shaft slot + foot
+  - "bearing_bracket"   : single upright with a 608 bearing seat pocket
+  - "bracket_pair"      : two brackets positioned facing each other on one base
+  - "extrusion_bracket" : single upright with a closed plain bore on a 2020 foot —
+                          the axle bracket of an idler (an 8 mm shaft in the bore, a
+                          608 on the shaft beside the web)
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -65,11 +68,32 @@ mount_dia    = max(2.5, min(mount_dia, 10.0))
 seat_dia     = BEARING_608_OD  # for bearing seat
 seat_depth   = 7.5             # 608 bearing width is 7 mm; pocket 7.5 for fit
 
+# 2020 (series 5) T-slot, MISUMI HFS5 "T Slot Dimensions (Common to All Series)",
+# https://us.misumi-ec.com/pdf/fa/2012/p2_0513.pdf: a 6 mm opening between lips 2 mm
+# thick, then 4 mm more to the slot floor. The tab is a locating key in the opening:
+# it stays within the lip so the cavity below stays free for the T-nut.
+SLOT_LIP_T   = 2.0
+TAB_W        = 5.8             # just under the 6 mm opening
+
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
-def _foot(cx=0.0):
-    """Mounting foot as a flat slab centred at x=cx, base at z=0."""
+def _slot_hole_y():
+    """Y of the two bolt stations on the 2020 slot line (x = cx): one hole margin
+    (max(mount_dia, 5)) clear of the web on each side, so a screw head seats beside it."""
+    return web_width / 2.0 + max(mount_dia, 5.0)
+
+
+def _foot_depth(extrusion=False):
+    """Foot extent along Y. On a 2020 the two slot-line holes need a margin past them."""
     depth = max(web_width, foot_len)
+    if extrusion:
+        depth = max(depth, 2.0 * (_slot_hole_y() + max(mount_dia, 5.0)))
+    return depth
+
+
+def _foot(cx=0.0, extrusion=False):
+    """Mounting foot as a flat slab centred at x=cx, base at z=0."""
+    depth = _foot_depth(extrusion)
     return (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(cx, 0.0, 0.0))
@@ -102,10 +126,12 @@ def _web(cx=0.0):
     )
 
 
-def _shaft_cut(cx=0.0, seat=False):
+def _shaft_cut(cx=0.0, seat=False, open_top=None):
     """Cut the shaft seat through the web (thickness along X).
     - plain: round bore of shaft_dia, optionally opened to the top as a U-slot.
     - seat : a 608 bearing pocket (blind, from the +X face) of seat_dia."""
+    if open_top is None:
+        open_top = open_slot
     z = mount_height
     if seat:
         # Blind pocket for a 608 bearing on the +X face, plus a through pilot
@@ -130,7 +156,7 @@ def _shaft_cut(cx=0.0, seat=False):
         .circle(shaft_dia / 2.0)
         .extrude(web_thick + 2.0)
     )
-    if open_slot:
+    if open_top:
         # Open the bore to the top with a vertical channel (drop-in axle). The
         # channel runs from the shaft centre up past the web top, width = shaft.
         web_top = mount_height + max(shaft_dia, seat_dia) / 2.0 + 6.0
@@ -145,33 +171,52 @@ def _shaft_cut(cx=0.0, seat=False):
 
 
 def _extrusion_tab(cx=0.0):
-    """A downward tab sized to drop into a 2020 aluminium extrusion T-slot
-    (slot ~6 mm), so the bracket bolts to 2020 framing with a T-nut."""
-    tab_w = 5.8      # fits a 6 mm 2020 slot opening
-    tab_h = 8.0
+    """A downward key that drops into a 2020 T-slot opening (6 mm) along Y and
+    locates the foot on the slot line. It is SLOT_LIP_T deep, so the foot's
+    underside sits on the extrusion face (a deeper tab would bottom out on the slot
+    floor, 6 mm down, and hold the foot proud). It spans the web only, so the two
+    bolt stations beyond it stay clear for the T-nuts."""
     tab = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(cx, 0.0, -tab_h))
-        .box(tab_w, min(web_width, 18.0), tab_h, centered=(True, True, False))
+        .transformed(offset=cq.Vector(cx, 0.0, -SLOT_LIP_T))
+        .box(TAB_W, min(web_width, 18.0), SLOT_LIP_T, centered=(True, True, False))
     )
     return tab
 
 
+def _slot_holes(solid, cx=0.0):
+    """Two clearance holes on the slot line (x = cx), one each side of the web, for
+    screws into T-nuts in the 2020 slot under the foot."""
+    hy = _slot_hole_y()
+    cutter = (
+        cq.Workplane("XY")
+        .pushPoints([(cx, hy), (cx, -hy)])
+        .circle(mount_dia / 2.0)
+        .extrude(foot_thick + SLOT_LIP_T + 2.0)
+        .translate((0.0, 0.0, -SLOT_LIP_T - 1.0))
+    )
+    return solid.cut(cutter)
+
+
 # ── Single bracket builders ──────────────────────────────────────────────────
-def _single(cx=0.0, seat=False):
+def _single(cx=0.0, seat=False, style=None, open_top=None):
+    style = mount if style is None else style
     body = _web(cx)
-    if mount == "wall":
+    if style == "wall":
         # Wall mount: the web itself is the mounting face; add a small back foot.
         body = body.union(_foot(cx))
         body = _wall_holes(body, cx)
-    elif mount == "extrusion":
-        body = body.union(_foot(cx))
+    elif style == "extrusion":
+        # On a 2020: the key in the slot opening and two screws on the slot line.
+        # (Before 2026-10 this tab was 8 mm deep, deeper than the slot, and the four
+        # corner holes fell outside the 20 mm extrusion.)
+        body = body.union(_foot(cx, extrusion=True))
         body = body.union(_extrusion_tab(cx))
-        body = _foot_holes(body, cx)
+        body = _slot_holes(body, cx)
     else:  # bolt_down
         body = body.union(_foot(cx))
         body = _foot_holes(body, cx)
-    body = body.cut(_shaft_cut(cx, seat=seat))
+    body = body.cut(_shaft_cut(cx, seat=seat, open_top=open_top))
     return body
 
 
@@ -196,6 +241,12 @@ def build_bracket():
 
 def build_bearing_bracket():
     return _single(0.0, seat=True)
+
+
+def build_extrusion_bracket():
+    """The idler axle bracket: always on a 2020, always a closed plain bore (an
+    axle under belt load must not lift out of an open slot)."""
+    return _single(0.0, seat=False, style="extrusion", open_top=False)
 
 
 # ── Paired brackets ──────────────────────────────────────────────────────────
@@ -231,6 +282,7 @@ _dispatch = {
     "bracket":         build_bracket,
     "bearing_bracket": build_bearing_bracket,
     "bracket_pair":    build_bracket_pair,
+    "extrusion_bracket": build_extrusion_bracket,
 }
 
 result = _dispatch.get(target_part, build_bracket)()
