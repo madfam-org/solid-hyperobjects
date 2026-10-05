@@ -70,7 +70,7 @@ evidence for TPU has been recorded on it, so none is claimed.
 ## Gaps (documented, not claimed)
 
 - **No props and no flight-controller board.** Neither is in the brief.
-- **No collision claim.** `--collision` is a stub in keystone 0.4.0. It is not run.
+- **No collision claim.** `--collision` is still a stub in the pinned keystone (0.6.0). It is not run.
 
 ## Check it
 
@@ -112,4 +112,4 @@ Licencia del documento: CERN-OHL-W-2.0.
 
 **Lo que no incluye**
 
-- **Verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0.
+- **Verificación de colisiones.** `--collision` sigue siendo un esbozo en el keystone fijado (0.6.0).
