@@ -1,6 +1,6 @@
 # Solid Hyperobjects
 
-Last Updated: 2026-09-29
+Last Updated: 2026-10-05
 
 Owns solid-geometry cartridges: manifests, source geometry, presets and provenance.
 Yantra4D owns the platform/render service; hyperobjects-spec owns shared schemas
@@ -17,6 +17,12 @@ package revision. Check each changed cartridge with `y4d-spec check ./<slug>
 The repository root resolves `commons-lib/...`; a path inside that directory does
 not. [Keytag's font contract](keytag/docs/README.md) demonstrates why text must
 name an installed family explicitly.
+
+[Assemblies](assemblies/README.md) compose cartridges with keystone standard
+parts (ASM-1). Assembly A, the [Voron 2.4-class 350 motion system](assemblies/voron-2-4-class-350-motion-frame/README.md),
+is posable (ASM-1 §9). Its ten printed cartridges carry graph twins (graph format
+1.1), which `--parity` checks against their scripts. Contracts in other
+repositories: see [Related repositories and contracts](README.md#related-repositories-and-contracts).
 
 A schema pass is not a render pass. Kernel-dependent skips and queued jobs are
 not acceptance. Require the exact-head Linux result, preserve strict geometry
