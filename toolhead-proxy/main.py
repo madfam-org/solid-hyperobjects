@@ -13,14 +13,18 @@ No StealthBurner or Voron geometry is copied, traced or derived; no StealthBurne
 or manual was read. Every size below is a labelled CONVENTION, sized to bound a typical
 toolhead generously for collision, and adjustable.
 
-The body is one piece:
-  - a block in front of the X carriage's toolhead face, bolted to it by four M3 screws on
-    a 20 mm square (the interface key toolhead-mount-20x20-m3; HIWIN's MGN12H pattern);
-  - a round nozzle under the block whose flat end is the nozzle tip.
+The body is one piece, in front of the X carriage's toolhead face, bolted to it by four M3
+screws on a 20 mm square (the interface key toolhead-mount-20x20-m3; HIWIN's MGN12H
+pattern):
+  - a narrow column (band_w wide) from band_top above the mount centre down to body_drop
+    below it: the part that passes the gantry's rails, blocks and idlers at the ends of X
+    travel, so it is kept narrow (a CONVENTION chosen so a full X travel fits the gantry);
+  - a wider cap (body_w) above the column, up to body_top;
+  - a round nozzle under the column whose flat end is the nozzle tip.
 
 Model frame (the frames in project.json use it): origin at the centre of the mount
 pattern, on the face that bears on the carriage; +x along the X axis the carriage runs
-on; +y up; +z forward, away from the carriage, through the block.
+on; +y up; +z forward, away from the carriage, through the body.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -56,20 +60,24 @@ TIP_D = 3.0             # its flat end, the nozzle tip (area 7.1 mm²)
 TIP_TAPER = 3.0         # the cone from NOZZLE_D to TIP_D
 
 # ── Parameters (all conventions; see docs/README.md) ─────────────────────────
-body_w = float(PARAM(lambda: body_w, 56.0))              # across, along X
+body_w = float(PARAM(lambda: body_w, 56.0))              # the cap, across X
+band_w = float(PARAM(lambda: band_w, 36.0))              # the column, across X
+band_top = float(PARAM(lambda: band_top, 1.0))           # column top above the mount centre
 body_d = float(PARAM(lambda: body_d, 56.0))              # forward from the mount face
 body_top = float(PARAM(lambda: body_top, 25.0))          # above the mount centre
-body_drop = float(PARAM(lambda: body_drop, 70.0))        # below the mount centre
-nozzle_drop = float(PARAM(lambda: nozzle_drop, 78.0))    # mount centre to the tip
-nozzle_reach = float(PARAM(lambda: nozzle_reach, 28.0))  # mount face to the nozzle axis
+body_drop = float(PARAM(lambda: body_drop, 94.0))        # column bottom below the mount centre
+nozzle_drop = float(PARAM(lambda: nozzle_drop, 102.0))   # mount centre to the tip
+nozzle_reach = float(PARAM(lambda: nozzle_reach, 12.0))  # mount face to the nozzle axis
 target_part = str(PARAM(lambda: target_part, "toolhead_proxy"))
 
 # ── Derived / clamped ────────────────────────────────────────────────────────
 body_w = max(30.0, min(body_w, 90.0))
+band_w = max(26.0, min(band_w, body_w))
+band_top = max(-12.0, min(band_top, body_top - 4.0))
 body_d = max(30.0, min(body_d, 90.0))
 body_top = max(12.0, min(body_top, 80.0))
-body_drop = max(12.0, min(body_drop, 140.0))
-nozzle_drop = max(body_drop + TIP_TAPER + 1.0, min(nozzle_drop, 160.0))
+body_drop = max(12.0, min(body_drop, 160.0))
+nozzle_drop = max(body_drop + TIP_TAPER + 1.0, min(nozzle_drop, 180.0))
 nozzle_reach = max(NOZZLE_D / 2.0 + 2.0, min(nozzle_reach, body_d - NOZZLE_D / 2.0 - 2.0))
 
 
@@ -80,8 +88,9 @@ def _box(x0, x1, y0, y1, z0, z1):
 
 
 def build_proxy():
-    body = _box(-body_w / 2.0, body_w / 2.0, -body_drop, body_top, 0.0, body_d)
-    # The nozzle: a round body down from the block, then a short cone to the flat tip.
+    body = _box(-band_w / 2.0, band_w / 2.0, -body_drop, band_top + 0.5, 0.0, body_d)
+    body = body.union(_box(-body_w / 2.0, body_w / 2.0, band_top, body_top, 0.0, body_d))
+    # The nozzle: a round body down from the column, then a short cone to the flat tip.
     straight = nozzle_drop - TIP_TAPER - body_drop
     body = body.union(cq.Workplane("XY").add(cq.Solid.makeCylinder(
         NOZZLE_D / 2.0, straight + 0.5, cq.Vector(0, -body_drop + 0.5, nozzle_reach),
