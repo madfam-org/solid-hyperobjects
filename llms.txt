@@ -23,6 +23,7 @@ parts (ASM-1). Assembly A, the [Voron 2.4-class 350 motion system](assemblies/vo
 is posable (ASM-1 §9). Its ten printed cartridges carry graph twins (graph format
 1.1), which `--parity` checks against their scripts. Contracts in other
 repositories: see [Related repositories and contracts](README.md#related-repositories-and-contracts).
+Dated status (2026-10-05: open PRs in merge order, next steps): [docs/STATUS.md](docs/STATUS.md).
 
 A schema pass is not a render pass. Kernel-dependent skips and queued jobs are
 not acceptance. Require the exact-head Linux result, preserve strict geometry
