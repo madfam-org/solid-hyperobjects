@@ -1,8 +1,8 @@
 # AGENTS.md — orientation for an automated contributor
 
-> Last Updated: 2026-09-29
+> Last Updated: 2026-10-05
 
-You are changing a **fail-closed geometry commons**: 502 cartridges, each a
+You are changing a **fail-closed geometry commons**: 512 cartridges, each a
 manifest plus source that turns a parameter point into geometry, each verified
 by rendering it. Nothing here is checked by review alone — if you cannot render
 it, you cannot claim it works.
@@ -36,8 +36,8 @@ never from memory, and never edit a doc to match a pin you assumed.
 
 | Lane | Trigger | What it does |
 | :-- | :-- | :-- |
-| `manifests` | every PR | `y4d-spec check` on all 502, plus `pytest .github/scripts` and the reporter selftest |
-| `assemblies` | every PR | `y4d-spec assembly check` on every `assemblies/*/assembly.json` (ASM-1 §3), catalog from the pinned keystone |
+| `manifests` | every PR | `y4d-spec check` on all 512, plus `pytest .github/scripts` and the reporter selftest |
+| `assemblies` | every PR | `y4d-spec assembly check` on every `assemblies/*/assembly.json` (ASM-1 §3, §9), with `--collision`, catalog from the pinned keystone |
 | `render-scope` | every PR | fork-point diff → which cartridges need geometry |
 | `render-changed` | every PR | renders them, groups of ≤ 8, `max-parallel: 2`, 60-min jobs |
 | `nightly-scope` | 09:00Z | cuts the whole commons into deterministic groups of ≤ 8 |
@@ -104,6 +104,22 @@ The three that most often survive review and die in CI:
   a missing reason is a conformance failure, caught without `--render`.
 - Never declare the body count a defect happens to produce. Declare the
   design's count — the declaration is how a later regression becomes visible.
+
+## Assemblies and graph twins
+
+- [`assemblies/README.md`](./assemblies/README.md) lists the assemblies. A
+  (`voron-2-4-class-350-motion-frame`) is posable: joints, Klipper-derived machine
+  bindings, belt paths and a pose sweep (ASM-1 §9). Its README cites every number.
+- A graph twin (`<slug>/*.graph.json`, graph format 1.1, declared as `graph_file`
+  beside the script) must agree with its script under `--parity` at every preset.
+  The script stays the oracle. If you change a twinned script, change its graph in
+  the same PR, or parity fails.
+- Changing a cartridge that A composes moves A's digest. Run the assembly check
+  with `--collision` locally before you push.
+- The contracts on the other side of these files are listed in the README under
+  [Related repositories and contracts](./README.md#related-repositories-and-contracts).
+- Where the repository stands (dated, with the open PRs in merge order and the next
+  `SPEC_PIN` bump) is [`docs/STATUS.md`](./docs/STATUS.md).
 
 ## Repository boundary
 
