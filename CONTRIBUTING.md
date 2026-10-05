@@ -47,7 +47,7 @@ Never ship a `LICENSE` that contradicts your manifest's declared licence:
 ## The bar your PR has to clear
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@5b4913c86ffe9e0d219a60fb6ff148aa99173163"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@1fe3d461512a59953b3349ed26edf12ce14973e2"
 
 y4d-spec check ./<slug>            # manifest + files
 y4d-spec check ./<slug> --render --require-openscad --parity \
