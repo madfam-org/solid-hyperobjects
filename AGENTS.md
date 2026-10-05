@@ -22,7 +22,7 @@ this repo a red run.
 ## The one command that decides your PR
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@113e2dcb9d903bbd2e3bb01162f3a1b53e0c0f82"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@5b4913c86ffe9e0d219a60fb6ff148aa99173163"
 
 y4d-spec check ./<slug> --render --require-openscad --parity \
   --openscad-path libs --openscad-path .
