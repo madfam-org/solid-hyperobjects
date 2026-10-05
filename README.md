@@ -88,8 +88,9 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   It fails on any validation error (an unresolved component, a mate that breaks
   the mating rule, a mate or cycle that does not close within 0.05 mm / 0.5°, an
   unreachable component) and on a directory under `assemblies/` with no
-  `assembly.json`. The keystone's `--collision` option is a stub in 0.4.0 and is
-  not run, so a green check makes no collision claim.
+  `assembly.json`. The keystone's `--collision` option is still a stub in the
+  pinned keystone (`SPEC_PIN`) and is not run, so a green check makes no
+  collision claim.
 - **Render lane (per PR, chunked).** `render-scope` takes the fork-point diff and
   decides *which* cartridges need geometry, then `render-changed` runs them as a
   matrix of groups of at most eight (`max-parallel: 2`, 60-minute jobs). Each
