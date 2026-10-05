@@ -78,14 +78,14 @@ FLOOR_T = 6.0               # plate/floor thickness above the block top
 BLOCK_DROP = 10.0           # inboard block reaches down to the C extrusion's top plane
 BRIDGE_Z = 26.0             # bridge underside: the high stack's top (21 + 5)
 BRIDGE_T = 5.0              # bridge thickness: heads seat at z 31
-X_STACK, X_IDLER = 32.0, 36.0   # inboard distance of the two axles from the rail centre
+X_STACK, X_IDLER = 32.0, 37.0   # inboard distance of the two axles from the rail centre
 BEAM_END = 12.5             # X beam end, inboard of the rail centre
-BEAM_A, BEAM_B = 22.5, 44.0     # beam screws: station 10 from its end; second 21.5 further
+BEAM_A, BEAM_B = 22.5, 45.0     # beam screws: station 10 from its end; second 22.5 further
 COL_R = 4.0                 # Ø8 clamp columns (bear on the shim's / idler's inner face)
 HOLE_CLEAR = 0.25           # per side: Ø5.5 for M5, Ø3.4 for M3 (house clearances)
 M3_CB = 6.5                 # M3 socket-head counterbore Ø, 3.5 deep
 TAB_W = 5.8                 # tongue width in the 6 mm slot (as corner-idler-bracket)
-INNER = 60.0                # inboard end of the body
+INNER = 61.0                # inboard end of the body
 
 # ── Parameters ───────────────────────────────────────────────────────────────
 idler_width = float(PARAM(lambda: idler_width, 9.0))    # toothed idler, flange to flange

@@ -62,7 +62,7 @@ The joint's model frame:
 | | Left joint (default) | Right joint (`mirrored`) |
 | :--- | :--- | :--- |
 | F695 stack, at (±32, −7.006) | low level, z 12 (22 above the C extrusion) | high level, z 21 (31) |
-| Toothed idler, at (±36, +6.366) | high level, z 21 | low level, z 12 |
+| Toothed idler, at (±37, +6.366) | high level, z 21 | low level, z 12 |
 
 **Cited derivations**
 - **Idler y = +6.366.** The GT2 20T pitch radius: SDP/SI Technical Section, Table 33, gives pd
@@ -95,7 +95,7 @@ level the **A** belt.
   z −9, inside the block's Ø4.2 pilot. The guide's joint idlers are screwed into plastic
   (pp. 98, 100). Ø4.2 is the hole MISUMI taps M5 (p2_0681).
 - **MISUMI HFS5:** a 6 mm slot opening and 2 mm lips. The beam tongue is 2 mm deep.
-- **MISUMI HNTAP5-5 T-nuts** are 15 long. The two beam nuts sit 21.5 apart.
+- **MISUMI HNTAP5-5 T-nuts** are 15 long. The two beam nuts sit 22.5 apart.
 - **ISO 7380-1 M5 button head:** dk 9.5. The beam-screw counterbores are Ø10.5. Their floor sits
   4.5 above the beam face, so an M5x10 passes 5.5 into the nut, as in `corner-idler-bracket`.
 
@@ -105,14 +105,15 @@ level the **A** belt.
   centre.
 - **Beam screw stations:**
   - A is 10 from the beam's end, the beam's slot station;
-  - B is 21.5 further along.
-- **Axle stations:** the stack is 32 inboard of the rail centre, the idler 36. The extra 4 mm
-  keeps the A/B drive pulley 4.8 mm clear of the other belt.
+  - B is 22.5 further along.
+- **Axle stations:** the stack is 32 inboard of the rail centre, the idler 37. The extra 5 mm
+  keeps the A/B drive pulley 5.8 mm clear of the other belt, and the idler's Ø18 flange 0.27 mm
+  clear of the stack's shims.
 - **Clamp columns** are Ø8 and bear on the shim's or idler's inner face. Holes are Ø5.5 and
   Ø3.4. The M3 counterbores are Ø6.5 × 3.5.
 - **Pillars** stand off every belt line:
   - outboard ones span x −8 … 6, outside the outer run at x ≈ ±10;
-  - inboard ones span x 50 … 58, at |y| ≥ 5.
+  - inboard ones span x 51 … 59, at |y| ≥ 5.
 
 ## Interfaces
 
@@ -122,12 +123,12 @@ idler's is `zi = 21 − 9·mirrored`.
 | Interface | Type | Polarity / key / symmetry | Where |
 | :--- | :--- | :--- | :--- |
 | `xy_joint_carriage` | `bolt_pattern` | male, `mgn9-carriage`, 2 | At the origin, normal −z, x_axis along the rail (+y). It mates `mgn9h-carriage.top`. |
-| `xy_joint_beam_a`, `_b` | `bolt_pattern` | male, `m5-screw-joint`, 0 | On the block's underside (z −10) at x = s·22.5 and s·44. Each mates a `tnut-2020-m5.thread` in the X beam's top slot. |
+| `xy_joint_beam_a`, `_b` | `bolt_pattern` | male, `m5-screw-joint`, 0 | On the block's underside (z −10) at x = s·22.5 and s·45. Each mates a `tnut-2020-m5.thread` in the X beam's top slot. |
 | `xy_joint_beam_a_head`, `_b_head` | `socket` | female, `m5-clearance-hole`, 0 | The counterbore floors at z −5.5. They take an M5x10 BHCS. That screw is not catalogued yet; the key is shared with `bhcs-m5x30.head_seat`. |
 | `xy_joint_beam_key` | `profile` | male, `tslot-2020-6mm`, 2 | (s·22.5, 0, −10). It mates the X beam's `slot_{face}_{a\|b}` at its default `slot_station_mm` of 10. |
 | `xy_joint_stack_bolt` | `socket` | female, `m5-clearance-hole`, 0 | The bridge top, (s·32, −7.006, 31). It mates `shcs-m5x40.head_seat`. The `journal` is 14 for the low stack (left) and 5 for the high one (right). |
 | `xy_joint_stack_roof`, `_floor` | `surface` | neutral, `m5-axle-stack-face`, 0 | `zs ± 5`. The stack's outer shims bear here. |
-| `xy_joint_idler_bolt` | `socket` | female, `m5-clearance-hole`, 0 | (s·36, 6.366, 31). It mates `shcs-m5x40.head_seat`. The `journal` is 5.5 for the high idler (left) and 14.5 for the low one (right), at width 9. |
+| `xy_joint_idler_bolt` | `socket` | female, `m5-clearance-hole`, 0 | (s·37, 6.366, 31). It mates `shcs-m5x40.head_seat`. The `journal` is 5.5 for the high idler (left) and 14.5 for the low one (right), at width 9. |
 | `xy_joint_idler_roof`, `_floor` | `surface` | neutral, `m5-axle-stack-face`, 0 | `zi ± idler_width / 2`. They mate the idler's `face_a` and `face_b`. |
 
 **Gate results.** The render-time frame gate checks all twelve interfaces at the defaults and at
@@ -149,7 +150,7 @@ places the stack and the idler on their belt levels.
 - **Right Joint, 350 Gantry.** The mirrored hand. The render check notes that this preset renders
   "identical to the defaults". That note is expected: the check compares volume only. A
   reflection keeps volume, and the swapped columns happen to total the same length. The
-  bounding box moves from x −10…60 to x −60…10.
+  bounding box moves from x −10…61 to x −61…10.
 - **Left / Right Joint, 10 mm-Wide Idler.** For a Gates-style idler 10 mm wide, flange to flange.
 
 ## Hyperobject Profile

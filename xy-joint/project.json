@@ -316,7 +316,7 @@
           "es": "Tornillo B de la viga a una tuerca en T en la ranura superior de la viga X"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "M5 screw through the block into an M5 T-nut, 21.5 further along the slot",
+        "standard": "M5 screw through the block into an M5 T-nut, 22.5 further along the slot",
         "parameters": [
           "mirrored"
         ],
@@ -326,7 +326,7 @@
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 44",
+            "s * 45",
             0,
             -10
           ],
@@ -398,7 +398,7 @@
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 44",
+            "s * 45",
             0,
             -5.5
           ],
@@ -582,7 +582,7 @@
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 36",
+            "s * 37",
             6.366,
             31
           ],
@@ -621,7 +621,7 @@
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 36",
+            "s * 37",
             6.366,
             "zi + idler_width / 2"
           ],
@@ -660,7 +660,7 @@
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 36",
+            "s * 37",
             6.366,
             "zi - idler_width / 2"
           ],
