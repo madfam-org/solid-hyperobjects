@@ -116,20 +116,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install the spec (assembly validator + standard-parts catalog; no CAD kernel)
+      - name: System libraries for the CAD kernel (--collision renders the cartridges)
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            SUDO=""; command -v sudo >/dev/null 2>&1 && SUDO="sudo"
+            APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=30"
+            timeout 300 $SUDO apt-get update -qq $APT_OPTS && \
+            $SUDO apt-get install -y --no-install-recommends $APT_OPTS \
+              libgl1 libglib2.0-0 libxrender1 \
+              || echo "::warning::could not install the CAD kernel's system libraries"
+          else
+            echo "::warning::apt-get unavailable on this runner"
+          fi
+
+      - name: Install the spec (assembly validator, catalog and the CAD kernel for --collision)
         run: |
           python3 -m venv .venv
           .venv/bin/python -m pip install --upgrade pip
           SPEC_URL="git+https://github.com/madfam-org/hyperobjects-spec@${SPEC_PIN}"
-          if ! .venv/bin/pip install "hyperobjects-spec @ ${SPEC_URL}"; then
+          if ! .venv/bin/pip install "hyperobjects-spec[geometry] @ ${SPEC_URL}"; then
             echo "::error title=keystone not installable::hyperobjects-spec could not be cloned at ${SPEC_PIN} — check the public package revision and installation error above."
             exit 1
           fi
+          # --collision without a kernel reports collision=unavailable (a warning, exit 0):
+          # refuse that here, so a green run always means the bodies were intersected.
+          .venv/bin/python -c "import cadquery" || {
+            echo "::error::the CAD kernel could not be imported — --collision would not run"; exit 1; }
 
       - name: y4d-spec assembly check (every assembly)
         # The catalog is the one inside the pinned keystone, so a green run names the
-        # exact catalog revision it judged. --collision is not passed: it is still a stub
-        # in the pinned keystone (reported as not run), and a stub must never read as a pass.
+        # exact catalog revision it judged. --collision (ASM-1 §3.7, keystone 0.9.0)
+        # intersects every rendered cartridge and catalog envelope at home, every joint
+        # limit and the Halton sweep; an overlap above 1 mm³ that the document does not
+        # declare in allowed_overlaps fails. Components without a solid (no cited
+        # envelope yet, e.g. the Stealthburner reference) are named in a warning.
         run: |
           parts=$(.venv/bin/python -c 'import hyperobjects_standard_parts as h, pathlib; print(pathlib.Path(h.__file__).parent / "parts")')
           if [ ! -d "$parts" ]; then
@@ -137,7 +157,7 @@ jobs:
             exit 1
           fi
           python3 .github/scripts/assembly_check.py --root . -- \
-            .venv/bin/y4d-spec assembly check --commons . --standard-parts "$parts"
+            .venv/bin/y4d-spec assembly check --commons . --standard-parts "$parts" --collision
 
   # Geometry is expensive, so on a pull request it runs only for the cartridges
   # the PR actually touched. The nightly sweep is what covers the rest.
