@@ -2,15 +2,15 @@
   "project": {
     "name": "XY Joint",
     "slug": "xy-joint",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
     },
     "engine": "cadquery",
     "description": {
-      "en": "A printed XY joint for a CoreXY gantry with two stacked belts (a 2.4-class flying gantry). It rides an MGN9H block on the Y rail, carries the end of the 2020 X beam hung under it on two M5 T-nuts, and turns both belts through 90°: one on a GT2 20-tooth toothed idler, the other on a stack of two F695 flanged bearings, each on an M5x40 axle hung from a bridge above both belt levels. Left- and right-hand versions; the right hand swaps the belt levels.\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Una unión XY impresa para un pórtico CoreXY con dos bandas apiladas (un pórtico volante tipo 2.4). Corre sobre un bloque MGN9H en el riel Y, sostiene el extremo de la viga X de perfil 2020 colgada debajo con dos tuercas en T M5, y gira ambas bandas 90°: una en una polea dentada GT2 de 20 dientes y la otra en una pila de dos rodamientos con pestaña F695, cada una sobre un eje M5x40 que cuelga de un puente por encima de ambos niveles de banda. Versiones izquierda y derecha; la derecha intercambia los niveles de banda.\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "A printed XY joint for a CoreXY gantry with two stacked belts (a 2.4-class flying gantry). It is screwed onto an MGN9H block on the Y rail and holds the end of the 2020 X beam so that the beam crosses above the Y extrusions; over the beam, a shelf carries a GT2 20-tooth toothed idler and a stack of two F695 flanged bearings, which turn the two belts through 90° on their two levels, each clamped under a roof arm by an M5x16 axle. Left- and right-hand versions; the right hand swaps the belt levels.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una unión XY impresa para un pórtico CoreXY con dos bandas apiladas (un pórtico volante tipo 2.4). Se atornilla sobre un bloque MGN9H en el riel Y y sostiene el extremo de la viga X de perfil 2020 de modo que la viga cruza por encima de los perfiles Y; sobre la viga, una repisa lleva una polea dentada GT2 de 20 dientes y una pila de dos rodamientos con pestaña F695, que giran 90° las dos bandas en sus dos niveles, cada una sujeta bajo un brazo por un eje M5x16. Versiones izquierda y derecha; la derecha intercambia los niveles de banda.\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/xy-joint.webp",
     "difficulty": "advanced",
@@ -100,6 +100,27 @@
       "tooltip": {
         "en": "GT2 20T 6 mm-belt idler, flange to flange (9 = the cited listing; 10 = a Gates-style one)",
         "es": "Polea GT2 20T para banda de 6 mm, de pestaña a pestaña (9 = el listado citado; 10 = una tipo Gates)"
+      }
+    },
+    {
+      "id": "d_end",
+      "unit": "mm",
+      "type": "slider",
+      "default": 11.0,
+      "min": 8.0,
+      "max": 13.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "xy_joint"
+      ],
+      "label": {
+        "en": "D's End Past the Rail Centre (mm)",
+        "es": "Extremo de D Respecto al Centro del Riel (mm)"
+      },
+      "tooltip": {
+        "en": "How far D's end sits outboard of the Y rail's centre: (430 / 2) − half the C centre spacing; 11 for a 408 spacing",
+        "es": "Cuánto queda el extremo de D por fuera del centro del riel Y: (430 / 2) − la mitad de la separación de los C; 11 para 408"
       }
     },
     {
@@ -244,7 +265,7 @@
           "es": "Cara de montaje sobre el bloque MGN9H"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "HIWIN MGN9H top: 4 × M3 on 15 (across) × 16 (along); the joint's underside, M3 screws through it",
+        "standard": "HIWIN MGN9H top: 4 × M3 on 15 (across) × 16 (along), M3x3 threads; the joint's underside, M3x8 screws through it",
         "parameters": [
           "mirrored"
         ],
@@ -274,174 +295,32 @@
         "symmetry": 2
       },
       {
-        "id": "xy_joint_beam_a",
-        "label": {
-          "en": "Beam screw A into a T-nut in the X beam's top slot",
-          "es": "Tornillo A de la viga a una tuerca en T en la ranura superior de la viga X"
-        },
-        "geometry_type": "bolt_pattern",
-        "standard": "M5 screw through the block into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in the X beam's top slot, 10 from its end; framed on the block's underside",
-        "parameters": [
-          "mirrored"
-        ],
-        "let": {
-          "s": "1 - 2 * mirrored"
-        },
-        "frame": {
-          "part": "xy_joint",
-          "origin": [
-            "s * 22.5",
-            0,
-            -10
-          ],
-          "normal": [
-            0,
-            0,
-            -1
-          ],
-          "x_axis": [
-            1,
-            0,
-            0
-          ]
-        },
-        "polarity": "male",
-        "size_key": "m5-screw-joint",
-        "symmetry": 0
-      },
-      {
-        "id": "xy_joint_beam_b",
-        "label": {
-          "en": "Beam screw B into a T-nut in the X beam's top slot",
-          "es": "Tornillo B de la viga a una tuerca en T en la ranura superior de la viga X"
-        },
-        "geometry_type": "bolt_pattern",
-        "standard": "M5 screw through the block into an M5 T-nut, 22.5 further along the slot",
-        "parameters": [
-          "mirrored"
-        ],
-        "let": {
-          "s": "1 - 2 * mirrored"
-        },
-        "frame": {
-          "part": "xy_joint",
-          "origin": [
-            "s * 45",
-            0,
-            -10
-          ],
-          "normal": [
-            0,
-            0,
-            -1
-          ],
-          "x_axis": [
-            1,
-            0,
-            0
-          ]
-        },
-        "polarity": "male",
-        "size_key": "m5-screw-joint",
-        "symmetry": 0
-      },
-      {
-        "id": "xy_joint_beam_a_head",
-        "label": {
-          "en": "Head seat of beam screw A (M5x10 BHCS)",
-          "es": "Asiento de la cabeza del tornillo A de la viga (M5x10 de botón)"
-        },
-        "geometry_type": "socket",
-        "standard": "ISO 7380-1 M5x10 button head on the counterbore floor, 4.5 above the underside (5.5 of the screw passes into the nut)",
-        "parameters": [
-          "mirrored"
-        ],
-        "let": {
-          "s": "1 - 2 * mirrored"
-        },
-        "frame": {
-          "part": "xy_joint",
-          "origin": [
-            "s * 22.5",
-            0,
-            -5.5
-          ],
-          "normal": [
-            0,
-            0,
-            1
-          ],
-          "x_axis": [
-            1,
-            0,
-            0
-          ]
-        },
-        "polarity": "female",
-        "size_key": "m5-clearance-hole",
-        "symmetry": 0
-      },
-      {
-        "id": "xy_joint_beam_b_head",
-        "label": {
-          "en": "Head seat of beam screw B (M5x10 BHCS)",
-          "es": "Asiento de la cabeza del tornillo B de la viga (M5x10 de botón)"
-        },
-        "geometry_type": "socket",
-        "standard": "ISO 7380-1 M5x10 button head on the counterbore floor",
-        "parameters": [
-          "mirrored"
-        ],
-        "let": {
-          "s": "1 - 2 * mirrored"
-        },
-        "frame": {
-          "part": "xy_joint",
-          "origin": [
-            "s * 45",
-            0,
-            -5.5
-          ],
-          "normal": [
-            0,
-            0,
-            1
-          ],
-          "x_axis": [
-            1,
-            0,
-            0
-          ]
-        },
-        "polarity": "female",
-        "size_key": "m5-clearance-hole",
-        "symmetry": 0
-      },
-      {
         "id": "xy_joint_beam_key",
         "label": {
-          "en": "Tongue in the X beam's top slot",
-          "es": "Lengüeta en la ranura superior de la viga X"
+          "en": "Tongue in the X beam's bottom slot (D's end)",
+          "es": "Lengüeta en la ranura inferior de la viga X (extremo de D)"
         },
         "geometry_type": "profile",
-        "standard": "2020 series-5 slot (6 mm opening); the block's underside bears on the X beam's top face, at the slot station 10 from the beam's end",
+        "standard": "2020 series-5 slot (6 mm opening); D's bottom face rests on the saddle; the frame sits 10 from D's end (its slot station)",
         "parameters": [
-          "mirrored"
+          "mirrored",
+          "d_end"
         ],
         "let": {
-          "s": "1 - 2 * mirrored"
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 22.5",
+            "s * xm",
             0,
-            -10
+            12
           ],
           "normal": [
             0,
             0,
-            -1
+            1
           ],
           "x_axis": [
             1,
@@ -454,25 +333,103 @@
         "symmetry": 2
       },
       {
-        "id": "xy_joint_stack_bolt",
+        "id": "xy_joint_beam_mount",
         "label": {
-          "en": "F695 stack axle (M5x40 SHCS) head seat",
-          "es": "Asiento de la cabeza del eje de la pila F695 (M5x40 Allen)"
+          "en": "Screw into a T-nut in the X beam's back slot",
+          "es": "Tornillo a una tuerca en T en la ranura trasera de la viga X"
         },
-        "geometry_type": "socket",
-        "standard": "ISO 4762 M5x40 through the bridge; the screw is the F695 stack's axle and cuts its thread in a Ø4.2 pilot (guide pp. 97, 99)",
+        "geometry_type": "bolt_pattern",
+        "standard": "M5 screw through the back wall into an M5 post-assembly T-nut (MISUMI HNTAP5-5) in D's back slot, 10 from D's end; framed on D's back face",
         "parameters": [
-          "mirrored"
+          "mirrored",
+          "d_end"
         ],
         "let": {
-          "s": "1 - 2 * mirrored"
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 32",
+            "s * xm",
+            10,
+            22
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": "m5-screw-joint",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_beam_mount_head",
+        "label": {
+          "en": "Head seat of the back-slot screw (M5x10 BHCS)",
+          "es": "Asiento de la cabeza del tornillo trasero (M5x10 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x10 button head on the back wall's outer face, 4.5 behind D's back face (5.5 of the screw passes into the nut)",
+        "parameters": [
+          "mirrored",
+          "d_end"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "xm": "10 - d_end"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "s * xm",
+            14.5,
+            22
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": "m5-clearance-hole",
+        "symmetry": 0
+      },
+      {
+        "id": "xy_joint_stack_bolt",
+        "label": {
+          "en": "F695 stack axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la pila F695 (M5x16 de botón)"
+        },
+        "geometry_type": "socket",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the stack; the screw is the stack's axle and cuts its thread in a Ø4.2 pilot below the stack (guide pp. 97, 99: the stack on a screw into plastic)",
+        "parameters": [
+          "mirrored"
+        ],
+        "let": {
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
+        },
+        "frame": {
+          "part": "xy_joint",
+          "origin": [
+            "-2 * s",
             -7.006,
-            31
+            "zs + 8"
           ],
           "normal": [
             0,
@@ -492,23 +449,23 @@
       {
         "id": "xy_joint_stack_roof",
         "label": {
-          "en": "Stack roof (the upper clamp face)",
-          "es": "Techo de la pila (cara de sujeción superior)"
+          "en": "Stack roof (the arm over the stack)",
+          "es": "Techo de la pila (el brazo sobre la pila)"
         },
         "geometry_type": "surface",
-        "standard": "the F695 + shim stack's upper shim bears here; 5 above the stack's belt mid-plane",
+        "standard": "the stack's upper shim bears on the roof arm's underside here, 5 above the stack's belt mid-plane",
         "parameters": [
           "mirrored"
         ],
         "let": {
           "s": "1 - 2 * mirrored",
-          "zs": "12 + 9 * mirrored",
-          "zi": "21 - 9 * mirrored"
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 32",
+            "-2 * s",
             -7.006,
             "zs + 5"
           ],
@@ -530,23 +487,23 @@
       {
         "id": "xy_joint_stack_floor",
         "label": {
-          "en": "Stack floor (the lower clamp face)",
-          "es": "Piso de la pila (cara de sujeción inferior)"
+          "en": "Stack floor",
+          "es": "Piso de la pila"
         },
         "geometry_type": "surface",
-        "standard": "the F695 + shim stack's lower shim bears here; 5 below the stack's belt mid-plane",
+        "standard": "the stack's lower shim bears here, 5 below the stack's belt mid-plane",
         "parameters": [
           "mirrored"
         ],
         "let": {
           "s": "1 - 2 * mirrored",
-          "zs": "12 + 9 * mirrored",
-          "zi": "21 - 9 * mirrored"
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 32",
+            "-2 * s",
             -7.006,
             "zs - 5"
           ],
@@ -568,23 +525,26 @@
       {
         "id": "xy_joint_idler_bolt",
         "label": {
-          "en": "Toothed idler axle (M5x40 SHCS) head seat",
-          "es": "Asiento de la cabeza del eje de la polea dentada (M5x40 Allen)"
+          "en": "Toothed idler axle (M5x16 BHCS) head seat",
+          "es": "Asiento de la cabeza del eje de la polea dentada (M5x16 de botón)"
         },
         "geometry_type": "socket",
-        "standard": "ISO 4762 M5x40 through the bridge; the GT2 20T idler's axle, screwed into a Ø4.2 pilot (guide pp. 98, 100)",
+        "standard": "ISO 7380-1 M5x16 button head on the 3 mm roof arm over the idler; the GT2 20T idler's axle, screwed into a Ø4.2 pilot (guide pp. 98, 100)",
         "parameters": [
-          "mirrored"
+          "mirrored",
+          "idler_width"
         ],
         "let": {
-          "s": "1 - 2 * mirrored"
+          "s": "1 - 2 * mirrored",
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 37",
+            "-3 * s",
             6.366,
-            31
+            "zi + idler_width / 2 + 3"
           ],
           "normal": [
             0,
@@ -604,24 +564,24 @@
       {
         "id": "xy_joint_idler_roof",
         "label": {
-          "en": "Idler roof (the upper clamp face)",
-          "es": "Techo de la polea (cara de sujeción superior)"
+          "en": "Idler roof (the arm over the idler)",
+          "es": "Techo de la polea (el brazo sobre la polea)"
         },
         "geometry_type": "surface",
-        "standard": "the toothed idler's face A bears here; idler_width / 2 above its belt mid-plane",
+        "standard": "the toothed idler's face A bears on the roof arm's underside here; idler_width / 2 above its belt mid-plane",
         "parameters": [
           "mirrored",
           "idler_width"
         ],
         "let": {
           "s": "1 - 2 * mirrored",
-          "zs": "12 + 9 * mirrored",
-          "zi": "21 - 9 * mirrored"
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 37",
+            "-3 * s",
             6.366,
             "zi + idler_width / 2"
           ],
@@ -643,8 +603,8 @@
       {
         "id": "xy_joint_idler_floor",
         "label": {
-          "en": "Idler floor (the lower clamp face)",
-          "es": "Piso de la polea (cara de sujeción inferior)"
+          "en": "Idler floor",
+          "es": "Piso de la polea"
         },
         "geometry_type": "surface",
         "standard": "the toothed idler's face B bears here",
@@ -654,13 +614,13 @@
         ],
         "let": {
           "s": "1 - 2 * mirrored",
-          "zs": "12 + 9 * mirrored",
-          "zi": "21 - 9 * mirrored"
+          "zs": "44 + 16 * mirrored",
+          "zi": "60 - 16 * mirrored"
         },
         "frame": {
           "part": "xy_joint",
           "origin": [
-            "s * 37",
+            "-3 * s",
             6.366,
             "zi - idler_width / 2"
           ],
