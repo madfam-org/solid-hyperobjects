@@ -47,6 +47,13 @@ The seat pocket bore = bearing OD (± `press_fit`); the axle bore = bearing ID
 - **Round-Cord Idler** — a round-groove idler for a drive cord or bungee.
 - **608 Shoulder Washers** — the mounting hardware that captures the bearing.
 
+## Graph twin
+
+`idler.graph.json` is a node-graph twin of `main.py` (graph format 1.1). It has the same parameters, the same derivations (the bearing table as nested ternaries, clamps as min/max ternary pairs) and the same operations in the same order.
+- **Declaration.** Every mode declares it as `graph_file` next to the script.
+- **Verification.** `y4d-spec check --render --parity` compares the two at the defaults and at every preset; they agree to 0.000000 mm.
+- **Which one renders.** `main.py` stays the source the platform renders and the oracle the graph is checked against. A script retires only after parity holds across the nightly sweep (owner decision D5, 2026-10-04).
+
 ## Hyperobject Profile
 
 - **Domain:** industrial
