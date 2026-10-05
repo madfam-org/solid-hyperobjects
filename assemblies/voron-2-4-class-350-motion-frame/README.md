@@ -28,6 +28,35 @@ composed into one placed, closed type-level assembly:
   switch (`microswitch-d2f`), with `hole_span` 6.5 mm, the D2F pattern. A `chain-mount`
   `extrusion_bracket` anchors the drag chain.
 
+- **A Voron-style top corner with the Z idler.** This follows the [Voron 2.4r2 build guide](https://github.com/VoronDesign/Voron-2/blob/a192410e27ea345644ae5c4b29b4c9c40cbe1a73/Manual/Assembly_Manual_2.4r2.pdf) (version
+  2023-07-04, GPL-3.0). Facts are cited by page; no text or figures are copied.
+  - **The second frame corner.** A far upright, `frame_z_far` (`extrusion-2020`, 370 mm),
+    is **blind-jointed** to `frame_y`'s far end: `end_b_blind ↔ blind_xp_a`. The guide
+    builds its frame from blind joints (pp. 10, 15).
+  - **The top horizontals.**
+    - `frame_top_y` runs over `frame_y`. It is blind-jointed into the far upright at one
+      end and into `frame_z`'s top at the other (`end_b_blind ↔ frame_z.blind_xp_b`).
+      That closes a loop through the whole frame: `frame_x` → braces → `frame_z` →
+      `frame_top_y` → `frame_z_far` → `frame_y` → braces → `frame_x`. The far upright is
+      370 mm long so that its top sits flush with `frame_z`'s (350 mm, standing on
+      `frame_x`). At 369 mm the loop misses by 1.0000 mm, and the same happens when
+      `frame_top_y` is 349 mm.
+    - `frame_top_x` runs parallel to `frame_x` and is blind-jointed to the far upright.
+  - **The Z idler**, set up as the guide describes:
+    - It is a GT2 20-tooth idler, 9 mm (`gt2-idler-20t-9mm`), on an M5x30 BHCS
+      (`bhcs-m5x30`) (p. 48, *Z Drives and Idlers*).
+    - It is held by the original `corner-idler-bracket`, whose geometry is the commons'
+      own, not Voron's. The bracket mounts with two M5 T-nuts (`tnut-2020-m5`) and two
+      M5x30 BHCS on the top horizontal, pressed into the top corner against the upright
+      (p. 49), the right-hand corner of the four (p. 50).
+    - The bracket's tongue sits in `frame_top_x`'s slot and its heel in the far upright's
+      slot, and both of those mates close a loop. The heel needs the upright's
+      `slot_station_mm` at 30. `frame_z` keeps 10 because its bottom braces need it,
+      which is why the corner uses a new upright.
+    - **Negative controls.** With the heel at station 10 the loop misses by 20 mm. With
+      the bracket `mirrored` (the other hand) it misses by 40 mm.
+    - **Placement.** The idler sits inside the corner at about (347, 326, 44.5), below the
+      top at 340–360.
 - **A 608 idler on an 8 mm axle.**
   - A `roller-bracket` `extrusion_bracket` (preset `idler_608_2020`: `shaft_dia` 8, axis
     35 mm above the face, web 8 × 20) stands on `frame_x`'s outer face at its a-end slot
@@ -52,14 +81,15 @@ no two rendered parts intersect (see the evidence in the PR).
   Voron 2.4 X-carriage frames (`x_frame_V2TR_MGN12_left/right` in
   [Voron-2](https://github.com/VoronDesign/Voron-2), GPL-3.0), which are not modelled
   either. No Voron geometry or CAD is in this repository.
-- **It is not the Voron 2.4 frame drawing.** In a real 2.4 the X rail rides on the
+- **It is not the Voron 2.4 frame drawing.** Only the second corner's joints and Z idler
+  follow the guide. In a real 2.4 the X rail rides on the
   floating gantry's own X beam, and the motors sit in the A/B drive units. Here every
   motion part hangs from one frame extrusion, because the gantry's joints are Voron GPL
   parts that the commons does not carry. The positions are a static layout that proves
   the mates; they are not the printer's geometry.
 - **Static.** No motion, belt path or tension is modelled. The motor's `rotation_index`
   fixes where its connector points; that is a choice, not a Voron fact.
-- **No collision claim.** The keystone's `--collision` option is a stub in 0.4.0. It is
+- **No collision claim.** The keystone's `--collision` option is still a stub in the pinned keystone (0.6.0). It is
   not run and nothing here claims it.
 - **The 608 idler is not a Voron part, and its position is a layout convention.** It is
   a commons idler, not taken from any Voron design. Its position on `frame_x` was accepted
@@ -77,11 +107,12 @@ no two rendered parts intersect (see the evidence in the PR).
     (pp. 65 and 69, *A/B Drives and Idlers*). They belong to the gantry (p. 83, *Gantry*,
     overview) and sit flush on the front ends of the gantry's Y-axis extrusions
     (pp. 91–93). The XY joints carry the same F695 and GT2 idlers on M5x40 (pp. 97–100).
-  - **Why the convention stands.** Every cited idler turns on M5 hardware, not on an 8 mm
-    axle, so this 608 chain cannot represent one faithfully. The A/B and XY-joint idlers
-    are gantry parts, and this subset has no gantry. The Z idler's place, the inside top
-    corner of a blind-jointed frame, has no counterpart in this subset: its single corner
-    is braced, and every inside corner holds a brace.
+  - **Why the 608 convention stands.** The 608 idler turns on an 8 mm axle, so it cannot
+    represent any cited idler, all of which turn on M5 hardware. The guide-faithful Z idler
+    is now modelled separately, at the new top corner (above). The 608 stays as the
+    documented convention for an idler on the braced corner. The A/B and XY-joint idlers
+    are gantry parts; their hardware (`bearing-f695`, `shim-5x10`, `shcs-m5x40`) is in the
+    catalog, but this subset has no gantry.
   - **The guide confirms the X rail.** The guide's X axis uses an MGN12 rail (p. 101), as
     this subset does. Its Y axes use MGN9 (p. 88).
 - **The idler's seat floor touches the 608's inner ring.** `idler-608`'s 3 mm seat floor
@@ -125,6 +156,20 @@ keystone. Licencia del documento: CERN-OHL-W-2.0.
 
 Cada unión declara su rotación.
 
+- **Una esquina superior estilo Voron con la polea Z.** Sigue la guía de ensamble Voron
+  2.4r2 (versión 2023-07-04), citada por página.
+  - **El segundo poste.** `frame_z_far` (370 mm) se une en ciego al extremo lejano de
+    `frame_y` (pp. 10, 15).
+  - **Los perfiles superiores.** `frame_top_y` se une en ciego al poste lejano y a la
+    parte superior de `frame_z`, lo que cierra un ciclo por todo el marco: con 369 mm
+    falla por 1 mm. `frame_top_x` corre paralelo a `frame_x`.
+  - **La polea Z.** Es una polea GT2 de 20 dientes y 9 mm sobre un tornillo M5x30 BHCS
+    (p. 48). Va en el soporte original `corner-idler-bracket`, montado con dos tuercas
+    en T M5 y dos M5x30 en el perfil superior, presionado contra el poste en la esquina
+    (pp. 49–50).
+  - **Por qué un poste nuevo.** El talón del soporte necesita la estación de ranura 30 en
+    el poste, y `frame_z` conserva la 10 para sus escuadras inferiores.
+
 **Qué no afirma**
 
 - **El Stealthburner se referencia, nunca se copia.** Es un componente `external` con su
@@ -134,7 +179,7 @@ Cada unión declara su rotación.
 - **No es el plano del marco del Voron 2.4.** Las posiciones son un arreglo estático
   que demuestra las uniones.
 - **Es estático.** No modela movimiento, bandas ni tensión.
-- **No hay verificación de colisiones.** `--collision` es un esbozo en la versión 0.4.0
+- **No hay verificación de colisiones.** `--collision` sigue siendo un esbozo en el keystone fijado (0.6.0)
   y no se ejecuta.
 - **La polea loca 608 no es una pieza Voron.** Va sobre un eje de 8 mm en un soporte para
   perfil 2020, sobre la cara exterior de `frame_x`. Esa posición es una decisión de
@@ -149,6 +194,6 @@ Cada unión declara su rotación.
     delanteros de los perfiles Y del pórtico (pp. 83, 91–93).
 
   Todas giran sobre tornillería M5, no sobre un eje de 8 mm, así que la cadena del 608 no
-  las representa fielmente. Este subconjunto no tiene pórtico, y su única esquina está
-  arriostrada. Por eso la convención se mantiene. El fondo del asiento de la polea toca el
-  anillo interior del 608; se acepta por ahora.
+  las representa fielmente. La polea Z fiel a la guía ahora se modela aparte, en la nueva
+  esquina superior. El 608 se mantiene como convención documentada. El fondo del asiento
+  de la polea toca el anillo interior del 608; se acepta por ahora.
