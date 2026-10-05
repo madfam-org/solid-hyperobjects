@@ -357,5 +357,25 @@
   "capability_profile": {
     "process": ["fff"],
     "toolhead_count": 1
-  }
+  },
+  "allowed_overlaps": [
+    {"a": "frame_x", "b": "idler_bracket", "max_mm3": 230,
+     "reason": "the roller bracket's T-slot key seats in frame_x's slot; the 2020 envelope is the solid profile (no cited slot depth). Measured 208.8 mm3, as the phase-4 probe found."},
+    {"a": "motor_a", "b": "pulley_a", "max_mm3": 330,
+     "reason": "the 5 mm shaft runs through the pulley's bore; an envelope has no bore. Measured 314.2 mm3 (pi x 2.5^2 x 16)."},
+    {"a": "idler_axle", "b": "idler_bearing", "max_mm3": 370,
+     "reason": "the 8 mm axle runs through the 608's bore; an envelope has no bore. Measured 351.9 mm3 (pi x 4^2 x 7)."},
+    {"a": "frame_z_far", "b": "z_idler_bracket", "max_mm3": 210,
+     "reason": "the corner idler bracket's heel key seats in the upright's slot; the 2020 envelope is the solid profile. Measured 191.4 mm3."},
+    {"a": "frame_top_x", "b": "z_idler_bracket", "max_mm3": 320,
+     "reason": "the corner idler bracket's corner key seats in frame_top_x's slot; the 2020 envelope is the solid profile. Measured 301.6 mm3."},
+    {"a": "frame_top_y", "b": "z_idler_screw_a", "max_mm3": 120,
+     "reason": "the M5x30 shank runs into frame_top_y's slot to its T-nut; the 2020 envelope does not hollow the slot. Measured 108.0 mm3."},
+    {"a": "frame_top_y", "b": "z_idler_screw_b", "max_mm3": 120,
+     "reason": "the M5x30 shank runs into frame_top_y's slot to its T-nut; the 2020 envelope does not hollow the slot. Measured 108.0 mm3."},
+    {"a": "z_idler_bracket", "b": "z_idler_axle", "max_mm3": 64,
+     "reason": "the M5x30 axle cuts its thread in the bracket's 4.2 mm pilot (P4-AUTH-E measured 57.8 mm3). Measured 57.8 mm3."},
+    {"a": "z_idler_axle", "b": "z_idler", "max_mm3": 290,
+     "reason": "the M5 axle runs through the GT2 idler's bore; an envelope has no bore. Measured 274.9 mm3."}
+  ]
 }

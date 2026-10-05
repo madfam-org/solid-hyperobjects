@@ -70,7 +70,9 @@ evidence for TPU has been recorded on it, so none is claimed.
 ## Gaps (documented, not claimed)
 
 - **No props and no flight-controller board.** Neither is in the brief.
-- **No collision claim.** `--collision` is still a stub in the pinned keystone (0.6.0). It is not run.
+- **Collision is partial.** CI runs `--collision`, but the frame, the four 2207 motors, the camera and the SMA jack
+  have no catalog envelope yet (no cited bound for their bodies), so only the rendered TPU parts and the enveloped
+  catalog parts are intersected; the rest are named as unchecked.
 
 ## Check it
 
@@ -112,4 +114,5 @@ Licencia del documento: CERN-OHL-W-2.0.
 
 **Lo que no incluye**
 
-- **Verificación de colisiones.** `--collision` sigue siendo un esbozo en el keystone fijado (0.6.0).
+- **Verificación de colisiones parcial.** La CI corre `--collision`, pero el marco, los motores, la cámara y el
+  conector SMA aún no tienen envolvente en el catálogo y se nombran como no verificados.
