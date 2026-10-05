@@ -9,7 +9,7 @@ the pinned keystone.
 
 | Slug | Kind | What it composes |
 | :-- | :-- | :-- |
-| [`voron-2-4-class-350-motion-frame`](./voron-2-4-class-350-motion-frame/) | producer | a 2020 frame corner with braces, MGN12 rail and block, the Voron Stealthburner (external, GPL-3.0), a NEMA 17 on an extrusion mount with a GT2 pulley, an endstop, a drag-chain anchor, a 608 idler (layout convention), and a Voron-style blind-jointed top corner with the GT2 Z idler |
+| [`voron-2-4-class-350-motion-frame`](./voron-2-4-class-350-motion-frame/) | producer | the full Voron 2.4-class 350 motion system, posable (ASM-1 §9): the blind-jointed 350 frame cube, four top corners with GT2 Z idlers, four MGN9 Z rails, four belt-reduction Z drives, the fixed bed and plate, the flying gantry on four Z joints, the MGN12 X rail, X carriage and toolhead proxy; joints `x_carriage`, `gantry_y`, `gantry_z` bound to Klipper's corexy axes; A/B, Z and reduction belts as paths |
 | [`fpv-5in-freestyle`](./fpv-5in-freestyle/) | product | a 5-inch X frame (catalog class), four 2207 motors on TPU soft-mount pods, the camera cage (TPU intended) on the side plates with a micro camera in its cradle, stack standoffs, a battery pad, the antenna chain (mount on the rear VTX pattern, SMA jack, antenna) |
 
 Rules for a document here:
