@@ -216,6 +216,9 @@ Each link goes to the document that defines the contract on the other side.
 | Type, assembly and instance shells; the twin graph | asset-shells [`README.md`](https://github.com/madfam-org/asset-shells/blob/main/README.md) (*Publish API*, *Twin graph*) | the store a solid-commons release publishes its shells and assembly shells to |
 | Machine telemetry (Sparkplug 3.0) | pravara-mes [`packages/sparkplug/README.md`](https://github.com/madfam-org/pravara-mes/blob/main/packages/sparkplug/README.md) | raw machine-axis values, which a viewer maps through an assembly's machine bindings (ASM-1 §9.2) |
 
+Where the repository stands — what landed, open PRs in merge order, the next `SPEC_PIN`
+bump — is in [`docs/STATUS.md`](./docs/STATUS.md) (dated; the open-PR list on GitHub is authoritative).
+
 ## Contributing
 
 One cartridge per PR, born bilingual (en/es), CERN-OHL-W-2.0. See

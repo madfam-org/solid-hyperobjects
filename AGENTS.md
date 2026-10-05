@@ -118,6 +118,8 @@ The three that most often survive review and die in CI:
   with `--collision` locally before you push.
 - The contracts on the other side of these files are listed in the README under
   [Related repositories and contracts](./README.md#related-repositories-and-contracts).
+- Where the repository stands (dated, with the open PRs in merge order and the next
+  `SPEC_PIN` bump) is [`docs/STATUS.md`](./docs/STATUS.md).
 
 ## Repository boundary
 
