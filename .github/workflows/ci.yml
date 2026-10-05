@@ -128,8 +128,8 @@ jobs:
 
       - name: y4d-spec assembly check (every assembly)
         # The catalog is the one inside the pinned keystone, so a green run names the
-        # exact catalog revision it judged. --collision is not passed: it is a stub in
-        # keystone 0.4.0 (reported as not run), and a stub must never read as a pass.
+        # exact catalog revision it judged. --collision is not passed: it is still a stub
+        # in the pinned keystone (reported as not run), and a stub must never read as a pass.
         run: |
           parts=$(.venv/bin/python -c 'import hyperobjects_standard_parts as h, pathlib; print(pathlib.Path(h.__file__).parent / "parts")')
           if [ ! -d "$parts" ]; then
