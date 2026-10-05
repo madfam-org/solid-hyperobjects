@@ -40,6 +40,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "idler.graph.json",
       "parts": [
         "flat_idler"
       ],
@@ -57,6 +58,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "idler.graph.json",
       "parts": [
         "round_idler"
       ],
@@ -74,6 +76,7 @@
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
+      "graph_file": "idler.graph.json",
       "parts": [
         "washer_stack"
       ],
