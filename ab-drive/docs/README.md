@@ -139,7 +139,10 @@ at both presets: 39 of 39 pass. The cartridge uses only size keys already in the
 ## Presets
 
 - **Left (B) Drive, 350 Gantry:** the defaults.
-- **Right (A) Drive, 350 Gantry:** mirrored, with the levels swapped.
+- **Right (A) Drive, 350 Gantry:** mirrored, with the levels swapped. The render check notes that this preset renders
+  "identical to the defaults". That note is expected: the check compares volume only, and a
+  reflection with swapped column lengths keeps the volume. The bounding box moves from
+  x −10…77.5 to x −77.5…10.
 
 ## Hyperobject Profile
 
