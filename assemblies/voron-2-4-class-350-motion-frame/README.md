@@ -89,8 +89,12 @@ no two rendered parts intersect (see the evidence in the PR).
   the mates; they are not the printer's geometry.
 - **Static.** No motion, belt path or tension is modelled. The motor's `rotation_index`
   fixes where its connector points; that is a choice, not a Voron fact.
-- **No collision claim.** The keystone's `--collision` option is still a stub in the pinned keystone (0.6.0). It is
-  not run and nothing here claims it.
+- **Collision, with declared overlaps.** CI runs `--collision`: every cartridge is rendered and every catalog part is
+  its envelope. The nine designed overlaps are declared in `allowed_overlaps` with their reasons: four keys or screw
+  shanks in 2020 slots (the catalog profile has no cited slot depth, so it is not hollowed), three shafts or axles in
+  bores (an envelope has no holes) and the M5 axle cutting its thread in the Ø4.2 pilot. The Stealthburner (an
+  external reference with no envelope) and the D2F switch and T-nuts (no cited body height) have no solid yet and are
+  named as unchecked.
 - **The 608 idler is not a Voron part, and its position is a layout convention.** It is
   a commons idler, not taken from any Voron design. Its position on `frame_x` was accepted
   as a layout convention on 2026-10-04. The Voron 2.4r2 build guide
@@ -179,8 +183,10 @@ Cada unión declara su rotación.
 - **No es el plano del marco del Voron 2.4.** Las posiciones son un arreglo estático
   que demuestra las uniones.
 - **Es estático.** No modela movimiento, bandas ni tensión.
-- **No hay verificación de colisiones.** `--collision` sigue siendo un esbozo en el keystone fijado (0.6.0)
-  y no se ejecuta.
+- **Colisiones, con interferencias declaradas.** La CI corre `--collision`. Las nueve interferencias de diseño
+  (chavetas y vástagos en ranuras 2020, ejes en barrenos y el eje M5 que rosca en el piloto de Ø4.2) están
+  declaradas en `allowed_overlaps` con su motivo. El Stealthburner, el interruptor D2F y las tuercas en T aún no
+  tienen sólido y se nombran como no verificados.
 - **La polea loca 608 no es una pieza Voron.** Va sobre un eje de 8 mm en un soporte para
   perfil 2020, sobre la cara exterior de `frame_x`. Esa posición es una decisión de
   arreglo, no una colocación Voron citada; se aceptó como convención de arreglo el
