@@ -1,4 +1,0 @@
-fixture-alpha
-fixture-beta
-fixture-gamma
-fixture-delta
