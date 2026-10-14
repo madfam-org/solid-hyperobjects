@@ -44,9 +44,10 @@ never from memory, and never edit a doc to match a pin you assumed.
 | `render-nightly` | 09:00Z | renders every group, `max-parallel: 3`, 90-min jobs |
 | `nightly-report` | after the sweep | verdict + the single `nightly-sweep` tracking issue |
 
-All jobs run on own-runners (ADR-010): `madfam-runners-blue` unless the
-repository variable `CI_RUNNER_LABEL` overrides it. No job may use
-GitHub-hosted compute.
+All jobs run on GitHub-hosted `ubuntu-24.04` (R116, ruled 2026-10-05: public
+repositories never run on the self-hosted ARC pool). The render lanes install
+the OpenSCAD snapshot and render libraries the keystone pins through
+[`.github/actions/render-env`](./.github/actions/render-env/action.yml).
 
 ## Five rules that are not obvious from reading the code
 
