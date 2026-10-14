@@ -1,9 +1,14 @@
 name: CI
 
-# ADR-010: org policy is own-runners. No job here may run on GitHub-hosted
-# compute. The expression mirrors yantra4d's deploy.yml so a bootstrap or a
-# pool migration can be steered from a repository variable without editing
-# every job, and falls back to the standing pool when the variable is unset.
+# Runners (R116, ruled 2026-10-05): this repository is public, so every job here
+# runs on GitHub-hosted ubuntu-24.04 and never on MADFAM's self-hosted ARC pool.
+# Each `runs-on` is the ADR-010 expression enclii and janua use: the org variable
+# ARC_BOOTSTRAP_COMPLETE is not visible to public repositories, so it resolves to
+# `ubuntu-24.04`. There is deliberately no repository-variable override in front
+# of it (the old CI_RUNNER_LABEL): this workflow runs pull-request code, forks
+# included, and a variable must not be able to route that onto self-hosted
+# runners. The render lanes install the OpenSCAD snapshot and render libraries
+# the ARC image used to carry through .github/actions/render-env.
 on:
   push:
     branches: [main]
@@ -61,7 +66,7 @@ jobs:
   # bad merge has to be caught across all 500, not just the one in the diff.
   manifests:
     name: manifest conformance (all cartridges)
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -111,7 +116,7 @@ jobs:
   # cartridge PR that moves a frame an assembly relies on must fail here.
   assemblies:
     name: assembly check (every assemblies/*/assembly.json)
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -164,15 +169,16 @@ jobs:
   #
   # Two jobs: `render-scope` decides WHICH cartridges (fork-point diff, metadata-
   # only manifests dropped) and cuts them into groups of at most eight;
-  # `render-changed` fans out one job per group. The pool's runners are capped at
-  # 6 GiB and 1.5 CPU, and a single job rendering 51 cartridges lost its runner
-  # twice at the ~30-minute mark with no log to name the culprit — small groups
-  # keep every job short, let the unaffected groups pass, and leave the failing
-  # group's log behind.
+  # `render-changed` fans out one job per group. The self-hosted pool's runners
+  # were capped at 6 GiB and 1.5 CPU, and a single job rendering 51 cartridges
+  # lost its runner twice at the ~30-minute mark with no log to name the culprit
+  # — small groups keep every job short, let the unaffected groups pass, and
+  # leave the failing group's log behind. Since R116 the groups run on
+  # GitHub-hosted runners (one VM per job); the grouping is kept as it was.
   render-scope:
     name: render scope (which cartridges changed)
     if: github.event_name == 'pull_request'
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 10
     outputs:
       chunks: ${{ steps.changed.outputs.chunks }}
@@ -213,11 +219,13 @@ jobs:
     name: render (cartridges changed in this PR)
     needs: render-scope
     if: github.event_name == 'pull_request' && needs.render-scope.outputs.none != 'true'
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
-      # Two groups at a time: the pool is shared with the platforms' matrices.
+      # Two groups at a time: the pool was shared with the platforms' matrices.
+      # On GitHub-hosted runners the shared limit is the org-wide cap on
+      # concurrent jobs instead, so the value stays.
       max-parallel: 2
       matrix:
         group: ${{ fromJson(needs.render-scope.outputs.chunks) }}
@@ -262,13 +270,23 @@ jobs:
           .venv/bin/python -c "import cadquery" || {
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
 
+      # The OpenSCAD snapshot the keystone pins, and the libraries it links.
+      # `--require-openscad` below found it on the ARC image's PATH; a
+      # GitHub-hosted runner has none, and Ubuntu's apt OpenSCAD (2021.01)
+      # cannot render the pinned BOSL2. Read from the keystone installed above
+      # (`y4d-spec render-env`), so SPEC_PIN is the one place it is pinned.
+      - name: Install the render environment (OpenSCAD + render libraries)
+        uses: ./.github/actions/render-env
+        with:
+          y4d-spec: .venv/bin/y4d-spec
+
       - name: y4d-spec check --render
         env:
           # OpenSCAD cartridges resolve their includes from the pinned libs/ tree
           # and from this repo's own first-party commons-lib/ (ruling G11).
-          # --require-openscad (spec 9c2b341f): the runner image ships OpenSCAD
-          # 2026.02.01 (enclii #513/#514), so a missing binary is a failure, never
-          # a skip — OpenSCAD cartridges are now verified here, not only locally.
+          # --require-openscad (spec 9c2b341f): the render-env step above installs
+          # the pinned OpenSCAD snapshot, so a missing binary is a failure, never
+          # a skip — OpenSCAD cartridges are verified here, not only locally.
           OPENSCADPATH: ${{ github.workspace }}/libs:${{ github.workspace }}
         run: |
           rc=0
@@ -313,7 +331,7 @@ jobs:
     if: >-
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
       && inputs.report_fixture == ''
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 10
     outputs:
       groups: ${{ steps.scope.outputs.groups }}
@@ -356,7 +374,7 @@ jobs:
     if: >-
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
       && inputs.report_fixture == ''
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     # 90 minutes per group, not 720 for the night. Eight cartridges took 3–5
     # minutes per group on this pool in the per-PR lane (run 34018018690), so 90
     # is ~20x headroom for an ordinary group — generous enough that a timeout
@@ -385,7 +403,8 @@ jobs:
       # headroom for the manifest job and any human's PR that lands overnight;
       # going higher would let one repo's nightly monopolise a shared pool for
       # hours, which is the failure mode ADR-010 warns about. Revisit if the
-      # pool grows.
+      # pool grows. Since R116 the groups run on GitHub-hosted runners, where the
+      # shared limit is the org-wide cap on concurrent jobs; the value stays.
       max-parallel: 3
       matrix:
         group: ${{ fromJson(needs.nightly-scope.outputs.groups) }}
@@ -419,6 +438,16 @@ jobs:
           fi
           .venv/bin/python -c "import cadquery" || {
             echo "::error::the CAD kernel could not be imported — --render would silently refuse"; exit 1; }
+
+      # The OpenSCAD snapshot the keystone pins, and the libraries it links.
+      # `--require-openscad` below found it on the ARC image's PATH; a
+      # GitHub-hosted runner has none, and Ubuntu's apt OpenSCAD (2021.01)
+      # cannot render the pinned BOSL2. Read from the keystone installed above
+      # (`y4d-spec render-env`), so SPEC_PIN is the one place it is pinned.
+      - name: Install the render environment (OpenSCAD + render libraries)
+        uses: ./.github/actions/render-env
+        with:
+          y4d-spec: .venv/bin/y4d-spec
 
       - name: y4d-spec check --render (this group)
         id: sweep
@@ -506,7 +535,7 @@ jobs:
     # always(): a matrix where every group failed still has to be reported, and
     # so does one where a group was cancelled — that is a coverage hole.
     if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
-    runs-on: ${{ vars.CI_RUNNER_LABEL != '' && vars.CI_RUNNER_LABEL || 'madfam-runners-blue' }}
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
     timeout-minutes: 20
     permissions:
       contents: read
