@@ -1,5 +1,5 @@
 """Photo slide pendant. Original parametric construction study.
-Open-ended frame rails retain a replaceable flat insert; plate supplied separately.
+Open-ended overhanging rails guide a separate flat insert with nominal clearance; physical retention unqualified.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
@@ -111,6 +111,9 @@ a = (
     .union(box(2, 30, 4, -11, 0, 2))
     .union(box(2, 30, 4, 11, 0, 2))
     .union(box(24, 2, 4, 0, -14, 2))
+    # Overhanging lips leave a 1.4 mm channel above the 2 mm tray floor.
+    .union(box(3.5, 30, 0.6, -10.25, 0, 3.7))
+    .union(box(3.5, 30, 0.6, 10.25, 0, 3.7))
 )
 r = pack([a, plate(19, 26, 1)], 32)
 result = r

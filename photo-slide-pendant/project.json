@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Open-ended frame rails retain a replaceable flat insert; plate supplied separately. Local construction study; making and retention unverified.",
-      "es": "Dije con inserto deslizable. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Open-ended overhanging rails guide a separate flat insert with nominal clearance; physical retention unqualified. Local construction study; making and retention unverified.",
+      "es": "Rieles abiertos con rebordes guían un inserto plano separado con holgura nominal; retención física sin verificar. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/photo-slide-pendant/model.svg",
