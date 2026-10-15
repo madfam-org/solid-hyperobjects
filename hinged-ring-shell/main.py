@@ -1,5 +1,5 @@
 """Hinged ring shell. Original parametric construction study.
-Two semicircular shells with axial hinge barrels and a separate hinge pin.
+Two semicircular shells with complementary same-side hinge knuckles and a separate pin; nominal assembly clearance only.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
@@ -106,7 +106,14 @@ def pack(items, pitch):
     )
 
 
-a = ring(10, 12, 5).cut(box(30, 15, 9, 0, -7.5, 2.5))
-a = a.union(ring(1, 2.5, 5).translate((11 * S, 0 * S, 0 * S * section)))
-r = pack([a, a.rotate((0, 0, 0), (0, 0, 1), 180), cyl(0.8, 5)], 32)
+# The unpacked shells share a ring centre and hinge axis (x=11, y=0).
+# Shell edges have a 0.2 mm nominal gap; the knuckles have a 0.2 mm axial gap.
+a = ring(10, 12, 5).cut(box(30, 15.1, 9, 0, -7.45, 2.5))
+b = ring(10, 12, 5).cut(box(30, 15.1, 9, 0, 7.45, 2.5))
+a = a.cut(cyl(2.7, 3.5, 11, 0, 2.5)).union(eye(1, 2.5, 2.4, 11, 0, 0))
+b = b.cut(cyl(2.7, 3.5, 11, 0, -1)).union(eye(1, 2.5, 2.4, 11, 0, 2.6))
+# Recut the complete bore after union so shell material cannot occlude it.
+a = a.cut(cyl(1, 7, 11, 0, -1))
+b = b.cut(cyl(1, 7, 11, 0, -1))
+r = pack([a, b, cyl(0.8, 5)], 32)
 result = r

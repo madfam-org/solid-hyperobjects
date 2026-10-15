@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Two semicircular shells with axial hinge barrels and a separate hinge pin. Local construction study; making and retention unverified.",
-      "es": "Anillo articulado. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Two semicircular shells with complementary same-side hinge knuckles and a separate pin; nominal assembly clearance only. Local construction study; making and retention unverified.",
+      "es": "Dos carcasas semicirculares con nudillos complementarios del mismo lado y un pasador separado; solo holgura nominal de montaje. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/hinged-ring-shell/model.svg",
