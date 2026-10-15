@@ -1,0 +1,18 @@
+# Threader earring bar
+
+Slender bar ending in a transverse attachment eye.
+
+Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
+`size` scales planar dimensions from the 28 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
+
+Expected solid count: 1. Multiple bodies are a loose component layout, not solved articulation.
+
+Census: compared against all 512 existing solid manifests. The nearest generic base is `jewelry-blank`; this family's distinguishing interface is described above. No plain ring, signet, open bangle, aglet or magnetic snap is duplicated. This is a proposed new family, subject to reviewer census and consolidation before publication.
+
+Geometry checks cover native B-Rep and tessellated mesh at declared parameter samples. They do not establish manufacture, gem retention, comfort, spring action, hinge function, strength, closure, allergy suitability or process compensation. Hardware and gems absent from the model must be specified separately.
+
+Use: inspect the STEP; measure all intended mating interfaces; prototype with the actual process and material before wear. Wood grain and metal behaviour are unqualified.
+
+CERN-OHL-W-2.0. Original source, no copied design. English and Spanish authored here; language review remains part of commons review.
+
+The tip eye lies in the XZ plane with a through passage along Y. Its center is at reference Z=29 mm; bore radii are 0.8 mm in X and `0.8 * section` mm in Z, all multiplied by `size / 28`. The bore is cut after fusion to keep the string passage open.
