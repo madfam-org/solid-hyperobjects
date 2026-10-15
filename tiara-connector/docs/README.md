@@ -1,6 +1,6 @@
 # Tiara connector
 
-Arched ornament base with three upright mounting sockets.
+Straight ornament base with three upright blind mounting sockets.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 38 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Arched ornament base with three upright mounting sockets. Local construction study; making and retention unverified.",
+      "en": "Straight ornament base with three upright blind mounting sockets. Local construction study; making and retention unverified.",
       "es": "Conector para diadema ornamental. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",

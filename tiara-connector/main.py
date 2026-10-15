@@ -1,5 +1,5 @@
 """Tiara connector. Original parametric construction study.
-Arched ornament base with three upright mounting sockets.
+Straight ornament base with three upright blind mounting sockets.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
