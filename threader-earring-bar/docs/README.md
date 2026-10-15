@@ -14,3 +14,5 @@ Geometry checks cover native B-Rep and tessellated mesh at declared parameter sa
 Use: inspect the STEP; measure all intended mating interfaces; prototype with the actual process and material before wear. Wood grain and metal behaviour are unqualified.
 
 CERN-OHL-W-2.0. Original source, no copied design. English and Spanish authored here; language review remains part of commons review.
+
+The tip eye lies in the XZ plane with a through passage along Y. Its center is at reference Z=29 mm; bore radii are 0.8 mm in X and `0.8 * section` mm in Z, all multiplied by `size / 28`. The bore is cut after fusion to keep the string passage open.

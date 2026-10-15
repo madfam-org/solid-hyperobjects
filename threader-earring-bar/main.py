@@ -106,5 +106,17 @@ def pack(items, pitch):
     )
 
 
-r = box(2, 2, 28, 0, 0, 14).union(eye(0.8, 2, 2, 0, 0, 27))
+tip = (
+    cq.Workplane("XZ")
+    .center(0, 29 * S * section)
+    .ellipse(2 * S, 2 * S * section)
+    .extrude(S, both=True)
+)
+bore = (
+    cq.Workplane("XZ")
+    .center(0, 29 * S * section)
+    .ellipse(0.8 * S, 0.8 * S * section)
+    .extrude(3 * S, both=True)
+)
+r = box(2, 2, 28, 0, 0, 14).union(tip).cut(bore)
 result = r
