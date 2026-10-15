@@ -1,6 +1,6 @@
 # solid-hyperobjects
 
-Last Updated: 2026-09-29
+Last Updated: 2026-10-05
 
 The **solid** half of the MADFAM hyperobjects commons: parametric cartridges for
 printed and machined bodies, rendered from CadQuery (B-Rep) or OpenSCAD (CSG).
@@ -11,14 +11,15 @@ source that turns a parameter point into geometry. Every cartridge is verified
 fail-closed — each `(mode, part)` pair must render watertight, positive-volume
 and free of inverted bodies, at its defaults **and** at every preset it ships.
 
-**502 cartridges** — the five slugs once withdrawn for licence reasons have all
+**512 cartridges** — the five slugs once withdrawn for licence reasons have all
 returned as clean-room re-creations (see [`NOTICE.md`](./NOTICE.md)). Licensed
 CERN-OHL-W-2.0, with the carve-outs recorded there.
 
-Measured on 2026-09-29: 502 manifests · **502/502** with a declared body
-count · **502/502** carrying at least
+Measured on 2026-10-05: 512 manifests · **512/512** with a declared body
+count · **509/512** carrying at least
 one feasibility constraint · **20** animated assemblies · **5** cartridges with a
-reasoned cross-kernel parity exemption or widened tolerance.
+reasoned cross-kernel parity exemption or widened tolerance (the count of 2026-09-29;
+the cartridges added since agree at the parity bar).
 
 ## The four-repo topology
 
@@ -41,6 +42,28 @@ CI are the same thing.
 The platform mounts this repo as a single submodule at `projects/`, which is why
 every cartridge sits at `<slug>/` in the root here: `<slug>/project.json` in this
 repo is `projects/<slug>/project.json` there, unchanged.
+
+## Assemblies and graph twins
+
+[`assemblies/`](./assemblies/README.md) holds type-level assemblies (ASM-1) that compose
+cartridges from this repo with keystone standard parts:
+
+- **A, [`voron-2-4-class-350-motion-frame`](./assemblies/voron-2-4-class-350-motion-frame/README.md):**
+  the motion system of a Voron 2.4-class 350 CoreXY printer, as an original design that cites
+  the 2.4r2 guide by page only. 235 components, 292 mates, 25 joints, 10 belt paths and 23
+  poses (home, the six limits of the three driven joints, 16 sweep samples), collision-clean.
+  Its machine bindings map Klipper's X, Y and Z onto the three driven joints, each value cited
+  to the public Klipper reference configuration.
+- **B, [`fpv-5in-freestyle`](./assemblies/fpv-5in-freestyle/README.md):** a 5-inch FPV
+  freestyle frame with motors, camera, stack and antenna chain.
+
+**Graph twins.** The ten printed cartridges in A (`ab-drive`, `ab-front-idler`,
+`bed-extrusion-mount`, `corner-idler-bracket`, `toolhead-proxy`, `x-carriage`, `xy-joint`,
+`z-belt-clamp`, `z-drive-housing`, `z-joint`) each carry a `*.graph.json` in graph format
+1.1, declared as `graph_file` on the mode beside the script. The script stays the rendered
+source and the oracle: `--parity` compares the graph with it at the defaults and at every
+preset, gate for gate, and a script retires only after that parity holds across the nightly
+sweep. Each cartridge's `docs/README.md` has a *Graph twin* section.
 
 ## Validating a cartridge
 
@@ -78,7 +101,7 @@ part and preset, even when OpenSCAD exports a valid partial mesh. Review them:
 a geometry pass is not proof that every include or module resolved. Notes stay
 nonblocking until whole-commons false-positive analysis supports a stronger rule.
 
-- **Manifest conformance** runs on every PR for all 502 cartridges
+- **Manifest conformance** runs on every PR for all 512 cartridges
   (`y4d-spec check`, seconds), alongside the unit tests for this repo's own CI
   scripts (`python3 -m pytest .github/scripts`) and the reporter's selftest.
 - **Assembly check** runs on every PR for every
@@ -106,7 +129,10 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   runner image ships OpenSCAD **2026.02.13**, the version the platform image
   pins, enforced by the spec's `y4d-spec render-env` contract and by enclii's own
   drift check on the runner image). `--parity` compares the two kernels'
-  meshes — it has been a merge-path gate since 2026-09-06.
+  meshes — it has been a merge-path gate since 2026-09-06. On a mode that
+  declares both a script and a `graph_file` (a graph twin), the same `--parity`
+  compares the graph with its script. A change to `SPEC_PIN` puts every graph
+  cartridge back in scope, because the transpiler ships with the keystone.
 - **What `render-scope` skips, and why.** A cartridge whose *only* change is
   manifest metadata is dropped from the scope: the allow-list in
   [`.github/scripts/render_scope.py`](./.github/scripts/render_scope.py) covers
@@ -174,6 +200,24 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
 libs/*                  pinned third-party OpenSCAD libraries (submodules)
 commons-lib/*           first-party shared helpers, resolved via OPENSCADPATH
 ```
+
+## Related repositories and contracts
+
+Each link goes to the document that defines the contract on the other side.
+
+| Contract | Defined in | What this repo relies on |
+| :-- | :-- | :-- |
+| Assemblies (ASM-1), kinematics (§9), `--collision`, golden poses | hyperobjects-spec [`docs/ASSEMBLIES.md`](https://github.com/madfam-org/hyperobjects-spec/blob/main/docs/ASSEMBLIES.md) | the checker behind the `assemblies` job and the [assemblies](./assemblies/README.md) here |
+| Graph format 1.x (`.graph.json`) | hyperobjects-spec [`graph.schema.json`](https://github.com/madfam-org/hyperobjects-spec/blob/main/src/y4d_spec/graph/graph.schema.json) and [`VENDORED.md`](https://github.com/madfam-org/hyperobjects-spec/blob/main/src/y4d_spec/graph/VENDORED.md) | the transpiler `--parity` runs on every graph twin |
+| Cartridge checks, parity, the golden-twin rule | hyperobjects-spec [`README.md`](https://github.com/madfam-org/hyperobjects-spec/blob/main/README.md) | `y4d-spec check`, the bar of every CI lane |
+| Authoring and editing graph cartridges | yantra4d [`docs/guides/graph-cartridges.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/guides/graph-cartridges.md) | the Studio graph editor that edits forks of these cartridges |
+| Where forks and imports are stored | yantra4d [`docs/operations/user-projects-storage.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/operations/user-projects-storage.md) | a fork is written outside this commons; the commons stays read-only |
+| Render artifacts and the render worker | yantra4d [`docs/operations/render-artifact-storage.md`](https://github.com/madfam-org/yantra4d/blob/main/docs/operations/render-artifact-storage.md) | how the platform renders a cartridge from this repo |
+| Type, assembly and instance shells; the twin graph | asset-shells [`README.md`](https://github.com/madfam-org/asset-shells/blob/main/README.md) (*Publish API*, *Twin graph*) | the store a solid-commons release publishes its shells and assembly shells to |
+| Machine telemetry (Sparkplug 3.0) | pravara-mes [`packages/sparkplug/README.md`](https://github.com/madfam-org/pravara-mes/blob/main/packages/sparkplug/README.md) | raw machine-axis values, which a viewer maps through an assembly's machine bindings (ASM-1 §9.2) |
+
+Where the repository stands — what landed, open PRs in merge order, the next `SPEC_PIN`
+bump — is in [`docs/STATUS.md`](./docs/STATUS.md) (dated; the open-PR list on GitHub is authoritative).
 
 ## Contributing
 

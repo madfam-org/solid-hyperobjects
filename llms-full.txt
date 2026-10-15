@@ -1,6 +1,6 @@
 # Solid Hyperobjects: implementation and verification context
 
-Last Updated: 2026-09-29
+Last Updated: 2026-10-05
 
 ## Instructions and ownership
 
@@ -16,13 +16,13 @@ Preserve those boundaries and explicit package/submodule revisions.
 
 ## Current evidence and verification
 
-The 2026-09-29 manifest census has 502 cartridges, 502 base body-count declarations,
-502 manifests with constraints, 20 animated cartridges and five cartridges with
-reasoned parity exemptions or widened tolerances. These are dated inventory
+The 2026-10-05 manifest census has 512 cartridges, 512 base body-count declarations,
+509 manifests with constraints and 20 animated cartridges. The 2026-09-29 census
+found five cartridges with reasoned parity exemptions or widened tolerances. These are dated inventory
 counts, not proof that every geometry is currently valid. Read current CI for
 its checked revision, render scope, failures, notes and skips.
 
-[CI](.github/workflows/ci.yml) pins verifier `3ff3736e5989f381ebc841a4af38ff43cd9d0b51` at this checkpoint;
+[CI](.github/workflows/ci.yml) pins verifier `142db1802bbf9e1135ceae6c9c531c469f2d295b` at this checkpoint;
 read `SPEC_PIN` there before installing. Its per-PR lane renders changed
 cartridges; its nightly lane checks the whole commons and validates completeness.
 The [contributor verification command](CONTRIBUTING.md) supplies both `libs` and
@@ -40,6 +40,26 @@ fallback changes by environment, while selecting the installed Liberation Sans
 family makes the shipped cases reproducible. The [manifest](keytag/project.json)
 defines the tested modes/presets and [source](keytag/main.py) defines geometry.
 Arbitrary text and every parameter combination still need their own acceptance.
+
+## Assemblies and graph twins
+
+[Assemblies](assemblies/README.md) are ASM-1 documents checked on every PR by
+`y4d-spec assembly check --collision` against the pinned keystone's standard-parts
+catalog. Assembly A ([`voron-2-4-class-350-motion-frame`](assemblies/voron-2-4-class-350-motion-frame/README.md))
+has 235 components, 292 mates, 25 joints, 10 belt paths and 23 poses, and is
+collision-clean. Its machine bindings map Klipper's corexy X, Y and Z onto the
+driven joints `x_carriage`, `gantry_y` and `gantry_z`. A telemetry consumer forwards
+raw axis values, and a viewer maps them through these bindings. Assembly B
+([`fpv-5in-freestyle`](assemblies/fpv-5in-freestyle/README.md)) is a 5-inch FPV frame.
+
+A's ten printed cartridges carry graph twins in graph format 1.1 (declared
+`parameters`, ordered `derived`). They coexist with their scripts: the script is
+rendered and is the oracle, and `--parity` holds the graph to it at every preset.
+The keystone's [ASSEMBLIES.md](https://github.com/madfam-org/hyperobjects-spec/blob/main/docs/ASSEMBLIES.md)
+and [graph schema](https://github.com/madfam-org/hyperobjects-spec/blob/main/src/y4d_spec/graph/graph.schema.json)
+define both contracts. Yantra4D's [graph-cartridge guide](https://github.com/madfam-org/yantra4d/blob/main/docs/guides/graph-cartridges.md)
+covers editing a fork in Studio, and asset-shells' [README](https://github.com/madfam-org/asset-shells/blob/main/README.md)
+covers the shell store and the twin graph.
 
 ## Publication and boundaries
 

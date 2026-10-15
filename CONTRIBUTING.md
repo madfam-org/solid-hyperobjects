@@ -85,7 +85,7 @@ command above locally, then read CI's Linux result as the verdict.
 
 ### Declaring body counts
 
-All 502 cartridges declare a body count; a new cartridge is expected to.
+All 512 cartridges declare a body count; a new cartridge is expected to.
 Declare the *design's* count, never the count a defect happens to produce — the
 declaration is how a later regression becomes visible.
 
@@ -139,7 +139,8 @@ exemptions (`fasteners`, `spiral-planter`, `faircap-filter`, `relief`,
 
 ### Feasibility constraints
 
-Every manifest on `main` carries at least one constraint (502/502). A constraint
+Nearly every manifest on `main` carries at least one constraint (509/512, measured
+2026-10-05; a new cartridge is expected to). A constraint
 is a rule the **configurator** evaluates on the parameter set before anything is
 rendered; it never reaches a kernel, which is why a constraints-only manifest
 change is skipped by the render lane.
