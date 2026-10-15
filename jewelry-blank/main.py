@@ -89,26 +89,15 @@ def band_solid(in_r, out_r, width, prof):
         .extrude(width)
         .translate((0, 0, -width / 2.0))
     )
-    if prof == "domed":
-        r = min(band_t * 0.9, width * 0.45)
-        try:
-            tube = tube.edges("|Z").fillet(0.0001)  # no-op guard for selector
-        except Exception:
-            pass
-        try:
-            tube = tube.faces(">Z or <Z").edges(cq.selectors.RadiusNthSelector(0)).fillet(r)
-        except Exception:
-            # Fallback: round the outer top/bottom circular edges.
-            try:
-                tube = tube.edges(">Z").fillet(r).edges("<Z").fillet(r)
-            except Exception:
-                pass
-    elif prof == "comfort":
-        r = min(band_t * 0.5, width * 0.3)
-        try:
-            tube = tube.faces(">Z").edges().fillet(r)
-        except Exception:
-            pass
+    # Select only the declared circular rim pair; avoid the cylinder seam edges.
+    # Radius stays strictly below half the wall, so opposing edge blends cannot
+    # consume the wall. Failure is an error, never a silently substituted profile.
+    if prof in ("domed", "comfort"):
+        r = min((out_r - in_r) * 0.35, width * 0.2)
+        radius_index = 1 if prof == "domed" else 0
+        tube = tube.faces(">Z or <Z").edges(
+            cq.selectors.RadiusNthSelector(radius_index)
+        ).fillet(r)
     return tube
 
 
