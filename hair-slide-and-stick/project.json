@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Two-slot hair slide and independent tapered retaining stick. Local construction study; making and retention unverified.",
+      "en": "Hair slide with two circular bores and an independent tapered retaining stick. Local construction study; making and retention unverified.",
       "es": "Prendedor de cabello con varilla. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",

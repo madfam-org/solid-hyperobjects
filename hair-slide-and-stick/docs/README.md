@@ -1,6 +1,6 @@
 # Hair slide and stick
 
-Two-slot hair slide and independent tapered retaining stick.
+Hair slide with two circular bores and an independent tapered retaining stick.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 64 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

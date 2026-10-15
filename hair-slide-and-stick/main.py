@@ -1,5 +1,5 @@
 """Hair slide and stick. Original parametric construction study.
-Two-slot hair slide and independent tapered retaining stick.
+Hair slide with two circular bores and an independent tapered retaining stick.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
