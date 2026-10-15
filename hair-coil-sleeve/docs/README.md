@@ -1,6 +1,6 @@
 # Hair coil sleeve
 
-Open slotted cylindrical sleeve with offset retention ribs.
+Open slotted cylindrical sleeve with one enlarged end flange.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 16 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

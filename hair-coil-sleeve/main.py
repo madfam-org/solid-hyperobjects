@@ -1,5 +1,5 @@
 """Hair coil sleeve. Original parametric construction study.
-Open slotted cylindrical sleeve with offset retention ribs.
+Open slotted cylindrical sleeve with one enlarged end flange.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
