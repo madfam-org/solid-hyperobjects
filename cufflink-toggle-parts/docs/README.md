@@ -14,3 +14,7 @@ Geometry checks cover native B-Rep and tessellated mesh at declared parameter sa
 Use: inspect the STEP; measure all intended mating interfaces; prototype with the actual process and material before wear. Wood grain and metal behaviour are unqualified.
 
 CERN-OHL-W-2.0. Original source, no copied design. English and Spanish authored here; language review remains part of commons review.
+
+## Nominal interface geometry
+
+Both fork cheeks have a common transverse X-axis bore. Rotate the loose toggle 90 degrees around Y, centre its thickness in the fork gap and align its bore to that axis. The separate pin and physical retention are not supplied.

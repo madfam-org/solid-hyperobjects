@@ -107,6 +107,16 @@ def pack(items, pitch):
 
 
 a = cyl(7, 2).union(box(3, 3, 12, -3, 0, 7)).union(box(3, 3, 12, 3, 0, 7))
-a = a.cut(cyl(0.8, 20, -3, 0, -1)).cut(cyl(0.8, 20, 3, 0, -1))
-r = pack([a, plate(16, 4, 3).cut(cyl(0.8, 6, 0, 0, -1))], 24)
+# One transverse X-axis bore passes through both fork cheeks at z=10.
+pin_bore = (
+    cq.Workplane("YZ")
+    .center(0, 10 * S * section)
+    .circle(0.8 * S)
+    .extrude(12 * S, both=True)
+)
+a = a.cut(pin_bore)
+# Loose toggle: rotate 90 degrees about Y to align its Z bore with the fork.
+# Its 2.4 mm thickness leaves 0.6 mm nominal clearance in the 3 mm fork gap.
+b = plate(12, 4, 2.4).cut(cyl(0.8, 6, 0, 0, -1))
+r = pack([a, b], 24)
 result = r
