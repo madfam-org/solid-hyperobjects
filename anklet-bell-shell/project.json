@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Hollow hemispherical cup with a slotted mouth and suspension aperture; no acoustic claim. Local construction study; making and retention unverified.",
-      "es": "Carcasa de cascabel para tobillera. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Hollow hemispherical cup with an open mouth and suspension aperture; no acoustic claim. Local construction study; making and retention unverified.",
+      "es": "Carcasa de cascabel para tobillera. Estudio de construcci\u00f3n param\u00e9trica; fabricaci\u00f3n y retenci\u00f3n sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/anklet-bell-shell/model.svg",
@@ -32,7 +32,7 @@
       "id": "model",
       "label": {
         "en": "Construction",
-        "es": "Construcción"
+        "es": "Construcci\u00f3n"
       },
       "scad_file": "main.py",
       "cq_file": "main.py",
@@ -76,8 +76,8 @@
       "type": "slider",
       "group": "geometry",
       "label": {
-        "en": "Axial section factor",
-        "es": "Factor de sección axial"
+        "en": "Suspension aperture radius at reference size (mm)",
+        "es": "Radio de suspensi\u00f3n a la medida de referencia (mm)"
       },
       "default": 1,
       "min": 0.85,
@@ -90,7 +90,7 @@
       "id": "geometry",
       "label": {
         "en": "Geometry",
-        "es": "Geometría"
+        "es": "Geometr\u00eda"
       }
     }
   ],
@@ -113,7 +113,7 @@
       "severity": "error",
       "message": {
         "en": "Keep the reviewed section domain",
-        "es": "Conservar el dominio de sección revisado"
+        "es": "Conservar el dominio de secci\u00f3n revisado"
       }
     }
   ],
@@ -126,7 +126,7 @@
     "commons_license": "CERN-OHL-W-2.0",
     "societal_benefit": {
       "en": "Editable open jewellery construction with inspectable source.",
-      "es": "Construcción de joyería abierta y editable con fuentes inspeccionables."
+      "es": "Construcci\u00f3n de joyer\u00eda abierta y editable con fuentes inspeccionables."
     }
   },
   "verification": {

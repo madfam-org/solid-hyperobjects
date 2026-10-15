@@ -1,5 +1,5 @@
 """Anklet bell shell. Original parametric construction study.
-Hollow hemispherical cup with a slotted mouth and suspension aperture; no acoustic claim.
+Hollow hemispherical cup with an open mouth and suspension aperture; no acoustic claim.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
@@ -22,7 +22,8 @@ if not DEFAULT_SIZE * 0.8 <= size <= DEFAULT_SIZE * 1.2 or not 0.85 <= section <
 S = size / DEFAULT_SIZE
 
 
-# Section scales the axial depth; all planar interface dimensions follow size.
+# This cartridge uses section as the reference suspension-aperture radius.
+# Helper cutter depths also scale with it, but the spherical shell does not.
 def cyl(radius, height, x=0, y=0, z=0):
     return (
         cq.Workplane("XY")

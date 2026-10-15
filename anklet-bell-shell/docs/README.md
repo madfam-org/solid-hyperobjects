@@ -1,9 +1,9 @@
 # Anklet bell shell
 
-Hollow hemispherical cup with a slotted mouth and suspension aperture; no acoustic claim.
+Hollow hemispherical cup with an open mouth and suspension aperture; no acoustic claim.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
-`size` scales planar dimensions from the 16 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
+`size` scales planar dimensions from the 16 mm reference. `section` sets the suspension aperture radius at the reference size, in mm; `size` scales this radius with the shell. It does not scale axial depth. Both parameters reach the generator.
 
 Expected solid count: 1. Multiple bodies are a loose component layout, not solved articulation.
 
