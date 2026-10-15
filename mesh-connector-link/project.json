@@ -1,0 +1,147 @@
+{
+  "project": {
+    "name": "Mesh connector link",
+    "slug": "mesh-connector-link",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Four-way connector with orthogonal attachment apertures. Local construction study; making and retention unverified.",
+      "es": "Eslabón conector de malla. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+    },
+    "difficulty": "intermediate",
+    "thumbnail": "/projects/mesh-connector-link/model.svg",
+    "tags": [
+      "jewelry",
+      "wearable",
+      "chains",
+      "jewelry-studio"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0",
+      "lineage": [
+        {
+          "source": "Original first-principles geometric construction for Jewelry Studio",
+          "license": "original"
+        }
+      ]
+    }
+  },
+  "modes": [
+    {
+      "id": "model",
+      "label": {
+        "en": "Construction",
+        "es": "Construcción"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "model"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 2
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "model",
+      "label": {
+        "en": "Mesh connector link",
+        "es": "Eslabón conector de malla"
+      },
+      "render_mode": 0,
+      "color": "#b59a6c"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "size",
+      "type": "slider",
+      "group": "geometry",
+      "label": {
+        "en": "Reference span (mm)",
+        "es": "Medida de referencia (mm)"
+      },
+      "default": 20,
+      "min": 16.0,
+      "max": 24.0,
+      "step": 0.1
+    },
+    {
+      "id": "section",
+      "type": "slider",
+      "group": "geometry",
+      "label": {
+        "en": "Axial section factor",
+        "es": "Factor de sección axial"
+      },
+      "default": 1,
+      "min": 0.85,
+      "max": 1.15,
+      "step": 0.05
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "geometry",
+      "label": {
+        "en": "Geometry",
+        "es": "Geometría"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "expanded",
+      "label": {
+        "en": "Expanded study",
+        "es": "Estudio ampliado"
+      },
+      "values": {
+        "size": 22.0,
+        "section": 1.1
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "section >= 0.85",
+      "severity": "error",
+      "message": {
+        "en": "Keep the reviewed section domain",
+        "es": "Conservar el dominio de sección revisado"
+      }
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "step"
+  ],
+  "hyperobject": {
+    "domain": "household",
+    "commons_license": "CERN-OHL-W-2.0",
+    "societal_benefit": {
+      "en": "Editable open jewellery construction with inspectable source.",
+      "es": "Construcción de joyería abierta y editable con fuentes inspeccionables."
+    }
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
