@@ -14,3 +14,7 @@ Geometry checks cover native B-Rep and tessellated mesh at declared parameter sa
 Use: inspect the STEP; measure all intended mating interfaces; prototype with the actual process and material before wear. Wood grain and metal behaviour are unqualified.
 
 CERN-OHL-W-2.0. Original source, no copied design. English and Spanish authored here; language review remains part of commons review.
+
+## Nominal interface geometry
+
+Opposed entry slots admit the two lugs; an internal annular groove gives a nominal quarter-turn path beneath the top lip. The open slots have no detent, spring, anti-rotation device or rated retention. Native insertion/rotation clearance is only nominal geometry.

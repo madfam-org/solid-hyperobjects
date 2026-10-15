@@ -106,7 +106,12 @@ def pack(items, pitch):
     )
 
 
-a = ring(3, 5, 12).cut(box(2, 6, 8, 0, 4, 10))
+# Opposing axial entry slots admit both lugs; the internal annular groove
+# provides a nominal turning path below the upper retaining lip.
+a = ring(3, 5, 12)
+for x in [-4, 4]:
+    a = a.cut(box(4, 2, 7, x, 0, 10.4))
+a = a.cut(ring(2.9, 4.3, 2.2).translate((0, 0, 6.9 * S * section)))
 b = cyl(2.6, 10).union(box(8, 1.5, 1.5, 0, 0, 8))
 r = pack([a, b], 16)
 result = r
