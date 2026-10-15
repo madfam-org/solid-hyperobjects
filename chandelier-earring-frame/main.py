@@ -109,4 +109,6 @@ def pack(items, pitch):
 r = plate(26, 3, 2).union(eye(1.2, 3, 2, 0, 4, 0)).union(box(3, 6, 2, 0, 2, 1))
 for x in [-10, 0, 10]:
     r = r.union(eye(1.2, 3, 2, x, -3, 0))
+# Recut after all unions: the stem must not fill the suspension passage.
+r = r.cut(cyl(1.2, 4, 0, 4, -1))
 result = r
