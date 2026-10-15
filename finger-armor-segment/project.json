@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Open tapered finger shell with lateral rivet ears. Local construction study; making and retention unverified.",
-      "es": "Segmento de armadura para dedo. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Open cylindrical finger shell with lateral rivet ears. Local construction study; making and retention unverified.",
+      "es": "Carcasa cilíndrica abierta para dedo con orejetas laterales para remaches. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/finger-armor-segment/model.svg",

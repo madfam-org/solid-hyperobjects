@@ -1,6 +1,6 @@
 # Finger armor segment
 
-Open tapered finger shell with lateral rivet ears.
+Open cylindrical finger shell with lateral rivet ears.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 20 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

@@ -1,5 +1,5 @@
 """Finger armor segment. Original parametric construction study.
-Open tapered finger shell with lateral rivet ears.
+Open cylindrical finger shell with lateral rivet ears.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
