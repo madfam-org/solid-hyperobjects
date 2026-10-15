@@ -107,6 +107,18 @@ def pack(items, pitch):
 
 
 a = cyl(5, 22).cut(cyl(3.5, 23, 0, 0, 1.5))
-b = cyl(3.2, 4).union(cyl(5, 1, 0, 0, 4)).union(eye(1, 2.5, 2, 0, 0, 4))
+cap_eye = (
+    cq.Workplane("XZ")
+    .center(0, 6.5 * S * section)
+    .ellipse(2.5 * S, 2.5 * S * section)
+    .extrude(S, both=True)
+)
+cap_bore = (
+    cq.Workplane("XZ")
+    .center(0, 6.5 * S * section)
+    .ellipse(S, S * section)
+    .extrude(3 * S, both=True)
+)
+b = cyl(3.2, 4).union(cyl(5, 1, 0, 0, 4)).union(cap_eye).cut(cap_bore)
 r = pack([a, b], 15)
 result = r
