@@ -1,5 +1,5 @@
 """Linked knuckle ring. Original parametric construction study.
-Two bands and an independent slotted bridge for jointed finger ornament.
+Two bands and an independent two-hole bridge; jointed assembly remains unresolved.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """

@@ -1,6 +1,6 @@
 # Linked knuckle ring
 
-Two bands and an independent slotted bridge for jointed finger ornament.
+Two bands and an independent two-hole bridge; jointed assembly remains unresolved.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 20 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
