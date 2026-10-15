@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Enlarged decorative end with a blind radial wire socket. Local construction study; making and retention unverified.",
+      "en": "Enlarged decorative end with a blind axial wire socket. Local construction study; making and retention unverified.",
       "es": "Remate para torques. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",

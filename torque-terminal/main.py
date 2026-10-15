@@ -1,5 +1,5 @@
 """Torque terminal. Original parametric construction study.
-Enlarged decorative end with a blind radial wire socket.
+Enlarged decorative end with a blind axial wire socket.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """

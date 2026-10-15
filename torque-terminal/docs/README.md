@@ -1,6 +1,6 @@
 # Torque terminal
 
-Enlarged decorative end with a blind radial wire socket.
+Enlarged decorative end with a blind axial wire socket.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 14 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
