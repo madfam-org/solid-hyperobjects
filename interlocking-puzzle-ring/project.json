@@ -1,12 +1,12 @@
 {
   "project": {
-    "name": "Interlocking puzzle ring",
+    "name": "Notched ring pair study",
     "slug": "interlocking-puzzle-ring",
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Two notched crossing band halves with a measured assembly gap; loose layout. Local construction study; making and retention unverified.",
-      "es": "Anillo de rompecabezas entrelazado. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Two notched annular construction studies in a loose layout; interlocking assembly remains unresolved. Local construction study; making and retention unverified.",
+      "es": "Dos estudios anulares con muescas en disposición separada; montaje entrelazado sin resolver. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/interlocking-puzzle-ring/model.svg",
@@ -50,8 +50,8 @@
     {
       "id": "model",
       "label": {
-        "en": "Interlocking puzzle ring",
-        "es": "Anillo de rompecabezas entrelazado"
+        "en": "Notched ring pair study",
+        "es": "Estudio de par de anillos con muescas"
       },
       "render_mode": 0,
       "color": "#b59a6c"

@@ -1,5 +1,5 @@
-"""Interlocking puzzle ring. Original parametric construction study.
-Two notched crossing band halves with a measured assembly gap; loose layout.
+"""Notched ring pair study. Original parametric construction study.
+Two notched annular construction studies in a loose layout; interlocking assembly remains unresolved.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """

@@ -1,6 +1,6 @@
-# Interlocking puzzle ring
+# Notched ring pair study
 
-Two notched crossing band halves with a measured assembly gap; loose layout.
+Two notched annular construction studies in a loose layout; interlocking assembly remains unresolved.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 20 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
