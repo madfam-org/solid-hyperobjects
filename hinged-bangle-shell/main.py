@@ -106,6 +106,14 @@ def pack(items, pitch):
     )
 
 
-a = ring(28, 31, 8).cut(box(70, 36, 12, 0, -18, 4)).union(eye(1.5, 4, 8, 30, 0, 0))
-r = pack([a, a.rotate((0, 0, 0), (0, 0, 1), 180)], 75)
+# Both halves share the +X hinge axis. Upper half has two outer knuckles;
+# lower half has one middle knuckle, with axial/radial clearance in the arc.
+a = ring(28, 31, 8).cut(box(70, 36, 12, 0, -18, 4))
+a = a.cut(cyl(4.3, 3, 30, 0, 2.5))
+a = a.union(eye(1.5, 4, 2.5, 30, 0, 0)).union(eye(1.5, 4, 2.5, 30, 0, 5.5))
+a = a.cut(cyl(1.5, 10, 30, 0, -1))
+b = ring(28, 31, 8).cut(box(70, 36, 12, 0, 18, 4))
+b = b.cut(cyl(4.3, 3.8, 30, 0, -1)).cut(cyl(4.3, 3.8, 30, 0, 5.2))
+b = b.union(eye(1.5, 4, 2.4, 30, 0, 2.8)).cut(cyl(1.5, 10, 30, 0, -1))
+r = pack([a, b], 75)
 result = r
