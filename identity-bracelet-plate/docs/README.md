@@ -1,6 +1,6 @@
 # Identity bracelet plate
 
-Engravable wrist plate with recessed field and two end slots.
+Engravable wrist plate with recessed field and two circular end bores.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 42 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

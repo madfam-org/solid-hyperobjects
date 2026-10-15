@@ -1,5 +1,5 @@
 """Identity bracelet plate. Original parametric construction study.
-Engravable wrist plate with recessed field and two end slots.
+Engravable wrist plate with recessed field and two circular end bores.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
