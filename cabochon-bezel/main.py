@@ -1,5 +1,5 @@
 """Cabochon bezel cup. Original parametric construction study.
-A backed open cup with a thinner forming lip and drainage opening.
+A backed open cup with a constant-thickness side wall and drainage opening.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """

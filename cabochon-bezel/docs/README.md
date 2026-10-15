@@ -1,6 +1,6 @@
 # Cabochon bezel cup
 
-A backed open cup with a thinner forming lip and drainage opening.
+A backed open cup with a constant-thickness side wall and drainage opening.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 18 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

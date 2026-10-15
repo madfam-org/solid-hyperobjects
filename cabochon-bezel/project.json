@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "A backed open cup with a thinner forming lip and drainage opening. Local construction study; making and retention unverified.",
-      "es": "Bisel para cabujón. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "A backed open cup with a constant-thickness side wall and drainage opening. Local construction study; making and retention unverified.",
+      "es": "Copa abierta con fondo, pared lateral de espesor constante y abertura de drenaje. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/cabochon-bezel/model.svg",
