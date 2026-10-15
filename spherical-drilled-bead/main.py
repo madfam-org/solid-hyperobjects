@@ -22,7 +22,8 @@ if not DEFAULT_SIZE * 0.8 <= size <= DEFAULT_SIZE * 1.2 or not 0.85 <= section <
 S = size / DEFAULT_SIZE
 
 
-# Section scales the axial depth; all planar interface dimensions follow size.
+# For this spherical family, section changes bore radius; the sphere follows size.
+# Cylinder depth also scales with section but remains a complete through-cut.
 def cyl(radius, height, x=0, y=0, z=0):
     return (
         cq.Workplane("XY")

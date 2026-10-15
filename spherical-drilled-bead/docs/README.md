@@ -3,7 +3,7 @@
 Spherical bead intersected by one straight string passage.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
-`size` scales planar dimensions from the 12 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.
+`size` scales planar dimensions from the 12 mm reference. `section` scales the bore radius from 1.5 mm at the reference size; the exterior remains spherical. Both parameters reach the generator.
 
 Expected solid count: 1. Multiple bodies are a loose component layout, not solved articulation.
 

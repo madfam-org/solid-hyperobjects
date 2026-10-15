@@ -76,8 +76,8 @@
       "type": "slider",
       "group": "geometry",
       "label": {
-        "en": "Axial section factor",
-        "es": "Factor de sección axial"
+        "en": "Bore radius factor",
+        "es": "Factor del radio del orificio"
       },
       "default": 1,
       "min": 0.85,
