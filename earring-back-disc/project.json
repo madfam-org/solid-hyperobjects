@@ -5,8 +5,8 @@
     "version": "0.1.0",
     "engine": "cadquery",
     "description": {
-      "en": "Backing disc with stepped central post bore; friction qualification left open. Local construction study; making and retention unverified.",
-      "es": "Disco posterior de arete. Estudio de construcción paramétrica; fabricación y retención sin verificar."
+      "en": "Backing disc with stepped outer boss and straight central post bore; friction qualification left open. Local construction study; making and retention unverified.",
+      "es": "Disco posterior con resalte exterior escalonado y orificio central recto; ajuste por fricción sin verificar. Estudio de construcción paramétrica; fabricación y retención sin verificar."
     },
     "difficulty": "intermediate",
     "thumbnail": "/projects/earring-back-disc/model.svg",

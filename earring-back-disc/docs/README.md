@@ -1,6 +1,6 @@
 # Earring back disc
 
-Backing disc with stepped central post bore; friction qualification left open.
+Backing disc with stepped outer boss and straight central post bore; friction qualification left open.
 
 Original first-principles construction for Jewelry Studio. Units: mm; Z-up.
 `size` scales planar dimensions from the 10 mm reference. `section` scales axial depths, not material thickness compensation. Both parameters reach the generator.

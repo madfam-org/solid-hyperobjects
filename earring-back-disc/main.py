@@ -1,5 +1,5 @@
 """Earring back disc. Original parametric construction study.
-Backing disc with stepped central post bore; friction qualification left open.
+Backing disc with stepped outer boss and straight central post bore; friction qualification left open.
 No physical fit, retention, strength, or material qualification.
 Loose parts are deliberate; they are not a solved assembly.
 """
