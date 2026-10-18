@@ -396,7 +396,7 @@
       }
     },
     {
-      "expression": "corner_r <= bay_w / 3 and corner_r <= bay_h / 3",
+      "expression": "corner_r <= bay_w / 3 && corner_r <= bay_h / 3",
       "severity": "error",
       "message": {
         "es": "El radio de esquina no puede pasar de un tercio del lado menor del hueco (bay_w, bay_h).",
