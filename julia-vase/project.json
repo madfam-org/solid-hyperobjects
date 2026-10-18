@@ -295,9 +295,7 @@
   ],
   "constraints": [
     {
-      "parameter": "wall_thickness",
-      "condition": ">=",
-      "value": 0.8,
+      "expression": "wall_thickness >= 0.8",
       "severity": "error",
       "message": {
         "en": "Wall thickness must be at least 0.8mm for printability",
@@ -305,10 +303,7 @@
       }
     },
     {
-      "parameter": "wave_amplitude",
-      "condition": "<",
-      "reference": "base_radius",
-      "factor": 0.333,
+      "expression": "wave_amplitude < base_radius * 0.333",
       "severity": "warning",
       "message": {
         "en": "Wave amplitude should be less than 1/3 of base radius to avoid self-intersection",
