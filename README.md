@@ -45,7 +45,7 @@ repo is `projects/<slug>/project.json` there, unchanged.
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@142db1802bbf9e1135ceae6c9c531c469f2d295b"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@70fe8213de20bc9a699b2bde2c32ee0b02a6d52d"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
@@ -70,7 +70,7 @@ export OPENSCADPATH="$PWD/libs:$PWD"
 
 ## How CI verifies a change
 
-The keystone pin CI installs is `142db180` (`SPEC_PIN` in
+The keystone pin CI installs is `70fe8213` (`SPEC_PIN` in
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)). Every gate below is
 that package's, run from this repo — there is no second, hidden bar.
 Compiler warning/error lines are retained as bounded notes identified by mode,
@@ -143,7 +143,17 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   broke and what got fixed, and **closes it when the sweep goes green**. A
   never-rendered cartridge appears as a `NEVER RENDERED` row. Auth is the job's
   `GITHUB_TOKEN` (`issues: write`), retrying once with `MADFAM_BOT_PAT` on 403;
-  a reporting failure never turns a green sweep red.
+  a reporting failure never turns a green sweep red. The issue describes `main`
+  only: a sweep dispatched on another branch reports in its own run and never
+  opens or closes it.
+- **The pin moves by PR, weekly.**
+  [`.github/workflows/spec-pin-bump.yml`](./.github/workflows/spec-pin-bump.yml)
+  compares `SPEC_PIN` with hyperobjects-spec `main` every Monday (07:00Z) and on
+  demand. When they differ it rewrites the pin in `ci.yml` and the entry docs
+  ([`spec_pin_bump.py`](./.github/scripts/spec_pin_bump.py)), runs the manifest
+  lane at the new pin, opens or updates one PR from `ci/spec-pin-bump`, and
+  dispatches the full nightly sweep on that branch, because the per-PR render
+  lane re-renders only the graph cartridges on a pin change. It never merges.
 - **The bar per render.** Watertight, positive volume, no inverted
   (negative-volume) body, **B-Rep validity before tessellation** (`BRepCheck`
   plus a per-solid signed-volume test — a `Reversed()` solid is `IsValid()` yet

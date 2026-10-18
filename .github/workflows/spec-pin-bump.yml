@@ -1,0 +1,148 @@
+name: SPEC_PIN bump
+
+# Proposes moving SPEC_PIN (ci.yml) to hyperobjects-spec main, weekly and on demand.
+#
+# Why: the pin trailed the keystone by six minor versions (0.9.0 against 0.15.0, the
+# 2026-10-18 audit) because nothing ever proposed a bump. This job compares the pin
+# with keystone main and, when they differ:
+#   1. rewrites the pin in ci.yml and the entry docs (.github/scripts/spec_pin_bump.py),
+#   2. runs the manifest lane at the new pin (every cartridge, no CAD kernel) and the
+#      CI-script tests, and records the result in the PR body,
+#   3. opens or updates ONE PR from the branch `ci/spec-pin-bump`,
+#   4. dispatches ci.yml's full nightly sweep on that branch: every cartridge, every
+#      preset, both kernels, at the new pin. The per-PR render lane re-renders only the
+#      graph cartridges on a SPEC_PIN change (render_scope.graph_scope_on_spec_change),
+#      so the dispatched sweep is the "render everything" a bar change needs. ci.yml
+#      keeps the tracking issue for main only, so a branch sweep never opens or closes
+#      it; read the run itself.
+#
+# Never merges. A human merges the PR after reading the sweep.
+#
+# Runs on GitHub-hosted runners (R116) with the ADR-010 expression ci.yml uses. It runs
+# no pull-request code: only schedule and workflow_dispatch trigger it.
+#
+# Token: github.token only. A PR opened with it does NOT trigger ci.yml's
+# pull_request lanes (GitHub suppresses workflow runs from GITHUB_TOKEN events, except
+# workflow_dispatch), which is why step 2 runs the manifest lane here and step 4
+# dispatches the sweep. The repository setting "Allow GitHub Actions to create and
+# approve pull requests" must be on for step 3.
+on:
+  schedule:
+    # Mondays 07:00Z (01:00 CDMX), two hours before the 09:00Z nightly.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: spec-pin-bump
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    name: propose a SPEC_PIN bump
+    runs-on: ${{ vars.ARC_BOOTSTRAP_COMPLETE == 'true' && 'madfam-runners-blue' || 'ubuntu-24.04' }}
+    timeout-minutes: 20
+    permissions:
+      contents: write        # push the bump branch
+      pull-requests: write   # open/update the PR, comment the sweep link
+      actions: write         # dispatch ci.yml on the bump branch
+    env:
+      KEYSTONE: https://github.com/madfam-org/hyperobjects-spec
+      BRANCH: ci/spec-pin-bump
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Keystone main against the pin
+        id: pin
+        run: |
+          set -euo pipefail
+          new=$(git ls-remote "$KEYSTONE" refs/heads/main | cut -f1)
+          case "$new" in
+            *[!0-9a-f]*|"") echo "::error title=keystone main unresolved::git ls-remote returned '$new'"; exit 1 ;;
+          esac
+          [ "${#new}" -eq 40 ] || { echo "::error title=keystone main unresolved::'$new' is not a full sha"; exit 1; }
+          python3 .github/scripts/spec_pin_bump.py --to "$new" --github-output "$GITHUB_OUTPUT"
+
+      - name: Manifest lane and CI-script tests at the new pin
+        id: lane
+        if: steps.pin.outputs.changed == 'true'
+        run: |
+          set -uo pipefail
+          python3 -m venv .venv-bump
+          .venv-bump/bin/python -m pip install --quiet --upgrade pip
+          if ! .venv-bump/bin/pip install --quiet "hyperobjects-spec @ git+${KEYSTONE}@${{ steps.pin.outputs.new }}" pytest; then
+            echo "::error title=keystone not installable::hyperobjects-spec could not be installed at ${{ steps.pin.outputs.new }}"
+            echo "version=not installable" >> "$GITHUB_OUTPUT"
+            echo "manifests=not run (keystone not installable)" >> "$GITHUB_OUTPUT"
+            echo "scripts=not run" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          version=$(.venv-bump/bin/python -c "import importlib.metadata as m; print(m.version('hyperobjects-spec'))")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          dirs=$(for d in */; do [ -f "$d/project.json" ] && printf './%s ' "$d"; done)
+          .venv-bump/bin/y4d-spec check $dirs > manifests.log 2>&1
+          rc=$?
+          echo "manifests=exit $rc: $(tail -n 1 manifests.log)" >> "$GITHUB_OUTPUT"
+          .venv-bump/bin/python -m pytest .github/scripts -q > scripts.log 2>&1
+          rc=$?
+          echo "scripts=exit $rc: $(tail -n 1 scripts.log)" >> "$GITHUB_OUTPUT"
+          rm -rf .venv-bump manifests.log scripts.log
+
+      - name: Open or update the bump PR
+        id: cpr
+        if: steps.pin.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ github.token }}
+          branch: ${{ env.BRANCH }}
+          base: main
+          signoff: true
+          add-paths: |
+            .github/workflows/ci.yml
+            README.md
+            AGENTS.md
+            CONTRIBUTING.md
+            llms.txt
+            llms-full.txt
+          commit-message: |
+            ci: bump SPEC_PIN to hyperobjects-spec ${{ steps.lane.outputs.version }} (${{ steps.pin.outputs.new }})
+
+            From ${{ steps.pin.outputs.old }}. Opened by .github/workflows/spec-pin-bump.yml.
+          title: "ci: bump SPEC_PIN to hyperobjects-spec ${{ steps.lane.outputs.version }}"
+          body: |
+            Moves `SPEC_PIN` from `${{ steps.pin.outputs.old }}` to keystone main `${{ steps.pin.outputs.new }}` (hyperobjects-spec ${{ steps.lane.outputs.version }}), in `ci.yml` and the entry docs.
+
+            **At the new pin, in the bump job** (this PR was opened with `GITHUB_TOKEN`, so the `pull_request` lanes of `ci.yml` do not run on it by themselves):
+            - manifest lane: `${{ steps.lane.outputs.manifests }}`
+            - `pytest .github/scripts`: `${{ steps.lane.outputs.scripts }}`
+
+            **Full sweep:** the bump job dispatched `ci.yml` (nightly sweep: every cartridge, every preset, both kernels) on `${{ env.BRANCH }}`; its run is linked in a comment below. Merge only when that run is green, or when every new failure or note is explained. The per-PR render lane would re-render only the graph cartridges.
+
+            Keystone changes since the old pin: ${{ env.KEYSTONE }}/compare/${{ steps.pin.outputs.old }}...${{ steps.pin.outputs.new }}
+
+            Then bump the other consumers (soft-hyperobjects, yantra4d) to the same sha.
+          delete-branch: true
+
+      - name: Dispatch the full sweep on the bump branch
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          set -euo pipefail
+          before=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh workflow run ci.yml --ref "$BRANCH"
+          url=""
+          for _ in $(seq 1 12); do
+            sleep 10
+            url=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch \
+              --created ">=$before" --limit 1 --json url --jq '.[0].url // ""')
+            [ -n "$url" ] && break
+          done
+          if [ -z "$url" ]; then
+            echo "::error title=sweep not found::dispatched ci.yml on $BRANCH but found no run within 2 minutes"
+            gh pr comment "$PR" --body "Dispatched the full sweep (ci.yml, workflow_dispatch) on \`$BRANCH\`, but its run did not appear within 2 minutes. Look under Actions → CI for a workflow_dispatch run on this branch."
+            exit 1
+          fi
+          gh pr comment "$PR" --body "Full sweep at the new pin: $url"

@@ -57,7 +57,7 @@ env:
   # The verification bar is the hyperobjects-spec package, never platform code
   # (RFC 0038 §9, the keystone rule). Pinned by sha: a commons that floats its
   # validator cannot say what bar a green run cleared.
-  SPEC_PIN: 142db1802bbf9e1135ceae6c9c531c469f2d295b
+  SPEC_PIN: 70fe8213de20bc9a699b2bde2c32ee0b02a6d52d
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: "2"
 
 jobs:
@@ -621,8 +621,12 @@ jobs:
       - name: Report — red, incomplete, or green
         if: inputs.report_fixture == ''
         env:
-          GH_TOKEN: ${{ github.token }}
-          GH_TOKEN_FALLBACK: ${{ secrets.MADFAM_BOT_PAT }}
+          # The tracking issue describes MAIN. A sweep dispatched on another branch
+          # (the SPEC_PIN bump PR's full sweep, spec-pin-bump.yml) keeps its verdict
+          # and exit code but gets no token, so nightly_report.py neither opens the
+          # issue for a red branch nor closes main's open issue on a green one.
+          GH_TOKEN: ${{ github.ref == 'refs/heads/main' && github.token || '' }}
+          GH_TOKEN_FALLBACK: ${{ github.ref == 'refs/heads/main' && secrets.MADFAM_BOT_PAT || '' }}
           MATRIX_RESULT: ${{ needs.render-nightly.result }}
           FAILS: ${{ steps.aggregate.outputs.fails }}
         run: |
