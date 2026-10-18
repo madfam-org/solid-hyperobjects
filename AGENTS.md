@@ -42,7 +42,7 @@ never from memory, and never edit a doc to match a pin you assumed.
 | `render-changed` | every PR | renders them, groups of ≤ 8, `max-parallel: 2`, 60-min jobs |
 | `nightly-scope` | 09:00Z | cuts the whole commons into deterministic groups of ≤ 8 |
 | `render-nightly` | 09:00Z | renders every group, `max-parallel: 3`, 90-min jobs |
-| `nightly-report` | after the sweep | verdict + the single `nightly-sweep` tracking issue (runs on `main` only touch it) |
+| `nightly-report` | after the sweep | verdict + the single `nightly-sweep` tracking issue (only runs on `main` touch it) |
 | `spec-pin-bump` | Mondays 07:00Z, or dispatch | PR moving `SPEC_PIN` to keystone `main`, with the manifest lane at the new pin and a dispatched full sweep on the PR branch |
 
 All jobs run on GitHub-hosted `ubuntu-24.04` (R116, ruled 2026-10-05: public
