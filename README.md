@@ -148,8 +148,8 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   (negative-volume) body, **B-Rep validity before tessellation** (`BRepCheck`
   plus a per-solid signed-volume test — a `Reversed()` solid is `IsValid()` yet
   negative, and a macOS-green render is not proof: the tripod-hub fuse is
-  invalid on macOS OCCT and valid on Linux OCP), the declared body count, and
-  cross-kernel parity.
+  invalid on macOS OCCT and valid on Linux OCP), and cross-kernel parity. The
+  declared body count is not part of the bar yet (next bullet but one).
 - **Parity is three gates.** Extents (AABB), volume, and — since keystone
   `3aa57133` — *shape*: the placement offset (AABB-centre delta) is reported as a
   note, or fails under a per-part `"placement": "strict"`, and the Hausdorff
@@ -160,8 +160,12 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
 - **Declared body counts.** `verification.stages.geometry.checks.body_count.expected`
   at the base, with per-mode/part overrides under
   `verification.mode_overrides.<mode>.part_overrides.<part>` using
-  **stage-qualified keys** (`"geometry.body_count"`); parametric counts use the
-  `part_quantities` expression dialect.
+  **stage-qualified keys** (`"geometry.body_count"`); parametric counts are
+  expressions over parameter ids. **Declared, not yet enforced:** the keystone
+  compares rendered bodies with the declaration note-first from hyperobjects-spec
+  0.16.0 (`body-count`), and only after a clean whole-commons nightly at that pin
+  does a mismatch become a failure. Until `SPEC_PIN` reaches 0.16.0, CI does not
+  look at the count.
 
 ## Layout
 
