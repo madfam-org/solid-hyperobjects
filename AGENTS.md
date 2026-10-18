@@ -104,7 +104,9 @@ The three that most often survive review and die in CI:
 - Never widen a tolerance or disable a parity gate without a written `reason`;
   a missing reason is a conformance failure, caught without `--render`.
 - Never declare the body count a defect happens to produce. Declare the
-  design's count — the declaration is how a later regression becomes visible.
+  design's count. It is declared, not yet enforced: the keystone compares it
+  note-first from hyperobjects-spec 0.16.0 (`body-count`), and a wrong count
+  only becomes visible once `SPEC_PIN` reaches that version.
 
 ## Repository boundary
 

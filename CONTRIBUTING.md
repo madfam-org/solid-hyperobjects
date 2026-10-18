@@ -56,8 +56,11 @@ y4d-spec check ./<slug> --render --require-openscad --parity \
 
 `--render` is fail-closed. Each mesh must be watertight, of positive volume,
 free of inverted bodies, **valid as a B-Rep before tessellation**, distinct per
-part, of the declared body count, and in agreement with the other kernel. A
-preset that raises or produces broken geometry is a failure, not a note.
+part, and in agreement with the other kernel. A preset that raises or produces
+broken geometry is a failure, not a note. The declared body count is **not**
+part of that bar yet: the keystone compares it note-first from hyperobjects-spec
+0.16.0 (`body-count`), which `SPEC_PIN` does not include yet (see *Declaring
+body counts*).
 Printability findings (thin walls, overhangs, build volume) are measurements,
 never failures.
 
@@ -93,16 +96,22 @@ declaration is how a later regression becomes visible.
 "verification": {
   "stages": { "geometry": { "checks": { "body_count": { "expected": 1 } } } },
   "mode_overrides": {
-    "<mode>": { "part_overrides": { "<part>": { "geometry.body_count": 2 } } }
+    "<mode>": { "part_overrides": { "<part>": { "geometry.body_count": { "expected": 2 } } } }
   }
 }
 ```
 
 Overrides use **stage-qualified keys** (`"geometry.body_count"`), and an
 override *replaces* the base value; it never merges. A mode/part that is more
-than one body by design declares it and says why in the source's docstring;
-undeclared multi-body renders are flagged for review. Parametric counts use the
-`part_quantities` expression dialect.
+than one body by design declares it and says why in the source's docstring.
+Parametric counts are expressions over parameter ids.
+
+The count is **declared, not yet enforced.** Until hyperobjects-spec 0.16.0 the
+keystone counted bodies but never compared them with the declaration. From 0.16.0
+`y4d-spec check --render` compares them and prints a `body-count:` **note** per
+mismatch (a part with `part_quantities` may render one copy or all of them). It
+becomes a failure only after a whole-commons nightly at that pin explains every
+note. Until `SPEC_PIN` reaches it, CI says nothing about a wrong count.
 
 - Never leave a cut ending exactly on a face, a pocket wholly inside a solid, or a decorative plate unioned
   after the `difference()` that vents a cavity — all three export as inverted shells and fail the bar.
