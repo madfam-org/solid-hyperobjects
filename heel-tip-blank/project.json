@@ -354,7 +354,7 @@
   ],
   "constraints": [
     {
-      "expression": "pin_dia <= tip_w * taper * 0.55 and pin_dia <= tip_l * taper * 0.55",
+      "expression": "pin_dia <= tip_w * taper * 0.55 && pin_dia <= tip_l * taper * 0.55",
       "severity": "error",
       "message": {
         "es": "El barreno del pivote no puede pasar de 0.55 de la cara de suelo menor o la punta queda sin pared.",
@@ -370,7 +370,7 @@
       }
     },
     {
-      "expression": "corner_r <= tip_w / 2.5 and corner_r <= tip_l / 2.5",
+      "expression": "corner_r <= tip_w / 2.5 && corner_r <= tip_l / 2.5",
       "severity": "error",
       "message": {
         "es": "El radio de esquina no puede pasar de un 2.5-avo del lado menor o el tacón cuadrado se vuelve redondo.",
