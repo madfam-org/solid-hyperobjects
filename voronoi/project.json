@@ -402,7 +402,7 @@
       ]
     },
     {
-      "rule": "cell_count <= 40 or size >= 80",
+      "rule": "cell_count <= 40 || size >= 80",
       "message": {
         "es": "Muchas celdas en tamano pequeno pueden fallar",
         "en": "Many cells at small size may fail to print"
