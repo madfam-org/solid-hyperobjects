@@ -364,7 +364,7 @@
       }
     },
     {
-      "expression": "hook_d <= blade_t - 0.35 or hook_d >= blade_t + 0.35",
+      "expression": "hook_d <= blade_t - 0.35 || hook_d >= blade_t + 0.35",
       "severity": "error",
       "message": {
         "es": "La varilla no puede medir casi exactamente el grueso de la hoja: queda tangente a las caras y la unión se rompe.",
