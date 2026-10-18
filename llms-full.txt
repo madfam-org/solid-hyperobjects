@@ -22,7 +22,7 @@ found five cartridges with reasoned parity exemptions or widened tolerances. The
 counts, not proof that every geometry is currently valid. Read current CI for
 its checked revision, render scope, failures, notes and skips.
 
-[CI](.github/workflows/ci.yml) pins verifier `142db1802bbf9e1135ceae6c9c531c469f2d295b` at this checkpoint;
+[CI](.github/workflows/ci.yml) pins verifier `70fe8213de20bc9a699b2bde2c32ee0b02a6d52d` at this checkpoint;
 read `SPEC_PIN` there before installing. Its per-PR lane renders changed
 cartridges; its nightly lane checks the whole commons and validates completeness.
 The [contributor verification command](CONTRIBUTING.md) supplies both `libs` and
