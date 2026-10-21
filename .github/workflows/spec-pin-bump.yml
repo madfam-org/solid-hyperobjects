@@ -21,11 +21,24 @@ name: SPEC_PIN bump
 # Runs on GitHub-hosted runners (R116) with the ADR-010 expression ci.yml uses. It runs
 # no pull-request code: only schedule and workflow_dispatch trigger it.
 #
-# Token: github.token only. A PR opened with it does NOT trigger ci.yml's
-# pull_request lanes (GitHub suppresses workflow runs from GITHUB_TOKEN events, except
-# workflow_dispatch), which is why step 2 runs the manifest lane here and step 4
-# dispatches the sweep. The repository setting "Allow GitHub Actions to create and
-# approve pull requests" must be on for step 3.
+# Token: step 3 needs DISPATCH_TOKEN, the estate's PAT convention (the same secret
+# yantra4d's bump-commons-pin.yml uses). github.token cannot do step 3, for two
+# separate reasons, and no `permissions:` entry changes either:
+#   - the bump rewrites .github/workflows/ci.yml (SPEC_PIN lives there), and GitHub
+#     refuses any push from GITHUB_TOKEN that creates or updates a workflow file
+#     ("refusing to allow a GitHub App to create or update workflow ... without
+#     `workflows` permission"). That is how the first scheduled run (2026-10-19)
+#     died: the branch push was rejected before a PR could exist;
+#   - "Allow GitHub Actions to create and approve pull requests" is off for this
+#     repository, so GITHUB_TOKEN cannot open the PR either.
+# DISPATCH_TOKEN therefore needs, on this repository: Contents read/write, Pull
+# requests read/write and Workflows read/write. When it is not provisioned the job
+# still runs steps 1-2 and then fails at a guard that says so in the run summary,
+# instead of dying inside the push. A PR opened with DISPATCH_TOKEN DOES trigger
+# ci.yml's pull_request lanes; step 2 and step 4 stay, because the in-job manifest
+# lane result lands in the PR body and the per-PR render lane re-renders only the
+# graph cartridges on a pin change. Step 4 dispatches with github.token
+# (workflow_dispatch is the one event GITHUB_TOKEN may start).
 on:
   schedule:
     # Mondays 07:00Z (01:00 CDMX), two hours before the 09:00Z nightly.
@@ -89,12 +102,45 @@ jobs:
           echo "scripts=exit $rc: $(tail -n 1 scripts.log)" >> "$GITHUB_OUTPUT"
           rm -rf .venv-bump manifests.log scripts.log
 
+      # Fail here, visibly, rather than inside the push: without DISPATCH_TOKEN the push
+      # of ci.yml is refused (see the header). The lane result above is still worth a
+      # week's run, so it goes into the summary.
+      - name: Require DISPATCH_TOKEN (github.token cannot push ci.yml)
+        if: steps.pin.outputs.changed == 'true'
+        env:
+          DISPATCH_TOKEN_SET: ${{ secrets.DISPATCH_TOKEN != '' }}
+          OLD: ${{ steps.pin.outputs.old }}
+          NEW: ${{ steps.pin.outputs.new }}
+          VERSION: ${{ steps.lane.outputs.version }}
+          MANIFESTS: ${{ steps.lane.outputs.manifests }}
+          SCRIPTS: ${{ steps.lane.outputs.scripts }}
+        run: |
+          set -euo pipefail
+          [ "$DISPATCH_TOKEN_SET" = "true" ] && exit 0
+          {
+            echo "### SPEC_PIN bump could not open a PR: DISPATCH_TOKEN is not provisioned"
+            echo
+            echo "Keystone main moved: \`$OLD\` -> \`$NEW\` (hyperobjects-spec $VERSION)."
+            echo
+            echo "- manifest lane at the new pin: \`$MANIFESTS\`"
+            echo "- \`pytest .github/scripts\`: \`$SCRIPTS\`"
+            echo
+            echo "The bump rewrites \`.github/workflows/ci.yml\`, and GitHub refuses a push"
+            echo "from \`GITHUB_TOKEN\` that changes a workflow file. Provision"
+            echo "\`DISPATCH_TOKEN\` (org level recommended) with Contents, Pull requests and"
+            echo "Workflows read/write on this repository. Until then, run"
+            echo "\`python3 .github/scripts/spec_pin_bump.py --to $NEW\` locally and open the"
+            echo "PR by hand."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::error title=DISPATCH_TOKEN not provisioned::keystone main is $NEW but the bump PR cannot be opened: github.token may not push .github/workflows/ci.yml. See the run summary."
+          exit 1
+
       - name: Open or update the bump PR
         id: cpr
         if: steps.pin.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.DISPATCH_TOKEN }}
           branch: ${{ env.BRANCH }}
           base: main
           signoff: true
@@ -113,7 +159,7 @@ jobs:
           body: |
             Moves `SPEC_PIN` from `${{ steps.pin.outputs.old }}` to keystone main `${{ steps.pin.outputs.new }}` (hyperobjects-spec ${{ steps.lane.outputs.version }}), in `ci.yml` and the entry docs.
 
-            **At the new pin, in the bump job** (this PR was opened with `GITHUB_TOKEN`, so the `pull_request` lanes of `ci.yml` do not run on it by themselves):
+            **At the new pin, in the bump job** (`ci.yml`'s `pull_request` lanes run on this PR too):
             - manifest lane: `${{ steps.lane.outputs.manifests }}`
             - `pytest .github/scripts`: `${{ steps.lane.outputs.scripts }}`
 
@@ -146,3 +192,17 @@ jobs:
             exit 1
           fi
           gh pr comment "$PR" --body "Full sweep at the new pin: $url"
+
+      - name: Explain a refused push or PR
+        if: failure() && steps.cpr.outcome == 'failure'
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'EOF2'
+          ### SPEC_PIN bump: DISPATCH_TOKEN was refused
+
+          `DISPATCH_TOKEN` is provisioned, but pushing `ci/spec-pin-bump` or opening the PR
+          with it failed (the error is in the "Open or update the bump PR" step). The bump
+          rewrites `.github/workflows/ci.yml`, so the token needs, on this repository:
+          Contents read/write, Pull requests read/write and **Workflows** read/write
+          (a classic PAT: `repo` + `workflow`). Check its repository access and expiry.
+          EOF2
+          exit 1

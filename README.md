@@ -180,6 +180,10 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   lane at the new pin, opens or updates one PR from `ci/spec-pin-bump`, and
   dispatches the full nightly sweep on that branch, because the per-PR render
   lane re-renders only the graph cartridges on a pin change. It never merges.
+  It pushes and opens the PR with the `DISPATCH_TOKEN` secret (Contents, Pull
+  requests and Workflows read/write): `GITHUB_TOKEN` may not push a change to a
+  workflow file, and `ci.yml` is where the pin lives. Without that secret the
+  job stops after the manifest lane and says so in its run summary.
 - **The bar per render.** Watertight, positive volume, no inverted
   (negative-volume) body, **B-Rep validity before tessellation** (`BRepCheck`
   plus a per-solid signed-volume test — a `Reversed()` solid is `IsValid()` yet
