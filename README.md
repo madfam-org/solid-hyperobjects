@@ -212,11 +212,14 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
 ```
 <slug>/project.json     the manifest — single source of truth for the cartridge
 <slug>/*.py             CadQuery source
+<slug>/family.py        a family's authored source; its main.py is GENERATED (never edit it)
 <slug>/*.scad           OpenSCAD source
 <slug>/LICENSE          CERN-OHL-W-2.0 (or the cartridge's own, if it differs)
 <slug>/NOTICE           third-party attributions, where any apply
 libs/*                  pinned third-party OpenSCAD libraries (submodules)
 commons-lib/*           first-party shared helpers, resolved via OPENSCADPATH
+commons-lib/hardware/*  shared device components, inlined into each family's main.py (ruling R2)
+tools/inline_parts.py   generates a family's main.py; --check fails on drift (manifests lane)
 ```
 
 ## Related repositories and contracts

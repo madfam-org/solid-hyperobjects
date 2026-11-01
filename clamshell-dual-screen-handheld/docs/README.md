@@ -44,29 +44,41 @@ Expected body counts: 1 for each deck, `hinge_knuckle_count` for the hinge.
 A screen, a hinge, a button, a D-pad, a stick, a port and a cartridge slot are
 each a hyperobject in their own right that feeds into this one — Telesia's
 [`DEVICE_GEOMETRY.md`](https://github.com/madfam-org/telesia/blob/main/docs/DEVICE_GEOMETRY.md)
-§3.1 and ADR 0015 §1, with gate **H8** still to rule how a component cartridge
-will feed an assembly cartridge. Until it does, a component lives inside the
-assembly that needs it, already carrying the id it will export. `main.py` is
-factored that way: each is its own function taking its **own parameter dict**,
-reading no manifest global, so any of them can be lifted into its own cartridge
-without a rewrite. The assembly functions are the only code that maps this
-manifest's parameters onto those dicts. The same table is in `project.json` under
-`composition` for machines.
+§3.1 and ADR 0015 §1. Gate **H8** — how a component feeds an assembly cartridge —
+is settled by ruling **R2** (2026-11-01): a component is canonical text in
+[`commons-lib/hardware/`](../../commons-lib/README.md#hardware--shared-device-components-inlined-at-build),
+**inlined at build**, never imported (the render sandbox blocks `sys`, `os` and
+`importlib`). Each is a function taking its **own parameter dict** and reading no
+manifest global; the assembly functions in `family.py` are the only code that
+maps this manifest's parameters onto those dicts. The same table is in
+`project.json` under `composition` for machines.
 
-| Component (`main.py`) | Graph node prefix | CDG exposed | CDG consumed |
-|---|---|---|---|
-| `deck_shell` | `deckshell_` | `device_envelope`, `cradle_seat` | — |
-| `display_panel` | `display_` | `display_recess` | — |
-| `hinge_barrel` | `hingebarrel_` | `revolute_axis`, `mounting_surface` (the ids [`hinge-hyperobject`](../../hinge-hyperobject) declares) | — |
-| `hinge_relief` | `hingerelief_` | — | `revolute_axis` |
-| `d_pad` | `dpad_` | `dpad_seat` | — |
-| `face_button` | `facebtn_` | `button_seat` (ring) | — |
-| `button_row` | `buttonrow_` | `button_seat` (row — start/select) | — |
-| `analog_stick` | `stick_` | `stick_seat` | — |
-| `shoulder_trigger` | `trigger_` | `trigger_seat` | — |
-| `port_receptacle` | `port_` | `port_cutout` | — |
-| `cartridge_slot` | `slot_` | `cartridge_slot` | — |
-| `speaker_grille` | `speaker_` | — (a vented face is not a mating feature) | — |
+**Two files.** `family.py` is the authored source: this cartridge minus its
+components, with one `# inline-parts: structure displays controls connectors`
+line. `main.py` — the file the manifest's modes name and the platform renders —
+is **generated** from it by `tools/inline_parts.py`: each module (and `patterns`,
+which `structure` and `controls` require) sits between
+`# BEGIN/END commons-lib/hardware/<m>.py@<git-blob-sha>` markers. Edit
+`family.py` or the module, never `main.py`, then run
+`python3 tools/inline_parts.py --write clamshell-dual-screen-handheld`. CI's
+`inline_parts.py --check` fails on any drift. The move from the hand-written
+`main.py` was proven geometry-identical: every (mode, part) at the defaults and
+all 13 presets renders the same volume, bounding box, body count and mesh.
+
+| Component | Module (`commons-lib/hardware/`) | Graph node prefix | CDG exposed | CDG consumed |
+|---|---|---|---|---|
+| `deck_shell` | `structure.py` | `deckshell_` | `device_envelope`, `cradle_seat` | — |
+| `display_panel` | `displays.py` | `display_` | `display_recess` | — |
+| `hinge_barrel` | `structure.py` | `hingebarrel_` | `revolute_axis`, `mounting_surface` (the ids [`hinge-hyperobject`](../../hinge-hyperobject) declares) | — |
+| `hinge_relief` | `structure.py` | `hingerelief_` | — | `revolute_axis` |
+| `d_pad` | `controls.py` | `dpad_` | `dpad_seat` | — |
+| `face_button` | `controls.py` | `facebtn_` | `button_seat` (ring) | — |
+| `button_row` | `controls.py` | `buttonrow_` | `button_seat` (row — start/select) | — |
+| `analog_stick` | `controls.py` | `stick_` | `stick_seat` | — |
+| `shoulder_trigger` | `controls.py` | `trigger_` | `trigger_seat` | — |
+| `port_receptacle` | `connectors.py` | `port_` | `port_cutout` | — |
+| `cartridge_slot` | `connectors.py` | `slot_` | `cartridge_slot` | — |
+| `speaker_grille` | `structure.py` | `speaker_` | — (a vented face is not a mating feature) | — |
 
 The twin can only **imitate** that boundary: its node ids carry the component
 slug as a prefix and nothing more, because sub-graph reuse — yantra4d lane

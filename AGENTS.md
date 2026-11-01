@@ -36,7 +36,7 @@ never from memory, and never edit a doc to match a pin you assumed.
 
 | Lane | Trigger | What it does |
 | :-- | :-- | :-- |
-| `manifests` | every PR | `y4d-spec check` on all 512, plus `pytest .github/scripts` and the reporter selftest |
+| `manifests` | every PR | `y4d-spec check` on all 512, plus `pytest .github/scripts`, the reporter selftest, `tools/inline_parts.py --check` (a family's `main.py` is generated from its `family.py` + [`commons-lib/hardware/`](./commons-lib/README.md#hardware--shared-device-components-inlined-at-build), ruling R2: never edit it) and the size gate (warn > 600 lines, fail > 800, `.github/size-limit-baseline.json`) |
 | `assemblies` | every PR | `y4d-spec assembly check` on every `assemblies/*/assembly.json` (ASM-1 §3, §9), with `--collision`, catalog from the pinned keystone |
 | `render-scope` | every PR | fork-point diff → which cartridges need geometry |
 | `render-changed` | every PR | renders them, groups of ≤ 8, `max-parallel: 2`, 60-min jobs |
