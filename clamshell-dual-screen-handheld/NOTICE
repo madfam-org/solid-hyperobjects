@@ -18,10 +18,11 @@ ours to license. It does not model any manufacturer's product.
 Named devices appear only as PRESETS. A preset is a set of numbers, and every
 number in it is either:
 
-  * a DIMENSION THE MANUFACTURER PUBLISHED, carried from Telesia's device
-    geometry registry (`data/registry/device-geometry.json`), where each value
-    records its source tier, URL, retrieval date and the line it was quoted
-    from; or
+  * a DIMENSION THE MANUFACTURER PUBLISHED, carried from the keystone's
+    reference-objects catalog (hyperobjects-spec `hyperobjects_reference`),
+    where each value records its source tier, URL, retrieval date and the line
+    it was quoted from (the catalog opened on 2026-11-01 with the devices of
+    Telesia's former device-geometry registry); or
 
   * a value DERIVED from such a dimension by an archetype rule that is OURS and
     is written down (docs/README.md, "Archetype derivation rules"); or
@@ -48,16 +49,16 @@ statements about any device:
   * The split of the published closed thickness into an upper and a lower deck.
     The SUM is the manufacturer's figure; the 45/55 split is ours.
   * Corner radius. No manufacturer in this family publishes one — 0 of the
-    registry's 84 devices — so every corner radius here is ours.
+    catalog's 84 devices — so every corner radius here is ours.
   * Hinge barrel radius, running clearance, knuckle count, knuckle length and
     the extent of the hinge run.
   * Display recess depth, and where each display sits within its deck (the
     presets centre it; no manufacturer publishes a bezel split).
-  * Every control's size and position — the registry records how many buttons a
+  * Every control's size and position — the catalog records how many buttons a
     device has, never how large they are or where they sit.
   * The port opening sizes, and where along a face they sit. The 3.5 mm figure
-    is the connector's nominal diameter, which is the registry's own port kind.
-  * The cartridge slot in its entirety: the registry's port vocabulary has no
+    is the connector's nominal diameter, which is the catalog's own port kind.
+  * The cartridge slot in its entirety: the catalog's port vocabulary has no
     game-card kind, so nothing about this component is sourced for any preset.
   * The speaker grille in its entirety.
 
@@ -65,12 +66,12 @@ statements about any device:
 Devices with no preset
 ----------------------
 
-Three devices the registry files in this family have no preset, because their
+Three devices the catalog files in this family have no preset, because their
 closed envelope is unresolved and this cartridge will not invent one:
 
   * AYN Thor (`ayn-thor`) — AYN publishes no dimensions and no mass on its own
-    site. Telesia's plan gates it on a calibrated measurement of a physical unit
-    (`docs/DEVICE_GEOMETRY.md` gate H7).
+    site. It waits on a calibrated measurement of a physical unit
+    (gate H7 of Telesia's original device-geometry plan).
   * Sony Tablet P (`sony-tablet-p`) — every Sony page refused to be read; the
     entry has zero sources.
   * OneXPlayer ONEXSUGAR Sugar 1 (`onexplayer-onexsugar`) — no closed dimensions
