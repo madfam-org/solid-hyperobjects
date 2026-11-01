@@ -98,6 +98,23 @@ jobs:
           python3 .github/scripts/nightly_report.py --selftest \
             .github/fixtures/nightly-fail-sample.txt
 
+      # Shared components (ruling R2 on gate H8): every family's main.py is
+      # GENERATED from its family.py plus the commons-lib/hardware/ modules it
+      # declares. --check regenerates each in memory and fails on any byte of
+      # drift — a module edited without a regeneration, a hand-edited inline copy,
+      # a family.py edited without one — and lints every module. Its unit tests
+      # (test_inline_parts.py) ran in the step above.
+      - name: Shared parts are inlined exactly (tools/inline_parts.py --check)
+        run: python3 tools/inline_parts.py --check
+
+      # Warn over 600 lines, fail over 800 (the MADFAM size policy), against the
+      # committed baseline .github/size-limit-baseline.json: only a NEW crossing
+      # or a baselined file GROWING fails, and the baseline shrinks only through
+      # `size_gate.py --update-baseline`. A family's generated main.py is exempt
+      # by its BEGIN marker; its family.py and the modules are measured.
+      - name: File-size gate (warn over 600 lines, fail over 800)
+        run: python3 .github/scripts/size_gate.py
+
       - name: y4d-spec check (every cartridge)
         # NOT `./*/`: that glob also picks up libs/ (a submodule mount point with
         # no project.json), which y4d-spec correctly fails as "not a cartridge".
@@ -147,6 +164,16 @@ jobs:
           # refuse that here, so a green run always means the bodies were intersected.
           .venv/bin/python -c "import cadquery" || {
             echo "::error::the CAD kernel could not be imported — --collision would not run"; exit 1; }
+
+      # The commons-lib/hardware/ components, built with the kernel OUTSIDE the
+      # sandbox through the same inline order a generated main.py runs. They ride
+      # here because this is the every-PR job that already installs the kernel
+      # (the manifests lane deliberately has none); the step above has just
+      # proven `import cadquery` works, so the tests' importorskip cannot skip.
+      - name: commons-lib/hardware components (pytest, CadQuery outside the sandbox)
+        run: |
+          .venv/bin/pip install --quiet pytest
+          .venv/bin/python -m pytest commons-lib/hardware/tests -q
 
       - name: y4d-spec assembly check (every assembly)
         # The catalog is the one inside the pinned keystone, so a green run names the

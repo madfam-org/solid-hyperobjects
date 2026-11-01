@@ -1,0 +1,10 @@
+{
+  "_comment": "Grandfather baseline for .github/scripts/size_gate.py. Files listed here already exceeded 800 lines when the gate landed; each is tolerated AT OR BELOW its recorded size and FAILS if it grows. Refactor one to <= 800 and run `python3 .github/scripts/size_gate.py --update-baseline` to drop it: the baseline only shrinks. Do not hand-edit.",
+  "warnAt": 600,
+  "failAt": 800,
+  "files": {
+    ".github/scripts/nightly_report.py": 838,
+    "rubiks-hyperobject/rubiks_cube.scad": 1213,
+    "rugged-box/main.py": 912
+  }
+}
