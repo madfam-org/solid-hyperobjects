@@ -280,7 +280,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["tray_center_z"] = rnd(H * 0.6 if upright_drive else h_front * 0.55)
     v["eject_button"] = bool(_get(src, "eject_button", fb, "eject button")) \
         if mk in ("disc_tray", "disc_slot", "disc_lid") else bool(src.get("eject_button", False))
-    v["memory_card_count"] = int(src.get("memory_card_count", 0))
+    v["memory_card_count"] = int(_get(src, "memory_card_count", fb, "memory-card count"))
 
     # ── integrated display (the Vectrex) ─────────────────────────────────────
     screen = src.get("screen")
@@ -295,8 +295,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["panel_center_y"] = rnd(D * R["front_break_ratio"] / 2.0)
     v["front_button_count"] = int(src.get("front_button_count", 0))
     cpk = _get(src, "controller_port_kind", fb, "controller ports")
-    v["controller_port_count"] = int(src.get("controller_port_count",
-                                             ARCHETYPE_BASE["controller_port_count"]))
+    v["controller_port_count"] = int(_get(src, "controller_port_count", fb, "controller-port count"))
     if cpk == "none":
         v["controller_port_count"] = 0
     v["controller_port_kind"] = cpk
@@ -308,11 +307,11 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["av_out_kind"] = _get(src, "av_out_kind", fb, "AV output")
     v["av_out_count"] = int(src.get("av_out_count", ARCHETYPE_BASE["av_out_count"]))
     v["power_inlet_kind"] = _get(src, "power_inlet_kind", fb, "power inlet")
-    v["expansion_port_count"] = int(src.get("expansion_port_count", 0))
+    v["expansion_port_count"] = int(_get(src, "expansion_port_count", fb, "expansion-port count"))
     v["expansion_port_face"] = src.get("expansion_port_face", "bottom")
     v["network_port"] = bool(src.get("network_port", False))
     v["usb_port_count_front"] = int(src.get("usb_port_count_front", 0))
-    v["usb_port_count_rear"] = int(src.get("usb_port_count_rear", 0))
+    v["usb_port_count_rear"] = int(_get(src, "usb_port_count_rear", fb, "rear USB count"))
     v["channel_switch"] = bool(src.get("channel_switch", False))
     rear_z = min(h_rear * 0.3, 30.0)
     v["rear_port_center_z"] = rnd(rear_z)

@@ -1500,7 +1500,7 @@
         "top_shell",
         "bottom_shell"
       ],
-      "min": 20,
+      "min": 10,
       "max": 400,
       "step": 0.1,
       "label": {
