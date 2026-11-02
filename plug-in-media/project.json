@@ -1570,7 +1570,8 @@
     "axis_mapping": {
       "shell_width": "reference dimensions_mm.states.shell.width (X, across the label face)",
       "shell_height": "reference dimensions_mm.states.shell.height (Z, up the label face)",
-      "shell_thickness": "reference dimensions_mm.states.shell.depth (Y, through the shell)"
+      "shell_thickness": "reference dimensions_mm.states.shell.depth (Y, through the shell)",
+      "rule": "the smallest of the three axes is the thickness; a source that labels the thickness `height` (museum w x h x l) is re-read accordingly"
     },
     "awaiting_a_source": []
   },

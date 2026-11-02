@@ -11,6 +11,10 @@ AXIS MAPPING
     reference dimensions_mm.states.shell.height -> shell_height     (Z, up the label)
     reference dimensions_mm.states.shell.depth  -> shell_thickness  (Y, through the shell)
 
+The catalog records axes as each SOURCE labels them (a museum's "w x h x l" puts the
+thickness in `height`), so `shell_axes` applies the family's rule first: the smallest
+axis is the thickness (see its docstring).
+
 `features.insertion_edge` names the label edge that carries the contacts; the family
 turns the shell so the envelope (its bounding box) is the same for every edge.
 
@@ -111,10 +115,11 @@ def read_media(obj: dict) -> dict | None:
     w, h, d = shell.get("width"), shell.get("height"), shell.get("depth")
     if w is None or h is None or d is None:
         return None
+    w, h, d = shell_axes(float(w), float(h), float(d))
     edge = _feature(obj, "insertion_edge")
     return {
         "slug": obj["key"],
-        "width": float(w), "height": float(h), "depth": float(d),
+        "width": w, "height": h, "depth": d,
         "grip_thickness": None,
         "insertion_edge": edge if edge in ("bottom", "top", "side") else None,
         "card": _feature(obj, "card"),
@@ -124,6 +129,21 @@ def read_media(obj: dict) -> dict | None:
         "contact_pitch_mm": _feature(obj, "contact_pitch_mm"),
         "notch_count": None,
     }
+
+
+def shell_axes(w: float, h: float, d: float) -> tuple[float, float, float]:
+    """(width, height, thickness) from the three axes as the SOURCE labels them.
+
+    The catalog records each axis as its source labels it, and sources disagree: a
+    museum record of a cartridge reads "3 1/4w x 1h x 3 3/4l (in)", so its `height` is
+    the thickness and its `depth` the length. The family's rule (ours): the thickness
+    is the SMALLEST axis; the labelled width stays the width unless it is that
+    smallest axis; the remaining axis is the height.
+    """
+    axes = {"width": w, "height": h, "depth": d}
+    thin = min(axes, key=lambda k: (axes[k], k != "depth"))
+    rest = [k for k in ("width", "height", "depth") if k != thin]
+    return axes[rest[0]], axes[rest[1]], axes[thin]
 
 
 def registry_extra(obj: dict, values: dict) -> dict:
@@ -324,6 +344,7 @@ FAMILY = Family(
         "shell_width": "reference dimensions_mm.states.shell.width (X, across the label face)",
         "shell_height": "reference dimensions_mm.states.shell.height (Z, up the label face)",
         "shell_thickness": "reference dimensions_mm.states.shell.depth (Y, through the shell)",
+        "rule": "the smallest of the three axes is the thickness; a source that labels the thickness `height` (museum w x h x l) is re-read accordingly",
     },
     source_line="shell width x height x depth as published; features as quoted.",
     registry_extra=registry_extra,
