@@ -33,3 +33,32 @@ def test_check_counts_the_committed_clamshell_projections(capsys):
     out = capsys.readouterr().out
     assert rc == 0, out
     assert "missing=0" in out
+
+
+def scoped_manifest(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(projections, 'REPO_ROOT', tmp_path)
+    cartridge = tmp_path / 'fixture'
+    out = cartridge / 'docs/projections'; out.mkdir(parents=True)
+    (cartridge / 'project.json').write_text(json.dumps({
+        'modes': [{'id': 'media', 'cq_file': 'fixture.py', 'parts': ['front', 'back']},
+                  {'id': 'envelope', 'cq_file': 'fixture.py', 'parts': ['envelope']}],
+        'presets': [{'slug': 'shared', 'values': {}},
+                    {'slug': 'assembled', 'mode': 'media', 'values': {}},
+                    {'slug': 'exact-issue', 'mode': 'envelope', 'values': {}}],
+    }))
+    for slug in ('archetype-default', 'shared', 'assembled'):
+        (out / f'{slug}-iso.svg').write_text('<svg/>')
+
+
+def test_projection_check_does_not_expand_a_scoped_envelope_into_internal_parts(tmp_path, monkeypatch, capsys):
+    scoped_manifest(tmp_path, monkeypatch)
+    assert projections.main(['fixture', '--mode', 'media', '--view', 'iso:1,-1,1', '--check']) == 0
+    assert 'targets=3' in capsys.readouterr().out
+
+
+def test_explicit_wrong_mode_request_fails_instead_of_rendering_archetype_internals(tmp_path, monkeypatch):
+    scoped_manifest(tmp_path, monkeypatch)
+    with pytest.raises(SystemExit, match="belongs to mode 'envelope'"):
+        projections.main(['fixture', '--mode', 'media', '--preset', 'exact-issue',
+                          '--view', 'iso:1,-1,1', '--check'])

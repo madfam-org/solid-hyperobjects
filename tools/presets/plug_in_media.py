@@ -2,8 +2,8 @@
 
 Everything that plugs in by a contact edge, from a 1976 cartridge with a door to a
 game card: a shell split on its mid-plane, a board whose tongue reaches a contact
-window, and the features a slot registers against. One object per FORMAT (a shell
-type), never per title.
+window, and the features a slot registers against. Named format objects supply shell types; explicitly scoped edition presets supply
+only their own measured media envelope, never a universal format or internal detail.
 
 AXIS MAPPING
 ------------
@@ -111,6 +111,9 @@ def _feature(obj: dict, name: str):
 
 def read_media(obj: dict) -> dict | None:
     """Project a reference object onto `derive()`'s input, or None (shell unresolved)."""
+    if obj.get("kind") == "edition":
+        from _edition_media import read_edition
+        return read_edition(obj)
     shell = state(obj, "shell")
     w, h, d = shell.get("width"), shell.get("height"), shell.get("depth")
     if w is None or h is None or d is None:
@@ -147,6 +150,9 @@ def shell_axes(w: float, h: float, d: float) -> tuple[float, float, float]:
 
 
 def registry_extra(obj: dict, values: dict) -> dict:
+    if obj.get("kind") == "edition":
+        from _edition_media import edition_registry
+        return edition_registry(obj)
     return {"host_console": (obj.get("features") or {}).get("host_console")}
 
 
@@ -156,6 +162,9 @@ def registry_extra(obj: dict, values: dict) -> dict:
 
 def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     """Return (values, fallbacks). Every value is sourced or follows a rule above."""
+    if src.get("_preset_mode") == "envelope":
+        from _edition_media import derive_envelope
+        return derive_envelope(src)
     R = ARCHETYPE_RULES
     fb: list[str] = []
     v: dict = {}
@@ -346,7 +355,8 @@ FAMILY = Family(
         "shell_thickness": "reference dimensions_mm.states.shell.depth (Y, through the shell)",
         "rule": "the smallest of the three axes is the thickness; a source that labels the thickness `height` (museum w x h x l) is re-read accordingly",
     },
-    source_line="shell width x height x depth as published; features as quoted.",
+    source_line="format shell axes or exact-edition media axes as documented; edition presets render only a conservative envelope; features as quoted.",
     registry_extra=registry_extra,
     extra_presets=_archetype_presets(),
+    supplemental_keys=("nintendo-64-the-legend-of-zelda-ocarina-of-time-jp",),
 )

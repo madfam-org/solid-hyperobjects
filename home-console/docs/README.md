@@ -90,3 +90,13 @@ supply wall thickness, media seating depth, panel positions, precise connector
 shapes, vents or a maker's shell profile. These stay archetypal, with the
 catalog-derived preset fallback list naming the unknown fact groups. The
 measurement queue is maintained separately from these public design files.
+
+### Front slot and control separation
+
+The original horizontal slot-loader layout keeps the front power/reset/LED row
+at least 1 mm of material above the slot lip. This avoids tangent cavity edges
+at thin source envelopes such as the Wii's 44 mm body. The lip size, control
+positions and this material gap are archetype rules; the published envelope and
+sourced control counts do not change. No manufacturer's panel layout or physical
+fit is asserted. Tall bodies whose drive mouth rotates upright keep their
+existing row rule.

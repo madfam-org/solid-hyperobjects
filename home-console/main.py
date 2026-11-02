@@ -1294,6 +1294,11 @@ def panel_tools(ctx):
     leds = [ctx["cx"] - hw + margin + i * 4 * LED_RADIUS for i in range(panel_led_count)]
     face = "top" if body_plan in ("wedge", "stepped") else "front"
     pv = -ctx["d"] / 2.0 + panel_center_y if face == "top" else ctx["secs"][0][1] * 0.7
+    if face == "front" and media_kind == "disc_slot" and body_height <= body_width:
+        # Generic control seats must clear the horizontal slot lip by real material.
+        # Tangent round seats create zero-thickness edges (e.g. a 44 mm body).
+        lip_top = tray_center_z + DISC_THICKNESS / 2.0 + slot_clearance + 1.0
+        pv = max(pv, lip_top + BUTTON_RADIUS + 1.0)
     depth = 2.0 + extra(ctx, face, ctx["cx"], pv, hw, 12.0)
     if panel_switch_count > 0:
         tools.append(slide_switch({"frame": frame(ctx, face, ctx["cx"], pv),

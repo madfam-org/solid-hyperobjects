@@ -119,3 +119,29 @@ presets, `kind: archetype`, which assert nothing about any product:
   measurement gate G-M).
 - Keying notches, grip band thickness and `publisher_variant` (plan §3): the
   catalog contract has no field for them yet.
+
+### Exact edition media envelopes
+
+An edition's measured media envelope may differ from another issue for the same
+platform. The supplemental catalog keys in `tools/presets/plug_in_media.py` read
+only that issue's sourced `features.media_width_mm`, `media_height_mm` and
+`media_depth_mm`. The supplemental object digest is recorded alongside the
+ordinary family digest; `family: null` edition records keep their classification.
+
+The Japanese Ocarina of Time issue `NUS-P-CZLJ-JPN` uses RCGS physical-package
+record [PACKAGE0004580](https://collection.rcgs.jp/page/PACKAGE0004580) and the
+RCGS cataloging manual's documented height × width × depth convention. Its media
+is 115 mm wide × 75 mm high × 19 mm deep. That measurement belongs to this exact
+issue; it establishes no universal Nintendo 64 cartridge thickness or tolerance.
+
+This preset is scoped to `envelope`, one conservative rectangular solid: X width,
+Y depth centered at zero, Z height above zero. Corner radii, actual silhouette,
+contact orientation, shell split, board, contacts, labels, latch, grip and keying
+are unknown and are not rendered. The bottom contact-edge frame is an original
+family convention. Package exterior dimensions are not used as case interior or
+media dimensions. Consumers must preserve the preset's mode and
+`geometry_scope: measured-envelope-only` provenance.
+
+Current source-preset projections and envelope checks are recorded in the
+[coordinated refresh evidence](../../docs/gaming-reference-refresh-verification.json).
+The earlier frozen-pin proof remains a historical verification snapshot.

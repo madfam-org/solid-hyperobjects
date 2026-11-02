@@ -36,7 +36,7 @@ import json
 import sys
 from pathlib import Path
 
-from hyperobjects_reference import family_digest, is_sourced, load_family
+from hyperobjects_reference import family_digest, is_sourced, load_family, load_object, object_digest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -133,10 +133,10 @@ class Family:
     """
 
     __slots__ = ("slug", "base", "read", "derive", "axis_mapping", "source_line",
-                 "registry_extra", "extra_presets", "caveats")
+                 "registry_extra", "extra_presets", "caveats", "supplemental_keys")
 
     def __init__(self, *, slug, base, read, derive, axis_mapping, source_line,
-                 registry_extra=None, extra_presets=(), caveats=None):
+                 registry_extra=None, extra_presets=(), caveats=None, supplemental_keys=()):
         self.slug = slug
         self.base = base
         self.read = read
@@ -144,6 +144,8 @@ class Family:
         self.axis_mapping = axis_mapping
         self.source_line = source_line
         self.registry_extra = registry_extra
+        # Exact edition envelopes can feed a family without changing catalog classification.
+        self.supplemental_keys = tuple(supplemental_keys)
         #: Presets that are NOT products — a named point in the archetype's own parameter
         #: space, such as a fold state. They carry no `registry` block because they assert
         #: nothing about any product.
@@ -256,8 +258,15 @@ def manifest_defaults(manifest: dict) -> dict:
 def generated(fam: Family, directory: str | Path | None = None) -> tuple[dict, list[dict]]:
     """(`_generated_from`, `presets`) exactly as the generator emits them today."""
     objects = load_family(fam.slug, directory)
+    objects += [load_object(key, directory) for key in fam.supplemental_keys]
     presets, skipped = build_presets(fam, objects)
-    return generated_from(fam, objects, skipped, directory), presets
+    metadata = generated_from(fam, objects, skipped, directory)
+    if fam.supplemental_keys:
+        metadata["catalog"]["supplemental_objects"] = {
+            obj["key"]: object_digest(obj) for obj in objects
+            if obj["key"] in fam.supplemental_keys
+        }
+    return metadata, presets
 
 
 def write_manifest(path: Path, fam: Family, directory: str | Path | None = None) -> None:

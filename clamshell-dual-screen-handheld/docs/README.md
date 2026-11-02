@@ -112,8 +112,8 @@ validation before the graph renders.)
   material-aware, and the catalog's `materials` block is null for every device
   in this family.
 - **Societal benefit:** a dimensioned, parametric model of the dual-screen
-  handhelds people actually own lets anyone fabricate a cradle, a dock, a travel
-  shell or a repair fixture that fits — for hardware whose manufacturer publishes
+  handhelds people actually own helps dimension a cradle, a dock, a travel
+  shell or a repair fixture against a documented envelope — for hardware whose manufacturer publishes
   an outline and nothing else, and for hardware whose manufacturer is gone.
 - **Licence:** CERN-OHL-W-2.0
 
@@ -130,7 +130,10 @@ presets carry the same values. CI runs `presets.py --check-all`. A preset sets
 **only** the parameters the catalog sources for that device; everything else
 stays at the archetype default, and the last column says which.
 
-Every preset reaches rung **L2** of the plan's resolution ladder (envelope,
+The following tables preserve the original thirteen preset mappings. The
+single-screen GBA SP addition is documented below.
+
+Every legacy preset reaches rung **L2** of the plan's resolution ladder (envelope,
 displays, features). Two reach L2 with their display windows at archetype size,
 because Nintendo publishes no pixel count for them and the catalog therefore has
 no active area — see the note below the table.
@@ -278,8 +281,8 @@ its legacy preset scoping is unchanged.
 
 A complete sourced `displays` list containing only the primary display routes a
 named object to this new mode. An uncovered list does not prove absence. The
-original frontlit Game Boy Advance SP AGS-001 can use this route once the
-keystone pin includes its Nintendo UK Screen-row coverage. AGS-101 remains
+original frontlit Game Boy Advance SP AGS-001 now uses this route at the pinned
+reference catalog, including its Nintendo UK Screen-row coverage. AGS-101 remains
 unresolved; no dimensions or display facts are borrowed from AGS-001.
 
 Nintendo UK publishes a 2.9-inch, 240×160 display and an unlabeled
@@ -290,7 +293,7 @@ square-pixel diagonal/resolution law, yielding 61.3×40.9 mm from the rounded
 
 The new single-screen rule uses the published closed envelope directly. The
 existing hinge component is clipped at the rear seam plane, so its positive-Y
-half stays inside the decks' depth. The GBA SP source candidate's complete closed
+half stays inside the decks' depth. The GBA SP source preset's complete closed
 assembly is 82×84.6×24.3 mm along X/Y/Z (X hinge axis, +Y decks, Z seam plane zero).
 This is an archetype envelope, not the shape of a manufacturer's hinge or shell.
 
@@ -303,7 +306,21 @@ headphone opening; each unknown group remains named as an archetype fallback.
 Primary area, control counts/positions, deck split and ports remain explicitly
 sourced, derived or archetypal as the generated provenance records them.
 
-An original `archetype-single-screen` preset demonstrates the mode at the frozen
-pin. The source-backed AGS-001 preset is added only by the catalog generator after
-a repin; it is never hand-entered. The new fold animation changes real geometry.
+The source-backed `nintendo-game-boy-advance-sp-ags-001` preset is emitted by the
+catalog generator in `configurable_screens` mode; it is never hand-entered. Its
+closed X/Y/Z envelope is 82 ×84.6 ×24.3 mm, and its one display active area is
+61.3 ×40.9 mm under the documented rounded-diagonal derivation. The original
+`archetype-single-screen` remains a distinct point in the family's own space.
+
+The AGS-001 record leaves all control counts and ports unresolved. Its generated
+fallback list explicitly names the single-screen control layout, face-button,
+stick, shoulder-button and menu-button counts, and USB-C/headphone ports. The
+rendered two face buttons, zero sticks, two shoulders, two menu buttons and no
+USB-C/headphone openings describe this archetype configuration; none establishes
+manufacturer presence or absence. The lower display is omitted only because the
+sourced complete display list establishes that absence.
+
+[Verification metadata](single-screen-verification.json) records the pinned
+source, resolved parameters and valid part meshes at five fold angles. The new
+fold animation changes real geometry.
 Retail package exterior dimensions are not used as device or case inside sizes.

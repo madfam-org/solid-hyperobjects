@@ -23,7 +23,8 @@ USAGE
 
 A view is `name:dx,dy,dz[:param=value,...]`: the projection direction, then parameter
 overrides applied on top of the preset (a fold state, an orientation). Fold-state presets
-(`kind: fold_state`) assert nothing about a product and are skipped.
+(`kind: fold_state`) assert nothing about a product and are skipped. Presets with an
+explicit `mode` are rendered only in that mode; requesting one in another mode fails.
 
 Needs the keystone with its [geometry] extra (cadquery). Run it locally and commit the
 SVGs; CI does not render them, so a projection is evidence the author produced, like the
@@ -125,6 +126,11 @@ def main(argv=None) -> int:
             if p.get("kind") == "fold_state":
                 continue
             if args.preset and p.get("slug") not in args.preset:
+                continue
+            if p.get("mode") is not None and p["mode"] != args.mode:
+                if args.preset and p["slug"] in args.preset:
+                    raise SystemExit(f"preset {p['slug']!r} belongs to mode {p['mode']!r}, "
+                                     f"not requested mode {args.mode!r}")
                 continue
             targets.append((p["slug"], dict(p.get("values") or {})))
 
