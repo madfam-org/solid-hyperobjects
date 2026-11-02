@@ -1,0 +1,57 @@
+NOTICE — provenance and what the named presets are
+==================================================
+
+Disc Media (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+No third-party code or design files are vendored in this cartridge.
+
+
+An archetype, not a replica
+---------------------------
+
+This cartridge models a FAMILY — a disc, and a disc carried in a shell with a
+window, a read slot and a sliding shutter — which is ours to license.
+
+Three presets are STANDARD discs and cartridges. Their dimensions are read,
+through the keystone's standard parts (hyperobjects-spec
+`hyperobjects_standard_parts`), from the published Ecma standards they name:
+ECMA-130 (the 120 mm CD), ECMA-267 (the 120 mm DVD) and ECMA-365 (the UMD
+cartridge). Each preset records the part key and its digest. The stacking-ring
+height of the two discs is DERIVED: the standard's total-height maximum minus its
+thickness. The UMD's thicker 50 mm zone is the standard's D1 circle; its window,
+read slot, shutter, centre hole and clamp zone are not in the standard part and
+fall back to the archetype rules (each preset lists them).
+
+One preset is an ARCHETYPE (`kind: archetype`), a disc in a square shell. Its
+numbers are ours and assert nothing about any product.
+
+Proprietary and non-standard formats (GD-ROM, the 8 cm GameCube disc, the Wii
+disc, the Quick Disk, the 64DD disk, BD and UHD BD, whose standards are licence-
+only) become presets only when the keystone's reference catalog files them with
+sources. When this cartridge was first published it filed none.
+
+No logo, wordmark, label artwork, colourway or texture is reproduced. A window,
+a slot and a shutter are rectangles sized by written rules. **A preset is a fit
+envelope, not a likeness.**
+
+
+What is ours, specifically
+--------------------------
+
+  * The stacking ring's radial width, and its place: on the label side, just
+    outside the clamp zone.
+  * The clamp-zone relief (zero for every standard preset).
+  * Every window, read slot, spindle hole and shutter, and the pocket clearance.
+  * A UMD-type disc's centre hole and clamp zone (scaled from the 120 mm
+    standards), and which face carries the thicker D1 zone.
+
+
+Trademarks
+----------
+
+Format and company names that appear in preset labels and provenance lines are
+the trademarks of their respective owners and are used only to say which
+published measurements a preset carries. Their use is nominative: no
+affiliation, sponsorship or endorsement is claimed or implied.
