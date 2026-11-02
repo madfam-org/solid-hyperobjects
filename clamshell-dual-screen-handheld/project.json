@@ -2845,8 +2845,8 @@
       "package": "hyperobjects-spec",
       "module": "hyperobjects_reference",
       "schema": "reference-object",
-      "family_digest": "a1afd0e2753eb7f6ebf3c7bc564c93511a04718dcf5c2d97f8153ed007935db6",
-      "objects": 16,
+      "family_digest": "69fa343255d783159f101ab1907ce07ba616fd84c40d14ab48d751bf6908389d",
+      "objects": 22,
       "rule": "null = unresolved, never guessed; every number carries its source"
     },
     "family": "clamshell-dual-screen-handheld",
@@ -2862,6 +2862,48 @@
         "model": "Thor",
         "status": "partial",
         "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-game-boy-advance-sp-ags-001",
+        "brand": "Nintendo",
+        "model": "Game Boy Advance SP AGS-001",
+        "status": "partial",
+        "reason": "nintendo-game-boy-advance-sp-ags-001: shoulder cut would run off the 82.0 mm deck end."
+      },
+      {
+        "slug": "nintendo-game-boy-advance-sp-ags-101",
+        "brand": "Nintendo",
+        "model": "Game Boy Advance SP AGS-101",
+        "status": "unverified",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-game-watch-donkey-kong-dk-52",
+        "brand": "Nintendo",
+        "model": "Game & Watch Donkey Kong DK-52",
+        "status": "partial",
+        "reason": "nintendo-game-watch-donkey-kong-dk-52: shoulder cut would run off the 115.0 mm deck end."
+      },
+      {
+        "slug": "nintendo-game-watch-mario-bros-mw-56",
+        "brand": "Nintendo",
+        "model": "Game & Watch Mario Bros. MW-56",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-game-watch-oil-panic-op-51",
+        "brand": "Nintendo",
+        "model": "Game & Watch Oil Panic OP-51",
+        "status": "unverified",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-game-watch-zelda-zl-65",
+        "brand": "Nintendo",
+        "model": "Game & Watch Zelda ZL-65",
+        "status": "partial",
+        "reason": "nintendo-game-watch-zelda-zl-65: shoulder cut would run off the 117.0 mm deck end."
       },
       {
         "slug": "onexplayer-onexsugar",
