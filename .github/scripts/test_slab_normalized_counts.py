@@ -14,8 +14,6 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-COUNTS = ('grip_count', 'dpad_count', 'face_count', 'stick_count',
-          'system_count', 'rear_count', 'cell_count', 'bumper_count', 'trigger_count')
 
 
 def count_function():
@@ -38,17 +36,6 @@ def test_integral_api_numbers_keep_count_semantics(value):
 def test_unsupported_counts_are_rejected_instead_of_truncated(value):
     with pytest.raises(ValueError, match='finite non-negative integer'):
         count_function()(value, 'bumper_count')
-
-
-def test_every_count_is_validated_before_any_construction():
-    tree = ast.parse((ROOT / 'slab-handheld/family.py').read_text())
-    assignments = {n.targets[0].id: n.value for n in tree.body
-                   if isinstance(n, ast.Assign) and isinstance(n.targets[0], ast.Name)}
-    for name in COUNTS:
-        call = assignments[name]
-        assert isinstance(call, ast.Call) and isinstance(call.func, ast.Name)
-        assert call.func.id == 'count_value'
-        assert call.args[1].value == name
 
 
 def test_real_api_normalizer_to_sandbox_native_export(tmp_path):

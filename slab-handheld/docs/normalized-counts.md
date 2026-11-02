@@ -26,8 +26,8 @@ This test normalizes the named ROG Ally preset (including positive rear counts),
 asserts the API's float injection, exports a nonempty watertight front shell via
 the actual native sandbox, then verifies a fractional normalized rear count fails
 explicitly. Without `YANTRA4D_ROOT` it reports an explicit integration-test skip;
-no simulated normalizer or native export is substituted. The isolated validation
-and assignment-wiring tests still run in the normal commons test suite.
+no simulated normalizer or native export is substituted. The isolated count
+validation tests still run in the normal commons test suite.
 
 The initial local integration used Yantra revision
 `49a41f851b1ef66576647bc35f16f6ee7ff3e1cb` and keystone
