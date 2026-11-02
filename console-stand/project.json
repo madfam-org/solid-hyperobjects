@@ -1,0 +1,613 @@
+{
+  "project": {
+    "name": "Console Stand",
+    "slug": "console-stand",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "difficulty": "intermediate",
+    "description": {
+      "en": "Original circular base, console clip and cradle family with sourced stand body envelopes.",
+      "es": "Familia original de base circular, clip y cuna con envolventes documentadas."
+    },
+    "thumbnail": "/projects/console-stand.webp",
+    "tags": [
+      "case",
+      "media",
+      "gaming",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Stand envelope",
+          "es": "Envolvente del soporte"
+        },
+        "geometry_type": "profile",
+        "compatible_with": [
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "stand_seat",
+        "label": {
+          "en": "Console/stand seat",
+          "es": "Asiento de consola"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "home-console"
+        ]
+      },
+      {
+        "id": "cradle_seat",
+        "label": {
+          "en": "Device cradle",
+          "es": "Asiento de dispositivo"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "slab-handheld"
+        ]
+      }
+    ],
+    "composition": {
+      "description": {
+        "en": "Shared support components, inlined at build.",
+        "es": "Componentes de soporte compartidos, integrados al generar."
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ],
+  "parameters": [
+    {
+      "id": "body_width",
+      "default": 110,
+      "group": "design",
+      "label": {
+        "en": "body width",
+        "es": "Ancho del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 440,
+      "step": 0.1
+    },
+    {
+      "id": "body_depth",
+      "default": 70,
+      "group": "design",
+      "label": {
+        "en": "body depth",
+        "es": "Fondo del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 280,
+      "step": 0.1
+    },
+    {
+      "id": "body_height",
+      "default": 65,
+      "group": "design",
+      "label": {
+        "en": "body height",
+        "es": "Altura del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 260,
+      "step": 0.1
+    },
+    {
+      "id": "stand_kind",
+      "default": "cradle",
+      "group": "design",
+      "label": {
+        "en": "stand kind",
+        "es": "Tipo de soporte"
+      },
+      "type": "select",
+      "options": [
+        {
+          "value": "cradle",
+          "label": {
+            "en": "Cradle",
+            "es": "Cuna"
+          }
+        },
+        {
+          "value": "vertical_clip",
+          "label": {
+            "en": "Vertical clip",
+            "es": "Clip vertical"
+          }
+        },
+        {
+          "value": "base_disc",
+          "label": {
+            "en": "Disc base",
+            "es": "Base circular"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "default": 2,
+      "group": "design",
+      "label": {
+        "en": "wall",
+        "es": "Grosor de pared"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "base_height",
+      "default": 13,
+      "group": "design",
+      "label": {
+        "en": "base height",
+        "es": "Altura de base"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 52,
+      "step": 0.1
+    },
+    {
+      "id": "corner_radius",
+      "default": 2.8,
+      "group": "design",
+      "label": {
+        "en": "corner radius",
+        "es": "Radio de esquina"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "seat_width",
+      "default": 71.5,
+      "group": "design",
+      "label": {
+        "en": "seat width",
+        "es": "Ancho del asiento"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 286.0,
+      "step": 0.1
+    },
+    {
+      "id": "seat_depth",
+      "default": 52.5,
+      "group": "design",
+      "label": {
+        "en": "seat depth",
+        "es": "Fondo del asiento"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 210.0,
+      "step": 0.1
+    },
+    {
+      "id": "tilt_angle",
+      "default": 65,
+      "group": "design",
+      "label": {
+        "en": "tilt angle",
+        "es": "Ángulo del respaldo"
+      },
+      "type": "slider",
+      "min": 60,
+      "max": 80,
+      "step": 0.1
+    },
+    {
+      "id": "mount_hole_diameter",
+      "default": 4,
+      "group": "design",
+      "label": {
+        "en": "mount hole diameter",
+        "es": "Diámetro de montaje"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "cable_slot_width",
+      "default": 12,
+      "group": "design",
+      "label": {
+        "en": "cable slot width",
+        "es": "Ancho del paso de cable"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 48,
+      "step": 0.1
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "design",
+      "label": {
+        "en": "Design",
+        "es": "Diseño"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "stand",
+      "label": {
+        "en": "Stand",
+        "es": "Soporte"
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente"
+      }
+    }
+  ],
+  "modes": [
+    {
+      "id": "stand",
+      "label": {
+        "en": "Stand",
+        "es": "Soporte"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "stand"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "constraints": [
+    {
+      "expression": "base_height < body_height && wall * 2 < body_width",
+      "severity": "error",
+      "message": {
+        "en": "Base and walls must fit the envelope.",
+        "es": "La base y las paredes deben caber."
+      }
+    },
+    {
+      "expression": "seat_width + wall * 2 < body_width && seat_depth < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "Seat must fit the support footprint.",
+        "es": "El asiento debe caber en la huella."
+      }
+    },
+    {
+      "expression": "mount_hole_diameter < seat_width / 2 && cable_slot_width < body_width / 3",
+      "severity": "error",
+      "message": {
+        "en": "Holes must leave connected support material.",
+        "es": "Los huecos deben dejar material unido."
+      }
+    },
+    {
+      "expression": "(body_height - base_height + wall) * 0.5774 < (body_depth + seat_depth) / 2",
+      "severity": "error",
+      "message": {
+        "en": "Back support must remain inside the footprint at the minimum cradle angle.",
+        "es": "El respaldo debe permanecer dentro de la huella al ángulo mínimo."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "cradle-tilt",
+      "label": {
+        "en": "Cradle angle",
+        "es": "Ángulo de cuna"
+      },
+      "from_state": {
+        "stand_kind": "cradle",
+        "tilt_angle": 60
+      },
+      "to_state": {
+        "stand_kind": "cradle",
+        "tilt_angle": 80
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "mode": "stand"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        200,
+        -200,
+        180
+      ],
+      "target": [
+        0,
+        0,
+        10
+      ]
+    }
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family console-stand --write console-stand/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "f3819f056fa5f5a89c9aff56990755e378f7fd7cd32160043eaaed3fd1b45fe4",
+      "objects": 3,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "console-stand",
+    "axis_mapping": {
+      "body_width": "body.width -> X",
+      "body_depth": "body.depth -> Y",
+      "body_height": "body.height -> Z"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "nintendo-wii-console-stand-rvl-017",
+      "label": {
+        "en": "Wii console stand",
+        "es": "Wii console stand"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-wii-console-stand-rvl-017` (status: verified); published stand body envelope only; stand form, seat and mounting features remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-wii-console-stand-rvl-017",
+        "catalog": "hyperobjects_reference",
+        "status": "verified",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g"
+        ],
+        "archetype_fallbacks": [
+          "stand construction selected from envelope ratios",
+          "device/stand seat dimensions",
+          "mounting hole and cable path",
+          "view angle and wall profile"
+        ],
+        "host_console": "nintendo-wii"
+      },
+      "values": {
+        "body_width": 55.4,
+        "body_depth": 225.6,
+        "body_height": 42,
+        "stand_kind": "vertical_clip",
+        "wall": 2,
+        "base_height": 8.4,
+        "corner_radius": 2.216,
+        "seat_width": 36.01,
+        "seat_depth": 191.76,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 8.31
+      }
+    },
+    {
+      "slug": "nintendo-switch-charging-stand-free-stop",
+      "label": {
+        "en": "Nintendo Switch Charging Stand (free-stop)",
+        "es": "Nintendo Switch Charging Stand (free-stop)"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-charging-stand-free-stop` (status: partial); published stand body envelope only; stand form, seat and mounting features remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-charging-stand-free-stop",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g",
+          "ports",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "stand construction selected from envelope ratios",
+          "device/stand seat dimensions",
+          "mounting hole and cable path",
+          "view angle and wall profile"
+        ],
+        "host_console": "nintendo-switch, nintendo-switch-oled-model, nintendo-switch-lite"
+      },
+      "values": {
+        "body_width": 47.9,
+        "body_depth": 28.1,
+        "body_height": 44.7,
+        "stand_kind": "cradle",
+        "wall": 2,
+        "base_height": 8.94,
+        "corner_radius": 1.124,
+        "seat_width": 31.135,
+        "seat_depth": 21.075,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 7.185
+      }
+    },
+    {
+      "slug": "sony-ps5-vertical-stand-cfi-zvs1",
+      "label": {
+        "en": "Vertical Stand for PS5 consoles",
+        "es": "Vertical Stand for PS5 consoles"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `sony-ps5-vertical-stand-cfi-zvs1` (status: partial); published stand body envelope only; stand form, seat and mounting features remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "sony-ps5-vertical-stand-cfi-zvs1",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g"
+        ],
+        "archetype_fallbacks": [
+          "stand construction selected from envelope ratios",
+          "device/stand seat dimensions",
+          "mounting hole and cable path",
+          "view angle and wall profile"
+        ],
+        "host_console": "sony-playstation-5-pro-cfi-7000, sony-playstation-5-cfi-1000, sony-playstation-5-cfi-2000"
+      },
+      "values": {
+        "body_width": 155,
+        "body_depth": 155,
+        "body_height": 11,
+        "stand_kind": "base_disc",
+        "wall": 2,
+        "base_height": 7.15,
+        "corner_radius": 6.2,
+        "seat_width": 69.75,
+        "seat_depth": 69.75,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 12
+      }
+    },
+    {
+      "slug": "archetype-cradle",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — cradle",
+        "es": "Arquetipo — cuna"
+      },
+      "source": "Original stand envelope and construction, not a product. All seat/profile/clearance values are explicit archetype rules.",
+      "values": {
+        "body_width": 110,
+        "body_depth": 70,
+        "body_height": 65,
+        "stand_kind": "cradle",
+        "wall": 2,
+        "base_height": 13,
+        "corner_radius": 2.8,
+        "seat_width": 71.5,
+        "seat_depth": 52.5,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 12
+      }
+    },
+    {
+      "slug": "archetype-vertical-clip",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — vertical-clip",
+        "es": "Arquetipo — clip vertical"
+      },
+      "source": "Original stand envelope and construction, not a product. All seat/profile/clearance values are explicit archetype rules.",
+      "values": {
+        "body_width": 80,
+        "body_depth": 180,
+        "body_height": 40,
+        "stand_kind": "vertical_clip",
+        "wall": 2,
+        "base_height": 8,
+        "corner_radius": 3.2,
+        "seat_width": 52,
+        "seat_depth": 153,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 12
+      }
+    },
+    {
+      "slug": "archetype-disc-base",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — disc-base",
+        "es": "Arquetipo — base circular"
+      },
+      "source": "Original stand envelope and construction, not a product. All seat/profile/clearance values are explicit archetype rules.",
+      "values": {
+        "body_width": 160,
+        "body_depth": 160,
+        "body_height": 14,
+        "stand_kind": "base_disc",
+        "wall": 2,
+        "base_height": 9.1,
+        "corner_radius": 6.4,
+        "seat_width": 72,
+        "seat_depth": 72,
+        "tilt_angle": 65,
+        "mount_hole_diameter": 4,
+        "cable_slot_width": 12
+      }
+    }
+  ]
+}
