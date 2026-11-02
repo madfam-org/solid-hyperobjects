@@ -1,0 +1,1521 @@
+{
+  "project": {
+    "id": "slab-handheld",
+    "name": "Slab Handheld",
+    "description": {
+      "en": "Original slab handheld family with sourced presets, display and control seats, media, battery bay and attachment interfaces.",
+      "es": "Familia portátil plana original con presets documentados, pantalla, controles, medios, batería e interfaces."
+    },
+    "license": "CERN-OHL-W-2.0",
+    "thumbnail": "/projects/slab-handheld.webp",
+    "tags": [
+      "gaming",
+      "handheld",
+      "parametric",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "slug": "slab-handheld",
+    "version": "0.1.0",
+    "difficulty": "intermediate",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "engine": "cadquery",
+  "hyperobject": {
+    "version": "1.0",
+    "family": "slab-handheld",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "compatible_with": [
+          "device-stand",
+          "rugged-box"
+        ],
+        "label": {
+          "en": "device envelope",
+          "es": "Envolvente del dispositivo"
+        },
+        "geometry_type": "profile"
+      },
+      {
+        "id": "cradle_seat",
+        "compatible_with": [
+          "console-dock",
+          "device-stand"
+        ],
+        "label": {
+          "en": "cradle seat",
+          "es": "Asiento de base"
+        },
+        "geometry_type": "surface"
+      },
+      {
+        "id": "rail",
+        "compatible_with": [
+          "gamepad"
+        ],
+        "label": {
+          "en": "rail",
+          "es": "Riel"
+        },
+        "geometry_type": "surface"
+      },
+      {
+        "id": "media_slot",
+        "compatible_with": [
+          "plug-in-media",
+          "disc-media"
+        ],
+        "label": {
+          "en": "media slot",
+          "es": "Ranura de medios"
+        },
+        "geometry_type": "profile"
+      }
+    ],
+    "composition": {
+      "description": {
+        "en": "Shared display/control tools and handheld body components, inlined at build.",
+        "es": "Herramientas compartidas de pantalla, controles y cuerpo, integradas al generar."
+      }
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "parameters": [
+    {
+      "id": "body_width",
+      "label": {
+        "en": "body width",
+        "es": "Ancho del cuerpo"
+      },
+      "default": 170,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 500
+    },
+    {
+      "id": "body_height",
+      "label": {
+        "en": "body height",
+        "es": "Altura del cuerpo"
+      },
+      "default": 90,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 500
+    },
+    {
+      "id": "body_depth",
+      "label": {
+        "en": "body depth",
+        "es": "Grosor del cuerpo"
+      },
+      "default": 26,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 500
+    },
+    {
+      "id": "layout",
+      "label": {
+        "en": "layout",
+        "es": "Disposición"
+      },
+      "default": "landscape",
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "portrait",
+          "label": {
+            "en": "portrait",
+            "es": "vertical"
+          }
+        },
+        {
+          "value": "landscape",
+          "label": {
+            "en": "landscape",
+            "es": "horizontal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "corner_radius",
+      "label": {
+        "en": "corner radius",
+        "es": "Radio de esquina"
+      },
+      "default": 7.2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 36.0
+    },
+    {
+      "id": "back_crown",
+      "label": {
+        "en": "back crown",
+        "es": "Curvatura trasera"
+      },
+      "default": 2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 10
+    },
+    {
+      "id": "grip_count",
+      "label": {
+        "en": "grip count",
+        "es": "Número de agarres"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 4
+    },
+    {
+      "id": "face_depth",
+      "label": {
+        "en": "face depth",
+        "es": "Grosor frontal"
+      },
+      "default": 26,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 130
+    },
+    {
+      "id": "grip_width",
+      "label": {
+        "en": "grip width",
+        "es": "Ancho del agarre"
+      },
+      "default": 30.6,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 153.0
+    },
+    {
+      "id": "grip_length",
+      "label": {
+        "en": "grip length",
+        "es": "Longitud del agarre"
+      },
+      "default": 67.5,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 337.5
+    },
+    {
+      "id": "grip_drop",
+      "label": {
+        "en": "grip drop",
+        "es": "Desnivel del agarre"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "screen_width",
+      "label": {
+        "en": "screen width",
+        "es": "Ancho de pantalla"
+      },
+      "default": 88.4,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 442.0
+    },
+    {
+      "id": "screen_height",
+      "label": {
+        "en": "screen height",
+        "es": "Altura de pantalla"
+      },
+      "default": 58.5,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 292.5
+    },
+    {
+      "id": "screen_z",
+      "label": {
+        "en": "screen z",
+        "es": "Altura del centro de pantalla"
+      },
+      "default": 47.7,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 238.5
+    },
+    {
+      "id": "control_z",
+      "label": {
+        "en": "control z",
+        "es": "Altura de los controles"
+      },
+      "default": 43.2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 216.0
+    },
+    {
+      "id": "control_x",
+      "label": {
+        "en": "control x",
+        "es": "Separación de controles"
+      },
+      "default": 66.3,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 331.5
+    },
+    {
+      "id": "dpad_count",
+      "label": {
+        "en": "dpad count",
+        "es": "Cruceta presente"
+      },
+      "default": 1,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "face_count",
+      "label": {
+        "en": "face count",
+        "es": "Número de botones frontales"
+      },
+      "default": 4,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 20
+    },
+    {
+      "id": "stick_count",
+      "label": {
+        "en": "stick count",
+        "es": "Número de palancas"
+      },
+      "default": 2,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "system_count",
+      "label": {
+        "en": "system count",
+        "es": "Número de botones de sistema"
+      },
+      "default": 2,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "rear_count",
+      "label": {
+        "en": "rear count",
+        "es": "Número de botones traseros"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "crank_present",
+      "label": {
+        "en": "crank present",
+        "es": "Manivela presente"
+      },
+      "default": false,
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "control_size",
+      "label": {
+        "en": "control size",
+        "es": "Tamaño de controles"
+      },
+      "default": 12.6,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 63.0
+    },
+    {
+      "id": "button_radius",
+      "label": {
+        "en": "button radius",
+        "es": "Radio de botones"
+      },
+      "default": 3.15,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 15.75
+    },
+    {
+      "id": "media_kind",
+      "label": {
+        "en": "media kind",
+        "es": "Tipo de medio"
+      },
+      "default": "slot_top",
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "none",
+            "es": "ninguno"
+          }
+        },
+        {
+          "value": "slot_top",
+          "label": {
+            "en": "slot_top",
+            "es": "ranura superior"
+          }
+        },
+        {
+          "value": "slot_bottom",
+          "label": {
+            "en": "slot_bottom",
+            "es": "ranura inferior"
+          }
+        },
+        {
+          "value": "cart_rear",
+          "label": {
+            "en": "cart_rear",
+            "es": "cartucho trasero"
+          }
+        },
+        {
+          "value": "umd_rear",
+          "label": {
+            "en": "umd_rear",
+            "es": "disco trasero"
+          }
+        },
+        {
+          "value": "faceplate",
+          "label": {
+            "en": "faceplate",
+            "es": "placa intercambiable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "media_width",
+      "label": {
+        "en": "media width",
+        "es": "Ancho del medio"
+      },
+      "default": 55,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 275
+    },
+    {
+      "id": "media_height",
+      "label": {
+        "en": "media height",
+        "es": "Altura del medio"
+      },
+      "default": 28.8,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 144.0
+    },
+    {
+      "id": "media_thickness",
+      "label": {
+        "en": "media thickness",
+        "es": "Grosor del medio"
+      },
+      "default": 5,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 25
+    },
+    {
+      "id": "media_insert_depth",
+      "label": {
+        "en": "media insert depth",
+        "es": "Profundidad de inserción"
+      },
+      "default": 16.2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 81.0
+    },
+    {
+      "id": "media_insert",
+      "label": {
+        "en": "media insert",
+        "es": "Estado de inserción"
+      },
+      "default": 1,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0,
+      "max": 1
+    },
+    {
+      "id": "cell_kind",
+      "label": {
+        "en": "cell kind",
+        "es": "Tipo de pila"
+      },
+      "default": "built_in",
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "built_in",
+          "label": {
+            "en": "built_in",
+            "es": "integrada"
+          }
+        },
+        {
+          "value": "aa",
+          "label": {
+            "en": "aa",
+            "es": "AA"
+          }
+        },
+        {
+          "value": "aaa",
+          "label": {
+            "en": "aaa",
+            "es": "AAA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cell_count",
+      "label": {
+        "en": "cell count",
+        "es": "Número de pilas"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 1,
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "bay_width",
+      "label": {
+        "en": "bay width",
+        "es": "Ancho del compartimento"
+      },
+      "default": 45,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 225
+    },
+    {
+      "id": "bay_height",
+      "label": {
+        "en": "bay height",
+        "es": "Altura del compartimento"
+      },
+      "default": 18,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 90
+    },
+    {
+      "id": "bay_depth",
+      "label": {
+        "en": "bay depth",
+        "es": "Profundidad del compartimento"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0,
+      "max": 25
+    },
+    {
+      "id": "bay_z",
+      "label": {
+        "en": "bay z",
+        "es": "Altura del compartimento"
+      },
+      "default": 27,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 135
+    },
+    {
+      "id": "controller_attach",
+      "label": {
+        "en": "controller attach",
+        "es": "Unión de controles"
+      },
+      "default": "none",
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "none",
+            "es": "ninguno"
+          }
+        },
+        {
+          "value": "rail",
+          "label": {
+            "en": "rail",
+            "es": "riel"
+          }
+        },
+        {
+          "value": "magnetic",
+          "label": {
+            "en": "magnetic",
+            "es": "magnética"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kickstand_present",
+      "label": {
+        "en": "kickstand present",
+        "es": "Soporte presente"
+      },
+      "default": true,
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "kickstand_angle",
+      "label": {
+        "en": "kickstand angle",
+        "es": "Ángulo del soporte"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0,
+      "max": 90
+    },
+    {
+      "id": "kickstand_width",
+      "label": {
+        "en": "kickstand width",
+        "es": "Ancho del soporte"
+      },
+      "default": 42.5,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 212.5
+    },
+    {
+      "id": "kickstand_height",
+      "label": {
+        "en": "kickstand height",
+        "es": "Altura del soporte"
+      },
+      "default": 36,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 180
+    },
+    {
+      "id": "usb_present",
+      "label": {
+        "en": "usb present",
+        "es": "Puerto USB presente"
+      },
+      "default": true,
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "jack_present",
+      "label": {
+        "en": "jack present",
+        "es": "Conector de auriculares"
+      },
+      "default": true,
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "wall",
+      "label": {
+        "en": "wall",
+        "es": "Grosor de pared"
+      },
+      "default": 2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 10
+    },
+    {
+      "id": "clearance",
+      "label": {
+        "en": "clearance",
+        "es": "Holgura"
+      },
+      "default": 0.4,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 10
+    },
+    {
+      "id": "recess_depth",
+      "label": {
+        "en": "recess depth",
+        "es": "Profundidad de rebajes"
+      },
+      "default": 1.2,
+      "group": "design",
+      "type": "slider",
+      "step": 0.1,
+      "min": 0.1,
+      "max": 10
+    },
+    {
+      "id": "bumper_count",
+      "label": {
+        "en": "bumper count",
+        "es": "Número de botones superiores"
+      },
+      "default": 2,
+      "group": "design",
+      "type": "slider",
+      "min": 0,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "id": "trigger_count",
+      "label": {
+        "en": "trigger count",
+        "es": "Número de gatillos"
+      },
+      "default": 0,
+      "group": "design",
+      "type": "slider",
+      "min": 0,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "id": "touchpad_present",
+      "label": {
+        "en": "touchpad present",
+        "es": "Panel táctil"
+      },
+      "default": false,
+      "group": "design",
+      "type": "checkbox"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "design",
+      "label": {
+        "en": "Design",
+        "es": "Diseño"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "front_shell",
+      "label": {
+        "en": "Front shell",
+        "es": "Carcasa frontal"
+      }
+    },
+    {
+      "id": "rear_body",
+      "label": {
+        "en": "Rear body with medium",
+        "es": "Cuerpo trasero con medio"
+      }
+    },
+    {
+      "id": "battery_door",
+      "label": {
+        "en": "Battery door",
+        "es": "Tapa de batería"
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Fit envelope",
+        "es": "Envolvente"
+      }
+    }
+  ],
+  "modes": [
+    {
+      "id": "device",
+      "label": {
+        "en": "device",
+        "es": "Dispositivo"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "envelope",
+        "es": "Envolvente"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "front_shell",
+      "label": {
+        "en": "front shell",
+        "es": "Carcasa frontal"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "front_shell"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "rear_body",
+      "label": {
+        "en": "rear shell",
+        "es": "Cuerpo trasero"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "rear_body"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "battery_door",
+      "label": {
+        "en": "battery door",
+        "es": "Tapa de batería"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "battery_door"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "device": {
+        "part_overrides": {
+          "rear_body": {
+            "geometry.body_count": {
+              "expected": "1 if media_kind == 'none' else 2"
+            }
+          }
+        }
+      },
+      "rear_body": {
+        "part_overrides": {
+          "rear_body": {
+            "geometry.body_count": {
+              "expected": "1 if media_kind == 'none' else 2"
+            }
+          }
+        }
+      }
+    }
+  },
+  "constraints": [
+    {
+      "expression": "body_depth > wall * 3",
+      "severity": "error",
+      "message": {
+        "en": "Depth must leave room for two walls.",
+        "es": "El fondo debe admitir dos paredes."
+      }
+    },
+    {
+      "expression": "screen_width < body_width - wall * 2 && screen_height < body_height - wall * 2",
+      "severity": "error",
+      "message": {
+        "en": "Display must fit the body.",
+        "es": "La pantalla debe caber en el cuerpo."
+      }
+    },
+    {
+      "expression": "bay_width + 6 < body_width && bay_height + 6 < body_height",
+      "severity": "error",
+      "message": {
+        "en": "Battery door must fit the rear.",
+        "es": "La tapa debe caber en la parte trasera."
+      }
+    },
+    {
+      "expression": "cell_count == 0 || (body_depth > 20 && body_width > 60 && body_height > cell_count * 15 + 8)",
+      "severity": "error",
+      "message": {
+        "en": "Cylindrical cells require a larger body and room for the stack.",
+        "es": "Las pilas cilíndricas requieren un cuerpo mayor y espacio para la pila."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "kickstand",
+      "label": {
+        "en": "Open kickstand",
+        "es": "Abrir soporte"
+      },
+      "from_state": {
+        "kickstand_present": true,
+        "kickstand_angle": 0
+      },
+      "to_state": {
+        "kickstand_present": true,
+        "kickstand_angle": 60
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "mode": "device"
+    },
+    {
+      "id": "slot-insert",
+      "label": {
+        "en": "Insert medium",
+        "es": "Insertar medio"
+      },
+      "from_state": {
+        "media_kind": "slot_top",
+        "media_insert": 0
+      },
+      "to_state": {
+        "media_kind": "slot_top",
+        "media_insert": 1
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "mode": "device"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frente"
+      },
+      "position": [
+        0,
+        -200,
+        60
+      ],
+      "target": [
+        0,
+        0,
+        45
+      ]
+    },
+    {
+      "id": "rear",
+      "label": {
+        "en": "Rear",
+        "es": "Trasera"
+      },
+      "position": [
+        0,
+        200,
+        60
+      ],
+      "target": [
+        0,
+        0,
+        45
+      ]
+    }
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family slab-handheld --write slab-handheld/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "slab-handheld",
+    "axis_mapping": {
+      "body_width": "states.body.width -> X",
+      "body_height": "larger of states.body.height/depth -> Z",
+      "body_depth": "smaller of states.body.height/depth -> Y; explicit thickness mapping, front face y=0"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-portrait-cart-rear",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — portrait cart rear",
+        "es": "Arquetipo — vertical con cartucho trasero"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 90,
+        "body_height": 155,
+        "body_depth": 32,
+        "layout": "portrait",
+        "corner_radius": 7.2,
+        "back_crown": 2,
+        "grip_count": 0,
+        "face_depth": 32,
+        "grip_width": 16.2,
+        "grip_length": 116.25,
+        "grip_drop": 0,
+        "screen_width": 58.5,
+        "screen_height": 49.6,
+        "screen_z": 105.4,
+        "control_z": 38.75,
+        "control_x": 20.7,
+        "dpad_count": 1,
+        "face_count": 4,
+        "stick_count": 0,
+        "system_count": 2,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 12.6,
+        "button_radius": 3.15,
+        "media_kind": "cart_rear",
+        "media_width": 37.8,
+        "media_height": 40,
+        "media_thickness": 5,
+        "media_insert_depth": 27.9,
+        "media_insert": 1,
+        "cell_kind": "aa",
+        "cell_count": 4,
+        "bay_width": 51.3,
+        "bay_height": 60,
+        "bay_depth": 14.9,
+        "bay_z": 46.5,
+        "controller_attach": "none",
+        "kickstand_present": false,
+        "kickstand_angle": 0,
+        "kickstand_width": 22.5,
+        "kickstand_height": 62,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-landscape",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — landscape",
+        "es": "Arquetipo — horizontal"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 170,
+        "body_height": 90,
+        "body_depth": 26,
+        "layout": "landscape",
+        "corner_radius": 7.2,
+        "back_crown": 2,
+        "grip_count": 0,
+        "face_depth": 26,
+        "grip_width": 30.6,
+        "grip_length": 67.5,
+        "grip_drop": 0,
+        "screen_width": 88.4,
+        "screen_height": 58.5,
+        "screen_z": 47.7,
+        "control_z": 43.2,
+        "control_x": 66.3,
+        "dpad_count": 1,
+        "face_count": 4,
+        "stick_count": 2,
+        "system_count": 2,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 12.6,
+        "button_radius": 3.15,
+        "media_kind": "slot_top",
+        "media_width": 55,
+        "media_height": 28.8,
+        "media_thickness": 5,
+        "media_insert_depth": 16.2,
+        "media_insert": 1,
+        "cell_kind": "built_in",
+        "cell_count": 0,
+        "bay_width": 45,
+        "bay_height": 18,
+        "bay_depth": 0,
+        "bay_z": 27,
+        "controller_attach": "none",
+        "kickstand_present": true,
+        "kickstand_angle": 0,
+        "kickstand_width": 42.5,
+        "kickstand_height": 36,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-gripped-pc",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — gripped pc",
+        "es": "Arquetipo — PC con agarres"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 290,
+        "body_height": 120,
+        "body_depth": 45,
+        "layout": "landscape",
+        "corner_radius": 9.6,
+        "back_crown": 2,
+        "grip_count": 2,
+        "face_depth": 29.25,
+        "grip_width": 52.2,
+        "grip_length": 90,
+        "grip_drop": 9.6,
+        "screen_width": 150.8,
+        "screen_height": 78,
+        "screen_z": 63.6,
+        "control_z": 57.6,
+        "control_x": 113.1,
+        "dpad_count": 1,
+        "face_count": 4,
+        "stick_count": 2,
+        "system_count": 2,
+        "rear_count": 4,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 16.8,
+        "button_radius": 4.2,
+        "media_kind": "none",
+        "media_width": 55,
+        "media_height": 38.4,
+        "media_thickness": 5,
+        "media_insert_depth": 21.6,
+        "media_insert": 1,
+        "cell_kind": "built_in",
+        "cell_count": 0,
+        "bay_width": 45,
+        "bay_height": 24,
+        "bay_depth": 0,
+        "bay_z": 36,
+        "controller_attach": "none",
+        "kickstand_present": false,
+        "kickstand_angle": 0,
+        "kickstand_width": 72.5,
+        "kickstand_height": 48,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-hybrid-rail",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — hybrid rail",
+        "es": "Arquetipo — híbrida con rieles"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 180,
+        "body_height": 105,
+        "body_depth": 14,
+        "layout": "landscape",
+        "corner_radius": 8.4,
+        "back_crown": 1.12,
+        "grip_count": 0,
+        "face_depth": 14,
+        "grip_width": 32.4,
+        "grip_length": 78.75,
+        "grip_drop": 0,
+        "screen_width": 93.6,
+        "screen_height": 68.25,
+        "screen_z": 55.65,
+        "control_z": 50.4,
+        "control_x": 70.2,
+        "dpad_count": 0,
+        "face_count": 0,
+        "stick_count": 0,
+        "system_count": 1,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 14.7,
+        "button_radius": 3.675,
+        "media_kind": "slot_top",
+        "media_width": 55,
+        "media_height": 33.6,
+        "media_thickness": 3.08,
+        "media_insert_depth": 18.9,
+        "media_insert": 1,
+        "cell_kind": "built_in",
+        "cell_count": 0,
+        "bay_width": 45,
+        "bay_height": 21,
+        "bay_depth": 0,
+        "bay_z": 31.5,
+        "controller_attach": "rail",
+        "kickstand_present": true,
+        "kickstand_angle": 0,
+        "kickstand_width": 45,
+        "kickstand_height": 42,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-hybrid-magnetic",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — hybrid magnetic",
+        "es": "Arquetipo — híbrida magnética"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 200,
+        "body_height": 115,
+        "body_depth": 16,
+        "layout": "landscape",
+        "corner_radius": 9.2,
+        "back_crown": 1.28,
+        "grip_count": 0,
+        "face_depth": 16,
+        "grip_width": 36,
+        "grip_length": 86.25,
+        "grip_drop": 0,
+        "screen_width": 104,
+        "screen_height": 74.75,
+        "screen_z": 60.95,
+        "control_z": 55.2,
+        "control_x": 78,
+        "dpad_count": 0,
+        "face_count": 0,
+        "stick_count": 0,
+        "system_count": 1,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 16.1,
+        "button_radius": 4.025,
+        "media_kind": "slot_top",
+        "media_width": 55,
+        "media_height": 36.8,
+        "media_thickness": 3.52,
+        "media_insert_depth": 20.7,
+        "media_insert": 1,
+        "cell_kind": "built_in",
+        "cell_count": 0,
+        "bay_width": 45,
+        "bay_height": 23,
+        "bay_depth": 0,
+        "bay_z": 34.5,
+        "controller_attach": "magnetic",
+        "kickstand_present": true,
+        "kickstand_angle": 0,
+        "kickstand_width": 50,
+        "kickstand_height": 46,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-faceplate",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — faceplate",
+        "es": "Arquetipo — placa intercambiable"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 100,
+        "body_height": 160,
+        "body_depth": 30,
+        "layout": "portrait",
+        "corner_radius": 8,
+        "back_crown": 2,
+        "grip_count": 0,
+        "face_depth": 30,
+        "grip_width": 18,
+        "grip_length": 120,
+        "grip_drop": 0,
+        "screen_width": 65,
+        "screen_height": 51.2,
+        "screen_z": 108.8,
+        "control_z": 40,
+        "control_x": 23,
+        "dpad_count": 0,
+        "face_count": 2,
+        "stick_count": 0,
+        "system_count": 2,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 14,
+        "button_radius": 3.5,
+        "media_kind": "faceplate",
+        "media_width": 42,
+        "media_height": 40,
+        "media_thickness": 5,
+        "media_insert_depth": 28.8,
+        "media_insert": 1,
+        "cell_kind": "aaa",
+        "cell_count": 2,
+        "bay_width": 45.3,
+        "bay_height": 22.2,
+        "bay_depth": 10.9,
+        "bay_z": 48,
+        "controller_attach": "none",
+        "kickstand_present": false,
+        "kickstand_angle": 0,
+        "kickstand_width": 25,
+        "kickstand_height": 64,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    },
+    {
+      "slug": "archetype-landscape-umd",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — landscape umd",
+        "es": "Arquetipo — horizontal con disco"
+      },
+      "source": "Original archetype, not a product. All sizes and placements follow tools/presets/slab_handheld.py; cylindrical-cell maxima come from keystone standard parts.",
+      "values": {
+        "body_width": 180,
+        "body_height": 90,
+        "body_depth": 28,
+        "layout": "landscape",
+        "corner_radius": 7.2,
+        "back_crown": 2,
+        "grip_count": 0,
+        "face_depth": 28,
+        "grip_width": 32.4,
+        "grip_length": 67.5,
+        "grip_drop": 0,
+        "screen_width": 93.6,
+        "screen_height": 58.5,
+        "screen_z": 47.7,
+        "control_z": 43.2,
+        "control_x": 70.2,
+        "dpad_count": 1,
+        "face_count": 4,
+        "stick_count": 1,
+        "system_count": 2,
+        "rear_count": 0,
+        "crank_present": false,
+        "bumper_count": 2,
+        "trigger_count": 0,
+        "touchpad_present": false,
+        "control_size": 12.6,
+        "button_radius": 3.15,
+        "media_kind": "umd_rear",
+        "media_width": 65,
+        "media_height": 36,
+        "media_thickness": 5,
+        "media_insert_depth": 16.2,
+        "media_insert": 1,
+        "cell_kind": "built_in",
+        "cell_count": 0,
+        "bay_width": 45,
+        "bay_height": 18,
+        "bay_depth": 0,
+        "bay_z": 27,
+        "controller_attach": "none",
+        "kickstand_present": false,
+        "kickstand_angle": 0,
+        "kickstand_width": 45,
+        "kickstand_height": 36,
+        "usb_present": true,
+        "jack_present": true,
+        "wall": 2,
+        "clearance": 0.4,
+        "recess_depth": 1.2
+      }
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ]
+}
