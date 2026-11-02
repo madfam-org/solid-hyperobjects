@@ -1,0 +1,1327 @@
+{
+  "project": {
+    "name": "Disc Media",
+    "thumbnail": "/projects/disc-media.webp",
+    "slug": "disc-media",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "A game disc as a parametric archetype: one revolved profile (diameter, centre hole, thickness, clamp zone, stacking ring), optionally carried in a shell with a window, a read slot and a sliding shutter — the disc-in-shell formats. The CD, DVD and UMD presets take every number from the keystone's standard parts (ECMA-130, ECMA-267, ECMA-365); proprietary formats arrive from its reference catalog. No logos, no label art.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un disco de juego como arquetipo paramétrico: un solo perfil revolucionado (diámetro, orificio central, espesor, zona de sujeción, anillo de apilado), opcionalmente en una carcasa con ventana, ranura de lectura y compuerta corrediza — los formatos de disco en carcasa. Los preajustes CD, DVD y UMD toman cada número de las piezas normalizadas del keystone (ECMA-130, ECMA-267, ECMA-365); los formatos propietarios llegan de su catálogo de referencia. Sin logotipos ni arte de etiqueta.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "media",
+      "optical-disc",
+      "disc",
+      "umd",
+      "revolve",
+      "archetype",
+      "standard-part",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    },
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "centre_hole",
+        "label": {
+          "en": "Centre hole",
+          "es": "Orificio central"
+        },
+        "geometry_type": "socket",
+        "standard": "keystone standard parts optical-disc-cd-120mm / optical-disc-dvd-120mm interface `centre_hole` (size key optical-disc-centre-hole-15mm at the standard presets): disc_hole about the origin; a spindle, tray or case hub enters from the read-out side.",
+        "parameters": [
+          "disc_hole",
+          "disc_thickness"
+        ],
+        "compatible_with": [
+          "jewel-case",
+          "keep-case",
+          "home-console"
+        ]
+      },
+      {
+        "id": "outline",
+        "label": {
+          "en": "Disc outline",
+          "es": "Contorno del disco"
+        },
+        "geometry_type": "pocket",
+        "standard": "keystone standard parts interface `outline` (size key optical-disc-120mm at the standard presets): the disc lies in a tray or case pocket read-out side down.",
+        "parameters": [
+          "disc_diameter",
+          "disc_thickness",
+          "ring_height"
+        ],
+        "compatible_with": [
+          "jewel-case",
+          "keep-case",
+          "media-caddy",
+          "home-console"
+        ]
+      },
+      {
+        "id": "media_envelope",
+        "label": {
+          "en": "Media envelope",
+          "es": "Envolvente del medio"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the envelope mode's body — the shell's hull (width x length x thickness + boss) when shell_present, otherwise the disc's cylinder at disc_diameter and disc_thickness + ring_height. What a console's disc bay, a case pocket and a caddy add clearance to.",
+        "parameters": [
+          "shell_present",
+          "shell_outline",
+          "shell_width",
+          "shell_length",
+          "shell_thickness",
+          "shell_boss_diameter",
+          "shell_boss_height",
+          "disc_diameter",
+          "disc_thickness",
+          "ring_height"
+        ],
+        "compatible_with": [
+          "home-console",
+          "slab-handheld",
+          "keep-case",
+          "media-caddy"
+        ]
+      },
+      {
+        "id": "media_shutter",
+        "label": {
+          "en": "Shutter",
+          "es": "Compuerta"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: a plate in a read-out-face track over the radial read slot; shutter_open slides it a plate width in +X.",
+        "parameters": [
+          "read_slot_width",
+          "read_slot_length",
+          "shutter_overlap",
+          "shutter_thickness",
+          "shutter_open"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Dimensioned, standard-sourced discs and disc cartridges let anyone build a tray, a case hub, a spindle, a storage rack or a replacement shell that fits — for formats whose drives and cases are no longer made. Every standard number names its clause, so a correction reaches every accessory sized from it.",
+      "es": "Discos y cartuchos de disco acotados y basados en normas permiten construir una bandeja, el cubo de un estuche, un eje, un organizador o una carcasa de repuesto que encaje — para formatos cuyas unidades y estuches ya no se fabrican. Cada número normalizado cita su cláusula, así que una corrección llega a cada accesorio dimensionado con él."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "Plan 2026-11-01 §2.3 (Tier 1 components); ruling R2 on gate H8: components are canonical text in commons-lib/hardware/, inlined at build.",
+    "note": "A disc medium is a hyperobject of hyperobjects: the disc, the shell, its window, its read slot and its shutter are each a function in commons-lib/hardware/disc_media.py taking its own parameter dict. family.py maps this manifest's parameters onto them; main.py is generated.",
+    "components": [
+      {
+        "slug": "revolved_disc",
+        "function": "revolved_disc",
+        "module": "disc_media",
+        "exposes": [
+          "centre_hole",
+          "outline"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_shell_outline",
+        "function": "disc_shell_outline",
+        "module": "disc_media",
+        "exposes": [
+          "media_envelope"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_shell_boss",
+        "function": "disc_shell_boss",
+        "module": "disc_media",
+        "exposes": [
+          "media_envelope"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_pocket",
+        "function": "disc_pocket",
+        "module": "disc_media",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "disc_window",
+        "function": "disc_window",
+        "module": "disc_media",
+        "exposes": [
+          "disc_window"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_read_slot",
+        "function": "disc_read_slot",
+        "module": "disc_media",
+        "exposes": [
+          "read_window"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_shutter_track",
+        "function": "disc_shutter_track",
+        "module": "disc_media",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "disc_shutter_plate",
+        "function": "disc_shutter_plate",
+        "module": "disc_media",
+        "exposes": [
+          "media_shutter"
+        ],
+        "consumes": []
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "disc",
+      "label": {
+        "en": "Disc",
+        "es": "Disco"
+      },
+      "description": {
+        "en": "The revolved disc, its centre hole at the origin, read-out side on z = 0.",
+        "es": "El disco revolucionado, su orificio central en el origen, cara de lectura en z = 0."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "disc"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 1
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Disc in shell",
+        "es": "Disco en carcasa"
+      },
+      "description": {
+        "en": "The shell (pocket, window, read slot, shutter track), the shutter and the disc in its pocket. A preview, not a print target.",
+        "es": "La carcasa (alojamiento, ventana, ranura de lectura, guía de compuerta), la compuerta y el disco en su alojamiento. Una vista previa, no un objetivo de impresión."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "shell",
+        "shutter",
+        "loaded_disc"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 2,
+        "per_part": 3
+      },
+      "part_quantities": {
+        "shell": 1,
+        "shutter": 1,
+        "loaded_disc": 1
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope (fit surface)",
+        "es": "Envolvente (superficie de ajuste)"
+      },
+      "description": {
+        "en": "One body: the shell's hull with its boss, or (no shell) the disc's cylinder at its diameter and maximum height — what a tray, a case hub or a caddy is sized to.",
+        "es": "Un cuerpo: el casco de la carcasa con su resalte, o (sin carcasa) el cilindro del disco a su diámetro y altura máxima — a lo que se dimensionan una bandeja, el cubo de un estuche o un organizador."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 1
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "disc",
+      "label": {
+        "en": "Disc",
+        "es": "Disco"
+      },
+      "render_mode": 0,
+      "color": "#c0c6cf"
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Shell",
+        "es": "Carcasa"
+      },
+      "render_mode": 0,
+      "color": "#4b5563"
+    },
+    {
+      "id": "shutter",
+      "label": {
+        "en": "Shutter",
+        "es": "Compuerta"
+      },
+      "render_mode": 0,
+      "color": "#9aa3ad"
+    },
+    {
+      "id": "loaded_disc",
+      "label": {
+        "en": "Disc (in shell)",
+        "es": "Disco (en carcasa)"
+      },
+      "render_mode": 0,
+      "color": "#c0c6cf"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope",
+        "es": "Envolvente"
+      },
+      "render_mode": 0,
+      "color": "#9ca3af"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "disc",
+      "label": {
+        "en": "Disc",
+        "es": "Disco"
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Shell",
+        "es": "Carcasa"
+      }
+    },
+    {
+      "id": "window",
+      "label": {
+        "en": "Window, read slot & shutter",
+        "es": "Ventana, ranura y compuerta"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "disc_diameter",
+      "type": "slider",
+      "default": 70,
+      "min": 30,
+      "max": 150,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Disc diameter (mm)",
+        "es": "Diámetro del disco (mm)"
+      },
+      "tooltip": {
+        "en": "A standard's overall diameter, or features.diameter_mm.",
+        "es": "El diámetro total de una norma, o features.diameter_mm."
+      }
+    },
+    {
+      "id": "disc_hole",
+      "type": "slider",
+      "default": 10,
+      "min": 0,
+      "max": 40,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Centre hole diameter (mm)",
+        "es": "Diámetro del orificio central (mm)"
+      },
+      "tooltip": {
+        "en": "The CDG `centre_hole`. 0 = none.",
+        "es": "La interfaz CDG `centre_hole`. 0 = ninguno."
+      }
+    },
+    {
+      "id": "disc_thickness",
+      "type": "slider",
+      "default": 1,
+      "min": 0.3,
+      "max": 4,
+      "step": 0.001,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Disc thickness (mm)",
+        "es": "Espesor del disco (mm)"
+      },
+      "tooltip": {
+        "en": "The substrate (a standard's e / e1), or features.thickness_mm.",
+        "es": "El sustrato (e / e1 de una norma), o features.thickness_mm."
+      }
+    },
+    {
+      "id": "clamp_inner_diameter",
+      "type": "slider",
+      "default": 18,
+      "min": 1,
+      "max": 80,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Clamp zone inner diameter (mm)",
+        "es": "Diámetro interior de la zona de sujeción (mm)"
+      },
+      "tooltip": {
+        "en": "A standard's clamping-zone inner diameter (its maximum).",
+        "es": "El diámetro interior de la zona de sujeción de una norma (su máximo)."
+      }
+    },
+    {
+      "id": "clamp_outer_diameter",
+      "type": "slider",
+      "default": 24,
+      "min": 2,
+      "max": 90,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Clamp zone outer diameter (mm)",
+        "es": "Diámetro exterior de la zona de sujeción (mm)"
+      },
+      "tooltip": {
+        "en": "A standard's clamping-zone outer diameter (its minimum). The stacking ring starts here.",
+        "es": "El diámetro exterior de la zona de sujeción de una norma (su mínimo). Aquí empieza el anillo de apilado."
+      }
+    },
+    {
+      "id": "clamp_relief",
+      "type": "slider",
+      "default": 0.1,
+      "min": 0,
+      "max": 0.5,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Clamp zone relief (mm)",
+        "es": "Rebaje de la zona de sujeción (mm)"
+      },
+      "tooltip": {
+        "en": "Lowers the label side across the clamp zone. Archetype; 0 for every standard (they define a flat clamp zone).",
+        "es": "Rebaja la cara de etiqueta en la zona de sujeción. Arquetipo; 0 para toda norma (definen una zona plana)."
+      }
+    },
+    {
+      "id": "ring_width",
+      "type": "slider",
+      "default": 1,
+      "min": 0.2,
+      "max": 5,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Stacking ring width (mm)",
+        "es": "Ancho del anillo de apilado (mm)"
+      },
+      "tooltip": {
+        "en": "Radial width. Archetype.",
+        "es": "Ancho radial. Arquetipo."
+      }
+    },
+    {
+      "id": "ring_height",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "group": "disc",
+      "modes": [
+        "disc",
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Stacking ring height (mm)",
+        "es": "Altura del anillo de apilado (mm)"
+      },
+      "tooltip": {
+        "en": "Proud of the label side. For a standard disc: its total-height maximum minus its thickness, so the disc fills the standard's envelope exactly.",
+        "es": "Sobresale de la cara de etiqueta. En un disco normalizado: su altura total máxima menos su espesor, para que el disco llene exactamente la envolvente de la norma."
+      }
+    },
+    {
+      "id": "shell_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "shell",
+      "modes": [
+        "envelope"
+      ],
+      "label": {
+        "en": "Disc in a shell",
+        "es": "Disco en carcasa"
+      },
+      "tooltip": {
+        "en": "Whether the format carries its disc in a shell. Sets what the envelope is: the shell's hull, or the disc's cylinder.",
+        "es": "Si el formato lleva su disco en una carcasa. Define la envolvente: el casco de la carcasa, o el cilindro del disco."
+      }
+    },
+    {
+      "id": "shell_outline",
+      "type": "select",
+      "default": "rounded_rect",
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Shell outline",
+        "es": "Contorno de la carcasa"
+      },
+      "tooltip": {
+        "en": "Rounded rectangle, or the arched UMD-type outline (top arc about the disc, shallower bottom arc).",
+        "es": "Rectángulo redondeado, o el contorno en arco tipo UMD (arco superior alrededor del disco, arco inferior más abierto)."
+      },
+      "options": [
+        {
+          "value": "rounded_rect",
+          "label": {
+            "en": "Rounded rectangle",
+            "es": "Rectángulo redondeado"
+          }
+        },
+        {
+          "value": "arched",
+          "label": {
+            "en": "Arched (UMD-type)",
+            "es": "En arco (tipo UMD)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "shell_width",
+      "type": "slider",
+      "default": 80,
+      "min": 20,
+      "max": 160,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Shell width — X (mm)",
+        "es": "Ancho de la carcasa — X (mm)"
+      },
+      "tooltip": {
+        "en": "In a preset: states.shell.width, or a standard's case width.",
+        "es": "En un preajuste: states.shell.width, o el ancho del estuche de una norma."
+      }
+    },
+    {
+      "id": "shell_length",
+      "type": "slider",
+      "default": 84,
+      "min": 20,
+      "max": 160,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Shell length — Y (mm)",
+        "es": "Largo de la carcasa — Y (mm)"
+      },
+      "tooltip": {
+        "en": "In a preset: states.shell.height, or a standard's case length.",
+        "es": "En un preajuste: states.shell.height, o el largo del estuche de una norma."
+      }
+    },
+    {
+      "id": "shell_thickness",
+      "type": "slider",
+      "default": 5,
+      "min": 1,
+      "max": 15,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Shell thickness — Z (mm)",
+        "es": "Espesor de la carcasa — Z (mm)"
+      },
+      "tooltip": {
+        "en": "Outside the boss. In a preset: states.shell.depth.",
+        "es": "Fuera del resalte. En un preajuste: states.shell.depth."
+      }
+    },
+    {
+      "id": "shell_corner_radius",
+      "type": "slider",
+      "default": 3,
+      "min": 0,
+      "max": 15,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Shell corner radius (mm)",
+        "es": "Radio de esquina de la carcasa (mm)"
+      },
+      "tooltip": {
+        "en": "All four corners (rounded rectangle) or the two bottom corners (arched).",
+        "es": "Las cuatro esquinas (rectángulo) o las dos inferiores (en arco)."
+      }
+    },
+    {
+      "id": "shell_top_arc_radius",
+      "type": "slider",
+      "default": 40,
+      "min": 10,
+      "max": 200,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Top arc radius (mm, arched)",
+        "es": "Radio del arco superior (mm, en arco)"
+      },
+      "tooltip": {
+        "en": "Its centre is the disc centre. Never less than half the width.",
+        "es": "Su centro es el centro del disco. Nunca menor que medio ancho."
+      }
+    },
+    {
+      "id": "shell_bottom_arc_radius",
+      "type": "slider",
+      "default": 100,
+      "min": 10,
+      "max": 400,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Bottom arc radius (mm, arched)",
+        "es": "Radio del arco inferior (mm, en arco)"
+      },
+      "tooltip": {
+        "en": "Its lowest point is on the bottom edge.",
+        "es": "Su punto más bajo está en el borde inferior."
+      }
+    },
+    {
+      "id": "shell_boss_diameter",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 150,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Boss diameter (mm, 0 = none)",
+        "es": "Diámetro del resalte (mm, 0 = ninguno)"
+      },
+      "tooltip": {
+        "en": "A low boss on the label face about the disc centre (ECMA-365's thicker D1 zone).",
+        "es": "Un resalte bajo en la cara de etiqueta alrededor del centro del disco (la zona D1 más gruesa de ECMA-365)."
+      }
+    },
+    {
+      "id": "shell_boss_height",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Boss height (mm)",
+        "es": "Altura del resalte (mm)"
+      },
+      "tooltip": {
+        "en": "Maximum thickness minus thickness.",
+        "es": "Espesor máximo menos espesor."
+      }
+    },
+    {
+      "id": "disc_center_y",
+      "type": "slider",
+      "default": 2,
+      "min": -60,
+      "max": 60,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell",
+        "envelope"
+      ],
+      "label": {
+        "en": "Disc centre — Y (mm)",
+        "es": "Centro del disco — Y (mm)"
+      },
+      "tooltip": {
+        "en": "Arched: half the length minus the top arc radius (the arc is about the disc).",
+        "es": "En arco: medio largo menos el radio del arco superior (el arco rodea al disco)."
+      }
+    },
+    {
+      "id": "pocket_clearance",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.1,
+      "max": 1.5,
+      "step": 0.01,
+      "group": "shell",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Pocket clearance (mm)",
+        "es": "Holgura del alojamiento (mm)"
+      },
+      "tooltip": {
+        "en": "Disc to pocket, radially and in thickness. Archetype.",
+        "es": "Del disco al alojamiento, radial y en espesor. Arquetipo."
+      }
+    },
+    {
+      "id": "window_width",
+      "type": "slider",
+      "default": 35,
+      "min": 1,
+      "max": 140,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Window width (mm)",
+        "es": "Ancho de la ventana (mm)"
+      },
+      "tooltip": {
+        "en": "Label-side window onto the disc. Archetype: half the disc diameter.",
+        "es": "Ventana en la cara de etiqueta hacia el disco. Arquetipo: medio diámetro del disco."
+      }
+    },
+    {
+      "id": "window_length",
+      "type": "slider",
+      "default": 17.5,
+      "min": 1,
+      "max": 140,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Window length (mm)",
+        "es": "Largo de la ventana (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: a quarter of the disc diameter.",
+        "es": "Arquetipo: un cuarto del diámetro del disco."
+      }
+    },
+    {
+      "id": "window_offset_y",
+      "type": "slider",
+      "default": 14,
+      "min": -70,
+      "max": 70,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Window offset from disc centre — Y (mm)",
+        "es": "Desplazamiento de la ventana desde el centro — Y (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: 20 % of the diameter toward the top.",
+        "es": "Arquetipo: 20 % del diámetro hacia arriba."
+      }
+    },
+    {
+      "id": "read_slot_width",
+      "type": "slider",
+      "default": 11.9,
+      "min": 1,
+      "max": 60,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Read slot width (mm)",
+        "es": "Ancho de la ranura de lectura (mm)"
+      },
+      "tooltip": {
+        "en": "The radial head slot in the read-out face. Archetype.",
+        "es": "La ranura radial del cabezal en la cara de lectura. Arquetipo."
+      }
+    },
+    {
+      "id": "read_slot_length",
+      "type": "slider",
+      "default": 21,
+      "min": 1,
+      "max": 80,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Read slot length (mm)",
+        "es": "Largo de la ranura de lectura (mm)"
+      },
+      "tooltip": {
+        "en": "From just outside the spindle hole toward the bottom.",
+        "es": "Desde justo fuera del orificio del eje hacia abajo."
+      }
+    },
+    {
+      "id": "spindle_diameter",
+      "type": "slider",
+      "default": 11.9,
+      "min": 1,
+      "max": 40,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Spindle hole diameter (mm)",
+        "es": "Diámetro del orificio del eje (mm)"
+      },
+      "tooltip": {
+        "en": "In the read-out face, about the disc centre. Archetype.",
+        "es": "En la cara de lectura, alrededor del centro del disco. Arquetipo."
+      }
+    },
+    {
+      "id": "shutter_overlap",
+      "type": "slider",
+      "default": 2,
+      "min": 0.5,
+      "max": 6,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Shutter overlap (mm)",
+        "es": "Solape de la compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "How far the shutter covers past the slot on every side.",
+        "es": "Cuánto cubre la compuerta más allá de la ranura por cada lado."
+      }
+    },
+    {
+      "id": "shutter_thickness",
+      "type": "slider",
+      "default": 0.5,
+      "min": 0.2,
+      "max": 2,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Shutter thickness (mm)",
+        "es": "Espesor de la compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "It slides in a track 0.05 mm deeper.",
+        "es": "Se desliza en una guía 0.05 mm más profunda."
+      }
+    },
+    {
+      "id": "shutter_open",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "group": "window",
+      "modes": [
+        "shell"
+      ],
+      "label": {
+        "en": "Shutter open (0–1)",
+        "es": "Compuerta abierta (0–1)"
+      },
+      "tooltip": {
+        "en": "Fraction of its travel: 1 slides it a full plate width in +X, clear of the slot.",
+        "es": "Fracción de su recorrido: 1 la desliza un ancho completo en +X, libre de la ranura."
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "disc_hole < clamp_inner_diameter && clamp_inner_diameter < clamp_outer_diameter",
+      "severity": "error",
+      "message": {
+        "en": "The centre hole, the clamp zone's inner and outer diameters must nest in that order.",
+        "es": "El orificio central y los diámetros interior y exterior de la zona de sujeción deben anidarse en ese orden."
+      }
+    },
+    {
+      "expression": "clamp_outer_diameter + ring_width * 2 < disc_diameter",
+      "severity": "error",
+      "message": {
+        "en": "The stacking ring runs off the disc.",
+        "es": "El anillo de apilado se sale del disco."
+      }
+    },
+    {
+      "expression": "clamp_relief < disc_thickness / 2",
+      "severity": "error",
+      "message": {
+        "en": "The clamp relief is deeper than half the disc.",
+        "es": "El rebaje de sujeción supera medio espesor del disco."
+      }
+    },
+    {
+      "expression": "!shell_present || disc_diameter / 2 + pocket_clearance + 0.8 <= shell_width / 2 && disc_diameter / 2 + pocket_clearance + 0.8 <= shell_length / 2 + disc_center_y && disc_diameter / 2 + pocket_clearance + 0.8 <= shell_length / 2 - disc_center_y",
+      "severity": "error",
+      "message": {
+        "en": "The disc's pocket does not fit inside the shell with a wall all round.",
+        "es": "El alojamiento del disco no cabe en la carcasa con pared alrededor."
+      }
+    },
+    {
+      "expression": "!shell_present || (shell_thickness - disc_thickness - ring_height - pocket_clearance * 2) / 2 > shutter_thickness + 0.35",
+      "severity": "error",
+      "message": {
+        "en": "No floor is left between the shutter track and the pocket. Thicken the shell or thin the shutter.",
+        "es": "No queda piso entre la guía de la compuerta y el alojamiento. Engrosa la carcasa o adelgaza la compuerta."
+      }
+    },
+    {
+      "expression": "(read_slot_width + shutter_overlap * 2) * 1.5 < shell_width / 2 - 1",
+      "severity": "error",
+      "message": {
+        "en": "The shutter's track (closed plus its travel) runs off the shell.",
+        "es": "La guía de la compuerta (cerrada más su recorrido) se sale de la carcasa."
+      }
+    },
+    {
+      "expression": "window_width < disc_diameter && window_length < disc_diameter",
+      "severity": "error",
+      "message": {
+        "en": "The window is wider than the disc it shows.",
+        "es": "La ventana es más ancha que el disco que muestra."
+      }
+    },
+    {
+      "expression": "shell_corner_radius * 2 < shell_width && shell_corner_radius * 2 < shell_length",
+      "severity": "error",
+      "message": {
+        "en": "The corner radius is larger than half a side.",
+        "es": "El radio de esquina supera la mitad de un lado."
+      }
+    },
+    {
+      "expression": "shell_boss_diameter == 0 || shell_boss_diameter < shell_width - 2",
+      "severity": "error",
+      "message": {
+        "en": "The boss is wider than the shell.",
+        "es": "El resalte es más ancho que la carcasa."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "shutter-open",
+      "label": {
+        "en": "Shutter closed → open",
+        "es": "Compuerta cerrada → abierta"
+      },
+      "from_state": {
+        "shutter_open": 0
+      },
+      "to_state": {
+        "shutter_open": 1
+      },
+      "frames": 6,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "shell"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        180,
+        -200,
+        160
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Label side",
+        "es": "Cara de etiqueta"
+      },
+      "position": [
+        0,
+        0,
+        300
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bottom",
+      "label": {
+        "en": "Read-out side",
+        "es": "Cara de lectura"
+      },
+      "position": [
+        0,
+        0,
+        -300
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "edge",
+      "label": {
+        "en": "Edge",
+        "es": "Canto"
+      },
+      "position": [
+        0,
+        -300,
+        0
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 4,
+    "per_unit": 2,
+    "per_part": 3,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family disc-media --write disc-media/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "disc-media",
+    "axis_mapping": {
+      "disc_diameter / disc_hole / disc_thickness": "standard part dimensions, or reference features.diameter_mm / hole_mm / thickness_mm",
+      "ring_height": "standard total height max - thickness (derived); 0 for a catalog object",
+      "shell_width": "reference dimensions_mm.states.shell.width (X)",
+      "shell_length": "reference dimensions_mm.states.shell.height (Y)",
+      "shell_thickness": "reference dimensions_mm.states.shell.depth (Z)"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "standard-optical-disc-cd-120mm",
+      "label": {
+        "en": "CD, 120 mm (ECMA-130)",
+        "es": "CD de 120 mm (ECMA-130)"
+      },
+      "kind": "standard_part",
+      "mode": "disc",
+      "source": "hyperobjects-spec standard part `optical-disc-cd-120mm` (ECMA-130 (ISO/IEC 10149), 120 mm CD-ROM); dimensions as the standard states them, read through hyperobjects_standard_parts. Generated by tools/presets/presets.py — do not edit by hand.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232",
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "disc_diameter": 120,
+        "disc_hole": 15,
+        "disc_thickness": 1.2,
+        "clamp_inner_diameter": 26,
+        "clamp_outer_diameter": 33,
+        "clamp_relief": 0,
+        "ring_width": 1,
+        "ring_height": 0.3,
+        "shell_present": false
+      }
+    },
+    {
+      "slug": "standard-optical-disc-dvd-120mm",
+      "label": {
+        "en": "DVD, 120 mm (ECMA-267)",
+        "es": "DVD de 120 mm (ECMA-267)"
+      },
+      "kind": "standard_part",
+      "mode": "disc",
+      "source": "hyperobjects-spec standard part `optical-disc-dvd-120mm` (ECMA-267 (ISO/IEC 16448), 120 mm DVD read-only disk); dimensions as the standard states them, read through hyperobjects_standard_parts. Generated by tools/presets/presets.py — do not edit by hand.",
+      "standard_part": {
+        "key": "optical-disc-dvd-120mm",
+        "digest": "4e88cac2370885f36dfe3796fb27c60bef4a39132dd506db00360de4927c07d8",
+        "archetype_fallbacks": []
+      },
+      "values": {
+        "disc_diameter": 120,
+        "disc_hole": 15,
+        "disc_thickness": 1.2,
+        "clamp_inner_diameter": 22,
+        "clamp_outer_diameter": 33,
+        "clamp_relief": 0,
+        "ring_width": 1,
+        "ring_height": 0.3,
+        "shell_present": false
+      }
+    },
+    {
+      "slug": "standard-umd-cartridge",
+      "label": {
+        "en": "UMD cartridge (ECMA-365)",
+        "es": "Cartucho UMD (ECMA-365)"
+      },
+      "kind": "standard_part",
+      "mode": "shell",
+      "source": "hyperobjects-spec standard part `umd-cartridge` (ECMA-365, 60 mm read-only ODC (UMD)); dimensions as the standard states them, read through hyperobjects_standard_parts. Generated by tools/presets/presets.py — do not edit by hand.",
+      "standard_part": {
+        "key": "umd-cartridge",
+        "digest": "8657234717a0211ebe2961dfcf766aa34ae2ddcf6b5c53da71775cca1866cebc",
+        "archetype_fallbacks": [
+          "centre hole (scaled from the 120 mm standards)",
+          "clamp zone (scaled from the 120 mm standards)",
+          "window, read slot and shutter"
+        ]
+      },
+      "values": {
+        "disc_diameter": 60,
+        "disc_hole": 7.5,
+        "disc_thickness": 0.84,
+        "clamp_inner_diameter": 13,
+        "clamp_outer_diameter": 16.5,
+        "clamp_relief": 0,
+        "ring_width": 1,
+        "ring_height": 0,
+        "shell_present": true,
+        "shell_outline": "arched",
+        "shell_width": 64,
+        "shell_length": 65,
+        "shell_thickness": 4.2,
+        "shell_corner_radius": 5,
+        "shell_top_arc_radius": 32,
+        "shell_bottom_arc_radius": 70,
+        "shell_boss_diameter": 50,
+        "shell_boss_height": 0.15,
+        "disc_center_y": 0.5,
+        "window_width": 30,
+        "window_length": 15,
+        "window_offset_y": 12,
+        "read_slot_width": 10.2,
+        "read_slot_length": 18,
+        "spindle_diameter": 10.2,
+        "shutter_overlap": 2,
+        "shutter_thickness": 0.5
+      }
+    },
+    {
+      "slug": "archetype-square-shell-disc",
+      "label": {
+        "en": "Archetype — square-shell disc",
+        "es": "Arquetipo — disco en carcasa cuadrada"
+      },
+      "kind": "archetype",
+      "mode": "shell",
+      "source": "Archetype, not a product: a disc in a square shell with a window, a read slot and a sliding shutter. Every number is the family's own rule (tools/presets/disc_media.py). Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "a disc in a square shell with a window, a read slot and a sliding shutter.",
+        "es": "un disco en una carcasa cuadrada con ventana, ranura de lectura y compuerta corrediza."
+      },
+      "values": {
+        "disc_diameter": 70,
+        "disc_hole": 10,
+        "disc_thickness": 1,
+        "clamp_inner_diameter": 18,
+        "clamp_outer_diameter": 24,
+        "clamp_relief": 0.1,
+        "ring_width": 1,
+        "ring_height": 0.2,
+        "shell_present": true,
+        "shell_outline": "rounded_rect",
+        "shell_width": 80,
+        "shell_length": 84,
+        "shell_thickness": 5,
+        "shell_corner_radius": 3,
+        "shell_top_arc_radius": 40,
+        "shell_bottom_arc_radius": 100,
+        "shell_boss_diameter": 0,
+        "shell_boss_height": 0,
+        "disc_center_y": 2,
+        "window_width": 35,
+        "window_length": 17.5,
+        "window_offset_y": 14,
+        "read_slot_width": 11.9,
+        "read_slot_length": 21,
+        "spindle_diameter": 11.9,
+        "shutter_overlap": 2,
+        "shutter_thickness": 0.5
+      }
+    }
+  ]
+}
