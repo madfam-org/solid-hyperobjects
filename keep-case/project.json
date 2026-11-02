@@ -1,0 +1,798 @@
+{
+  "project": {
+    "name": "Keep Case",
+    "slug": "keep-case",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "difficulty": "intermediate",
+    "description": {
+      "en": "Original one-piece media case with continuous kinematic spine, retention insert, booklet clips and sleeve recess.",
+      "es": "Caja original de una pieza con lomo cinemático continuo, inserto de retención, clips del manual y rebaje para funda."
+    },
+    "thumbnail": "/projects/keep-case.webp",
+    "tags": [
+      "case",
+      "media",
+      "gaming",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "case_envelope",
+        "label": {
+          "en": "Closed case envelope",
+          "es": "Envolvente cerrada"
+        },
+        "geometry_type": "profile",
+        "compatible_with": [
+          "media-caddy",
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "media_seat",
+        "label": {
+          "en": "Media seat",
+          "es": "Asiento de medio"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "plug-in-media",
+          "disc-media"
+        ]
+      },
+      {
+        "id": "booklet_seat",
+        "label": {
+          "en": "Booklet seat",
+          "es": "Asiento del manual"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "saddle-stitch",
+          "case-insert"
+        ]
+      },
+      {
+        "id": "sleeve_seat",
+        "label": {
+          "en": "Outer sleeve seat",
+          "es": "Asiento de funda"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "case-insert"
+        ]
+      }
+    ],
+    "composition": {
+      "description": {
+        "en": "Shared media_cases components with case_flexure constant-length spine.",
+        "es": "Componentes media_cases con lomo de longitud constante case_flexure."
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ],
+  "parameters": [
+    {
+      "id": "case_width",
+      "default": 150,
+      "group": "design",
+      "label": {
+        "en": "case width",
+        "es": "Ancho de caja"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 600,
+      "step": 0.1
+    },
+    {
+      "id": "case_height",
+      "default": 210,
+      "group": "design",
+      "label": {
+        "en": "case height",
+        "es": "Altura de caja"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 840,
+      "step": 0.1
+    },
+    {
+      "id": "case_thickness",
+      "default": 16,
+      "group": "design",
+      "label": {
+        "en": "case thickness",
+        "es": "Grosor cerrado"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 64,
+      "step": 0.1
+    },
+    {
+      "id": "wall",
+      "default": 1.2,
+      "group": "design",
+      "label": {
+        "en": "wall",
+        "es": "Grosor de pared"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "corner_radius",
+      "default": 2,
+      "group": "design",
+      "label": {
+        "en": "corner radius",
+        "es": "Radio de esquina"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "clearance",
+      "default": 0.4,
+      "group": "design",
+      "label": {
+        "en": "clearance",
+        "es": "Holgura"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "open_angle",
+      "default": 0,
+      "group": "design",
+      "label": {
+        "en": "open angle",
+        "es": "Ángulo de apertura"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 180,
+      "step": 0.1
+    },
+    {
+      "id": "hinge_web",
+      "default": 0.5,
+      "group": "design",
+      "label": {
+        "en": "hinge web",
+        "es": "Grosor de bisagra"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "retention",
+      "default": "disc_hub",
+      "group": "design",
+      "label": {
+        "en": "retention",
+        "es": "Tipo de retención"
+      },
+      "type": "select",
+      "options": [
+        {
+          "value": "disc_hub",
+          "label": {
+            "en": "disc hub",
+            "es": "Disco"
+          }
+        },
+        {
+          "value": "cartridge_pocket",
+          "label": {
+            "en": "cartridge pocket",
+            "es": "Cartucho"
+          }
+        },
+        {
+          "value": "card_slots",
+          "label": {
+            "en": "card slots",
+            "es": "Tarjetas"
+          }
+        },
+        {
+          "value": "mixed",
+          "label": {
+            "en": "mixed",
+            "es": "Mixto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "media_width",
+      "default": 75,
+      "group": "design",
+      "label": {
+        "en": "media width",
+        "es": "Ancho del medio"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 300,
+      "step": 0.1
+    },
+    {
+      "id": "media_height",
+      "default": 85,
+      "group": "design",
+      "label": {
+        "en": "media height",
+        "es": "Altura del medio"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 340,
+      "step": 0.1
+    },
+    {
+      "id": "media_depth",
+      "default": 8,
+      "group": "design",
+      "label": {
+        "en": "media depth",
+        "es": "Grosor del medio"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 32,
+      "step": 0.1
+    },
+    {
+      "id": "card_count",
+      "default": 1,
+      "group": "design",
+      "label": {
+        "en": "card count",
+        "es": "Número de tarjetas"
+      },
+      "type": "slider",
+      "min": 1,
+      "max": 2,
+      "step": 1
+    },
+    {
+      "id": "disc_diameter",
+      "default": 120,
+      "group": "design",
+      "label": {
+        "en": "disc diameter",
+        "es": "Diámetro del disco"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 480,
+      "step": 0.1
+    },
+    {
+      "id": "hub_diameter",
+      "default": 14.5,
+      "group": "design",
+      "label": {
+        "en": "hub diameter",
+        "es": "Diámetro de retención"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 58.0,
+      "step": 0.1
+    },
+    {
+      "id": "hub_height",
+      "default": 4,
+      "group": "design",
+      "label": {
+        "en": "hub height",
+        "es": "Altura de retención"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "multi_disc",
+      "default": false,
+      "group": "design",
+      "label": {
+        "en": "multi disc",
+        "es": "Disco doble"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "insert_angle",
+      "default": 0,
+      "group": "design",
+      "label": {
+        "en": "insert angle",
+        "es": "Ángulo de inserto"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 180,
+      "step": 0.1
+    },
+    {
+      "id": "booklet_clips",
+      "default": true,
+      "group": "design",
+      "label": {
+        "en": "booklet clips",
+        "es": "Clips del manual"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "sleeve_lip",
+      "default": 2,
+      "group": "design",
+      "label": {
+        "en": "sleeve lip",
+        "es": "Borde de funda"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "sleeve_recess",
+      "default": 0.2,
+      "group": "design",
+      "label": {
+        "en": "sleeve recess",
+        "es": "Rebaje de funda"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 20,
+      "step": 0.1
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "design",
+      "label": {
+        "en": "Design",
+        "es": "Diseño"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "shell",
+      "label": {
+        "en": "Connected shell",
+        "es": "Carcasa continua"
+      }
+    },
+    {
+      "id": "insert",
+      "label": {
+        "en": "Retention insert",
+        "es": "Inserto de retención"
+      }
+    },
+    {
+      "id": "flat_shell",
+      "label": {
+        "en": "Flat shell",
+        "es": "Carcasa plana"
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Closed envelope",
+        "es": "Envolvente cerrada"
+      }
+    }
+  ],
+  "modes": [
+    {
+      "id": "case",
+      "label": {
+        "en": "Assembled case",
+        "es": "Caja ensamblada"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "shell",
+        "insert"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Closed envelope",
+        "es": "Envolvente cerrada"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Connected shell",
+        "es": "Carcasa continua"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "shell"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "insert",
+      "label": {
+        "en": "Insert",
+        "es": "Inserto"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "insert"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "flat_shell",
+      "label": {
+        "en": "Flat shell",
+        "es": "Carcasa plana"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "flat_shell"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "constraints": [
+    {
+      "expression": "case_thickness > wall * 4 + hub_height",
+      "severity": "error",
+      "message": {
+        "en": "The case must clear the hub.",
+        "es": "La caja debe dejar espacio para la retención."
+      }
+    },
+    {
+      "expression": "hinge_web < wall && hinge_web > 0.2",
+      "severity": "error",
+      "message": {
+        "en": "The explanatory hinge skin must be thinner than the wall.",
+        "es": "La piel de la bisagra debe ser más delgada que la pared."
+      }
+    },
+    {
+      "expression": "sleeve_recess < wall / 2",
+      "severity": "error",
+      "message": {
+        "en": "The sleeve recess must leave a floor.",
+        "es": "El rebaje debe dejar material de fondo."
+      }
+    },
+    {
+      "expression": "media_width + wall * 6 < case_width && media_height + wall * 6 < case_height",
+      "severity": "error",
+      "message": {
+        "en": "Media pocket must fit.",
+        "es": "El bolsillo debe caber en la caja."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "case-open",
+      "label": {
+        "en": "Open living-hinge case",
+        "es": "Abrir caja de bisagra flexible"
+      },
+      "from_state": {
+        "open_angle": 0
+      },
+      "to_state": {
+        "open_angle": 180
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "mode": "case"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        200,
+        -200,
+        180
+      ],
+      "target": [
+        0,
+        0,
+        10
+      ]
+    }
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family keep-case --write keep-case/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "keep-case",
+    "axis_mapping": {
+      "case_width": "closed.width -> X",
+      "case_height": "closed.height -> Y",
+      "case_thickness": "closed.depth -> Z"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-disc",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — disc",
+        "es": "Arquetipo — disco"
+      },
+      "source": "Original case, not a manufacturer package. Envelope and pocket sizes are archetype choices; no historical SKU is asserted. Disc diameter/hole reference the keystone CD standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 210,
+        "case_thickness": 16,
+        "wall": 1.2,
+        "corner_radius": 2,
+        "clearance": 0.4,
+        "open_angle": 0,
+        "hinge_web": 0.5,
+        "retention": "disc_hub",
+        "media_width": 75,
+        "media_height": 85,
+        "media_depth": 8,
+        "card_count": 1,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "multi_disc": false,
+        "insert_angle": 0,
+        "booklet_clips": true,
+        "sleeve_lip": 2,
+        "sleeve_recess": 0.2
+      }
+    },
+    {
+      "slug": "archetype-double-disc",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — double-disc",
+        "es": "Arquetipo — disco doble"
+      },
+      "source": "Original case, not a manufacturer package. Envelope and pocket sizes are archetype choices; no historical SKU is asserted. Disc diameter/hole reference the keystone CD standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 210,
+        "case_thickness": 22,
+        "wall": 1.2,
+        "corner_radius": 2,
+        "clearance": 0.4,
+        "open_angle": 0,
+        "hinge_web": 0.5,
+        "retention": "disc_hub",
+        "media_width": 75,
+        "media_height": 85,
+        "media_depth": 8,
+        "card_count": 2,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "multi_disc": true,
+        "insert_angle": 0,
+        "booklet_clips": true,
+        "sleeve_lip": 2,
+        "sleeve_recess": 0.2
+      }
+    },
+    {
+      "slug": "archetype-cartridge",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — cartridge",
+        "es": "Arquetipo — cartucho"
+      },
+      "source": "Original case, not a manufacturer package. Envelope and pocket sizes are archetype choices; no historical SKU is asserted. Disc diameter/hole reference the keystone CD standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 175,
+        "case_thickness": 18,
+        "wall": 1.2,
+        "corner_radius": 2,
+        "clearance": 0.4,
+        "open_angle": 0,
+        "hinge_web": 0.5,
+        "retention": "cartridge_pocket",
+        "media_width": 75,
+        "media_height": 85,
+        "media_depth": 8,
+        "card_count": 1,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "multi_disc": false,
+        "insert_angle": 0,
+        "booklet_clips": true,
+        "sleeve_lip": 2,
+        "sleeve_recess": 0.2
+      }
+    },
+    {
+      "slug": "archetype-cards",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — cards",
+        "es": "Arquetipo — tarjetas"
+      },
+      "source": "Original case, not a manufacturer package. Envelope and pocket sizes are archetype choices; no historical SKU is asserted. Disc diameter/hole reference the keystone CD standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 115,
+        "case_height": 150,
+        "case_thickness": 14,
+        "wall": 1.2,
+        "corner_radius": 2,
+        "clearance": 0.4,
+        "open_angle": 0,
+        "hinge_web": 0.5,
+        "retention": "card_slots",
+        "media_width": 40,
+        "media_height": 30,
+        "media_depth": 3,
+        "card_count": 2,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "multi_disc": false,
+        "insert_angle": 0,
+        "booklet_clips": true,
+        "sleeve_lip": 2,
+        "sleeve_recess": 0.2
+      }
+    },
+    {
+      "slug": "archetype-mixed",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — mixed",
+        "es": "Arquetipo — mixto"
+      },
+      "source": "Original case, not a manufacturer package. Envelope and pocket sizes are archetype choices; no historical SKU is asserted. Disc diameter/hole reference the keystone CD standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 165,
+        "case_height": 230,
+        "case_thickness": 20,
+        "wall": 1.2,
+        "corner_radius": 2,
+        "clearance": 0.4,
+        "open_angle": 0,
+        "hinge_web": 0.5,
+        "retention": "mixed",
+        "media_width": 75,
+        "media_height": 85,
+        "media_depth": 8,
+        "card_count": 1,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "multi_disc": false,
+        "insert_angle": 0,
+        "booklet_clips": true,
+        "sleeve_lip": 2,
+        "sleeve_recess": 0.2
+      }
+    }
+  ]
+}
