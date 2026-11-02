@@ -65,10 +65,21 @@ source and the oracle: `--parity` compares the graph with it at the defaults and
 preset, gate for gate, and a script retires only after that parity holds across the nightly
 sweep. Each cartridge's `docs/README.md` has a *Graph twin* section.
 
+## Device-family presets
+
+Device-family cartridges (`clamshell-dual-screen-handheld`, `book-fold-phone`) are
+archetypes we own; named products ride as **presets** built from published facts. Those
+facts live in the keystone's reference-objects catalog (hyperobjects-spec
+`hyperobjects_reference`, [`docs/REFERENCE_OBJECTS.md`](https://github.com/madfam-org/hyperobjects-spec/blob/main/docs/REFERENCE_OBJECTS.md)),
+every number with its source. [`tools/presets/`](./tools/presets/presets.py) turns them into
+`presets[]` and the archetype defaults, and the manifests lane checks the result
+(`presets.py --check-all`). Under the owner's separation ruling of 2026-11-01 the facts and
+the geometry both live on this side; consumers read published, prerendered artifacts.
+
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@70fe8213de20bc9a699b2bde2c32ee0b02a6d52d"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@dcdad8e23d18326472a791e47414564fbd1e6821"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
@@ -93,7 +104,7 @@ export OPENSCADPATH="$PWD/libs:$PWD"
 
 ## How CI verifies a change
 
-The keystone pin CI installs is `70fe8213` (`SPEC_PIN` in
+The keystone pin CI installs is `dcdad8e2` (`SPEC_PIN` in
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)). Every gate below is
 that package's, run from this repo — there is no second, hidden bar.
 Compiler warning/error lines are retained as bounded notes identified by mode,

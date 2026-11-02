@@ -17,15 +17,15 @@ likeness, and it reproduces no trade dress of any kind.
 Manufacturers in this family label the LONG axis "width" (Apple's iPhone Duo
 page reads "Open: Width: 6.48 inches (164.6 mm); Height: 4.64 inches (117.8 mm)"
 — the 117.8 mm figure is the SHORT edge by Apple's labels and the axis the hinge
-runs along), and Telesia's registry records their labels literally. The mapping
-is:
+runs along), and the reference catalog records each axis as its source labels it.
+The mapping is:
 
-| Model | Registry field | What it is |
+| Model | Catalog field | What it is |
 |---|---|---|
-| `hinge_axis_length` | `dimensions_mm.closed.height` | X — the long axis. **The fold axis is the X axis through the origin.** It equals `dimensions_mm.open.height` on every device in this family that publishes both, which is what makes this mapping a checked fact rather than a reading of a label. |
-| `cover_half_width` | `dimensions_mm.closed.width` | Y — the folding axis, for the half that carries the cover display. It runs from the fold at `y = 0` to its opening edge. |
+| `hinge_axis_length` | `dimensions_mm.states.closed.height` | X — the long axis. **The fold axis is the X axis through the origin.** It equals `dimensions_mm.states.open.height` on every device in this family that publishes both, which is what makes this mapping a checked fact rather than a reading of a label. |
+| `cover_half_width` | `dimensions_mm.states.closed.width` | Y — the folding axis, for the half that carries the cover display. It runs from the fold at `y = 0` to its opening edge. |
 | `camera_half_width` | `open.width − closed.width` | Y — the other half, which is **narrower**. That difference is why a book fold closes, and both ends of the subtraction are the manufacturer's. |
-| `half_thickness` | `dimensions_mm.open.depth` | Z — the open body IS one half. |
+| `half_thickness` | `dimensions_mm.states.open.depth` | Z — the open body IS one half. |
 | the hinge gap | `closed.depth − 2 × open.depth` | Z — the space the folded panel's teardrop occupies. |
 
 `fold_angle` 0 is closed; 180 is open.
@@ -106,15 +106,15 @@ a colon fails validation before the graph renders.)
     apertures.
   - **Button Seat** (`pocket`, internal) — a pocket in the opening edge for a
     power or volume key.
-  - **USB-C Port Opening** (`port`, internal) — present only where the registry
+  - **USB-C Port Opening** (`port`, internal) — present only where the catalog
     lists the port.
-  - **Card Tray Slot** (`socket`, internal) — present only where the registry
+  - **Card Tray Slot** (`socket`, internal) — present only where the catalog
     lists a `sim` port.
   - **Cradle Seat** (`surface`, internal) — the cover half's outer face and
     footprint.
 - **Material awareness:** `tolerance_by_material` — the relief-versus-leaf
   clearance is the knob a material profile moves. Nothing else here is
-  material-aware; the registry's `materials` block is populated for most devices
+  material-aware; the catalog's `materials` block is populated for most devices
   in this family (titanium, aluminium, glass) but names finishes, not figures.
 - **Societal benefit:** a dimensioned, parametric model of the book-fold phones
   people actually own lets anyone fabricate a cradle, a dock, a travel shell, a
@@ -123,18 +123,23 @@ a colon fails validation before the graph renders.)
 
 ## Presets — where every number comes from
 
-Presets are **generated**, never typed: Telesia's `scripts/device-presets.py`
-reads `data/registry/device-geometry.json` (snapshot 2026-09-13) and emits the
-`presets` block together with `_generated_from`, which records the registry's
-SHA-256. A preset sets **only** the parameters the registry sources for that
-device; everything else stays at the archetype default, and the last column says
-which. Every source in this family is tier `primary` — the manufacturer's own
-specification page or press release.
+Presets are **generated**, never typed: `tools/presets/presets.py` (this
+repository) reads the keystone's reference-objects catalog (hyperobjects-spec
+`hyperobjects_reference`, installed at `SPEC_PIN`) and emits the `presets` block
+together with `_generated_from`, which records the family digest of the facts.
+The catalog opened on 2026-11-01 with the 84 devices of Telesia's former
+device-geometry registry (snapshot 2026-09-13, 944 primary source entries),
+moved to the geometry side under the owner's separation ruling; the regenerated
+presets carry the same values. CI runs `presets.py --check-all`. A preset sets
+**only** the parameters the catalog sources for that device; everything else
+stays at the archetype default, and the last column says which. Every source in
+this family is tier `primary` — the manufacturer's own specification page or
+press release.
 
 Every preset reaches rung **L2** of the plan's resolution ladder (envelope,
 displays, features).
 
-| Preset | Closed H × W × D (mm) | Open H × W × D (mm) | Gap (mm) | Registry source (tier `primary`) | Groups that fell back to the archetype |
+| Preset | Closed H × W × D (mm) | Open H × W × D (mm) | Gap (mm) | Source (tier `primary`) | Groups that fell back to the archetype |
 |---|---|---|---|---|---|
 | `xiaomi-mix-fold-3` | 161.2 × 73.5 × 10.96 | 161.2 × 143.28 × 5.26 | 0.44 | mi.com/xiaomi-mix-fold-3/specs | — |
 | `xiaomi-mix-fold-4` | 159.37 × 73.1 × 9.47 | 159.37 × 143.3 × 4.59 | 0.29 | mi.com/prod/xiaomi-mix-fold-4/specs | — |
@@ -153,22 +158,27 @@ displays, features).
 | `google-pixel-10-pro-fold` | 155.2 × 76.3 × 10.8 | 155.2 × 150.4 × 5.2 | 0.4 | store.google.com/gb/product/pixel_10_pro_fold_specs | — |
 | `samsung-galaxy-fold` | 160.9 × 62.8 × 17.1 | 160.9 × 117.9 × 7.6 | 1.9 | news.samsung.com/global/samsung-unfolds-the-future-with-a-whole-new-mobile-category… | — |
 | `samsung-galaxy-z-fold2` | 159.2 × 68.0 × 16.8 | 159.2 × 128.2 × 6.9 | 3.0 | news.samsung.com/global/introducing-the-galaxy-z-fold2… | — |
-| `samsung-galaxy-z-fold3` | 158.2 × 67.1 × 16.0 | 158.2 × 128.1 × 6.4 | 3.2 | news.samsung.com/global/the-next-chapter-in-mobile-innovation… | sim card slot |
-| `samsung-galaxy-z-fold4` | 155.1 × 67.1 × 15.8 | 155.1 × 130.1 × 6.3 | 3.2 | news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4… | sim card slot |
-| `samsung-galaxy-z-fold5` | 154.9 × 67.1 × 13.4 | 154.9 × 129.9 × 6.1 | 1.2 | news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5… | sim card slot |
-| `samsung-galaxy-z-fold6` | 153.5 × 68.1 × 12.1 | 153.5 × 132.6 × 5.6 | 0.9 | news.samsung.com/global/samsung-galaxy-z-fold-6-and-z-flip-6… | sim card slot |
-| `samsung-galaxy-z-fold7` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.2 | 0.5 | news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones | sim card slot |
+| `samsung-galaxy-z-fold3` | 158.2 × 67.1 × 16.0 | 158.2 × 128.1 × 6.4 | 3.2 | news.samsung.com/global/the-next-chapter-in-mobile-innovation… | usb-c port, sim card slot |
+| `samsung-galaxy-z-fold4` | 155.1 × 67.1 × 15.8 | 155.1 × 130.1 × 6.3 | 3.2 | news.samsung.com/global/introducing-samsung-galaxy-z-flip4-and-galaxy-z-fold4… | usb-c port, sim card slot |
+| `samsung-galaxy-z-fold5` | 154.9 × 67.1 × 13.4 | 154.9 × 129.9 × 6.1 | 1.2 | news.samsung.com/global/samsung-galaxy-z-flip5-and-galaxy-z-fold5… | usb-c port, sim card slot |
+| `samsung-galaxy-z-fold6` | 153.5 × 68.1 × 12.1 | 153.5 × 132.6 × 5.6 | 0.9 | news.samsung.com/global/samsung-galaxy-z-fold-6-and-z-flip-6… | usb-c port, sim card slot |
+| `samsung-galaxy-z-fold7` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.2 | 0.5 | news.samsung.com/global/samsung-galaxy-z-fold7-raising-the-bar-for-smartphones | usb-c port, sim card slot |
 | `samsung-galaxy-z-fold8` | 123.9 × 81.9 × 9.7 | 123.9 × 161.4 × 4.5 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | — |
-| `samsung-galaxy-z-fold8-ultra` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.1 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | sim card slot |
+| `samsung-galaxy-z-fold8-ultra` | 158.4 × 72.8 × 8.9 | 158.4 × 143.2 × 4.1 | 0.7 | news.samsung.com/global/samsung-galaxy-z-fold8-ultra-fold8-and-flip8… | usb-c port, sim card slot |
 | `google-pixel-9-pro-fold` | 155.2 × 77.1 × 10.5 | 155.2 × 150.2 × 5.1 | 0.3 | store.google.com/gb/product/pixel_9_pro_fold_specs | — |
 | `google-pixel-11-pro-fold` | 155.2 × 76 × 10.1 | 155.2 × 150.4 × 5.0 | 0.1 | store.google.com/gb/product/pixel_11_pro_fold_specs | — |
 | `apple-iphone-duo` † | 117.8 × 84.1 × 11.3 | 117.8 × 164.6 × 5.2 | 0.9 | apple.com/iphone-duo/specs/ | — |
 
+The six Samsung Fold presets name `usb-c port` as a fallback: the USB-C entry the
+former registry carried for them had no source, so the catalog's evidence sweep
+of 2026-11-01 removed it. The archetype's default (present) applies, so their
+geometry is unchanged.
+
 † **The iPhone Duo is the only preset in this family with no fallback at all.**
-Apple publishes a pixel count *and a ppi* for both displays, so the registry can
+Apple publishes a pixel count *and a ppi* for both displays, so the catalog can
 derive an active area — 110.93 × 157.72 mm inner, 77.19 × 112.31 mm cover, both
 marked `derived` with the formula — and every other value it needs is on the same
-page. No other manufacturer in this family publishes a ppi, so the registry
+page. No other manufacturer in this family publishes a ppi, so the catalog
 leaves their active areas `null` and this cartridge will not derive one.
 
 ‡ **OPPO's two published depths cannot both hold.** 11.7 mm closed against
@@ -189,10 +199,10 @@ that as a note, and it is the expected one.
 
 ### Which components each preset exercises
 
-**R** = the registry's port list carries the entry. **no R** = the
+**R** = the catalog's port list carries the entry. **no R** = the
 manufacturer's own port list is sourced and does NOT contain it — a sourced
-*absence*, which is a zero, not an unknown. **A** = the registry does not resolve
-it and the archetype's default applies. `R·d` means the registry holds the value as a *derived* active area — computed by Telesia's `scripts/device-registry-derive.py` from the published diagonal and resolution and carried at tier `derived` with the formula as its source — so it is a registry number with a computation behind it, not an archetype default.
+*absence*, which is a zero, not an unknown. **A** = the catalog does not resolve
+it and the archetype's default applies. `R·d` means the catalog holds the value as a *derived* active area — computed from the published diagonal and resolution by the derivation law the keystone's catalog checks (`ho-reference check`, rule 5), and carried at tier `derived` with the formula as its source — so it is a catalog number with a computation behind it, not an archetype default.
 
 | Preset | inner display | cover display | crease | USB-C | card tray | camera island | buttons |
 |---|---|---|---|---|---|---|---|
@@ -213,25 +223,25 @@ it and the archetype's default applies. `R·d` means the registry holds the valu
 | `google-pixel-10-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
 | `samsung-galaxy-fold` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
 | `samsung-galaxy-z-fold2` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
-| `samsung-galaxy-z-fold3` | R·d | R·d | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold4` | R·d | R·d | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold5` | R·d | R·d | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold6` | R·d | R·d | — | yes R | yes A | archetype | archetype |
-| `samsung-galaxy-z-fold7` | R·d | R·d | teardrop R | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold3` | R·d | R·d | — | yes A | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold4` | R·d | R·d | — | yes A | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold5` | R·d | R·d | — | yes A | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold6` | R·d | R·d | — | yes A | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold7` | R·d | R·d | teardrop R | yes A | yes A | archetype | archetype |
 | `samsung-galaxy-z-fold8` | R·d | R·d | — | yes R | **no R** | archetype | archetype |
-| `samsung-galaxy-z-fold8-ultra` | R·d | R·d | — | yes R | yes A | archetype | archetype |
+| `samsung-galaxy-z-fold8-ultra` | R·d | R·d | — | yes A | yes A | archetype | archetype |
 | `google-pixel-9-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
 | `google-pixel-11-pro-fold` | R·d | R·d | — | yes R | yes R | archetype | archetype |
 | `apple-iphone-duo` | **R, derived** | **R, derived** | — | yes R | **no R** (eSIM only) | archetype | archetype |
 
-The `crease` column is what the registry knows about the hinge itself: seven
+The `crease` column is what the catalog knows about the hinge itself: seven
 devices' manufacturers say "teardrop" (or "water-drop") in words. **None of them
 publishes a figure for it**, so the column changes no geometry — the relief here
 is a plain cylinder at an archetype radius. Turning that word into a section is
 L3, and it needs a free-form profile (yantra4d lane G-NODES-1).
 
 The camera island, the buttons and the speaker grille are **archetype at every
-preset**. The registry records no camera geometry for any device in this family,
+preset**. The catalog records no camera geometry for any device in this family,
 and its only control kind here is `fingerprint` (4 of 28 devices), with no
 geometry attached.
 
@@ -245,20 +255,20 @@ geometry attached.
 
 ## Archetype derivation rules — these are ours
 
-Where a preset value is not read straight from the registry, it is computed from
+Where a preset value is not read straight from the catalog, it is computed from
 one by a rule declared in the generator. They are not manufacturer figures:
 
 | Rule | Value | What it produces |
 |---|---|---|
 | Half thickness | the published open depth | `half_thickness`. Falls back to `(closed depth − 0.05) / 2` only when the two published depths contradict each other. |
-| Hinge gap | `closed depth − 2 × half thickness` | the two halves' centre-Z values. Recorded per preset as `registry.hinge_gap_mm`. |
+| Hinge gap | `closed depth − 2 × half thickness` | the two halves' centre-Z values. Recorded per preset as `catalog.hinge_gap_mm`. |
 | Camera-half width | `open width − closed width` | `camera_half_width`. Falls back to the cover half's width when no open width is published. |
 | Crease relief radius | `gap/2 + 0.45 × half thickness`, capped at `gap/2 + half thickness − 0.6` | `hinge_cavity_radius`. The cap is the wall left against the outer face. |
 | Running clearance | 0.3 mm | `hinge_leaf_radius = hinge_cavity_radius − 0.3` |
 | Hinge run | 94 % of the hinge-axis length | `hinge_cavity_span`, `hinge_leaf_span` |
-| Display window fallback | the published envelope inset by a 2.5 mm bezel | `inner_display_*`, `cover_display_*` where the registry resolves no active area. On the one device that publishes one, this rule lands within 0.5 mm of the manufacturer's own cover-display figure. |
+| Display window fallback | the published envelope inset by a 2.5 mm bezel | `inner_display_*`, `cover_display_*` where the catalog resolves no active area. On the one device that publishes one, this rule lands within 0.5 mm of the manufacturer's own cover-display figure. |
 | Display centring | the inner display is centred on the OPEN envelope | `inner_display_cover_span`, `inner_display_camera_span` — equal bezels, and therefore an unequal split about the fold axis. |
-| Corner radius | 6 mm, on the opening edge only | `corner_radius` — **0 of the registry's 84 devices publishes one**. |
+| Corner radius | 6 mm, on the opening edge only | `corner_radius` — **0 of the catalog's 84 devices publishes one**. |
 | Recesses | 0.8 mm displays, 0.6 mm camera island, 1.8 mm lens apertures | `display_recess_depth`, `lens_island_depth`, `lens_depth` |
 | Camera island | `min(0.20 × length, 0.42 × camera-half width)`, 6 mm in from two edges | `lens_island_*`, `lens_*` |
 | Port openings | 8.6 × 2.8 mm USB-C, 12.5 × 2.0 mm card tray | the USB-C figure clears a receptacle whose plug is 8.34 × 2.56 mm nominal; the rest is ours. |
@@ -269,10 +279,10 @@ one by a rule declared in the generator. They are not manufacturer figures:
 Run at the archetype defaults and at every one of the 27 device presets, at
 `fold_angle` 0 and 180:
 
-* **Closed envelope** — the union of the three parts against the registry's
+* **Closed envelope** — the union of the three parts against the catalog's
   closed height × width × depth. Tolerance 0.5 mm; measured delta **0.000 mm on
   every axis of every preset**.
-* **Open envelope** — against the registry's open height × width × depth, which
+* **Open envelope** — against the catalog's open height × width × depth, which
   26 of the 27 devices publish. Measured delta **0.000 mm on every axis of every
   preset except `oppo-find-n3`**, whose open depth is 0.075 mm out because OPPO's
   own two figures contradict each other (see ‡ above); its open height and width

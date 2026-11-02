@@ -22,7 +22,7 @@ this repo a red run.
 ## The one command that decides your PR
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@70fe8213de20bc9a699b2bde2c32ee0b02a6d52d"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@dcdad8e23d18326472a791e47414564fbd1e6821"
 
 y4d-spec check ./<slug> --render --require-openscad --parity \
   --openscad-path libs --openscad-path .
@@ -124,6 +124,17 @@ The three that most often survive review and die in CI:
   [Related repositories and contracts](./README.md#related-repositories-and-contracts).
 - Where the repository stands (dated, with the open PRs in merge order and the next
   `SPEC_PIN` bump) is [`docs/STATUS.md`](./docs/STATUS.md).
+
+## Device-family presets are generated, never typed
+
+The presets of `clamshell-dual-screen-handheld` and `book-fold-phone` are written by
+[`tools/presets/presets.py`](./tools/presets/presets.py) from the keystone's
+reference-objects catalog (`hyperobjects_reference`, at `SPEC_PIN`). Change a device by
+correcting its fact in hyperobjects-spec, then regenerate:
+`python3 tools/presets/presets.py --family <slug> --write <slug>/project.json`. CI runs
+`--check-all`, so a hand edit to `presets[]`, `_generated_from` or a generated default fails.
+Archetype rules are ours and live in `tools/presets/<family>.py`; adding a family is a new
+module plus one entry in `presets.FAMILIES`.
 
 ## Repository boundary
 
