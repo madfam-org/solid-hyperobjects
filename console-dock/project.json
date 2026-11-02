@@ -1,0 +1,867 @@
+{
+  "project": {
+    "name": "Console Dock",
+    "slug": "console-dock",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "difficulty": "intermediate",
+    "description": {
+      "en": "Original dock family with sourced body envelopes, archetype device seats, connector boss, service cover and generic port openings.",
+      "es": "Familia de bases con envolventes documentadas y asientos, conector, tapa y aberturas genéricas de arquetipo."
+    },
+    "thumbnail": "/projects/console-dock.webp",
+    "tags": [
+      "case",
+      "media",
+      "gaming",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Dock envelope",
+          "es": "Envolvente de base"
+        },
+        "geometry_type": "profile",
+        "compatible_with": [
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "cradle_seat",
+        "label": {
+          "en": "Device cradle",
+          "es": "Asiento de dispositivo"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "slab-handheld",
+          "gamepad"
+        ]
+      },
+      {
+        "id": "connector_boss",
+        "label": {
+          "en": "Archetype connector boss",
+          "es": "Conector de arquetipo"
+        },
+        "geometry_type": "port",
+        "compatible_with": [
+          "cable-assembly"
+        ]
+      },
+      {
+        "id": "rear_door_axis",
+        "label": {
+          "en": "Service-cover axis",
+          "es": "Eje de tapa"
+        },
+        "geometry_type": "hinge",
+        "compatible_with": []
+      }
+    ],
+    "composition": {
+      "description": {
+        "en": "Inlined console_supports chassis, seat cuts, connector boss, ports and rear door.",
+        "es": "Chasis, asiento, conector, puertos y tapa de console_supports integrados al generar."
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ],
+  "parameters": [
+    {
+      "id": "body_width",
+      "default": 180,
+      "group": "design",
+      "label": {
+        "en": "body width",
+        "es": "Ancho del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 720,
+      "step": 0.1
+    },
+    {
+      "id": "body_depth",
+      "default": 80,
+      "group": "design",
+      "label": {
+        "en": "body depth",
+        "es": "Fondo del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 320,
+      "step": 0.1
+    },
+    {
+      "id": "body_height",
+      "default": 110,
+      "group": "design",
+      "label": {
+        "en": "body height",
+        "es": "Altura del cuerpo"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 440,
+      "step": 0.1
+    },
+    {
+      "id": "style",
+      "default": "tablet_cradle",
+      "group": "design",
+      "label": {
+        "en": "style",
+        "es": "Estilo"
+      },
+      "type": "select",
+      "options": [
+        {
+          "value": "tablet_cradle",
+          "label": {
+            "en": "Tablet cradle",
+            "es": "Base de tableta"
+          }
+        },
+        {
+          "value": "charging_station",
+          "label": {
+            "en": "Charging station",
+            "es": "Estación de carga"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "default": 2,
+      "group": "design",
+      "label": {
+        "en": "wall",
+        "es": "Grosor de pared"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "base_height",
+      "default": 12,
+      "group": "design",
+      "label": {
+        "en": "base height",
+        "es": "Altura de base"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 48,
+      "step": 0.1
+    },
+    {
+      "id": "corner_radius",
+      "default": 3.2,
+      "group": "design",
+      "label": {
+        "en": "corner radius",
+        "es": "Radio de esquina"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "seat_width",
+      "default": 154.8,
+      "group": "design",
+      "label": {
+        "en": "seat width",
+        "es": "Ancho del asiento"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 619.2,
+      "step": 0.1
+    },
+    {
+      "id": "seat_depth",
+      "default": 19.2,
+      "group": "design",
+      "label": {
+        "en": "seat depth",
+        "es": "Grosor del asiento"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 76.8,
+      "step": 0.1
+    },
+    {
+      "id": "seat_height",
+      "default": 99,
+      "group": "design",
+      "label": {
+        "en": "seat height",
+        "es": "Altura del asiento"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 396,
+      "step": 0.1
+    },
+    {
+      "id": "capacity",
+      "default": 1,
+      "group": "design",
+      "label": {
+        "en": "capacity",
+        "es": "Capacidad"
+      },
+      "type": "slider",
+      "min": 1,
+      "max": 2,
+      "step": 1
+    },
+    {
+      "id": "back_angle",
+      "default": 10,
+      "group": "design",
+      "label": {
+        "en": "back angle",
+        "es": "Ángulo del respaldo"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 90,
+      "step": 0.1
+    },
+    {
+      "id": "clearance",
+      "default": 0.4,
+      "group": "design",
+      "label": {
+        "en": "clearance",
+        "es": "Holgura"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "boss_width",
+      "default": 8.25,
+      "group": "design",
+      "label": {
+        "en": "boss width",
+        "es": "Ancho del conector"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 33.0,
+      "step": 0.1
+    },
+    {
+      "id": "boss_depth",
+      "default": 2.4,
+      "group": "design",
+      "label": {
+        "en": "boss depth",
+        "es": "Grosor del conector"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "boss_height",
+      "default": 6.65,
+      "group": "design",
+      "label": {
+        "en": "boss height",
+        "es": "Altura del conector"
+      },
+      "type": "slider",
+      "min": 0.1,
+      "max": 26.6,
+      "step": 0.1
+    },
+    {
+      "id": "boss_present",
+      "default": true,
+      "group": "design",
+      "label": {
+        "en": "boss present",
+        "es": "Conector presente"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "usb_count",
+      "default": 2,
+      "group": "design",
+      "label": {
+        "en": "usb count",
+        "es": "Número de puertos USB"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 20,
+      "step": 1
+    },
+    {
+      "id": "hdmi_present",
+      "default": true,
+      "group": "design",
+      "label": {
+        "en": "hdmi present",
+        "es": "Puerto HDMI"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "ethernet_present",
+      "default": false,
+      "group": "design",
+      "label": {
+        "en": "ethernet present",
+        "es": "Puerto de red"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "power_present",
+      "default": true,
+      "group": "design",
+      "label": {
+        "en": "power present",
+        "es": "Entrada de alimentación"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "rear_door_present",
+      "default": true,
+      "group": "design",
+      "label": {
+        "en": "rear door present",
+        "es": "Tapa trasera presente"
+      },
+      "type": "checkbox"
+    },
+    {
+      "id": "door_angle",
+      "default": 0,
+      "group": "design",
+      "label": {
+        "en": "door angle",
+        "es": "Ángulo de tapa"
+      },
+      "type": "slider",
+      "min": 0,
+      "max": 90,
+      "step": 0.1
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "design",
+      "label": {
+        "en": "Design",
+        "es": "Diseño"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "dock",
+      "label": {
+        "en": "Dock body and cover",
+        "es": "Cuerpo y tapa"
+      }
+    },
+    {
+      "id": "rear_door",
+      "label": {
+        "en": "Rear cover",
+        "es": "Tapa trasera"
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente"
+      }
+    }
+  ],
+  "modes": [
+    {
+      "id": "dock",
+      "label": {
+        "en": "Assembled dock",
+        "es": "Base ensamblada"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "dock"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "rear_door",
+      "label": {
+        "en": "Independent cover variant",
+        "es": "Variante de tapa independiente"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "rear_door"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "dock": {
+        "part_overrides": {
+          "dock": {
+            "geometry.body_count": {
+              "expected": "2 if rear_door_present else 1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "constraints": [
+    {
+      "expression": "base_height + wall < body_height",
+      "severity": "error",
+      "message": {
+        "en": "Base must leave a usable cradle.",
+        "es": "La base debe dejar espacio de asiento."
+      }
+    },
+    {
+      "expression": "wall * 4 < body_width && wall * 4 < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "Walls must fit the body.",
+        "es": "Las paredes deben caber en el cuerpo."
+      }
+    },
+    {
+      "expression": "seat_depth + clearance * 2 < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "Seat must fit the depth.",
+        "es": "El asiento debe caber en el fondo."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "rear-door-open",
+      "label": {
+        "en": "Open service cover",
+        "es": "Abrir tapa de servicio"
+      },
+      "from_state": {
+        "rear_door_present": true,
+        "door_angle": 0
+      },
+      "to_state": {
+        "rear_door_present": true,
+        "door_angle": 90
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "mode": "dock"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        200,
+        -200,
+        180
+      ],
+      "target": [
+        0,
+        0,
+        10
+      ]
+    }
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family console-dock --write console-dock/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "f570c0427a3486ff04f847a1b3154bed9cf6d9cf1c57ae78d485c3d66b5ed6c4",
+      "objects": 4,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "console-dock",
+    "axis_mapping": {
+      "body_width": "body.width -> X",
+      "body_depth": "body.depth -> Y",
+      "body_height": "body.height -> Z"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "nintendo-switch-2-dock",
+      "label": {
+        "en": "Nintendo Switch 2 Dock",
+        "es": "Nintendo Switch 2 Dock"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-2-dock` (status: partial); published dock body envelope and sourced port/capacity counts; seat, openings and chassis remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-2-dock",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "capacity",
+          "seat dimensions and angle",
+          "connector role/position",
+          "chassis profile and rear door",
+          "port openings and positions"
+        ],
+        "host_console": "nintendo-switch-2"
+      },
+      "values": {
+        "body_width": 201,
+        "body_depth": 51.2,
+        "body_height": 115,
+        "style": "tablet_cradle",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 2.048,
+        "seat_width": 172.86,
+        "seat_depth": 12.288,
+        "seat_height": 103.5,
+        "capacity": 1,
+        "back_angle": 10,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": true,
+        "usb_count": 2,
+        "hdmi_present": true,
+        "ethernet_present": true,
+        "power_present": true,
+        "rear_door_present": true,
+        "door_angle": 0
+      }
+    },
+    {
+      "slug": "nintendo-switch-dock",
+      "label": {
+        "en": "Nintendo Switch dock",
+        "es": "Nintendo Switch dock"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-dock` (status: partial); published dock body envelope and sourced port/capacity counts; seat, openings and chassis remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-dock",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "capacity",
+          "seat dimensions and angle",
+          "connector role/position",
+          "chassis profile and rear door",
+          "port openings and positions"
+        ],
+        "host_console": "nintendo-switch"
+      },
+      "values": {
+        "body_width": 173,
+        "body_depth": 54,
+        "body_height": 104,
+        "style": "tablet_cradle",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 2.16,
+        "seat_width": 148.78,
+        "seat_depth": 12.96,
+        "seat_height": 93.6,
+        "capacity": 1,
+        "back_angle": 10,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": true,
+        "usb_count": 3,
+        "hdmi_present": true,
+        "ethernet_present": false,
+        "power_present": true,
+        "rear_door_present": true,
+        "door_angle": 0
+      }
+    },
+    {
+      "slug": "nintendo-switch-dock-with-lan-port",
+      "label": {
+        "en": "Nintendo Switch dock with LAN port",
+        "es": "Nintendo Switch dock with LAN port"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-dock-with-lan-port` (status: partial); published dock body envelope and sourced port/capacity counts; seat, openings and chassis remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-dock-with-lan-port",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g",
+          "ports"
+        ],
+        "archetype_fallbacks": [
+          "capacity",
+          "seat dimensions and angle",
+          "connector role/position",
+          "chassis profile and rear door",
+          "port openings and positions"
+        ],
+        "host_console": "nintendo-switch-oled-model, nintendo-switch"
+      },
+      "values": {
+        "body_width": 175,
+        "body_depth": 50.7,
+        "body_height": 104,
+        "style": "tablet_cradle",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 2.028,
+        "seat_width": 150.5,
+        "seat_depth": 12.168,
+        "seat_height": 93.6,
+        "capacity": 1,
+        "back_angle": 10,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": true,
+        "usb_count": 2,
+        "hdmi_present": true,
+        "ethernet_present": true,
+        "power_present": true,
+        "rear_door_present": true,
+        "door_angle": 0
+      }
+    },
+    {
+      "slug": "sony-dualsense-charging-station-cfi-zds1",
+      "label": {
+        "en": "DualSense Charging Station",
+        "es": "DualSense Charging Station"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `sony-dualsense-charging-station-cfi-zds1` (status: partial); published dock body envelope and sourced port/capacity counts; seat, openings and chassis remain archetypal. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "sony-dualsense-charging-station-cfi-zds1",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g"
+        ],
+        "archetype_fallbacks": [
+          "port list",
+          "seat dimensions and angle",
+          "connector role/position",
+          "chassis profile and rear door",
+          "port openings and positions"
+        ],
+        "host_console": "DualSense, DualSense Edge (controllers, not a console)"
+      },
+      "values": {
+        "body_width": 52,
+        "body_depth": 159,
+        "body_height": 62,
+        "style": "charging_station",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 2.08,
+        "seat_width": 37.44,
+        "seat_depth": 38.16,
+        "seat_height": 55.8,
+        "capacity": 2,
+        "back_angle": 0,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": false,
+        "usb_count": 0,
+        "hdmi_present": false,
+        "ethernet_present": false,
+        "power_present": false,
+        "rear_door_present": false,
+        "door_angle": 0
+      }
+    },
+    {
+      "slug": "archetype-tablet",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — tablet",
+        "es": "Arquetipo — tableta"
+      },
+      "source": "Original dock, not a product. USB-C plug shell dimensions come from the keystone standard part; connector role/position remains archetypal.",
+      "standard_part": {
+        "key": "usb-c-plug",
+        "digest": "0a7d1f1fd980176490e816ee02b6d790e8d4a315d8c8b029b15d8a35b2dfd5a3"
+      },
+      "values": {
+        "body_width": 180,
+        "body_depth": 80,
+        "body_height": 110,
+        "style": "tablet_cradle",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 3.2,
+        "seat_width": 154.8,
+        "seat_depth": 19.2,
+        "seat_height": 99,
+        "capacity": 1,
+        "back_angle": 10,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": true,
+        "usb_count": 2,
+        "hdmi_present": true,
+        "ethernet_present": false,
+        "power_present": true,
+        "rear_door_present": true,
+        "door_angle": 0
+      }
+    },
+    {
+      "slug": "archetype-dual-charger",
+      "kind": "archetype",
+      "label": {
+        "en": "Archetype — dual-charger",
+        "es": "Arquetipo — cargador doble"
+      },
+      "source": "Original dock, not a product. USB-C plug shell dimensions come from the keystone standard part; connector role/position remains archetypal.",
+      "standard_part": {
+        "key": "usb-c-plug",
+        "digest": "0a7d1f1fd980176490e816ee02b6d790e8d4a315d8c8b029b15d8a35b2dfd5a3"
+      },
+      "values": {
+        "body_width": 65,
+        "body_depth": 170,
+        "body_height": 60,
+        "style": "charging_station",
+        "wall": 2,
+        "base_height": 12,
+        "corner_radius": 2.6,
+        "seat_width": 46.8,
+        "seat_depth": 40.8,
+        "seat_height": 54,
+        "capacity": 2,
+        "back_angle": 0,
+        "clearance": 0.4,
+        "boss_width": 8.25,
+        "boss_depth": 2.4,
+        "boss_height": 6.65,
+        "boss_present": false,
+        "usb_count": 0,
+        "hdmi_present": false,
+        "ethernet_present": false,
+        "power_present": false,
+        "rear_door_present": false,
+        "door_angle": 0
+      }
+    }
+  ]
+}
