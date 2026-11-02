@@ -1,0 +1,4087 @@
+{
+  "project": {
+    "name": "Gamepad",
+    "thumbnail": "/projects/gamepad.webp",
+    "slug": "gamepad",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "The two-handed game controller as one parametric archetype: a rounded bridge plus 0, 2 or 3 tapered grips on a flat bottom, crowned by one analytic surface that every control seat shares — brick, crescent, dogbone, handles and trident body plans, one-piece or split into halves on rails or magnets. D-pad, up to eight face buttons in five arrangements, sticks, bumpers, analogue triggers, an under-trigger, touchpad, ports and expansion slots. Archetype presets only: no logos, no button glyphs, no outline fitted to any product.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "El control de videojuego a dos manos como un arquetipo paramétrico: un puente redondeado más 0, 2 o 3 empuñaduras ahusadas sobre una base plana, coronado por una sola superficie analítica que comparten todos los asientos de control — planes de ladrillo, media luna, hueso, asas y tridente, de una pieza o dividido en mitades sobre rieles o imanes. Cruceta, hasta ocho botones en cinco disposiciones, palancas, botones de hombro, gatillos analógicos, gatillo inferior, panel táctil, puertos y ranuras de expansión. Sólo preajustes de arquetipo: sin logotipos, sin glifos de botón, sin contornos ajustados a ningún producto.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "device",
+      "controller",
+      "gamepad",
+      "game-controller",
+      "archetype",
+      "enclosure",
+      "grip",
+      "rail",
+      "hyperobject",
+      "commons",
+      "cdg",
+      "gaming"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Controller Envelope",
+          "es": "Envolvente del control"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the `envelope` mode — the uncut planform (bridge + grips) on a flat bottom, crowned by the one analytic crown. Projecting parts (sticks, caps, triggers, the cable stub) excluded, as makers measure.",
+        "parameters": [
+          "outline",
+          "thickness",
+          "bridge_width",
+          "bridge_depth",
+          "bridge_corner_radius",
+          "grip_count",
+          "grip_root_x",
+          "grip_root_y",
+          "grip_length",
+          "grip_splay_deg",
+          "grip_drop",
+          "grip_root_radius",
+          "grip_tip_radius",
+          "center_grip_offset",
+          "top_crown",
+          "bottom_crown",
+          "crown_span_x",
+          "crown_span_y",
+          "crown_center_y"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "wall-device-mount"
+        ]
+      },
+      {
+        "id": "grip_envelope",
+        "label": {
+          "en": "Grip Envelope",
+          "es": "Envolvente de empuñadura"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: each grip is the hull of a root circle (grip_root_radius at ±grip_root_x, grip_root_y) and a tip circle (grip_tip_radius, grip_length along grip_splay_deg), standing on z = 0 and topped by the crown. What a controller mount, stand or grip cover holds.",
+        "parameters": [
+          "outline",
+          "grip_count",
+          "grip_root_x",
+          "grip_root_y",
+          "grip_length",
+          "grip_splay_deg",
+          "grip_root_radius",
+          "grip_tip_radius",
+          "center_grip_offset",
+          "grip_drop",
+          "thickness",
+          "top_crown"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "wall-device-mount"
+        ]
+      },
+      {
+        "id": "rail",
+        "label": {
+          "en": "Side Rail (Joy-Con type)",
+          "es": "Riel lateral (tipo Joy-Con)"
+        },
+        "geometry_type": "rail",
+        "standard": "internal: a T rail along Y on each half's inner face (split = rail_halves): flange rail_width wide, stem half that, standing 2.0 mm off the face, rail_length long, centred on (crown_center_y, mid-thickness). The male half of the slide a tablet's side slot (the planned slab-handheld family) or a grip consumes.",
+        "parameters": [
+          "split",
+          "rail_length",
+          "rail_width",
+          "split_gap",
+          "crown_center_y",
+          "thickness"
+        ]
+      },
+      {
+        "id": "cable_exit",
+        "label": {
+          "en": "Cable Exit",
+          "es": "Salida de cable"
+        },
+        "geometry_type": "boss",
+        "standard": "internal: a 4 mm-radius strain-relief stub along +Y from the shoulder edge, at x = 0 (top_center) or x = -bridge_width/4 (top), mid-thickness. The seat the planned cable-assembly family's boot mates with.",
+        "parameters": [
+          "cable_exit",
+          "bridge_width",
+          "bridge_depth",
+          "thickness"
+        ],
+        "compatible_with": [
+          "strain-relief"
+        ]
+      },
+      {
+        "id": "expansion_slot",
+        "label": {
+          "en": "Expansion Slot",
+          "es": "Ranura de expansión"
+        },
+        "geometry_type": "socket",
+        "standard": "internal: 1 or 2 rectangular slots, expansion_slot_width x expansion_slot_thickness, expansion_slot_depth deep from the top face (at the crown) or the underside (from the centre grip's floor). What a plug-in pack of the planned plug-in-media family inserts into.",
+        "parameters": [
+          "expansion_slot_count",
+          "expansion_slot_face",
+          "expansion_slot_y",
+          "expansion_slot_pitch",
+          "expansion_slot_width",
+          "expansion_slot_thickness",
+          "expansion_slot_depth"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A dimensioned, parametric controller body lets anyone fabricate a stand, a wall mount, a grip cover, a travel case or a repair fixture that fits the controllers people own — including ones whose maker is gone — without copying any maker's design.",
+      "es": "Un cuerpo de control paramétrico y acotado permite a cualquiera fabricar un soporte, un montaje de pared, una funda de empuñadura, un estuche o un útil de reparación que encaje con los controles que la gente tiene — incluso aquellos cuyo fabricante ya no existe — sin copiar el diseño de ningún fabricante."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "plan §2.3 (components are hyperobjects too); ruling R2 settles gate H8: components are canonical text in commons-lib/hardware/, inlined at build.",
+    "note": "A controller is a hyperobject of hyperobjects. family.py maps this manifest's parameters onto each component's own dict; main.py is generated by tools/inline_parts.py. No graph twin: the crown and the grip hulls need expressions and lofts the node graph does not have.",
+    "components": [
+      {
+        "slug": "pad_body",
+        "function": "pad_body",
+        "module": "commons-lib/hardware/pad_body.py",
+        "exposes": [
+          "device_envelope",
+          "grip_envelope"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pad_grip",
+        "function": "pad_grip",
+        "module": "commons-lib/hardware/pad_body.py",
+        "exposes": [
+          "grip_envelope"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pad_crown_dome",
+        "function": "pad_crown_dome",
+        "module": "commons-lib/hardware/pad_body.py",
+        "exposes": [],
+        "consumes": [],
+        "note": "construction solid: the one analytic crown"
+      },
+      {
+        "slug": "pad_rail",
+        "function": "pad_rail",
+        "module": "commons-lib/hardware/pad_body.py",
+        "exposes": [
+          "rail"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pad_magnet_pockets",
+        "function": "pad_magnet_pockets",
+        "module": "commons-lib/hardware/pad_body.py",
+        "exposes": [
+          "magnetic_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "deck_shell",
+        "function": "deck_shell",
+        "module": "commons-lib/hardware/structure.py",
+        "exposes": [
+          "device_envelope"
+        ],
+        "consumes": [],
+        "note": "the bridge prism, reused unchanged"
+      },
+      {
+        "slug": "d_pad",
+        "function": "d_pad",
+        "module": "commons-lib/hardware/controls.py",
+        "exposes": [
+          "dpad_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "face_button",
+        "function": "face_button",
+        "module": "commons-lib/hardware/controls.py",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "note": "ring: diamond cluster and four-button pad"
+      },
+      {
+        "slug": "button_row",
+        "function": "button_row",
+        "module": "commons-lib/hardware/controls.py",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "note": "system buttons"
+      },
+      {
+        "slug": "analog_stick",
+        "function": "analog_stick",
+        "module": "commons-lib/hardware/controls.py",
+        "exposes": [
+          "stick_seat"
+        ],
+        "consumes": [],
+        "note": "round gate"
+      },
+      {
+        "slug": "shoulder_trigger",
+        "function": "shoulder_trigger",
+        "module": "commons-lib/hardware/controls.py",
+        "exposes": [
+          "trigger_seat"
+        ],
+        "consumes": [],
+        "note": "bumper and trigger notches"
+      },
+      {
+        "slug": "port_receptacle",
+        "function": "port_receptacle",
+        "module": "commons-lib/hardware/connectors.py",
+        "exposes": [
+          "port_cutout"
+        ],
+        "consumes": [],
+        "note": "jack, charge port, touchpad, light bar, expansion slots"
+      },
+      {
+        "slug": "pad_face_layout",
+        "function": "pad_face_layout",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": [],
+        "note": "row, diagonal, diamond, arc_2x3, big_a"
+      },
+      {
+        "slug": "pad_round_seats",
+        "function": "pad_round_seats",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pad_octagon_seat",
+        "function": "pad_octagon_seat",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [
+          "stick_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pad_stick",
+        "function": "pad_stick",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "pad_trigger_blade",
+        "function": "pad_trigger_blade",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [],
+        "consumes": [
+          "trigger_seat"
+        ]
+      },
+      {
+        "slug": "pad_grille",
+        "function": "pad_grille",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [],
+        "consumes": [],
+        "note": "a vented face is not a mating feature"
+      },
+      {
+        "slug": "pad_door_seam",
+        "function": "pad_door_seam",
+        "module": "commons-lib/hardware/pad_controls.py",
+        "exposes": [
+          "battery_bay"
+        ],
+        "consumes": []
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "pad",
+      "label": {
+        "en": "Controller (assembled)",
+        "es": "Control (ensamblado)"
+      },
+      "description": {
+        "en": "The body and every cap in world coordinates. A preview, not a print target: the caps are separate bodies.",
+        "es": "El cuerpo y cada tapa en coordenadas de mundo. Una vista previa, no un objetivo de impresión: las tapas son cuerpos separados."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "part_quantities": {
+        "body": 1,
+        "controls": 1
+      },
+      "estimate": {
+        "base_time": 8,
+        "per_part": 4
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Fit envelope",
+        "es": "Envolvente de ajuste"
+      },
+      "description": {
+        "en": "The uncut, crowned body: the surface a stand, mount or case takes as its controller. Projecting parts excluded.",
+        "es": "El cuerpo coronado sin cortes: la superficie que un soporte, montaje o estuche toma como su control. Sin partes salientes."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "top_shell",
+      "label": {
+        "en": "Top shell",
+        "es": "Carcasa superior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "top_shell"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_part": 4
+      }
+    },
+    {
+      "id": "bottom_shell",
+      "label": {
+        "en": "Bottom shell",
+        "es": "Carcasa inferior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "bottom_shell"
+      ],
+      "estimate": {
+        "base_time": 7,
+        "per_part": 4
+      }
+    },
+    {
+      "id": "left_half",
+      "label": {
+        "en": "Left half",
+        "es": "Mitad izquierda"
+      },
+      "description": {
+        "en": "The half at x < 0 with its rail or magnets. Meaningful when split; on a one-piece pad it is just the left half of the body.",
+        "es": "La mitad en x < 0 con su riel o imanes. Tiene sentido con división; en un control de una pieza es sólo la mitad izquierda del cuerpo."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "left_half"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_part": 3
+      }
+    },
+    {
+      "id": "right_half",
+      "label": {
+        "en": "Right half",
+        "es": "Mitad derecha"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "right_half"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_part": 3
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo"
+      },
+      "render_mode": 0,
+      "color": "#3f4a5a"
+    },
+    {
+      "id": "controls",
+      "label": {
+        "en": "Controls",
+        "es": "Controles"
+      },
+      "render_mode": 0,
+      "color": "#b08d57"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope",
+        "es": "Envolvente"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "top_shell",
+      "label": {
+        "en": "Top shell",
+        "es": "Carcasa superior"
+      },
+      "render_mode": 0,
+      "color": "#3f5d7d"
+    },
+    {
+      "id": "bottom_shell",
+      "label": {
+        "en": "Bottom shell",
+        "es": "Carcasa inferior"
+      },
+      "render_mode": 0,
+      "color": "#2f3d4d"
+    },
+    {
+      "id": "left_half",
+      "label": {
+        "en": "Left half",
+        "es": "Mitad izquierda"
+      },
+      "render_mode": 0,
+      "color": "#3f5d7d"
+    },
+    {
+      "id": "right_half",
+      "label": {
+        "en": "Right half",
+        "es": "Mitad derecha"
+      },
+      "render_mode": 0,
+      "color": "#7d3f4a"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body plan",
+        "es": "Plan de cuerpo"
+      }
+    },
+    {
+      "id": "crown",
+      "label": {
+        "en": "Crown",
+        "es": "Corona"
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Shells & seats",
+        "es": "Carcasas y asientos"
+      }
+    },
+    {
+      "id": "dpad",
+      "label": {
+        "en": "D-pad",
+        "es": "Cruceta"
+      }
+    },
+    {
+      "id": "face",
+      "label": {
+        "en": "Face buttons",
+        "es": "Botones frontales"
+      }
+    },
+    {
+      "id": "sticks",
+      "label": {
+        "en": "Sticks",
+        "es": "Palancas"
+      }
+    },
+    {
+      "id": "shoulders",
+      "label": {
+        "en": "Shoulders & triggers",
+        "es": "Hombros y gatillos"
+      }
+    },
+    {
+      "id": "system",
+      "label": {
+        "en": "System, touchpad, audio",
+        "es": "Sistema, panel, audio"
+      }
+    },
+    {
+      "id": "ports",
+      "label": {
+        "en": "Ports & power",
+        "es": "Puertos y energía"
+      }
+    },
+    {
+      "id": "split",
+      "label": {
+        "en": "Split halves",
+        "es": "Mitades"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "outline",
+      "type": "select",
+      "default": "handles",
+      "options": [
+        {
+          "value": "brick",
+          "label": {
+            "en": "Brick",
+            "es": "Ladrillo"
+          }
+        },
+        {
+          "value": "crescent",
+          "label": {
+            "en": "Crescent",
+            "es": "Media luna"
+          }
+        },
+        {
+          "value": "dogbone",
+          "label": {
+            "en": "Dogbone",
+            "es": "Hueso"
+          }
+        },
+        {
+          "value": "handles",
+          "label": {
+            "en": "Handles",
+            "es": "Asas"
+          }
+        },
+        {
+          "value": "trident",
+          "label": {
+            "en": "Trident (three grips)",
+            "es": "Tridente (tres empuñaduras)"
+          }
+        }
+      ],
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Body plan",
+        "es": "Plan de cuerpo"
+      },
+      "tooltip": {
+        "en": "Brick: the bridge alone. Crescent: a concave front edge. Dogbone: round end lobes. Handles and trident: 2 or 3 tapered grips (grip_count). Outlines come from these written rules, never from a product.",
+        "es": "Ladrillo: sólo el puente. Media luna: borde frontal cóncavo. Hueso: lóbulos redondos. Asas y tridente: 2 o 3 empuñaduras (grip_count). Los contornos salen de estas reglas escritas, nunca de un producto."
+      }
+    },
+    {
+      "id": "thickness",
+      "type": "slider",
+      "default": 40,
+      "min": 12.0,
+      "max": 48.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Thickness (mm)",
+        "es": "Espesor (mm)"
+      },
+      "tooltip": {
+        "en": "Z, the body alone: grips stand on z = 0, the crown's top is z = thickness. In a preset: the smaller of the published height and depth.",
+        "es": "Z, sólo el cuerpo: las empuñaduras se apoyan en z = 0 y la cima de la corona es z = espesor. En un preajuste: la menor de la altura y la profundidad publicadas."
+      }
+    },
+    {
+      "id": "bridge_width",
+      "type": "slider",
+      "default": 115.44,
+      "min": 47.8,
+      "max": 169.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bridge width (mm)",
+        "es": "Ancho del puente (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the rounded-rectangle centre body, across the hands (X).",
+        "es": "REGLA DEL ARQUETIPO: el cuerpo central rectangular redondeado, entre las manos (X)."
+      }
+    },
+    {
+      "id": "bridge_depth",
+      "type": "slider",
+      "default": 58.24,
+      "min": 24.6,
+      "max": 134.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bridge depth (mm)",
+        "es": "Fondo del puente (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: front edge to shoulders (Y).",
+        "es": "REGLA DEL ARQUETIPO: del borde frontal a los hombros (Y)."
+      }
+    },
+    {
+      "id": "bridge_corner_radius",
+      "type": "slider",
+      "default": 10.4832,
+      "min": 1.4,
+      "max": 20.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Bridge corner radius (mm)",
+        "es": "Radio de esquina del puente (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: no maker publishes one.",
+        "es": "REGLA DEL ARQUETIPO: ningún fabricante lo publica."
+      }
+    },
+    {
+      "id": "grip_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "count",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grips (0, 2 or 3)",
+        "es": "Empuñaduras (0, 2 o 3)"
+      },
+      "tooltip": {
+        "en": "0 none, 2 side grips, 3 adds a centre grip. A brick draws none whatever this says.",
+        "es": "0 ninguna, 2 laterales, 3 añade una central. Un ladrillo no dibuja ninguna."
+      }
+    },
+    {
+      "id": "grip_root_x",
+      "type": "slider",
+      "default": 39.248,
+      "min": 0.0,
+      "max": 64.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Grip root, X (mm)",
+        "es": "Raíz de empuñadura, X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: where each side grip's root circle is centred (derived so the root sits 1 mm inside the bridge corner).",
+        "es": "REGLA DEL ARQUETIPO: centro del círculo raíz de cada empuñadura lateral (derivado para quedar 1 mm dentro de la esquina del puente)."
+      }
+    },
+    {
+      "id": "grip_root_y",
+      "type": "slider",
+      "default": -10.648,
+      "min": -12.8,
+      "max": 2.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Grip root, Y (mm)",
+        "es": "Raíz de empuñadura, Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: where each side grip's root circle is centred (derived so the root sits 1 mm inside the bridge corner).",
+        "es": "REGLA DEL ARQUETIPO: centro del círculo raíz de cada empuñadura lateral (derivado para quedar 1 mm dentro de la esquina del puente)."
+      }
+    },
+    {
+      "id": "grip_length",
+      "type": "slider",
+      "default": 53.8617,
+      "min": 0.0,
+      "max": 86.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grip length (mm)",
+        "es": "Largo de empuñadura (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: root centre to tip centre. Derived so the tips reach the envelope.",
+        "es": "REGLA DEL ARQUETIPO: del centro de la raíz al de la punta. Derivado para que las puntas lleguen a la envolvente."
+      }
+    },
+    {
+      "id": "grip_splay_deg",
+      "type": "slider",
+      "default": 25.4575,
+      "min": 0.0,
+      "max": 30.5,
+      "step": 0.01,
+      "unit": "deg",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grip splay (°)",
+        "es": "Apertura de empuñadura (°)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: outward from straight down (−Y).",
+        "es": "REGLA DEL ARQUETIPO: hacia fuera desde la vertical (−Y)."
+      }
+    },
+    {
+      "id": "grip_drop",
+      "type": "slider",
+      "default": 12,
+      "min": 0.0,
+      "max": 14.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grip drop (mm)",
+        "es": "Caída de empuñadura (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: how far the grips hang below the bridge's underside.",
+        "es": "REGLA DEL ARQUETIPO: cuánto cuelgan las empuñaduras bajo la cara inferior del puente."
+      }
+    },
+    {
+      "id": "grip_root_radius",
+      "type": "slider",
+      "default": 17.472,
+      "min": 0.0,
+      "max": 38.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grip root radius (mm)",
+        "es": "Radio de raíz (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the taper's start.",
+        "es": "REGLA DEL ARQUETIPO: inicio del ahusado."
+      }
+    },
+    {
+      "id": "grip_tip_radius",
+      "type": "slider",
+      "default": 15.6,
+      "min": 0.0,
+      "max": 38.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Grip tip radius (mm)",
+        "es": "Radio de punta (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the taper's end; a dogbone's lobe radius.",
+        "es": "REGLA DEL ARQUETIPO: fin del ahusado; radio del lóbulo de un hueso."
+      }
+    },
+    {
+      "id": "center_grip_offset",
+      "type": "slider",
+      "default": 0,
+      "min": -24.0,
+      "max": 4.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "body",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Centre grip offset (mm)",
+        "es": "Desfase de la empuñadura central (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: how much longer (+) or shorter (−) the third grip runs than the side grips.",
+        "es": "REGLA DEL ARQUETIPO: cuánto más larga (+) o corta (−) es la tercera empuñadura."
+      }
+    },
+    {
+      "id": "top_crown",
+      "type": "slider",
+      "default": 4.8,
+      "min": 0.2,
+      "max": 5.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "crown",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Top crown (mm)",
+        "es": "Corona superior (mm)"
+      },
+      "tooltip": {
+        "en": "The ONE analytic crown: z_top = thickness − top_crown·max(0, q − 0.02), q = (x/span_x)² + ((y − center_y)/span_y)². Every control seat reads it.",
+        "es": "La ÚNICA corona analítica: z_sup = espesor − top_crown·max(0, q − 0.02), q = (x/span_x)² + ((y − center_y)/span_y)². Todos los asientos de control la leen."
+      }
+    },
+    {
+      "id": "bottom_crown",
+      "type": "slider",
+      "default": 3.2,
+      "min": 0.2,
+      "max": 3.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "crown",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bottom crown (mm)",
+        "es": "Corona inferior (mm)"
+      },
+      "tooltip": {
+        "en": "The bridge's underside rises by bottom_crown·max(0, q − 0.02) from grip_drop. Grips stay flat on z = 0.",
+        "es": "La cara inferior del puente sube bottom_crown·max(0, q − 0.02) desde grip_drop. Las empuñaduras quedan planas en z = 0."
+      }
+    },
+    {
+      "id": "crown_span_x",
+      "type": "slider",
+      "default": 78,
+      "min": 20.4,
+      "max": 105.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "crown",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Crown span X (mm)",
+        "es": "Alcance de corona X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: derived from the envelope: the crown is centred on the bridge and spans its farthest edge.",
+        "es": "REGLA DEL ARQUETIPO: derivado de la envolvente: la corona se centra en el puente y alcanza su borde más lejano."
+      }
+    },
+    {
+      "id": "crown_span_y",
+      "type": "slider",
+      "default": 74.88,
+      "min": 9.3,
+      "max": 106.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "crown",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Crown span Y (mm)",
+        "es": "Alcance de corona Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: derived from the envelope: the crown is centred on the bridge and spans its farthest edge.",
+        "es": "REGLA DEL ARQUETIPO: derivado de la envolvente: la corona se centra en el puente y alcanza su borde más lejano."
+      }
+    },
+    {
+      "id": "crown_center_y",
+      "type": "slider",
+      "default": 0,
+      "min": 0.0,
+      "max": 0.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "crown",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Crown centre Y (mm)",
+        "es": "Centro de corona Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: derived from the envelope: the crown is centred on the bridge and spans its farthest edge.",
+        "es": "REGLA DEL ARQUETIPO: derivado de la envolvente: la corona se centra en el puente y alcanza su borde más lejano."
+      }
+    },
+    {
+      "id": "seam_ratio",
+      "type": "slider",
+      "default": 0.5,
+      "min": 0.2,
+      "max": 0.8,
+      "step": 0.01,
+      "unit": "ratio",
+      "group": "shell",
+      "modes": [
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Seam height (fraction of thickness)",
+        "es": "Altura de la junta (fracción del espesor)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: where the top and bottom shells meet.",
+        "es": "REGLA DEL ARQUETIPO: donde se unen las carcasas superior e inferior."
+      }
+    },
+    {
+      "id": "shell_wall",
+      "type": "slider",
+      "default": 2,
+      "min": 1.2,
+      "max": 4,
+      "step": 0.1,
+      "unit": "mm",
+      "group": "shell",
+      "modes": [
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Shell wall (mm)",
+        "es": "Pared de la carcasa (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the shells are the body minus itself inset by this wall.",
+        "es": "REGLA DEL ARQUETIPO: las carcasas son el cuerpo menos sí mismo desplazado hacia dentro por esta pared."
+      }
+    },
+    {
+      "id": "control_recess_depth",
+      "type": "slider",
+      "default": 1.2,
+      "min": 0.6,
+      "max": 3,
+      "step": 0.1,
+      "unit": "mm",
+      "group": "shell",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Seat depth (mm)",
+        "es": "Profundidad de asiento (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: how far below the crown every button seat sinks; stick wells sink 2.5 times this.",
+        "es": "REGLA DEL ARQUETIPO: cuánto bajo la corona se hunde cada asiento; los pozos de palanca 2.5 veces esto."
+      }
+    },
+    {
+      "id": "control_clearance",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.1,
+      "max": 0.8,
+      "step": 0.05,
+      "unit": "mm",
+      "group": "shell",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Control clearance (mm)",
+        "es": "Holgura de control (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: each cap is this much smaller than its seat on every side.",
+        "es": "REGLA DEL ARQUETIPO: cada tapa es esto más chica que su asiento por cada lado."
+      }
+    },
+    {
+      "id": "dpad_kind",
+      "type": "select",
+      "default": "cross",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "es": "Ninguno"
+          }
+        },
+        {
+          "value": "cross",
+          "label": {
+            "en": "Cross",
+            "es": "Cruz"
+          }
+        },
+        {
+          "value": "disc",
+          "label": {
+            "en": "Disc",
+            "es": "Disco"
+          }
+        },
+        {
+          "value": "circle",
+          "label": {
+            "en": "Four round buttons",
+            "es": "Cuatro botones redondos"
+          }
+        }
+      ],
+      "group": "dpad",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "D-pad",
+        "es": "Cruceta"
+      },
+      "tooltip": {
+        "en": "Cross (two crossed bars), disc, or four round buttons on a ring.",
+        "es": "Cruz (dos barras cruzadas), disco o cuatro botones redondos en anillo."
+      }
+    },
+    {
+      "id": "dpad_x",
+      "type": "slider",
+      "default": -40.56,
+      "min": -63.4,
+      "max": -10.7,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "dpad",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "D-pad X (mm)",
+        "es": "Cruceta X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the centre of the pad.",
+        "es": "REGLA DEL ARQUETIPO: el centro de la cruceta."
+      }
+    },
+    {
+      "id": "dpad_y",
+      "type": "slider",
+      "default": 5.824,
+      "min": -48.4,
+      "max": 16.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "dpad",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "D-pad Y (mm)",
+        "es": "Cruceta Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the centre of the pad.",
+        "es": "REGLA DEL ARQUETIPO: el centro de la cruceta."
+      }
+    },
+    {
+      "id": "dpad_size",
+      "type": "slider",
+      "default": 22.9632,
+      "min": 10.9,
+      "max": 31.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "dpad",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "D-pad span (mm)",
+        "es": "Tamaño de cruceta (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: tip to tip.",
+        "es": "REGLA DEL ARQUETIPO: de punta a punta."
+      }
+    },
+    {
+      "id": "dpad_arm_width",
+      "type": "slider",
+      "default": 7.8075,
+      "min": 3.7,
+      "max": 10.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "dpad",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "D-pad arm width (mm)",
+        "es": "Ancho de brazo (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: also the diameter of a four-button pad's buttons.",
+        "es": "REGLA DEL ARQUETIPO: también el diámetro de los botones de una cruceta de cuatro botones."
+      }
+    },
+    {
+      "id": "dpad_height",
+      "type": "slider",
+      "default": 2,
+      "min": 1.6,
+      "max": 2.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "dpad",
+      "modes": [
+        "pad"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "D-pad height above the crown (mm)",
+        "es": "Altura de la cruceta sobre la corona (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the cap's top.",
+        "es": "REGLA DEL ARQUETIPO: la cima de la tapa."
+      }
+    },
+    {
+      "id": "face_count",
+      "type": "slider",
+      "default": 4,
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "count",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face buttons",
+        "es": "Botones frontales"
+      },
+      "tooltip": {
+        "en": "0–8. From the catalog's `abxy` / `face_button` count.",
+        "es": "0–8. Del conteo `abxy` / `face_button` del catálogo."
+      }
+    },
+    {
+      "id": "face_arrangement",
+      "type": "select",
+      "default": "diamond",
+      "options": [
+        {
+          "value": "row",
+          "label": {
+            "en": "Row",
+            "es": "Fila"
+          }
+        },
+        {
+          "value": "diagonal",
+          "label": {
+            "en": "Diagonal row",
+            "es": "Fila diagonal"
+          }
+        },
+        {
+          "value": "diamond",
+          "label": {
+            "en": "Diamond / ring",
+            "es": "Rombo / anillo"
+          }
+        },
+        {
+          "value": "arc_2x3",
+          "label": {
+            "en": "Two arced rows",
+            "es": "Dos filas en arco"
+          }
+        },
+        {
+          "value": "big_a",
+          "label": {
+            "en": "One large + arc",
+            "es": "Uno grande + arco"
+          }
+        }
+      ],
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face-button arrangement",
+        "es": "Disposición de botones"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: row, diagonal row, ring, two arced rows, or one large button with the rest on an arc.",
+        "es": "REGLA DEL ARQUETIPO: fila, fila diagonal, anillo, dos filas en arco, o uno grande con el resto en arco."
+      }
+    },
+    {
+      "id": "face_x",
+      "type": "slider",
+      "default": 40.56,
+      "min": 10.7,
+      "max": 63.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face cluster X (mm)",
+        "es": "Grupo de botones X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the cluster's centre.",
+        "es": "REGLA DEL ARQUETIPO: el centro del grupo."
+      }
+    },
+    {
+      "id": "face_y",
+      "type": "slider",
+      "default": 5.824,
+      "min": 0.0,
+      "max": 9.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face cluster Y (mm)",
+        "es": "Grupo de botones Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the cluster's centre.",
+        "es": "REGLA DEL ARQUETIPO: el centro del grupo."
+      }
+    },
+    {
+      "id": "face_radius",
+      "type": "slider",
+      "default": 4.992,
+      "min": 2.4,
+      "max": 6.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face button radius (mm)",
+        "es": "Radio de botón (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: every face button is a plain round cap; no glyph.",
+        "es": "REGLA DEL ARQUETIPO: cada botón es una tapa redonda lisa; sin glifo."
+      }
+    },
+    {
+      "id": "face_spacing",
+      "type": "slider",
+      "default": 10.4832,
+      "min": 4.7,
+      "max": 16.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Face spacing (mm)",
+        "es": "Separación (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ring radius (ring, big_a) or pitch (rows).",
+        "es": "REGLA DEL ARQUETIPO: radio del anillo (anillo, big_a) o paso (filas)."
+      }
+    },
+    {
+      "id": "face_tilt_deg",
+      "type": "slider",
+      "default": 0,
+      "min": -45,
+      "max": 45,
+      "step": 0.5,
+      "unit": "deg",
+      "group": "face",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Cluster tilt (°)",
+        "es": "Giro del grupo (°)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the whole cluster turns about its centre.",
+        "es": "REGLA DEL ARQUETIPO: todo el grupo gira sobre su centro."
+      }
+    },
+    {
+      "id": "face_height",
+      "type": "slider",
+      "default": 2,
+      "min": 1.6,
+      "max": 2.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "face",
+      "modes": [
+        "pad"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Face button height (mm)",
+        "es": "Altura de botón (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: above the crown.",
+        "es": "REGLA DEL ARQUETIPO: sobre la corona."
+      }
+    },
+    {
+      "id": "stick_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "unit": "count",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Analogue sticks",
+        "es": "Palancas analógicas"
+      },
+      "tooltip": {
+        "en": "0–2.",
+        "es": "0–2."
+      }
+    },
+    {
+      "id": "stick_layout",
+      "type": "select",
+      "default": "symmetric",
+      "options": [
+        {
+          "value": "symmetric",
+          "label": {
+            "en": "Symmetric",
+            "es": "Simétricas"
+          }
+        },
+        {
+          "value": "offset",
+          "label": {
+            "en": "Offset",
+            "es": "Desfasadas"
+          }
+        }
+      ],
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Stick layout",
+        "es": "Disposición de palancas"
+      },
+      "tooltip": {
+        "en": "Symmetric: the second stick mirrors the first. Offset: the second stick sits at its own position.",
+        "es": "Simétricas: la segunda refleja a la primera. Desfasadas: la segunda va en su propia posición."
+      }
+    },
+    {
+      "id": "stick_left_x",
+      "type": "slider",
+      "default": -22.308,
+      "min": -48.7,
+      "max": 8.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "First stick X (mm)",
+        "es": "Primera palanca X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the stick's centre. The second position is read only with the offset layout.",
+        "es": "REGLA DEL ARQUETIPO: centro de la palanca. La segunda posición sólo se lee con la disposición desfasada."
+      }
+    },
+    {
+      "id": "stick_left_y",
+      "type": "slider",
+      "default": -15.1424,
+      "min": -23.3,
+      "max": 9.7,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "First stick Y (mm)",
+        "es": "Primera palanca Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the stick's centre. The second position is read only with the offset layout.",
+        "es": "REGLA DEL ARQUETIPO: centro de la palanca. La segunda posición sólo se lee con la disposición desfasada."
+      }
+    },
+    {
+      "id": "stick_right_x",
+      "type": "slider",
+      "default": 22.308,
+      "min": 0.0,
+      "max": 28.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Second stick X (mm)",
+        "es": "Segunda palanca X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the stick's centre. The second position is read only with the offset layout.",
+        "es": "REGLA DEL ARQUETIPO: centro de la palanca. La segunda posición sólo se lee con la disposición desfasada."
+      }
+    },
+    {
+      "id": "stick_right_y",
+      "type": "slider",
+      "default": -15.1424,
+      "min": -48.4,
+      "max": 0.5,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Second stick Y (mm)",
+        "es": "Segunda palanca Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the stick's centre. The second position is read only with the offset layout.",
+        "es": "REGLA DEL ARQUETIPO: centro de la palanca. La segunda posición sólo se lee con la disposición desfasada."
+      }
+    },
+    {
+      "id": "stick_cap",
+      "type": "select",
+      "default": "concave",
+      "options": [
+        {
+          "value": "convex",
+          "label": {
+            "en": "Convex",
+            "es": "Convexa"
+          }
+        },
+        {
+          "value": "concave",
+          "label": {
+            "en": "Concave",
+            "es": "Cóncava"
+          }
+        }
+      ],
+      "group": "sticks",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Stick cap",
+        "es": "Tapa de palanca"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: a frustum (convex) or a disc with a conical dish (concave).",
+        "es": "REGLA DEL ARQUETIPO: un tronco de cono (convexa) o un disco con plato cónico (cóncava)."
+      }
+    },
+    {
+      "id": "stick_radius",
+      "type": "slider",
+      "default": 10.14,
+      "min": 3.8,
+      "max": 13.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Stick cap radius (mm)",
+        "es": "Radio de tapa (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "stick_height",
+      "type": "slider",
+      "default": 10.14,
+      "min": 3.8,
+      "max": 13.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Stick height (mm)",
+        "es": "Altura de palanca (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: cap top above the crown.",
+        "es": "REGLA DEL ARQUETIPO: cima de la tapa sobre la corona."
+      }
+    },
+    {
+      "id": "stick_gate",
+      "type": "select",
+      "default": "round",
+      "options": [
+        {
+          "value": "round",
+          "label": {
+            "en": "Round",
+            "es": "Redonda"
+          }
+        },
+        {
+          "value": "octagon",
+          "label": {
+            "en": "Octagonal",
+            "es": "Octagonal"
+          }
+        }
+      ],
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Stick gate",
+        "es": "Compuerta de palanca"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the seat's shape: round or octagonal.",
+        "es": "REGLA DEL ARQUETIPO: forma del asiento: redonda u octagonal."
+      }
+    },
+    {
+      "id": "stick_gate_radius",
+      "type": "slider",
+      "default": 8.619,
+      "min": 3.2,
+      "max": 11.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "sticks",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Gate radius (mm)",
+        "es": "Radio de compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: must clear the shaft (0.35 × cap radius).",
+        "es": "REGLA DEL ARQUETIPO: debe librar el eje (0.35 × radio de tapa)."
+      }
+    },
+    {
+      "id": "stick_tilt_deg",
+      "type": "slider",
+      "default": 0,
+      "min": -25,
+      "max": 25,
+      "step": 0.5,
+      "unit": "deg",
+      "group": "sticks",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Stick tilt (°)",
+        "es": "Inclinación de palanca (°)"
+      },
+      "tooltip": {
+        "en": "Both sticks tilt about X through their pivot. Animated by `stick-tilt`.",
+        "es": "Ambas palancas se inclinan sobre X por su pivote. Animado por `stick-tilt`."
+      }
+    },
+    {
+      "id": "bumper_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "count",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bumpers",
+        "es": "Botones de hombro"
+      },
+      "tooltip": {
+        "en": "0–4: one or two per side; a second pair sits below the first.",
+        "es": "0–4: uno o dos por lado; un segundo par va bajo el primero."
+      }
+    },
+    {
+      "id": "bumper_x",
+      "type": "slider",
+      "default": 40.56,
+      "min": 10.7,
+      "max": 63.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bumper X (mm)",
+        "es": "Botón de hombro X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: each bumper's centre, ±X.",
+        "es": "REGLA DEL ARQUETIPO: centro de cada botón, ±X."
+      }
+    },
+    {
+      "id": "bumper_width",
+      "type": "slider",
+      "default": 23.088,
+      "min": 9.6,
+      "max": 33.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bumper width (mm)",
+        "es": "Ancho (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "bumper_height",
+      "type": "slider",
+      "default": 4.48,
+      "min": 2.3,
+      "max": 5.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bumper height (mm)",
+        "es": "Alto (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "bumper_depth",
+      "type": "slider",
+      "default": 8.1536,
+      "min": 3.4,
+      "max": 18.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Bumper depth (mm)",
+        "es": "Fondo (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: how far the notch bites into the shoulder edge.",
+        "es": "REGLA DEL ARQUETIPO: cuánto entra la muesca en el borde de hombros."
+      }
+    },
+    {
+      "id": "trigger_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "unit": "count",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Analogue triggers",
+        "es": "Gatillos analógicos"
+      },
+      "tooltip": {
+        "en": "0–2, in notches at the shoulder edge's underside.",
+        "es": "0–2, en muescas bajo el borde de hombros."
+      }
+    },
+    {
+      "id": "trigger_x",
+      "type": "slider",
+      "default": 40.56,
+      "min": 10.7,
+      "max": 63.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Trigger X (mm)",
+        "es": "Gatillo X (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "trigger_width",
+      "type": "slider",
+      "default": 18.4704,
+      "min": 7.7,
+      "max": 27.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Trigger width (mm)",
+        "es": "Ancho de gatillo (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "trigger_length",
+      "type": "slider",
+      "default": 10.08,
+      "min": 5.2,
+      "max": 12.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Trigger notch height (mm)",
+        "es": "Alto de muesca (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the blade hangs 1.35 times this from its hinge.",
+        "es": "REGLA DEL ARQUETIPO: la hoja cuelga 1.35 veces esto desde su bisagra."
+      }
+    },
+    {
+      "id": "trigger_depth",
+      "type": "slider",
+      "default": 12.8128,
+      "min": 5.4,
+      "max": 29.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Trigger notch depth (mm)",
+        "es": "Fondo de muesca (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "trigger_travel_deg",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 20,
+      "step": 0.5,
+      "unit": "deg",
+      "group": "shoulders",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Trigger pull (°)",
+        "es": "Recorrido de gatillo (°)"
+      },
+      "tooltip": {
+        "en": "0 at rest (20° open) to 20 fully pulled in. Animated by `trigger-pull`.",
+        "es": "0 en reposo (20° abierto) a 20 jalado por completo. Animado por `trigger-pull`."
+      }
+    },
+    {
+      "id": "under_trigger",
+      "type": "checkbox",
+      "default": false,
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Under-trigger",
+        "es": "Gatillo inferior"
+      },
+      "tooltip": {
+        "en": "A trigger in the underside (on the centre grip when there is one).",
+        "es": "Un gatillo en la cara inferior (en la empuñadura central si existe)."
+      }
+    },
+    {
+      "id": "under_trigger_y",
+      "type": "slider",
+      "default": -15.1424,
+      "min": -67.2,
+      "max": 13.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "shoulders",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Under-trigger Y (mm)",
+        "es": "Gatillo inferior Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "system_button_count",
+      "type": "slider",
+      "default": 2,
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "count",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "System buttons",
+        "es": "Botones de sistema"
+      },
+      "tooltip": {
+        "en": "0–4, in a row centred on x = 0.",
+        "es": "0–4, en fila centrada en x = 0."
+      }
+    },
+    {
+      "id": "system_y",
+      "type": "slider",
+      "default": 8.736,
+      "min": 0.0,
+      "max": 33.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "System row Y (mm)",
+        "es": "Fila de sistema Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "system_pitch",
+      "type": "slider",
+      "default": 50.1744,
+      "min": 0.3,
+      "max": 60.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "System pitch (mm)",
+        "es": "Paso de sistema (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "system_radius",
+      "type": "slider",
+      "default": 2.808,
+      "min": 1.4,
+      "max": 3.6,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "System button radius (mm)",
+        "es": "Radio de botón de sistema (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "touchpad_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Touchpad",
+        "es": "Panel táctil"
+      },
+      "tooltip": {
+        "en": "A rectangular recess centred on x = 0.",
+        "es": "Un rebaje rectangular centrado en x = 0."
+      }
+    },
+    {
+      "id": "touchpad_width",
+      "type": "slider",
+      "default": 41.5584,
+      "min": 17.2,
+      "max": 60.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Touchpad width (mm)",
+        "es": "Ancho del panel (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "touchpad_height",
+      "type": "slider",
+      "default": 24.4608,
+      "min": 10.3,
+      "max": 56.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Touchpad height (mm)",
+        "es": "Alto del panel (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "touchpad_y",
+      "type": "slider",
+      "default": 8.736,
+      "min": 0.2,
+      "max": 13.0,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Touchpad Y (mm)",
+        "es": "Panel Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "light_bar_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Light-bar slot",
+        "es": "Ranura de barra de luz"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: a thin slot just beyond the touchpad.",
+        "es": "REGLA DEL ARQUETIPO: una ranura delgada justo después del panel."
+      }
+    },
+    {
+      "id": "light_bar_width",
+      "type": "slider",
+      "default": 34.632,
+      "min": 14.4,
+      "max": 50.7,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Light-bar width (mm)",
+        "es": "Ancho de barra de luz (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "speaker_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Speaker grille",
+        "es": "Rejilla de altavoz"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: eight holes, one region cut once.",
+        "es": "REGLA DEL ARQUETIPO: ocho orificios, una región cortada una vez."
+      }
+    },
+    {
+      "id": "speaker_y",
+      "type": "slider",
+      "default": -6.9944,
+      "min": -26.9,
+      "max": 1.1,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "system",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Speaker Y (mm)",
+        "es": "Altavoz Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "headset_jack",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Headset jack",
+        "es": "Conector de audífonos"
+      },
+      "tooltip": {
+        "en": "3.5 mm in the front edge (the catalog's `headphone_3_5`).",
+        "es": "3.5 mm en el borde frontal (el `headphone_3_5` del catálogo)."
+      }
+    },
+    {
+      "id": "cable_exit",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None (wireless)",
+            "es": "Ninguna (inalámbrico)"
+          }
+        },
+        {
+          "value": "top",
+          "label": {
+            "en": "Shoulder edge, left of centre",
+            "es": "Borde de hombros, a la izquierda"
+          }
+        },
+        {
+          "value": "top_center",
+          "label": {
+            "en": "Shoulder edge, centre",
+            "es": "Borde de hombros, al centro"
+          }
+        }
+      ],
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Cable exit",
+        "es": "Salida de cable"
+      },
+      "tooltip": {
+        "en": "A wired pad's strain-relief stub on the shoulder edge (the future cable-assembly family's seat).",
+        "es": "El muñón de alivio de tensión de un control alámbrico en el borde de hombros (asiento de la futura familia de cables)."
+      }
+    },
+    {
+      "id": "charge_port",
+      "type": "checkbox",
+      "default": true,
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Charge port",
+        "es": "Puerto de carga"
+      },
+      "tooltip": {
+        "en": "A USB-C-sized opening in the shoulder edge.",
+        "es": "Una boca del tamaño de USB-C en el borde de hombros."
+      }
+    },
+    {
+      "id": "expansion_slot_count",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "unit": "count",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Expansion slots",
+        "es": "Ranuras de expansión"
+      },
+      "tooltip": {
+        "en": "0–2 slots for plug-in packs.",
+        "es": "0–2 ranuras para módulos enchufables."
+      }
+    },
+    {
+      "id": "expansion_slot_face",
+      "type": "select",
+      "default": "top",
+      "options": [
+        {
+          "value": "top",
+          "label": {
+            "en": "Top face",
+            "es": "Cara superior"
+          }
+        },
+        {
+          "value": "under",
+          "label": {
+            "en": "Underside",
+            "es": "Cara inferior"
+          }
+        }
+      ],
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Expansion slot face",
+        "es": "Cara de la ranura"
+      },
+      "tooltip": {
+        "en": "Top face, or the underside (on the centre grip when there is one).",
+        "es": "Cara superior o inferior (en la empuñadura central si existe)."
+      }
+    },
+    {
+      "id": "expansion_slot_y",
+      "type": "slider",
+      "default": 18.6368,
+      "min": -54.5,
+      "max": 44.9,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Slot Y (mm)",
+        "es": "Ranura Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "expansion_slot_pitch",
+      "type": "slider",
+      "default": 34.632,
+      "min": 14.4,
+      "max": 50.7,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "advanced": true,
+      "label": {
+        "en": "Slot pitch (mm)",
+        "es": "Paso de ranuras (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "expansion_slot_width",
+      "type": "slider",
+      "default": 18.4704,
+      "min": 7.9,
+      "max": 25.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Slot width (mm)",
+        "es": "Ancho de ranura (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "expansion_slot_thickness",
+      "type": "slider",
+      "default": 4.0768,
+      "min": 1.7,
+      "max": 9.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Slot thickness (mm)",
+        "es": "Grosor de ranura (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "expansion_slot_depth",
+      "type": "slider",
+      "default": 12.6,
+      "min": 5.9,
+      "max": 18.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Slot depth (mm)",
+        "es": "Profundidad de ranura (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "battery_door",
+      "type": "checkbox",
+      "default": false,
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Battery door",
+        "es": "Tapa de baterías"
+      },
+      "tooltip": {
+        "en": "A seam groove on the bridge's underside (AA/AAA cells in the catalog's features).",
+        "es": "Una ranura de junta bajo el puente (pilas AA/AAA en las características del catálogo)."
+      }
+    },
+    {
+      "id": "battery_door_width",
+      "type": "slider",
+      "default": 41.5584,
+      "min": 17.2,
+      "max": 60.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Door width (mm)",
+        "es": "Ancho de tapa (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "battery_door_length",
+      "type": "slider",
+      "default": 29.12,
+      "min": 12.3,
+      "max": 67.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Door length (mm)",
+        "es": "Largo de tapa (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "battery_door_y",
+      "type": "slider",
+      "default": -2.912,
+      "min": -6.7,
+      "max": -1.2,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "ports",
+      "modes": [
+        "pad",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Door Y (mm)",
+        "es": "Tapa Y (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: ",
+        "es": "REGLA DEL ARQUETIPO: "
+      }
+    },
+    {
+      "id": "split",
+      "type": "select",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "One piece",
+            "es": "Una pieza"
+          }
+        },
+        {
+          "value": "rail_halves",
+          "label": {
+            "en": "Halves on rails",
+            "es": "Mitades en rieles"
+          }
+        },
+        {
+          "value": "magnetic_halves",
+          "label": {
+            "en": "Magnetic halves",
+            "es": "Mitades magnéticas"
+          }
+        }
+      ],
+      "group": "split",
+      "modes": [
+        "pad",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Split",
+        "es": "División"
+      },
+      "tooltip": {
+        "en": "One piece, or two halves at x = 0 on Joy-Con-type rails or on magnets. Each half is its own body.",
+        "es": "Una pieza, o dos mitades en x = 0 sobre rieles tipo Joy-Con o imanes. Cada mitad es su propio cuerpo."
+      }
+    },
+    {
+      "id": "split_gap",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 40,
+      "step": 0.5,
+      "unit": "mm",
+      "group": "split",
+      "modes": [
+        "pad"
+      ],
+      "label": {
+        "en": "Split gap (mm)",
+        "es": "Separación (mm)"
+      },
+      "tooltip": {
+        "en": "Pulls the halves apart (plus a 0.4 mm running clearance). Animated by `detach`.",
+        "es": "Separa las mitades (más 0.4 mm de holgura). Animado por `detach`."
+      }
+    },
+    {
+      "id": "rail_length",
+      "type": "slider",
+      "default": 81.12,
+      "min": 24.6,
+      "max": 104.8,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "split",
+      "modes": [
+        "pad",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Rail length (mm)",
+        "es": "Largo del riel (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: also sets the magnet pitch (0.6 ×).",
+        "es": "REGLA DEL ARQUETIPO: también fija el paso de los imanes (0.6 ×)."
+      }
+    },
+    {
+      "id": "rail_width",
+      "type": "slider",
+      "default": 12,
+      "min": 3.6,
+      "max": 14.4,
+      "step": 0.01,
+      "unit": "mm",
+      "group": "split",
+      "modes": [
+        "pad",
+        "left_half",
+        "right_half"
+      ],
+      "label": {
+        "en": "Rail width (mm)",
+        "es": "Ancho del riel (mm)"
+      },
+      "tooltip": {
+        "en": "ARCHETYPE RULE: the T rail's flange; its stem is half this.",
+        "es": "REGLA DEL ARQUETIPO: el ala del riel en T; su alma es la mitad."
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "grip_count != 1",
+      "severity": "error",
+      "message": {
+        "en": "A controller has 0, 2 or 3 grips.",
+        "es": "Un control tiene 0, 2 o 3 empuñaduras."
+      }
+    },
+    {
+      "expression": "bridge_corner_radius * 2 < bridge_width && bridge_corner_radius * 2 < bridge_depth",
+      "severity": "error",
+      "message": {
+        "en": "The bridge's corner radius is larger than half its side.",
+        "es": "El radio de esquina del puente supera la mitad de su lado."
+      }
+    },
+    {
+      "expression": "top_crown * 2 < thickness * 0.6",
+      "severity": "error",
+      "message": {
+        "en": "The top crown would leave less than 40 % of the thickness at the planform's far corners.",
+        "es": "La corona superior dejaría menos del 40 % del espesor en las esquinas lejanas del contorno."
+      }
+    },
+    {
+      "expression": "grip_drop + bottom_crown + shell_wall < seam_ratio * thickness",
+      "severity": "error",
+      "message": {
+        "en": "The bridge's underside sits above the seam: the bottom shell would fall apart into separate grips.",
+        "es": "La cara inferior del puente queda sobre la junta: la carcasa inferior se partiría en empuñaduras separadas."
+      }
+    },
+    {
+      "expression": "trigger_travel_deg >= 0 && trigger_travel_deg <= 20",
+      "severity": "error",
+      "message": {
+        "en": "Trigger pull runs from 0 (rest, 20° open) to 20 (pulled in).",
+        "es": "El recorrido va de 0 (reposo, 20° abierto) a 20 (jalado)."
+      }
+    },
+    {
+      "expression": "stick_tilt_deg >= -25 && stick_tilt_deg <= 25",
+      "severity": "error",
+      "message": {
+        "en": "Stick tilt is limited to ±25°.",
+        "es": "La inclinación se limita a ±25°."
+      }
+    },
+    {
+      "expression": "face_count + system_button_count + stick_count + bumper_count + trigger_count > 0",
+      "severity": "error",
+      "message": {
+        "en": "The controls part needs at least one cap besides a D-pad.",
+        "es": "La pieza de controles necesita al menos una tapa además de la cruceta."
+      }
+    },
+    {
+      "expression": "stick_gate_radius > stick_radius * 0.35 + control_clearance",
+      "severity": "error",
+      "message": {
+        "en": "The stick gate does not clear the shaft (0.35 x the cap radius).",
+        "es": "La compuerta no libra el eje (0.35 x el radio de la tapa)."
+      }
+    },
+    {
+      "expression": "expansion_slot_depth + shell_wall < thickness - grip_drop",
+      "severity": "error",
+      "message": {
+        "en": "An expansion slot this deep pierces the body.",
+        "es": "Una ranura así de profunda atraviesa el cuerpo."
+      }
+    },
+    {
+      "expression": "control_recess_depth * 2.5 + shell_wall < thickness - grip_drop - top_crown * 2",
+      "severity": "error",
+      "message": {
+        "en": "A stick well this deep pierces the body.",
+        "es": "Un pozo de palanca así de profundo atraviesa el cuerpo."
+      }
+    },
+    {
+      "expression": "split_gap >= 0",
+      "severity": "error",
+      "message": {
+        "en": "The halves cannot overlap.",
+        "es": "Las mitades no pueden traslaparse."
+      }
+    },
+    {
+      "expression": "trigger_length + bumper_height + 4 < thickness - grip_drop - top_crown",
+      "severity": "warning",
+      "message": {
+        "en": "The trigger and bumper notches nearly meet at the shoulder edge.",
+        "es": "Las muescas de gatillo y de hombro casi se tocan en el borde."
+      }
+    },
+    {
+      "expression": "shell_wall * 2 < grip_tip_radius || grip_count == 0",
+      "severity": "warning",
+      "message": {
+        "en": "The grip tips are too slender to hollow; the shells keep them solid.",
+        "es": "Las puntas son demasiado delgadas para vaciarse; las carcasas las dejan macizas."
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        260,
+        -260,
+        220
+      ],
+      "target": [
+        0,
+        -20,
+        15
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        -20,
+        380
+      ],
+      "target": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frente"
+      },
+      "position": [
+        0,
+        -380,
+        20
+      ],
+      "target": [
+        0,
+        -20,
+        15
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "id": "trigger-pull",
+      "label": {
+        "en": "Trigger pull 0 → 20°",
+        "es": "Gatillo 0 → 20°"
+      },
+      "from_state": {
+        "trigger_travel_deg": 0
+      },
+      "to_state": {
+        "trigger_travel_deg": 20
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "pad"
+    },
+    {
+      "id": "stick-tilt",
+      "label": {
+        "en": "Stick tilt −20 → 20°",
+        "es": "Inclinación −20 → 20°"
+      },
+      "from_state": {
+        "stick_tilt_deg": -20
+      },
+      "to_state": {
+        "stick_tilt_deg": 20
+      },
+      "frames": 5,
+      "duration_ms": 2000,
+      "easing": "ease-in-out",
+      "mode": "pad"
+    },
+    {
+      "id": "detach",
+      "label": {
+        "en": "Detach the halves 0 → 40 mm",
+        "es": "Separar mitades 0 → 40 mm"
+      },
+      "from_state": {
+        "split": "magnetic_halves",
+        "split_gap": 0
+      },
+      "to_state": {
+        "split": "magnetic_halves",
+        "split_gap": 40
+      },
+      "frames": 5,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "pad"
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 3,
+    "per_part": 4,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "pad": {
+        "part_overrides": {
+          "body": {
+            "geometry.body_count": {
+              "expected": "1 if split == 'none' else 2"
+            }
+          },
+          "controls": {
+            "geometry.body_count": {
+              "expected": "(0 if dpad_kind == 'none' else (4 if dpad_kind == 'circle' else 1)) + face_count + system_button_count + stick_count + bumper_count + trigger_count + (1 if under_trigger else 0)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family gamepad --write gamepad/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "gamepad",
+    "axis_mapping": {
+      "x (bridge, grips)": "reference dimensions_mm.states.body.width (2 x width for a split object)",
+      "thickness": "the smaller of reference dimensions_mm.states.body.height / depth",
+      "y (front edge to shoulders)": "the larger of reference dimensions_mm.states.body.height / depth"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-brick",
+      "label": {
+        "en": "Archetype — brick",
+        "es": "Arquetipo — ladrillo"
+      },
+      "kind": "archetype",
+      "source": "Archetype brick body plan, not a product: envelope 120 x 54 x 20 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 120,
+        "depth": 54,
+        "thickness": 20
+      },
+      "values": {
+        "outline": "brick",
+        "thickness": 20,
+        "bridge_width": 120,
+        "bridge_depth": 54,
+        "bridge_corner_radius": 10.8,
+        "grip_count": 0,
+        "grip_root_x": 0,
+        "grip_root_y": 0,
+        "grip_length": 0,
+        "grip_splay_deg": 0,
+        "grip_drop": 0,
+        "grip_root_radius": 0,
+        "grip_tip_radius": 0,
+        "center_grip_offset": 0,
+        "top_crown": 1.2,
+        "bottom_crown": 0.8,
+        "crown_span_x": 60,
+        "crown_span_y": 27,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "cross",
+        "dpad_x": -33.6,
+        "dpad_y": 0,
+        "dpad_size": 17.664,
+        "dpad_arm_width": 6.0058,
+        "dpad_height": 2,
+        "face_count": 2,
+        "face_arrangement": "row",
+        "face_x": 33.6,
+        "face_y": 0,
+        "face_radius": 3.84,
+        "face_spacing": 9.984,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 0,
+        "stick_layout": "symmetric",
+        "stick_left_x": -18.48,
+        "stick_left_y": -19.44,
+        "stick_right_x": 18.48,
+        "stick_right_y": -19.44,
+        "stick_cap": "concave",
+        "stick_radius": 7.8,
+        "stick_height": 7.8,
+        "stick_gate": "round",
+        "stick_gate_radius": 6.63,
+        "stick_tilt_deg": 0,
+        "bumper_count": 0,
+        "bumper_x": 33.6,
+        "bumper_width": 24,
+        "bumper_height": 3.2,
+        "bumper_depth": 7.56,
+        "trigger_count": 0,
+        "trigger_x": 33.6,
+        "trigger_width": 19.2,
+        "trigger_length": 7.2,
+        "trigger_depth": 11.88,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": -27,
+        "system_button_count": 2,
+        "system_y": 2.7,
+        "system_pitch": 14.4,
+        "system_radius": 2.16,
+        "touchpad_present": false,
+        "touchpad_width": 43.2,
+        "touchpad_height": 22.68,
+        "touchpad_y": 2.7,
+        "light_bar_present": false,
+        "light_bar_width": 36,
+        "speaker_present": false,
+        "speaker_y": -10.8,
+        "headset_jack": false,
+        "cable_exit": "top",
+        "charge_port": false,
+        "expansion_slot_count": 0,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 17.28,
+        "expansion_slot_pitch": 36,
+        "expansion_slot_width": 19.2,
+        "expansion_slot_thickness": 3.78,
+        "expansion_slot_depth": 9,
+        "battery_door": false,
+        "battery_door_width": 43.2,
+        "battery_door_length": 27,
+        "battery_door_y": -2.7,
+        "split": "none",
+        "split_gap": 0,
+        "rail_length": 42.12,
+        "rail_width": 6
+      }
+    },
+    {
+      "slug": "archetype-crescent",
+      "label": {
+        "en": "Archetype — crescent",
+        "es": "Arquetipo — media luna"
+      },
+      "kind": "archetype",
+      "source": "Archetype crescent body plan, not a product: envelope 160 x 92 x 32 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 160,
+        "depth": 92,
+        "thickness": 32
+      },
+      "values": {
+        "outline": "crescent",
+        "thickness": 32,
+        "bridge_width": 134.4,
+        "bridge_depth": 57.04,
+        "bridge_corner_radius": 9.1264,
+        "grip_count": 2,
+        "grip_root_x": 45.6656,
+        "grip_root_y": -6.9856,
+        "grip_length": 40.092,
+        "grip_splay_deg": 21.9933,
+        "grip_drop": 4.8,
+        "grip_root_radius": 20.5344,
+        "grip_tip_radius": 19.32,
+        "center_grip_offset": 0,
+        "top_crown": 3.2,
+        "bottom_crown": 1.92,
+        "crown_span_x": 80,
+        "crown_span_y": 63.48,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "disc",
+        "dpad_x": -41.6,
+        "dpad_y": 7.9856,
+        "dpad_size": 23.552,
+        "dpad_arm_width": 8.0077,
+        "dpad_height": 2,
+        "face_count": 6,
+        "face_arrangement": "arc_2x3",
+        "face_x": 41.6,
+        "face_y": 7.9856,
+        "face_radius": 5.12,
+        "face_spacing": 13.312,
+        "face_tilt_deg": 20,
+        "face_height": 2,
+        "stick_count": 0,
+        "stick_layout": "symmetric",
+        "stick_left_x": -22.88,
+        "stick_left_y": -12.5488,
+        "stick_right_x": 22.88,
+        "stick_right_y": -12.5488,
+        "stick_cap": "concave",
+        "stick_radius": 10.4,
+        "stick_height": 10.4,
+        "stick_gate": "round",
+        "stick_gate_radius": 8.84,
+        "stick_tilt_deg": 0,
+        "bumper_count": 0,
+        "bumper_x": 41.6,
+        "bumper_width": 26.88,
+        "bumper_height": 4.352,
+        "bumper_depth": 7.9856,
+        "trigger_count": 0,
+        "trigger_x": 41.6,
+        "trigger_width": 21.504,
+        "trigger_length": 9.792,
+        "trigger_depth": 12.5488,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": -12.0925,
+        "system_button_count": 1,
+        "system_y": 10.8376,
+        "system_pitch": 16.128,
+        "system_radius": 2.88,
+        "touchpad_present": false,
+        "touchpad_width": 48.384,
+        "touchpad_height": 23.9568,
+        "touchpad_y": 10.8376,
+        "light_bar_present": false,
+        "light_bar_width": 40.32,
+        "speaker_present": false,
+        "speaker_y": -3.4224,
+        "headset_jack": false,
+        "cable_exit": "top_center",
+        "charge_port": false,
+        "expansion_slot_count": 2,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 18.2528,
+        "expansion_slot_pitch": 40.32,
+        "expansion_slot_width": 21.504,
+        "expansion_slot_thickness": 3.9928,
+        "expansion_slot_depth": 12.24,
+        "battery_door": false,
+        "battery_door_width": 48.384,
+        "battery_door_length": 28.52,
+        "battery_door_y": -2.852,
+        "split": "none",
+        "split_gap": 0,
+        "rail_length": 71.76,
+        "rail_width": 9.6
+      }
+    },
+    {
+      "slug": "archetype-dogbone",
+      "label": {
+        "en": "Archetype — dogbone",
+        "es": "Arquetipo — hueso"
+      },
+      "kind": "archetype",
+      "source": "Archetype dogbone body plan, not a product: envelope 144 x 64 x 26 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 144,
+        "depth": 64,
+        "thickness": 26
+      },
+      "values": {
+        "outline": "dogbone",
+        "thickness": 26,
+        "bridge_width": 82,
+        "bridge_depth": 47.36,
+        "bridge_corner_radius": 4.736,
+        "grip_count": 2,
+        "grip_root_x": 40,
+        "grip_root_y": 0,
+        "grip_length": 0,
+        "grip_splay_deg": 0,
+        "grip_drop": 0,
+        "grip_root_radius": 32,
+        "grip_tip_radius": 32,
+        "center_grip_offset": 0,
+        "top_crown": 2.08,
+        "bottom_crown": 1.3,
+        "crown_span_x": 72,
+        "crown_span_y": 32,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "cross",
+        "dpad_x": -37.44,
+        "dpad_y": 0,
+        "dpad_size": 21.1968,
+        "dpad_arm_width": 7.2069,
+        "dpad_height": 2,
+        "face_count": 4,
+        "face_arrangement": "diamond",
+        "face_x": 37.44,
+        "face_y": 0,
+        "face_radius": 4.608,
+        "face_spacing": 9.6768,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 0,
+        "stick_layout": "symmetric",
+        "stick_left_x": -20.592,
+        "stick_left_y": -17.0496,
+        "stick_right_x": 20.592,
+        "stick_right_y": -17.0496,
+        "stick_cap": "concave",
+        "stick_radius": 9.36,
+        "stick_height": 9.36,
+        "stick_gate": "round",
+        "stick_gate_radius": 7.956,
+        "stick_tilt_deg": 0,
+        "bumper_count": 2,
+        "bumper_x": 37.44,
+        "bumper_width": 16.4,
+        "bumper_height": 4.16,
+        "bumper_depth": 6.6304,
+        "trigger_count": 0,
+        "trigger_x": 37.44,
+        "trigger_width": 13.12,
+        "trigger_length": 9.36,
+        "trigger_depth": 10.4192,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": 1.92,
+        "system_button_count": 2,
+        "system_y": 2.368,
+        "system_pitch": 10.368,
+        "system_radius": 2.592,
+        "touchpad_present": false,
+        "touchpad_width": 29.52,
+        "touchpad_height": 19.8912,
+        "touchpad_y": 2.368,
+        "light_bar_present": false,
+        "light_bar_width": 24.6,
+        "speaker_present": false,
+        "speaker_y": -9.472,
+        "headset_jack": false,
+        "cable_exit": "top_center",
+        "charge_port": false,
+        "expansion_slot_count": 0,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 15.1552,
+        "expansion_slot_pitch": 24.6,
+        "expansion_slot_width": 13.12,
+        "expansion_slot_thickness": 3.3152,
+        "expansion_slot_depth": 11.7,
+        "battery_door": false,
+        "battery_door_width": 29.52,
+        "battery_door_length": 23.68,
+        "battery_door_y": -2.368,
+        "split": "none",
+        "split_gap": 0,
+        "rail_length": 49.92,
+        "rail_width": 7.8
+      }
+    },
+    {
+      "slug": "archetype-handles",
+      "label": {
+        "en": "Archetype — handles, offset sticks",
+        "es": "Arquetipo — asas, palancas desfasadas"
+      },
+      "kind": "archetype",
+      "source": "Archetype handles body plan, not a product: envelope 156 x 104 x 40 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 156,
+        "depth": 104,
+        "thickness": 40
+      },
+      "values": {
+        "outline": "handles",
+        "thickness": 40,
+        "bridge_width": 115.44,
+        "bridge_depth": 58.24,
+        "bridge_corner_radius": 10.4832,
+        "grip_count": 2,
+        "grip_root_x": 39.248,
+        "grip_root_y": -10.648,
+        "grip_length": 53.8617,
+        "grip_splay_deg": 25.4575,
+        "grip_drop": 12,
+        "grip_root_radius": 17.472,
+        "grip_tip_radius": 15.6,
+        "center_grip_offset": 0,
+        "top_crown": 4.8,
+        "bottom_crown": 3.2,
+        "crown_span_x": 78,
+        "crown_span_y": 74.88,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "cross",
+        "dpad_x": -22.308,
+        "dpad_y": -15.1424,
+        "dpad_size": 22.9632,
+        "dpad_arm_width": 7.8075,
+        "dpad_height": 2,
+        "face_count": 4,
+        "face_arrangement": "diamond",
+        "face_x": 40.56,
+        "face_y": 5.824,
+        "face_radius": 4.992,
+        "face_spacing": 10.4832,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 2,
+        "stick_layout": "offset",
+        "stick_left_x": -40.56,
+        "stick_left_y": 5.824,
+        "stick_right_x": 22.308,
+        "stick_right_y": -15.1424,
+        "stick_cap": "convex",
+        "stick_radius": 10.14,
+        "stick_height": 10.14,
+        "stick_gate": "round",
+        "stick_gate_radius": 8.619,
+        "stick_tilt_deg": 0,
+        "bumper_count": 2,
+        "bumper_x": 40.56,
+        "bumper_width": 23.088,
+        "bumper_height": 4.48,
+        "bumper_depth": 8.1536,
+        "trigger_count": 2,
+        "trigger_x": 40.56,
+        "trigger_width": 18.4704,
+        "trigger_length": 10.08,
+        "trigger_depth": 12.8128,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": -15.1424,
+        "system_button_count": 2,
+        "system_y": 8.736,
+        "system_pitch": 13.8528,
+        "system_radius": 2.808,
+        "touchpad_present": false,
+        "touchpad_width": 41.5584,
+        "touchpad_height": 24.4608,
+        "touchpad_y": 8.736,
+        "light_bar_present": false,
+        "light_bar_width": 34.632,
+        "speaker_present": false,
+        "speaker_y": -5.824,
+        "headset_jack": true,
+        "cable_exit": "none",
+        "charge_port": true,
+        "expansion_slot_count": 0,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 18.6368,
+        "expansion_slot_pitch": 34.632,
+        "expansion_slot_width": 18.4704,
+        "expansion_slot_thickness": 4.0768,
+        "expansion_slot_depth": 12.6,
+        "battery_door": true,
+        "battery_door_width": 41.5584,
+        "battery_door_length": 29.12,
+        "battery_door_y": -2.912,
+        "split": "none",
+        "split_gap": 0,
+        "rail_length": 81.12,
+        "rail_width": 12
+      }
+    },
+    {
+      "slug": "archetype-trident",
+      "label": {
+        "en": "Archetype — trident",
+        "es": "Arquetipo — tridente"
+      },
+      "kind": "archetype",
+      "source": "Archetype trident body plan, not a product: envelope 176 x 112 x 34 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 176,
+        "depth": 112,
+        "thickness": 34
+      },
+      "values": {
+        "outline": "trident",
+        "thickness": 34,
+        "bridge_width": 140.8,
+        "bridge_depth": 47.04,
+        "bridge_corner_radius": 10.3488,
+        "grip_count": 3,
+        "grip_root_x": 53.4064,
+        "grip_root_y": -6.5264,
+        "grip_length": 71.7049,
+        "grip_splay_deg": 17.1581,
+        "grip_drop": 6.8,
+        "grip_root_radius": 15.9936,
+        "grip_tip_radius": 13.44,
+        "center_grip_offset": -19.9913,
+        "top_crown": 3.4,
+        "bottom_crown": 1.7,
+        "crown_span_x": 88,
+        "crown_span_y": 88.48,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "cross",
+        "dpad_x": -52.8,
+        "dpad_y": 3.7632,
+        "dpad_size": 25.9072,
+        "dpad_arm_width": 8.8084,
+        "dpad_height": 2,
+        "face_count": 6,
+        "face_arrangement": "big_a",
+        "face_x": 52.8,
+        "face_y": 3.7632,
+        "face_radius": 5.632,
+        "face_spacing": 11.8272,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 1,
+        "stick_layout": "symmetric",
+        "stick_left_x": 0,
+        "stick_left_y": -7.5264,
+        "stick_right_x": 0,
+        "stick_right_y": -7.5264,
+        "stick_cap": "concave",
+        "stick_radius": 11,
+        "stick_height": 11,
+        "stick_gate": "octagon",
+        "stick_gate_radius": 9.35,
+        "stick_tilt_deg": 0,
+        "bumper_count": 2,
+        "bumper_x": 52.8,
+        "bumper_width": 28.16,
+        "bumper_height": 4.352,
+        "bumper_depth": 6.5856,
+        "trigger_count": 0,
+        "trigger_x": 52.8,
+        "trigger_width": 22.528,
+        "trigger_length": 9.792,
+        "trigger_depth": 10.3488,
+        "trigger_travel_deg": 0,
+        "under_trigger": true,
+        "under_trigger_y": -10.7251,
+        "system_button_count": 1,
+        "system_y": 6.1152,
+        "system_pitch": 16.896,
+        "system_radius": 3,
+        "touchpad_present": false,
+        "touchpad_width": 50.688,
+        "touchpad_height": 19.7568,
+        "touchpad_y": 6.1152,
+        "light_bar_present": false,
+        "light_bar_width": 42.24,
+        "speaker_present": false,
+        "speaker_y": -5.6448,
+        "headset_jack": false,
+        "cable_exit": "top_center",
+        "charge_port": false,
+        "expansion_slot_count": 1,
+        "expansion_slot_face": "under",
+        "expansion_slot_y": -45.3788,
+        "expansion_slot_pitch": 42.24,
+        "expansion_slot_width": 19.1923,
+        "expansion_slot_thickness": 5.5978,
+        "expansion_slot_depth": 15.3,
+        "battery_door": false,
+        "battery_door_width": 50.688,
+        "battery_door_length": 23.52,
+        "battery_door_y": -2.352,
+        "split": "none",
+        "split_gap": 0,
+        "rail_length": 87.36,
+        "rail_width": 10.2
+      }
+    },
+    {
+      "slug": "archetype-rail-halves",
+      "label": {
+        "en": "Archetype — halves on rails",
+        "es": "Arquetipo — mitades en rieles"
+      },
+      "kind": "archetype",
+      "source": "Archetype brick body plan, rail_halves, not a product: envelope 76 x 104 x 22 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 76,
+        "depth": 104,
+        "thickness": 22
+      },
+      "values": {
+        "outline": "brick",
+        "thickness": 22,
+        "bridge_width": 76,
+        "bridge_depth": 104,
+        "bridge_corner_radius": 15.2,
+        "grip_count": 0,
+        "grip_root_x": 0,
+        "grip_root_y": 0,
+        "grip_length": 0,
+        "grip_splay_deg": 0,
+        "grip_drop": 0,
+        "grip_root_radius": 0,
+        "grip_tip_radius": 0,
+        "center_grip_offset": 0,
+        "top_crown": 1.32,
+        "bottom_crown": 0.88,
+        "crown_span_x": 38,
+        "crown_span_y": 52,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "circle",
+        "dpad_x": -21.28,
+        "dpad_y": -37.44,
+        "dpad_size": 16.1,
+        "dpad_arm_width": 5.474,
+        "dpad_height": 2,
+        "face_count": 4,
+        "face_arrangement": "diamond",
+        "face_x": 21.28,
+        "face_y": 0,
+        "face_radius": 3.5,
+        "face_spacing": 7.35,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 2,
+        "stick_layout": "offset",
+        "stick_left_x": -21.28,
+        "stick_left_y": 0,
+        "stick_right_x": 21.28,
+        "stick_right_y": -37.44,
+        "stick_cap": "concave",
+        "stick_radius": 6,
+        "stick_height": 6,
+        "stick_gate": "round",
+        "stick_gate_radius": 5.1,
+        "stick_tilt_deg": 0,
+        "bumper_count": 2,
+        "bumper_x": 21.28,
+        "bumper_width": 15.2,
+        "bumper_height": 3.52,
+        "bumper_depth": 14.56,
+        "trigger_count": 2,
+        "trigger_x": 21.28,
+        "trigger_width": 12.16,
+        "trigger_length": 7.92,
+        "trigger_depth": 22.88,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": -52,
+        "system_button_count": 2,
+        "system_y": 26,
+        "system_pitch": 38,
+        "system_radius": 2,
+        "touchpad_present": false,
+        "touchpad_width": 27.36,
+        "touchpad_height": 43.68,
+        "touchpad_y": 5.2,
+        "light_bar_present": false,
+        "light_bar_width": 22.8,
+        "speaker_present": false,
+        "speaker_y": -20.8,
+        "headset_jack": false,
+        "cable_exit": "none",
+        "charge_port": false,
+        "expansion_slot_count": 0,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 33.28,
+        "expansion_slot_pitch": 22.8,
+        "expansion_slot_width": 12.16,
+        "expansion_slot_thickness": 7.28,
+        "expansion_slot_depth": 9.9,
+        "battery_door": false,
+        "battery_door_width": 27.36,
+        "battery_door_length": 52,
+        "battery_door_y": -5.2,
+        "split": "rail_halves",
+        "split_gap": 0,
+        "rail_length": 81.12,
+        "rail_width": 6.6
+      }
+    },
+    {
+      "slug": "archetype-magnetic-halves",
+      "label": {
+        "en": "Archetype — magnetic halves",
+        "es": "Arquetipo — mitades magnéticas"
+      },
+      "kind": "archetype",
+      "source": "Archetype brick body plan, magnetic_halves, not a product: envelope 84 x 112 x 24 mm (W x D x H) and its control counts are ours, every other number follows the archetype rules in tools/presets/gamepad.py. Generated — do not edit by hand.",
+      "envelope_mm": {
+        "width": 84,
+        "depth": 112,
+        "thickness": 24
+      },
+      "values": {
+        "outline": "brick",
+        "thickness": 24,
+        "bridge_width": 84,
+        "bridge_depth": 112,
+        "bridge_corner_radius": 16.8,
+        "grip_count": 0,
+        "grip_root_x": 0,
+        "grip_root_y": 0,
+        "grip_length": 0,
+        "grip_splay_deg": 0,
+        "grip_drop": 0,
+        "grip_root_radius": 0,
+        "grip_tip_radius": 0,
+        "center_grip_offset": 0,
+        "top_crown": 1.44,
+        "bottom_crown": 0.96,
+        "crown_span_x": 42,
+        "crown_span_y": 56,
+        "crown_center_y": 0,
+        "seam_ratio": 0.5,
+        "shell_wall": 2,
+        "control_recess_depth": 1.2,
+        "control_clearance": 0.3,
+        "dpad_kind": "circle",
+        "dpad_x": -23.52,
+        "dpad_y": -40.32,
+        "dpad_size": 16.1,
+        "dpad_arm_width": 5.474,
+        "dpad_height": 2,
+        "face_count": 4,
+        "face_arrangement": "diamond",
+        "face_x": 23.52,
+        "face_y": 0,
+        "face_radius": 3.5,
+        "face_spacing": 7.35,
+        "face_tilt_deg": 0,
+        "face_height": 2,
+        "stick_count": 2,
+        "stick_layout": "offset",
+        "stick_left_x": -23.52,
+        "stick_left_y": 0,
+        "stick_right_x": 23.52,
+        "stick_right_y": -40.32,
+        "stick_cap": "concave",
+        "stick_radius": 6,
+        "stick_height": 6,
+        "stick_gate": "round",
+        "stick_gate_radius": 5.1,
+        "stick_tilt_deg": 0,
+        "bumper_count": 2,
+        "bumper_x": 23.52,
+        "bumper_width": 16.8,
+        "bumper_height": 3.84,
+        "bumper_depth": 15.68,
+        "trigger_count": 2,
+        "trigger_x": 23.52,
+        "trigger_width": 13.44,
+        "trigger_length": 8.64,
+        "trigger_depth": 24.64,
+        "trigger_travel_deg": 0,
+        "under_trigger": false,
+        "under_trigger_y": -56,
+        "system_button_count": 2,
+        "system_y": 28,
+        "system_pitch": 42,
+        "system_radius": 2,
+        "touchpad_present": false,
+        "touchpad_width": 30.24,
+        "touchpad_height": 47.04,
+        "touchpad_y": 5.6,
+        "light_bar_present": false,
+        "light_bar_width": 25.2,
+        "speaker_present": false,
+        "speaker_y": -22.4,
+        "headset_jack": false,
+        "cable_exit": "none",
+        "charge_port": false,
+        "expansion_slot_count": 0,
+        "expansion_slot_face": "top",
+        "expansion_slot_y": 35.84,
+        "expansion_slot_pitch": 25.2,
+        "expansion_slot_width": 13.44,
+        "expansion_slot_thickness": 7.84,
+        "expansion_slot_depth": 10.8,
+        "battery_door": false,
+        "battery_door_width": 30.24,
+        "battery_door_length": 56,
+        "battery_door_y": -5.6,
+        "split": "magnetic_halves",
+        "split_gap": 0,
+        "rail_length": 87.36,
+        "rail_width": 7.2
+      }
+    }
+  ]
+}
