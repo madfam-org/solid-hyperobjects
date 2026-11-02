@@ -1165,8 +1165,8 @@
       "package": "hyperobjects-spec",
       "module": "hyperobjects_reference",
       "schema": "reference-object",
-      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "objects": 0,
+      "family_digest": "18fd38e49a5275029874153b5aca2637167757704f796f71d1dc38a975d4da91",
+      "objects": 2,
       "rule": "null = unresolved, never guessed; every number carries its source"
     },
     "family": "disc-media",
@@ -1177,7 +1177,22 @@
       "shell_length": "reference dimensions_mm.states.shell.height (Y)",
       "shell_thickness": "reference dimensions_mm.states.shell.depth (Z)"
     },
-    "awaiting_a_source": []
+    "awaiting_a_source": [
+      {
+        "slug": "nintendo-gamecube-disc",
+        "brand": "Nintendo",
+        "model": "Nintendo GameCube optical disc (8 cm)",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-wii-disc",
+        "brand": "Nintendo",
+        "model": "Wii optical disc (12 cm)",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      }
+    ]
   },
   "presets": [
     {
