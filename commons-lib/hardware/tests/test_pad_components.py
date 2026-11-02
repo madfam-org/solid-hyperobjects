@@ -62,7 +62,7 @@ def test_handles_battery_door_produces_a_closed_exported_mesh():
     assert check.ok, check.problems
 
 
-def test_conservative_envelope_matches_every_declared_archetype_box():
+def test_conservative_envelope_matches_archetype_boxes_and_sourced_body_axes():
     import json
     from y4d_spec.geometry import _exec_cartridge
     manifest=json.loads((ROOT/"gamepad/project.json").read_text())
@@ -70,6 +70,15 @@ def test_conservative_envelope_matches_every_declared_archetype_box():
         shape=_exec_cartridge(str(ROOT/"gamepad/main.py"),{
             **preset['values'],'target_part':'envelope'}).val()
         box=shape.BoundingBox()
-        expected=preset['envelope_mm']
+        if 'registry' in preset:
+            from hyperobjects_reference import is_sourced, load_object
+            obj=load_object(preset['registry']['device'])
+            body=obj['dimensions_mm']['states']['body']
+            split=(obj.get('features') or {}).get('split') if is_sourced(obj, 'features.split') else None
+            expected={'width':body['width'] * (2 if split and split != 'none' else 1),
+                      'depth':max(body['height'],body['depth']),
+                      'thickness':min(body['height'],body['depth'])}
+        else:
+            expected=preset['envelope_mm']
         assert (box.xlen,box.ylen,box.zlen)==pytest.approx(
             (expected['width'],expected['depth'],expected['thickness']),abs=0.01)

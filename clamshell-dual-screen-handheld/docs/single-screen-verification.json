@@ -3,13 +3,13 @@
   "units": "mm",
   "frame": "X hinge axis; +Y decks; Z seam0",
   "baseline_geometry_commit": "2a63bf89280ab0a813664329d7c7e8eb3a610371",
-  "keystone_frozen_pin": "e57b44c42aa24c2c7c7d7962bf58ce95ac2bfc45",
+  "keystone_frozen_pin": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
   "source_reference": {
     "key": "nintendo-game-boy-advance-sp-ags-001",
     "repository": "madfam-org/hyperobjects-spec",
-    "commit": "dfd9fef70df4417c842d87c42344a6b165cafd69",
-    "object_sha256": "8e82231a6c0a3b6ddf0693a6afa4c479d3b6dda11b0bb221d71c45042ca4fb1c",
-    "status": "primary source coverage awaiting merged repin; AGS101 unresolved",
+    "commit": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+    "object_digest": "3100a16f77a320e5bc5de633d1533aabd01732e964189801dc932ea90a0ef85f",
+    "status": "Source-covered AGS001 at the pin; AGS101 remains unresolved",
     "retrieved": "2026-11-01"
   },
   "source_files_sha256": {
@@ -26,37 +26,12 @@
     "graph_default_parts_preserved": 3,
     "legacy_graph_preset_targets": 0
   },
-  "geometry_scope": "Source candidate validated in CQ-only configurable_screens mode; no parity exemption. Surface/controls/hinge are archetypes; active area is a rounded-diagonal derivation. No physical-fit/manufacturing claim.",
+  "geometry_scope": "Source-backed named preset in CQ-only configurable_screens mode; no parity exemption. Surface/controls/hinge are archetypes; active area is a rounded-diagonal derivation. No physical-fit/manufacturing claim.",
   "parameter_digest": "SHA-256 of keystone GOC canonical_json resolved parameters",
   "frames": [
     {
       "fold_angle": 0,
       "parameters_sha256": "a02db1c6737caa91d623562e01b7496eb1c4d2329d9f20dbd6eb0c33bb95983b",
-      "aabb_mm": [
-        82.0,
-        84.6,
-        24.3
-      ],
-      "checks": [
-        {
-          "part": "lower_deck",
-          "watertight": true,
-          "bodies": 1,
-          "volume_mm3": 89461.69440613392
-        },
-        {
-          "part": "upper_deck",
-          "watertight": true,
-          "bodies": 1,
-          "volume_mm3": 72267.36015197852
-        },
-        {
-          "part": "hinge",
-          "watertight": true,
-          "bodies": 3,
-          "volume_mm3": 1956.0194557586276
-        }
-      ],
       "parameters": {
         "deck_length": 82,
         "deck_depth": 84.6,
@@ -141,15 +116,11 @@
         "headphone_present": false,
         "cartridge_slot_present": true,
         "secondary_screen_present": false
-      }
-    },
-    {
-      "fold_angle": 45,
-      "parameters_sha256": "b9b3c3a06d2fc6baef4c1eff30484912f12ea5ee6ef2c25ff68d7a471bf82cc1",
+      },
       "aabb_mm": [
         82.0,
-        92.33221265227489,
-        80.9184463406568
+        84.6,
+        24.3
       ],
       "checks": [
         {
@@ -162,7 +133,7 @@
           "part": "upper_deck",
           "watertight": true,
           "bodies": 1,
-          "volume_mm3": 72267.3635152223
+          "volume_mm3": 72267.36015197852
         },
         {
           "part": "hinge",
@@ -170,7 +141,11 @@
           "bodies": 3,
           "volume_mm3": 1956.0194557586276
         }
-      ],
+      ]
+    },
+    {
+      "fold_angle": 45,
+      "parameters_sha256": "b9b3c3a06d2fc6baef4c1eff30484912f12ea5ee6ef2c25ff68d7a471bf82cc1",
       "parameters": {
         "deck_length": 82,
         "deck_depth": 84.6,
@@ -255,15 +230,11 @@
         "headphone_present": false,
         "cartridge_slot_present": true,
         "secondary_screen_present": false
-      }
-    },
-    {
-      "fold_angle": 90,
-      "parameters_sha256": "9c8c4b91445b2efe269576755127495bda85e0f9f22cf8f3bcffc10bbdd1e8ae",
+      },
       "aabb_mm": [
         82.0,
-        95.535,
-        97.96499999999999
+        92.33221265227489,
+        80.9184463406568
       ],
       "checks": [
         {
@@ -276,7 +247,7 @@
           "part": "upper_deck",
           "watertight": true,
           "bodies": 1,
-          "volume_mm3": 72267.36015197854
+          "volume_mm3": 72267.3635152223
         },
         {
           "part": "hinge",
@@ -284,7 +255,11 @@
           "bodies": 3,
           "volume_mm3": 1956.0194557586276
         }
-      ],
+      ]
+    },
+    {
+      "fold_angle": 90,
+      "parameters_sha256": "9c8c4b91445b2efe269576755127495bda85e0f9f22cf8f3bcffc10bbdd1e8ae",
       "parameters": {
         "deck_length": 82,
         "deck_depth": 84.6,
@@ -369,15 +344,11 @@
         "headphone_present": false,
         "cartridge_slot_present": true,
         "secondary_screen_present": false
-      }
-    },
-    {
-      "fold_angle": 135,
-      "parameters_sha256": "be5d65cf3c3ea5dd00a72f6d80750e8952085fbbd341b748b08bea617293978e",
+      },
       "aabb_mm": [
         82.0,
-        152.15344634065679,
-        73.18623368838192
+        95.535,
+        97.96499999999999
       ],
       "checks": [
         {
@@ -390,7 +361,7 @@
           "part": "upper_deck",
           "watertight": true,
           "bodies": 1,
-          "volume_mm3": 72267.3635152223
+          "volume_mm3": 72267.36015197854
         },
         {
           "part": "hinge",
@@ -398,7 +369,11 @@
           "bodies": 3,
           "volume_mm3": 1956.0194557586276
         }
-      ],
+      ]
+    },
+    {
+      "fold_angle": 135,
+      "parameters_sha256": "be5d65cf3c3ea5dd00a72f6d80750e8952085fbbd341b748b08bea617293978e",
       "parameters": {
         "deck_length": 82,
         "deck_depth": 84.6,
@@ -483,15 +458,11 @@
         "headphone_present": false,
         "cartridge_slot_present": true,
         "secondary_screen_present": false
-      }
-    },
-    {
-      "fold_angle": 180,
-      "parameters_sha256": "50eea3da088cfa2cc7d285d57cadb46ec4332d48856b3f8f36b84c34c31123be",
+      },
       "aabb_mm": [
         82.0,
-        169.2,
-        19.379300000000008
+        152.15344634065679,
+        73.18623368838192
       ],
       "checks": [
         {
@@ -504,7 +475,7 @@
           "part": "upper_deck",
           "watertight": true,
           "bodies": 1,
-          "volume_mm3": 72267.36015197854
+          "volume_mm3": 72267.3635152223
         },
         {
           "part": "hinge",
@@ -512,7 +483,11 @@
           "bodies": 3,
           "volume_mm3": 1956.0194557586276
         }
-      ],
+      ]
+    },
+    {
+      "fold_angle": 180,
+      "parameters_sha256": "50eea3da088cfa2cc7d285d57cadb46ec4332d48856b3f8f36b84c34c31123be",
       "parameters": {
         "deck_length": 82,
         "deck_depth": 84.6,
@@ -597,10 +572,35 @@
         "headphone_present": false,
         "cartridge_slot_present": true,
         "secondary_screen_present": false
-      }
+      },
+      "aabb_mm": [
+        82.0,
+        169.2,
+        19.379300000000008
+      ],
+      "checks": [
+        {
+          "part": "lower_deck",
+          "watertight": true,
+          "bodies": 1,
+          "volume_mm3": 89461.69440613392
+        },
+        {
+          "part": "upper_deck",
+          "watertight": true,
+          "bodies": 1,
+          "volume_mm3": 72267.36015197854
+        },
+        {
+          "part": "hinge",
+          "watertight": true,
+          "bodies": 3,
+          "volume_mm3": 1956.0194557586276
+        }
+      ]
     }
   ],
-  "source_candidate_preset": {
+  "source_preset": {
     "slug": "nintendo-game-boy-advance-sp-ags-001",
     "label": {
       "en": "Game Boy Advance SP AGS-001",
@@ -686,5 +686,17 @@
       "shoulder_button_width": 14.76
     },
     "mode": "configurable_screens"
+  },
+  "runtime": {
+    "cadquery": "2.7.0",
+    "hyperobjects_spec": "0.20.0",
+    "keystone_direct_url": {
+      "url": "https://github.com/madfam-org/hyperobjects-spec.git",
+      "vcs_info": {
+        "commit_id": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+        "requested_revision": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+        "vcs": "git"
+      }
+    }
   }
 }

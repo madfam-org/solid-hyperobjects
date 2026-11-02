@@ -54,3 +54,13 @@ def test_handle_is_connected_and_bites_into_rear(ns):
                            "top_z": 40, "rear_y": 50, "center_x": 0, "bite": 0.2}).val()
     assert handle.isValid() and len(handle.Solids()) == 1
     assert handle.BoundingBox().ymin == pytest.approx(49.8)
+
+
+def test_thin_horizontal_disc_slot_has_no_tangent_front_control_cavities():
+    import json
+    from y4d_spec.geometry import render_part
+    manifest=json.loads((ROOT/'home-console/project.json').read_text())
+    values=next(p['values'] for p in manifest['presets'] if p['slug']=='nintendo-wii')
+    check=render_part(ROOT/'home-console','main.py','console','body',params=values)
+    assert check.ok, check.problems
+    assert check.watertight
