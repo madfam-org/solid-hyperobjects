@@ -1,0 +1,16 @@
+Home Console — provenance
+=========================
+Copyright (c) 2026 Innovaciones MADFAM.
+Licensed under CERN-OHL-W-2.0; see LICENSE.
+
+This is an original parametric family, not a replica shell. No third-party code,
+artwork, logos, fonts, maker grip patterns or photographic tracing are included.
+The loft construction, radii, tiers, vents, openings and their positions follow
+our written archetype rules in tools/presets/home_console.py. Named presets
+carry sourced envelopes and counts from the keystone reference catalog, with
+unknown details explicitly identified as archetype fallbacks. A fit envelope
+is not a likeness or a claim of mechanical or electrical compatibility.
+
+Product and company names in generated presets identify the source of published
+measurements only. They remain their respective owners' trademarks; no
+sponsorship, affiliation or endorsement is implied.
