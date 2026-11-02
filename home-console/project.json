@@ -1,0 +1,4367 @@
+{
+  "project": {
+    "name": "Home Console",
+    "thumbnail": "/projects/home-console.webp",
+    "slug": "home-console",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "The desktop game console as one parametric archetype, from the 1970s wedge to the 2020s tower: a lofted body (slab, wedge, stepped, tower, cube, upright) with its media interface (top or front cartridge, card, hinged disc lid, tray, slot loader or none), console panel, controller and rear I/O, two vent fields, side covers, feet, a stand seat and a handle. Named consoles ride only as presets generated from the keystone's reference catalog, each number with its source; the default and every archetype preset are no product. No logos, no text, no trade dress.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "La consola de videojuegos de sobremesa como un solo arquetipo paramétrico, de la cuña de los años setenta a la torre de los 2020: un cuerpo solevado (losa, cuña, escalonado, torre, cubo, vertical) con su interfaz de medio (cartucho superior o frontal, tarjeta, tapa de disco, bandeja, ranura o ninguno), panel, puertos de control y traseros, dos campos de ventilación, cubiertas laterales, patas, asiento de soporte y asa. Las consolas con nombre sólo viajan como preajustes generados desde el catálogo de referencia del keystone, cada número con su fuente; el valor por defecto y cada preajuste de arquetipo no son ningún producto. Sin logotipos, sin texto, sin imagen comercial.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "device",
+      "console",
+      "game-console",
+      "archetype",
+      "enclosure",
+      "loft",
+      "commons",
+      "cdg",
+      "hyperobject",
+      "gaming"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    },
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Device Envelope",
+          "es": "Envolvente del dispositivo"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the `envelope` mode — the fused lofted outline, exactly body_width x body_depth x body_height (feet, handle and projections excluded, as makers measure), turned by orientation_tilt_deg. A stand, mount or case that takes a device envelope mates here.",
+        "parameters": [
+          "body_width",
+          "body_depth",
+          "body_height",
+          "body_plan",
+          "front_height",
+          "rear_height",
+          "crown",
+          "side_draft_deg",
+          "plan_skew_deg",
+          "corner_radius_vertical",
+          "corner_radius_top",
+          "edge_chamfer",
+          "orientation_tilt_deg"
+        ],
+        "compatible_with": [
+          "device-stand",
+          "wall-device-mount",
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "stand_seat",
+        "label": {
+          "en": "Stand Seat",
+          "es": "Asiento de soporte"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: the underside interface — a round recess (base_disc) or two parallel grooves (cradle) centred on the body, depth 3 mm; diameter 0.4 x min(width, depth), grooves 6 mm wide at 0.5 x width pitch, 0.6 x depth long.",
+        "parameters": [
+          "stand_seat_kind",
+          "body_width",
+          "body_depth",
+          "side_cover_count"
+        ],
+        "compatible_with": [
+          "console-stand"
+        ]
+      },
+      {
+        "id": "media_slot",
+        "label": {
+          "en": "Media Slot",
+          "es": "Ranura de medio"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal: the opening a plug-in medium enters — the medium's media_envelope (shell width x thickness, insertion depth) plus slot_clearance on every side; or a disc slot (disc_diameter + 2 x clearance by 1.2 mm + 2 x clearance).",
+        "parameters": [
+          "media_kind",
+          "media_width",
+          "media_thickness",
+          "media_insert_depth",
+          "slot_clearance",
+          "slot_center_x",
+          "slot_center_y",
+          "slot_center_z",
+          "disc_diameter"
+        ],
+        "compatible_with": [
+          "plug-in-media"
+        ]
+      },
+      {
+        "id": "controller_port_face",
+        "label": {
+          "en": "Controller Port Face",
+          "es": "Cara de puertos de control"
+        },
+        "geometry_type": "port",
+        "standard": "internal: a row of controller-port clearance openings of one kind (DE-9 trapezoid, round DIN, proprietary or USB-A rectangle) on one face, at controller_port_pitch, centred at controller_port_center_z.",
+        "parameters": [
+          "controller_port_count",
+          "controller_port_kind",
+          "controller_port_face",
+          "controller_port_pitch",
+          "controller_port_center_z"
+        ]
+      },
+      {
+        "id": "vent_face",
+        "label": {
+          "en": "Vent Face",
+          "es": "Cara de ventilación"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: up to two bounded vent regions (face, centre, width x height) that a stand, shelf or case must leave unobstructed.",
+        "parameters": [
+          "vent1_face",
+          "vent1_center_u",
+          "vent1_center_v",
+          "vent1_width",
+          "vent1_height",
+          "vent2_face",
+          "vent2_center_u",
+          "vent2_center_v",
+          "vent2_width",
+          "vent2_height"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A dimensioned, parametric model of the consoles people own and keep: stands, shelves, dust covers, travel cases and museum mounts can be fitted to a console's published envelope without measuring a specimen or copying anyone's design.",
+      "es": "Un modelo paramétrico y dimensionado de las consolas que la gente tiene y conserva: soportes, repisas, cubiertas, estuches y montajes de museo se ajustan a la envolvente publicada sin medir un ejemplar ni copiar el diseño de nadie."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "plan §2.3 components (gaming-hyperobjects programme, 2026-11-01); ruling R2 (gate H8): components are inlined at build from commons-lib/hardware/.",
+    "note": "A console is a hyperobject of hyperobjects. family.py maps this manifest's parameters onto each component's own dict; main.py is generated by tools/inline_parts.py.",
+    "components": [
+      {
+        "slug": "shell_body",
+        "module": "console_shell",
+        "exposes": [
+          "device_envelope",
+          "cradle_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "upper_tier",
+        "module": "console_shell",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "side_cover",
+        "module": "console_shell",
+        "exposes": [
+          "mounting_surface"
+        ],
+        "consumes": [
+          "device_envelope"
+        ]
+      },
+      {
+        "slug": "vent_field",
+        "module": "console_shell",
+        "exposes": [
+          "vent_face"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "foot_set",
+        "module": "console_shell",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "stand_seat",
+        "module": "console_shell",
+        "exposes": [
+          "stand_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "handle",
+        "module": "console_shell",
+        "exposes": [
+          "grip_surface"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "media_cartridge_slot",
+        "module": "console_io",
+        "exposes": [
+          "media_slot"
+        ],
+        "consumes": [
+          "media_envelope"
+        ],
+        "note": "the plan's cartridge_slot; renamed because connectors.cartridge_slot exists"
+      },
+      {
+        "slug": "card_slot",
+        "module": "console_io",
+        "exposes": [
+          "media_slot"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "disc_lid",
+        "module": "console_io",
+        "exposes": [
+          "revolute_axis"
+        ],
+        "consumes": [],
+        "upstream_cartridge": "hinge-hyperobject"
+      },
+      {
+        "slug": "disc_tray",
+        "module": "console_io",
+        "exposes": [
+          "prismatic_axis"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "slot_loader",
+        "module": "console_io",
+        "exposes": [
+          "media_slot"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "slot_door",
+        "module": "console_io",
+        "exposes": [
+          "revolute_axis"
+        ],
+        "consumes": [
+          "media_slot"
+        ]
+      },
+      {
+        "slug": "slot_blank",
+        "module": "console_io",
+        "exposes": [],
+        "consumes": [
+          "media_slot"
+        ]
+      },
+      {
+        "slug": "slide_switch",
+        "module": "console_io",
+        "exposes": [
+          "switch_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "controller_port",
+        "module": "console_io",
+        "exposes": [
+          "controller_port_face"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "port_row",
+        "module": "console_io",
+        "exposes": [
+          "port_cutout"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "port_receptacle",
+        "module": "connectors",
+        "exposes": [
+          "port_cutout"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "button_row",
+        "module": "controls",
+        "exposes": [
+          "button_seat"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "display_panel",
+        "module": "displays",
+        "exposes": [
+          "display_recess"
+        ],
+        "consumes": []
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "console",
+      "label": {
+        "en": "Console (assembled)",
+        "es": "Consola (ensamblada)"
+      },
+      "description": {
+        "en": "The body with its covers and the media closure, posed by lid_angle, tray_extension, side_cover_offset and orientation_tilt_deg. A preview, not a print target.",
+        "es": "El cuerpo con sus cubiertas y el cierre del medio, posados por lid_angle, tray_extension, side_cover_offset y orientation_tilt_deg. Una vista previa, no una pieza para imprimir."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "part_quantities": {
+        "body": 1,
+        "closure": 1
+      },
+      "estimate": {
+        "base_time": 12,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope (fit surface)",
+        "es": "Envolvente (superficie de ajuste)"
+      },
+      "description": {
+        "en": "One fused body: the outline every fit-to accessory mates to, exactly the published envelope.",
+        "es": "Un solo cuerpo fusionado: el contorno al que se ajusta todo accesorio, exactamente la envolvente publicada."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "top_shell",
+      "label": {
+        "en": "Top shell",
+        "es": "Carcasa superior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "top_shell"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "bottom_shell",
+      "label": {
+        "en": "Bottom shell",
+        "es": "Carcasa inferior"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "bottom_shell"
+      ],
+      "estimate": {
+        "base_time": 10,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "media_door",
+      "label": {
+        "en": "Media door",
+        "es": "Puerta del medio"
+      },
+      "description": {
+        "en": "The media closure alone (lid, tray, door, flaps or blank), closed and untilted.",
+        "es": "El cierre del medio solo (tapa, bandeja, puerta, aletas o tapón), cerrado y sin inclinar."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "media_door"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo"
+      },
+      "render_mode": 0,
+      "color": "#4b5563"
+    },
+    {
+      "id": "closure",
+      "label": {
+        "en": "Media closure",
+        "es": "Cierre del medio"
+      },
+      "render_mode": 0,
+      "color": "#9ca3af"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope",
+        "es": "Envolvente"
+      },
+      "render_mode": 0,
+      "color": "#3f5d7d"
+    },
+    {
+      "id": "top_shell",
+      "label": {
+        "en": "Top shell",
+        "es": "Carcasa superior"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "bottom_shell",
+      "label": {
+        "en": "Bottom shell",
+        "es": "Carcasa inferior"
+      },
+      "render_mode": 0,
+      "color": "#374151"
+    },
+    {
+      "id": "media_door",
+      "label": {
+        "en": "Media door",
+        "es": "Puerta del medio"
+      },
+      "render_mode": 0,
+      "color": "#b08d57"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope",
+        "es": "Envolvente"
+      }
+    },
+    {
+      "id": "body_plan",
+      "label": {
+        "en": "Body plan",
+        "es": "Planta del cuerpo"
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Shell & covers",
+        "es": "Carcasa y cubiertas"
+      }
+    },
+    {
+      "id": "media",
+      "label": {
+        "en": "Media",
+        "es": "Medio"
+      }
+    },
+    {
+      "id": "display",
+      "label": {
+        "en": "Integrated display",
+        "es": "Pantalla integrada"
+      }
+    },
+    {
+      "id": "panel",
+      "label": {
+        "en": "Console panel",
+        "es": "Panel"
+      }
+    },
+    {
+      "id": "controller",
+      "label": {
+        "en": "Controller I/O",
+        "es": "Puertos de control"
+      }
+    },
+    {
+      "id": "rear_io",
+      "label": {
+        "en": "Rear I/O",
+        "es": "Puertos traseros"
+      }
+    },
+    {
+      "id": "thermal",
+      "label": {
+        "en": "Thermal",
+        "es": "Ventilación"
+      }
+    },
+    {
+      "id": "support",
+      "label": {
+        "en": "Support",
+        "es": "Apoyo"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "body_width",
+      "type": "slider",
+      "default": 310,
+      "group": "envelope",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 60,
+      "max": 600,
+      "step": 0.1,
+      "label": {
+        "en": "Body width (mm)",
+        "es": "Ancho del cuerpo (mm)"
+      },
+      "tooltip": {
+        "en": "X. In a preset: the reference body.width as the maker publishes it (feet and projections excluded).",
+        "es": "X. En un preajuste: body.width de la referencia tal como la publica el fabricante (sin patas ni salientes)."
+      }
+    },
+    {
+      "id": "body_depth",
+      "type": "slider",
+      "default": 190,
+      "group": "envelope",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 50,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Body depth (mm)",
+        "es": "Fondo del cuerpo (mm)"
+      },
+      "tooltip": {
+        "en": "Y, front face to rear face. Reference body.depth.",
+        "es": "Y, de la cara frontal a la trasera. body.depth de la referencia."
+      }
+    },
+    {
+      "id": "body_height",
+      "type": "slider",
+      "default": 62,
+      "group": "envelope",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 20,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Body height (mm)",
+        "es": "Altura del cuerpo (mm)"
+      },
+      "tooltip": {
+        "en": "Z, flat bottom to the highest point of the body (a stepped tier included). Reference body.height.",
+        "es": "Z, del fondo plano al punto más alto del cuerpo (incluido el escalón). body.height de la referencia."
+      }
+    },
+    {
+      "id": "orientation_tilt_deg",
+      "type": "slider",
+      "default": 0,
+      "group": "envelope",
+      "modes": [
+        "console",
+        "envelope"
+      ],
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "label": {
+        "en": "Orientation tilt (°)",
+        "es": "Inclinación (°)"
+      },
+      "tooltip": {
+        "en": "0 lying on its feet, 90 standing on its right side. A console published only standing up is laid flat and tilted 90.",
+        "es": "0 sobre sus patas, 90 de pie sobre su lado derecho. Una consola publicada sólo de pie se acuesta y se inclina 90."
+      }
+    },
+    {
+      "id": "role",
+      "type": "select",
+      "default": "console",
+      "group": "envelope",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "options": [
+        {
+          "value": "console",
+          "label": {
+            "en": "Console",
+            "es": "Consola"
+          }
+        },
+        {
+          "value": "addon",
+          "label": {
+            "en": "Add-on unit",
+            "es": "Unidad adicional"
+          }
+        },
+        {
+          "value": "mini",
+          "label": {
+            "en": "Mini console",
+            "es": "Consola mini"
+          }
+        }
+      ],
+      "label": {
+        "en": "Role",
+        "es": "Función"
+      },
+      "tooltip": {
+        "en": "Reference features.role. An add-on gets the host-link opening on its top.",
+        "es": "features.role de la referencia. Una unidad adicional lleva la boca de enlace al anfitrión arriba."
+      }
+    },
+    {
+      "id": "body_plan",
+      "type": "select",
+      "default": "stepped",
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "options": [
+        {
+          "value": "slab",
+          "label": {
+            "en": "Slab",
+            "es": "Losa"
+          }
+        },
+        {
+          "value": "wedge",
+          "label": {
+            "en": "Wedge",
+            "es": "Cuña"
+          }
+        },
+        {
+          "value": "stepped",
+          "label": {
+            "en": "Stepped",
+            "es": "Escalonada"
+          }
+        },
+        {
+          "value": "tower",
+          "label": {
+            "en": "Tower",
+            "es": "Torre"
+          }
+        },
+        {
+          "value": "cube",
+          "label": {
+            "en": "Cube",
+            "es": "Cubo"
+          }
+        },
+        {
+          "value": "upright",
+          "label": {
+            "en": "Upright",
+            "es": "Vertical"
+          }
+        }
+      ],
+      "label": {
+        "en": "Body plan",
+        "es": "Planta del cuerpo"
+      },
+      "tooltip": {
+        "en": "Chooses the construction of the lofted body. Never a fact: chosen by an archetype rule from the envelope, media, handle and display.",
+        "es": "Elige la construcción del cuerpo solevado. Nunca es un dato: lo elige una regla del arquetipo según envolvente, medio, asa y pantalla."
+      }
+    },
+    {
+      "id": "front_height",
+      "type": "slider",
+      "default": 34.1,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 5,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Front height — wedge (mm)",
+        "es": "Altura frontal — cuña (mm)"
+      },
+      "tooltip": {
+        "en": "Wedge only: the front shelf's height; the body rises to body_height at the rear.",
+        "es": "Sólo cuña: altura del estante frontal; el cuerpo sube hasta body_height atrás."
+      }
+    },
+    {
+      "id": "rear_height",
+      "type": "slider",
+      "default": 27.9,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 5,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Rear height — upright (mm)",
+        "es": "Altura trasera — vertical (mm)"
+      },
+      "tooltip": {
+        "en": "Upright only: the body falls from body_height to this at the rear.",
+        "es": "Sólo vertical: el cuerpo baja de body_height a esta altura atrás."
+      }
+    },
+    {
+      "id": "crown",
+      "type": "slider",
+      "default": 0,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Top crown (mm)",
+        "es": "Bombeo superior (mm)"
+      },
+      "tooltip": {
+        "en": "How far the top's centre stands above its edges.",
+        "es": "Cuánto sobresale el centro de la tapa sobre sus bordes."
+      }
+    },
+    {
+      "id": "side_draft_deg",
+      "type": "slider",
+      "default": 0,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 15,
+      "step": 0.1,
+      "label": {
+        "en": "Side draft (°)",
+        "es": "Desmoldeo lateral (°)"
+      }
+    },
+    {
+      "id": "plan_skew_deg",
+      "type": "slider",
+      "default": 0,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 25,
+      "step": 0.1,
+      "label": {
+        "en": "Skew of front and rear faces (°)",
+        "es": "Inclinación de caras frontal y trasera (°)"
+      },
+      "tooltip": {
+        "en": "Leans the front and rear faces (a parallelogram side elevation); the depth stays body_depth.",
+        "es": "Inclina las caras frontal y trasera (alzado lateral en paralelogramo); el fondo sigue siendo body_depth."
+      }
+    },
+    {
+      "id": "front_break_y",
+      "type": "slider",
+      "default": 66.5,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Front break (mm from the front)",
+        "es": "Quiebre frontal (mm desde el frente)"
+      },
+      "tooltip": {
+        "en": "Where the wedge's shelf ends, the upright's top starts to fall, or the stepped tier begins.",
+        "es": "Donde termina el estante de la cuña, empieza a bajar la vertical o comienza el escalón."
+      }
+    },
+    {
+      "id": "upper_tier_height",
+      "type": "slider",
+      "default": 23.56,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 2,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Upper tier height (mm)",
+        "es": "Altura del escalón (mm)"
+      }
+    },
+    {
+      "id": "upper_tier_inset_x",
+      "type": "slider",
+      "default": 37.2,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 200,
+      "step": 0.1,
+      "label": {
+        "en": "Upper tier side inset (mm)",
+        "es": "Retranqueo lateral del escalón (mm)"
+      }
+    },
+    {
+      "id": "upper_tier_inset_y",
+      "type": "slider",
+      "default": 15.2,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 200,
+      "step": 0.1,
+      "label": {
+        "en": "Upper tier rear inset (mm)",
+        "es": "Retranqueo trasero del escalón (mm)"
+      }
+    },
+    {
+      "id": "side_concavity",
+      "type": "slider",
+      "default": 0,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Side concavity (mm)",
+        "es": "Concavidad lateral (mm)"
+      }
+    },
+    {
+      "id": "corner_radius_vertical",
+      "type": "slider",
+      "default": 11.4,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 80,
+      "step": 0.1,
+      "label": {
+        "en": "Plan corner radius (mm)",
+        "es": "Radio de esquina en planta (mm)"
+      }
+    },
+    {
+      "id": "corner_radius_top",
+      "type": "slider",
+      "default": 4.96,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 40,
+      "step": 0.1,
+      "label": {
+        "en": "Top edge radius (mm)",
+        "es": "Radio de arista superior (mm)"
+      }
+    },
+    {
+      "id": "side_cover_count",
+      "type": "slider",
+      "default": 0,
+      "group": "shell",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": {
+        "en": "Side covers",
+        "es": "Cubiertas laterales"
+      },
+      "tooltip": {
+        "en": "0 none, 1 right side, 2 both. The core is inset by the covers and their overhang.",
+        "es": "0 ninguna, 1 lado derecho, 2 ambos. El núcleo se retrae por las cubiertas y su vuelo."
+      }
+    },
+    {
+      "id": "media_kind",
+      "type": "select",
+      "default": "cart_top",
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None (digital)",
+            "es": "Ninguno (digital)"
+          }
+        },
+        {
+          "value": "cart_top",
+          "label": {
+            "en": "Cartridge, top",
+            "es": "Cartucho, arriba"
+          }
+        },
+        {
+          "value": "cart_front",
+          "label": {
+            "en": "Cartridge, front",
+            "es": "Cartucho, frente"
+          }
+        },
+        {
+          "value": "cart_rear",
+          "label": {
+            "en": "Cartridge, rear",
+            "es": "Cartucho, atrás"
+          }
+        },
+        {
+          "value": "card_front",
+          "label": {
+            "en": "Card, front",
+            "es": "Tarjeta, frente"
+          }
+        },
+        {
+          "value": "disc_lid",
+          "label": {
+            "en": "Disc, hinged lid",
+            "es": "Disco, tapa abatible"
+          }
+        },
+        {
+          "value": "disc_tray",
+          "label": {
+            "en": "Disc, tray",
+            "es": "Disco, bandeja"
+          }
+        },
+        {
+          "value": "disc_slot",
+          "label": {
+            "en": "Disc, slot loader",
+            "es": "Disco, ranura"
+          }
+        },
+        {
+          "value": "disc_and_cart",
+          "label": {
+            "en": "Disc lid and top cartridge",
+            "es": "Tapa de disco y cartucho"
+          }
+        }
+      ],
+      "label": {
+        "en": "Media interface",
+        "es": "Interfaz de medio"
+      },
+      "tooltip": {
+        "en": "Reference media[] kinds. A covered empty list is a digital edition.",
+        "es": "Tipos media[] de la referencia. Una lista cubierta vacía es una edición digital."
+      }
+    },
+    {
+      "id": "media_width",
+      "type": "slider",
+      "default": 120,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 10,
+      "max": 250,
+      "step": 0.1,
+      "label": {
+        "en": "Medium width (mm)",
+        "es": "Ancho del medio (mm)"
+      },
+      "tooltip": {
+        "en": "The plug-in medium's shell width: the media_envelope this slot consumes.",
+        "es": "Ancho de la carcasa del medio: el media_envelope que consume la ranura."
+      }
+    },
+    {
+      "id": "media_thickness",
+      "type": "slider",
+      "default": 18,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0.5,
+      "max": 60,
+      "step": 0.1,
+      "label": {
+        "en": "Medium thickness (mm)",
+        "es": "Espesor del medio (mm)"
+      }
+    },
+    {
+      "id": "media_insert_depth",
+      "type": "slider",
+      "default": 37.2,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 2,
+      "max": 200,
+      "step": 0.1,
+      "label": {
+        "en": "Medium insertion depth (mm)",
+        "es": "Profundidad de inserción (mm)"
+      }
+    },
+    {
+      "id": "slot_center_x",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": -300,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Slot centre X (mm)",
+        "es": "Centro X de la ranura (mm)"
+      }
+    },
+    {
+      "id": "slot_center_y",
+      "type": "slider",
+      "default": 25.65,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": -250,
+      "max": 250,
+      "step": 0.1,
+      "label": {
+        "en": "Top slot centre Y (mm)",
+        "es": "Centro Y de la ranura superior (mm)"
+      }
+    },
+    {
+      "id": "slot_center_z",
+      "type": "slider",
+      "default": 19.22,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Front/rear slot centre Z (mm)",
+        "es": "Centro Z de la ranura frontal/trasera (mm)"
+      }
+    },
+    {
+      "id": "slot_door_kind",
+      "type": "select",
+      "default": "flaps",
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None (blank)",
+            "es": "Ninguna (tapón)"
+          }
+        },
+        {
+          "value": "door",
+          "label": {
+            "en": "Hinged door",
+            "es": "Puerta abatible"
+          }
+        },
+        {
+          "value": "flaps",
+          "label": {
+            "en": "Flaps",
+            "es": "Aletas"
+          }
+        }
+      ],
+      "label": {
+        "en": "Cartridge door",
+        "es": "Puerta de cartucho"
+      }
+    },
+    {
+      "id": "disc_diameter",
+      "type": "slider",
+      "default": 120,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 60,
+      "max": 130,
+      "step": 0.1,
+      "label": {
+        "en": "Disc diameter (mm)",
+        "es": "Diámetro del disco (mm)"
+      },
+      "tooltip": {
+        "en": "120 for CD/DVD/BD (the keystone's standard parts); 80 for a small disc.",
+        "es": "120 para CD/DVD/BD (piezas estándar del keystone); 80 para disco pequeño."
+      }
+    },
+    {
+      "id": "lid_diameter",
+      "type": "slider",
+      "default": 132,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 40,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Lid diameter (mm)",
+        "es": "Diámetro de la tapa (mm)"
+      }
+    },
+    {
+      "id": "lid_center_x",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": -300,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Lid centre X (mm)",
+        "es": "Centro X de la tapa (mm)"
+      }
+    },
+    {
+      "id": "lid_center_y",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": -250,
+      "max": 250,
+      "step": 0.1,
+      "label": {
+        "en": "Lid centre Y (mm)",
+        "es": "Centro Y de la tapa (mm)"
+      }
+    },
+    {
+      "id": "tray_width",
+      "type": "slider",
+      "default": 132,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 40,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Tray width (mm)",
+        "es": "Ancho de la bandeja (mm)"
+      }
+    },
+    {
+      "id": "tray_height",
+      "type": "slider",
+      "default": 11.532,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 3,
+      "max": 40,
+      "step": 0.1,
+      "label": {
+        "en": "Tray height (mm)",
+        "es": "Altura de la bandeja (mm)"
+      }
+    },
+    {
+      "id": "tray_center_z",
+      "type": "slider",
+      "default": 21.142,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 500,
+      "step": 0.1,
+      "label": {
+        "en": "Drive centre Z (mm)",
+        "es": "Centro Z de la unidad (mm)"
+      }
+    },
+    {
+      "id": "eject_button",
+      "type": "checkbox",
+      "default": false,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Eject button",
+        "es": "Botón de expulsión"
+      }
+    },
+    {
+      "id": "memory_card_count",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": {
+        "en": "Memory-card slots",
+        "es": "Ranuras de tarjeta de memoria"
+      }
+    },
+    {
+      "id": "screen_present",
+      "type": "checkbox",
+      "default": false,
+      "group": "display",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Integrated display",
+        "es": "Pantalla integrada"
+      },
+      "tooltip": {
+        "en": "Reference displays[] with role integrated (the Vectrex).",
+        "es": "displays[] de la referencia con rol integrated (la Vectrex)."
+      }
+    },
+    {
+      "id": "screen_width",
+      "type": "slider",
+      "default": 217,
+      "group": "display",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 20,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Display width (mm)",
+        "es": "Ancho de pantalla (mm)"
+      }
+    },
+    {
+      "id": "screen_height",
+      "type": "slider",
+      "default": 34.1,
+      "group": "display",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 20,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Display height (mm)",
+        "es": "Altura de pantalla (mm)"
+      }
+    },
+    {
+      "id": "screen_center_z",
+      "type": "slider",
+      "default": 34.1,
+      "group": "display",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 10,
+      "max": 450,
+      "step": 0.1,
+      "label": {
+        "en": "Display centre Z (mm)",
+        "es": "Centro Z de pantalla (mm)"
+      }
+    },
+    {
+      "id": "power_control",
+      "type": "select",
+      "default": "slide",
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "slide",
+          "label": {
+            "en": "Slide switch",
+            "es": "Interruptor deslizante"
+          }
+        },
+        {
+          "value": "push",
+          "label": {
+            "en": "Push button",
+            "es": "Botón"
+          }
+        },
+        {
+          "value": "rocker",
+          "label": {
+            "en": "Rocker",
+            "es": "Basculante"
+          }
+        },
+        {
+          "value": "touch",
+          "label": {
+            "en": "Touch strip",
+            "es": "Tira táctil"
+          }
+        }
+      ],
+      "label": {
+        "en": "Power control",
+        "es": "Control de encendido"
+      }
+    },
+    {
+      "id": "reset_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Reset button",
+        "es": "Botón de reinicio"
+      }
+    },
+    {
+      "id": "panel_switch_count",
+      "type": "slider",
+      "default": 0,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "label": {
+        "en": "Panel slide switches",
+        "es": "Interruptores deslizantes del panel"
+      }
+    },
+    {
+      "id": "panel_center_y",
+      "type": "slider",
+      "default": 33.25,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Top panel row (mm from the front)",
+        "es": "Fila del panel superior (mm desde el frente)"
+      }
+    },
+    {
+      "id": "front_button_count",
+      "type": "slider",
+      "default": 0,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "label": {
+        "en": "Extra front buttons",
+        "es": "Botones frontales extra"
+      }
+    },
+    {
+      "id": "controller_port_count",
+      "type": "slider",
+      "default": 2,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "label": {
+        "en": "Controller ports",
+        "es": "Puertos de control"
+      }
+    },
+    {
+      "id": "controller_port_kind",
+      "type": "select",
+      "default": "proprietary",
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "es": "Ninguno"
+          }
+        },
+        {
+          "value": "de9",
+          "label": {
+            "en": "DE-9",
+            "es": "DE-9"
+          }
+        },
+        {
+          "value": "round_din",
+          "label": {
+            "en": "Round DIN",
+            "es": "DIN redondo"
+          }
+        },
+        {
+          "value": "proprietary",
+          "label": {
+            "en": "Proprietary",
+            "es": "Propietario"
+          }
+        },
+        {
+          "value": "usb_a",
+          "label": {
+            "en": "USB-A",
+            "es": "USB-A"
+          }
+        }
+      ],
+      "label": {
+        "en": "Controller port kind",
+        "es": "Tipo de puerto de control"
+      }
+    },
+    {
+      "id": "controller_port_face",
+      "type": "select",
+      "default": "front",
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "rear",
+          "label": {
+            "en": "Rear",
+            "es": "Trasera"
+          }
+        },
+        {
+          "value": "front",
+          "label": {
+            "en": "Front",
+            "es": "Frontal"
+          }
+        },
+        {
+          "value": "left",
+          "label": {
+            "en": "Left side",
+            "es": "Lado izquierdo"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right side",
+            "es": "Lado derecho"
+          }
+        }
+      ],
+      "label": {
+        "en": "Controller port face",
+        "es": "Cara de puertos de control"
+      }
+    },
+    {
+      "id": "controller_port_center_z",
+      "type": "slider",
+      "default": 11.532,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 450,
+      "step": 0.1,
+      "label": {
+        "en": "Controller port centre Z (mm)",
+        "es": "Centro Z de puertos de control (mm)"
+      }
+    },
+    {
+      "id": "hardwired_controllers",
+      "type": "slider",
+      "default": 0,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": {
+        "en": "Hard-wired controllers (cord exits)",
+        "es": "Controles cableados (salidas de cable)"
+      }
+    },
+    {
+      "id": "controller_bays",
+      "type": "slider",
+      "default": 0,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "label": {
+        "en": "Controller storage bays",
+        "es": "Bahías para controles"
+      }
+    },
+    {
+      "id": "bay_length",
+      "type": "slider",
+      "default": 133,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 20,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Bay length (mm)",
+        "es": "Largo de bahía (mm)"
+      }
+    },
+    {
+      "id": "av_out_kind",
+      "type": "select",
+      "default": "rca",
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "rf_f",
+          "label": {
+            "en": "RF (F-type)",
+            "es": "RF (tipo F)"
+          }
+        },
+        {
+          "value": "rca",
+          "label": {
+            "en": "RCA",
+            "es": "RCA"
+          }
+        },
+        {
+          "value": "multi_av",
+          "label": {
+            "en": "Multi AV",
+            "es": "Multi AV"
+          }
+        },
+        {
+          "value": "hdmi",
+          "label": {
+            "en": "HDMI",
+            "es": "HDMI"
+          }
+        }
+      ],
+      "label": {
+        "en": "AV output",
+        "es": "Salida AV"
+      }
+    },
+    {
+      "id": "av_out_count",
+      "type": "slider",
+      "default": 1,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": {
+        "en": "AV output count",
+        "es": "Número de salidas AV"
+      }
+    },
+    {
+      "id": "power_inlet_kind",
+      "type": "select",
+      "default": "barrel",
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "cord",
+          "label": {
+            "en": "Hard-wired cord",
+            "es": "Cable fijo"
+          }
+        },
+        {
+          "value": "barrel",
+          "label": {
+            "en": "DC barrel",
+            "es": "Conector de barril"
+          }
+        },
+        {
+          "value": "iec_c7",
+          "label": {
+            "en": "IEC C7/C8 (figure 8)",
+            "es": "IEC C7/C8 (en ocho)"
+          }
+        },
+        {
+          "value": "iec_c8",
+          "label": {
+            "en": "IEC C8 inlet",
+            "es": "Entrada IEC C8"
+          }
+        },
+        {
+          "value": "iec_c13",
+          "label": {
+            "en": "IEC C14 inlet (C13 cord)",
+            "es": "Entrada IEC C14 (cable C13)"
+          }
+        },
+        {
+          "value": "proprietary",
+          "label": {
+            "en": "Proprietary",
+            "es": "Propietario"
+          }
+        }
+      ],
+      "label": {
+        "en": "Power inlet",
+        "es": "Entrada de energía"
+      }
+    },
+    {
+      "id": "expansion_port_count",
+      "type": "slider",
+      "default": 0,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "label": {
+        "en": "Expansion ports",
+        "es": "Puertos de expansión"
+      }
+    },
+    {
+      "id": "expansion_port_face",
+      "type": "select",
+      "default": "bottom",
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "rear",
+          "label": {
+            "en": "Rear",
+            "es": "Trasera"
+          }
+        },
+        {
+          "value": "left",
+          "label": {
+            "en": "Left side",
+            "es": "Lado izquierdo"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right side",
+            "es": "Lado derecho"
+          }
+        },
+        {
+          "value": "bottom",
+          "label": {
+            "en": "Bottom",
+            "es": "Inferior"
+          }
+        }
+      ],
+      "label": {
+        "en": "Expansion port face",
+        "es": "Cara de expansión"
+      }
+    },
+    {
+      "id": "network_port",
+      "type": "checkbox",
+      "default": false,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Ethernet",
+        "es": "Ethernet"
+      }
+    },
+    {
+      "id": "usb_port_count_front",
+      "type": "slider",
+      "default": 0,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": {
+        "en": "USB ports, front",
+        "es": "Puertos USB, frente"
+      }
+    },
+    {
+      "id": "usb_port_count_rear",
+      "type": "slider",
+      "default": 0,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": {
+        "en": "USB ports, rear",
+        "es": "Puertos USB, atrás"
+      }
+    },
+    {
+      "id": "channel_switch",
+      "type": "checkbox",
+      "default": false,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "label": {
+        "en": "Channel switch",
+        "es": "Selector de canal"
+      }
+    },
+    {
+      "id": "rear_port_center_z",
+      "type": "slider",
+      "default": 11.532,
+      "group": "rear_io",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 200,
+      "step": 0.1,
+      "label": {
+        "en": "Rear port row centre Z (mm)",
+        "es": "Centro Z de la fila trasera (mm)"
+      }
+    },
+    {
+      "id": "vent1_face",
+      "type": "select",
+      "default": "rear",
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "es": "Ninguna"
+          }
+        },
+        {
+          "value": "top",
+          "label": {
+            "en": "Top",
+            "es": "Superior"
+          }
+        },
+        {
+          "value": "rear",
+          "label": {
+            "en": "Rear",
+            "es": "Trasera"
+          }
+        },
+        {
+          "value": "front",
+          "label": {
+            "en": "Front",
+            "es": "Frontal"
+          }
+        },
+        {
+          "value": "left",
+          "label": {
+            "en": "Left side",
+            "es": "Lado izquierdo"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right side",
+            "es": "Lado derecho"
+          }
+        },
+        {
+          "value": "bottom",
+          "label": {
+            "en": "Bottom",
+            "es": "Inferior"
+          }
+        }
+      ],
+      "label": {
+        "en": "Vent 1 face",
+        "es": "Cara de ventilación 1"
+      }
+    },
+    {
+      "id": "vent1_center_u",
+      "type": "slider",
+      "default": 77.5,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": -300,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 centre u (mm)",
+        "es": "Centro u de ventilación 1 (mm)"
+      },
+      "tooltip": {
+        "en": "The face's first global axis: x on top, front, rear and bottom; y on the sides.",
+        "es": "Primer eje global de la cara: x arriba, al frente, atrás y abajo; y en los lados."
+      }
+    },
+    {
+      "id": "vent1_center_v",
+      "type": "slider",
+      "default": 19.22,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": -250,
+      "max": 450,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 centre v (mm)",
+        "es": "Centro v de ventilación 1 (mm)"
+      },
+      "tooltip": {
+        "en": "The face's second global axis: y on top and bottom; z on the other faces.",
+        "es": "Segundo eje global de la cara: y arriba y abajo; z en las demás."
+      }
+    },
+    {
+      "id": "vent1_width",
+      "type": "slider",
+      "default": 93,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 5,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 width (mm)",
+        "es": "Ancho de ventilación 1 (mm)"
+      }
+    },
+    {
+      "id": "vent1_height",
+      "type": "slider",
+      "default": 19.22,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 5,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 height (mm)",
+        "es": "Alto de ventilación 1 (mm)"
+      }
+    },
+    {
+      "id": "vent2_face",
+      "type": "select",
+      "default": "top",
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "es": "Ninguna"
+          }
+        },
+        {
+          "value": "top",
+          "label": {
+            "en": "Top",
+            "es": "Superior"
+          }
+        },
+        {
+          "value": "rear",
+          "label": {
+            "en": "Rear",
+            "es": "Trasera"
+          }
+        },
+        {
+          "value": "front",
+          "label": {
+            "en": "Front",
+            "es": "Frontal"
+          }
+        },
+        {
+          "value": "left",
+          "label": {
+            "en": "Left side",
+            "es": "Lado izquierdo"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right side",
+            "es": "Lado derecho"
+          }
+        },
+        {
+          "value": "bottom",
+          "label": {
+            "en": "Bottom",
+            "es": "Inferior"
+          }
+        }
+      ],
+      "label": {
+        "en": "Vent 2 face",
+        "es": "Cara de ventilación 2"
+      }
+    },
+    {
+      "id": "vent2_center_u",
+      "type": "slider",
+      "default": -62,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": -300,
+      "max": 300,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 centre u (mm)",
+        "es": "Centro u de ventilación 2 (mm)"
+      },
+      "tooltip": {
+        "en": "The face's first global axis: x on top, front, rear and bottom; y on the sides.",
+        "es": "Primer eje global de la cara: x arriba, al frente, atrás y abajo; y en los lados."
+      }
+    },
+    {
+      "id": "vent2_center_v",
+      "type": "slider",
+      "default": 25.65,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": -250,
+      "max": 450,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 centre v (mm)",
+        "es": "Centro v de ventilación 2 (mm)"
+      },
+      "tooltip": {
+        "en": "The face's second global axis: y on top and bottom; z on the other faces.",
+        "es": "Segundo eje global de la cara: y arriba y abajo; z en las demás."
+      }
+    },
+    {
+      "id": "vent2_width",
+      "type": "slider",
+      "default": 62,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 5,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 width (mm)",
+        "es": "Ancho de ventilación 2 (mm)"
+      }
+    },
+    {
+      "id": "vent2_height",
+      "type": "slider",
+      "default": 47.5,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 5,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 height (mm)",
+        "es": "Alto de ventilación 2 (mm)"
+      }
+    },
+    {
+      "id": "foot_count",
+      "type": "slider",
+      "default": 4,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "label": {
+        "en": "Feet",
+        "es": "Patas"
+      }
+    },
+    {
+      "id": "foot_diameter",
+      "type": "slider",
+      "default": 12,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 3,
+      "max": 40,
+      "step": 0.1,
+      "label": {
+        "en": "Foot diameter (mm)",
+        "es": "Diámetro de pata (mm)"
+      }
+    },
+    {
+      "id": "stand_seat_kind",
+      "type": "select",
+      "default": "none",
+      "group": "support",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "es": "Ninguno"
+          }
+        },
+        {
+          "value": "base_disc",
+          "label": {
+            "en": "Base disc recess",
+            "es": "Rebaje para base circular"
+          }
+        },
+        {
+          "value": "cradle",
+          "label": {
+            "en": "Cradle grooves",
+            "es": "Ranuras de cuna"
+          }
+        }
+      ],
+      "label": {
+        "en": "Stand seat",
+        "es": "Asiento de soporte"
+      },
+      "tooltip": {
+        "en": "The underside interface the planned console-stand family consumes.",
+        "es": "La interfaz inferior que consume la futura familia console-stand."
+      }
+    },
+    {
+      "id": "handle_present",
+      "type": "checkbox",
+      "default": false,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "label": {
+        "en": "Carry handle",
+        "es": "Asa de transporte"
+      }
+    },
+    {
+      "id": "handle_span",
+      "type": "slider",
+      "default": 186,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 20,
+      "max": 400,
+      "step": 0.1,
+      "label": {
+        "en": "Handle span (mm)",
+        "es": "Ancho del asa (mm)"
+      }
+    },
+    {
+      "id": "edge_chamfer",
+      "type": "slider",
+      "default": 1,
+      "group": "body_plan",
+      "modes": [
+        "console",
+        "envelope",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "label": {
+        "en": "Bottom edge chamfer (mm)",
+        "es": "Chaflán de arista inferior (mm)"
+      }
+    },
+    {
+      "id": "wall_thickness",
+      "type": "slider",
+      "default": 2.5,
+      "group": "shell",
+      "modes": [
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 1.2,
+      "max": 6,
+      "step": 0.1,
+      "label": {
+        "en": "Wall thickness (mm)",
+        "es": "Espesor de pared (mm)"
+      }
+    },
+    {
+      "id": "seam_height_ratio",
+      "type": "slider",
+      "default": 0.45,
+      "group": "shell",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0.15,
+      "max": 0.85,
+      "step": 0.01,
+      "label": {
+        "en": "Seam height (fraction of the lowest section)",
+        "es": "Altura de la junta (fracción de la sección más baja)"
+      }
+    },
+    {
+      "id": "seam_groove",
+      "type": "slider",
+      "default": 0.8,
+      "group": "shell",
+      "modes": [
+        "console"
+      ],
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "label": {
+        "en": "Seam groove depth (mm)",
+        "es": "Profundidad de la ranura de junta (mm)"
+      }
+    },
+    {
+      "id": "side_cover_thickness",
+      "type": "slider",
+      "default": 6,
+      "group": "shell",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 1,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Side cover thickness (mm)",
+        "es": "Espesor de cubierta lateral (mm)"
+      }
+    },
+    {
+      "id": "side_cover_overhang",
+      "type": "slider",
+      "default": 4,
+      "group": "shell",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Side cover overhang (mm)",
+        "es": "Vuelo de cubierta lateral (mm)"
+      }
+    },
+    {
+      "id": "side_cover_offset",
+      "type": "slider",
+      "default": 0,
+      "group": "shell",
+      "modes": [
+        "console"
+      ],
+      "min": 0,
+      "max": 40,
+      "step": 0.5,
+      "label": {
+        "en": "Side cover offset — explode (mm)",
+        "es": "Separación de cubiertas — explosión (mm)"
+      }
+    },
+    {
+      "id": "slot_clearance",
+      "type": "slider",
+      "default": 1,
+      "group": "media",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell",
+        "media_door"
+      ],
+      "min": 0.2,
+      "max": 4,
+      "step": 0.05,
+      "label": {
+        "en": "Slot clearance (mm)",
+        "es": "Holgura de ranura (mm)"
+      }
+    },
+    {
+      "id": "lid_angle",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console"
+      ],
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "label": {
+        "en": "Lid / door angle (°)",
+        "es": "Ángulo de tapa / puerta (°)"
+      }
+    },
+    {
+      "id": "tray_extension",
+      "type": "slider",
+      "default": 0,
+      "group": "media",
+      "modes": [
+        "console"
+      ],
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "label": {
+        "en": "Tray extension (0-1)",
+        "es": "Extensión de bandeja (0-1)"
+      }
+    },
+    {
+      "id": "panel_switch_pitch",
+      "type": "slider",
+      "default": 28,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 10,
+      "max": 60,
+      "step": 0.1,
+      "label": {
+        "en": "Panel switch pitch (mm)",
+        "es": "Paso de interruptores (mm)"
+      }
+    },
+    {
+      "id": "panel_led_count",
+      "type": "slider",
+      "default": 1,
+      "group": "panel",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "label": {
+        "en": "Panel LEDs",
+        "es": "LED del panel"
+      }
+    },
+    {
+      "id": "controller_port_pitch",
+      "type": "slider",
+      "default": 30,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 10,
+      "max": 80,
+      "step": 0.1,
+      "label": {
+        "en": "Controller port pitch (mm)",
+        "es": "Paso de puertos de control (mm)"
+      }
+    },
+    {
+      "id": "cord_diameter",
+      "type": "slider",
+      "default": 6,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 12,
+      "step": 0.1,
+      "label": {
+        "en": "Cord diameter (mm)",
+        "es": "Diámetro del cable (mm)"
+      }
+    },
+    {
+      "id": "bay_width",
+      "type": "slider",
+      "default": 60,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 20,
+      "max": 120,
+      "step": 0.1,
+      "label": {
+        "en": "Bay width (mm)",
+        "es": "Ancho de bahía (mm)"
+      }
+    },
+    {
+      "id": "bay_depth",
+      "type": "slider",
+      "default": 18,
+      "group": "controller",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 60,
+      "step": 0.1,
+      "label": {
+        "en": "Bay depth (mm)",
+        "es": "Profundidad de bahía (mm)"
+      }
+    },
+    {
+      "id": "vent1_pattern",
+      "type": "select",
+      "default": "slots",
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "slots",
+          "label": {
+            "en": "Slots",
+            "es": "Ranuras"
+          }
+        },
+        {
+          "value": "grid",
+          "label": {
+            "en": "Square grid",
+            "es": "Rejilla cuadrada"
+          }
+        },
+        {
+          "value": "hex",
+          "label": {
+            "en": "Hexagons",
+            "es": "Hexágonos"
+          }
+        },
+        {
+          "value": "holes",
+          "label": {
+            "en": "Round holes",
+            "es": "Orificios redondos"
+          }
+        },
+        {
+          "value": "radial",
+          "label": {
+            "en": "Radial rings",
+            "es": "Anillos radiales"
+          }
+        }
+      ],
+      "label": {
+        "en": "Vent 1 pattern",
+        "es": "Patrón de ventilación 1"
+      }
+    },
+    {
+      "id": "vent1_pitch",
+      "type": "slider",
+      "default": 6,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 30,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 pitch (mm)",
+        "es": "Paso de ventilación 1 (mm)"
+      }
+    },
+    {
+      "id": "vent1_hole_size",
+      "type": "slider",
+      "default": 3,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 1,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 hole size (mm)",
+        "es": "Tamaño de orificio 1 (mm)"
+      }
+    },
+    {
+      "id": "vent1_depth",
+      "type": "slider",
+      "default": 4,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 1 depth (mm)",
+        "es": "Profundidad de ventilación 1 (mm)"
+      }
+    },
+    {
+      "id": "vent2_pattern",
+      "type": "select",
+      "default": "slots",
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "options": [
+        {
+          "value": "slots",
+          "label": {
+            "en": "Slots",
+            "es": "Ranuras"
+          }
+        },
+        {
+          "value": "grid",
+          "label": {
+            "en": "Square grid",
+            "es": "Rejilla cuadrada"
+          }
+        },
+        {
+          "value": "hex",
+          "label": {
+            "en": "Hexagons",
+            "es": "Hexágonos"
+          }
+        },
+        {
+          "value": "holes",
+          "label": {
+            "en": "Round holes",
+            "es": "Orificios redondos"
+          }
+        },
+        {
+          "value": "radial",
+          "label": {
+            "en": "Radial rings",
+            "es": "Anillos radiales"
+          }
+        }
+      ],
+      "label": {
+        "en": "Vent 2 pattern",
+        "es": "Patrón de ventilación 2"
+      }
+    },
+    {
+      "id": "vent2_pitch",
+      "type": "slider",
+      "default": 6,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 2,
+      "max": 30,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 pitch (mm)",
+        "es": "Paso de ventilación 2 (mm)"
+      }
+    },
+    {
+      "id": "vent2_hole_size",
+      "type": "slider",
+      "default": 3,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 1,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 hole size (mm)",
+        "es": "Tamaño de orificio 2 (mm)"
+      }
+    },
+    {
+      "id": "vent2_depth",
+      "type": "slider",
+      "default": 4,
+      "group": "thermal",
+      "modes": [
+        "console",
+        "top_shell",
+        "bottom_shell"
+      ],
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "label": {
+        "en": "Vent 2 depth (mm)",
+        "es": "Profundidad de ventilación 2 (mm)"
+      }
+    },
+    {
+      "id": "foot_height",
+      "type": "slider",
+      "default": 3,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 0.5,
+      "max": 15,
+      "step": 0.1,
+      "label": {
+        "en": "Foot height (mm)",
+        "es": "Altura de pata (mm)"
+      }
+    },
+    {
+      "id": "handle_reach",
+      "type": "slider",
+      "default": 22,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 5,
+      "max": 80,
+      "step": 0.1,
+      "label": {
+        "en": "Handle reach (mm)",
+        "es": "Alcance del asa (mm)"
+      }
+    },
+    {
+      "id": "handle_thickness",
+      "type": "slider",
+      "default": 10,
+      "group": "support",
+      "modes": [
+        "console"
+      ],
+      "min": 3,
+      "max": 30,
+      "step": 0.1,
+      "label": {
+        "en": "Handle thickness (mm)",
+        "es": "Grosor del asa (mm)"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "front_height <= body_height && rear_height <= body_height",
+      "severity": "error",
+      "message": {
+        "en": "The wedge front or the upright rear is taller than the body.",
+        "es": "El frente de la cuña o la parte trasera vertical supera la altura del cuerpo."
+      }
+    },
+    {
+      "expression": "upper_tier_height < body_height * 0.8",
+      "severity": "error",
+      "message": {
+        "en": "The upper tier leaves too little base below it.",
+        "es": "El escalón deja muy poca base debajo."
+      }
+    },
+    {
+      "expression": "2 * upper_tier_inset_x < body_width - 20 && front_break_y + upper_tier_inset_y < body_depth - 10",
+      "severity": "error",
+      "message": {
+        "en": "The upper tier's insets leave no tier.",
+        "es": "Los retranqueos del escalón no dejan escalón."
+      }
+    },
+    {
+      "expression": "2 * corner_radius_vertical < body_width && 2 * corner_radius_vertical < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "The plan corner radius is more than half the body.",
+        "es": "El radio de esquina supera la mitad del cuerpo."
+      }
+    },
+    {
+      "expression": "seam_height_ratio > 0.1 && seam_height_ratio < 0.9",
+      "severity": "error",
+      "message": {
+        "en": "The seam must cross the body.",
+        "es": "La junta debe cruzar el cuerpo."
+      }
+    },
+    {
+      "expression": "4 * wall_thickness < body_height && 4 * wall_thickness < body_width",
+      "severity": "error",
+      "message": {
+        "en": "The walls leave no cavity for a printed shell.",
+        "es": "Las paredes no dejan cavidad en la carcasa impresa."
+      }
+    },
+    {
+      "expression": "side_cover_count * (side_cover_thickness + 0.2) < body_width / 3 && 2 * side_cover_overhang < body_depth / 4",
+      "severity": "error",
+      "message": {
+        "en": "The side covers take too much of the body.",
+        "es": "Las cubiertas laterales ocupan demasiado cuerpo."
+      }
+    },
+    {
+      "expression": "media_width + 2 * slot_clearance + 4 * wall_thickness < body_width",
+      "severity": "error",
+      "message": {
+        "en": "The medium is wider than the body can take.",
+        "es": "El medio es más ancho de lo que admite el cuerpo."
+      }
+    },
+    {
+      "expression": "lid_diameter < body_width && lid_diameter < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "The disc lid is larger than the top.",
+        "es": "La tapa de disco es mayor que la tapa superior."
+      }
+    },
+    {
+      "expression": "tray_width < body_width + body_height && tray_height < body_height",
+      "severity": "error",
+      "message": {
+        "en": "The tray does not fit the front face.",
+        "es": "La bandeja no cabe en el frente."
+      }
+    },
+    {
+      "expression": "vent1_pitch > vent1_hole_size && vent2_pitch > vent2_hole_size",
+      "severity": "error",
+      "message": {
+        "en": "Vent holes would overlap: the pitch must exceed the hole size.",
+        "es": "Los orificios se traslaparían: el paso debe superar el tamaño."
+      }
+    },
+    {
+      "expression": "(vent1_width / vent1_pitch) * (vent1_height / vent1_pitch) <= 400 && (vent2_width / vent2_pitch) * (vent2_height / vent2_pitch) <= 400",
+      "severity": "error",
+      "message": {
+        "en": "A vent field of more than 400 holes exceeds the render budget; raise the pitch.",
+        "es": "Un campo de más de 400 orificios excede el presupuesto de render; aumenta el paso."
+      }
+    },
+    {
+      "expression": "foot_diameter < body_depth / 3 && foot_height < body_height",
+      "severity": "error",
+      "message": {
+        "en": "The feet are out of proportion to the body.",
+        "es": "Las patas no guardan proporción con el cuerpo."
+      }
+    },
+    {
+      "expression": "handle_span < body_width",
+      "severity": "error",
+      "message": {
+        "en": "The handle is wider than the body.",
+        "es": "El asa es más ancha que el cuerpo."
+      }
+    },
+    {
+      "expression": "screen_width < body_width && screen_height < body_height",
+      "severity": "warning",
+      "message": {
+        "en": "The integrated display is larger than the front face.",
+        "es": "La pantalla integrada es mayor que el frente."
+      }
+    },
+    {
+      "expression": "corner_radius_top < body_height / 3",
+      "severity": "warning",
+      "message": {
+        "en": "A large top radius is clamped by the lowest section.",
+        "es": "Un radio superior grande se limita por la sección más baja."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "lid-open",
+      "label": {
+        "en": "Disc lid opens 0 → 75°",
+        "es": "La tapa de disco se abre 0 → 75°"
+      },
+      "from_state": {
+        "body_plan": "slab",
+        "media_kind": "disc_lid",
+        "lid_angle": 0
+      },
+      "to_state": {
+        "body_plan": "slab",
+        "media_kind": "disc_lid",
+        "lid_angle": 75
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "console"
+    },
+    {
+      "id": "tray-eject",
+      "label": {
+        "en": "Disc tray ejects",
+        "es": "La bandeja de disco sale"
+      },
+      "from_state": {
+        "body_plan": "slab",
+        "media_kind": "disc_tray",
+        "tray_extension": 0
+      },
+      "to_state": {
+        "body_plan": "slab",
+        "media_kind": "disc_tray",
+        "tray_extension": 1
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "console"
+    },
+    {
+      "id": "stand-up",
+      "label": {
+        "en": "Stands up 0 → 90°",
+        "es": "Se pone de pie 0 → 90°"
+      },
+      "from_state": {
+        "orientation_tilt_deg": 0
+      },
+      "to_state": {
+        "orientation_tilt_deg": 90
+      },
+      "frames": 6,
+      "duration_ms": 3000,
+      "easing": "ease-in-out",
+      "mode": "console"
+    },
+    {
+      "id": "covers-off",
+      "label": {
+        "en": "Side covers come off",
+        "es": "Se retiran las cubiertas laterales"
+      },
+      "from_state": {
+        "side_cover_count": 2,
+        "side_cover_offset": 0
+      },
+      "to_state": {
+        "side_cover_count": 2,
+        "side_cover_offset": 30
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "console"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        420,
+        -460,
+        340
+      ],
+      "target": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frente"
+      },
+      "position": [
+        0,
+        -600,
+        40
+      ],
+      "target": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        650
+      ],
+      "target": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "rear",
+      "label": {
+        "en": "Rear",
+        "es": "Trasera"
+      },
+      "position": [
+        0,
+        600,
+        40
+      ],
+      "target": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        600,
+        0,
+        40
+      ],
+      "target": [
+        0,
+        0,
+        30
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 12,
+    "per_unit": 3,
+    "per_part": 6,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    },
+    "mode_overrides": {
+      "console": {
+        "part_overrides": {
+          "body": {
+            "geometry.body_count": {
+              "expected": "1 + side_cover_count"
+            }
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family home-console --write home-console/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "home-console",
+    "axis_mapping": {
+      "body_width": "reference dimensions_mm.states.body.width (or states.vertical.height, laid flat)",
+      "body_depth": "reference dimensions_mm.states.body.depth (or states.vertical.depth)",
+      "body_height": "reference dimensions_mm.states.body.height (or states.vertical.width, laid flat)",
+      "orientation_tilt_deg": "0 for states.body; 90 when only states.vertical is published"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-wedge-cartridge-console",
+      "label": {
+        "en": "Archetype — wedge cartridge console",
+        "es": "Arquetipo — consola de cartucho en cuña"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the wedge body plan, top cartridge, panel slide switches). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 340,
+        "body_depth": 230,
+        "body_height": 90,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "wedge",
+        "front_height": 49.5,
+        "rear_height": 40.5,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 80.5,
+        "upper_tier_height": 34.2,
+        "upper_tier_inset_x": 40.8,
+        "upper_tier_inset_y": 18.4,
+        "side_concavity": 0,
+        "corner_radius_vertical": 13.8,
+        "corner_radius_top": 7.2,
+        "side_cover_count": 0,
+        "media_kind": "cart_top",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 54,
+        "slot_center_x": 0,
+        "slot_center_y": 34.5,
+        "slot_center_z": 24.75,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 27.225,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 238,
+        "screen_height": 49.5,
+        "screen_center_z": 49.5,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 4,
+        "panel_center_y": 40.25,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "de9",
+        "controller_port_face": "rear",
+        "controller_port_center_z": 14.85,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 161,
+        "av_out_kind": "rf_f",
+        "av_out_count": 1,
+        "power_inlet_kind": "cord",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": true,
+        "rear_port_center_z": 27,
+        "vent1_face": "rear",
+        "vent1_center_u": 85,
+        "vent1_center_v": 58.75,
+        "vent1_width": 102,
+        "vent1_height": 35.5,
+        "vent2_face": "top",
+        "vent2_center_u": -102,
+        "vent2_center_v": 57.5,
+        "vent2_width": 68,
+        "vent2_height": 46,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 204
+      }
+    },
+    {
+      "slug": "archetype-front-loader-console",
+      "label": {
+        "en": "Archetype — front-loading cartridge console",
+        "es": "Arquetipo — consola de cartucho de carga frontal"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the slab body plan, front cartridge door). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 250,
+        "body_depth": 200,
+        "body_height": 85,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "slab",
+        "front_height": 46.75,
+        "rear_height": 38.25,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 70,
+        "upper_tier_height": 32.3,
+        "upper_tier_inset_x": 30,
+        "upper_tier_inset_y": 16,
+        "side_concavity": 0,
+        "corner_radius_vertical": 12,
+        "corner_radius_top": 6.8,
+        "side_cover_count": 0,
+        "media_kind": "cart_front",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 30,
+        "slot_center_z": 42.5,
+        "slot_door_kind": "door",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 46.75,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 175,
+        "screen_height": 46.75,
+        "screen_center_z": 46.75,
+        "power_control": "push",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 35,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "proprietary",
+        "controller_port_face": "front",
+        "controller_port_center_z": 25.5,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 140,
+        "av_out_kind": "rca",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 25.5,
+        "vent1_face": "rear",
+        "vent1_center_u": 62.5,
+        "vent1_center_v": 55.875,
+        "vent1_width": 75,
+        "vent1_height": 32.75,
+        "vent2_face": "top",
+        "vent2_center_u": -75,
+        "vent2_center_v": 50,
+        "vent2_width": 50,
+        "vent2_height": 40,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 150
+      }
+    },
+    {
+      "slug": "archetype-card-console",
+      "label": {
+        "en": "Archetype — card console",
+        "es": "Arquetipo — consola de tarjeta"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (a small slab, front card slot). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 150,
+        "body_depth": 145,
+        "body_height": 40,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "slab",
+        "front_height": 22,
+        "rear_height": 18,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 50.75,
+        "upper_tier_height": 15.2,
+        "upper_tier_inset_x": 18,
+        "upper_tier_inset_y": 11.6,
+        "side_concavity": 0,
+        "corner_radius_vertical": 8.7,
+        "corner_radius_top": 3.2,
+        "side_cover_count": 0,
+        "media_kind": "card_front",
+        "media_width": 54,
+        "media_thickness": 2,
+        "media_insert_depth": 50,
+        "slot_center_x": 0,
+        "slot_center_y": 21.75,
+        "slot_center_z": 20,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 116,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 110,
+        "tray_height": 12,
+        "tray_center_z": 22,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 105,
+        "screen_height": 22,
+        "screen_center_z": 22,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 25.375,
+        "front_button_count": 0,
+        "controller_port_count": 1,
+        "controller_port_kind": "round_din",
+        "controller_port_face": "front",
+        "controller_port_center_z": 12,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 101.5,
+        "av_out_kind": "rca",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 12,
+        "vent1_face": "rear",
+        "vent1_center_u": 37.5,
+        "vent1_center_v": 30,
+        "vent1_width": 45,
+        "vent1_height": 8,
+        "vent2_face": "top",
+        "vent2_center_u": -45,
+        "vent2_center_v": 36.25,
+        "vent2_width": 30,
+        "vent2_height": 29,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 90
+      }
+    },
+    {
+      "slug": "archetype-lid-disc-console",
+      "label": {
+        "en": "Archetype — lid disc console",
+        "es": "Arquetipo — consola de disco con tapa"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the slab body plan, a hinged disc lid, crowned top). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 270,
+        "body_depth": 190,
+        "body_height": 60,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "slab",
+        "front_height": 33,
+        "rear_height": 27,
+        "crown": 3,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 66.5,
+        "upper_tier_height": 22.8,
+        "upper_tier_inset_x": 32.4,
+        "upper_tier_inset_y": 15.2,
+        "side_concavity": 0,
+        "corner_radius_vertical": 11.4,
+        "corner_radius_top": 4.8,
+        "side_cover_count": 0,
+        "media_kind": "disc_lid",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 28.5,
+        "slot_center_z": 30,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 33,
+        "eject_button": false,
+        "memory_card_count": 2,
+        "screen_present": false,
+        "screen_width": 189,
+        "screen_height": 33,
+        "screen_center_z": 33,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 33.25,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "proprietary",
+        "controller_port_face": "front",
+        "controller_port_center_z": 18,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 133,
+        "av_out_kind": "multi_av",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 18,
+        "vent1_face": "rear",
+        "vent1_center_u": 67.5,
+        "vent1_center_v": 41.5,
+        "vent1_width": 81,
+        "vent1_height": 19,
+        "vent2_face": "top",
+        "vent2_center_u": -81,
+        "vent2_center_v": 47.5,
+        "vent2_width": 54,
+        "vent2_height": 38,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 162
+      }
+    },
+    {
+      "slug": "archetype-cube-disc-console",
+      "label": {
+        "en": "Archetype — cube disc console with handle",
+        "es": "Arquetipo — consola de disco cúbica con asa"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the cube body plan, small-disc lid, handle). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 150,
+        "body_depth": 160,
+        "body_height": 110,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "cube",
+        "front_height": 60.5,
+        "rear_height": 49.5,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 56,
+        "upper_tier_height": 41.8,
+        "upper_tier_inset_x": 18,
+        "upper_tier_inset_y": 12.8,
+        "side_concavity": 0,
+        "corner_radius_vertical": 9,
+        "corner_radius_top": 8.8,
+        "side_cover_count": 0,
+        "media_kind": "disc_lid",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 24,
+        "slot_center_z": 55,
+        "slot_door_kind": "none",
+        "disc_diameter": 80,
+        "lid_diameter": 92,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 92,
+        "tray_height": 14,
+        "tray_center_z": 60.5,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 105,
+        "screen_height": 60.5,
+        "screen_center_z": 60.5,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 28,
+        "front_button_count": 0,
+        "controller_port_count": 4,
+        "controller_port_kind": "proprietary",
+        "controller_port_face": "front",
+        "controller_port_center_z": 33,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 112,
+        "av_out_kind": "rca",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 30,
+        "vent1_face": "rear",
+        "vent1_center_u": 37.5,
+        "vent1_center_v": 68.75,
+        "vent1_width": 45,
+        "vent1_height": 49.5,
+        "vent2_face": "top",
+        "vent2_center_u": -45,
+        "vent2_center_v": 40,
+        "vent2_width": 30,
+        "vent2_height": 32,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": true,
+        "handle_span": 90
+      }
+    },
+    {
+      "slug": "archetype-tray-disc-console",
+      "label": {
+        "en": "Archetype — tray disc console",
+        "es": "Arquetipo — consola de disco con bandeja"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the slab body plan, a disc tray, concave sides). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 310,
+        "body_depth": 260,
+        "body_height": 85,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "slab",
+        "front_height": 46.75,
+        "rear_height": 38.25,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 91,
+        "upper_tier_height": 32.3,
+        "upper_tier_inset_x": 37.2,
+        "upper_tier_inset_y": 20.8,
+        "side_concavity": 4,
+        "corner_radius_vertical": 15.6,
+        "corner_radius_top": 6.8,
+        "side_cover_count": 0,
+        "media_kind": "disc_tray",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 39,
+        "slot_center_z": 42.5,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 46.75,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 217,
+        "screen_height": 46.75,
+        "screen_center_z": 46.75,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 45.5,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "usb_a",
+        "controller_port_face": "front",
+        "controller_port_center_z": 25.5,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 182,
+        "av_out_kind": "hdmi",
+        "av_out_count": 1,
+        "power_inlet_kind": "iec_c8",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": true,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 1,
+        "channel_switch": false,
+        "rear_port_center_z": 25.5,
+        "vent1_face": "rear",
+        "vent1_center_u": 77.5,
+        "vent1_center_v": 55.875,
+        "vent1_width": 93,
+        "vent1_height": 32.75,
+        "vent2_face": "top",
+        "vent2_center_u": -93,
+        "vent2_center_v": 65,
+        "vent2_width": 62,
+        "vent2_height": 52,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 186
+      }
+    },
+    {
+      "slug": "archetype-slot-disc-console",
+      "label": {
+        "en": "Archetype — slot-loading disc console",
+        "es": "Arquetipo — consola de disco con ranura"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the slab body plan, crowned, skewed, slot loader). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 290,
+        "body_depth": 280,
+        "body_height": 60,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "slab",
+        "front_height": 33,
+        "rear_height": 27,
+        "crown": 6,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 8,
+        "front_break_y": 98,
+        "upper_tier_height": 22.8,
+        "upper_tier_inset_x": 34.8,
+        "upper_tier_inset_y": 22.4,
+        "side_concavity": 0,
+        "corner_radius_vertical": 16.8,
+        "corner_radius_top": 4.8,
+        "side_cover_count": 0,
+        "media_kind": "disc_slot",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 42,
+        "slot_center_z": 30,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 33,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 203,
+        "screen_height": 33,
+        "screen_center_z": 33,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 49,
+        "front_button_count": 0,
+        "controller_port_count": 0,
+        "controller_port_kind": "none",
+        "controller_port_face": "front",
+        "controller_port_center_z": 18,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 196,
+        "av_out_kind": "hdmi",
+        "av_out_count": 1,
+        "power_inlet_kind": "iec_c13",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": true,
+        "usb_port_count_front": 2,
+        "usb_port_count_rear": 2,
+        "channel_switch": false,
+        "rear_port_center_z": 18,
+        "vent1_face": "rear",
+        "vent1_center_u": 72.5,
+        "vent1_center_v": 41.5,
+        "vent1_width": 87,
+        "vent1_height": 19,
+        "vent2_face": "top",
+        "vent2_center_u": -87,
+        "vent2_center_v": 70,
+        "vent2_width": 58,
+        "vent2_height": 56,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 174
+      }
+    },
+    {
+      "slug": "archetype-tower-disc-console",
+      "label": {
+        "en": "Archetype — tower disc console with covers",
+        "es": "Arquetipo — consola de disco en torre con cubiertas"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the tower body plan, two side covers, a stand seat, published standing). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 110,
+        "body_depth": 260,
+        "body_height": 390,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "tower",
+        "front_height": 214.5,
+        "rear_height": 175.5,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 91,
+        "upper_tier_height": 148.2,
+        "upper_tier_inset_x": 13.2,
+        "upper_tier_inset_y": 20.8,
+        "side_concavity": 0,
+        "corner_radius_vertical": 6.6,
+        "corner_radius_top": 8.8,
+        "side_cover_count": 2,
+        "media_kind": "disc_slot",
+        "media_width": 80,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 39,
+        "slot_center_z": 195,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 88,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 234,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 77,
+        "screen_height": 214.5,
+        "screen_center_z": 214.5,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 45.5,
+        "front_button_count": 0,
+        "controller_port_count": 0,
+        "controller_port_kind": "none",
+        "controller_port_face": "front",
+        "controller_port_center_z": 117,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 182,
+        "av_out_kind": "hdmi",
+        "av_out_count": 1,
+        "power_inlet_kind": "iec_c7",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": true,
+        "usb_port_count_front": 2,
+        "usb_port_count_rear": 2,
+        "channel_switch": false,
+        "rear_port_center_z": 30,
+        "vent1_face": "rear",
+        "vent1_center_u": 27.5,
+        "vent1_center_v": 187.75,
+        "vent1_width": 33,
+        "vent1_height": 287.5,
+        "vent2_face": "top",
+        "vent2_center_u": 0,
+        "vent2_center_v": 0,
+        "vent2_width": 66,
+        "vent2_height": 156,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "cradle",
+        "handle_present": false,
+        "handle_span": 66
+      }
+    },
+    {
+      "slug": "archetype-upright-display-console",
+      "label": {
+        "en": "Archetype — upright console with display",
+        "es": "Arquetipo — consola vertical con pantalla"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (the upright body plan, an integrated front display, rear cartridge). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 240,
+        "body_depth": 300,
+        "body_height": 380,
+        "orientation_tilt_deg": 0,
+        "role": "console",
+        "body_plan": "upright",
+        "front_height": 209,
+        "rear_height": 171,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 105,
+        "upper_tier_height": 144.4,
+        "upper_tier_inset_x": 28.8,
+        "upper_tier_inset_y": 24,
+        "side_concavity": 0,
+        "corner_radius_vertical": 14.4,
+        "corner_radius_top": 19.2,
+        "side_cover_count": 0,
+        "media_kind": "cart_rear",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 45,
+        "slot_center_z": 190,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 14,
+        "tray_center_z": 228,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": true,
+        "screen_width": 150,
+        "screen_height": 190,
+        "screen_center_z": 209,
+        "power_control": "slide",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 52.5,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "de9",
+        "controller_port_face": "front",
+        "controller_port_center_z": 114,
+        "hardwired_controllers": 1,
+        "controller_bays": 0,
+        "bay_length": 210,
+        "av_out_kind": "rca",
+        "av_out_count": 1,
+        "power_inlet_kind": "cord",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 30,
+        "vent1_face": "rear",
+        "vent1_center_u": 60,
+        "vent1_center_v": 94.675,
+        "vent1_width": 72,
+        "vent1_height": 101.35,
+        "vent2_face": "top",
+        "vent2_center_u": -72,
+        "vent2_center_v": 75,
+        "vent2_width": 48,
+        "vent2_height": 60,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 144
+      }
+    },
+    {
+      "slug": "archetype-mini-console",
+      "label": {
+        "en": "Archetype — mini console",
+        "es": "Arquetipo — consola mini"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (role mini: a small slab, no media). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 110,
+        "body_depth": 80,
+        "body_height": 36,
+        "orientation_tilt_deg": 0,
+        "role": "mini",
+        "body_plan": "slab",
+        "front_height": 19.8,
+        "rear_height": 16.2,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 28,
+        "upper_tier_height": 13.68,
+        "upper_tier_inset_x": 13.2,
+        "upper_tier_inset_y": 6.4,
+        "side_concavity": 0,
+        "corner_radius_vertical": 4.8,
+        "corner_radius_top": 2.88,
+        "side_cover_count": 0,
+        "media_kind": "none",
+        "media_width": 80,
+        "media_thickness": 18,
+        "media_insert_depth": 48,
+        "slot_center_x": 0,
+        "slot_center_y": 12,
+        "slot_center_z": 18,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 64,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 70,
+        "tray_height": 10.8,
+        "tray_center_z": 19.8,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 77,
+        "screen_height": 19.8,
+        "screen_center_z": 19.8,
+        "power_control": "push",
+        "reset_present": true,
+        "panel_switch_count": 0,
+        "panel_center_y": 14,
+        "front_button_count": 0,
+        "controller_port_count": 2,
+        "controller_port_kind": "usb_a",
+        "controller_port_face": "front",
+        "controller_port_center_z": 10.8,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 56,
+        "av_out_kind": "hdmi",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 0,
+        "expansion_port_face": "bottom",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 10.8,
+        "vent1_face": "rear",
+        "vent1_center_u": 27.5,
+        "vent1_center_v": 18,
+        "vent1_width": 33,
+        "vent1_height": 18,
+        "vent2_face": "top",
+        "vent2_center_u": -33,
+        "vent2_center_v": 20,
+        "vent2_width": 22,
+        "vent2_height": 16,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 66
+      }
+    },
+    {
+      "slug": "archetype-addon-disc-unit",
+      "label": {
+        "en": "Archetype — add-on disc unit",
+        "es": "Arquetipo — unidad adicional de disco"
+      },
+      "kind": "archetype",
+      "source": "Archetype preset, not a product: a named point in the family's own parameter space (role addon: a slab under a host, with a host link). Every number is an archetype rule in tools/presets/home_console.py. Generated — do not edit by hand.",
+      "values": {
+        "body_width": 300,
+        "body_depth": 210,
+        "body_height": 45,
+        "orientation_tilt_deg": 0,
+        "role": "addon",
+        "body_plan": "slab",
+        "front_height": 24.75,
+        "rear_height": 20.25,
+        "crown": 0,
+        "side_draft_deg": 0,
+        "plan_skew_deg": 0,
+        "front_break_y": 73.5,
+        "upper_tier_height": 17.1,
+        "upper_tier_inset_x": 36,
+        "upper_tier_inset_y": 16.8,
+        "side_concavity": 0,
+        "corner_radius_vertical": 12.6,
+        "corner_radius_top": 3.6,
+        "side_cover_count": 0,
+        "media_kind": "disc_tray",
+        "media_width": 120,
+        "media_thickness": 18,
+        "media_insert_depth": 60,
+        "slot_center_x": 0,
+        "slot_center_y": 31.5,
+        "slot_center_z": 22.5,
+        "slot_door_kind": "none",
+        "disc_diameter": 120,
+        "lid_diameter": 132,
+        "lid_center_x": 0,
+        "lid_center_y": 0,
+        "tray_width": 132,
+        "tray_height": 13.5,
+        "tray_center_z": 24.75,
+        "eject_button": false,
+        "memory_card_count": 0,
+        "screen_present": false,
+        "screen_width": 210,
+        "screen_height": 24.75,
+        "screen_center_z": 24.75,
+        "power_control": "slide",
+        "reset_present": false,
+        "panel_switch_count": 0,
+        "panel_center_y": 36.75,
+        "front_button_count": 0,
+        "controller_port_count": 0,
+        "controller_port_kind": "none",
+        "controller_port_face": "front",
+        "controller_port_center_z": 13.5,
+        "hardwired_controllers": 0,
+        "controller_bays": 0,
+        "bay_length": 147,
+        "av_out_kind": "rca",
+        "av_out_count": 1,
+        "power_inlet_kind": "barrel",
+        "expansion_port_count": 1,
+        "expansion_port_face": "rear",
+        "network_port": false,
+        "usb_port_count_front": 0,
+        "usb_port_count_rear": 0,
+        "channel_switch": false,
+        "rear_port_center_z": 13.5,
+        "vent1_face": "rear",
+        "vent1_center_u": 75,
+        "vent1_center_v": 32.875,
+        "vent1_width": 90,
+        "vent1_height": 10.75,
+        "vent2_face": "top",
+        "vent2_center_u": -90,
+        "vent2_center_v": 52.5,
+        "vent2_width": 60,
+        "vent2_height": 42,
+        "foot_count": 4,
+        "foot_diameter": 12,
+        "stand_seat_kind": "none",
+        "handle_present": false,
+        "handle_span": 180
+      }
+    }
+  ]
+}
