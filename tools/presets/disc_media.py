@@ -119,6 +119,9 @@ def read_disc(obj: dict) -> dict | None:
     """A catalog object projected onto derive()'s input, or None (unresolved)."""
     from hyperobjects_reference import is_sourced
 
+    if obj.get("kind") == "edition":
+        from _edition_disc import read_edition_disc
+        return read_edition_disc(obj)
     f = obj.get("features") or {}
 
     def feat(name):
@@ -148,6 +151,9 @@ def read_disc(obj: dict) -> dict | None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
+    if src.get("_preset_mode") == "envelope":
+        from _edition_disc import derive_diameter_proxy
+        return derive_diameter_proxy(src)
     R = ARCHETYPE_RULES
     fb: list[str] = []
     v: dict = {}
@@ -270,6 +276,9 @@ def _archetype_presets() -> list[dict]:
 
 
 def registry_extra(obj: dict, values: dict) -> dict:
+    if obj.get("kind") == "edition":
+        from _edition_disc import edition_disc_registry
+        return edition_disc_registry(obj)
     return {"host_console": (obj.get("features") or {}).get("host_console")}
 
 
@@ -285,7 +294,11 @@ FAMILY = Family(
         "shell_length": "reference dimensions_mm.states.shell.height (Y)",
         "shell_thickness": "reference dimensions_mm.states.shell.depth (Z)",
     },
-    source_line="diameter, hole and thickness (and the shell's width x height x depth) as published.",
+    source_line="catalog format dimensions as published; exact edition proxies source only the carrier diameter and declare authored thickness.",
     registry_extra=registry_extra,
     extra_presets=_standard_presets() + _archetype_presets(),
+    supplemental_keys=(
+        "nintendo-gamecube-the-legend-of-zelda-twilight-princess-jp",
+        "nintendo-wii-the-legend-of-zelda-twilight-princess-jp",
+    ),
 )
