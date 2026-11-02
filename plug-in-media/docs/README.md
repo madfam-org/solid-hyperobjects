@@ -145,3 +145,17 @@ media dimensions. Consumers must preserve the preset's mode and
 Current source-preset projections and envelope checks are recorded in the
 [coordinated refresh evidence](../../docs/gaming-reference-refresh-verification.json).
 The earlier frozen-pin proof remains a historical verification snapshot.
+
+### Two distinct Majora’s Mask issue measurements
+
+The standard Japanese issue `NUS-P-NZSJ` (RCGS PACKAGE0004600) records a
+115 mm wide ×75 mm high ×19 mm deep carrier. The separate Expansion Pak bundle
+`NUS-R-NZSJ(JPN)` (PACKAGE0010625) records 115 ×76 ×18 mm. Each named preset
+reads its own source object; these museum measurements are not normalized into
+one N64 format, and their difference is not a manufacturing tolerance.
+
+Both presets remain scoped to the conservative `envelope` mode. They depict
+only the recorded media carrier. Expansion hardware, other bundle constituents,
+package interiors, labels, contact details and actual shell outlines are not
+represented or inferred. The three issue identities and source-object digests
+remain separate even when two envelope dimensions coincide.
