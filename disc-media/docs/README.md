@@ -87,3 +87,22 @@ a preset with its diameter, hole and thickness, and for a shelled format its
 - The 80 mm CD (IEC 60908, not freely published) has no standard part.
 - The UMD's D1 diameter (50 mm) is quoted in the standard part's source line but is
   not a dimension key yet: lift request to the keystone.
+
+## Exact edition diameter studies
+
+The Japanese Twilight Princess issues remain distinct source records:
+`nintendo-gamecube-the-legend-of-zelda-twilight-princess-jp` records an 80 mm
+carrier diameter (RCGS PACKAGE0010369); the Wii issue
+`nintendo-wii-the-legend-of-zelda-twilight-princess-jp` records 120 mm
+(PACKAGE0010204). The cataloging manual's circular-carrier convention defines
+these measurements as diameters. Their physical thickness, centre-hole diameter,
+hub, stacking geometry, material and label artwork remain unknown.
+
+These presets therefore select only `envelope`: a conservative cylinder in XY,
+with an explicitly authored 1 mm presentation height along +Z. The filled centre
+is a bounding-volume convention, not evidence that either physical disc lacks a
+hole. No hole, clamp relief, stacking ring, label or shell is rendered. The
+`measured-diameter-only` registry scope and authored-height metadata travel with
+the native assets. They establish no full media envelope, optical-format
+compliance, package interior or physical fit. No CD/DVD standard is silently
+substituted for an edition's unknown dimensions.
