@@ -43,11 +43,8 @@ PAD_CROWN_FLAT = 0.02
 #: Normalised level-set radii the dome loft passes through between the flat and its
 #: last section (a planform point never lies beyond r = sqrt(2)).
 PAD_DOME_RADII = (0.3, 0.55, 0.8, 1.05, 1.3, 1.6, 2.0)
-#: Each level set is a periodic spline through this many points of its ellipse,
-#: starting at PAD_DOME_SEAM_DEG. An exact (periodic) ellipse puts its seam on the
-#: major axis, which a grip or the split plane then crosses edge-on: the fuse comes
-#: out invalid. 100 degrees keeps the seam off the split plane and every grip.
-PAD_DOME_POINTS = 24
+#: Exact ellipse edges use a full parameter interval beginning at 100 degrees,
+#: keeping the seam off the split plane and the grip joins.
 PAD_DOME_SEAM_DEG = 100.0
 #: The crescent body plan bites a circle out of the bridge's front edge.
 PAD_CRESCENT_RADIUS = 0.42      # of bridge_width
@@ -80,8 +77,8 @@ def pad_crown_dome(c, side):
     crown's level sets, each an ellipse span_x*r by span_y*r at the z the crown
     function gives for r, from the small flat to a section past the body (z = -1
     for the top dome, thickness + 1 for the bottom one). Returns None for a crown
-    under 0.05 mm, which is flat. Each section is a periodic spline through
-    PAD_DOME_POINTS points of its ellipse (see PAD_DOME_SEAM_DEG).
+    under 0.05 mm, which is flat. Each section is an exact ellipse edge with its start parameter at
+    PAD_DOME_SEAM_DEG, away from the split plane and grip joins.
 
     c: thickness, floor, top_crown, bottom_crown, span_x, span_y, center_y
     """
@@ -95,14 +92,12 @@ def pad_crown_dome(c, side):
     r_end = math.sqrt(PAD_CROWN_FLAT + abs(z_end - z0) / k)
     radii = [r0] + [r for r in PAD_DOME_RADII if r0 + 0.05 < r < r_end - 0.05] + [r_end]
     wires = []
-    seam = math.radians(PAD_DOME_SEAM_DEG)
     for r in radii:
         z = z0 + sign * k * (r * r - PAD_CROWN_FLAT)
-        pts = [cq.Vector(c["span_x"] * r * math.cos(seam + 2.0 * math.pi * i / PAD_DOME_POINTS),
-                         c["center_y"] + c["span_y"] * r
-                         * math.sin(seam + 2.0 * math.pi * i / PAD_DOME_POINTS), z)
-               for i in range(PAD_DOME_POINTS)]
-        wires.append(cq.Wire.assembleEdges([cq.Edge.makeSpline(pts, periodic=True)]))
+        edge = cq.Edge.makeEllipse(c["span_x"] * r, c["span_y"] * r,
+            pnt=(0, c["center_y"], z), angle1=PAD_DOME_SEAM_DEG,
+            angle2=PAD_DOME_SEAM_DEG + 360)
+        wires.append(cq.Wire.assembleEdges([edge]))
     return cq.Workplane("XY").add(cq.Solid.makeLoft(wires))
 
 

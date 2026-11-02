@@ -60,7 +60,7 @@ Parts (dispatched on `target_part`):
   - body         the controller body with every seat cut (two bodies when split)
   - controls     every cap: D-pad, face and system buttons, sticks, bumpers,
                  triggers, the under-trigger (each its own body)
-  - envelope     the uncut body: the fit surface (1 body)
+  - envelope     the flat-topped planform hull: conservative fit surface (1 body)
   - top_shell    the body above the seam, hollowed by shell_wall (1 body)
   - bottom_shell the body below the seam, hollowed by shell_wall (1 body)
   - left_half    the half at x < 0, with its rail or magnets when split (1 body)
@@ -89,55 +89,55 @@ def PARAM(getter, default):
 # ── Parameters ───────────────────────────────────────────────────────────────
 # Every default below is the archetype's own (tools/presets/gamepad.py, derive()
 # of ARCHETYPE_BASE): a generic two-stick controller with handles, no product.
-outline = str(PARAM(lambda: outline, "handles"))
-thickness = float(PARAM(lambda: thickness, 40.0))
+outline = str(PARAM(lambda: outline, 'handles'))
+thickness = float(PARAM(lambda: thickness, 40))
 bridge_width = float(PARAM(lambda: bridge_width, 115.44))
 bridge_depth = float(PARAM(lambda: bridge_depth, 58.24))
 bridge_corner_radius = float(PARAM(lambda: bridge_corner_radius, 10.4832))
 grip_count = int(PARAM(lambda: grip_count, 2))
-grip_root_x = float(PARAM(lambda: grip_root_x, 40.248))
-grip_root_y = float(PARAM(lambda: grip_root_y, -11.648))
-grip_length = float(PARAM(lambda: grip_length, 52.5311))
-grip_splay_deg = float(PARAM(lambda: grip_splay_deg, 24.9415))
-grip_drop = float(PARAM(lambda: grip_drop, 12.0))
+grip_root_x = float(PARAM(lambda: grip_root_x, 39.248))
+grip_root_y = float(PARAM(lambda: grip_root_y, -10.648))
+grip_length = float(PARAM(lambda: grip_length, 53.8617))
+grip_splay_deg = float(PARAM(lambda: grip_splay_deg, 25.4575))
+grip_drop = float(PARAM(lambda: grip_drop, 12))
 grip_root_radius = float(PARAM(lambda: grip_root_radius, 17.472))
 grip_tip_radius = float(PARAM(lambda: grip_tip_radius, 15.6))
-center_grip_offset = float(PARAM(lambda: center_grip_offset, 0.0))
+center_grip_offset = float(PARAM(lambda: center_grip_offset, 0))
 top_crown = float(PARAM(lambda: top_crown, 4.8))
 bottom_crown = float(PARAM(lambda: bottom_crown, 3.2))
-crown_span_x = float(PARAM(lambda: crown_span_x, 78.0))
+crown_span_x = float(PARAM(lambda: crown_span_x, 78))
 crown_span_y = float(PARAM(lambda: crown_span_y, 74.88))
-crown_center_y = float(PARAM(lambda: crown_center_y, 0.0))
+crown_center_y = float(PARAM(lambda: crown_center_y, 0))
 seam_ratio = float(PARAM(lambda: seam_ratio, 0.5))
-shell_wall = float(PARAM(lambda: shell_wall, 2.0))
+shell_wall = float(PARAM(lambda: shell_wall, 2))
 control_recess_depth = float(PARAM(lambda: control_recess_depth, 1.2))
 control_clearance = float(PARAM(lambda: control_clearance, 0.3))
-dpad_kind = str(PARAM(lambda: dpad_kind, "cross"))
+dpad_kind = str(PARAM(lambda: dpad_kind, 'cross'))
 dpad_x = float(PARAM(lambda: dpad_x, -40.56))
 dpad_y = float(PARAM(lambda: dpad_y, 5.824))
 dpad_size = float(PARAM(lambda: dpad_size, 22.9632))
 dpad_arm_width = float(PARAM(lambda: dpad_arm_width, 7.8075))
-dpad_height = float(PARAM(lambda: dpad_height, 2.0))
+dpad_height = float(PARAM(lambda: dpad_height, 2))
 face_count = int(PARAM(lambda: face_count, 4))
-face_arrangement = str(PARAM(lambda: face_arrangement, "diamond"))
+face_arrangement = str(PARAM(lambda: face_arrangement, 'diamond'))
 face_x = float(PARAM(lambda: face_x, 40.56))
 face_y = float(PARAM(lambda: face_y, 5.824))
 face_radius = float(PARAM(lambda: face_radius, 4.992))
 face_spacing = float(PARAM(lambda: face_spacing, 10.4832))
-face_tilt_deg = float(PARAM(lambda: face_tilt_deg, 0.0))
-face_height = float(PARAM(lambda: face_height, 2.0))
+face_tilt_deg = float(PARAM(lambda: face_tilt_deg, 0))
+face_height = float(PARAM(lambda: face_height, 2))
 stick_count = int(PARAM(lambda: stick_count, 2))
-stick_layout = str(PARAM(lambda: stick_layout, "symmetric"))
+stick_layout = str(PARAM(lambda: stick_layout, 'symmetric'))
 stick_left_x = float(PARAM(lambda: stick_left_x, -22.308))
 stick_left_y = float(PARAM(lambda: stick_left_y, -15.1424))
 stick_right_x = float(PARAM(lambda: stick_right_x, 22.308))
 stick_right_y = float(PARAM(lambda: stick_right_y, -15.1424))
-stick_cap = str(PARAM(lambda: stick_cap, "concave"))
+stick_cap = str(PARAM(lambda: stick_cap, 'concave'))
 stick_radius = float(PARAM(lambda: stick_radius, 10.14))
 stick_height = float(PARAM(lambda: stick_height, 10.14))
-stick_gate = str(PARAM(lambda: stick_gate, "round"))
+stick_gate = str(PARAM(lambda: stick_gate, 'round'))
 stick_gate_radius = float(PARAM(lambda: stick_gate_radius, 8.619))
-stick_tilt_deg = float(PARAM(lambda: stick_tilt_deg, 0.0))
+stick_tilt_deg = float(PARAM(lambda: stick_tilt_deg, 0))
 bumper_count = int(PARAM(lambda: bumper_count, 2))
 bumper_x = float(PARAM(lambda: bumper_x, 40.56))
 bumper_width = float(PARAM(lambda: bumper_width, 23.088))
@@ -148,7 +148,7 @@ trigger_x = float(PARAM(lambda: trigger_x, 40.56))
 trigger_width = float(PARAM(lambda: trigger_width, 18.4704))
 trigger_length = float(PARAM(lambda: trigger_length, 10.08))
 trigger_depth = float(PARAM(lambda: trigger_depth, 12.8128))
-trigger_travel_deg = float(PARAM(lambda: trigger_travel_deg, 0.0))
+trigger_travel_deg = float(PARAM(lambda: trigger_travel_deg, 0))
 under_trigger = bool(PARAM(lambda: under_trigger, False))
 under_trigger_y = float(PARAM(lambda: under_trigger_y, -15.1424))
 system_button_count = int(PARAM(lambda: system_button_count, 2))
@@ -164,10 +164,10 @@ light_bar_width = float(PARAM(lambda: light_bar_width, 34.632))
 speaker_present = bool(PARAM(lambda: speaker_present, True))
 speaker_y = float(PARAM(lambda: speaker_y, -6.9944))
 headset_jack = bool(PARAM(lambda: headset_jack, True))
-cable_exit = str(PARAM(lambda: cable_exit, "none"))
+cable_exit = str(PARAM(lambda: cable_exit, 'none'))
 charge_port = bool(PARAM(lambda: charge_port, True))
 expansion_slot_count = int(PARAM(lambda: expansion_slot_count, 0))
-expansion_slot_face = str(PARAM(lambda: expansion_slot_face, "top"))
+expansion_slot_face = str(PARAM(lambda: expansion_slot_face, 'top'))
 expansion_slot_y = float(PARAM(lambda: expansion_slot_y, 18.6368))
 expansion_slot_pitch = float(PARAM(lambda: expansion_slot_pitch, 34.632))
 expansion_slot_width = float(PARAM(lambda: expansion_slot_width, 18.4704))
@@ -175,12 +175,12 @@ expansion_slot_thickness = float(PARAM(lambda: expansion_slot_thickness, 4.0768)
 expansion_slot_depth = float(PARAM(lambda: expansion_slot_depth, 12.6))
 battery_door = bool(PARAM(lambda: battery_door, False))
 battery_door_width = float(PARAM(lambda: battery_door_width, 41.5584))
-battery_door_length = float(PARAM(lambda: battery_door_length, 29.12))
+battery_door_length = float(PARAM(lambda: battery_door_length, 20.384))
 battery_door_y = float(PARAM(lambda: battery_door_y, -2.912))
-split = str(PARAM(lambda: split, "none"))
-split_gap = float(PARAM(lambda: split_gap, 0.0))
+split = str(PARAM(lambda: split, 'none'))
+split_gap = float(PARAM(lambda: split_gap, 0))
 rail_length = float(PARAM(lambda: rail_length, 81.12))
-rail_width = float(PARAM(lambda: rail_width, 12.0))
+rail_width = float(PARAM(lambda: rail_width, 12))
 
 target_part = str(PARAM(lambda: target_part, "body"))
 
@@ -505,7 +505,7 @@ def speaker_grille(p):
 # END commons-lib/hardware/structure.py@ff8c34f884418c4e6c43fa7a5f28fb5294d2126b
 
 
-# BEGIN commons-lib/hardware/pad_body.py@0e8587745578b3bac4411231e29983f6d1360689
+# BEGIN commons-lib/hardware/pad_body.py@f1835995df4deeda805b14f36f64105a12cbeefc
 # SPDX-License-Identifier: CERN-OHL-W-2.0
 # SPDX-FileCopyrightText: 2026 madfam-org
 # requires: structure
@@ -551,11 +551,8 @@ PAD_CROWN_FLAT = 0.02
 #: Normalised level-set radii the dome loft passes through between the flat and its
 #: last section (a planform point never lies beyond r = sqrt(2)).
 PAD_DOME_RADII = (0.3, 0.55, 0.8, 1.05, 1.3, 1.6, 2.0)
-#: Each level set is a periodic spline through this many points of its ellipse,
-#: starting at PAD_DOME_SEAM_DEG. An exact (periodic) ellipse puts its seam on the
-#: major axis, which a grip or the split plane then crosses edge-on: the fuse comes
-#: out invalid. 100 degrees keeps the seam off the split plane and every grip.
-PAD_DOME_POINTS = 24
+#: Exact ellipse edges use a full parameter interval beginning at 100 degrees,
+#: keeping the seam off the split plane and the grip joins.
 PAD_DOME_SEAM_DEG = 100.0
 #: The crescent body plan bites a circle out of the bridge's front edge.
 PAD_CRESCENT_RADIUS = 0.42      # of bridge_width
@@ -588,8 +585,8 @@ def pad_crown_dome(c, side):
     crown's level sets, each an ellipse span_x*r by span_y*r at the z the crown
     function gives for r, from the small flat to a section past the body (z = -1
     for the top dome, thickness + 1 for the bottom one). Returns None for a crown
-    under 0.05 mm, which is flat. Each section is a periodic spline through
-    PAD_DOME_POINTS points of its ellipse (see PAD_DOME_SEAM_DEG).
+    under 0.05 mm, which is flat. Each section is an exact ellipse edge with its start parameter at
+    PAD_DOME_SEAM_DEG, away from the split plane and grip joins.
 
     c: thickness, floor, top_crown, bottom_crown, span_x, span_y, center_y
     """
@@ -603,14 +600,12 @@ def pad_crown_dome(c, side):
     r_end = math.sqrt(PAD_CROWN_FLAT + abs(z_end - z0) / k)
     radii = [r0] + [r for r in PAD_DOME_RADII if r0 + 0.05 < r < r_end - 0.05] + [r_end]
     wires = []
-    seam = math.radians(PAD_DOME_SEAM_DEG)
     for r in radii:
         z = z0 + sign * k * (r * r - PAD_CROWN_FLAT)
-        pts = [cq.Vector(c["span_x"] * r * math.cos(seam + 2.0 * math.pi * i / PAD_DOME_POINTS),
-                         c["center_y"] + c["span_y"] * r
-                         * math.sin(seam + 2.0 * math.pi * i / PAD_DOME_POINTS), z)
-               for i in range(PAD_DOME_POINTS)]
-        wires.append(cq.Wire.assembleEdges([cq.Edge.makeSpline(pts, periodic=True)]))
+        edge = cq.Edge.makeEllipse(c["span_x"] * r, c["span_y"] * r,
+            pnt=(0, c["center_y"], z), angle1=PAD_DOME_SEAM_DEG,
+            angle2=PAD_DOME_SEAM_DEG + 360)
+        wires.append(cq.Wire.assembleEdges([edge]))
     return cq.Workplane("XY").add(cq.Solid.makeLoft(wires))
 
 
@@ -772,7 +767,7 @@ def pad_magnet_pockets(p):
                               p["center_y"] + dy, p["center_z"])))
         out = pocket if out is None else out.union(pocket)
     return out
-# END commons-lib/hardware/pad_body.py@0e8587745578b3bac4411231e29983f6d1360689
+# END commons-lib/hardware/pad_body.py@f1835995df4deeda805b14f36f64105a12cbeefc
 
 
 # BEGIN commons-lib/hardware/pad_controls.py@d35dbf0856bb1e9a7333c4328e738f7e3e0050a4
@@ -1372,7 +1367,10 @@ def controls_part():
 
 
 def envelope_part():
-    return pad_body(_plan(0.0))
+    # Published facts constrain the bounding dimensions, never the crown surface.
+    # A flat-topped planform hull conservatively encloses that archetype crown and
+    # avoids treating OCCT's trimmed-loft tessellation as a measured fit surface.
+    return pad_body(dict(_plan(0.0), top_crown=0.0, bottom_crown=0.0))
 
 
 def _shell(upper):

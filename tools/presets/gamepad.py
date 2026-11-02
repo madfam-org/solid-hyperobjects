@@ -29,7 +29,7 @@ from __future__ import annotations
 
 import math
 
-from common import DeriveError, Family, rnd, state
+from common import DeriveError, Family, is_sourced, rnd, state
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Body-plan rules — fractions of the envelope W (x) x D (y) x H (z). Ours.
@@ -64,7 +64,7 @@ RULES = {
     "bumper_w": 0.20, "bumper_h": 0.16, "bumper_d": 0.14,
     "trigger_w": 0.80, "trigger_len": 0.36, "trigger_d": 0.22, "trigger_travel": 0.0,
     "slot_w": 0.16, "slot_t": 0.07, "slot_depth": 0.45, "slot_pitch": 0.30,
-    "door_w": 0.36, "door_l": 0.50,
+    "door_w": 0.36, "door_l": 0.35,  # keep the seam inside the bridge crown, away from grip joins
     "seam_ratio": 0.5, "shell_wall": 2.0,
     "rail_length": 0.78, "rail_width": 0.30,
 }
@@ -198,18 +198,23 @@ def crown_top(v: dict, x: float, y: float) -> float:
 # Catalog reading (BRIEF §3, `gamepad`, kind `controller`)
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _listed_count(obj, field, *kinds):
+    """Only a covered complete list proves presence, count or absence."""
+    if not is_sourced(obj, field):
+        return None
+    entries = [c for c in obj.get(field) or [] if c.get("kind") in kinds]
+    if not entries:
+        return 0
+    counts = [c.get("count") for c in entries]
+    return None if any(n is None for n in counts) else sum(counts)
+
+
 def _count(obj, *kinds):
-    for c in obj.get("controls") or []:
-        if c.get("kind") in kinds:
-            return c.get("count") if c.get("count") is not None else 1
-    return 0 if obj.get("controls") else None
+    return _listed_count(obj, "controls", *kinds)
 
 
 def _port(obj, *kinds):
-    for c in obj.get("ports") or []:
-        if c.get("kind") in kinds:
-            return c.get("count") if c.get("count") is not None else 1
-    return 0 if obj.get("ports") else None
+    return _listed_count(obj, "ports", *kinds)
 
 
 def read_controller(obj: dict) -> dict | None:
@@ -219,7 +224,8 @@ def read_controller(obj: dict) -> dict | None:
     if w is None or h is None or d is None:
         return None
     feats = obj.get("features") or {}
-    split = feats.get("split") or "none"
+    split = feats.get("split") if is_sourced(obj, "features.split") else None
+    split = split or "none"
     src = {"slug": obj["key"], "width": float(w) * (2.0 if split != "none" else 1.0),
            "thickness": float(min(h, d)), "depth": float(max(h, d)), "split": split}
     counts = {
@@ -233,7 +239,7 @@ def read_controller(obj: dict) -> dict | None:
     }
     cable = _port(obj, "cable")
     counts["cable_exit"] = None if cable is None else ("top_center" if cable else "none")
-    cell = feats.get("cell_kind")
+    cell = feats.get("cell_kind") if is_sourced(obj, "features.cell_kind") else None
     counts["battery_door"] = None if cell is None else cell in ("aa", "aaa")
     for k, val in counts.items():
         if val is None:
@@ -432,7 +438,8 @@ def derive(src: dict, *, full: bool = True) -> tuple[dict, list[str]]:
                  grip_layout(v)) if grip_layout(v) else H
     if th_tip < 0.4 * H:
         raise DeriveError(f"{slug}: the crown leaves {th_tip:.1f} mm at a grip tip")
-    return {k: v[k] for k in PARAM_ORDER}, fallbacks
+    return {k: v[k] for k in PARAM_ORDER
+            if full or k not in {"seam_ratio", "shell_wall"}}, fallbacks
 
 
 #: Every parameter, in manifest order.
@@ -463,7 +470,7 @@ PARAM_ORDER = [
 
 
 def _archetype_preset(a: dict) -> dict:
-    values, _ = derive(a)
+    values, _ = derive(a, full=False)
     en, es = a["_label"]
     return {
         "slug": a["slug"],
