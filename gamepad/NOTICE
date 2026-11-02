@@ -1,0 +1,14 @@
+Gamepad — original parametric family
+====================================
+Copyright (c) 2026 Innovaciones MADFAM.
+Licensed under CERN-OHL-W-2.0; see LICENSE.
+
+No third-party code, design files, artwork, logos, glyphs or photographs are
+vendored. The five body plans, crown, grips, control layouts and component
+placements follow our written archetype rules in tools/presets/gamepad.py.
+Named presets carry published envelopes and sourced counts from the keystone
+catalog, with unknown values recorded as archetype fallbacks. They are fit
+proxies, not replica shells, controller electronics or compatibility guarantees.
+
+Product and company names identify measurements nominatively and remain the
+trademarks of their respective owners. No affiliation or endorsement is implied.
