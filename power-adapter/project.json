@@ -1,0 +1,1146 @@
+{
+  "project": {
+    "name": "Power Adapter",
+    "slug": "power-adapter",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "thumbnail": "/projects/power-adapter.webp",
+    "description": {
+      "en": "Generic adapter body with configurable prong pattern, IEC inlet envelope and output cord. Published body dimensions feed fit presets. Official Visualizer and Configurator: Yantra4D",
+      "es": "Cuerpo de adaptador genérico con clavijas configurables, envolvente de entrada IEC y cable de salida. Las dimensiones publicadas definen preajustes de ajuste. Visualizador y configurador oficial: Yantra4D"
+    },
+    "tags": [
+      "power-adapter",
+      "accessory",
+      "commons",
+      "hyperobject"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "difficulty": "intermediate"
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "device_envelope",
+        "label": {
+          "en": "Adapter envelope",
+          "es": "Envolvente del adaptador"
+        },
+        "geometry_type": "profile",
+        "parameters": [
+          "body_width",
+          "body_height",
+          "body_depth"
+        ],
+        "compatible_with": [
+          "rugged-box",
+          "device-stand"
+        ]
+      },
+      {
+        "id": "power_out",
+        "label": {
+          "en": "Output envelope",
+          "es": "Envolvente de salida"
+        },
+        "geometry_type": "profile",
+        "parameters": [
+          "output_connector"
+        ],
+        "compatible_with": [
+          "home-console",
+          "console-dock",
+          "cable-assembly"
+        ]
+      }
+    ],
+    "composition": {
+      "strategy": "inline-at-build",
+      "components": [
+        {
+          "slug": "adapter_body",
+          "function": "adapter_body",
+          "module": "power_cases",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "adapter_prongs",
+          "function": "adapter_prongs",
+          "module": "power_cases",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "adapter_inlet",
+          "function": "adapter_inlet",
+          "module": "power_cases",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "connector_plug",
+          "function": "connector_plug",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "strain_relief",
+          "function": "strain_relief",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        }
+      ]
+    }
+  },
+  "modes": [
+    {
+      "id": "device",
+      "label": {
+        "en": "Adapter and cord",
+        "es": "Adaptador y cable"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "body",
+        "cord"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "body",
+      "label": {
+        "en": "Body",
+        "es": "Cuerpo"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "body"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "cord",
+      "label": {
+        "en": "Cord",
+        "es": "Cable"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "cord"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente del cuerpo"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 2
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Adapter body",
+        "es": "Cuerpo del adaptador"
+      },
+      "render_mode": 0,
+      "color": "#526377"
+    },
+    {
+      "id": "cord",
+      "label": {
+        "en": "Output cord",
+        "es": "Cable de salida"
+      },
+      "render_mode": 0,
+      "color": "#526377"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Body envelope",
+        "es": "Envolvente del cuerpo"
+      },
+      "render_mode": 0,
+      "color": "#526377"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "body_width",
+      "default": 70,
+      "label": {
+        "en": "Body width",
+        "es": "Ancho del cuerpo"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 20,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "body_height",
+      "default": 35,
+      "label": {
+        "en": "Body height",
+        "es": "Alto del cuerpo"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 20,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "body_depth",
+      "default": 45,
+      "label": {
+        "en": "Body depth",
+        "es": "Fondo del cuerpo"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 20,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "corner_radius",
+      "default": 3,
+      "label": {
+        "en": "Corner radius",
+        "es": "Radio de esquina"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "form",
+      "default": "brick",
+      "label": {
+        "en": "Form",
+        "es": "Forma"
+      },
+      "group": "body",
+      "type": "select",
+      "options": [
+        {
+          "value": "brick",
+          "label": {
+            "en": "brick",
+            "es": "Bloque"
+          }
+        },
+        {
+          "value": "wall_wart",
+          "label": {
+            "en": "wall wart",
+            "es": "Adaptador de pared"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prong_layout",
+      "default": "flat_pair",
+      "label": {
+        "en": "Prong layout",
+        "es": "Disposición de clavijas"
+      },
+      "group": "body",
+      "type": "select",
+      "options": [
+        {
+          "value": "flat_pair",
+          "label": {
+            "en": "flat pair",
+            "es": "Dos planas"
+          }
+        },
+        {
+          "value": "round_pair",
+          "label": {
+            "en": "round pair",
+            "es": "Dos redondas"
+          }
+        },
+        {
+          "value": "angled_pair",
+          "label": {
+            "en": "angled pair",
+            "es": "Dos inclinadas"
+          }
+        },
+        {
+          "value": "three_flat",
+          "label": {
+            "en": "three flat",
+            "es": "Tres planas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prong_width",
+      "default": 5,
+      "label": {
+        "en": "Prong width",
+        "es": "Ancho de clavija"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "prong_thickness",
+      "default": 1.5,
+      "label": {
+        "en": "Prong thickness",
+        "es": "Espesor de clavija"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "prong_spacing",
+      "default": 14,
+      "label": {
+        "en": "Prong spacing",
+        "es": "Separación de clavijas"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "prong_length",
+      "default": 15,
+      "label": {
+        "en": "Prong length",
+        "es": "Longitud de clavija"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "prong_z",
+      "default": 16,
+      "label": {
+        "en": "Prong z",
+        "es": "Altura de clavijas"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "inlet_kind",
+      "default": "none",
+      "label": {
+        "en": "Inlet kind",
+        "es": "Entrada de alimentación"
+      },
+      "group": "body",
+      "type": "select",
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "none",
+            "es": "Ninguna"
+          }
+        },
+        {
+          "value": "c8",
+          "label": {
+            "en": "c8",
+            "es": "C8"
+          }
+        },
+        {
+          "value": "c14",
+          "label": {
+            "en": "c14",
+            "es": "C14"
+          }
+        }
+      ]
+    },
+    {
+      "id": "inlet_depth",
+      "default": 6,
+      "label": {
+        "en": "Inlet depth",
+        "es": "Profundidad de entrada"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "cord_length",
+      "default": 120,
+      "label": {
+        "en": "Cord length",
+        "es": "Longitud del cable"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 5000,
+      "step": 0.01
+    },
+    {
+      "id": "jacket_diameter",
+      "default": 4,
+      "label": {
+        "en": "Jacket diameter",
+        "es": "Diámetro del cable"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 1,
+      "max": 8,
+      "step": 0.01
+    },
+    {
+      "id": "boot_length",
+      "default": 12,
+      "label": {
+        "en": "Boot length",
+        "es": "Longitud del alivio"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "output_connector",
+      "default": "usb_c",
+      "label": {
+        "en": "Output connector",
+        "es": "Conector de salida"
+      },
+      "group": "body",
+      "type": "select",
+      "options": [
+        {
+          "value": "usb_c",
+          "label": {
+            "en": "usb c",
+            "es": "USB_C"
+          }
+        },
+        {
+          "value": "dc5521",
+          "label": {
+            "en": "dc5521",
+            "es": "DC5521"
+          }
+        },
+        {
+          "value": "generic",
+          "label": {
+            "en": "generic",
+            "es": "Genérico"
+          }
+        }
+      ]
+    },
+    {
+      "id": "led_window",
+      "default": true,
+      "label": {
+        "en": "Led window",
+        "es": "Indicador genérico"
+      },
+      "group": "body",
+      "type": "checkbox"
+    },
+    {
+      "id": "led_diameter",
+      "default": 2,
+      "label": {
+        "en": "Led diameter",
+        "es": "Diámetro del indicador"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "label_recess",
+      "default": 0.4,
+      "label": {
+        "en": "Label recess",
+        "es": "Profundidad del rebaje de etiqueta"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "prong_extension",
+      "default": 1,
+      "label": {
+        "en": "Prong extension",
+        "es": "Extensión de clavijas"
+      },
+      "group": "body",
+      "type": "slider",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.01
+    },
+    {
+      "id": "c8_width",
+      "default": 16.5,
+      "label": {
+        "en": "C8 width",
+        "es": "C8 — ancho"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "c8_height",
+      "default": 8.2,
+      "label": {
+        "en": "C8 height",
+        "es": "C8 — alto"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "c14_width",
+      "default": 24,
+      "label": {
+        "en": "C14 width",
+        "es": "C14 — ancho"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "c14_height",
+      "default": 16,
+      "label": {
+        "en": "C14 height",
+        "es": "C14 — alto"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_width",
+      "default": 8.25,
+      "label": {
+        "en": "Usb c width",
+        "es": "USB_C — ancho"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_height",
+      "default": 2.4,
+      "label": {
+        "en": "Usb c height",
+        "es": "USB_C — alto"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_length",
+      "default": 6.65,
+      "label": {
+        "en": "Usb c length",
+        "es": "USB_C — longitud"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_width",
+      "default": 12.25,
+      "label": {
+        "en": "Usb c body width",
+        "es": "USB_C — ancho de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_height",
+      "default": 8,
+      "label": {
+        "en": "Usb c body height",
+        "es": "USB_C — alto de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_length",
+      "default": 20,
+      "label": {
+        "en": "Usb c body length",
+        "es": "USB_C — longitud de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Usb c pin diameter",
+        "es": "USB_C — diámetro del pin"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Usb c pin length",
+        "es": "USB_C — longitud del pin"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_bore",
+      "default": 0,
+      "label": {
+        "en": "Usb c bore",
+        "es": "USB_C — diámetro interior"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_width",
+      "default": 5.5,
+      "label": {
+        "en": "Dc5521 width",
+        "es": "DC5521 — ancho"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_height",
+      "default": 5.5,
+      "label": {
+        "en": "Dc5521 height",
+        "es": "DC5521 — alto"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_length",
+      "default": 9.5,
+      "label": {
+        "en": "Dc5521 length",
+        "es": "DC5521 — longitud"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_width",
+      "default": 10,
+      "label": {
+        "en": "Dc5521 body width",
+        "es": "DC5521 — ancho de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_height",
+      "default": 9.5,
+      "label": {
+        "en": "Dc5521 body height",
+        "es": "DC5521 — alto de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_length",
+      "default": 20,
+      "label": {
+        "en": "Dc5521 body length",
+        "es": "DC5521 — longitud de cubierta"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Dc5521 pin diameter",
+        "es": "DC5521 — diámetro del pin"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Dc5521 pin length",
+        "es": "DC5521 — longitud del pin"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_bore",
+      "default": 2.1,
+      "label": {
+        "en": "Dc5521 bore",
+        "es": "DC5521 — diámetro interior"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 250,
+      "step": 0.01
+    }
+  ],
+  "presets": [
+    {
+      "slug": "nintendo-wii-ac-adapter-rvl-002",
+      "label": {
+        "en": "Wii AC Adapter (Japan)",
+        "es": "Wii AC Adapter (Japan)"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-wii-ac-adapter-rvl-002` (status: partial); Published body envelope and sourced cord length/output identity only; all other features are archetypes. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-wii-ac-adapter-rvl-002",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "mass_g"
+        ],
+        "archetype_fallbacks": [
+          "form, prong layout and all prong dimensions",
+          "inlet and LED location",
+          "corner radius and label recess",
+          "generic housing and lead routing",
+          "output connector"
+        ]
+      },
+      "values": {
+        "body_width": 136,
+        "body_height": 55,
+        "body_depth": 43,
+        "cord_length": 1000,
+        "output_connector": "generic",
+        "prong_z": 24.75
+      }
+    },
+    {
+      "slug": "nintendo-switch-ac-adapter-hac-002",
+      "label": {
+        "en": "Nintendo Switch AC Adapter",
+        "es": "Nintendo Switch AC Adapter"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-ac-adapter-hac-002` (status: partial); Published body envelope and sourced cord length/output identity only; all other features are archetypes. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-ac-adapter-hac-002",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "form, prong layout and all prong dimensions",
+          "inlet and LED location",
+          "corner radius and label recess",
+          "generic housing and lead routing"
+        ]
+      },
+      "values": {
+        "body_width": 65.8,
+        "body_height": 50.8,
+        "body_depth": 34.6,
+        "cord_length": 1500,
+        "output_connector": "usb_c",
+        "prong_z": 22.86
+      }
+    },
+    {
+      "slug": "nintendo-switch-2-ac-adapter",
+      "label": {
+        "en": "Nintendo Switch 2 AC Adapter",
+        "es": "Nintendo Switch 2 AC Adapter"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-switch-2-ac-adapter` (status: partial); Published body envelope and sourced cord length/output identity only; all other features are archetypes. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-switch-2-ac-adapter",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "dimensions_mm",
+          "features",
+          "released"
+        ],
+        "archetype_fallbacks": [
+          "form, prong layout and all prong dimensions",
+          "inlet and LED location",
+          "corner radius and label recess",
+          "generic housing and lead routing"
+        ]
+      },
+      "values": {
+        "body_width": 38.5,
+        "body_height": 45.0,
+        "body_depth": 49.5,
+        "cord_length": 1500,
+        "output_connector": "usb_c",
+        "prong_z": 20.25
+      }
+    },
+    {
+      "slug": "archetype-inline",
+      "kind": "archetype",
+      "label": {
+        "en": "Inline brick",
+        "es": "Bloque en línea"
+      },
+      "source": "Original generic adapter archetype; no product or electrical conformance claim.",
+      "values": {
+        "inlet_kind": "c8"
+      }
+    },
+    {
+      "slug": "archetype-flat-prongs",
+      "kind": "archetype",
+      "label": {
+        "en": "Wall adapter with flat prongs",
+        "es": "Adaptador con clavijas planas"
+      },
+      "source": "Original generic adapter archetype; no product or electrical conformance claim.",
+      "values": {
+        "form": "wall_wart"
+      }
+    },
+    {
+      "slug": "archetype-round-prongs",
+      "kind": "archetype",
+      "label": {
+        "en": "Wall adapter with round prongs",
+        "es": "Adaptador con clavijas redondas"
+      },
+      "source": "Original generic adapter archetype; no product or electrical conformance claim.",
+      "values": {
+        "form": "wall_wart",
+        "prong_layout": "round_pair"
+      }
+    },
+    {
+      "slug": "archetype-large-brick",
+      "kind": "archetype",
+      "label": {
+        "en": "Large external brick",
+        "es": "Bloque externo grande"
+      },
+      "source": "Original generic adapter archetype; no product or electrical conformance claim.",
+      "values": {
+        "body_width": 150,
+        "body_height": 55,
+        "body_depth": 70,
+        "inlet_kind": "c14",
+        "output_connector": "dc5521"
+      }
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Body and routing",
+        "es": "Cuerpo y recorrido"
+      }
+    },
+    {
+      "id": "interfaces",
+      "label": {
+        "en": "Interface envelopes",
+        "es": "Envolventes de interfaz"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "corner_radius * 2 < body_width && corner_radius * 2 < body_depth",
+      "severity": "error",
+      "message": {
+        "en": "Corner radius must fit the body.",
+        "es": "El radio debe caber en el cuerpo."
+      }
+    },
+    {
+      "expression": "label_recess < body_depth / 3",
+      "severity": "error",
+      "message": {
+        "en": "Label recess must stay shallow.",
+        "es": "El rebaje de etiqueta debe ser superficial."
+      }
+    },
+    {
+      "expression": "cord_length > boot_length * 3",
+      "severity": "error",
+      "message": {
+        "en": "Cord must clear the boot and connector.",
+        "es": "El cable debe superar al alivio y al conector."
+      }
+    },
+    {
+      "expression": "prong_z > prong_thickness && prong_z + prong_spacing * 0.7 + prong_thickness < body_height",
+      "severity": "error",
+      "message": {
+        "en": "Prong pattern must fit on the rear face.",
+        "es": "Las clavijas deben caber en la cara trasera."
+      }
+    },
+    {
+      "expression": "inlet_depth < body_width / 2 && c14_width < body_depth && c14_height < body_height",
+      "severity": "error",
+      "message": {
+        "en": "Inlet must fit the body.",
+        "es": "La entrada debe caber en el cuerpo."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "prong-extension",
+      "label": {
+        "en": "Extend generic prongs",
+        "es": "Extender clavijas genéricas"
+      },
+      "mode": "body",
+      "from_state": {
+        "prong_extension": 0.1,
+        "form": "wall_wart"
+      },
+      "to_state": {
+        "prong_extension": 1,
+        "form": "wall_wart"
+      },
+      "frames": 6,
+      "duration_ms": 2000,
+      "easing": "ease-in-out"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        150,
+        -200,
+        150
+      ],
+      "target": [
+        0,
+        0,
+        20
+      ]
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb"
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family power-adapter --write power-adapter/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e219ecb9df03f80bc1653999683c5fceb98467199436492cefa2c3f6ca7827f4",
+      "objects": 5,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "power-adapter",
+    "axis_mapping": {
+      "body_width": "published width -> X",
+      "body_depth": "published depth -> Y",
+      "body_height": "published height -> Z, floor z=0"
+    },
+    "awaiting_a_source": [
+      {
+        "slug": "nintendo-famicom-ac-adapter-hvc-002",
+        "brand": "Nintendo",
+        "model": "Family Computer AC adapter",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      },
+      {
+        "slug": "nintendo-gamecube-ac-adapter",
+        "brand": "Nintendo",
+        "model": "Nintendo GameCube AC adapter",
+        "status": "partial",
+        "reason": "closed envelope unresolved in the catalog (null)"
+      }
+    ]
+  }
+}
