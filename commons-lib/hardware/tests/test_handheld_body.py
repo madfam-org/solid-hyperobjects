@@ -51,3 +51,16 @@ def test_kickstand_frames_preserve_one_connected_solid(ns):
     shapes=[ns["kickstand"]({**p,"angle":a}).val() for a in (0,15,30,45,60)]
     assert all(s.isValid() and len(s.Solids())==1 for s in shapes)
     assert all(s.Volume()==pytest.approx(shapes[0].Volume()) for s in shapes)
+
+
+def test_cell_selector_and_count_drive_the_rendered_cover():
+    from y4d_spec.geometry import _exec_cartridge
+    from hyperobjects_standard_parts import load_part
+    for kind,n in (("aa",4),("aaa",2)):
+        dims=load_part("cell-"+kind)["dimensions"]
+        dia=dims["diameter_max"]["value"];length=dims["height_max"]["value"]
+        shape=_exec_cartridge(str(ROOT/"slab-handheld/main.py"),{
+            "cell_kind":kind,"cell_count":n,"target_part":"battery_door"}).val()
+        box=shape.BoundingBox()
+        assert box.xlen==pytest.approx(length+0.8+3-0.8)
+        assert box.zlen==pytest.approx(n*(dia+0.4)+0.4+3-0.8)
