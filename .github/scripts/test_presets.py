@@ -126,3 +126,9 @@ def test_a_moved_fact_moves_the_preset(tmp_path):
 def test_authored_modules_stay_under_the_size_warning(module):
     lines = (ROOT / "tools" / "presets" / module).read_text(encoding="utf-8").count("\n")
     assert lines < 600, f"{module} has {lines} lines"
+
+
+def test_families_are_discovered_from_their_modules():
+    found = presets.discover()
+    assert set(found) == set(presets.FAMILIES)
+    assert found["book-fold-phone"] is bookfold.FAMILY

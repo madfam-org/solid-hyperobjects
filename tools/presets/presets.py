@@ -27,14 +27,14 @@ in `common.py` and in each family module.
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import sys
 from pathlib import Path
 
-import bookfold
-import clamshell
 from common import (
     REPO_ROOT,
+    Family,
     build_presets,
     check_manifest,
     generated_from,
@@ -43,8 +43,32 @@ from common import (
 )
 from hyperobjects_reference import load_family
 
-#: The families this generator writes. Each family's manifest is `<slug>/project.json`.
-FAMILIES = {fam.slug: fam for fam in (clamshell.FAMILY, bookfold.FAMILY)}
+HERE = Path(__file__).resolve().parent
+#: Modules in this directory that are infrastructure, not families.
+_NOT_FAMILIES = {"common", "presets"}
+
+
+def discover() -> dict:
+    """Every family module in tools/presets/: a module that defines `FAMILY`.
+
+    Adding a family is a new module and nothing else, so parallel family PRs never edit a
+    shared list. Each family's manifest is `<slug>/project.json`.
+    """
+    found = {}
+    for path in sorted(HERE.glob("*.py")):
+        if path.stem in _NOT_FAMILIES or path.stem.startswith("_"):
+            continue
+        fam = getattr(importlib.import_module(path.stem), "FAMILY", None)
+        if not isinstance(fam, Family):
+            continue
+        if fam.slug in found:
+            raise SystemExit(f"family {fam.slug!r} is defined twice ({path.name})")
+        found[fam.slug] = fam
+    return found
+
+
+#: The families this generator writes.
+FAMILIES = discover()
 
 
 def _family(slug: str):
