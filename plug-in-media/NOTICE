@@ -1,0 +1,63 @@
+NOTICE — provenance and what the named presets are
+==================================================
+
+Plug-in Media (Yantra4D hyperobject cartridge)
+Copyright (c) 2026 Innovaciones MADFAM
+Licensed under CERN-OHL-W-2.0 (see LICENSE).
+
+No third-party code or design files are vendored in this cartridge.
+
+
+An archetype, not a replica
+---------------------------
+
+This cartridge models a FAMILY — a medium that plugs in by a contact edge: a
+shell split on its mid-plane around a board, a contact window, label recesses,
+keys, a door and a pass-through slot, or a monolithic thin card — which is ours
+to license. It does not model any manufacturer's cartridge or card.
+
+Named formats appear only as PRESETS generated from the keystone's
+reference-objects catalog (hyperobjects-spec `hyperobjects_reference`). Every
+number in such a preset is either a DIMENSION OR COUNT THE SOURCE PUBLISHED, with
+its tier, URL, date and quote recorded in the catalog; a value DERIVED from one by
+a written archetype rule that is ours (docs/README.md); or an ARCHETYPE DEFAULT
+that is ours outright. Nothing else.
+
+When this cartridge was first published the pinned catalog filed NO object in
+this family. It therefore ships five ARCHETYPE presets (`kind: archetype`):
+top-loading cartridge, front-loading cartridge, card, pass-through cartridge and
+shuttered cartridge. They are named points in the family's own parameter space.
+Their dimensions are round numbers chosen by us; they assert nothing about any
+product, and no product should be read into them.
+
+This cartridge reproduces no logo, no wordmark, no label artwork, no colourway,
+no texture and no maker's grip or rib pattern. A label is a flat RECESS. Grip
+ridges are a generic evenly pitched groove set. Keying notches are rectangles
+whose count and size come from the archetype rules unless a source publishes
+them. **A preset is a fit envelope, not a likeness.** It exists so a console
+slot, a case pocket, a storage rack or a replacement shell can be built to the
+right size.
+
+
+What is ours, specifically
+--------------------------
+
+  * Corner radius, wall thickness, board thickness and clearances.
+  * The contact window's depth, and its width wherever no contact count and
+    pitch are published.
+  * Label recess sizes and positions; grip ridges in their entirety.
+  * Keying notch count, size and position (the catalog contract has no notch
+    field yet).
+  * The shutter door's outline and the pass-through slot's size: the catalog
+    records only whether a format has them.
+  * The grip band: the contract publishes one shell depth, so a sourced preset
+    carries a uniform thickness.
+
+
+Trademarks
+----------
+
+Product and company names that may appear in preset labels and provenance
+lines are the trademarks of their respective owners and are used only to say
+which published measurements a preset carries. Their use is nominative: no
+affiliation, sponsorship or endorsement is claimed or implied.

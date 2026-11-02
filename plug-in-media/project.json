@@ -1,0 +1,1844 @@
+{
+  "project": {
+    "name": "Plug-in Media",
+    "thumbnail": "/projects/plug-in-media.webp",
+    "slug": "plug-in-media",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "description": {
+      "en": "Every medium that plugs in by a contact edge, as one parametric archetype: a shell split on its mid-plane around a board whose tongue reaches a contact window, with label recesses, generic grip ridges, keying notches, a shutter door, a pass-through slot and a card mode for monolithic thin cards. The envelope is the fit surface a console's media slot, a keep case and a caddy consume. Named formats ride as generated presets of published dimensions; until the catalog files them, five archetype presets that are no product. No logos, no art: a label is a recess.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Todo medio que se conecta por un borde de contactos, como un solo arquetipo paramétrico: una carcasa partida en su plano medio alrededor de una placa cuya lengüeta llega a una ventana de contactos, con rebajes de etiqueta, estrías de agarre genéricas, muescas de codificación, una compuerta, una ranura de paso y un modo tarjeta para tarjetas delgadas monolíticas. La envolvente es la superficie de ajuste que usan la ranura de una consola, un estuche y un organizador. Los formatos con nombre llegan como preajustes generados de dimensiones publicadas; mientras el catálogo no los registre, cinco preajustes de arquetipo que no son ningún producto. Sin logotipos ni arte: una etiqueta es un rebaje.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "media",
+      "cartridge",
+      "game-card",
+      "edge-connector",
+      "archetype",
+      "enclosure",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true,
+      "domain": "consumer-electronics"
+    },
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "media_envelope",
+        "label": {
+          "en": "Media envelope",
+          "es": "Envolvente del medio"
+        },
+        "geometry_type": "profile",
+        "standard": "internal: the plain outer hull — shell_width (X) x shell_height (Z) x max(shell_thickness, grip_thickness) (Y), face corners rounded by corner_radius, standing on z = 0. A media slot, a case pocket or a caddy adds its own clearance to this.",
+        "parameters": [
+          "shell_width",
+          "shell_height",
+          "shell_thickness",
+          "grip_thickness",
+          "grip_height",
+          "corner_radius",
+          "insert_travel"
+        ],
+        "compatible_with": [
+          "home-console",
+          "keep-case",
+          "media-caddy"
+        ]
+      },
+      {
+        "id": "edge_connector",
+        "label": {
+          "en": "Edge connector",
+          "es": "Conector de borde"
+        },
+        "geometry_type": "socket",
+        "standard": "internal: the contact window in the contact edge (contact_window_width x contact_window_depth) and the board tongue inside it, carrying edge_contacts fingers at edge_pitch split across both faces (card mode: a back-face contact field). The insertion axis runs toward the contact edge.",
+        "parameters": [
+          "insertion_edge",
+          "contact_window_width",
+          "contact_window_depth",
+          "pcb_thickness",
+          "pcb_edge_recess",
+          "edge_contacts",
+          "edge_pitch",
+          "card_mode"
+        ],
+        "compatible_with": [
+          "home-console"
+        ]
+      },
+      {
+        "id": "label_recess",
+        "label": {
+          "en": "Label recess",
+          "es": "Rebaje de etiqueta"
+        },
+        "geometry_type": "surface",
+        "standard": "internal: a flat pocket in a face that a printed or die-cut label is sized to. Never artwork.",
+        "parameters": [
+          "label_front_width",
+          "label_front_height",
+          "label_front_depth",
+          "label_front_center",
+          "label_back_width",
+          "label_back_height",
+          "label_back_depth",
+          "label_back_center"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A dimensioned, parametric model of the game media people own lets anyone fabricate a replacement shell, a storage rack, a case insert or a test fixture that fits — for formats whose maker never published a drawing and for formats whose maker is gone. Each named preset carries its sources, so a correction reaches every slot, case and caddy built to it.",
+      "es": "Un modelo paramétrico y acotado de los medios de juego que la gente tiene permite fabricar una carcasa de repuesto, un organizador, un inserto de estuche o un útil de prueba que encaje — para formatos cuyo fabricante nunca publicó un plano y para formatos cuyo fabricante ya no existe. Cada preajuste con nombre lleva sus fuentes, así que una corrección llega a cada ranura, estuche y organizador hecho con él."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "composition": {
+    "vocabulary": "Plan 2026-11-01 §2.3 (Tier 1 components); ruling R2 on gate H8: components are canonical text in commons-lib/hardware/, inlined at build.",
+    "note": "A medium is a hyperobject of hyperobjects: its shell, its board, its edge connector, its label recesses and its keys are each a function in commons-lib/hardware/media_shells.py taking its own parameter dict. family.py maps this manifest's parameters onto them; main.py is generated.",
+    "components": [
+      {
+        "slug": "media_shell_outer",
+        "function": "media_shell_outer",
+        "module": "media_shells",
+        "exposes": [
+          "media_envelope"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "media_shell_cavity",
+        "function": "media_shell_cavity",
+        "module": "media_shells",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "contact_window",
+        "function": "contact_window",
+        "module": "media_shells",
+        "exposes": [
+          "edge_connector"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "contact_pocket",
+        "function": "contact_pocket",
+        "module": "media_shells",
+        "exposes": [
+          "edge_connector"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "edge_connector_board",
+        "function": "edge_connector_board",
+        "module": "media_shells",
+        "exposes": [
+          "edge_connector"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "label_recess",
+        "function": "label_recess",
+        "module": "media_shells",
+        "exposes": [
+          "label_recess"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "grip_ridges",
+        "function": "grip_ridges",
+        "module": "media_shells",
+        "exposes": [],
+        "consumes": []
+      },
+      {
+        "slug": "keying_notches",
+        "function": "keying_notches",
+        "module": "media_shells",
+        "exposes": [
+          "media_key"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "shutter_outline",
+        "function": "shutter_outline",
+        "module": "media_shells",
+        "exposes": [
+          "media_shutter"
+        ],
+        "consumes": []
+      },
+      {
+        "slug": "pass_through_mouth",
+        "function": "pass_through_mouth",
+        "module": "media_shells",
+        "exposes": [],
+        "consumes": [
+          "media_envelope"
+        ]
+      },
+      {
+        "slug": "media_place",
+        "function": "media_place",
+        "module": "media_shells",
+        "exposes": [],
+        "consumes": []
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "media",
+      "label": {
+        "en": "Medium (assembled)",
+        "es": "Medio (ensamblado)"
+      },
+      "description": {
+        "en": "Both shell halves and the board in place. A preview, not a print target.",
+        "es": "Ambas mitades y la placa en su lugar. Una vista previa, no un objetivo de impresión."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 2,
+        "per_part": 4
+      },
+      "part_quantities": {
+        "front_shell": 1,
+        "back_shell": 1,
+        "pcb_envelope": 1
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope (fit surface)",
+        "es": "Envolvente (superficie de ajuste)"
+      },
+      "description": {
+        "en": "The plain outer hull, one body: what a console's media slot, a keep case's pocket and a media caddy are sized to. Its bounding box is the published shell.",
+        "es": "El casco exterior liso, un cuerpo: a lo que se dimensionan la ranura de una consola, el hueco de un estuche y un organizador. Su caja envolvente es la carcasa publicada."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 2,
+        "per_part": 1
+      }
+    },
+    {
+      "id": "front_shell",
+      "label": {
+        "en": "Front shell",
+        "es": "Carcasa frontal"
+      },
+      "description": {
+        "en": "The label half, y < 0. Prints face down.",
+        "es": "La mitad de la etiqueta, y < 0. Se imprime boca abajo."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "front_shell"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "back_shell",
+      "label": {
+        "en": "Back shell",
+        "es": "Carcasa trasera"
+      },
+      "description": {
+        "en": "The other half, y > 0: the card's contact pocket and the shutter outline are here.",
+        "es": "La otra mitad, y > 0: aquí están el rebaje de contactos de la tarjeta y el contorno de la compuerta."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "back_shell"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "pcb_envelope",
+      "label": {
+        "en": "Board envelope",
+        "es": "Envolvente de la placa"
+      },
+      "description": {
+        "en": "The board with its tongue and edge contacts (card mode: the contact plate). A keep-out, not a circuit.",
+        "es": "La placa con su lengüeta y contactos de borde (modo tarjeta: la placa de contactos). Un volumen reservado, no un circuito."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "pcb_envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "front_shell",
+      "label": {
+        "en": "Front shell",
+        "es": "Carcasa frontal"
+      },
+      "render_mode": 0,
+      "color": "#4b5563"
+    },
+    {
+      "id": "back_shell",
+      "label": {
+        "en": "Back shell",
+        "es": "Carcasa trasera"
+      },
+      "render_mode": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "pcb_envelope",
+      "label": {
+        "en": "Board",
+        "es": "Placa"
+      },
+      "render_mode": 0,
+      "color": "#2f6b3a"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope",
+        "es": "Envolvente"
+      },
+      "render_mode": 0,
+      "color": "#9ca3af"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Envelope & pose",
+        "es": "Envolvente y pose"
+      }
+    },
+    {
+      "id": "contacts",
+      "label": {
+        "en": "Contact edge",
+        "es": "Borde de contactos"
+      }
+    },
+    {
+      "id": "labels",
+      "label": {
+        "en": "Label recesses",
+        "es": "Rebajes de etiqueta"
+      }
+    },
+    {
+      "id": "grip",
+      "label": {
+        "en": "Grip",
+        "es": "Agarre"
+      }
+    },
+    {
+      "id": "keying",
+      "label": {
+        "en": "Keying",
+        "es": "Codificación"
+      }
+    },
+    {
+      "id": "shutter",
+      "label": {
+        "en": "Shutter",
+        "es": "Compuerta"
+      }
+    },
+    {
+      "id": "pass_through",
+      "label": {
+        "en": "Pass-through",
+        "es": "Paso"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "shell_width",
+      "type": "slider",
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Shell width — X (mm)",
+        "es": "Ancho de la carcasa — X (mm)"
+      },
+      "tooltip": {
+        "en": "Across the label face. In a preset: the catalog's shell width.",
+        "es": "A lo ancho de la cara de la etiqueta. En un preajuste: el ancho de carcasa del catálogo."
+      }
+    },
+    {
+      "id": "shell_height",
+      "type": "slider",
+      "default": 110,
+      "min": 10,
+      "max": 200,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Shell height — Z (mm)",
+        "es": "Alto de la carcasa — Z (mm)"
+      },
+      "tooltip": {
+        "en": "Up the label face. In a preset: the catalog's shell height.",
+        "es": "Hacia arriba en la cara de la etiqueta. En un preajuste: el alto de carcasa del catálogo."
+      }
+    },
+    {
+      "id": "shell_thickness",
+      "type": "slider",
+      "default": 15,
+      "min": 1,
+      "max": 40,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Shell thickness — Y (mm)",
+        "es": "Espesor de la carcasa — Y (mm)"
+      },
+      "tooltip": {
+        "en": "Through the shell. In a preset: the catalog's shell depth.",
+        "es": "A través de la carcasa. En un preajuste: la profundidad de carcasa del catálogo."
+      }
+    },
+    {
+      "id": "grip_thickness",
+      "type": "slider",
+      "default": 19,
+      "min": 0,
+      "max": 50,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Grip band thickness (mm, 0 = none)",
+        "es": "Espesor de la banda de agarre (mm, 0 = ninguna)"
+      },
+      "tooltip": {
+        "en": "Optional thicker band at the far edge. Only counts when larger than the shell thickness; the envelope is then this thick there.",
+        "es": "Banda opcional más gruesa en el borde opuesto. Sólo cuenta si supera el espesor de la carcasa; entonces la envolvente tiene ese espesor ahí."
+      }
+    },
+    {
+      "id": "grip_height",
+      "type": "slider",
+      "default": 22,
+      "min": 0,
+      "max": 80,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Grip band length (mm)",
+        "es": "Largo de la banda de agarre (mm)"
+      },
+      "tooltip": {
+        "en": "How far the band reaches from the far edge toward the contacts. Archetype: 20 % of the shell's length.",
+        "es": "Cuánto se extiende la banda desde el borde opuesto hacia los contactos. Arquetipo: 20 % del largo de la carcasa."
+      }
+    },
+    {
+      "id": "corner_radius",
+      "type": "slider",
+      "default": 4,
+      "min": 0,
+      "max": 10,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Corner radius (mm)",
+        "es": "Radio de esquina (mm)"
+      },
+      "tooltip": {
+        "en": "The face outline's corners. Archetype: 8 % of the shorter side, 0.5–4 mm.",
+        "es": "Las esquinas del contorno de la cara. Arquetipo: 8 % del lado corto, 0.5–4 mm."
+      }
+    },
+    {
+      "id": "shell_wall",
+      "type": "slider",
+      "default": 1.65,
+      "min": 0.5,
+      "max": 4,
+      "step": 0.01,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Shell wall (mm)",
+        "es": "Pared de la carcasa (mm)"
+      },
+      "tooltip": {
+        "en": "Wall of a hollow shell. Ignored in card mode.",
+        "es": "Pared de una carcasa hueca. Se ignora en modo tarjeta."
+      }
+    },
+    {
+      "id": "insertion_edge",
+      "type": "select",
+      "default": "bottom",
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Contact edge",
+        "es": "Borde de contactos"
+      },
+      "tooltip": {
+        "en": "The label edge that carries the contacts. The envelope does not depend on it.",
+        "es": "El borde de la etiqueta que lleva los contactos. La envolvente no depende de él."
+      },
+      "options": [
+        {
+          "value": "bottom",
+          "label": {
+            "en": "Bottom edge",
+            "es": "Borde inferior"
+          }
+        },
+        {
+          "value": "top",
+          "label": {
+            "en": "Top edge",
+            "es": "Borde superior"
+          }
+        },
+        {
+          "value": "side",
+          "label": {
+            "en": "Side edge (+X)",
+            "es": "Borde lateral (+X)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "card_mode",
+      "type": "checkbox",
+      "default": false,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Card mode (monolithic thin card)",
+        "es": "Modo tarjeta (tarjeta delgada monolítica)"
+      },
+      "tooltip": {
+        "en": "A solid card with its contacts in a back-face pocket, instead of a hollow two-half shell around a board.",
+        "es": "Una tarjeta sólida con sus contactos en un rebaje trasero, en vez de una carcasa hueca de dos mitades alrededor de una placa."
+      }
+    },
+    {
+      "id": "insert_travel",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 150,
+      "step": 0.1,
+      "group": "envelope",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Insertion travel (mm)",
+        "es": "Recorrido de inserción (mm)"
+      },
+      "tooltip": {
+        "en": "Moves the medium toward its contact edge, for a kit's insert pose. 0 = the reference position.",
+        "es": "Mueve el medio hacia su borde de contactos, para la pose de inserción de un kit. 0 = posición de referencia."
+      }
+    },
+    {
+      "id": "contact_window_width",
+      "type": "slider",
+      "default": 80,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Contact window width (mm)",
+        "es": "Ancho de la ventana de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "The opening in the contact edge. With a sourced contact count and pitch: count per face × pitch + 2 × 2 mm.",
+        "es": "La abertura en el borde de contactos. Con conteo y paso publicados: conteo por cara × paso + 2 × 2 mm."
+      }
+    },
+    {
+      "id": "contact_window_depth",
+      "type": "slider",
+      "default": 9.9,
+      "min": 1,
+      "max": 30,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Contact window depth (mm)",
+        "es": "Profundidad de la ventana de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "How far the window reaches into the shell from the contact edge.",
+        "es": "Cuánto entra la ventana en la carcasa desde el borde de contactos."
+      }
+    },
+    {
+      "id": "pcb_thickness",
+      "type": "slider",
+      "default": 1.6,
+      "min": 0.2,
+      "max": 3,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "envelope",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Board thickness (mm)",
+        "es": "Espesor de la placa (mm)"
+      },
+      "tooltip": {
+        "en": "The board (or, in card mode, the contact plate and its pocket). Archetype.",
+        "es": "La placa (o, en modo tarjeta, la placa de contactos y su rebaje). Arquetipo."
+      }
+    },
+    {
+      "id": "pcb_edge_recess",
+      "type": "slider",
+      "default": 1,
+      "min": 0,
+      "max": 10,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Board edge recess (mm)",
+        "es": "Retranqueo del borde de la placa (mm)"
+      },
+      "tooltip": {
+        "en": "Contact edge of the shell to the board's edge.",
+        "es": "Del borde de contactos de la carcasa al borde de la placa."
+      }
+    },
+    {
+      "id": "pcb_clearance",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.1,
+      "max": 1,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Board clearance (mm)",
+        "es": "Holgura de la placa (mm)"
+      },
+      "tooltip": {
+        "en": "Gap between the board and the shell all round.",
+        "es": "Separación entre la placa y la carcasa en todo el perímetro."
+      }
+    },
+    {
+      "id": "edge_contacts",
+      "type": "slider",
+      "default": 60,
+      "min": 0,
+      "max": 140,
+      "step": 1,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Edge contacts (count)",
+        "es": "Contactos de borde (cantidad)"
+      },
+      "tooltip": {
+        "en": "Total contact fingers, split across both faces (card mode: back face only). In a preset: features.edge_contacts.",
+        "es": "Total de contactos, repartidos en ambas caras (modo tarjeta: sólo la trasera). En un preajuste: features.edge_contacts."
+      }
+    },
+    {
+      "id": "edge_pitch",
+      "type": "slider",
+      "default": 2.5,
+      "min": 0.3,
+      "max": 5,
+      "step": 0.01,
+      "group": "contacts",
+      "modes": [
+        "media",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Contact pitch (mm)",
+        "es": "Paso de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "In a preset: features.contact_pitch_mm.",
+        "es": "En un preajuste: features.contact_pitch_mm."
+      }
+    },
+    {
+      "id": "label_front_width",
+      "type": "slider",
+      "default": 80,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Front label recess width (mm)",
+        "es": "Ancho del rebaje de etiqueta frontal (mm)"
+      },
+      "tooltip": {
+        "en": "A label is a RECESS, never artwork.",
+        "es": "Una etiqueta es un REBAJE, nunca arte."
+      }
+    },
+    {
+      "id": "label_front_height",
+      "type": "slider",
+      "default": 72.1,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Front label recess height (mm)",
+        "es": "Alto del rebaje de etiqueta frontal (mm)"
+      },
+      "tooltip": {
+        "en": "Along the axis away from the contact edge.",
+        "es": "A lo largo del eje que se aleja del borde de contactos."
+      }
+    },
+    {
+      "id": "label_front_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0,
+      "max": 2,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Front label recess depth (mm, 0 = none)",
+        "es": "Profundidad del rebaje frontal (mm, 0 = ninguno)"
+      },
+      "tooltip": {
+        "en": "Stays inside the wall.",
+        "es": "Queda dentro de la pared."
+      }
+    },
+    {
+      "id": "label_front_center",
+      "type": "slider",
+      "default": 48.95,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Front label centre from contact edge (mm)",
+        "es": "Centro de la etiqueta frontal desde el borde de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: centred between the contact window and the grip.",
+        "es": "Arquetipo: centrado entre la ventana de contactos y el agarre."
+      }
+    },
+    {
+      "id": "label_back_width",
+      "type": "slider",
+      "default": 60,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Back label recess width (mm)",
+        "es": "Ancho del rebaje de etiqueta trasera (mm)"
+      },
+      "tooltip": {
+        "en": "A label is a RECESS, never artwork.",
+        "es": "Una etiqueta es un REBAJE, nunca arte."
+      }
+    },
+    {
+      "id": "label_back_height",
+      "type": "slider",
+      "default": 32.445,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Back label recess height (mm)",
+        "es": "Alto del rebaje de etiqueta trasera (mm)"
+      },
+      "tooltip": {
+        "en": "Along the axis away from the contact edge.",
+        "es": "A lo largo del eje que se aleja del borde de contactos."
+      }
+    },
+    {
+      "id": "label_back_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0,
+      "max": 2,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Back label recess depth (mm, 0 = none)",
+        "es": "Profundidad del rebaje trasero (mm, 0 = ninguno)"
+      },
+      "tooltip": {
+        "en": "Stays inside the wall. Archetype cards carry none (the contact pocket is there).",
+        "es": "Queda dentro de la pared. Las tarjetas del arquetipo no llevan (ahí está el rebaje de contactos)."
+      }
+    },
+    {
+      "id": "label_back_center",
+      "type": "slider",
+      "default": 29.1225,
+      "min": 0,
+      "max": 190,
+      "step": 0.01,
+      "group": "labels",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Back label centre from contact edge (mm)",
+        "es": "Centro de la etiqueta trasera desde el borde de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: just above the window, or above the shutter.",
+        "es": "Arquetipo: justo sobre la ventana, o sobre la compuerta."
+      }
+    },
+    {
+      "id": "grip_ridge_count",
+      "type": "slider",
+      "default": 5,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "group": "grip",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Grip ridges (count, 0 = none)",
+        "es": "Estrías de agarre (cantidad, 0 = ninguna)"
+      },
+      "tooltip": {
+        "en": "Generic grooves across both faces at the far edge. Not any maker's pattern.",
+        "es": "Ranuras genéricas en ambas caras junto al borde opuesto. No es el patrón de ningún fabricante."
+      }
+    },
+    {
+      "id": "grip_ridge_pitch",
+      "type": "slider",
+      "default": 3,
+      "min": 1,
+      "max": 10,
+      "step": 0.01,
+      "group": "grip",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Grip ridge pitch (mm)",
+        "es": "Paso de las estrías (mm)"
+      },
+      "tooltip": {
+        "en": "Groove width is half the pitch.",
+        "es": "El ancho de ranura es la mitad del paso."
+      }
+    },
+    {
+      "id": "grip_ridge_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.1,
+      "max": 2,
+      "step": 0.01,
+      "group": "grip",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Grip ridge depth (mm)",
+        "es": "Profundidad de las estrías (mm)"
+      },
+      "tooltip": {
+        "en": "Stays inside the wall.",
+        "es": "Queda dentro de la pared."
+      }
+    },
+    {
+      "id": "notch_count",
+      "type": "slider",
+      "default": 0,
+      "min": 0,
+      "max": 2,
+      "step": 1,
+      "group": "keying",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Keying notches (0, 1 = −X edge, 2 = both)",
+        "es": "Muescas de codificación (0, 1 = borde −X, 2 = ambos)"
+      },
+      "tooltip": {
+        "en": "Rectangular notches in the side edges, through the thickness.",
+        "es": "Muescas rectangulares en los bordes laterales, a través del espesor."
+      }
+    },
+    {
+      "id": "notch_width",
+      "type": "slider",
+      "default": 8.8,
+      "min": 0.5,
+      "max": 30,
+      "step": 0.01,
+      "group": "keying",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Notch width (mm)",
+        "es": "Ancho de muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Along the axis away from the contact edge.",
+        "es": "A lo largo del eje que se aleja del borde de contactos."
+      }
+    },
+    {
+      "id": "notch_depth",
+      "type": "slider",
+      "default": 4,
+      "min": 0.3,
+      "max": 20,
+      "step": 0.01,
+      "group": "keying",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Notch depth (mm)",
+        "es": "Profundidad de muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Into the shell from its side edge.",
+        "es": "Hacia dentro de la carcasa desde su borde lateral."
+      }
+    },
+    {
+      "id": "notch_offset",
+      "type": "slider",
+      "default": 16.5,
+      "min": 0,
+      "max": 150,
+      "step": 0.01,
+      "group": "keying",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Notch offset from contact edge (mm)",
+        "es": "Distancia de la muesca al borde de contactos (mm)"
+      },
+      "tooltip": {
+        "en": "To the notch's near side.",
+        "es": "Hasta el lado cercano de la muesca."
+      }
+    },
+    {
+      "id": "shutter",
+      "type": "checkbox",
+      "default": false,
+      "group": "shutter",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Shutter door",
+        "es": "Compuerta"
+      },
+      "tooltip": {
+        "en": "A door over the contact window, outlined by a groove in the back face (Videocart-type). In a preset: features.shutter.",
+        "es": "Una compuerta sobre la ventana de contactos, delineada por una ranura en la cara trasera (tipo Videocart). En un preajuste: features.shutter."
+      }
+    },
+    {
+      "id": "shutter_height",
+      "type": "slider",
+      "default": 15.9,
+      "min": 1,
+      "max": 60,
+      "step": 0.01,
+      "group": "shutter",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Shutter door length (mm)",
+        "es": "Largo de la compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "From near the contact edge. Its width is the window plus a wall each side.",
+        "es": "Desde cerca del borde de contactos. Su ancho es la ventana más una pared por lado."
+      }
+    },
+    {
+      "id": "shutter_gap",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.2,
+      "max": 2,
+      "step": 0.01,
+      "group": "shutter",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Shutter groove width (mm)",
+        "es": "Ancho de la ranura de compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "The door's outline.",
+        "es": "El contorno de la compuerta."
+      }
+    },
+    {
+      "id": "shutter_groove_depth",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.1,
+      "max": 2,
+      "step": 0.01,
+      "group": "shutter",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Shutter groove depth (mm)",
+        "es": "Profundidad de la ranura de compuerta (mm)"
+      },
+      "tooltip": {
+        "en": "Stays inside the wall.",
+        "es": "Queda dentro de la pared."
+      }
+    },
+    {
+      "id": "pass_through_slot",
+      "type": "checkbox",
+      "default": false,
+      "group": "pass_through",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Pass-through slot",
+        "es": "Ranura de paso"
+      },
+      "tooltip": {
+        "en": "A slot in the far edge that takes a second medium (lock-on and pass-through units). In a preset: features.pass_through_slot.",
+        "es": "Una ranura en el borde opuesto que recibe un segundo medio (unidades de acople y de paso). En un preajuste: features.pass_through_slot."
+      }
+    },
+    {
+      "id": "pass_slot_width",
+      "type": "slider",
+      "default": 70,
+      "min": 1,
+      "max": 180,
+      "step": 0.01,
+      "group": "pass_through",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Pass-through slot width (mm)",
+        "es": "Ancho de la ranura de paso (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: 70 % of the far edge.",
+        "es": "Arquetipo: 70 % del borde opuesto."
+      }
+    },
+    {
+      "id": "pass_slot_thickness",
+      "type": "slider",
+      "default": 8.25,
+      "min": 0.5,
+      "max": 30,
+      "step": 0.01,
+      "group": "pass_through",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell"
+      ],
+      "label": {
+        "en": "Pass-through slot thickness (mm)",
+        "es": "Espesor de la ranura de paso (mm)"
+      },
+      "tooltip": {
+        "en": "Archetype: 55 % of the shell thickness.",
+        "es": "Arquetipo: 55 % del espesor de la carcasa."
+      }
+    },
+    {
+      "id": "pass_slot_depth",
+      "type": "slider",
+      "default": 16.5,
+      "min": 1,
+      "max": 80,
+      "step": 0.01,
+      "group": "pass_through",
+      "modes": [
+        "media",
+        "front_shell",
+        "back_shell",
+        "pcb_envelope"
+      ],
+      "label": {
+        "en": "Pass-through slot depth (mm)",
+        "es": "Profundidad de la ranura de paso (mm)"
+      },
+      "tooltip": {
+        "en": "Down from the far edge; the board stops below it.",
+        "es": "Hacia abajo desde el borde opuesto; la placa termina debajo."
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "card_mode || shell_wall * 2 + pcb_thickness + pcb_clearance * 2 < shell_thickness",
+      "severity": "error",
+      "message": {
+        "en": "A hollow shell needs room for its walls and the board. Thicken the shell or thin the wall.",
+        "es": "Una carcasa hueca necesita espacio para sus paredes y la placa. Engrosa la carcasa o adelgaza la pared."
+      }
+    },
+    {
+      "expression": "!card_mode || pcb_thickness < shell_thickness / 2",
+      "severity": "error",
+      "message": {
+        "en": "A card's contact pocket must stay inside its back half.",
+        "es": "El rebaje de contactos de una tarjeta debe quedar dentro de su mitad trasera."
+      }
+    },
+    {
+      "expression": "card_mode || contact_window_depth > shell_wall + pcb_clearance + 0.5",
+      "severity": "error",
+      "message": {
+        "en": "The contact window must reach past the wall into the shell, or the board's tongue has nowhere to go.",
+        "es": "La ventana de contactos debe pasar la pared hacia el interior, o la lengüeta de la placa no tiene dónde ir."
+      }
+    },
+    {
+      "expression": "edge_contacts == 0 || contact_window_width > 0",
+      "severity": "error",
+      "message": {
+        "en": "Edge contacts need a contact window.",
+        "es": "Los contactos de borde necesitan una ventana de contactos."
+      }
+    },
+    {
+      "expression": "contact_window_width == 0 || (card_mode ? edge_contacts : (edge_contacts + 1) / 2) * edge_pitch <= contact_window_width - pcb_clearance * 2",
+      "severity": "error",
+      "message": {
+        "en": "The contacts on one face do not fit across the window. Widen the window or reduce the count or pitch.",
+        "es": "Los contactos de una cara no caben en la ventana. Amplía la ventana o reduce la cantidad o el paso."
+      }
+    },
+    {
+      "expression": "contact_window_depth > pcb_edge_recess + 1.5",
+      "severity": "error",
+      "message": {
+        "en": "The window is too shallow for contact pads past the board's edge recess.",
+        "es": "La ventana es demasiado baja para los contactos más allá del retranqueo de la placa."
+      }
+    },
+    {
+      "expression": "label_front_depth < shell_wall || card_mode",
+      "severity": "error",
+      "message": {
+        "en": "The front label recess would break through the wall.",
+        "es": "El rebaje frontal atravesaría la pared."
+      }
+    },
+    {
+      "expression": "label_back_depth < shell_wall || card_mode",
+      "severity": "error",
+      "message": {
+        "en": "The back label recess would break through the wall.",
+        "es": "El rebaje trasero atravesaría la pared."
+      }
+    },
+    {
+      "expression": "card_mode || grip_ridge_count == 0 || grip_ridge_depth < shell_wall",
+      "severity": "error",
+      "message": {
+        "en": "Grip ridges deeper than the wall cut into the cavity.",
+        "es": "Las estrías más profundas que la pared cortan la cavidad."
+      }
+    },
+    {
+      "expression": "!shutter || shutter_groove_depth < shell_wall || card_mode",
+      "severity": "error",
+      "message": {
+        "en": "The shutter groove would break through the wall.",
+        "es": "La ranura de la compuerta atravesaría la pared."
+      }
+    },
+    {
+      "expression": "!pass_through_slot || pass_slot_thickness < shell_thickness - 1",
+      "severity": "error",
+      "message": {
+        "en": "The pass-through slot must leave material either side.",
+        "es": "La ranura de paso debe dejar material a ambos lados."
+      }
+    },
+    {
+      "expression": "corner_radius * 2 < shell_width && corner_radius * 2 < shell_height",
+      "severity": "error",
+      "message": {
+        "en": "The corner radius is larger than half a side.",
+        "es": "El radio de esquina supera la mitad de un lado."
+      }
+    },
+    {
+      "expression": "notch_count == 0 || notch_depth * 2 < shell_width && notch_depth * 2 < shell_height",
+      "severity": "error",
+      "message": {
+        "en": "Keying notches deeper than half the shell split it.",
+        "es": "Muescas más profundas que media carcasa la parten."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "insert",
+      "label": {
+        "en": "Insert 0 → 40 mm",
+        "es": "Inserción 0 → 40 mm"
+      },
+      "from_state": {
+        "insert_travel": 0
+      },
+      "to_state": {
+        "insert_travel": 40
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out",
+      "mode": "media"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        -260,
+        200
+      ],
+      "target": [
+        0,
+        0,
+        55
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front (label face)",
+        "es": "Frente (cara de etiqueta)"
+      },
+      "position": [
+        0,
+        -360,
+        55
+      ],
+      "target": [
+        0,
+        0,
+        55
+      ]
+    },
+    {
+      "id": "back",
+      "label": {
+        "en": "Back",
+        "es": "Trasera"
+      },
+      "position": [
+        0,
+        360,
+        55
+      ],
+      "target": [
+        0,
+        0,
+        55
+      ]
+    },
+    {
+      "id": "edge",
+      "label": {
+        "en": "Contact edge",
+        "es": "Borde de contactos"
+      },
+      "position": [
+        0,
+        -60,
+        -320
+      ],
+      "target": [
+        0,
+        0,
+        55
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 6,
+    "per_unit": 2,
+    "per_part": 4,
+    "fn_factor": 16,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 120
+  },
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family plug-in-media --write plug-in-media/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "plug-in-media",
+    "axis_mapping": {
+      "shell_width": "reference dimensions_mm.states.shell.width (X, across the label face)",
+      "shell_height": "reference dimensions_mm.states.shell.height (Z, up the label face)",
+      "shell_thickness": "reference dimensions_mm.states.shell.depth (Y, through the shell)"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-top-loading-cartridge",
+      "label": {
+        "en": "Archetype — top-loading cartridge",
+        "es": "Arquetipo — cartucho de carga superior"
+      },
+      "kind": "archetype",
+      "source": "Archetype, not a product: the family default: a shell inserted contact edge down, with a thicker grip band. Every number is the family's own rule (tools/presets/plug_in_media.py); no format is claimed. Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "the family default: a shell inserted contact edge down, with a thicker grip band.",
+        "es": "el valor por defecto de la familia: una carcasa que entra con el borde de contactos abajo, con una banda de agarre más gruesa."
+      },
+      "values": {
+        "shell_width": 100,
+        "shell_height": 110,
+        "shell_thickness": 15,
+        "grip_thickness": 19,
+        "grip_height": 22,
+        "corner_radius": 4,
+        "shell_wall": 1.65,
+        "insertion_edge": "bottom",
+        "card_mode": false,
+        "contact_window_width": 80,
+        "contact_window_depth": 9.9,
+        "pcb_thickness": 1.6,
+        "pcb_edge_recess": 1,
+        "edge_contacts": 60,
+        "edge_pitch": 2.5,
+        "label_front_width": 80,
+        "label_front_height": 72.1,
+        "label_front_depth": 0.6,
+        "label_front_center": 48.95,
+        "label_back_width": 60,
+        "label_back_height": 32.445,
+        "label_back_depth": 0.6,
+        "label_back_center": 29.1225,
+        "grip_ridge_count": 5,
+        "grip_ridge_pitch": 3,
+        "grip_ridge_depth": 0.6,
+        "notch_count": 0,
+        "notch_width": 8.8,
+        "notch_depth": 4,
+        "notch_offset": 16.5,
+        "shutter": false,
+        "shutter_height": 15.9,
+        "shutter_gap": 0.6,
+        "shutter_groove_depth": 0.6,
+        "pass_through_slot": false,
+        "pass_slot_width": 70,
+        "pass_slot_thickness": 8.25,
+        "pass_slot_depth": 16.5
+      }
+    },
+    {
+      "slug": "archetype-front-loading-cartridge",
+      "label": {
+        "en": "Archetype — front-loading cartridge",
+        "es": "Arquetipo — cartucho de carga frontal"
+      },
+      "kind": "archetype",
+      "source": "Archetype, not a product: a wide, flat shell whose contacts are on the label's top edge, so the label reads upright as it lies in the slot; two keying notches. Every number is the family's own rule (tools/presets/plug_in_media.py); no format is claimed. Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "a wide, flat shell whose contacts are on the label's top edge, so the label reads upright as it lies in the slot; two keying notches.",
+        "es": "una carcasa ancha y plana con los contactos en el borde superior de la etiqueta, para que se lea derecha en la ranura; dos muescas de codificación."
+      },
+      "values": {
+        "shell_width": 120,
+        "shell_height": 130,
+        "shell_thickness": 17,
+        "grip_thickness": 0,
+        "grip_height": 0,
+        "corner_radius": 4,
+        "shell_wall": 1.87,
+        "insertion_edge": "top",
+        "card_mode": false,
+        "contact_window_width": 96,
+        "contact_window_depth": 11.7,
+        "pcb_thickness": 1.6,
+        "pcb_edge_recess": 1,
+        "edge_contacts": 72,
+        "edge_pitch": 2.5,
+        "label_front_width": 96,
+        "label_front_height": 97.3,
+        "label_front_depth": 0.6,
+        "label_front_center": 63.35,
+        "label_back_width": 72,
+        "label_back_height": 43.785,
+        "label_back_depth": 0.6,
+        "label_back_center": 36.5925,
+        "grip_ridge_count": 5,
+        "grip_ridge_pitch": 3,
+        "grip_ridge_depth": 0.6,
+        "notch_count": 2,
+        "notch_width": 10.4,
+        "notch_depth": 4.8,
+        "notch_offset": 19.5,
+        "shutter": false,
+        "shutter_height": 17.7,
+        "shutter_gap": 0.6,
+        "shutter_groove_depth": 0.6,
+        "pass_through_slot": false,
+        "pass_slot_width": 84,
+        "pass_slot_thickness": 9.35,
+        "pass_slot_depth": 19.5
+      }
+    },
+    {
+      "slug": "archetype-card",
+      "label": {
+        "en": "Archetype — card",
+        "es": "Arquetipo — tarjeta"
+      },
+      "kind": "archetype",
+      "source": "Archetype, not a product: a monolithic thin card with its contact field in a back-face pocket on a side edge, and one keying notch. Every number is the family's own rule (tools/presets/plug_in_media.py); no format is claimed. Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "a monolithic thin card with its contact field in a back-face pocket on a side edge, and one keying notch.",
+        "es": "una tarjeta delgada monolítica con su campo de contactos en un rebaje de la cara trasera en un borde lateral, y una muesca de codificación."
+      },
+      "values": {
+        "shell_width": 40,
+        "shell_height": 30,
+        "shell_thickness": 3,
+        "grip_thickness": 0,
+        "grip_height": 0,
+        "corner_radius": 2.4,
+        "shell_wall": 0.8,
+        "insertion_edge": "side",
+        "card_mode": true,
+        "contact_window_width": 24,
+        "contact_window_depth": 8,
+        "pcb_thickness": 0.75,
+        "pcb_edge_recess": 1,
+        "edge_contacts": 16,
+        "edge_pitch": 1.2,
+        "label_front_width": 24,
+        "label_front_height": 26,
+        "label_front_depth": 0.3,
+        "label_front_center": 24,
+        "label_back_width": 18,
+        "label_back_height": 11.7,
+        "label_back_depth": 0,
+        "label_back_center": 16.85,
+        "grip_ridge_count": 0,
+        "grip_ridge_pitch": 3,
+        "grip_ridge_depth": 0.32,
+        "notch_count": 1,
+        "notch_width": 3.2,
+        "notch_depth": 1.2,
+        "notch_offset": 6,
+        "shutter": false,
+        "shutter_height": 14,
+        "shutter_gap": 0.6,
+        "shutter_groove_depth": 0.32,
+        "pass_through_slot": false,
+        "pass_slot_width": 21,
+        "pass_slot_thickness": 1.65,
+        "pass_slot_depth": 6
+      }
+    },
+    {
+      "slug": "archetype-pass-through-cartridge",
+      "label": {
+        "en": "Archetype — pass-through cartridge",
+        "es": "Arquetipo — cartucho de paso"
+      },
+      "kind": "archetype",
+      "source": "Archetype, not a product: a deep shell with a slot in its far edge that takes a second medium. Every number is the family's own rule (tools/presets/plug_in_media.py); no format is claimed. Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "a deep shell with a slot in its far edge that takes a second medium.",
+        "es": "una carcasa profunda con una ranura en el borde opuesto que recibe un segundo medio."
+      },
+      "values": {
+        "shell_width": 110,
+        "shell_height": 130,
+        "shell_thickness": 22,
+        "grip_thickness": 0,
+        "grip_height": 0,
+        "corner_radius": 4,
+        "shell_wall": 2,
+        "insertion_edge": "bottom",
+        "card_mode": false,
+        "contact_window_width": 88,
+        "contact_window_depth": 11.7,
+        "pcb_thickness": 1.6,
+        "pcb_edge_recess": 1,
+        "edge_contacts": 66,
+        "edge_pitch": 2.5,
+        "label_front_width": 88,
+        "label_front_height": 92.8,
+        "label_front_depth": 0.6,
+        "label_front_center": 61.1,
+        "label_back_width": 66,
+        "label_back_height": 41.76,
+        "label_back_depth": 0.6,
+        "label_back_center": 35.58,
+        "grip_ridge_count": 5,
+        "grip_ridge_pitch": 3,
+        "grip_ridge_depth": 0.6,
+        "notch_count": 0,
+        "notch_width": 10.4,
+        "notch_depth": 4.4,
+        "notch_offset": 19.5,
+        "shutter": false,
+        "shutter_height": 17.7,
+        "shutter_gap": 0.6,
+        "shutter_groove_depth": 0.6,
+        "pass_through_slot": true,
+        "pass_slot_width": 77,
+        "pass_slot_thickness": 12.1,
+        "pass_slot_depth": 19.5
+      }
+    },
+    {
+      "slug": "archetype-shuttered-cartridge",
+      "label": {
+        "en": "Archetype — shuttered cartridge",
+        "es": "Arquetipo — cartucho con compuerta"
+      },
+      "kind": "archetype",
+      "source": "Archetype, not a product: a shell whose contact window is covered by a door outlined in its back face. Every number is the family's own rule (tools/presets/plug_in_media.py); no format is claimed. Generated by tools/presets/presets.py — do not edit by hand.",
+      "description": {
+        "en": "a shell whose contact window is covered by a door outlined in its back face.",
+        "es": "una carcasa cuya ventana de contactos está cubierta por una compuerta delineada en la cara trasera."
+      },
+      "values": {
+        "shell_width": 105,
+        "shell_height": 120,
+        "shell_thickness": 20,
+        "grip_thickness": 0,
+        "grip_height": 0,
+        "corner_radius": 4,
+        "shell_wall": 2,
+        "insertion_edge": "bottom",
+        "card_mode": false,
+        "contact_window_width": 84,
+        "contact_window_depth": 10.8,
+        "pcb_thickness": 1.6,
+        "pcb_edge_recess": 1,
+        "edge_contacts": 64,
+        "edge_pitch": 2.5,
+        "label_front_width": 84,
+        "label_front_height": 88.2,
+        "label_front_depth": 0.6,
+        "label_front_center": 57.9,
+        "label_back_width": 63,
+        "label_back_height": 36.225,
+        "label_back_depth": 0.6,
+        "label_back_center": 39.6125,
+        "grip_ridge_count": 5,
+        "grip_ridge_pitch": 3,
+        "grip_ridge_depth": 0.6,
+        "notch_count": 0,
+        "notch_width": 9.6,
+        "notch_depth": 4.2,
+        "notch_offset": 18,
+        "shutter": true,
+        "shutter_height": 16.8,
+        "shutter_gap": 0.6,
+        "shutter_groove_depth": 0.6,
+        "pass_through_slot": false,
+        "pass_slot_width": 73.5,
+        "pass_slot_thickness": 11,
+        "pass_slot_depth": 18
+      }
+    }
+  ]
+}

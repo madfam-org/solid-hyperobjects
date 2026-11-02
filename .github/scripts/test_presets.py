@@ -39,7 +39,11 @@ def test_every_family_manifest_matches_the_catalog():
 
 
 def test_families_are_registered():
-    assert set(presets.FAMILIES) == {"clamshell-dual-screen-handheld", "book-fold-phone"}
+    # A superset check: each family PR adds a module (self-registering, #195), so an
+    # exact set would make every parallel family PR edit this line.
+    assert set(presets.FAMILIES) >= {"clamshell-dual-screen-handheld", "book-fold-phone"}
+    for slug in presets.FAMILIES:
+        assert (presets.REPO_ROOT / slug / "project.json").is_file(), slug
 
 
 def test_absence_is_a_sourced_zero():
