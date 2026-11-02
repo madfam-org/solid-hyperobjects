@@ -1,0 +1,2269 @@
+{
+  "project": {
+    "name": "Cable Assembly",
+    "slug": "cable-assembly",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "thumbnail": "/projects/cable-assembly.webp",
+    "description": {
+      "en": "Generic cable route with standard interface envelopes, boots, optional coil and ferrite. No electrical internals. Official Visualizer and Configurator: Yantra4D",
+      "es": "Recorrido de cable genérico con envolventes de interfaz, alivios, hélice y ferrita opcionales. Sin componentes eléctricos. Visualizador y configurador oficial: Yantra4D"
+    },
+    "tags": [
+      "cable",
+      "accessory",
+      "hyperobject",
+      "commons"
+    ],
+    "difficulty": "intermediate",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "cdg_interfaces": [
+      {
+        "id": "plug_a",
+        "geometry_type": "profile",
+        "parameters": [
+          "connector_a"
+        ],
+        "compatible_with": [
+          "home-console",
+          "gamepad",
+          "power-adapter"
+        ],
+        "label": {
+          "en": "Plug A",
+          "es": "Conector A"
+        }
+      },
+      {
+        "id": "plug_b",
+        "geometry_type": "profile",
+        "parameters": [
+          "connector_b"
+        ],
+        "compatible_with": [
+          "home-console",
+          "console-dock"
+        ],
+        "label": {
+          "en": "Plug B",
+          "es": "Conector B"
+        }
+      },
+      {
+        "id": "jacket_path",
+        "geometry_type": "profile",
+        "parameters": [
+          "length",
+          "jacket_diameter"
+        ],
+        "compatible_with": [
+          "cable-clip"
+        ],
+        "label": {
+          "en": "Cable path",
+          "es": "Recorrido del cable"
+        }
+      }
+    ],
+    "composition": {
+      "strategy": "inline-at-build",
+      "components": [
+        {
+          "slug": "connector_plug",
+          "function": "connector_plug",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "strain_relief",
+          "function": "strain_relief",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "cable_jacket",
+          "function": "cable_jacket",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "coil_with_leads",
+          "function": "coil_with_leads",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        },
+        {
+          "slug": "cable_ferrite",
+          "function": "cable_ferrite",
+          "module": "cables",
+          "exposes": [],
+          "consumes": []
+        }
+      ]
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "modes": [
+    {
+      "id": "cable",
+      "label": {
+        "en": "Cable assembly",
+        "es": "Cable ensamblado"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "cable"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "connector_a",
+      "label": {
+        "en": "Connector A",
+        "es": "Conector A"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "connector_a"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "connector_b",
+      "label": {
+        "en": "Connector B",
+        "es": "Conector B"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "connector_b"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Routing envelope",
+        "es": "Envolvente del recorrido"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "cable",
+      "label": {
+        "en": "Cable assembly",
+        "es": "Cable ensamblado"
+      },
+      "render_mode": 0,
+      "color": "#64748b"
+    },
+    {
+      "id": "connector_a",
+      "label": {
+        "en": "Connector A",
+        "es": "Conector A"
+      },
+      "render_mode": 0,
+      "color": "#64748b"
+    },
+    {
+      "id": "connector_b",
+      "label": {
+        "en": "Connector B",
+        "es": "Conector B"
+      },
+      "render_mode": 0,
+      "color": "#64748b"
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Routing envelope",
+        "es": "Envolvente del recorrido"
+      },
+      "render_mode": 0,
+      "color": "#64748b"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "connector_a",
+      "default": "usb_a",
+      "label": {
+        "en": "Connector a",
+        "es": "Conector A"
+      },
+      "group": "route",
+      "type": "select",
+      "options": [
+        {
+          "value": "usb_a",
+          "label": {
+            "en": "usb_a",
+            "es": "USB-A"
+          }
+        },
+        {
+          "value": "usb_c",
+          "label": {
+            "en": "usb_c",
+            "es": "USB-C"
+          }
+        },
+        {
+          "value": "hdmi_a",
+          "label": {
+            "en": "hdmi_a",
+            "es": "HDMI-A"
+          }
+        },
+        {
+          "value": "de9f",
+          "label": {
+            "en": "de9f",
+            "es": "DE9F"
+          }
+        },
+        {
+          "value": "de9m",
+          "label": {
+            "en": "de9m",
+            "es": "DE9M"
+          }
+        },
+        {
+          "value": "rca",
+          "label": {
+            "en": "rca",
+            "es": "RCA"
+          }
+        },
+        {
+          "value": "trs35",
+          "label": {
+            "en": "trs35",
+            "es": "TRS35"
+          }
+        },
+        {
+          "value": "dc5521",
+          "label": {
+            "en": "dc5521",
+            "es": "DC5521"
+          }
+        },
+        {
+          "value": "iec_c8",
+          "label": {
+            "en": "iec_c8",
+            "es": "IEC-C8"
+          }
+        },
+        {
+          "value": "iec_c14",
+          "label": {
+            "en": "iec_c14",
+            "es": "IEC-C14"
+          }
+        },
+        {
+          "value": "f_type",
+          "label": {
+            "en": "f_type",
+            "es": "F-TYPE"
+          }
+        },
+        {
+          "value": "proprietary",
+          "label": {
+            "en": "proprietary",
+            "es": "Genérico"
+          }
+        },
+        {
+          "value": "hardwired",
+          "label": {
+            "en": "hardwired",
+            "es": "Salida fija"
+          }
+        }
+      ]
+    },
+    {
+      "id": "connector_b",
+      "default": "usb_c",
+      "label": {
+        "en": "Connector b",
+        "es": "Conector B"
+      },
+      "group": "route",
+      "type": "select",
+      "options": [
+        {
+          "value": "usb_a",
+          "label": {
+            "en": "usb_a",
+            "es": "USB-A"
+          }
+        },
+        {
+          "value": "usb_c",
+          "label": {
+            "en": "usb_c",
+            "es": "USB-C"
+          }
+        },
+        {
+          "value": "hdmi_a",
+          "label": {
+            "en": "hdmi_a",
+            "es": "HDMI-A"
+          }
+        },
+        {
+          "value": "de9f",
+          "label": {
+            "en": "de9f",
+            "es": "DE9F"
+          }
+        },
+        {
+          "value": "de9m",
+          "label": {
+            "en": "de9m",
+            "es": "DE9M"
+          }
+        },
+        {
+          "value": "rca",
+          "label": {
+            "en": "rca",
+            "es": "RCA"
+          }
+        },
+        {
+          "value": "trs35",
+          "label": {
+            "en": "trs35",
+            "es": "TRS35"
+          }
+        },
+        {
+          "value": "dc5521",
+          "label": {
+            "en": "dc5521",
+            "es": "DC5521"
+          }
+        },
+        {
+          "value": "iec_c8",
+          "label": {
+            "en": "iec_c8",
+            "es": "IEC-C8"
+          }
+        },
+        {
+          "value": "iec_c14",
+          "label": {
+            "en": "iec_c14",
+            "es": "IEC-C14"
+          }
+        },
+        {
+          "value": "f_type",
+          "label": {
+            "en": "f_type",
+            "es": "F-TYPE"
+          }
+        },
+        {
+          "value": "proprietary",
+          "label": {
+            "en": "proprietary",
+            "es": "Genérico"
+          }
+        },
+        {
+          "value": "hardwired",
+          "label": {
+            "en": "hardwired",
+            "es": "Salida fija"
+          }
+        }
+      ]
+    },
+    {
+      "id": "path",
+      "default": "straight",
+      "label": {
+        "en": "Path",
+        "es": "Forma del recorrido"
+      },
+      "group": "route",
+      "type": "select",
+      "options": [
+        {
+          "value": "straight",
+          "label": {
+            "en": "straight",
+            "es": "Recto"
+          }
+        },
+        {
+          "value": "arc",
+          "label": {
+            "en": "arc",
+            "es": "Arco"
+          }
+        },
+        {
+          "value": "s_curve",
+          "label": {
+            "en": "s_curve",
+            "es": "Curva S"
+          }
+        },
+        {
+          "value": "coil",
+          "label": {
+            "en": "coil",
+            "es": "Hélice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "length",
+      "default": 200,
+      "label": {
+        "en": "Length",
+        "es": "Tramo recto de cubierta (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 80,
+      "max": 5000,
+      "step": 0.01
+    },
+    {
+      "id": "jacket_diameter",
+      "default": 4,
+      "label": {
+        "en": "Jacket diameter",
+        "es": "Diámetro de cubierta (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 1,
+      "max": 10,
+      "step": 0.01
+    },
+    {
+      "id": "bow",
+      "default": 20,
+      "label": {
+        "en": "Bow",
+        "es": "Desviación lateral (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "boot_length",
+      "default": 12,
+      "label": {
+        "en": "Boot length",
+        "es": "Longitud del alivio (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "coil_turns",
+      "default": 3.5,
+      "label": {
+        "en": "Coil turns",
+        "es": "Vueltas de la hélice"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0.5,
+      "max": 20,
+      "step": 0.5
+    },
+    {
+      "id": "coil_pitch",
+      "default": 7,
+      "label": {
+        "en": "Coil pitch",
+        "es": "Paso de la hélice (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "coil_od",
+      "default": 24,
+      "label": {
+        "en": "Coil od",
+        "es": "Diámetro exterior de la hélice (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "ferrite_present",
+      "default": false,
+      "label": {
+        "en": "Ferrite present",
+        "es": "Incluir ferrita"
+      },
+      "group": "route",
+      "type": "checkbox"
+    },
+    {
+      "id": "ferrite_diameter",
+      "default": 12,
+      "label": {
+        "en": "Ferrite diameter",
+        "es": "Diámetro de ferrita (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "ferrite_length",
+      "default": 20,
+      "label": {
+        "en": "Ferrite length",
+        "es": "Longitud de ferrita (mm)"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "ferrite_position",
+      "default": 0.3,
+      "label": {
+        "en": "Ferrite position",
+        "es": "Posición de ferrita"
+      },
+      "group": "route",
+      "type": "slider",
+      "min": 0.15,
+      "max": 0.85,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_profile",
+      "default": "rect",
+      "label": {
+        "en": "Proprietary profile",
+        "es": "Perfil del conector genérico"
+      },
+      "group": "interfaces",
+      "type": "select",
+      "options": [
+        {
+          "value": "rect",
+          "label": {
+            "en": "rect",
+            "es": "Rectangular"
+          }
+        },
+        {
+          "value": "obround",
+          "label": {
+            "en": "obround",
+            "es": "Oblongo"
+          }
+        },
+        {
+          "value": "round",
+          "label": {
+            "en": "round",
+            "es": "Circular"
+          }
+        },
+        {
+          "value": "dshape",
+          "label": {
+            "en": "dshape",
+            "es": "Trapezoidal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "proprietary_width",
+      "default": 12,
+      "label": {
+        "en": "Proprietary width",
+        "es": "Genérico — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_height",
+      "default": 7,
+      "label": {
+        "en": "Proprietary height",
+        "es": "Genérico — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_length",
+      "default": 8,
+      "label": {
+        "en": "Proprietary length",
+        "es": "Genérico — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_body_width",
+      "default": 18,
+      "label": {
+        "en": "Proprietary body width",
+        "es": "Genérico — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_body_height",
+      "default": 12,
+      "label": {
+        "en": "Proprietary body height",
+        "es": "Genérico — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_body_length",
+      "default": 20,
+      "label": {
+        "en": "Proprietary body length",
+        "es": "Genérico — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Proprietary pin diameter",
+        "es": "Genérico — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Proprietary pin length",
+        "es": "Genérico — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "proprietary_bore",
+      "default": 0,
+      "label": {
+        "en": "Proprietary bore",
+        "es": "Genérico — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_width",
+      "default": 12,
+      "label": {
+        "en": "Usb a width",
+        "es": "USB-A — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_height",
+      "default": 4.5,
+      "label": {
+        "en": "Usb a height",
+        "es": "USB-A — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_length",
+      "default": 11.75,
+      "label": {
+        "en": "Usb a length",
+        "es": "USB-A — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_body_width",
+      "default": 16,
+      "label": {
+        "en": "Usb a body width",
+        "es": "USB-A — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_body_height",
+      "default": 8.5,
+      "label": {
+        "en": "Usb a body height",
+        "es": "USB-A — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_body_length",
+      "default": 20,
+      "label": {
+        "en": "Usb a body length",
+        "es": "USB-A — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Usb a pin diameter",
+        "es": "USB-A — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Usb a pin length",
+        "es": "USB-A — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_a_bore",
+      "default": 0,
+      "label": {
+        "en": "Usb a bore",
+        "es": "USB-A — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_width",
+      "default": 8.25,
+      "label": {
+        "en": "Usb c width",
+        "es": "USB-C — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_height",
+      "default": 2.4,
+      "label": {
+        "en": "Usb c height",
+        "es": "USB-C — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_length",
+      "default": 6.65,
+      "label": {
+        "en": "Usb c length",
+        "es": "USB-C — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_width",
+      "default": 12.25,
+      "label": {
+        "en": "Usb c body width",
+        "es": "USB-C — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_height",
+      "default": 8,
+      "label": {
+        "en": "Usb c body height",
+        "es": "USB-C — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_body_length",
+      "default": 20,
+      "label": {
+        "en": "Usb c body length",
+        "es": "USB-C — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Usb c pin diameter",
+        "es": "USB-C — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Usb c pin length",
+        "es": "USB-C — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "usb_c_bore",
+      "default": 0,
+      "label": {
+        "en": "Usb c bore",
+        "es": "USB-C — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_width",
+      "default": 13.9,
+      "label": {
+        "en": "Hdmi a width",
+        "es": "HDMI-A — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_height",
+      "default": 4.45,
+      "label": {
+        "en": "Hdmi a height",
+        "es": "HDMI-A — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_length",
+      "default": 8,
+      "label": {
+        "en": "Hdmi a length",
+        "es": "HDMI-A — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_body_width",
+      "default": 17.9,
+      "label": {
+        "en": "Hdmi a body width",
+        "es": "HDMI-A — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_body_height",
+      "default": 8.45,
+      "label": {
+        "en": "Hdmi a body height",
+        "es": "HDMI-A — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_body_length",
+      "default": 20,
+      "label": {
+        "en": "Hdmi a body length",
+        "es": "HDMI-A — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Hdmi a pin diameter",
+        "es": "HDMI-A — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Hdmi a pin length",
+        "es": "HDMI-A — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "hdmi_a_bore",
+      "default": 0,
+      "label": {
+        "en": "Hdmi a bore",
+        "es": "HDMI-A — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_width",
+      "default": 16.4592,
+      "label": {
+        "en": "De9f width",
+        "es": "DE9F — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_height",
+      "default": 8.0264,
+      "label": {
+        "en": "De9f height",
+        "es": "DE9F — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_length",
+      "default": 6.2992,
+      "label": {
+        "en": "De9f length",
+        "es": "DE9F — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_body_width",
+      "default": 20.4592,
+      "label": {
+        "en": "De9f body width",
+        "es": "DE9F — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_body_height",
+      "default": 12.0264,
+      "label": {
+        "en": "De9f body height",
+        "es": "DE9F — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_body_length",
+      "default": 20,
+      "label": {
+        "en": "De9f body length",
+        "es": "DE9F — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "De9f pin diameter",
+        "es": "DE9F — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_pin_length",
+      "default": 0,
+      "label": {
+        "en": "De9f pin length",
+        "es": "DE9F — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9f_bore",
+      "default": 0,
+      "label": {
+        "en": "De9f bore",
+        "es": "DE9F — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_width",
+      "default": 17.0434,
+      "label": {
+        "en": "De9m width",
+        "es": "DE9M — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_height",
+      "default": 8.4836,
+      "label": {
+        "en": "De9m height",
+        "es": "DE9M — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_length",
+      "default": 6.0452,
+      "label": {
+        "en": "De9m length",
+        "es": "DE9M — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_body_width",
+      "default": 21.0434,
+      "label": {
+        "en": "De9m body width",
+        "es": "DE9M — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_body_height",
+      "default": 12.4836,
+      "label": {
+        "en": "De9m body height",
+        "es": "DE9M — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_body_length",
+      "default": 20,
+      "label": {
+        "en": "De9m body length",
+        "es": "DE9M — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "De9m pin diameter",
+        "es": "DE9M — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_pin_length",
+      "default": 0,
+      "label": {
+        "en": "De9m pin length",
+        "es": "DE9M — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "de9m_bore",
+      "default": 0,
+      "label": {
+        "en": "De9m bore",
+        "es": "DE9M — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_width",
+      "default": 9,
+      "label": {
+        "en": "Rca width",
+        "es": "RCA — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_height",
+      "default": 9,
+      "label": {
+        "en": "Rca height",
+        "es": "RCA — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_length",
+      "default": 5.5,
+      "label": {
+        "en": "Rca length",
+        "es": "RCA — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_body_width",
+      "default": 13,
+      "label": {
+        "en": "Rca body width",
+        "es": "RCA — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_body_height",
+      "default": 13,
+      "label": {
+        "en": "Rca body height",
+        "es": "RCA — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_body_length",
+      "default": 20,
+      "label": {
+        "en": "Rca body length",
+        "es": "RCA — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_pin_diameter",
+      "default": 3.25,
+      "label": {
+        "en": "Rca pin diameter",
+        "es": "RCA — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_pin_length",
+      "default": 8,
+      "label": {
+        "en": "Rca pin length",
+        "es": "RCA — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "rca_bore",
+      "default": 0,
+      "label": {
+        "en": "Rca bore",
+        "es": "RCA — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_width",
+      "default": 3.5,
+      "label": {
+        "en": "Trs35 width",
+        "es": "TRS35 — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_height",
+      "default": 3.5,
+      "label": {
+        "en": "Trs35 height",
+        "es": "TRS35 — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_length",
+      "default": 14,
+      "label": {
+        "en": "Trs35 length",
+        "es": "TRS35 — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_body_width",
+      "default": 10,
+      "label": {
+        "en": "Trs35 body width",
+        "es": "TRS35 — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_body_height",
+      "default": 8,
+      "label": {
+        "en": "Trs35 body height",
+        "es": "TRS35 — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_body_length",
+      "default": 20,
+      "label": {
+        "en": "Trs35 body length",
+        "es": "TRS35 — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Trs35 pin diameter",
+        "es": "TRS35 — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Trs35 pin length",
+        "es": "TRS35 — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "trs35_bore",
+      "default": 0,
+      "label": {
+        "en": "Trs35 bore",
+        "es": "TRS35 — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_width",
+      "default": 5.5,
+      "label": {
+        "en": "Dc5521 width",
+        "es": "DC5521 — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_height",
+      "default": 5.5,
+      "label": {
+        "en": "Dc5521 height",
+        "es": "DC5521 — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_length",
+      "default": 9.5,
+      "label": {
+        "en": "Dc5521 length",
+        "es": "DC5521 — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_width",
+      "default": 10,
+      "label": {
+        "en": "Dc5521 body width",
+        "es": "DC5521 — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_height",
+      "default": 9.5,
+      "label": {
+        "en": "Dc5521 body height",
+        "es": "DC5521 — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_body_length",
+      "default": 20,
+      "label": {
+        "en": "Dc5521 body length",
+        "es": "DC5521 — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Dc5521 pin diameter",
+        "es": "DC5521 — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Dc5521 pin length",
+        "es": "DC5521 — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "dc5521_bore",
+      "default": 2.1,
+      "label": {
+        "en": "Dc5521 bore",
+        "es": "DC5521 — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_width",
+      "default": 16.5,
+      "label": {
+        "en": "Iec c8 width",
+        "es": "IEC-C8 — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_height",
+      "default": 8.2,
+      "label": {
+        "en": "Iec c8 height",
+        "es": "IEC-C8 — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_length",
+      "default": 12,
+      "label": {
+        "en": "Iec c8 length",
+        "es": "IEC-C8 — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_body_width",
+      "default": 20.5,
+      "label": {
+        "en": "Iec c8 body width",
+        "es": "IEC-C8 — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_body_height",
+      "default": 12.2,
+      "label": {
+        "en": "Iec c8 body height",
+        "es": "IEC-C8 — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_body_length",
+      "default": 20,
+      "label": {
+        "en": "Iec c8 body length",
+        "es": "IEC-C8 — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Iec c8 pin diameter",
+        "es": "IEC-C8 — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Iec c8 pin length",
+        "es": "IEC-C8 — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c8_bore",
+      "default": 0,
+      "label": {
+        "en": "Iec c8 bore",
+        "es": "IEC-C8 — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_width",
+      "default": 24,
+      "label": {
+        "en": "Iec c14 width",
+        "es": "IEC-C14 — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_height",
+      "default": 16,
+      "label": {
+        "en": "Iec c14 height",
+        "es": "IEC-C14 — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_length",
+      "default": 12,
+      "label": {
+        "en": "Iec c14 length",
+        "es": "IEC-C14 — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_body_width",
+      "default": 28,
+      "label": {
+        "en": "Iec c14 body width",
+        "es": "IEC-C14 — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_body_height",
+      "default": 20,
+      "label": {
+        "en": "Iec c14 body height",
+        "es": "IEC-C14 — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_body_length",
+      "default": 20,
+      "label": {
+        "en": "Iec c14 body length",
+        "es": "IEC-C14 — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "Iec c14 pin diameter",
+        "es": "IEC-C14 — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_pin_length",
+      "default": 0,
+      "label": {
+        "en": "Iec c14 pin length",
+        "es": "IEC-C14 — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "iec_c14_bore",
+      "default": 0,
+      "label": {
+        "en": "Iec c14 bore",
+        "es": "IEC-C14 — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_width",
+      "default": 9.525,
+      "label": {
+        "en": "F type width",
+        "es": "F-TYPE — ancho (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_height",
+      "default": 9.525,
+      "label": {
+        "en": "F type height",
+        "es": "F-TYPE — alto (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_length",
+      "default": 10,
+      "label": {
+        "en": "F type length",
+        "es": "F-TYPE — longitud (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_body_width",
+      "default": 13.525,
+      "label": {
+        "en": "F type body width",
+        "es": "F-TYPE — ancho del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_body_height",
+      "default": 13.525,
+      "label": {
+        "en": "F type body height",
+        "es": "F-TYPE — alto del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_body_length",
+      "default": 20,
+      "label": {
+        "en": "F type body length",
+        "es": "F-TYPE — longitud del recubrimiento (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_pin_diameter",
+      "default": 0,
+      "label": {
+        "en": "F type pin diameter",
+        "es": "F-TYPE — diámetro del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_pin_length",
+      "default": 0,
+      "label": {
+        "en": "F type pin length",
+        "es": "F-TYPE — longitud del pin (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    },
+    {
+      "id": "f_type_bore",
+      "default": 0,
+      "label": {
+        "en": "F type bore",
+        "es": "F-TYPE — diámetro interior (mm)"
+      },
+      "group": "interfaces",
+      "type": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 0.01
+    }
+  ],
+  "presets": [
+    {
+      "slug": "nintendo-wii-av-cable-rvl-009",
+      "label": {
+        "en": "Wii AV cable",
+        "es": "Wii AV cable"
+      },
+      "source": "hyperobjects-spec reference-objects catalog, object `nintendo-wii-av-cable-rvl-009` (status: partial); Only explicitly sourced length and connector identities are read. Generated by tools/presets/presets.py — do not edit by hand.",
+      "registry": {
+        "device": "nintendo-wii-av-cable-rvl-009",
+        "catalog": "hyperobjects_reference",
+        "status": "partial",
+        "igdb_platform": null,
+        "sourced": [
+          "features",
+          "mass_g"
+        ],
+        "archetype_fallbacks": [
+          "generic overmolds and boots",
+          "jacket diameter",
+          "route shape",
+          "connector details absent from the standard are archetypes",
+          "published length mapped to straight jacket span; endpoint convention unknown",
+          "connector a unresolved: generic proprietary envelope",
+          "connector b unresolved: generic proprietary envelope"
+        ]
+      },
+      "values": {
+        "length": 2500,
+        "connector_a": "proprietary",
+        "connector_b": "proprietary"
+      }
+    },
+    {
+      "slug": "archetype-usb-cable",
+      "kind": "archetype",
+      "label": {
+        "en": "USB cable archetype",
+        "es": "Arquetipo de cable USB"
+      },
+      "source": "Original generic archetype; connector interface dimensions from keystone standard parts.",
+      "values": {}
+    },
+    {
+      "slug": "archetype-controller-coil",
+      "kind": "archetype",
+      "label": {
+        "en": "Coiled controller cord",
+        "es": "Cable helicoidal de mando"
+      },
+      "source": "Original generic archetype; connector interface dimensions from keystone standard parts.",
+      "values": {
+        "connector_a": "de9f",
+        "connector_b": "hardwired",
+        "path": "coil"
+      }
+    },
+    {
+      "slug": "archetype-av",
+      "kind": "archetype",
+      "label": {
+        "en": "AV cable archetype",
+        "es": "Arquetipo de cable AV"
+      },
+      "source": "Original generic archetype; connector interface dimensions from keystone standard parts.",
+      "values": {
+        "connector_a": "rca",
+        "connector_b": "rca",
+        "path": "arc",
+        "ferrite_present": true
+      }
+    },
+    {
+      "slug": "archetype-link",
+      "kind": "archetype",
+      "label": {
+        "en": "Link cable archetype",
+        "es": "Arquetipo de cable de enlace"
+      },
+      "source": "Original generic archetype; connector interface dimensions from keystone standard parts.",
+      "values": {
+        "connector_a": "proprietary",
+        "connector_b": "proprietary",
+        "path": "s_curve"
+      }
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "route",
+      "label": {
+        "en": "Route and jacket",
+        "es": "Recorrido y cubierta"
+      }
+    },
+    {
+      "id": "interfaces",
+      "label": {
+        "en": "Standard shell bounds and archetype overmolds",
+        "es": "Límites de interfaz y recubrimientos de arquetipo"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "coil_pitch > jacket_diameter",
+      "severity": "error",
+      "message": {
+        "en": "Coil pitch must separate turns.",
+        "es": "El paso debe separar las vueltas."
+      }
+    },
+    {
+      "expression": "coil_od > jacket_diameter * 2",
+      "severity": "error",
+      "message": {
+        "en": "Coil OD must leave a center opening.",
+        "es": "El diámetro debe dejar una abertura central."
+      }
+    },
+    {
+      "expression": "boot_length > jacket_diameter",
+      "severity": "error",
+      "message": {
+        "en": "Boot must be longer than the jacket diameter.",
+        "es": "El alivio debe superar el diámetro del cable."
+      }
+    },
+    {
+      "expression": "length > boot_length * 4 + ferrite_length",
+      "severity": "error",
+      "message": {
+        "en": "Route must fit boots and ferrite.",
+        "es": "El recorrido debe alojar los alivios y la ferrita."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "coil-stretch",
+      "label": {
+        "en": "Stretch the coil",
+        "es": "Estirar la hélice"
+      },
+      "mode": "cable",
+      "from_state": {
+        "path": "coil",
+        "coil_pitch": 7
+      },
+      "to_state": {
+        "path": "coil",
+        "coil_pitch": 12
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "easing": "ease-in-out"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        250,
+        -280,
+        220
+      ],
+      "target": [
+        100,
+        0,
+        0
+      ]
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family cable-assembly --write cable-assembly/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "13968979f4cbaea8ffb438dbab285bfe742b8ad1e0b9503182994855eaba56e2",
+      "objects": 1,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "cable-assembly",
+    "axis_mapping": {
+      "length": "straight jacket span along X; connector A points -X",
+      "standard": "part +Z tip maps to outward cable tangent"
+    },
+    "awaiting_a_source": []
+  }
+}
