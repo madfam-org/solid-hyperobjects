@@ -376,6 +376,35 @@
         "base_units": 3,
         "formula": "per_part"
       }
+    },
+    {
+      "id": "configurable_screens",
+      "label": {
+        "en": "Configurable screens (CadQuery)",
+        "es": "Pantallas configurables (CadQuery)"
+      },
+      "description": {
+        "en": "CadQuery-only variation with an optional lower display. The original graph mode remains dual-screen and keeps its tested targets.",
+        "es": "Variante sólo de CadQuery con pantalla inferior opcional. El modo de grafo original conserva dos pantallas y sus pruebas."
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "lower_deck",
+        "upper_deck",
+        "hinge"
+      ],
+      "part_quantities": {
+        "lower_deck": 1,
+        "upper_deck": 1,
+        "hinge": 1
+      },
+      "estimate": {
+        "base_time": 14,
+        "per_unit": 3,
+        "per_part": 10
+      }
     }
   ],
   "parts": [
@@ -465,7 +494,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "deckshell_lower_box.w",
@@ -493,7 +523,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "deckshell_lower_box.d",
@@ -521,7 +552,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "deckshell_upper_box.h",
       "label": {
@@ -546,7 +578,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "deckshell_lower_box.h",
       "label": {
@@ -571,7 +604,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "deckshell_lower_round.radius",
@@ -599,7 +633,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "asm_upper_deck.angle",
       "label": {
@@ -624,7 +659,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "deckshell_lower_place.y",
@@ -652,7 +688,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "deckshell_lower_place.z",
       "label": {
@@ -677,7 +714,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "deckshell_upper_place.z",
       "label": {
@@ -702,7 +740,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_cyl.r",
       "label": {
@@ -727,7 +766,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingerelief_cyl.r",
       "label": {
@@ -752,7 +792,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingerelief_cyl.h",
       "label": {
@@ -777,7 +818,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_run.count",
       "label": {
@@ -802,7 +844,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_cyl.h",
       "label": {
@@ -827,7 +870,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_run.dx",
       "label": {
@@ -852,7 +896,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_place.x",
       "label": {
@@ -877,7 +922,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "hingebarrel_clip.w",
@@ -906,7 +952,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "hingebarrel_clip_place.y",
       "label": {
@@ -931,7 +978,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_pri_cut.w",
       "label": {
@@ -956,7 +1004,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_pri_cut.d",
       "label": {
@@ -981,7 +1030,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_pri_place.y",
       "label": {
@@ -1006,7 +1056,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_pri_place.z",
       "label": {
@@ -1031,7 +1082,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_sec_cut.w",
       "label": {
@@ -1056,7 +1108,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_sec_cut.d",
       "label": {
@@ -1081,7 +1134,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_sec_place.y",
       "label": {
@@ -1106,7 +1160,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "display_sec_place.z",
       "label": {
@@ -1131,7 +1186,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "display_pri_cut.h",
@@ -1159,7 +1215,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "dpad_arm_a.h",
@@ -1191,7 +1248,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "dpad_place.z",
@@ -1222,7 +1280,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "dpad_place.x",
       "label": {
@@ -1247,7 +1306,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "dpad_place.y",
       "label": {
@@ -1272,7 +1332,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "dpad_arm_a.w",
@@ -1300,7 +1361,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": [
         "dpad_arm_a.d",
@@ -1328,7 +1390,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_place.x",
       "label": {
@@ -1353,7 +1416,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_place.y",
       "label": {
@@ -1378,7 +1442,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_ring.count",
       "label": {
@@ -1403,7 +1468,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_ring.angle",
       "label": {
@@ -1428,7 +1494,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_offset.x",
       "label": {
@@ -1453,7 +1520,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "facebtn_seat.r",
       "label": {
@@ -1478,7 +1546,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "stick_row.count",
       "label": {
@@ -1503,7 +1572,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "stick_place.x",
       "label": {
@@ -1528,7 +1598,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "stick_row.dx",
       "label": {
@@ -1553,7 +1624,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "stick_place.y",
       "label": {
@@ -1578,7 +1650,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "stick_seat.r",
       "label": {
@@ -1603,7 +1676,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_run.count",
       "label": {
@@ -1628,7 +1702,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_place.x",
       "label": {
@@ -1653,7 +1728,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_run.dx",
       "label": {
@@ -1678,7 +1754,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_place.y",
       "label": {
@@ -1703,7 +1780,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_place.z",
       "label": {
@@ -1728,7 +1806,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_box.w",
       "label": {
@@ -1753,7 +1832,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_box.d",
       "label": {
@@ -1778,7 +1858,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "trigger_box.h",
       "label": {
@@ -1803,7 +1884,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "buttonrow_run.count",
       "label": {
@@ -1828,7 +1910,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "buttonrow_place.x",
       "label": {
@@ -1853,7 +1936,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "buttonrow_run.dx",
       "label": {
@@ -1878,7 +1962,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "buttonrow_place.y",
       "label": {
@@ -1903,7 +1988,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "buttonrow_seat.r",
       "label": {
@@ -1928,7 +2014,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "speaker_run.count",
       "label": {
@@ -1953,7 +2040,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "speaker_place.x",
       "label": {
@@ -1978,7 +2066,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "speaker_place.y",
       "label": {
@@ -2003,7 +2092,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "speaker_hole.r",
       "label": {
@@ -2028,7 +2118,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "speaker_run.dx",
       "label": {
@@ -2053,7 +2144,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_box.w",
       "label": {
@@ -2078,7 +2170,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_box.h",
       "label": {
@@ -2103,7 +2196,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_box.d",
       "label": {
@@ -2128,7 +2222,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_place.x",
       "label": {
@@ -2153,7 +2248,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_place.y",
       "label": {
@@ -2178,7 +2274,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_usb_place.z",
       "label": {
@@ -2203,7 +2300,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_jack_cyl.r",
       "label": {
@@ -2228,7 +2326,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_jack_cyl.h",
       "label": {
@@ -2253,7 +2352,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_jack_place.x",
       "label": {
@@ -2278,7 +2378,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_jack_place.y",
       "label": {
@@ -2303,7 +2404,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "port_jack_place.z",
       "label": {
@@ -2328,7 +2430,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_box.w",
       "label": {
@@ -2353,7 +2456,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_box.h",
       "label": {
@@ -2378,7 +2482,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_box.d",
       "label": {
@@ -2403,7 +2508,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_place.x",
       "label": {
@@ -2428,7 +2534,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_place.y",
       "label": {
@@ -2453,7 +2560,8 @@
         "upper_deck",
         "lower_deck",
         "hinge",
-        "graph_device"
+        "graph_device",
+        "configurable_screens"
       ],
       "binding": "slot_place.z",
       "label": {
@@ -2472,7 +2580,8 @@
       "group": "ports",
       "modes": [
         "device",
-        "lower_deck"
+        "lower_deck",
+        "configurable_screens"
       ],
       "label": {
         "en": "USB-C port",
@@ -2490,7 +2599,8 @@
       "group": "ports",
       "modes": [
         "device",
-        "lower_deck"
+        "lower_deck",
+        "configurable_screens"
       ],
       "label": {
         "en": "3.5 mm headphone jack",
@@ -2508,7 +2618,8 @@
       "group": "slot",
       "modes": [
         "device",
-        "lower_deck"
+        "lower_deck",
+        "configurable_screens"
       ],
       "label": {
         "en": "Cartridge slot",
@@ -2517,6 +2628,23 @@
       "tooltip": {
         "en": "ARCHETYPE DEFAULT, on at every preset: the registry's ports[] vocabulary has no game-card kind (device-geometry.report.md §4 records Nintendo's card slot as omitted for want of a matching enum), so nothing sources it either way. Same graph limitation as the port flags.",
         "es": "VALOR DEL ARQUETIPO, activo en todos los preajustes: el vocabulario ports[] del registro no tiene un tipo de tarjeta de juego (device-geometry.report.md §4 anota que la ranura de Nintendo se omitió por falta de un tipo en el enum), así que nada lo fija en ningún sentido. Misma limitación del grafo que los indicadores de puerto."
+      }
+    },
+    {
+      "id": "secondary_screen_present",
+      "type": "checkbox",
+      "default": true,
+      "group": "displays",
+      "modes": [
+        "configurable_screens"
+      ],
+      "label": {
+        "en": "Secondary screen present",
+        "es": "Pantalla secundaria presente"
+      },
+      "tooltip": {
+        "en": "CQ-only screen configuration. Original dual-screen and graph modes keep their existing geometry.",
+        "es": "Configuración de pantallas sólo en CadQuery. Los modos originales y el grafo conservan su geometría."
       }
     }
   ],
@@ -2559,6 +2687,14 @@
       "message": {
         "en": "The corner radius is more than half the deck: the fillet has no edge left to round.",
         "es": "El radio de esquina supera la mitad de la cubierta: el redondeo se queda sin arista."
+      }
+    },
+    {
+      "expression": "shoulder_button_count == 0 || shoulder_button_first_center_x - shoulder_button_width / 2 >= -deck_length / 2",
+      "severity": "error",
+      "message": {
+        "en": "Shoulder controls must fit within the deck length.",
+        "es": "Los controles superiores deben caber en la cubierta."
       }
     }
   ],
@@ -2682,6 +2818,15 @@
         }
       },
       "graph_device": {
+        "part_overrides": {
+          "hinge": {
+            "geometry.body_count": {
+              "expected": "hinge_knuckle_count"
+            }
+          }
+        }
+      },
+      "configurable_screens": {
         "part_overrides": {
           "hinge": {
             "geometry.body_count": {
@@ -3763,6 +3908,92 @@
         "usb_c_present": false,
         "headphone_present": true
       }
+    },
+    {
+      "slug": "archetype-single-screen",
+      "kind": "archetype",
+      "mode": "configurable_screens",
+      "label": {
+        "en": "Archetype — single screen",
+        "es": "Arquetipo — una pantalla"
+      },
+      "source": "Original single-screen clamshell, not a product. Closed envelope includes its rear hinge; control layout and unknown features are explicit archetype rules.",
+      "values": {
+        "deck_length": 150,
+        "deck_depth": 90,
+        "upper_deck_thickness": 9.9,
+        "lower_deck_thickness": 12.1,
+        "deck_center_y": 45,
+        "lower_deck_center_z": -6.05,
+        "upper_deck_center_z": 4.95,
+        "hinge_barrel_radius": 5.445,
+        "hinge_relief_radius": 5.845,
+        "hinge_relief_span": 75.8,
+        "hinge_knuckle_length": 21,
+        "hinge_knuckle_pitch": 27,
+        "hinge_knuckle_start_x": -27,
+        "primary_screen_width": 100,
+        "primary_screen_height": 60,
+        "primary_screen_center_y": 45,
+        "primary_screen_cut_center_z": 0.4,
+        "secondary_screen_width": 80,
+        "secondary_screen_height": 50,
+        "secondary_screen_center_y": 45,
+        "secondary_screen_cut_center_z": -0.4,
+        "dpad_center_x": -36,
+        "dpad_center_y": 45,
+        "face_button_center_x": 36,
+        "face_button_center_y": 45,
+        "face_button_count": 4,
+        "face_button_spacing_deg": 90,
+        "stick_count": 2,
+        "stick_first_center_x": -36,
+        "stick_pitch_x": 72,
+        "stick_center_y": 27,
+        "shoulder_button_count": 2,
+        "shoulder_button_first_center_x": -53.5,
+        "shoulder_button_pitch_x": 107,
+        "shoulder_button_center_y": 0,
+        "menu_button_count": 2,
+        "menu_button_first_center_x": 30,
+        "menu_button_pitch_x": 12,
+        "menu_button_center_y": 78,
+        "speaker_first_center_x": -44.75,
+        "speaker_center_y": 78,
+        "usb_c_center_x": 0,
+        "usb_c_center_y": 90,
+        "usb_c_center_z": -6.05,
+        "headphone_center_x": -45,
+        "headphone_center_y": 90,
+        "headphone_center_z": -6.05,
+        "cartridge_slot_center_x": 37.5,
+        "cartridge_slot_center_y": 90,
+        "cartridge_slot_center_z": -6.05,
+        "usb_c_present": true,
+        "headphone_present": true,
+        "secondary_screen_present": false,
+        "shoulder_button_width": 26
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "single-screen-fold",
+      "label": {
+        "en": "Fold single-screen clamshell",
+        "es": "Plegar consola de una pantalla"
+      },
+      "from_state": {
+        "secondary_screen_present": false,
+        "fold_angle": 0
+      },
+      "to_state": {
+        "secondary_screen_present": false,
+        "fold_angle": 180
+      },
+      "frames": 5,
+      "duration_ms": 2500,
+      "mode": "configurable_screens"
     }
   ]
 }

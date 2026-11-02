@@ -12,7 +12,7 @@ An archetype, not a replica
 ---------------------------
 
 This cartridge models a FAMILY — two rigid decks on a knuckle hinge along the
-long edge, a display in each, controls and ports on the lower deck — which is
+long edge, a configurable display arrangement, controls and ports on the lower deck — which is
 ours to license. It does not model any manufacturer's product.
 
 Named devices appear only as PRESETS. A preset is a set of numbers, and every
@@ -87,3 +87,12 @@ Product and company names that appear in preset labels and in provenance lines
 are the trademarks of their respective owners and are used only to say which
 published measurements a preset carries. Their use here is nominative: no
 affiliation, sponsorship or endorsement is claimed or implied.
+
+Single-screen extension
+-----------------------
+The CadQuery-only configurable_screens mode can omit the lower display. Its
+single-screen control positions, unknown counts/ports, deck split and hinge
+construction are written archetype rules, never claimed as maker measurements.
+A sourced complete display list is needed to route a named object to that mode;
+an uncovered or missing list never establishes absence. Original dual-screen
+and graph modes retain their geometry and coverage.
