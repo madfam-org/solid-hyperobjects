@@ -43,3 +43,21 @@ def test_edition_is_envelope_only_and_has_no_invented_internal_dimensions(monkey
     m = json.loads((ROOT/'plug-in-media/project.json').read_text())
     m['presets'] = [p]
     assert [(mode,part) for slug,mode,part,values in preset_targets(m)] == [('envelope','envelope')]
+
+
+@pytest.mark.parametrize('emit', ['presets', 'block', 'skipped'])
+def test_cli_emit_and_manifest_generation_use_the_same_supplemental_sources(emit, capsys):
+    import json
+    import presets
+    from common import generated
+    metadata, expected = generated(plug_in_media.FAMILY)
+    assert presets.main(['--family', 'plug-in-media', '--emit', emit]) == 0
+    result = json.loads(capsys.readouterr().out)
+    if emit == 'block':
+        assert result == {'_generated_from': metadata, 'presets': expected}
+        assert 'nintendo-64-the-legend-of-zelda-ocarina-of-time-jp' in result['_generated_from']['catalog']['supplemental_objects']
+    elif emit == 'skipped':
+        assert result == metadata['awaiting_a_source']
+    else:
+        assert result == expected
+        assert any(p['slug'] == 'nintendo-64-the-legend-of-zelda-ocarina-of-time-jp' for p in result)

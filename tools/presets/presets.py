@@ -35,13 +35,11 @@ from pathlib import Path
 from common import (
     REPO_ROOT,
     Family,
-    build_presets,
     check_manifest,
-    generated_from,
+    generated,
     report,
     write_manifest,
 )
-from hyperobjects_reference import load_family
 
 HERE = Path(__file__).resolve().parent
 #: Modules in this directory that are infrastructure, not families.
@@ -111,13 +109,11 @@ def main(argv=None) -> int:
         values, _ = fam.derive(fam.base, full=True)
         print(json.dumps(values, indent=2))
         return 0
-    objects = load_family(fam.slug, args.objects)
-    presets, skipped = build_presets(fam, objects)
+    metadata, presets = generated(fam, args.objects)
     if args.emit == "skipped":
-        print(json.dumps(skipped, indent=2, ensure_ascii=False))
+        print(json.dumps(metadata["awaiting_a_source"], indent=2, ensure_ascii=False))
     elif args.emit == "block":
-        print(json.dumps({"_generated_from": generated_from(fam, objects, skipped, args.objects),
-                          "presets": presets}, indent=2, ensure_ascii=False))
+        print(json.dumps({"_generated_from": metadata, "presets": presets}, indent=2, ensure_ascii=False))
     else:
         print(json.dumps(presets, indent=2, ensure_ascii=False))
     return 0
