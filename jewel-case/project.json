@@ -1,0 +1,754 @@
+{
+  "project": {
+    "name": "Jewel Case",
+    "slug": "jewel-case",
+    "version": "0.1.0",
+    "engine": "cadquery",
+    "difficulty": "intermediate",
+    "description": {
+      "en": "Original rigid media case with base, removable tray, disc hub and opening lid. Named presets carry catalog envelopes; mechanisms remain archetypal.",
+      "es": "Caja rígida original para medios con base, bandeja extraíble, retención de disco y tapa móvil. Los presets usan cotas documentadas; los mecanismos son arquetípicos."
+    },
+    "thumbnail": "/projects/jewel-case.webp",
+    "tags": [
+      "case",
+      "media",
+      "gaming",
+      "hyperobject",
+      "commons",
+      "cdg"
+    ],
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    }
+  },
+  "hyperobject": {
+    "domain": "consumer-electronics",
+    "commons_license": "CERN-OHL-W-2.0",
+    "cdg_interfaces": [
+      {
+        "id": "case_envelope",
+        "label": {
+          "en": "Closed case envelope",
+          "es": "Envolvente cerrada"
+        },
+        "geometry_type": "profile",
+        "compatible_with": [
+          "media-caddy",
+          "rugged-box"
+        ]
+      },
+      {
+        "id": "media_seat",
+        "label": {
+          "en": "Disc retention seat",
+          "es": "Retención de disco"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "disc-media"
+        ]
+      },
+      {
+        "id": "booklet_seat",
+        "label": {
+          "en": "Booklet seat",
+          "es": "Asiento del manual"
+        },
+        "geometry_type": "surface",
+        "compatible_with": [
+          "case-insert",
+          "saddle-stitch"
+        ]
+      },
+      {
+        "id": "hinge_axis",
+        "label": {
+          "en": "Lid hinge axis",
+          "es": "Eje de tapa"
+        },
+        "geometry_type": "hinge",
+        "compatible_with": []
+      }
+    ],
+    "composition": {
+      "description": {
+        "en": "Shared media_cases pans, hub, hinge and booklet tabs, inlined at build.",
+        "es": "Componentes compartidos media_cases de caja, retención, bisagra y pestañas, integrados al generar."
+      }
+    }
+  },
+  "export_formats": [
+    "stl",
+    "step",
+    "glb",
+    "3mf"
+  ],
+  "parameters": [
+    {
+      "id": "case_width",
+      "default": 150,
+      "label": {
+        "en": "Case width",
+        "es": "Ancho de caja"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 600,
+      "step": 0.1
+    },
+    {
+      "id": "case_height",
+      "default": 140,
+      "label": {
+        "en": "Case height",
+        "es": "Altura de caja"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 560,
+      "step": 0.1
+    },
+    {
+      "id": "case_thickness",
+      "default": 14,
+      "label": {
+        "en": "Closed thickness",
+        "es": "Grosor cerrado"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 56,
+      "step": 0.1
+    },
+    {
+      "id": "wall",
+      "default": 1.2,
+      "label": {
+        "en": "Wall thickness",
+        "es": "Grosor de pared"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "clearance",
+      "default": 0.4,
+      "label": {
+        "en": "Clearance",
+        "es": "Holgura"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "corner_radius",
+      "default": 2,
+      "label": {
+        "en": "Corner radius",
+        "es": "Radio de esquina"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "lid_angle",
+      "default": 0,
+      "label": {
+        "en": "Lid angle",
+        "es": "Ángulo de tapa"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0,
+      "max": 180,
+      "step": 0.1
+    },
+    {
+      "id": "tray_kind",
+      "default": "disc_hub",
+      "label": {
+        "en": "Tray kind",
+        "es": "Tipo de bandeja"
+      },
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "disc_hub",
+          "label": {
+            "en": "Disc hub",
+            "es": "Retención de disco"
+          }
+        },
+        {
+          "value": "flip_tray",
+          "label": {
+            "en": "Flip tray",
+            "es": "Bandeja abatible"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tray_angle",
+      "default": 0,
+      "label": {
+        "en": "Tray angle",
+        "es": "Ángulo de bandeja"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0,
+      "max": 180,
+      "step": 0.1
+    },
+    {
+      "id": "disc_diameter",
+      "default": 120.0,
+      "label": {
+        "en": "Disc diameter",
+        "es": "Diámetro de disco"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 480.0,
+      "step": 0.1
+    },
+    {
+      "id": "hub_diameter",
+      "default": 14.5,
+      "label": {
+        "en": "Hub diameter",
+        "es": "Diámetro de retención"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 58.0,
+      "step": 0.1
+    },
+    {
+      "id": "hub_height",
+      "default": 4,
+      "label": {
+        "en": "Hub height",
+        "es": "Altura de retención"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "hub_kind",
+      "default": "rosette",
+      "label": {
+        "en": "Hub kind",
+        "es": "Tipo de retención"
+      },
+      "group": "design",
+      "type": "select",
+      "options": [
+        {
+          "value": "rosette",
+          "label": {
+            "en": "Rosette",
+            "es": "Roseta"
+          }
+        },
+        {
+          "value": "button",
+          "label": {
+            "en": "Button",
+            "es": "Botón"
+          }
+        }
+      ]
+    },
+    {
+      "id": "petal_count",
+      "default": 8,
+      "label": {
+        "en": "Petal count",
+        "es": "Número de pétalos"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 3,
+      "max": 12,
+      "step": 1
+    },
+    {
+      "id": "booklet_tabs",
+      "default": true,
+      "label": {
+        "en": "Booklet tabs",
+        "es": "Pestañas del manual"
+      },
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "spine_window",
+      "default": true,
+      "label": {
+        "en": "Spine window",
+        "es": "Ventana del lomo"
+      },
+      "group": "design",
+      "type": "checkbox"
+    },
+    {
+      "id": "hinge_pin_radius",
+      "default": 2,
+      "label": {
+        "en": "Hinge pin radius",
+        "es": "Radio del eje"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "hinge_pin_length",
+      "default": 10,
+      "label": {
+        "en": "Hinge pin length",
+        "es": "Longitud del eje"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 40,
+      "step": 0.1
+    },
+    {
+      "id": "tab_width",
+      "default": 4,
+      "label": {
+        "en": "Tab width",
+        "es": "Ancho de pestaña"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1
+    },
+    {
+      "id": "tab_length",
+      "default": 8,
+      "label": {
+        "en": "Tab length",
+        "es": "Longitud de pestaña"
+      },
+      "group": "design",
+      "type": "slider",
+      "min": 0.1,
+      "max": 32,
+      "step": 0.1
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "design",
+      "label": {
+        "en": "Design",
+        "es": "Diseño"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      }
+    },
+    {
+      "id": "tray",
+      "label": {
+        "en": "Tray",
+        "es": "Bandeja"
+      }
+    },
+    {
+      "id": "lid",
+      "label": {
+        "en": "Lid",
+        "es": "Tapa"
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Closed envelope",
+        "es": "Envolvente cerrada"
+      }
+    }
+  ],
+  "modes": [
+    {
+      "id": "case",
+      "label": {
+        "en": "Assembled case",
+        "es": "Caja ensamblada"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "base",
+        "tray",
+        "lid"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "envelope",
+      "label": {
+        "en": "Closed envelope",
+        "es": "Envolvente cerrada"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "envelope"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "base"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "tray",
+      "label": {
+        "en": "Tray",
+        "es": "Bandeja"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "tray"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    },
+    {
+      "id": "lid",
+      "label": {
+        "en": "Lid",
+        "es": "Tapa"
+      },
+      "cq_file": "main.py",
+      "scad_file": "main.py",
+      "engine": "cadquery",
+      "parts": [
+        "lid"
+      ],
+      "estimate": {
+        "base_time": 3,
+        "per_part": 2
+      }
+    }
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "body_count": {
+            "expected": 1
+          }
+        }
+      }
+    }
+  },
+  "constraints": [
+    {
+      "expression": "case_width > disc_diameter + wall * 4 && case_height > disc_diameter + wall * 4",
+      "severity": "error",
+      "message": {
+        "en": "The disc and tray must fit the case.",
+        "es": "El disco y la bandeja deben caber en la caja."
+      }
+    },
+    {
+      "expression": "case_thickness > wall * 4 + hub_height",
+      "severity": "error",
+      "message": {
+        "en": "The case must clear the disc hub.",
+        "es": "La caja debe dejar espacio para la retención."
+      }
+    },
+    {
+      "expression": "hub_diameter < disc_diameter / 2 && hub_diameter > 4",
+      "severity": "error",
+      "message": {
+        "en": "The hub must fit the medium.",
+        "es": "La retención debe caber en el medio."
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "lid-open",
+      "label": {
+        "en": "Open lid",
+        "es": "Abrir tapa"
+      },
+      "from_state": {
+        "lid_angle": 0
+      },
+      "to_state": {
+        "lid_angle": 180
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "mode": "case"
+    },
+    {
+      "id": "tray-flip",
+      "label": {
+        "en": "Flip double tray",
+        "es": "Girar bandeja doble"
+      },
+      "from_state": {
+        "tray_kind": "flip_tray",
+        "case_thickness": 20,
+        "tray_angle": 0
+      },
+      "to_state": {
+        "tray_kind": "flip_tray",
+        "case_thickness": 20,
+        "tray_angle": 180
+      },
+      "frames": 6,
+      "duration_ms": 2500,
+      "mode": "case"
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrica"
+      },
+      "position": [
+        200,
+        -200,
+        180
+      ],
+      "target": [
+        0,
+        0,
+        10
+      ]
+    }
+  ],
+  "_generated_from": {
+    "note": "GENERATED — do not edit `presets` by hand. Every dimension in every preset is read from the keystone's reference-objects catalog (hyperobjects_reference) or derived from it by the archetype rules in tools/presets and in docs/README.md. Re-run the generator to change them.",
+    "generator": "solid-hyperobjects:tools/presets/presets.py",
+    "command": "python3 tools/presets/presets.py --family jewel-case --write jewel-case/project.json",
+    "catalog": {
+      "package": "hyperobjects-spec",
+      "module": "hyperobjects_reference",
+      "schema": "reference-object",
+      "family_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "objects": 0,
+      "rule": "null = unresolved, never guessed; every number carries its source"
+    },
+    "family": "jewel-case",
+    "axis_mapping": {
+      "case_width": "closed.width -> X",
+      "case_height": "closed.height -> Y",
+      "case_thickness": "closed.depth -> Z"
+    },
+    "awaiting_a_source": []
+  },
+  "presets": [
+    {
+      "slug": "archetype-single",
+      "label": {
+        "en": "Archetype — single",
+        "es": "Arquetipo — sencillo"
+      },
+      "kind": "archetype",
+      "source": "Original case dimensions and construction, not a product. Disc diameter and hub hole reference the keystone optical-disc-cd-120mm standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 140,
+        "case_thickness": 14,
+        "wall": 1.2,
+        "clearance": 0.4,
+        "corner_radius": 2,
+        "lid_angle": 0,
+        "tray_kind": "disc_hub",
+        "tray_angle": 0,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "hub_kind": "rosette",
+        "petal_count": 8,
+        "booklet_tabs": true,
+        "spine_window": true,
+        "hinge_pin_radius": 2,
+        "hinge_pin_length": 10,
+        "tab_width": 4,
+        "tab_length": 8
+      }
+    },
+    {
+      "slug": "archetype-slim",
+      "label": {
+        "en": "Archetype — slim",
+        "es": "Arquetipo — delgado"
+      },
+      "kind": "archetype",
+      "source": "Original case dimensions and construction, not a product. Disc diameter and hub hole reference the keystone optical-disc-cd-120mm standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 140,
+        "case_thickness": 10,
+        "wall": 1.2,
+        "clearance": 0.4,
+        "corner_radius": 2,
+        "lid_angle": 0,
+        "tray_kind": "disc_hub",
+        "tray_angle": 0,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 3,
+        "hub_kind": "rosette",
+        "petal_count": 8,
+        "booklet_tabs": true,
+        "spine_window": true,
+        "hinge_pin_radius": 2,
+        "hinge_pin_length": 10,
+        "tab_width": 4,
+        "tab_length": 8
+      }
+    },
+    {
+      "slug": "archetype-double",
+      "label": {
+        "en": "Archetype — double",
+        "es": "Arquetipo — doble"
+      },
+      "kind": "archetype",
+      "source": "Original case dimensions and construction, not a product. Disc diameter and hub hole reference the keystone optical-disc-cd-120mm standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 150,
+        "case_height": 140,
+        "case_thickness": 20,
+        "wall": 1.2,
+        "clearance": 0.4,
+        "corner_radius": 2,
+        "lid_angle": 0,
+        "tray_kind": "flip_tray",
+        "tray_angle": 0,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "hub_kind": "rosette",
+        "petal_count": 8,
+        "booklet_tabs": true,
+        "spine_window": true,
+        "hinge_pin_radius": 2,
+        "hinge_pin_length": 10,
+        "tab_width": 4,
+        "tab_length": 8
+      }
+    },
+    {
+      "slug": "archetype-fatbox",
+      "label": {
+        "en": "Archetype — fatbox",
+        "es": "Arquetipo — caja gruesa"
+      },
+      "kind": "archetype",
+      "source": "Original case dimensions and construction, not a product. Disc diameter and hub hole reference the keystone optical-disc-cd-120mm standard part.",
+      "standard_part": {
+        "key": "optical-disc-cd-120mm",
+        "digest": "49a1f954c2fa9e0bfb2eea13010d3a7d3bccadd905ad6ba87669ca619120d232"
+      },
+      "values": {
+        "case_width": 160,
+        "case_height": 150,
+        "case_thickness": 32,
+        "wall": 1.2,
+        "clearance": 0.4,
+        "corner_radius": 2,
+        "lid_angle": 0,
+        "tray_kind": "flip_tray",
+        "tray_angle": 0,
+        "disc_diameter": 120.0,
+        "hub_diameter": 14.5,
+        "hub_height": 4,
+        "hub_kind": "rosette",
+        "petal_count": 8,
+        "booklet_tabs": true,
+        "spine_window": true,
+        "hinge_pin_radius": 2,
+        "hinge_pin_length": 10,
+        "tab_width": 4,
+        "tab_length": 8
+      }
+    }
+  ]
+}
