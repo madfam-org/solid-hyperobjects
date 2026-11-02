@@ -140,6 +140,7 @@ primary_screen_width = float(PARAM(lambda: primary_screen_width, 100.0))
 primary_screen_height = float(PARAM(lambda: primary_screen_height, 60.0))
 primary_screen_center_y = float(PARAM(lambda: primary_screen_center_y, 45.0))
 primary_screen_cut_center_z = float(PARAM(lambda: primary_screen_cut_center_z, 0.4))
+secondary_screen_present = bool(PARAM(lambda: secondary_screen_present, True))
 secondary_screen_width = float(PARAM(lambda: secondary_screen_width, 80.0))
 secondary_screen_height = float(PARAM(lambda: secondary_screen_height, 50.0))
 secondary_screen_center_y = float(PARAM(lambda: secondary_screen_center_y, 45.0))
@@ -582,12 +583,13 @@ def lower_deck_part():
         "corner_radius": corner_radius,
     })
     solid = solid.cut(_relief())
-    solid = solid.cut(display_panel({
-        "width": secondary_screen_width, "height": secondary_screen_height,
-        "recess_depth": screen_recess_depth,
-        "center_x": 0.0, "center_y": secondary_screen_center_y,
-        "cut_center_z": secondary_screen_cut_center_z,
-    }))
+    if secondary_screen_present:
+        solid = solid.cut(display_panel({
+            "width": secondary_screen_width, "height": secondary_screen_height,
+            "recess_depth": screen_recess_depth,
+            "center_x": 0.0, "center_y": secondary_screen_center_y,
+            "cut_center_z": secondary_screen_cut_center_z,
+        }))
     solid = solid.cut(d_pad({
         "arm_length": dpad_arm_length, "arm_width": dpad_arm_width,
         "recess_depth": control_recess_depth,

@@ -19,7 +19,7 @@ is Z = 0.
 """
 from __future__ import annotations
 
-from common import DeriveError, Family, control_count, display, has_port, rnd, state
+from common import DeriveError, Family, control_count, display, has_port, is_sourced, rnd, state
 
 # ─────────────────────────────────────────────────────────────────────────────
 # The archetype. Every number below is OURS, not a device claim. They are the
@@ -129,7 +129,7 @@ PRESET_PARAM_ORDER = [
 
 #: Parameters that are pure archetype — never in a preset, only in the defaults.
 ARCHETYPE_ONLY_PARAMS = [
-    "corner_radius", "fold_angle", "screen_recess_depth", "control_recess_depth",
+    "secondary_screen_present", "corner_radius", "fold_angle", "screen_recess_depth", "control_recess_depth",
     "control_cut_center_z", "hinge_knuckle_count", "hinge_clip_span",
     "hinge_clip_center_y", "dpad_arm_length", "dpad_arm_width",
     "face_button_circle_radius", "face_button_radius", "stick_radius",
@@ -168,7 +168,7 @@ def read_device(obj: dict) -> dict | None:
     h, w, d = closed.get("height"), closed.get("width"), closed.get("depth")
     if h is None or w is None or d is None:
         return None
-    return {
+    src = {
         "slug": obj["key"],
         "deck_length": float(h),     # closed.height == the LONG axis
         "deck_depth": float(w),
@@ -182,6 +182,11 @@ def read_device(obj: dict) -> dict | None:
         "usb_c_present": has_port(obj, "usb_c"),
         "headphone_present": has_port(obj, "headphone_3_5"),
     }
+    roles = {d.get("role") for d in obj.get("displays") or []}
+    if is_sourced(obj, "displays") and roles == {"primary"}:
+        src["secondary_screen_present"] = False
+        src["_preset_mode"] = "configurable_screens"
+    return src
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -205,6 +210,8 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     L = float(src["deck_length"])
     D = float(src["deck_depth"])
     T = float(src["closed_thickness"])
+    published_depth = D
+    single = src.get("secondary_screen_present") is False
 
     # ── L0 envelope ──────────────────────────────────────────────────────────
     v["deck_length"] = rnd(L)
@@ -222,22 +229,26 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     secondary = src.get("secondary_screen")
     if primary is None:
         fallbacks.append("primary display active area")
-        pw, ph = ARCHETYPE_BASE["primary_screen"]
+        pw, ph = (L * .72, published_depth * .50) if single else ARCHETYPE_BASE["primary_screen"]
     else:
         pw, ph = primary[0], primary[1]
     if secondary is None:
-        fallbacks.append("secondary display active area")
-        sw, sh = ARCHETYPE_BASE["secondary_screen"]
+        if single:
+            fallbacks.append("single-screen control layout (archetype)")
+            sw, sh = L * .20, published_depth * .20
+        else:
+            fallbacks.append("secondary display active area")
+            sw, sh = ARCHETYPE_BASE["secondary_screen"]
     else:
         sw, sh = secondary[0], secondary[1]
 
     recess = R["screen_recess_depth"]
-    if primary is not None or full:
+    if primary is not None or full or single:
         v["primary_screen_width"] = rnd(pw)
         v["primary_screen_height"] = rnd(ph)
         v["primary_screen_center_y"] = rnd(D / 2.0)
         v["primary_screen_cut_center_z"] = rnd(recess / 2.0)
-    if secondary is not None or full:
+    if secondary is not None or full or single:
         v["secondary_screen_width"] = rnd(sw)
         v["secondary_screen_height"] = rnd(sh)
         v["secondary_screen_center_y"] = rnd(D / 2.0)
@@ -275,7 +286,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["hinge_knuckle_start_x"] = rnd(-(hinge_run - knuckle_len) / 2.0)
 
     # ── L2 controls ──────────────────────────────────────────────────────────
-    cluster_x = sw / 2.0 + R["control_margin"]
+    cluster_x = L * .24 if single else sw / 2.0 + R["control_margin"]
     centre_y = D / 2.0
     front_row_y = min(centre_y + sh / 2.0 + R["front_row_gap"],
                       D - R["edge_margin"])
@@ -288,7 +299,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     face_n = src.get("face_button_count")
     if face_n is None:
         fallbacks.append("face-button count")
-        face_n = ARCHETYPE_BASE["face_button_count"]
+        face_n = 2 if single else ARCHETYPE_BASE["face_button_count"]
     if face_n is not None or full:
         v["face_button_count"] = int(face_n)
         v["face_button_spacing_deg"] = rnd(360.0 / int(face_n))
@@ -296,7 +307,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     stick_n = src.get("stick_count")
     if stick_n is None:
         fallbacks.append("stick count")
-        stick_n = ARCHETYPE_BASE["stick_count"]
+        stick_n = 0 if single else ARCHETYPE_BASE["stick_count"]
     v["stick_count"] = int(stick_n)
     v["stick_first_center_x"] = rnd(-cluster_x)
     v["stick_pitch_x"] = rnd(2.0 * cluster_x)
@@ -306,8 +317,12 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     if shoulder_n is None:
         fallbacks.append("shoulder-button count")
         shoulder_n = ARCHETYPE_BASE["shoulder_button_count"]
-    shoulder_x = hinge_run / 2.0 + R["shoulder_gap"] + R["shoulder_button_width"] / 2.0
-    if shoulder_x + R["shoulder_button_width"] / 2.0 > L / 2.0:
+    shoulder_width = min(R["shoulder_button_width"], L * .18) if single else R["shoulder_button_width"]
+    shoulder_gap = min(R["shoulder_gap"], L * .02) if single else R["shoulder_gap"]
+    shoulder_x = hinge_run / 2.0 + shoulder_gap + shoulder_width / 2.0
+    if single:
+        v["shoulder_button_width"] = rnd(shoulder_width)
+    if shoulder_x + shoulder_width / 2.0 > L / 2.0:
         raise DeriveError(
             f"{src['slug']}: shoulder cut would run off the {L} mm deck end."
         )
@@ -341,18 +356,21 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["headphone_center_x"] = rnd(-L * R["headphone_offset_x"])
     v["headphone_center_y"] = rnd(D)
     v["headphone_center_z"] = rnd(-t_lower / 2.0)
-    v["cartridge_slot_center_x"] = rnd(L * R["cartridge_slot_offset_x"])
+    v["cartridge_slot_center_x"] = rnd(L * (.25 if single else R["cartridge_slot_offset_x"]))
     v["cartridge_slot_center_y"] = rnd(D)
     v["cartridge_slot_center_z"] = rnd(-t_lower / 2.0)
     for key in ("usb_c_present", "headphone_present"):
         flag = src.get(key)
         if flag is None:
             fallbacks.append(key.replace("_present", "").replace("_", "-") + " port")
-            flag = ARCHETYPE_BASE[key]
+            flag = False if single else ARCHETYPE_BASE[key]
         v[key] = bool(flag)
 
+    if full or single:
+        v["secondary_screen_present"] = not single
     if not full:
-        return {k: v[k] for k in PRESET_PARAM_ORDER if k in v}, fallbacks
+        order = PRESET_PARAM_ORDER + (["secondary_screen_present", "shoulder_button_width"] if single else [])
+        return {k: v[k] for k in order if k in v}, fallbacks
 
     # ── archetype-only parameters (defaults emission) ────────────────────────
     v["corner_radius"] = rnd(R["corner_radius"])
@@ -369,7 +387,7 @@ def derive(src: dict, *, full: bool) -> tuple[dict, list[str]]:
     v["face_button_radius"] = rnd(R["face_button_radius"])
     v["stick_radius"] = rnd(R["stick_radius"])
     v["menu_button_radius"] = rnd(R["menu_button_radius"])
-    v["shoulder_button_width"] = rnd(R["shoulder_button_width"])
+    v["shoulder_button_width"] = rnd(shoulder_width)
     v["shoulder_button_depth"] = rnd(R["shoulder_button_depth"])
     v["shoulder_button_height"] = rnd(R["shoulder_button_height"])
     v["shoulder_button_center_z"] = rnd(-t_lower / 2.0)
@@ -401,6 +419,14 @@ CAVEATS = {
     ),
 }
 
+def _single_screen_archetype():
+    values, _ = derive(dict(ARCHETYPE_BASE, secondary_screen_present=False), full=False)
+    return {"slug": "archetype-single-screen", "kind": "archetype", "mode": "configurable_screens",
+        "label": {"en": "Archetype — single screen", "es": "Arquetipo — una pantalla"},
+        "source": "Original single-screen clamshell, not a product. Closed envelope includes its rear hinge; control layout and unknown features are explicit archetype rules.",
+        "values": values}
+
+
 FAMILY = Family(
     slug="clamshell-dual-screen-handheld",
     base=ARCHETYPE_BASE,
@@ -413,4 +439,5 @@ FAMILY = Family(
     },
     source_line="envelope closed height x width x depth as published.",
     caveats=CAVEATS,
+    extra_presets=[_single_screen_archetype()],
 )

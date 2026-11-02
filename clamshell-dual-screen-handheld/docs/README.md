@@ -265,3 +265,45 @@ weld it. Increase `hinge_relief_radius` for your process.
 archetype's three load-bearing geometric decisions, where it sits on Telesia's
 resolution ladder, and what the graph twin cannot yet express, lane by lane
 (G-EXPR, G-NODES-1, G-NODES-2, G-CLUSTERS, G-SPEC).
+
+## Optional lower display (CadQuery configuration)
+
+`configurable_screens` adds an optional lower display through the live
+`secondary_screen_present` parameter. The existing device, print-part and graph
+modes retain their defaults, all thirteen named preset value maps, and graph
+bytes. The new mode is CadQuery-only: the current graph does not express this
+conditional screen. No parity exemption is added and no existing target is
+removed. The original graph mode's three default part targets remain verified;
+its legacy preset scoping is unchanged.
+
+A complete sourced `displays` list containing only the primary display routes a
+named object to this new mode. An uncovered list does not prove absence. The
+original frontlit Game Boy Advance SP AGS-001 can use this route once the
+keystone pin includes its Nintendo UK Screen-row coverage. AGS-101 remains
+unresolved; no dimensions or display facts are borrowed from AGS-001.
+
+Nintendo UK publishes a 2.9-inch, 240×160 display and an unlabeled
+40.8mm×61.2mm pair. The keystone keeps that pair raw and applies its existing
+square-pixel diagonal/resolution law, yielding 61.3×40.9 mm from the rounded
+2.9-inch diagonal. Those values are derived, not direct labeled-axis measures.
+[Manufacturer source](https://www.nintendo.com/en-gb/Hardware/Nintendo-History/Game-Boy-Advance-SP/Game-Boy-Advance-SP-627141.html).
+
+The new single-screen rule uses the published closed envelope directly. The
+existing hinge component is clipped at the rear seam plane, so its positive-Y
+half stays inside the decks' depth. The GBA SP source candidate's complete closed
+assembly is 82×84.6×24.3 mm along X/Y/Z (X hinge axis, +Y decks, Z seam plane zero).
+This is an archetype envelope, not the shape of a manufacturer's hinge or shell.
+
+Without a lower display, its virtual layout region takes 20% of deck length and
+published depth; it places controls and does not create a display recess. Control
+clusters use 24% of deck length. Shoulder width is min(26 mm,18% length), gap
+min(4 mm,2% length), and the generic media opening moves to 25% of length. Unknown
+single-screen controls default to two face buttons, no sticks and no USB-C or
+headphone opening; each unknown group remains named as an archetype fallback.
+Primary area, control counts/positions, deck split and ports remain explicitly
+sourced, derived or archetypal as the generated provenance records them.
+
+An original `archetype-single-screen` preset demonstrates the mode at the frozen
+pin. The source-backed AGS-001 preset is added only by the catalog generator after
+a repin; it is never hand-entered. The new fold animation changes real geometry.
+Retail package exterior dimensions are not used as device or case inside sizes.

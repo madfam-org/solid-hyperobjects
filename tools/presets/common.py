@@ -202,6 +202,10 @@ def build_presets(fam: Family, objects: list[dict]) -> tuple[list[dict], list[di
             },
             "values": values,
         }
+        # A family may route an explicitly supported variation to its own mode.
+        # This does not change unscoped legacy presets or their render targets.
+        if src.get("_preset_mode"):
+            preset["mode"] = src["_preset_mode"]
         if fam.registry_extra is not None:
             preset["registry"].update(fam.registry_extra(obj, values))
         if caveat:
