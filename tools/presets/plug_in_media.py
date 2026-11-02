@@ -358,5 +358,9 @@ FAMILY = Family(
     source_line="format shell axes or exact-edition media axes as documented; edition presets render only a conservative envelope; features as quoted.",
     registry_extra=registry_extra,
     extra_presets=_archetype_presets(),
-    supplemental_keys=("nintendo-64-the-legend-of-zelda-ocarina-of-time-jp",),
+    supplemental_keys=(
+        "nintendo-64-the-legend-of-zelda-ocarina-of-time-jp",
+        "nintendo-64-the-legend-of-zelda-majoras-mask-jp",
+        "nintendo-64-the-legend-of-zelda-majoras-mask-expansion-pak-jp",
+    ),
 )
