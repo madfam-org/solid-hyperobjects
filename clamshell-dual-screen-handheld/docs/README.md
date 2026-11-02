@@ -112,8 +112,8 @@ validation before the graph renders.)
   material-aware, and the catalog's `materials` block is null for every device
   in this family.
 - **Societal benefit:** a dimensioned, parametric model of the dual-screen
-  handhelds people actually own lets anyone fabricate a cradle, a dock, a travel
-  shell or a repair fixture that fits — for hardware whose manufacturer publishes
+  handhelds people actually own helps dimension a cradle, a dock, a travel
+  shell or a repair fixture against a documented envelope — for hardware whose manufacturer publishes
   an outline and nothing else, and for hardware whose manufacturer is gone.
 - **Licence:** CERN-OHL-W-2.0
 

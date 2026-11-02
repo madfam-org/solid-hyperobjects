@@ -141,3 +141,7 @@ are unknown and are not rendered. The bottom contact-edge frame is an original
 family convention. Package exterior dimensions are not used as case interior or
 media dimensions. Consumers must preserve the preset's mode and
 `geometry_scope: measured-envelope-only` provenance.
+
+Current source-preset projections and envelope checks are recorded in the
+[coordinated refresh evidence](../../docs/gaming-reference-refresh-verification.json).
+The earlier frozen-pin proof remains a historical verification snapshot.

@@ -1,0 +1,3786 @@
+{
+  "profile": "gaming-reference-refresh/1",
+  "keystone_commit": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+  "catalog_objects": 294,
+  "scope": "Published measurements and covered features drive original family geometry. Surface profiles, panel layouts, mechanisms and unspecified media sizes remain authored approximations. These views do not establish the original appearance, interior clearance or physical fit.",
+  "runtime": {
+    "cadquery": "2.7.0",
+    "hyperobjects_spec": "0.20.0",
+    "direct_url": {
+      "url": "https://github.com/madfam-org/hyperobjects-spec.git",
+      "vcs_info": {
+        "commit_id": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+        "requested_revision": "43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd",
+        "vcs": "git"
+      }
+    }
+  },
+  "projection_count": 140,
+  "source_presets": [
+    {
+      "family": "home-console",
+      "preset": "atari-2600-cx2600-light-sixer",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "adfc4fd432f67cc08373845252a3ea619a87337a070c0055b752e2725a2a8194",
+      "resolved_parameters_sha256": "3beeb818d0211d0d4c03e10a79eeb220f3e87aec0e38da73e6662fc13f1b7db7",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/atari-2600-cx2600-light-sixer-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "fcbf2881ae0543b838a1df9e8a1b0f9ba83bbd478ccf74ad1ba81869227fb9d9"
+        },
+        {
+          "path": "home-console/docs/projections/atari-2600-cx2600-light-sixer-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "1440f328cb0f4ce7e66dc4e0c899b7baae037268ffca1181241fc897f3bb478b"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          346.0000002,
+          232.0000002,
+          89.00000019999999
+        ],
+        "expected_xyz_mm": [
+          346,
+          232,
+          89
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "atari-2600-cx2600a",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "7bee1abbdb04c401b8b3857bffd0e3397d01b9ae196a2a0108a0fb7ec99cf2b4",
+      "resolved_parameters_sha256": "c9b86923a9b73d6e906569fd22f881508cf4d88b3c4f1102a78974fb9e0f8357",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/atari-2600-cx2600a-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "9e68529354b2a2cb1ed696a27731d60fb36de6f25613bfffd654436403cbd2f3"
+        },
+        {
+          "path": "home-console/docs/projections/atari-2600-cx2600a-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "aaa8d1b3eba4f66e60700c899319b0b9b9e587953b6ad68ff9e570423d0c3ce1"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          336.6000002,
+          241.3000002,
+          108.00000019999999
+        ],
+        "expected_xyz_mm": [
+          336.6,
+          241.3,
+          108
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "coleco-colecovision",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "10dbc69a90d057504e13f96d1b4d8491681080988ed760555359030b6319efe8",
+      "resolved_parameters_sha256": "3f1a81ab58bc954a7b086d31cedf25614a8de400dff462ae37e3cb7cf873e79d",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/coleco-colecovision-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "33a46631da39ddcd040b8b41f06a2d91854720db35608e7cb537fc6ad1e5cccc"
+        },
+        {
+          "path": "home-console/docs/projections/coleco-colecovision-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "a6479f1d42c696f84e13b9213be670c4501dce3c02912c5bc75b939ff0839a8d"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          381.0000002,
+          241.3000002,
+          101.60000019999998
+        ],
+        "expected_xyz_mm": [
+          381,
+          241.3,
+          101.6
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "fairchild-channel-f",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "9cc9daa57ecb699d03a7ba591a7946eb66a7d28c0d3d0644938b678d11e8af12",
+      "resolved_parameters_sha256": "2ddd250542f8c22eb86ed67073ed8e5e2ba0f2ff127f729893021072769c5a3a",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/fairchild-channel-f-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "b404797dae9749165af042735aa85e77f69b281af98bcab0aa18bf186e1d5a34"
+        },
+        {
+          "path": "home-console/docs/projections/fairchild-channel-f-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "3465c9543c265e01b354ab86b63321625f18b21b9b30d1ed055373a2d75ad459"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          304.8000002,
+          330.2000002,
+          88.9000002
+        ],
+        "expected_xyz_mm": [
+          304.8,
+          330.2,
+          88.9
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "gce-vectrex",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "9c0397c43603081f21a6bb8a5d01713c8ac1f6c0998e60f72933f2f41402fbf4",
+      "resolved_parameters_sha256": "aa917070bf65cc1bd50f655a9e87bf8da79749eea6bdba8801b1c54266657e6f",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/gce-vectrex-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "65b43bb5cf0b47022412809d7edf038225e3b433c877dbfa4f12d0d3a861110f"
+        },
+        {
+          "path": "home-console/docs/projections/gce-vectrex-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "b726cfbedaa2dec9b3010e99af2f393c0a459d102c7614bf9d9306011b0f05a0"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          241.3000002,
+          292.1000002,
+          381.00000020000004
+        ],
+        "expected_xyz_mm": [
+          241.3,
+          292.1,
+          381
+        ],
+        "max_error_mm": 2.0000004496978363e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "magnavox-odyssey-2",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "1304008abde5f29b876eaa5d083eb05ea41a4ae0309b5b49b98af14cb3cbbc96",
+      "resolved_parameters_sha256": "b1ff6e8df97b50d778fba14901852b97701fbf7b1b7417454802218db138019a",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/magnavox-odyssey-2-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "17626999ca168ba01844ed47010b357fa9ff84ceef87f8b6b4bc51ddd473b682"
+        },
+        {
+          "path": "home-console/docs/projections/magnavox-odyssey-2-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "e9dcb7695b98fe156ddf76e07b53a00077fc2369705929c2e397bef80f603271"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          355.6000002,
+          330.2000002,
+          114.30000019999999
+        ],
+        "expected_xyz_mm": [
+          355.6,
+          330.2,
+          114.3
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "mattel-intellivision-ii",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "06365ed2b6560cc0042c5d578130b17a0d8e1e395cda68191e656b10546a7f3b",
+      "resolved_parameters_sha256": "c6079ef7432bd303e3643a3280de72372991d54797c668ba349362ce69a44fc3",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/mattel-intellivision-ii-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "f4be6f5e569854675376ea0b794ecf1514121065ba230cbedf36c74c05393e6b"
+        },
+        {
+          "path": "home-console/docs/projections/mattel-intellivision-ii-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "43bed812ec7261e246edfc1c30d6a157ce93df78075786fd42409643accb69ac"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          254.0000002,
+          171.45000019999998,
+          63.5000002
+        ],
+        "expected_xyz_mm": [
+          254,
+          171.45,
+          63.5
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "mattel-intellivision",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "70a3126bda3f890bd3a628a1bcbfb1184a5468f0266560c2325fd53dc6c4e285",
+      "resolved_parameters_sha256": "64d4f7c812d896a286a6b03e1178554ef0579cde7c56ffcdc52ccea574b81b28",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/mattel-intellivision-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "081bf3aaa0ec32b7f8c2b11b003d38eb0c2161befae82b82db28f4813f0d3741"
+        },
+        {
+          "path": "home-console/docs/projections/mattel-intellivision-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "cfead61a359cc9eed25f5badb193d28f969c4b2444bb79729e9d21a7a7bd00d5"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          393.7000002,
+          228.60000019999998,
+          69.85000019999998
+        ],
+        "expected_xyz_mm": [
+          393.7,
+          228.6,
+          69.85
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "microsoft-xbox-360",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "a36614be7942660dfa95a6aa6b0b10ede82d27db9bbc5b7ca44d4134dc75b16d",
+      "resolved_parameters_sha256": "66e8f21e43243eb554765a7a6e6aff337f344fc835a39af2a322dd1e7a67eb5c",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-360-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "cf9457416c1b13d1d429eb0083e88235425104a64b4a874ef6c872fb4fce534f"
+        },
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-360-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "9a014a09f7230981be16bf09b2ffcc32793a72c219a79c51abcf1a1c3e0ef256"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          292.1000002,
+          257.2000002,
+          82.60000019999998
+        ],
+        "expected_xyz_mm": [
+          292.1,
+          257.2,
+          82.6
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "microsoft-xbox-series-s",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "8f03a4a362e22b6b2e6433b51c2462584c7532247beb944a2faa7d98c4ed310d",
+      "resolved_parameters_sha256": "167c4f70b2d348d5e5412b2e4f3b60d5c55d3facc2890c9bad6c10b92f6d4cab",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-s-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "aa90a515f05c7b7b8db533652a18b48a656923f8867fb186fd74d8d9976f68f5"
+        },
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-s-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "0d25026746766a728fa28c39298ba35d15d703ef2a28c35f92b0d9a4894b4748"
+        }
+      ],
+      "reference_state": "vertical",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          275.0000002,
+          65.0000002,
+          151.0000002
+        ],
+        "expected_xyz_mm": [
+          275,
+          65,
+          151
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "microsoft-xbox-series-x",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "11ed7a05194ea37dbff0695b3332d4edc20a7b9514c8efd198db92234b0e6a9b",
+      "resolved_parameters_sha256": "26744dfb8e7cffa91567fbbc022dfb08337e0b3c039642554405c856947221a4",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-x-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "f7aad2765b0d62962203cb4e6d3f8ab4a31da216c12b94b6973523e98783f35c"
+        },
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-x-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "5d8b7985fa92cf1868f8f22cbebd4bf25701c541900546bdbeb323f78e3aaed1"
+        }
+      ],
+      "reference_state": "vertical",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          301.0000002,
+          151.0000002,
+          151.0000002
+        ],
+        "expected_xyz_mm": [
+          301,
+          151,
+          151
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "microsoft-xbox-series-x-all-digital",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "674122fe00132d3b52c2faec2861242e72352bd8e88f5376ad54b766cf633d5e",
+      "resolved_parameters_sha256": "b117e045ffaea64997515ae01c0061d9fd007b688df136d56db7eac93633220e",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-x-all-digital-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "9371dea82761f39cc5625ed36ef09dcab3cc26c040c4573b1c3f0589251c4aa0"
+        },
+        {
+          "path": "home-console/docs/projections/microsoft-xbox-series-x-all-digital-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "06df5279d03954725d96b3e0472a945bab37ee5237fabb7956cf3063ecb090b3"
+        }
+      ],
+      "reference_state": "vertical",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          301.0000002,
+          151.0000002,
+          151.0000002
+        ],
+        "expected_xyz_mm": [
+          301,
+          151,
+          151
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-entertainment-system",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "85fc3d6368d64246211d168f9e09a261a11b13719fc91885e4e127e270f21e3b",
+      "resolved_parameters_sha256": "924d9ef83b9ab0f6dfc16b2cf72316eebee9e33f489046e740b13b39c0b6dcd3",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-entertainment-system-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "b9be8a099d18d221d24dfa46f4095606a74c01998e95abd794d30885967b4025"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-entertainment-system-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "59fcddbf8efa61a4b3b22fcb9b761cefee764e7a2cfa8b6721a3989f9731b5e1"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          257.2000002,
+          203.20000019999998,
+          95.20000019999999
+        ],
+        "expected_xyz_mm": [
+          257.2,
+          203.2,
+          95.2
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-gamecube",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "66c4e3c1b6bb3300ec08f417c578dcbd3426ff25ea4b255413a9e643a0d14d64",
+      "resolved_parameters_sha256": "b273c3f6b32b4a1093287180369287ceee582f1a8e7bae227e9d4b8048889951",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-gamecube-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "1c0361a30c217096af2ac6febdd51b776be286d5fa03cd5d5cd59a81179ed21f"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-gamecube-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "16e0259322bcea36395e70ad1a45a875f178ed56f70053636a771be51dedf5a8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          150.0000002,
+          161.0000002,
+          110.00000019999999
+        ],
+        "expected_xyz_mm": [
+          150,
+          161,
+          110
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-snes-sns-001",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "c57e2b45b4ac917608dcc741e73a730f3a967c258afb196fafd788feb85cb79e",
+      "resolved_parameters_sha256": "04baf8fc3a1905d506d034713a517537f3c85ab858fa00fbf5d85bbae750a57e",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-snes-sns-001-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "05c0eea6b30e14e587856e55bf6a9fe33db1f2da2ff0b8729959aa19d3d0dd76"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-snes-sns-001-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "cd5d2d1c131b82a13c10079819faefc32348505aae6a35adc8032808f54af5ca"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          196.8000002,
+          238.10000019999998,
+          76.20000019999999
+        ],
+        "expected_xyz_mm": [
+          196.8,
+          238.1,
+          76.2
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-wii-u",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "7c31f0bcc2e26bc88c8ffa2183bf4078c6287bd0edf751f5a69e4eeb23f012d6",
+      "resolved_parameters_sha256": "355efe1276d8923ab9f57674d3601b2efdd6ca552236fc63f05c10cc74d7d7f8",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-wii-u-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "6839b11d431bffc74121c8c668ea4d0519cc0f417c7f7cded28d897e42bdd0b1"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-wii-u-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "9174c122ef07924e62a143af7b003d170034b3168a72c4d10936847507ef52d2"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          172.0000002,
+          268.5000002,
+          46.0000002
+        ],
+        "expected_xyz_mm": [
+          172,
+          268.5,
+          46
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-famicom-hvc-001",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "4ec087ab8989e0c79adf80484d585f37e10f49d12c41883211736fea07c59d2d",
+      "resolved_parameters_sha256": "2a16b2eafd2e798e22b5c9ab21c1acfa02c86d9db74b19dbc1b7949060877326",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-famicom-hvc-001-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "2354bdf6cd3dc90110a10656eed37954bd445ca564f6e938ad3bf5bf800b17a8"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-famicom-hvc-001-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "4de40819448b72571ee5fd43dde0ad5af98f92f2eae9b4b3cc602dc8c6973aab"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          150.0000002,
+          220.0000002,
+          60.0000002
+        ],
+        "expected_xyz_mm": [
+          150,
+          220,
+          60
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-64",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "02dcb59e045a9db39f06947e6bff30b97af3206b05e1a4c60ea864973fd3c369",
+      "resolved_parameters_sha256": "f18ca4874982ed94290d9ceb0c890a78ecf87d13e780ed4ce3572d8ef0517628",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-64-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "283d6eb9c4a7d260d78f607becd5d56d796da47e6fca7b6ac85324a391d1a72d"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-64-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "f6e01249b974b3e1b1715f14e478cf0f81a2f83d4b63d534d91eadf2dadb63d7"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          260.0000002,
+          190.0000002,
+          73.00000019999999
+        ],
+        "expected_xyz_mm": [
+          260,
+          190,
+          73
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "nintendo-wii",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "2eb60a9d82a611743fbef594d3257963e1c5f6233e6a22a4ca7f5bc955e4d970",
+      "resolved_parameters_sha256": "19c29fee7a7e956672f6da14027c102d18fef8b4618ee226ce9abc57e005eb35",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/nintendo-wii-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "b597a279ff518736d57f296eb6b6873e7a43382da92cd06e5a4ce46e71008e3a"
+        },
+        {
+          "path": "home-console/docs/projections/nintendo-wii-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "a313802dec33727a1094d01e3ce6786b00ebfefe84576f95cee6b5ba7855fb73"
+        }
+      ],
+      "reference_state": "vertical",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          157.0000002,
+          215.4000002,
+          44.0000002
+        ],
+        "expected_xyz_mm": [
+          157,
+          215.4,
+          44
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "panasonic-3do-fz-1",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "990c6abc02bbc40d51b6907e5106cd20e10ed1e5235dcf86dfa6b12178b21d5d",
+      "resolved_parameters_sha256": "589fe828c8e0167b2bf4faff4115a47208f7409c0790ca72d7c9e2b78fcf9ac5",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/panasonic-3do-fz-1-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "24f6dc5b53fa08272cff48d9e35b006d6042d405f5845ae998e20a075c8c4f4a"
+        },
+        {
+          "path": "home-console/docs/projections/panasonic-3do-fz-1-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "e35ad9206b3779c07ab786a031bbb08dbef8f855d80098cfd0a404771e5c8c46"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          284.0000002,
+          268.0000002,
+          88.00000019999999
+        ],
+        "expected_xyz_mm": [
+          284,
+          268,
+          88
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sega-dreamcast",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "1a75af9aa3441b2e118023eef588d7a25b05b701e0ab564b0008386a6d2d2f27",
+      "resolved_parameters_sha256": "02e98fd7aef0075c2abd5e082231cedef9d5f11f444964e193c515fb8ec7c23a",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sega-dreamcast-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "03ce2b750214845c7d8ca3c370037c5cbd30d5350d15b3c9f14944081a32e9bd"
+        },
+        {
+          "path": "home-console/docs/projections/sega-dreamcast-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "fff39b9370df093f9808c34123926e68009d70284ad3023d7629be1f7e78fee8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          190.5000002,
+          196.85000019999998,
+          76.20000019999999
+        ],
+        "expected_xyz_mm": [
+          190.5,
+          196.85,
+          76.2
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sega-saturn",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "4253ff4ee995999b9639580a206ab553c18fce70b9286ab4d78fdc6dd641fa71",
+      "resolved_parameters_sha256": "05e3c81714dd7a000127819780fd2fd2b6ccd3f309c3aa9601fbed9028114ed5",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sega-saturn-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "87489e7640c36f08488d3fcfaf4deb6c325751b45428b3b733c72fdc473a7736"
+        },
+        {
+          "path": "home-console/docs/projections/sega-saturn-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "6353e796716de598469ac32972e6e7d5a25ace6ac01688eb4e39c6af4922787e"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          260.0000002,
+          230.0000002,
+          83.00000019999999
+        ],
+        "expected_xyz_mm": [
+          260,
+          230,
+          83
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "snk-neo-geo-aes",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "15e3f814ff4c5bb1c9f1714a850b6178226b646a80cd7cff738fa2343361095f",
+      "resolved_parameters_sha256": "efe20f22b400776ec8dc76745dc95ea6d1698c1eaede482b1bc80ca00ee302bb",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/snk-neo-geo-aes-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "9107e1a3d609806a05bd5eb1b3a027e4f818d61fadc43d3df51d921d0f796f6b"
+        },
+        {
+          "path": "home-console/docs/projections/snk-neo-geo-aes-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "d20ed9b2a5e086bdc7f8d91d3abd6881913f94c6d95a423ec1990224aec481e8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          325.0000002,
+          237.0000002,
+          60.0000002
+        ],
+        "expected_xyz_mm": [
+          325,
+          237,
+          60
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-4-cuh-2000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "cb001235fc7253eacb7045c6b95bad6bfa0caac739ee460a69040e41b3321a34",
+      "resolved_parameters_sha256": "014a9cce4f24d9051bcdc60ac471aa404c4861158b854c3cd03f4c28354ea517",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-cuh-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "7d364e714ccb7ddf7c44772f4db28e5875944eb94a57a13a725f557a521ccb42"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-cuh-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "1e49a0fcb972b54f3d1877ef18144df9ca13c75f3f56302b3c6d3de627a3ac10"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          265.0000002,
+          288.0000002,
+          39.0000002
+        ],
+        "expected_xyz_mm": [
+          265,
+          288,
+          39
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-4-pro-cuh-7000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "c381263422e60b47177950697bbe54e2d37dd50b6ecf2a79a61d7f1e2f8d77e0",
+      "resolved_parameters_sha256": "b332e7206b37b0f0337e1a1252c2314dca0cead13bf49948145681e9f7c886b9",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-pro-cuh-7000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "7346dd5b621eaa443af7e53939ff3a50192cbabaa7c6c709ec57e2c955ef055e"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-pro-cuh-7000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "a22f37a1ce46d9829d42c1cdfdd354943018fc566d43d7814fcb241c0df971df"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          295.0000002,
+          327.0000002,
+          55.0000002
+        ],
+        "expected_xyz_mm": [
+          295,
+          327,
+          55
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-5-cfi-2000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "4db660d6fc43b2dc531e9fa7b16ed9e6576892bc634af50ab0869a79afbe5401",
+      "resolved_parameters_sha256": "3819755aaea953357957fa976b6fee299bcfbd39c058371fe142ad2dfb73f8a6",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-cfi-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "bd89bbb6c726826463500ec5c583020acd59f2be9ce34b3b9e8986f1893a6749"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-cfi-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "ccd4799b6b66298a659751bef55fa3fb338687565644306a2d3e60864f13c29d"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          358.0000002,
+          216.0000002,
+          96.00000019999999
+        ],
+        "expected_xyz_mm": [
+          358,
+          216,
+          96
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-5-digital-edition-cfi-2000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "777edd0b5b97cb8525ae00e8ca061a16810799108553e0bc2218879805a68ada",
+      "resolved_parameters_sha256": "e3f7c3abb9d1d00676de6859be85b61a1df0a9338f2f1523123bdb09c852d8da",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-digital-edition-cfi-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "be2dae79311ade7c6c57e869ddb34fc877a30e997b6b79dade5b143a3e3f546d"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-digital-edition-cfi-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "5bab1b570df09efa917496167e3e4e0a07e28d97849a1ec236e5979da910f819"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          358.0000002,
+          216.0000002,
+          80.00000019999999
+        ],
+        "expected_xyz_mm": [
+          358,
+          216,
+          80
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-2-scph-10000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "e3d1f28a772f0b90d4d988fa3b72a4d39dac569c76147200f1950a299dd8ad3d",
+      "resolved_parameters_sha256": "42398822422cdcf068a99bce8035b8f107f56716b45817cdf8192a4d72867c9f",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-10000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "d28839e31c873b73e1933cd8c1b30f681f49b177c453f42d0f3c3062a260e954"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-10000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "2a65d8fc7a2cf4f6b3b1d90c6357eaf51fcf9d33a9ab6fe049d592a77c4301e9"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          301.0000002,
+          182.0000002,
+          78.00000019999999
+        ],
+        "expected_xyz_mm": [
+          301,
+          182,
+          78
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-ps-one-scph-100",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "c57684c54ce0506d7352832d539ef89abda6d733f6881a2986cdb773e5522199",
+      "resolved_parameters_sha256": "21476e018449cdd316e157a15de02d481a7311756234c26d684d3e387e51f0e3",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-ps-one-scph-100-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "542d401c6920c0334829c9f155467b17c0f0a5a55577f3ebe987e368dd2047df"
+        },
+        {
+          "path": "home-console/docs/projections/sony-ps-one-scph-100-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "36e583b1840cacbd3df01fabc00d6e54bc8e96a074360eba86ca23b377d2d79e"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          193.0000002,
+          144.0000002,
+          38.0000002
+        ],
+        "expected_xyz_mm": [
+          193,
+          144,
+          38
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-2-scph-30000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "98b427f4bc483b391361d02995bbb3e70729b8fb9ff8b4ff00a7c612f32413d5",
+      "resolved_parameters_sha256": "8f5e17928272e86c2c29317b727098996e1f7924abb275950a76e6a5dc49d4c5",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-30000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "d21b6465022c73a5ac24b861dd74d485b1722382ff4c205f9c0404bf6223589f"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-30000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "24aa618834dfeb9ae8a370ec88ff79baed3a1de814554a27dc636761429abfad"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          301.0000002,
+          182.0000002,
+          78.00000019999999
+        ],
+        "expected_xyz_mm": [
+          301,
+          182,
+          78
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-2-scph-50000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "381dcc7ff3b11836d3abab1533eb0d1c59889d8fb6e35b32b9903b7b3f99caf3",
+      "resolved_parameters_sha256": "42398822422cdcf068a99bce8035b8f107f56716b45817cdf8192a4d72867c9f",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-50000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "d28839e31c873b73e1933cd8c1b30f681f49b177c453f42d0f3c3062a260e954"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-50000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "2a65d8fc7a2cf4f6b3b1d90c6357eaf51fcf9d33a9ab6fe049d592a77c4301e9"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          301.0000002,
+          182.0000002,
+          78.00000019999999
+        ],
+        "expected_xyz_mm": [
+          301,
+          182,
+          78
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-2-scph-70000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "cf7d52fa4b9814327e6b5c0b2e49d88be3ae5676bb1c2433b1da3c42e4972019",
+      "resolved_parameters_sha256": "de7c08dbf1bbfed8e29997d0080c2abd79319a2687ba78196c81ced588602ff8",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-70000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "d7c1093bebbd30897df8f48393714695acab40e0132c17ab539c1865dd49a4c8"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-2-scph-70000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "278825cff11698fd7bfa52dbf5f837284458fa73f72ca1f28b7c9f10b2fa4f12"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          230.0000002,
+          152.0000002,
+          28.000000200000002
+        ],
+        "expected_xyz_mm": [
+          230,
+          152,
+          28
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-3-cecha00",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "f7c4fad94129bc24f9016050980443e6a117881caf1d49e0142b43af0d80d0d6",
+      "resolved_parameters_sha256": "c15e46324718709826a344b007d4aaff7dcbaccf5d4caf36a2a5a8db35371903",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cecha00-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "4fb1895c6617cf09907dbe84443dcb23c7b846f64a32fd730bf6893898906823"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cecha00-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "dab5513254337b2b81b1dc5d8f2245bb2f2f08b773e79d45b2bdae9a8cbf872a"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          325.0000002,
+          274.0000002,
+          98.00000019999999
+        ],
+        "expected_xyz_mm": [
+          325,
+          274,
+          98
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-3-cech-2000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "169ee64e86b98cda35d91c7113f1aef39c9d59501f74a642c8e2f887b482ca05",
+      "resolved_parameters_sha256": "a708ba77d893ae5dfed91c919dbe295913229056b2af662975501935a0320cad",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cech-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "cc6dd7fca64208606709d1236e2edcb8cb0e769c3a6d2e32a1e6eae008237304"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cech-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "d7798438c1a70bbd3578d83f1570399c56be72020c6924208b0ed430718739bd"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          290.0000002,
+          290.0000002,
+          65.00000019999999
+        ],
+        "expected_xyz_mm": [
+          290,
+          290,
+          65
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-3-cech-4000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "d3d91d825fecb7ba7b0e7cfe15b899b2146b8cebfaac4a483ae755b9937bad52",
+      "resolved_parameters_sha256": "322a8f8b43e7503e51dbbf16f2fd4b54962c8946eaa69bf8a7144e5e74b2ac2a",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cech-4000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "fa846cc11ad2599ba6613558675e39b5fb29721840e45b0f6b6ae40703a9ef8b"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-3-cech-4000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "bb08208643a3694fb47ccbad3bcdaf95382b8a720a7ff07fb4eebb467e6f994d"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          290.0000002,
+          230.0000002,
+          60.0000002
+        ],
+        "expected_xyz_mm": [
+          290,
+          230,
+          60
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-4-cuh-1000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "d5f0f7dd085fb5088a324463d827a161de3098c7011d4200f7b17c679a163f4d",
+      "resolved_parameters_sha256": "61589f20bfa6ee557b74645edf750ae685cf4cf40bb30f91a964b36cbbdfc8bc",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-cuh-1000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "40d4d599e654fe313b91ddf3a71536136f69bf95156e6c66fa8326345141f4c1"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-4-cuh-1000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "244aa8299fe612881d212c31b404295154195db9ba215cb43ddba2ee16dd9b4a"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          275.0000002,
+          305.0000002,
+          53.0000002
+        ],
+        "expected_xyz_mm": [
+          275,
+          305,
+          53
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-classic",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "8c70b18bc8c709a91bdd580dbd5347e24baaf985a73c0bcc9c3ddf1903bdcefd",
+      "resolved_parameters_sha256": "6f579d389bf6a3d88ff3183152a5983e273f068ab14eb121f3fe53fea22fb22d",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-classic-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "7f57eb174973299de86ec12458265abf8360ade5dd51d60b5d16b79917d69a2a"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-classic-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "79b5fa55b391ce8fd00a9c9860c0c65a3abdc351d39ef538173b39606e9bc046"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          149.0000002,
+          105.0000002,
+          33.0000002
+        ],
+        "expected_xyz_mm": [
+          149,
+          105,
+          33
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-5-cfi-1000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "67eff9b42d1806b7c5a3f2e1b185ce02b3afccdb473b4d680f1e55a654b39f88",
+      "resolved_parameters_sha256": "842319cfad057c93ba1e8ae72d9fc390f6557fe0b52924b8fa23423d962e0117",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-cfi-1000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "59b94bfa8a7e9d8ecf93a7024982bbd2f8544be47b191b7e2321d2a6f90c0efc"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-cfi-1000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "434dbc9302983046c824cb4712ad69037b1d52547cdde001b50a6c9a4d10c499"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          390.0000002,
+          260.0000002,
+          104.00000019999999
+        ],
+        "expected_xyz_mm": [
+          390,
+          260,
+          104
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-5-digital-edition-cfi-1000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "d5c479af0b54b2e09ae2cd1b6f9ec19ca79e1e1548aa64edd55df3ef1b7ee515",
+      "resolved_parameters_sha256": "898fd12b2a6a0e65664ce53c187d561a175654188960615cb2df9a19119f90a2",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-digital-edition-cfi-1000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "c0dd3d858ef1b1de016fc4e3fd56015c4348e44d8cb4ec6c08910b3f51db49ea"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-digital-edition-cfi-1000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "de5f8db31e73b8c83cd853ae43c8248a556f752cb9e6bdb968053d8213ed3fd5"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          390.0000002,
+          260.0000002,
+          92.00000019999999
+        ],
+        "expected_xyz_mm": [
+          390,
+          260,
+          92
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "home-console",
+      "preset": "sony-playstation-5-pro-cfi-7000",
+      "mode": "console",
+      "parts": [
+        "body",
+        "closure"
+      ],
+      "object_digest": "d24e7df714425c45283500f76779c51bcd69b5eda92a45a0e04b4078158c812d",
+      "resolved_parameters_sha256": "7e1eecd37d70d4cdd875ded9f0fea557e96fd45f1b4100acaaeba4161ea93f8a",
+      "source_main_sha256": "0b6e87f41b0c4c756730983cfcf4df3668c11ab521c1607e8963741f622b7242",
+      "projections": [
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-pro-cfi-7000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "f2e92bb134d5d313d26942b707018c26c0da2296762bfaa5deaaafd7f2704245"
+        },
+        {
+          "path": "home-console/docs/projections/sony-playstation-5-pro-cfi-7000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "51e3b69f2829355ddee8a6eb2bf90d3d93cd8a33cb27d173037b2d94b339e0c8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          388.0000002,
+          216.0000002,
+          89.00000019999999
+        ],
+        "expected_xyz_mm": [
+          388,
+          216,
+          89
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": true,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "nintendo-switch-2-pro-controller",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "de94d9178b07e8757a618ad800ae70d446e4858385294636064017915c68d6fa",
+      "resolved_parameters_sha256": "5c773a0ead692ab9368edf1673a886f7e3a10844d20d361ab7155de4a4ab93c4",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/nintendo-switch-2-pro-controller-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "997a90f2cfd7b7b1d75b3bd10ec1831c28572ac47af0f645dfc94463cb098920"
+        },
+        {
+          "path": "gamepad/docs/projections/nintendo-switch-2-pro-controller-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "2102eb3687da27cf58ab8595b97a8e67e4c6cc10a59694f30a2712c732344bc2"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          148.00003909704998,
+          104.9999812644281,
+          60.2
+        ],
+        "expected_xyz_mm": [
+          148,
+          105,
+          60.2
+        ],
+        "max_error_mm": 3.909704997795416e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "nintendo-switch-pro-controller",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "8fe21c7822074ab1fc3bf6bbdc659a963e55f0119eb5ead458ec8c7b53979cff",
+      "resolved_parameters_sha256": "c2535b54534a8410b15a6c55793a881dee8295af8152b0c9716655d57f4d119d",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/nintendo-switch-pro-controller-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "cc78b152049dd40b890881c59ad9da106bc351a576f082317fe64d88f089f82f"
+        },
+        {
+          "path": "gamepad/docs/projections/nintendo-switch-pro-controller-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "f900aac70a9fc33c1271c2d14caaecbab73b07dbfcefa3e37c62cce4175b4012"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          152.00002231756125,
+          106.00001041934377,
+          60.0
+        ],
+        "expected_xyz_mm": [
+          152,
+          106,
+          60
+        ],
+        "max_error_mm": 2.2317561246154582e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "nintendo-wii-classic-controller",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "89a1a57190c693795639f552e37b63d4cc7edd7eb20bcbf8b326351949f041cb",
+      "resolved_parameters_sha256": "85fb1493d3dedff7589c1d67274bafe88b95b8f3574181add5c54a98bc5f0f61",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-classic-controller-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "73b458fa00f3221f3e47f97446400349c11f49ce243ffddf03db010c9e366f4c"
+        },
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-classic-controller-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "b2367a438addaab46122ef8d218551e6f3544a478a752e4c2aff1d99a54325e9"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          135.69997845684298,
+          67.50000220148527,
+          26.0
+        ],
+        "expected_xyz_mm": [
+          135.7,
+          67.5,
+          26
+        ],
+        "max_error_mm": 2.1543157004089153e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "nintendo-wii-classic-controller-pro",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "fc640809caf470ea35ce3c720b3f10cdf945cf622be6b126b7fb349134997d52",
+      "resolved_parameters_sha256": "fd72c24611d3045cac11d5b583d33f0bb6a237ec37b5c48eae779550933cbfab",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-classic-controller-pro-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "fb6e80b2ad9c5520c3338a591d732b89a04ea32a8bfb6f24ed0715595daa0ec7"
+        },
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-classic-controller-pro-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "470638d1b2d8276deeccb592d2ff7cecdfd100f7955e86c7a77e181d3be6b08a"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          146.00004363254794,
+          100.49995053028441,
+          55.0
+        ],
+        "expected_xyz_mm": [
+          146,
+          100.5,
+          55
+        ],
+        "max_error_mm": 4.946971559149915e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "nintendo-wii-u-pro-controller",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "6a00d78ead365fc52276a2af0dbd9e520f9a64b1edd4f5dd6ce23c45d71486e9",
+      "resolved_parameters_sha256": "2e9a18963eab4b9cf05f7b612016cc4722db8019c9bdf272bc211c1c79fc0242",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-u-pro-controller-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "f3900f21d2100c006abe232a7d8c0cae18b875a7a07a57bb2aebc21299e624cd"
+        },
+        {
+          "path": "gamepad/docs/projections/nintendo-wii-u-pro-controller-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "e3257c62f9a3c733f37caa95e05bf07ee694be3975bc853df6dc628a772f217a"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          160.9999967133402,
+          104.40002590363316,
+          48.10000000000001
+        ],
+        "expected_xyz_mm": [
+          161,
+          104.4,
+          48.1
+        ],
+        "max_error_mm": 2.590363315846389e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "gamepad",
+      "preset": "sony-dualshock-4",
+      "mode": "pad",
+      "parts": [
+        "body",
+        "controls"
+      ],
+      "object_digest": "f11818a4f90f2df0b1c0b1f230603bee59b1586bd9f9ea830ab3e71f137c39da",
+      "resolved_parameters_sha256": "28344e6838fd82c414a11ba47a78fa4f66a82106ecfffdf6d13af288aa1c2008",
+      "source_main_sha256": "ae54bf33a69f4b02bceab0f7f39e19e2556ce2b41942dcd1806f74ea61c747bf",
+      "projections": [
+        {
+          "path": "gamepad/docs/projections/sony-dualshock-4-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "overrides": {},
+          "sha256": "5c0ac0b3f6d73465fc8834231523b7a3a1f2832ab5c40e8ce0891381ef13e95f"
+        },
+        {
+          "path": "gamepad/docs/projections/sony-dualshock-4-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "e2946bfc478148b3fdcfd3b6a795387943be9390cf2f21799908ccdafe7f0dce"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          160.9999241620944,
+          100.00001774991182,
+          57.0
+        ],
+        "expected_xyz_mm": [
+          161,
+          100,
+          57
+        ],
+        "max_error_mm": 7.583790559806403e-05,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "asus-rog-ally-rc71l",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "6fcb1bd01919ecdbb1073524dd26479e1af2922bc2f2cfac01ca5b89800cd97a",
+      "resolved_parameters_sha256": "38fb9ac1a0bbab5fe55e8384bb4f25edd1c4286c5d9d3cbb8959478d5bab88f1",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/asus-rog-ally-rc71l-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "8bd82b97843b4ed73c225c94e5392ae3e1b8ea2b08c8d167c8bfa98388a5c411"
+        },
+        {
+          "path": "slab-handheld/docs/projections/asus-rog-ally-rc71l-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "f2b1fb337926f1e0856659f85a4a3e2b2feb98fc75d083718ef9e2c1b4b90ea8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          280.0000002000002,
+          32.40000020000055,
+          111.0000002
+        ],
+        "expected_xyz_mm": [
+          280,
+          32.4,
+          111
+        ],
+        "max_error_mm": 2.0000054945512602e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "atari-lynx",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "ef493d7f83263a6e2ddaf4230955ae2f6baa3cccc1dda922c8e0246fcd8ae73f",
+      "resolved_parameters_sha256": "afe4f5317d71c3a6bd717ba1ecce396ab4eefecb9834238614d82b3afcd31d28",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/atari-lynx-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "dc430d34a7838522a43f223879ffe75a30c33aaf7d8f3878896a3fbc02ef9824"
+        },
+        {
+          "path": "slab-handheld/docs/projections/atari-lynx-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "7477adcb7234425422a60c052ddcd72e4cad0091d828d8e95385c677f77fd4c3"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          270.00000020000004,
+          40.0000002,
+          105.0000002
+        ],
+        "expected_xyz_mm": [
+          270,
+          40,
+          105
+        ],
+        "max_error_mm": 2.0000004496978363e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "lenovo-legion-go-8apu1",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "0bd82bbd6aa684da7a0ce7ab6fb99c6cd6dfb464f94214ff12fcd15df9f0edcd",
+      "resolved_parameters_sha256": "fbf66cfd1dcf5c25e5ed7fcb180b72caf6630c5aeb7fcb27a381fa8acc1f32af",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/lenovo-legion-go-8apu1-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "4d02de2e59792d4e33f4bb38c5780ad2ed2627fc142130485a212eff31e655fa"
+        },
+        {
+          "path": "slab-handheld/docs/projections/lenovo-legion-go-8apu1-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "a036edfb4990f1a023494d90b6d5d23541222c2bc446009caf1044cfb6a516d3"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          210.0000002,
+          20.10000019999991,
+          131.0000002
+        ],
+        "expected_xyz_mm": [
+          210,
+          20.1,
+          131
+        ],
+        "max_error_mm": 1.9999998812636477e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "milton-bradley-microvision",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "6b91e58267ffe816f4d286df719e8aa665d27497e1ac18f89a59717dac2d39e6",
+      "resolved_parameters_sha256": "26043e1213c080b50062e47d95dd26d1c2482b7b2b5286518a41c3439b8f8d56",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/milton-bradley-microvision-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "635b24402aca4c8502e4d90a850963489a6fd3ad8f0c28dc25b433e8213ec65a"
+        },
+        {
+          "path": "slab-handheld/docs/projections/milton-bradley-microvision-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "51581c0035f1c76a46a5e99dd299c29d221e45d93a10d307d8047a321b73ea34"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          88.90000020000001,
+          38.10000019999997,
+          244.5000002
+        ],
+        "expected_xyz_mm": [
+          88.9,
+          38.1,
+          244.5
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-advance",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "f77d63ce7ccfe9c0e39b963836ad012d1a8a70e3bdb1655af8634c9b36770a8d",
+      "resolved_parameters_sha256": "87397142d198f742acb6f42936cfa3cd527871000eb55776432d3ebcb7829a03",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-advance-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "2300040af81ec610a6b7cb6f9df3e40b92353c0c1795d5048a30dc58594983d6"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-advance-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "fa4c404609d90de3da48150a3166a21624ea6a3b33e4577f2761c5b85fd6a5c1"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          144.50000020000004,
+          24.50000020000023,
+          82.00000019999999
+        ],
+        "expected_xyz_mm": [
+          144.5,
+          24.5,
+          82
+        ],
+        "max_error_mm": 2.0000022971089493e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-color",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "1eea92660b637c6aaed5f19abb3dfcea30561c61616ab05d0ffb5a23aaa41334",
+      "resolved_parameters_sha256": "652b92539b3c28d29590edc5f7794b97c453178eb0394ac992ac082bf0256792",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-color-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "93538c6c69bd11d85e8e916ea7e32fdafd656ee6561408fc5dd7ab771eab28c0"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-color-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "c2be0959f6b3a49d37f19683d481ece4773aefa7156c2ccd90fbd73cb995f7f9"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          78.00000020000002,
+          27.40000019999998,
+          133.5000002
+        ],
+        "expected_xyz_mm": [
+          78,
+          27.4,
+          133.5
+        ],
+        "max_error_mm": 2.000000165480742e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-dmg-01",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "dda3d891096449af838db0007129e0857d8a9b37c102131919929bde03e1b383",
+      "resolved_parameters_sha256": "1e8a5c2ba5bd4add3bdf90421400a3cdae8de12dfa1f520d4e4744787b2e4cc0",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-dmg-01-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "0b4952e76527470daa1ba3a05d218be2faa83c8967bfd7545eae1e669d87b370"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-dmg-01-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "6929b1f741952d4525e6b6fdb1e714b36358a53571ce3d3c85cf35956608d3d8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          90.00000020000002,
+          32.00000020000006,
+          148.0000002
+        ],
+        "expected_xyz_mm": [
+          90,
+          32,
+          148
+        ],
+        "max_error_mm": 2.0000005918063835e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-micro",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "2bef537b09ea4d0811f47261beead2b0ef2dc212422a43fcbad07a35cc315e8d",
+      "resolved_parameters_sha256": "6a14bdc58a99082f11ca8a9bb3545c675a8a7c1cf2a35ac500ecef9f0abb2520",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-micro-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "8c863b04a8ebb8390467e970dd08eab8e634a27be78ff2ce43dee9cacafed9cd"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-micro-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "7a4120a046f1b1710d21112ec2db3b0cdf901ff7a427a0dd950d35f85c93e88d"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          101.00000020000004,
+          17.20000020000016,
+          50.0000002
+        ],
+        "expected_xyz_mm": [
+          101,
+          17.2,
+          50
+        ],
+        "max_error_mm": 2.0000016220933503e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-pocket",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "3bbec3b38d5d468c201bbf94222c316529964cbcc4ac14b32aa6b11a2d80b7e3",
+      "resolved_parameters_sha256": "24fd41208a3fb298a2fe7483142ba06a3dcb58e5f6cf9cf484624848e0ce7baf",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-pocket-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "269ff66024a778230787090e72f4ccdd19c287b6a8101b3f84dee8be5e362579"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-pocket-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "c52554f71d95eb7cd779ca92033c2b492a5ff94e79003ad6691f1f47e9a40956"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          77.60000020000001,
+          25.300000200000014,
+          127.60000020000001
+        ],
+        "expected_xyz_mm": [
+          77.6,
+          25.3,
+          127.6
+        ],
+        "max_error_mm": 2.000000165480742e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-watch-super-mario-bros",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "c4de5a3f48d63011ede58ec2c1b7d693aca8e10d28208188c8a28db8707ce25a",
+      "resolved_parameters_sha256": "570c75977cacd11ea79d1dc0ee38fc3619218dcdb8e7595669b65eb4ebef29fb",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-watch-super-mario-bros-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "6ea9b9fc6b537179074869143e0f428daa002566af497452d24ee21bfa3b9c55"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-watch-super-mario-bros-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "720834c81a279504791e2d1e6c5923fd619b10c26c200072f9ed2785ee67ee76"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          112.00000020000003,
+          12.500000200000226,
+          67.00000019999999
+        ],
+        "expected_xyz_mm": [
+          112,
+          12.5,
+          67
+        ],
+        "max_error_mm": 2.0000022615818125e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-watch-the-legend-of-zelda",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "b96db0d7ce160a38045562ee20275d25437ec1578d08ec32f75ee428b5ae2829",
+      "resolved_parameters_sha256": "570c75977cacd11ea79d1dc0ee38fc3619218dcdb8e7595669b65eb4ebef29fb",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-watch-the-legend-of-zelda-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "6ea9b9fc6b537179074869143e0f428daa002566af497452d24ee21bfa3b9c55"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-watch-the-legend-of-zelda-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "720834c81a279504791e2d1e6c5923fd619b10c26c200072f9ed2785ee67ee76"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          112.00000020000003,
+          12.500000200000226,
+          67.00000019999999
+        ],
+        "expected_xyz_mm": [
+          112,
+          12.5,
+          67
+        ],
+        "max_error_mm": 2.0000022615818125e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-switch-lite-hdh-001",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "ecc27c1164ec40077fc9e17defe06427f79e96e26b1d045fe7d0646703dc60d2",
+      "resolved_parameters_sha256": "04075eee50d146750db8d2387f665f906acb558b876cae5b3c25c47d5679312f",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-switch-lite-hdh-001-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "1ddeac728a8fa0370c9847c60c7e0505d9325c2c2d3ed638319e2f3faaaa5569"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-switch-lite-hdh-001-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "eacf19688615b900738c6216b3d1075f9a531545d5e9cdd524515e07f35771ee"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          208.00000020000022,
+          13.900000199998725,
+          91.1000002
+        ],
+        "expected_xyz_mm": [
+          208,
+          13.9,
+          91.1
+        ],
+        "max_error_mm": 2.000002155000402e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nintendo-game-boy-light",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "0ac6c62f96ad9495735e55e5742f5cc693ac7c93dfd30deb9e521c662d68091b",
+      "resolved_parameters_sha256": "178e4699ccf7ec816be41d567825968e2bcf6bf7e3a321524ff3dacfd1aa0853",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-light-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "fb4cfd857659e29329753987c1e44f4a054a01b8e9aa9d95ddcd960fa6c689f2"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nintendo-game-boy-light-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "f4fde298e582a9e099e96b9a085bfff91dc1613dbdec711aea77973fc07769eb"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          80.0000002,
+          29.000000200000002,
+          135.0000002
+        ],
+        "expected_xyz_mm": [
+          80,
+          29,
+          135
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "nokia-n-gage",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "661da3c1b103a02e04a8514d47262733258ae627d8adc195daa3b340ff0d9e9f",
+      "resolved_parameters_sha256": "8171e7ea18c214149b759072495f6393e0edbfdf95f6db6007b17a9a20cedbe4",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/nokia-n-gage-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "ff6a96ca44b24fae183ac63748ecaa32dc7fe094304880a5ec1367476f8d725e"
+        },
+        {
+          "path": "slab-handheld/docs/projections/nokia-n-gage-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "96a555f3e6828f4749595f078555ef94567f8cd8ecc56719488503c46d20bd59"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          69.70000020000003,
+          20.200000200000048,
+          133.7000002
+        ],
+        "expected_xyz_mm": [
+          69.7,
+          20.2,
+          133.7
+        ],
+        "max_error_mm": 2.000000485224973e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sega-dreamcast-vmu-hkt-7000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "dd816e933eef0045fa355fc5ebb4cbd8cab4c46b3ba3a6c526ca0972093fe2d7",
+      "resolved_parameters_sha256": "8087eb85ca9b1d5b0d3b7976528da04572df9408d8bee14779f134d327748746",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sega-dreamcast-vmu-hkt-7000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "625f69e93ed91f1728ddda909c3df679bfd5e3aaf0a9c1c3ed7d3742f6483b56"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sega-dreamcast-vmu-hkt-7000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "752bce5547131344fe9fe8add1bf24d10a57b4b4506f3bd4af0cebe741c83fe8"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          48.0000002,
+          18.000000200000002,
+          77.00000019999999
+        ],
+        "expected_xyz_mm": [
+          48,
+          18,
+          77
+        ],
+        "max_error_mm": 2.0000000233721948e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sega-game-gear-2110",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "48f0f3d6d3cf85012d7539a0df01048c7a0b6857d6ee54b6cd9864b66e6bda85",
+      "resolved_parameters_sha256": "f9b05b87e0e42e7de9c23a638c1d77795ee28b96de79a6669ac4fcba9acc72f6",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sega-game-gear-2110-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "c7aae07cfa4f2c7d826f8b632268be35727a437eca9af035b1dc0a273caa2d86"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sega-game-gear-2110-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "96bb4ed577f16ce3b498970efb44b10e85586c835cfe2d416d715d7ab2c9c7d3"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          209.60000020000024,
+          31.800000200000184,
+          114.30000020000001
+        ],
+        "expected_xyz_mm": [
+          209.6,
+          31.8,
+          114.3
+        ],
+        "max_error_mm": 2.0000024392174964e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "snk-neo-geo-pocket-color",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "19fcc6e6260169e64828ffd681321a51214be6dad4fea93511de497d79aee386",
+      "resolved_parameters_sha256": "2afe18ab270ca2485831a38fa901f91ce4ab6ed0e2126c60f653391a837f0426",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/snk-neo-geo-pocket-color-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "4df031846ddce7e2d68cce56cde73d7cf5f45e0cc218b6a5ce4f807f9a96883a"
+        },
+        {
+          "path": "slab-handheld/docs/projections/snk-neo-geo-pocket-color-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "58f881fe6421e2f967da651b63e127708a5665dfecf446758840c338c7dbb6d0"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          130.0000002000001,
+          30.50000020000023,
+          80.00000019999999
+        ],
+        "expected_xyz_mm": [
+          130,
+          30.5,
+          80
+        ],
+        "max_error_mm": 2.0000022971089493e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sony-playstation-vita-pch-1000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "2dac1045c76e119a82c150cf50cfa9409e2fc99945529e162a9403a93606a30a",
+      "resolved_parameters_sha256": "06e111d9614ade5085d193f07e6a1a8fdbdc0f0c0beb66518aeacd64baeb103b",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sony-playstation-vita-pch-1000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "d199dfb49528fd4f7285495cd813977d04e312897e1871cd188cf7236c739d52"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sony-playstation-vita-pch-1000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "82b49f32da825aa283ceef9efed749d0f962eaabbbfd1dce7d550710693135e6"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          182.0000002000001,
+          18.600000200000366,
+          83.50000019999999
+        ],
+        "expected_xyz_mm": [
+          182,
+          18.6,
+          83.5
+        ],
+        "max_error_mm": 2.0000036471401472e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sony-playstation-vita-pch-2000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "b8d3f58598cc5c985460e53a82c02365e65f0db118a01fce74b3448240610a35",
+      "resolved_parameters_sha256": "f46023c5c06f83834de1b8b7dff772459906bcb4b7cc3a8de61bd7a31bcbaa76",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sony-playstation-vita-pch-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "6a78081067a174052d80df80d68b0122dcdfd864d4b9d751963b5304dc29c5ac"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sony-playstation-vita-pch-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "6ddbd699b1f3bc6f2c34cfa50fea9bbed191df11f19180e45e74b15ce82fab6d"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          183.60000020000012,
+          15.000000200000454,
+          85.1000002
+        ],
+        "expected_xyz_mm": [
+          183.6,
+          15,
+          85.1
+        ],
+        "max_error_mm": 2.000004535318567e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sony-psp-1000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "668c9a25c99654a7a04013c3e2f28de6e6bbb0f70bcdc17ad4ccd6fc493a19ae",
+      "resolved_parameters_sha256": "bdb11ed1c07e1c7fcbb6e2d09630f8670951c0b88f5f2cfb5354f9409fb4bad9",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-1000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "6eccc56591823761301fe5b3a1aeebb2c848220afc584aa57468a5b2b23ca024"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-1000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "ab2d57b34ef116a03a3d20bdee2c2663b85e8287a989370d86e5c47c2990ec12"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          170.00000020000002,
+          23.000000200000002,
+          74.00000019999999
+        ],
+        "expected_xyz_mm": [
+          170,
+          23,
+          74
+        ],
+        "max_error_mm": 2.000000165480742e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sony-psp-2000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "8f3d89d66916169035e675e88fd4c12b0704bb254fe6ff069e4ae52f7ad10e72",
+      "resolved_parameters_sha256": "b784f20b77f55d9dffc5855d01d88171198186f86679b2cfba72696c553cc033",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-2000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "c49fe4cb8a3c5b950525cecdd79303cad218d44d724c8e56fbea6886f848b894"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-2000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "57b99dc6a513d822c440c8c9db3f7b84be2b99027bc351a439c96d575cd8f6e5"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          169.4000002000002,
+          18.60000019999991,
+          71.4000002
+        ],
+        "expected_xyz_mm": [
+          169.4,
+          18.6,
+          71.4
+        ],
+        "max_error_mm": 2.0000018707833078e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "slab-handheld",
+      "preset": "sony-psp-3000",
+      "mode": "device",
+      "parts": [
+        "front_shell",
+        "rear_body",
+        "battery_door"
+      ],
+      "object_digest": "2825ac390414c109aa2a0e6e27922432066fd6bcd6a2ce7f53800441e1d57aa1",
+      "resolved_parameters_sha256": "b784f20b77f55d9dffc5855d01d88171198186f86679b2cfba72696c553cc033",
+      "source_main_sha256": "531ad94748b7919bfc61e38c3065d497626790c11b52258d89f34ab88749db2f",
+      "projections": [
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-3000-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "c49fe4cb8a3c5b950525cecdd79303cad218d44d724c8e56fbea6886f848b894"
+        },
+        {
+          "path": "slab-handheld/docs/projections/sony-psp-3000-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "57b99dc6a513d822c440c8c9db3f7b84be2b99027bc351a439c96d575cd8f6e5"
+        }
+      ],
+      "reference_state": "body",
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          169.4000002000002,
+          18.60000019999991,
+          71.4000002
+        ],
+        "expected_xyz_mm": [
+          169.4,
+          18.6,
+          71.4
+        ],
+        "max_error_mm": 2.0000018707833078e-07,
+        "unposed": false,
+        "brep_valid": true
+      }
+    },
+    {
+      "family": "clamshell-dual-screen-handheld",
+      "preset": "nintendo-game-boy-advance-sp-ags-001",
+      "mode": "configurable_screens",
+      "parts": [
+        "lower_deck",
+        "upper_deck",
+        "hinge"
+      ],
+      "object_digest": "3100a16f77a320e5bc5de633d1533aabd01732e964189801dc932ea90a0ef85f",
+      "resolved_parameters_sha256": "43cab36e7417a8f2a4c86fc751b62d1b5e24ec762ef77f86a096aeeade4925a7",
+      "source_main_sha256": "74e15c85e0e60446062172825649635353810c4640ba653a882e0cc5657e23a0",
+      "projections": [
+        {
+          "path": "clamshell-dual-screen-handheld/docs/projections/nintendo-game-boy-advance-sp-ags-001-closed.svg",
+          "view": "closed",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {
+            "fold_angle": 0
+          },
+          "sha256": "530b1a2434035c6823d08b556e557e9a9b63b2353b57845a5a429dcde7e4e4fd"
+        },
+        {
+          "path": "clamshell-dual-screen-handheld/docs/projections/nintendo-game-boy-advance-sp-ags-001-open.svg",
+          "view": "open",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {
+            "fold_angle": 150
+          },
+          "sha256": "99e8d75ce4363d725cef18ad5a60fbff676ec4827cf07ff0a548edd78461f3e4"
+        }
+      ]
+    },
+    {
+      "family": "plug-in-media",
+      "preset": "nintendo-64-the-legend-of-zelda-ocarina-of-time-jp",
+      "mode": "envelope",
+      "parts": [
+        "envelope"
+      ],
+      "object_digest": "7e62caa3cb1f87e2b6372d23840957e17eb7841988d3e0d2a3727c2d5dd8220d",
+      "resolved_parameters_sha256": "fd7962f05fa9c112367a45b2f7df2e92de4e2a26dd51e8d20fb27f0ed90bb9e9",
+      "source_main_sha256": "65c84ee885e8ebd47ff1c89b8e4da397aee0744f7fd3ecd3176940006b222a33",
+      "projections": [
+        {
+          "path": "plug-in-media/docs/projections/nintendo-64-the-legend-of-zelda-ocarina-of-time-jp-front.svg",
+          "view": "front",
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "overrides": {},
+          "sha256": "8433d2cdaa8284aa4422f399ef5f1a24f0dee7869d53d82acfc4536eb4e58357"
+        },
+        {
+          "path": "plug-in-media/docs/projections/nintendo-64-the-legend-of-zelda-ocarina-of-time-jp-iso.svg",
+          "view": "iso",
+          "direction": [
+            1,
+            -1,
+            0.8
+          ],
+          "overrides": {},
+          "sha256": "aa1d0ea04d1cda1e410f5575ff50c23f5e8e8ca25f5d2adedfeabf3b1f2f0f59"
+        }
+      ],
+      "source_frame_envelope_check": {
+        "aabb_xyz_mm": [
+          115.0,
+          19.0,
+          75.0
+        ],
+        "expected_xyz_mm": [
+          115,
+          19,
+          75
+        ],
+        "max_error_mm": 0.0,
+        "brep_valid": true
+      }
+    }
+  ],
+  "generated_at": "2026-11-02T03:26:32.937354+00:00",
+  "source_snapshot_repository": "https://github.com/madfam-org/solid-hyperobjects",
+  "source_snapshot_commit": "a91c85b131ad3e5c5daf2751f76dcf591f7093c3",
+  "native_gate_summary": [
+    {
+      "family": "home-console",
+      "renders": 108,
+      "preset_targets": 102,
+      "failures": 0,
+      "notes": 42
+    },
+    {
+      "family": "slab-handheld",
+      "renders": 210,
+      "preset_targets": 203,
+      "failures": 0,
+      "notes": 19
+    },
+    {
+      "family": "gamepad",
+      "renders": 33,
+      "preset_targets": 26,
+      "failures": 0,
+      "notes": 0
+    },
+    {
+      "family": "clamshell-dual-screen-handheld",
+      "renders": 109,
+      "preset_targets": 97,
+      "failures": 0,
+      "notes": 2
+    },
+    {
+      "family": "plug-in-media",
+      "renders": 26,
+      "preset_targets": 19,
+      "failures": 0,
+      "notes": 1
+    }
+  ],
+  "checks": {
+    "pytest_passed": 264,
+    "cartridge_manifests": 597,
+    "manifest_failures": 0,
+    "generated_families": 13,
+    "assembly_documents": 2,
+    "assembly_failures": 0,
+    "assembly_collision_scope": "Existing components without cited solid envelopes remain unchecked, as reported by the assembly checker.",
+    "additional_gba_frame_part_meshes": 15
+  },
+  "family_coverage": {
+    "book-fold-phone": {
+      "presets": 30,
+      "reference_object_presets": 27,
+      "awaiting_sources": 1
+    },
+    "cable-assembly": {
+      "presets": 5,
+      "reference_object_presets": 1,
+      "awaiting_sources": 0
+    },
+    "clamshell-dual-screen-handheld": {
+      "presets": 15,
+      "reference_object_presets": 14,
+      "awaiting_sources": 8
+    },
+    "console-dock": {
+      "presets": 6,
+      "reference_object_presets": 4,
+      "awaiting_sources": 0
+    },
+    "console-stand": {
+      "presets": 6,
+      "reference_object_presets": 3,
+      "awaiting_sources": 0
+    },
+    "disc-media": {
+      "presets": 4,
+      "reference_object_presets": 0,
+      "awaiting_sources": 2
+    },
+    "gamepad": {
+      "presets": 13,
+      "reference_object_presets": 6,
+      "awaiting_sources": 27
+    },
+    "home-console": {
+      "presets": 51,
+      "reference_object_presets": 40,
+      "awaiting_sources": 19
+    },
+    "jewel-case": {
+      "presets": 4,
+      "reference_object_presets": 0,
+      "awaiting_sources": 0
+    },
+    "keep-case": {
+      "presets": 5,
+      "reference_object_presets": 0,
+      "awaiting_sources": 0
+    },
+    "plug-in-media": {
+      "presets": 7,
+      "reference_object_presets": 2,
+      "awaiting_sources": 0
+    },
+    "power-adapter": {
+      "presets": 7,
+      "reference_object_presets": 3,
+      "awaiting_sources": 2
+    },
+    "slab-handheld": {
+      "presets": 29,
+      "reference_object_presets": 22,
+      "awaiting_sources": 20
+    }
+  }
+}

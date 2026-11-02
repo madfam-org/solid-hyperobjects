@@ -55,17 +55,36 @@ forbids it — and they are not an installed package either, because a package
 would move many cartridges' geometry with no cartridge diff, so the render lane
 would never see the change.
 
-| Module | Components (CDG id each exposes) | Requires |
+| Module | Public API (CDG notes where listed) | Requires |
 | :-- | :-- | :-- |
-| `structure.py` | `deck_shell` (`device_envelope`, `cradle_seat`), `hinge_barrel` (`revolute_axis`, `mounting_surface`), `hinge_relief` (consumes `revolute_axis`), `speaker_grille` | `patterns` |
-| `controls.py` | `d_pad` (`dpad_seat`), `face_button` + `button_row` (`button_seat`), `analog_stick` (`stick_seat`), `shoulder_trigger` (`trigger_seat`) | `patterns` |
+| `cables.py` | `cable_section`, `connector_plug`, `strain_relief`, `cable_path`, `cable_jacket`, `coil_cord`, `cable_ferrite`, `coil_with_leads` | — |
+| `case_flexure.py` | `flexure_pose`, `flexure_web`, `flexure_lid`, `media_pocket_frame`, `outer_sleeve_lips` | `media_cases` |
 | `connectors.py` | `port_receptacle` (`port_cutout`), `cartridge_slot` (`cartridge_slot`) | — |
+| `console_io.py` | `media_cartridge_slot`, `card_slot`, `disc_lid_seat`, `disc_lid`, `disc_tray_bay`, `disc_tray`, `slot_loader`, `slot_door`, `slot_blank`, `slide_switch`, `controller_port`, `port_row` | `console_shell` |
+| `console_shell.py` | `face_plane`, `face_frame`, `section_profile`, `shell_body`, `upper_tier`, `side_cover`, `vent_field`, `foot_set`, `stand_seat`, `handle` | — |
+| `console_stands.py` | `console_stand_body` | `console_supports` |
+| `console_supports.py` | `support_box`, `dock_chassis`, `dock_device_tool`, `dock_boss`, `dock_port_cut`, `dock_door`, `support_disc`, `stand_seat_tool` | — |
+| `controls.py` | `d_pad` (`dpad_seat`), `face_button` + `button_row` (`button_seat`), `analog_stick` (`stick_seat`), `shoulder_trigger` (`trigger_seat`) | `patterns` |
+| `disc_media.py` | `revolved_disc`, `disc_shell_outline`, `disc_shell_boss`, `disc_pocket`, `disc_window`, `disc_read_slot`, `disc_shutter_track`, `disc_shutter_plate` | — |
 | `displays.py` | `display_panel` (`display_recess`) | — |
-| `patterns.py` | `linear_pattern`, `polar_pattern` (helpers, not components) | — |
+| `handheld_body.py` | `face_tool`, `face_cut_center`, `slab_depth`, `slab_bottom`, `rear_y`, `slab_body`, `half_space`, `media_slot`, `media_proxy`, `cell_bay_size`, `battery_bay`, `battery_door`, `side_rail`, `kickstand_recess`, `kickstand`, `edge_port`, `rear_recess` | — |
+| `media_cases.py` | `case_box`, `case_pan`, `case_pin`, `case_hinge_eye`, `case_disc_hub`, `case_tray`, `case_booklet_tabs`, `case_open` | — |
+| `media_shells.py` | `media_shell_outer`, `media_shell_cavity`, `contact_window`, `contact_pocket`, `edge_connector_board`, `label_recess`, `grip_ridges`, `keying_notches`, `shutter_outline`, `pass_through_mouth`, `media_place` | — |
+| `pad_body.py` | `pad_crown_q`, `pad_crown_top`, `pad_crown_bottom`, `pad_crown_dome`, `pad_grip_count`, `pad_grip_layout`, `pad_grip`, `pad_body`, `pad_rail`, `pad_magnet_pockets` | `structure` |
+| `pad_controls.py` | `pad_rotate_xy`, `pad_face_layout`, `pad_round_seats`, `pad_octagon_seat`, `pad_round_caps`, `pad_cross_cap`, `pad_stick`, `pad_box`, `pad_trigger_blade`, `pad_grille`, `pad_door_seam` | `pad_body` |
+| `patterns.py` | `linear_pattern`, `polar_pattern` (helpers) | — |
+| `power_cases.py` | `adapter_body`, `adapter_prongs`, `adapter_inlet` | — |
+| `structure.py` | `deck_shell` (`device_envelope`, `cradle_seat`), `hinge_barrel` (`revolute_axis`, `mounting_surface`), `hinge_relief` (consumes `revolute_axis`), `speaker_grille` | `patterns` |
 
-The first twelve were lifted unchanged from `clamshell-dual-screen-handheld`
-(geometry-identical at its defaults and all 13 presets). Plan §2.3 lists the
-rest of the library; each lands with the family that first needs it.
+The first twelve components were lifted unchanged from
+`clamshell-dual-screen-handheld` (geometry-identical at its defaults and original
+13 presets). The inventory now includes console and controller bodies, optical
+and plug-in media, handhelds, cases, cables, power adapters, docks and stands.
+Public helpers share the same flat inline namespace as components; private
+helpers are omitted from this table but still participate in collision checks.
+Python names are not CDG IDs: interface bindings belong to each component's
+source and the consuming cartridge manifest. The namespace table lists the
+implemented API, not a promise of interchangeable physical parts.
 
 **The rules a module lives by** (`tools/inline_parts.py` lints them):
 
