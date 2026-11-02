@@ -61,3 +61,22 @@ def test_cli_emit_and_manifest_generation_use_the_same_supplemental_sources(emit
     else:
         assert result == expected
         assert any(p['slug'] == 'nintendo-64-the-legend-of-zelda-ocarina-of-time-jp' for p in result)
+
+
+def test_majora_issue_measurements_stay_separate_and_envelope_scoped():
+    from common import generated
+    from hyperobjects_reference import load_object, object_digest
+    metadata, presets = generated(plug_in_media.FAMILY)
+    by = {p['slug']: p for p in presets}
+    dimensions = []
+    for key in ('nintendo-64-the-legend-of-zelda-majoras-mask-jp',
+                'nintendo-64-the-legend-of-zelda-majoras-mask-expansion-pak-jp'):
+        obj = load_object(key); p = by[key]; f = obj['features']
+        assert p['mode'] == 'envelope'
+        assert p['registry']['edition'] == key
+        assert p['registry']['product_code'] == obj['edition']['product_code']
+        assert metadata['catalog']['supplemental_objects'][key] == object_digest(obj)
+        actual = tuple(p['values'][k] for k in ('shell_width', 'shell_height', 'shell_thickness'))
+        assert actual == tuple(f[k] for k in ('media_width_mm', 'media_height_mm', 'media_depth_mm'))
+        dimensions.append(actual)
+    assert dimensions == [(115, 75, 19), (115, 76, 18)]
