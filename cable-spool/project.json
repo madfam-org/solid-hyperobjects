@@ -554,7 +554,33 @@
           "keyway",
           "key_w",
           "setscrew_dia"
-        ]
+        ],
+        "frame": {
+          "part": "spool",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "bore",
+          "map": {
+            "19": "shaft-19mm-key-6mm"
+          }
+        },
+        "symmetry": 0
       },
       {
         "id": "cable_drum",
