@@ -2,8 +2,8 @@
 V-Belt / Round-Belt Pulley — Yantra4D Hyperobject Cartridge (CadQuery / B-Rep).
 
 A friction-drive pulley (sheave) for A-section V-belts or for O-ring / round
-belts. The rim carries one or more grooves cut as bodies of revolution about the
-pulley axis (Z):
+belts, and an idler sheave for rope, cord or cable. The rim carries one or more
+grooves cut as bodies of revolution about the pulley axis (Z):
 
   * "A/13" — a classic A-section V-belt groove: a ~40° included-angle V, ~13 mm
              wide at the top (ISO 4183 A / SPZ family). The belt wedges into the
@@ -11,11 +11,19 @@ pulley axis (Z):
              coaxial cones so the channel is exactly a revolved triangle.
   * round  — a semicircular groove sized to a round belt / O-ring of `belt_dia`,
              built as a torus of the belt radius centred on the rim circle.
+  * rope   — a deep throat for a rope, cord or cable of `rope_dia`: a round
+             bottom slightly wider than the rope (radius 0.53 x rope_dia) so the
+             rope is cradled and not pinched, and two straight flanks at
+             `throat_angle` that rise 1.25 x rope_dia above the tread so the rope
+             sits below the rim. It is sized by the tread diameter (where the
+             rope sits), because that is what bends the rope.
 
 Modes (dispatched via `target_part`):
   * "vbelt"        — a single V-groove sheave with an optional set-screw hub.
   * "roundbelt"    — a single semicircular groove for a round belt / O-ring.
   * "multi_groove" — a stacked V-belt sheave with `grooves` parallel V-grooves.
+  * "rope_sheave"  — an idler sheave with one rope throat and a plain bore for a
+                     bearing, a bushing or an axle. No hub: it turns on its axle.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -57,8 +65,13 @@ hub_dia      = float(PARAM(lambda: hub_dia,       22.0))   # hub outer diameter,
 hub_height   = float(PARAM(lambda: hub_height,     8.0))   # hub height, mm
 setscrew     = bool( PARAM(lambda: setscrew,      True))   # radial set-screw hole
 setscrew_dia = float(PARAM(lambda: setscrew_dia,   4.2))   # set-screw clearance (≈ M4)
+tread_dia    = float(PARAM(lambda: tread_dia,     80.0))   # rope sheave: diameter the rope sits on
+rope_dia     = float(PARAM(lambda: rope_dia,       5.0))   # rope / cord / cable diameter, mm
+throat_angle = float(PARAM(lambda: throat_angle,  45.0))   # rope throat included angle, deg
 
-target_part = str(  PARAM(lambda: target_part, "vbelt"))   # vbelt|roundbelt|multi_groove
+target_part = str(  PARAM(lambda: target_part, "vbelt"))   # vbelt|roundbelt|multi_groove|rope_sheave
+
+bore_raw = bore   # the rope sheave clamps the bore against its own tread, not outer_dia
 
 
 # ── Derived / clamped geometry ───────────────────────────────────────────────
@@ -209,8 +222,61 @@ def build_multi():
     return _finish(body, rim_w)
 
 
+# ── Rope sheave ──────────────────────────────────────────────────────────────
+ROPE_GROOVE_R = 0.53      # throat bottom radius / rope diameter: cradled, not pinched
+ROPE_GROOVE_DEPTH = 1.25  # rim height above the tread / rope diameter
+
+
+def build_rope_sheave():
+    """An idler sheave: a rim with one rope throat and a plain through bore.
+
+    The throat is one revolved profile: a bottom arc on the tread circle, and two
+    flanks tangent to it that run 1 mm past the rim so the cut breaks the surface
+    cleanly. Sized from the tread, so the rim diameter is derived:
+    tread_dia + 2 * ROPE_GROOVE_DEPTH * rope_dia.
+    """
+    d = max(1.0, rope_dia)
+    tread_r = max(6.0, tread_dia / 2.0)
+    half = math.radians(max(20.0, min(throat_angle, 70.0)) / 2.0)
+    groove_r = ROPE_GROOVE_R * d
+    depth = ROPE_GROOVE_DEPTH * d
+    rim_r = tread_r + depth
+
+    # tangent point of a flank on the bottom arc, measured from the tread (u) and
+    # from the throat's mid-plane (v)
+    tan_u = groove_r * (1.0 - math.sin(half))
+    tan_v = groove_r * math.cos(half)
+    rim_v = tan_v + (depth - tan_u) * math.tan(half)         # half-width at the rim
+    over = 1.0
+    end_v = tan_v + (depth + over - tan_u) * math.tan(half)
+
+    width = 2.0 * rim_v + 2.0 * max(3.0, 0.6 * d)            # throat plus two flanges
+    mid = width / 2.0
+    throat = (
+        cq.Workplane("XZ")
+        .moveTo(tread_r + tan_u, mid - tan_v)
+        .threePointArc((tread_r, mid), (tread_r + tan_u, mid + tan_v))
+        .lineTo(rim_r + over, mid + end_v)
+        .lineTo(rim_r + over, mid - end_v)
+        .close()
+        .revolve(360.0, (0, 0, 0), (0, 1, 0))
+    )
+    body = cq.Workplane("XY").circle(rim_r).extrude(width).cut(throat)
+
+    bore_d = max(2.0, min(bore_raw, 2.0 * tread_r - 8.0))    # keep 4 mm under the throat
+    cutter = (
+        cq.Workplane("XY")
+        .circle(bore_d / 2.0 + CLR)
+        .extrude(width + 1.0)
+        .translate((0, 0, -0.5))
+    )
+    return body.cut(cutter)
+
+
 # ── Dispatch ─────────────────────────────────────────────────────────────────
-if target_part == "roundbelt":
+if target_part == "rope_sheave":
+    result = build_rope_sheave()
+elif target_part == "roundbelt":
     result = build_single("roundbelt")
 elif target_part == "multi_groove":
     result = build_multi()

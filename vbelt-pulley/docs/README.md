@@ -1,8 +1,9 @@
 # V-Belt / Round-Belt Pulley
 
 A parametric friction-drive pulley (sheave) generated with **CadQuery** (B-Rep),
-for A-section V-belts or for round belts and O-rings. The rim carries one or more
-grooves cut as bodies of revolution about the pulley axis.
+for A-section V-belts or for round belts and O-rings, plus an idler sheave for
+rope, cord or cable. The rim carries one or more grooves cut as bodies of
+revolution about the pulley axis.
 
 Part of the **Yantra4D Hyperobjects Commons**. Official visualizer and
 configurator: [Yantra4D](https://app.yantra4d.com).
@@ -16,6 +17,27 @@ configurator: [Yantra4D](https://app.yantra4d.com).
   included angle and depth allow.
 - **Round belt / O-ring** — a semicircular groove built as a torus of the belt
   radius centred on the rim circle.
+- **Rope throat** — a deep groove for a rope, cord or cable. The bottom is an arc
+  of radius 0.53 × `rope_dia`, slightly wider than the rope, so the rope is
+  cradled and not pinched. Two straight flanks leave the arc on tangents at
+  `throat_angle` and rise 1.25 × `rope_dia` above the tread, so the rope sits
+  below the rim. It is one revolved profile.
+
+## Sizing a rope sheave
+
+A rope sheave is sized by its **tread diameter**, the diameter at the bottom of
+the throat where the rope sits, because that is what bends the rope:
+
+```
+bend ratio = tread_dia ÷ rope_dia        rim diameter = tread_dia + 2.5 × rope_dia
+```
+
+A larger ratio is kinder to the rope. The manifest warns under 8; the real
+minimum belongs to the rope's maker and its construction (wire rope and
+high-modulus synthetic rope want far more than a braided cord). The rim diameter
+is derived, and it is the number a guard or a block around the sheave has to
+clear. The sheave is an idler: it has a plain bore for a bearing, a bushing or
+an axle, and no hub. It is a geometry family, not a rated component.
 
 ## Modes
 
@@ -24,6 +46,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | **V-Belt** | `vbelt` | A single A-section V-groove sheave. |
 | **Round Belt** | `roundbelt` | A single semicircular groove for a round belt / O-ring. |
 | **Multi-Groove** | `multi_groove` | A stacked sheave with `grooves` parallel V-grooves. |
+| **Rope Sheave** | `rope_sheave` | An idler sheave with one rope throat and a plain bore. |
 
 ## Parameters
 
@@ -35,7 +58,10 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | Belt & Groove | `groove_width` / `groove_depth` | 13 / 11 mm | V top width / radial depth. |
 | Belt & Groove | `belt_dia` | 5 mm | Round-belt / O-ring cross-section. |
 | Multi-Groove | `grooves` / `groove_pitch` | 2 / 15 mm | Groove count / spacing. |
-| Body & Bore | `bore` | 8 mm | Shaft hole. |
+| Rope & Throat | `tread_dia` | 80 mm | Rope sheave: diameter at the bottom of the throat. |
+| Rope & Throat | `rope_dia` | 5 mm | Rope sheave: rope, cord or cable diameter. |
+| Rope & Throat | `throat_angle` | 45° | Rope sheave: included angle between the flanks. |
+| Body & Bore | `bore` | 8 mm | Shaft hole. On a rope sheave it stays 4 mm under the throat. |
 | Hub & Set Screw | `hub` / `hub_dia` / `hub_height` | on / 22 / 8 mm | Set-screw hub. |
 | Hub & Set Screw | `setscrew` / `setscrew_dia` | on / 4.2 mm | Radial M4 set screw. |
 
@@ -44,6 +70,10 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 - **A-Section Ø60 · 8 mm bore** — a general-purpose V-belt sheave.
 - **O-Ring Drive Ø40 (5 mm belt)** — a light round-belt drive.
 - **Twin-Groove Sheave Ø80** — a two-groove V-belt sheave.
+- **Rope Sheave · 5 mm rope · Ø80 tread · 22 mm bore** — a 16:1 idler; the bore
+  takes a 22 mm bearing or bushing.
+- **Cord Sheave · 3 mm cord · Ø40 tread · 8 mm bore** — a small idler on an 8 mm
+  axle.
 
 ## Hyperobject Profile
 
@@ -54,6 +84,8 @@ configurator: [Yantra4D](https://app.yantra4d.com).
     `outer_dia`.
   - **Round-Belt / O-Ring Groove** (`profile`, internal) — `belt_dia`,
     `outer_dia`.
+  - **Rope Throat** (`profile`, internal) — `rope_dia`, `tread_dia`,
+    `throat_angle`.
   - **Shaft Bore & Set Screw** (`socket`, internal) — `bore`, `setscrew`,
     `setscrew_dia`.
 - **Material awareness:** `tolerance_by_material` is declared; the round-belt
