@@ -83,6 +83,38 @@ builds and uses it.
 - **Hanging pivot** (`hang_pivot`): `pivot_d`, `lug_rise`, `wall`.
 - **Mounting plate bolts** (`mount_plate`): `mount_bolt_d`, `plate_t`.
 
+## Mating frames (assemblies)
+
+Two interfaces of the hanging `block` carry a SEM-1 frame, so the block can be
+placed in an assembly: hung from a yoke, with an axle through its cheeks.
+
+- **`hang_pivot`**: the pivot bore of the lug, framed where it enters the lug's
+  side face. Origin `(-(sheave_w + 2*side_gap + 2*wall)/2, 0, sheave_d/2 + rim_gap + wall + lug_rise)`,
+  normal `-x` (out of the face), `x_axis` `-z` (the way the block hangs).
+  Symmetry 0: the block turns freely on the pin. Polarity neutral, because the
+  partner is another bore on the same pin. Size key
+  `{param: pivot_d, map: {"8": shaft-8mm}}`.
+- **`sheave_pocket`**: the axle bore, framed on the inner face of one cheek, where
+  the axle leaves the cheek and enters the pocket. Origin
+  `(-(sheave_w + 2*side_gap)/2, 0, 0)`, normal `+x` (into the pocket), `x_axis`
+  `-z` (toward the mouth). Symmetry 0. Polarity female: the bore takes the axle.
+  Size key `{param: axle_d, map: {"8": shaft-8mm}}`.
+
+Both frames are verified against the rendered part at the defaults and every
+preset (`y4d-spec check --render`).
+
+Limits:
+
+- **Bore sizes.** Each size key resolves only at exactly 8 mm. At any other
+  `pivot_d` or `axle_d` the interface has no size key, so a mate that needs one
+  fails and names the slider value.
+- **The sheave is not mated to the block.** A sheave rides on a bearing on the
+  axle; the assembly places the axle in this bore and the rest follows from it.
+- **`block_fixed` has no frame yet.** Its mounting plate (`mount_plate`) is
+  declared without one.
+- **Side play.** The frame of `hang_pivot` is on the lug's face. A yoke wider
+  than the block states the side clearance as a station on the mate.
+
 ## Licence
 
 CERN-OHL-W-2.0. See `LICENSE`.
