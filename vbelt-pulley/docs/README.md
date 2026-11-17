@@ -88,11 +88,37 @@ an axle, and no hub. It is a geometry family, not a rated component.
     `throat_angle`.
   - **Shaft Bore & Set Screw** (`socket`, internal) — `bore`, `setscrew`,
     `setscrew_dia`.
+  - **Rope Sheave Bearing Bore** (`socket`, internal) — `bore`; carries a
+    mating frame (below).
 - **Material awareness:** `tolerance_by_material` is declared; the round-belt
   groove and bore carry a small print clearance.
 - **Societal benefit:** printable sheaves let a maker set a drive ratio or
   replace a cracked pulley without sourcing a proprietary casting.
 - **License:** CERN-OHL-W-2.0
+
+## Mating frames (assemblies)
+
+`sheave_bore` carries a SEM-1 frame on the `rope_sheave` part, so an idler sheave
+can be placed in an assembly on a bearing:
+
+- **Origin and normal:** origin `(0, 0, 0)`, the centre of the bore where it
+  opens in the sheave's lower face. Normal `-z`, out of the bore.
+- **Orientation:** `x_axis` `+x`. Symmetry 0: the sheave turns freely.
+- **Polarity and size key:** polarity female (the bore takes the bearing); size
+  key `{param: bore, map: {"22": bearing-608}}`: the key resolves only at exactly
+  22 mm, the outside diameter of a 608 bearing.
+
+The frame is verified against the rendered part at the defaults and every preset
+(`y4d-spec check --render`).
+
+Limits:
+
+- **Only the rope sheave.** The belt pulleys' `shaft_bore` declares no frame yet.
+- **Bore size.** At any `bore` other than 22 mm the interface has no size key, so
+  a mate that needs one fails and names the slider value.
+- **No shoulder.** The bore runs straight through, so nothing in the part fixes
+  the bearing axially. The frame puts the bearing's face at the sheave's face; a
+  centred sheave is stated by the assembly (a spacer on the axle), not by this part.
 
 ## Engine notes
 
