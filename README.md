@@ -79,7 +79,7 @@ the geometry both live on this side; consumers read published, prerendered artif
 ## Validating a cartridge
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@43ae9ae1f6d539123b95fd7ab77c3e8829ea49bd"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@206b05ff943caefc37287a60dc249a0b2c79ce2a"
 
 y4d-spec check ./gridfinity                # manifest + files, under a second
 y4d-spec check ./gridfinity --render       # + geometry, every (mode, part) and every preset
@@ -104,7 +104,7 @@ export OPENSCADPATH="$PWD/libs:$PWD"
 
 ## How CI verifies a change
 
-The keystone pin CI installs is `43ae9ae1` (`SPEC_PIN` in
+The keystone pin CI installs is `206b05ff` (`SPEC_PIN` in
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)). Every gate below is
 that package's, run from this repo — there is no second, hidden bar.
 Compiler warning/error lines are retained as bounded notes identified by mode,
