@@ -1,0 +1,569 @@
+{
+  "project": {
+    "name": "Pulley Block",
+    "slug": "pulley-block",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric enclosed housing for a cable or rope sheave: the turning point of a hoist, a tackle, a cable-driven machine or a clothes airer. Two cheeks cover the sides of the sheave and a rim guard follows its edge at a fixed gap, open only at the mouth where the cable enters and leaves. Set the sheave it houses, the axle and the gaps; choose a hanging block with a pivot lug or a fixed block with a mounting plate. The rim gap is held under 9.5 mm so a fingertip cannot reach the running sheave.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una carcasa cerrada paramétrica para una roldana de cable o cuerda (garrucha o motón): el punto de giro de un polipasto, un aparejo, una máquina accionada por cable o un tendedero de techo. Dos cachas cubren los costados de la roldana y una guarda sigue su borde con una holgura fija, abierta solo en la boca por donde entra y sale el cable. Define la roldana que aloja, el eje y las holguras; elige una garrucha colgante con oreja de pivote o una garrucha fija con placa de montaje. La holgura del borde se mantiene bajo 9.5 mm para que la yema de un dedo no alcance la roldana en movimiento.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/pulley-block.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "pulley-block",
+      "sheave",
+      "guard",
+      "cable",
+      "rope",
+      "hoist",
+      "tackle",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Hanging Block",
+        "es": "Garrucha Colgante"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "block"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "block_fixed",
+      "label": {
+        "en": "Fixed Block",
+        "es": "Garrucha Fija"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "block_fixed"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "block",
+      "label": {
+        "en": "Hanging Block",
+        "es": "Garrucha Colgante"
+      },
+      "render_mode": 0,
+      "color": "#c9ccd1"
+    },
+    {
+      "id": "block_fixed",
+      "label": {
+        "en": "Fixed Block",
+        "es": "Garrucha Fija"
+      },
+      "render_mode": 0,
+      "color": "#a9aeb6"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "sheave",
+      "label": {
+        "en": "Sheave",
+        "es": "Roldana"
+      }
+    },
+    {
+      "id": "guard",
+      "label": {
+        "en": "Guard",
+        "es": "Guarda"
+      }
+    },
+    {
+      "id": "hang",
+      "label": {
+        "en": "Pivot Lug",
+        "es": "Oreja de Pivote"
+      }
+    },
+    {
+      "id": "mount",
+      "label": {
+        "en": "Mounting Plate",
+        "es": "Placa de Montaje"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "sheave_d",
+      "type": "slider",
+      "default": 90.0,
+      "min": 30.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "sheave",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Sheave Diameter (mm)",
+        "es": "Diámetro de la Roldana (mm)"
+      },
+      "tooltip": {
+        "en": "Outside (rim) diameter of the sheave the block houses",
+        "es": "Diámetro exterior (del borde) de la roldana que aloja la garrucha"
+      }
+    },
+    {
+      "id": "sheave_w",
+      "type": "slider",
+      "default": 16.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "sheave",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Sheave Width (mm)",
+        "es": "Ancho de la Roldana (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the sheave along its axle",
+        "es": "Ancho de la roldana a lo largo de su eje"
+      }
+    },
+    {
+      "id": "axle_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "sheave",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Axle Bore (mm)",
+        "es": "Barreno del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Bore through both cheeks for the sheave axle",
+        "es": "Barreno a través de ambas cachas para el eje de la roldana"
+      }
+    },
+    {
+      "id": "rim_gap",
+      "type": "slider",
+      "default": 4.0,
+      "min": 1.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "guard",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Rim Gap (mm)",
+        "es": "Holgura del Borde (mm)"
+      },
+      "tooltip": {
+        "en": "Fixed gap between the sheave rim and the guard; it must stay under 9.5 mm",
+        "es": "Holgura fija entre el borde de la roldana y la guarda; debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "id": "side_gap",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.25,
+      "group": "guard",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Side Gap (mm)",
+        "es": "Holgura Lateral (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance between each face of the sheave and its cheek",
+        "es": "Holgura entre cada cara de la roldana y su cacha"
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "guard",
+      "modes": [
+        "block",
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Espesor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the cheeks and of the rim guard",
+        "es": "Espesor de las cachas y de la guarda del borde"
+      }
+    },
+    {
+      "id": "pivot_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "hang",
+      "modes": [
+        "block"
+      ],
+      "label": {
+        "en": "Pivot Bore (mm)",
+        "es": "Barreno de Pivote (mm)"
+      },
+      "tooltip": {
+        "en": "Bore of the lug for the pin, bolt or shackle the block hangs from",
+        "es": "Barreno de la oreja para el perno, tornillo o grillete del que cuelga la garrucha"
+      }
+    },
+    {
+      "id": "lug_rise",
+      "type": "slider",
+      "default": 12.0,
+      "min": 6.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "hang",
+      "modes": [
+        "block"
+      ],
+      "label": {
+        "en": "Pivot Rise (mm)",
+        "es": "Altura del Pivote (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the outside of the guard to the centre of the pivot bore",
+        "es": "Distancia del exterior de la guarda al centro del barreno de pivote"
+      }
+    },
+    {
+      "id": "mount_bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.5,
+      "max": 10.5,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Bolt Hole (mm)",
+        "es": "Barreno de Tornillo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each of the two mounting bolts",
+        "es": "Barreno pasado para cada uno de los dos tornillos de montaje"
+      }
+    },
+    {
+      "id": "plate_t",
+      "type": "slider",
+      "default": 6.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "mount",
+      "modes": [
+        "block_fixed"
+      ],
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Espesor de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the mounting plate",
+        "es": "Espesor de la placa de montaje"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "cord_90_hanging",
+      "mode": "block",
+      "label": {
+        "en": "Hanging block · 90 mm sheave · 8 mm axle",
+        "es": "Garrucha colgante · roldana 90 mm · eje 8 mm"
+      },
+      "values": {
+        "sheave_d": 90.0,
+        "sheave_w": 16.0,
+        "axle_d": 8.0,
+        "rim_gap": 4.0,
+        "side_gap": 1.5,
+        "wall": 4.0,
+        "pivot_d": 8.0,
+        "lug_rise": 12.0
+      }
+    },
+    {
+      "id": "utility_40_fixed",
+      "mode": "block_fixed",
+      "label": {
+        "en": "Fixed block · 40 mm sheave · 5 mm axle",
+        "es": "Garrucha fija · roldana 40 mm · eje 5 mm"
+      },
+      "values": {
+        "sheave_d": 40.0,
+        "sheave_w": 10.0,
+        "axle_d": 5.0,
+        "rim_gap": 2.0,
+        "side_gap": 1.0,
+        "wall": 3.0,
+        "mount_bolt_d": 4.5,
+        "plate_t": 4.0
+      }
+    },
+    {
+      "id": "rope_150_hanging",
+      "mode": "block",
+      "label": {
+        "en": "Hanging block · 150 mm sheave · 12 mm axle",
+        "es": "Garrucha colgante · roldana 150 mm · eje 12 mm"
+      },
+      "values": {
+        "sheave_d": 150.0,
+        "sheave_w": 24.0,
+        "axle_d": 12.0,
+        "rim_gap": 5.0,
+        "side_gap": 2.0,
+        "wall": 6.0,
+        "pivot_d": 12.0,
+        "lug_rise": 18.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "rim_gap < 9.5",
+      "severity": "error",
+      "message": {
+        "en": "A fixed gap beside a moving sheave must stay under 9.5 mm so a fingertip cannot enter",
+        "es": "Una holgura fija junto a una roldana en movimiento debe quedar bajo 9.5 mm para que no entre la yema de un dedo"
+      }
+    },
+    {
+      "expression": "axle_d + 12 <= sheave_d",
+      "severity": "error",
+      "message": {
+        "en": "The axle must leave at least 6 mm of sheave around it",
+        "es": "El eje debe dejar al menos 6 mm de roldana a su alrededor"
+      }
+    },
+    {
+      "expression": "lug_rise >= pivot_d / 2 + 2",
+      "severity": "error",
+      "message": {
+        "en": "The pivot bore must clear the guard by at least 2 mm",
+        "es": "El barreno de pivote debe librar la guarda por al menos 2 mm"
+      }
+    },
+    {
+      "expression": "mount_bolt_d * 2 <= sheave_w + 2 * side_gap + 2 * wall",
+      "severity": "error",
+      "message": {
+        "en": "The bolt hole must be at most half the width of the block, so the plate keeps a wall on both sides",
+        "es": "El barreno del tornillo debe medir a lo más la mitad del ancho de la garrucha, para que la placa conserve pared a ambos lados"
+      }
+    },
+    {
+      "expression": "rim_gap >= 1.5",
+      "severity": "warning",
+      "message": {
+        "en": "Under 1.5 mm a sheave that runs slightly out of true can rub the guard",
+        "es": "Con menos de 1.5 mm, una roldana ligeramente descentrada puede rozar la guarda"
+      }
+    },
+    {
+      "expression": "plate_t * 2 >= mount_bolt_d",
+      "severity": "warning",
+      "message": {
+        "en": "A plate thinner than half the bolt diameter gives the bolt head little to bear on",
+        "es": "Una placa más delgada que la mitad del diámetro del tornillo da poco apoyo a su cabeza"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        170,
+        170,
+        120
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        280,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -280,
+        10
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 6,
+    "per_unit": 1,
+    "per_part": 6,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "sheave_pocket",
+        "label": {
+          "en": "Sheave Pocket & Axle",
+          "es": "Alojamiento de Roldana y Eje"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "sheave_d",
+          "sheave_w",
+          "rim_gap",
+          "side_gap",
+          "axle_d"
+        ]
+      },
+      {
+        "id": "hang_pivot",
+        "label": {
+          "en": "Hanging Pivot",
+          "es": "Pivote de Suspensión"
+        },
+        "geometry_type": "hinge",
+        "standard": "internal",
+        "parameters": [
+          "pivot_d",
+          "lug_rise",
+          "wall"
+        ]
+      },
+      {
+        "id": "mount_plate",
+        "label": {
+          "en": "Mounting Plate Bolts",
+          "es": "Tornillos de la Placa de Montaje"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal",
+        "parameters": [
+          "mount_bolt_d",
+          "plate_t"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A bare sheave is a pinch point: the place where a cable runs onto a wheel is where fingers, hair and clothing get drawn in. A housing made to the sheave at hand, with a gap small enough to keep a fingertip out, lets a workshop, a stage or a home build or repair a cable run without leaving the wheel exposed.",
+      "es": "Una roldana desnuda es un punto de atrapamiento: donde un cable entra a una rueda es donde se jalan dedos, cabello y ropa. Una carcasa hecha para la roldana disponible, con una holgura tan pequeña que no entra la yema de un dedo, permite a un taller, un escenario o un hogar construir o reparar un tendido de cable sin dejar la rueda expuesta."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "pulley-block",
+    "sheave",
+    "guard",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
