@@ -1,0 +1,490 @@
+{
+  "project": {
+    "name": "Indexed Column",
+    "slug": "indexed-column",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric open rectangular tube with a row of index holes along one face: the fixed half of a pin-and-hole height adjustment. A sleeve slides on the tube and a pin through the sleeve drops into one of the holes. It is the post of a height-adjustable stand, rack, jig or cable machine, and it doubles as a drilling plan for tube stock. Set the section, the wall and the length, then the hole diameter, the pitch, the height of the first hole and the number of holes; the holes can stop at the front wall or pass right through.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un tubo rectangular abierto paramétrico con una fila de barrenos de posición a lo largo de una cara: la mitad fija de un ajuste de altura por perno y barreno. Una corredera se desliza sobre el tubo y un perno a través de ella entra en uno de los barrenos. Es el poste de un soporte, estante, plantilla o máquina de cable de altura ajustable, y sirve también como plano de barrenado para perfil tubular. Define la sección, la pared y el largo, luego el diámetro de barreno, el paso, la altura del primer barreno y el número de barrenos; los barrenos pueden quedar en la pared frontal o atravesar el tubo.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/indexed-column.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "indexed-column",
+      "column",
+      "tube",
+      "post",
+      "index-holes",
+      "height-adjustable",
+      "perforated-tube",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "column",
+      "label": {
+        "en": "Indexed Column",
+        "es": "Columna Indexada"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "column"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "column",
+      "label": {
+        "en": "Indexed Column",
+        "es": "Columna Indexada"
+      },
+      "render_mode": 0,
+      "color": "#c9ccd1"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "section",
+      "label": {
+        "en": "Section",
+        "es": "Sección"
+      }
+    },
+    {
+      "id": "holes",
+      "label": {
+        "en": "Index Holes",
+        "es": "Barrenos de Posición"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "column_w",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "section",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Column Width (mm)",
+        "es": "Ancho de la Columna (mm)"
+      },
+      "tooltip": {
+        "en": "Outside width of the tube, across the face that carries the holes",
+        "es": "Ancho exterior del tubo, a lo ancho de la cara que lleva los barrenos"
+      }
+    },
+    {
+      "id": "column_d",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "section",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Column Depth (mm)",
+        "es": "Fondo de la Columna (mm)"
+      },
+      "tooltip": {
+        "en": "Outside depth of the tube, front to back",
+        "es": "Fondo exterior del tubo, de frente a atrás"
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.5,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "section",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Espesor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Wall thickness of the tube",
+        "es": "Espesor de pared del tubo"
+      }
+    },
+    {
+      "id": "length",
+      "type": "slider",
+      "default": 700.0,
+      "min": 100.0,
+      "max": 2400.0,
+      "step": 5.0,
+      "group": "section",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Length (mm)",
+        "es": "Largo (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the column; hole heights are measured from its lower end",
+        "es": "Largo de la columna; las alturas de los barrenos se miden desde su extremo inferior"
+      }
+    },
+    {
+      "id": "hole_d",
+      "type": "slider",
+      "default": 10.5,
+      "min": 4.0,
+      "max": 17.0,
+      "step": 0.5,
+      "group": "holes",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Hole Diameter (mm)",
+        "es": "Diámetro de Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each index hole; make it the pin diameter plus its clearance",
+        "es": "Diámetro de cada barreno de posición; usa el diámetro del perno más su holgura"
+      }
+    },
+    {
+      "id": "hole_pitch",
+      "type": "slider",
+      "default": 50.0,
+      "min": 10.0,
+      "max": 200.0,
+      "step": 0.5,
+      "group": "holes",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Hole Pitch (mm)",
+        "es": "Paso de Barrenos (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the centres of neighbouring holes: the height step of the adjustment",
+        "es": "Distancia entre centros de barrenos vecinos: el escalón de altura del ajuste"
+      }
+    },
+    {
+      "id": "first_hole",
+      "type": "slider",
+      "default": 50.0,
+      "min": 5.0,
+      "max": 1000.0,
+      "step": 1.0,
+      "group": "holes",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "First Hole Height (mm)",
+        "es": "Altura del Primer Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the centre of the lowest hole above the lower end",
+        "es": "Altura del centro del barreno más bajo sobre el extremo inferior"
+      }
+    },
+    {
+      "id": "hole_count",
+      "type": "slider",
+      "default": 12,
+      "min": 1,
+      "max": 60,
+      "step": 1,
+      "group": "holes",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Number of Holes",
+        "es": "Número de Barrenos"
+      },
+      "tooltip": {
+        "en": "How many index holes the row has: the number of positions",
+        "es": "Cuántos barrenos de posición tiene la fila: el número de posiciones"
+      }
+    },
+    {
+      "id": "through",
+      "type": "checkbox",
+      "default": false,
+      "group": "holes",
+      "modes": [
+        "column"
+      ],
+      "label": {
+        "en": "Through Both Walls",
+        "es": "Atravesar Ambas Paredes"
+      },
+      "tooltip": {
+        "en": "Drill each hole through the back wall too, for a pin that passes right through the column",
+        "es": "Barrena cada agujero también en la pared trasera, para un perno que atraviesa toda la columna"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "square_50_x12",
+      "mode": "column",
+      "label": {
+        "en": "50 mm square · 12 holes at 50 mm",
+        "es": "Cuadrada 50 mm · 12 barrenos a 50 mm"
+      },
+      "values": {
+        "column_w": 50.0,
+        "column_d": 50.0,
+        "wall": 3.0,
+        "length": 700.0,
+        "hole_d": 10.5,
+        "hole_pitch": 50.0,
+        "first_hole": 50.0,
+        "hole_count": 12,
+        "through": false
+      }
+    },
+    {
+      "id": "square_80_x30",
+      "mode": "column",
+      "label": {
+        "en": "80 mm square · 30 holes at 50 mm",
+        "es": "Cuadrada 80 mm · 30 barrenos a 50 mm"
+      },
+      "values": {
+        "column_w": 80.0,
+        "column_d": 80.0,
+        "wall": 4.0,
+        "length": 1800.0,
+        "hole_d": 10.5,
+        "hole_pitch": 50.0,
+        "first_hole": 200.0,
+        "hole_count": 30,
+        "through": false
+      }
+    },
+    {
+      "id": "rect_40x60_printable",
+      "mode": "column",
+      "label": {
+        "en": "40 × 60 mm · 240 mm printable section · 5 through holes",
+        "es": "40 × 60 mm · tramo imprimible de 240 mm · 5 barrenos pasados"
+      },
+      "values": {
+        "column_w": 40.0,
+        "column_d": 60.0,
+        "wall": 2.5,
+        "length": 240.0,
+        "hole_d": 8.5,
+        "hole_pitch": 40.0,
+        "first_hole": 40.0,
+        "hole_count": 5,
+        "through": true
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "first_hole + (hole_count - 1) * hole_pitch + hole_d <= length",
+      "severity": "error",
+      "message": {
+        "en": "The row of holes must end at least one hole diameter before the upper end",
+        "es": "La fila de barrenos debe terminar al menos un diámetro de barreno antes del extremo superior"
+      }
+    },
+    {
+      "expression": "first_hole >= hole_d",
+      "severity": "error",
+      "message": {
+        "en": "The first hole must stand at least one hole diameter above the lower end",
+        "es": "El primer barreno debe quedar al menos un diámetro de barreno arriba del extremo inferior"
+      }
+    },
+    {
+      "expression": "hole_pitch >= 1.5 * hole_d",
+      "severity": "error",
+      "message": {
+        "en": "Neighbouring holes need at least half a diameter of wall between them",
+        "es": "Los barrenos vecinos necesitan al menos medio diámetro de pared entre ellos"
+      }
+    },
+    {
+      "expression": "hole_d + 2 * wall + 2 <= column_w",
+      "severity": "error",
+      "message": {
+        "en": "The hole must fit between the two side walls",
+        "es": "El barreno debe caber entre las dos paredes laterales"
+      }
+    },
+    {
+      "expression": "2 * wall + 4 <= column_w && 2 * wall + 4 <= column_d",
+      "severity": "error",
+      "message": {
+        "en": "The tube must stay open: at least 4 mm of bore in both directions",
+        "es": "El tubo debe quedar abierto: al menos 4 mm de claro en ambas direcciones"
+      }
+    },
+    {
+      "expression": "2 * hole_d <= column_w",
+      "severity": "warning",
+      "message": {
+        "en": "A hole over half the face width removes most of the wall that resists bending there",
+        "es": "Un barreno mayor a la mitad del ancho de la cara quita casi toda la pared que resiste la flexión en ese punto"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        500,
+        700,
+        600
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        1100,
+        350
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        1400
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "column_section",
+        "label": {
+          "en": "Column Section",
+          "es": "Sección de la Columna"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "column_w",
+          "column_d",
+          "wall"
+        ]
+      },
+      {
+        "id": "index_holes",
+        "label": {
+          "en": "Index Hole Row",
+          "es": "Fila de Barrenos de Posición"
+        },
+        "geometry_type": "grid",
+        "standard": "internal",
+        "parameters": [
+          "hole_d",
+          "hole_pitch",
+          "first_hole",
+          "hole_count",
+          "through"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A row of holes in a tube is how a stand, a rack or a workstation is made to fit more than one person or one job. Stating the section and the hole pattern as parameters turns ordinary rectangular stock into a documented, repeatable post: the same file is the model, the drilling plan and the record a repair needs.",
+      "es": "Una fila de barrenos en un tubo es como un soporte, un estante o una estación de trabajo se adapta a más de una persona o una tarea. Declarar la sección y el patrón de barrenos como parámetros convierte perfil rectangular común en un poste documentado y repetible: el mismo archivo es el modelo, el plano de barrenado y el registro que una reparación necesita."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "indexed-column",
+    "column",
+    "index-holes",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
