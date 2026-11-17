@@ -2,19 +2,19 @@
   "project": {
     "name": "V-Belt / Round-Belt Pulley",
     "slug": "vbelt-pulley",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
     },
     "engine": "cadquery",
     "description": {
-      "en": "A parametric friction-drive pulley (sheave) for A-section V-belts or for round belts and O-rings. The rim carries one or more grooves revolved about the axis: an ~40° A-section V-groove that wedges a V-belt by its flanks, or a semicircular groove sized to a round belt. Choose a single V-groove, a round-belt groove, or a multi-groove sheave, all with an optional set-screw hub.\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Una polea de transmisión por fricción (roldana) paramétrica para bandas en V sección A o para bandas redondas y anillos O. El aro lleva una o más ranuras revolucionadas alrededor del eje: una ranura en V de ~40° sección A que aprisiona la banda por sus flancos, o una ranura semicircular al tamaño de una banda redonda. Elige una sola ranura en V, una ranura para banda redonda, o una roldana de varias ranuras, todas con cubo con prisionero opcional.\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "A parametric friction-drive pulley (sheave) for A-section V-belts or for round belts and O-rings. The rim carries one or more grooves revolved about the axis: an ~40° A-section V-groove that wedges a V-belt by its flanks, or a semicircular groove sized to a round belt. Choose a single V-groove, a round-belt groove, or a multi-groove sheave, all with an optional set-screw hub. A fourth mode is an idler sheave for rope, cord or cable: a deep round-bottomed throat sized by the rope and by the tread diameter it bends around, with a plain bore for a bearing or an axle.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una polea de transmisión por fricción (roldana) paramétrica para bandas en V sección A o para bandas redondas y anillos O. El aro lleva una o más ranuras revolucionadas alrededor del eje: una ranura en V de ~40° sección A que aprisiona la banda por sus flancos, o una ranura semicircular al tamaño de una banda redonda. Elige una sola ranura en V, una ranura para banda redonda, o una roldana de varias ranuras, todas con cubo con prisionero opcional. Un cuarto modo es una roldana loca para cuerda, cordón o cable: una garganta profunda de fondo redondo dimensionada por la cuerda y por el diámetro de fondo sobre el que se curva, con un barreno liso para un rodamiento o un eje.\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/vbelt-pulley.webp",
     "difficulty": "intermediate",
-    "tags": ["vbelt-pulley", "sheave", "v-belt", "round-belt", "o-ring", "friction-drive", "pulley", "hyperobject", "commons"],
+    "tags": ["vbelt-pulley", "sheave", "v-belt", "round-belt", "o-ring", "friction-drive", "pulley", "rope-sheave", "rope", "cable", "hyperobject", "commons"],
     "hyperobject": { "is_hyperobject": true },
     "force_backend": true
   },
@@ -42,16 +42,26 @@
       "cq_file": "main.py",
       "parts": ["multi_groove"],
       "estimate": { "base_time": 12, "per_unit": 3, "per_part": 14 }
+    },
+    {
+      "id": "rope_sheave",
+      "label": { "en": "Rope Sheave", "es": "Roldana para Cuerda" },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": ["rope_sheave"],
+      "estimate": { "base_time": 10, "per_unit": 2, "per_part": 12 }
     }
   ],
   "parts": [
     { "id": "vbelt", "label": { "en": "V-Belt Pulley", "es": "Polea en V" }, "render_mode": 0, "color": "#5b8fb0" },
     { "id": "roundbelt", "label": { "en": "Round-Belt Pulley", "es": "Polea Redonda" }, "render_mode": 0, "color": "#8bb5cc" },
-    { "id": "multi_groove", "label": { "en": "Multi-Groove Sheave", "es": "Roldana Multi-Ranura" }, "render_mode": 0, "color": "#4b7f9c" }
+    { "id": "multi_groove", "label": { "en": "Multi-Groove Sheave", "es": "Roldana Multi-Ranura" }, "render_mode": 0, "color": "#4b7f9c" },
+    { "id": "rope_sheave", "label": { "en": "Rope Sheave", "es": "Roldana para Cuerda" }, "render_mode": 0, "color": "#6f9fb8" }
   ],
   "parameter_groups": [
     { "id": "groove", "label": { "en": "Belt & Groove", "es": "Banda y Ranura" } },
     { "id": "multi", "label": { "en": "Multi-Groove", "es": "Multi-Ranura" } },
+    { "id": "rope", "label": { "en": "Rope & Throat", "es": "Cuerda y Garganta" } },
     { "id": "body", "label": { "en": "Body & Bore", "es": "Cuerpo y Barreno" } },
     { "id": "hub", "label": { "en": "Hub & Set Screw", "es": "Cubo y Prisionero" } }
   ],
@@ -110,8 +120,26 @@
       "tooltip": { "en": "Centre-to-centre spacing between adjacent grooves", "es": "Separación centro a centro entre ranuras adyacentes" }
     },
     {
+      "id": "tread_dia", "type": "slider", "default": 80.0, "min": 20.0, "max": 200.0, "step": 1.0,
+      "group": "rope", "modes": ["rope_sheave"],
+      "label": { "en": "Tread Diameter (mm)", "es": "Diámetro de Fondo (mm)" },
+      "tooltip": { "en": "Diameter at the bottom of the throat, where the rope sits; the rim is 2.5 rope diameters larger", "es": "Diámetro al fondo de la garganta, donde asienta la cuerda; el aro es 2.5 diámetros de cuerda mayor" }
+    },
+    {
+      "id": "rope_dia", "type": "slider", "default": 5.0, "min": 1.0, "max": 16.0, "step": 0.5,
+      "group": "rope", "modes": ["rope_sheave"],
+      "label": { "en": "Rope Diameter (mm)", "es": "Diámetro de la Cuerda (mm)" },
+      "tooltip": { "en": "Diameter of the rope, cord or cable; it sets the throat radius, depth and width", "es": "Diámetro de la cuerda, cordón o cable; fija el radio, la profundidad y el ancho de la garganta" }
+    },
+    {
+      "id": "throat_angle", "type": "slider", "default": 45.0, "min": 20.0, "max": 70.0, "step": 1.0,
+      "group": "rope", "modes": ["rope_sheave"],
+      "label": { "en": "Throat Angle (°)", "es": "Ángulo de Garganta (°)" },
+      "tooltip": { "en": "Included angle between the two flanks; wider lets the rope enter at a larger fleet angle", "es": "Ángulo incluido entre los dos flancos; más abierto admite que la cuerda entre con mayor ángulo de desvío" }
+    },
+    {
       "id": "bore", "type": "slider", "default": 8.0, "min": 2.0, "max": 30.0, "step": 0.5,
-      "group": "body", "modes": ["vbelt", "roundbelt", "multi_groove"],
+      "group": "body", "modes": ["vbelt", "roundbelt", "multi_groove", "rope_sheave"],
       "label": { "en": "Shaft Bore (mm)", "es": "Barreno de Eje (mm)" },
       "tooltip": { "en": "Shaft hole diameter (auto-clamped inside the rim)", "es": "Diámetro del agujero del eje (limitado dentro del aro)" }
     },
@@ -161,6 +189,16 @@
       "id": "twin_groove_80", "mode": "multi_groove",
       "label": { "en": "Twin-Groove Sheave Ø80", "es": "Roldana de Doble Ranura Ø80" },
       "values": { "outer_dia": 80, "grooves": 2, "groove_pitch": 16, "groove_depth": 11, "bore": 12, "hub_dia": 26 }
+    },
+    {
+      "id": "rope_sheave_80_5mm", "mode": "rope_sheave",
+      "label": { "en": "Rope Sheave · 5 mm rope · Ø80 tread · 22 mm bore", "es": "Roldana para Cuerda · cuerda 5 mm · fondo Ø80 · barreno 22 mm" },
+      "values": { "tread_dia": 80, "rope_dia": 5, "throat_angle": 45, "bore": 22 }
+    },
+    {
+      "id": "cord_sheave_40_3mm", "mode": "rope_sheave",
+      "label": { "en": "Cord Sheave · 3 mm cord · Ø40 tread · 8 mm bore", "es": "Roldana para Cordón · cordón 3 mm · fondo Ø40 · barreno 8 mm" },
+      "values": { "tread_dia": 40, "rope_dia": 3, "throat_angle": 45, "bore": 8 }
     }
   ],
   "constraints": [
@@ -173,6 +211,16 @@
       "expression": "bore <= outer_dia - 6",
       "severity": "error",
       "message": { "en": "Bore must leave a rim wall around it", "es": "El barreno debe dejar una pared de aro alrededor" }
+    },
+    {
+      "expression": "bore + 8 <= tread_dia",
+      "severity": "error",
+      "message": { "en": "The bore must leave at least 4 mm of sheave under the rope throat", "es": "El barreno debe dejar al menos 4 mm de roldana bajo la garganta de la cuerda" }
+    },
+    {
+      "expression": "tread_dia >= 8 * rope_dia",
+      "severity": "warning",
+      "message": { "en": "A tread under 8 rope diameters bends the rope hard; check the rope maker's minimum", "es": "Un fondo menor a 8 diámetros de cuerda la dobla demasiado; revisa el mínimo del fabricante de la cuerda" }
     }
   ],
   "camera_views": [
@@ -203,6 +251,13 @@
         "parameters": ["belt_dia", "outer_dia"]
       },
       {
+        "id": "rope_throat",
+        "label": { "en": "Rope Throat", "es": "Garganta para Cuerda" },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": ["rope_dia", "tread_dia", "throat_angle"]
+      },
+      {
         "id": "shaft_bore",
         "label": { "en": "Shaft Bore & Set Screw", "es": "Barreno de Eje y Prisionero" },
         "geometry_type": "socket",
@@ -221,7 +276,7 @@
     },
     "commons_license": "CERN-OHL-W-2.0"
   },
-  "tags": ["vbelt-pulley", "sheave", "v-belt", "round-belt", "industrial", "hyperobject", "commons"],
+  "tags": ["vbelt-pulley", "sheave", "v-belt", "round-belt", "rope-sheave", "industrial", "hyperobject", "commons"],
   "verification": {
     "stages": {
       "geometry": {
