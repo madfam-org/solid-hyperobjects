@@ -1,0 +1,962 @@
+{
+  "project": {
+    "name": "Machine Guard",
+    "slug": "machine-guard",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric fixed guard that bolts over a moving or hot part of a machine and keeps hands out. Drum Hood is an arch over a rotating drum, spool, pulley or roller: it follows the rim at a fixed gap, comes down to two bolted feet, can close one end, and leaves a slot for the cable or belt. Box Cover is a five-sided cover for a drive, a coupling, a braking resistor or a terminal row, with vent slots in the top and a notch for a shaft or a cable. Every opening the guard leaves (the gap to the drum, the cable slot, the vents) is held under 9.5 mm so a fingertip cannot pass.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una guarda fija paramétrica que se atornilla sobre una parte móvil o caliente de una máquina y mantiene las manos fuera. La Cubierta de Tambor es un arco sobre un tambor, carrete, polea o rodillo giratorio: sigue el borde con una holgura fija, baja a dos patas atornilladas, puede cerrar un extremo y deja una ranura para el cable o la banda. La Cubierta de Caja es una tapa de cinco caras para un accionamiento, un cople, una resistencia de frenado o una hilera de terminales, con ranuras de ventilación arriba y una muesca para una flecha o un cable. Cada abertura que deja la guarda (la holgura al tambor, la ranura del cable, las ventilas) se mantiene bajo 9.5 mm para que no pase la yema de un dedo.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/machine-guard.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "machine-guard",
+      "guard",
+      "safety",
+      "cover",
+      "drum",
+      "winch",
+      "enclosure",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "drum_hood",
+      "label": {
+        "en": "Drum Hood",
+        "es": "Cubierta de Tambor"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "drum_hood"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "box_cover",
+      "label": {
+        "en": "Box Cover",
+        "es": "Cubierta de Caja"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "box_cover"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "drum_hood",
+      "label": {
+        "en": "Drum Hood",
+        "es": "Cubierta de Tambor"
+      },
+      "render_mode": 0,
+      "color": "#e0a526"
+    },
+    {
+      "id": "box_cover",
+      "label": {
+        "en": "Box Cover",
+        "es": "Cubierta de Caja"
+      },
+      "render_mode": 0,
+      "color": "#d9932b"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "drum",
+      "label": {
+        "en": "Drum",
+        "es": "Tambor"
+      }
+    },
+    {
+      "id": "slot",
+      "label": {
+        "en": "Cable Slot",
+        "es": "Ranura del Cable"
+      }
+    },
+    {
+      "id": "box",
+      "label": {
+        "en": "Covered Space",
+        "es": "Espacio Cubierto"
+      }
+    },
+    {
+      "id": "openings",
+      "label": {
+        "en": "Vents & Notch",
+        "es": "Ventilas y Muesca"
+      }
+    },
+    {
+      "id": "shell",
+      "label": {
+        "en": "Shell & Feet",
+        "es": "Cuerpo y Patas"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "drum_d",
+      "type": "slider",
+      "default": 100.0,
+      "min": 30.0,
+      "max": 400.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Drum Diameter (mm)",
+        "es": "Diámetro del Tambor (mm)"
+      },
+      "tooltip": {
+        "en": "Largest rotating diameter under the hood: the rim of the flanges, not the winding surface",
+        "es": "El mayor diámetro giratorio bajo la cubierta: el borde de las bridas, no la superficie de enrollado"
+      }
+    },
+    {
+      "id": "drum_w",
+      "type": "slider",
+      "default": 70.0,
+      "min": 10.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Drum Width (mm)",
+        "es": "Ancho del Tambor (mm)"
+      },
+      "tooltip": {
+        "en": "Overall width of the rotating part along its axis",
+        "es": "Ancho total de la parte giratoria a lo largo de su eje"
+      }
+    },
+    {
+      "id": "axis_h",
+      "type": "slider",
+      "default": 75.0,
+      "min": 20.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Axis Height (mm)",
+        "es": "Altura del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the drum axis above the face the hood is bolted to",
+        "es": "Altura del eje del tambor sobre la cara donde se atornilla la cubierta"
+      }
+    },
+    {
+      "id": "gap",
+      "type": "slider",
+      "default": 4.0,
+      "min": 1.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Rim Gap (mm)",
+        "es": "Holgura del Borde (mm)"
+      },
+      "tooltip": {
+        "en": "Fixed gap between the drum rim and the hood; it must stay under 9.5 mm",
+        "es": "Holgura fija entre el borde del tambor y la cubierta; debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "id": "end_clear",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "End Clearance (mm)",
+        "es": "Holgura de Extremo (mm)"
+      },
+      "tooltip": {
+        "en": "Space between each face of the drum and the end of the hood",
+        "es": "Espacio entre cada cara del tambor y el extremo de la cubierta"
+      }
+    },
+    {
+      "id": "end_wall",
+      "type": "checkbox",
+      "default": true,
+      "group": "drum",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "End Wall",
+        "es": "Pared de Extremo"
+      },
+      "tooltip": {
+        "en": "Close the +X end with a wall, for a drum overhung on its shaft; off, the hood is a tunnel between the two supports",
+        "es": "Cierra el extremo +X con una pared, para un tambor en voladizo sobre su flecha; apagado, la cubierta es un túnel entre los dos soportes"
+      }
+    },
+    {
+      "id": "cable_slot",
+      "type": "checkbox",
+      "default": true,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Cable Slot",
+        "es": "Ranura del Cable"
+      },
+      "tooltip": {
+        "en": "Cut a slot through the hood where the cable or belt leaves the drum",
+        "es": "Corta una ranura en la cubierta por donde el cable o la banda sale del tambor"
+      }
+    },
+    {
+      "id": "slot_w",
+      "type": "slider",
+      "default": 8.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Slot Width (mm)",
+        "es": "Ancho de la Ranura (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the cable slot; it must stay under 9.5 mm",
+        "es": "Ancho de la ranura del cable; debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "id": "slot_len",
+      "type": "slider",
+      "default": 60.0,
+      "min": 5.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Slot Length (mm)",
+        "es": "Largo de la Ranura (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the slot along the axis: the width the cable travels across as it winds",
+        "es": "Largo de la ranura a lo largo del eje: el ancho que recorre el cable al enrollarse"
+      }
+    },
+    {
+      "id": "slot_angle",
+      "type": "slider",
+      "default": 50.0,
+      "min": 0.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Slot Angle (deg)",
+        "es": "Ángulo de la Ranura (°)"
+      },
+      "tooltip": {
+        "en": "Position of the slot round the arch, from the top (0) toward +Y",
+        "es": "Posición de la ranura en el arco, desde arriba (0) hacia +Y"
+      }
+    },
+    {
+      "id": "inner_w",
+      "type": "slider",
+      "default": 160.0,
+      "min": 40.0,
+      "max": 1000.0,
+      "step": 1.0,
+      "group": "box",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Inside Length (mm)",
+        "es": "Largo Interior (mm)"
+      },
+      "tooltip": {
+        "en": "Inside length of the cover, along the feet",
+        "es": "Largo interior de la cubierta, a lo largo de las patas"
+      }
+    },
+    {
+      "id": "inner_d",
+      "type": "slider",
+      "default": 120.0,
+      "min": 40.0,
+      "max": 600.0,
+      "step": 1.0,
+      "group": "box",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Inside Depth (mm)",
+        "es": "Fondo Interior (mm)"
+      },
+      "tooltip": {
+        "en": "Inside depth of the cover, between the feet",
+        "es": "Fondo interior de la cubierta, entre las patas"
+      }
+    },
+    {
+      "id": "inner_h",
+      "type": "slider",
+      "default": 60.0,
+      "min": 20.0,
+      "max": 400.0,
+      "step": 1.0,
+      "group": "box",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Inside Height (mm)",
+        "es": "Altura Interior (mm)"
+      },
+      "tooltip": {
+        "en": "Inside height above the mounting face",
+        "es": "Altura interior sobre la cara de montaje"
+      }
+    },
+    {
+      "id": "vent_count",
+      "type": "slider",
+      "default": 8,
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "group": "openings",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Vent Slots",
+        "es": "Ranuras de Ventilación"
+      },
+      "tooltip": {
+        "en": "Number of vent slots across the top; 0 leaves it solid",
+        "es": "Número de ranuras de ventilación en la parte superior; 0 la deja cerrada"
+      }
+    },
+    {
+      "id": "vent_w",
+      "type": "slider",
+      "default": 6.0,
+      "min": 2.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "openings",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Vent Width (mm)",
+        "es": "Ancho de Ventila (mm)"
+      },
+      "tooltip": {
+        "en": "Width of each vent slot; it must stay under 9.5 mm",
+        "es": "Ancho de cada ranura de ventilación; debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "id": "notch",
+      "type": "checkbox",
+      "default": true,
+      "group": "openings",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "End Notch",
+        "es": "Muesca de Extremo"
+      },
+      "tooltip": {
+        "en": "Cut a notch at the foot of the -X end wall for a shaft or a cable to pass",
+        "es": "Corta una muesca al pie de la pared del extremo -X para que pase una flecha o un cable"
+      }
+    },
+    {
+      "id": "notch_w",
+      "type": "slider",
+      "default": 20.0,
+      "min": 4.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "openings",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Notch Width (mm)",
+        "es": "Ancho de la Muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the notch; size it to the part that passes, which must fill it",
+        "es": "Ancho de la muesca; ajústalo a la pieza que pasa, que debe llenarla"
+      }
+    },
+    {
+      "id": "notch_h",
+      "type": "slider",
+      "default": 12.0,
+      "min": 4.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "openings",
+      "modes": [
+        "box_cover"
+      ],
+      "label": {
+        "en": "Notch Height (mm)",
+        "es": "Altura de la Muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the notch above the mounting face",
+        "es": "Altura de la muesca sobre la cara de montaje"
+      }
+    },
+    {
+      "id": "wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "shell",
+      "modes": [
+        "drum_hood",
+        "box_cover"
+      ],
+      "label": {
+        "en": "Wall Thickness (mm)",
+        "es": "Espesor de Pared (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the shell",
+        "es": "Espesor del cuerpo"
+      }
+    },
+    {
+      "id": "foot_w",
+      "type": "slider",
+      "default": 16.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "shell",
+      "modes": [
+        "drum_hood",
+        "box_cover"
+      ],
+      "label": {
+        "en": "Foot Width (mm)",
+        "es": "Ancho de la Pata (mm)"
+      },
+      "tooltip": {
+        "en": "How far each foot reaches out from the wall",
+        "es": "Cuánto sobresale cada pata de la pared"
+      }
+    },
+    {
+      "id": "foot_t",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "shell",
+      "modes": [
+        "drum_hood",
+        "box_cover"
+      ],
+      "label": {
+        "en": "Foot Thickness (mm)",
+        "es": "Espesor de la Pata (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the feet",
+        "es": "Espesor de las patas"
+      }
+    },
+    {
+      "id": "bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 2.5,
+      "max": 8.5,
+      "step": 0.5,
+      "group": "shell",
+      "modes": [
+        "drum_hood",
+        "box_cover"
+      ],
+      "label": {
+        "en": "Bolt Hole (mm)",
+        "es": "Barreno de Tornillo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each mounting bolt (5.5 for M5)",
+        "es": "Barreno pasado para cada tornillo de montaje (5.5 para M5)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "winch_drum_100",
+      "mode": "drum_hood",
+      "label": {
+        "en": "Hood · 100 mm overhung drum · cable slot",
+        "es": "Cubierta · tambor en voladizo de 100 mm · ranura de cable"
+      },
+      "values": {
+        "drum_d": 100.0,
+        "drum_w": 70.0,
+        "axis_h": 75.0,
+        "gap": 4.0,
+        "end_clear": 3.0,
+        "end_wall": true,
+        "cable_slot": true,
+        "slot_w": 8.0,
+        "slot_len": 60.0,
+        "slot_angle": 50.0,
+        "wall": 3.0,
+        "foot_w": 16.0,
+        "foot_t": 4.0,
+        "bolt_d": 5.5
+      }
+    },
+    {
+      "id": "roller_tunnel_60",
+      "mode": "drum_hood",
+      "label": {
+        "en": "Tunnel · 60 mm roller between two supports",
+        "es": "Túnel · rodillo de 60 mm entre dos soportes"
+      },
+      "values": {
+        "drum_d": 60.0,
+        "drum_w": 220.0,
+        "axis_h": 45.0,
+        "gap": 3.0,
+        "end_clear": 2.0,
+        "end_wall": false,
+        "cable_slot": false,
+        "slot_w": 6.0,
+        "slot_len": 60.0,
+        "slot_angle": 0.0,
+        "wall": 2.5,
+        "foot_w": 14.0,
+        "foot_t": 3.0,
+        "bolt_d": 4.5
+      }
+    },
+    {
+      "id": "drive_cover_240",
+      "mode": "box_cover",
+      "label": {
+        "en": "Cover · 240 × 140 × 90 mm drive · shaft notch",
+        "es": "Cubierta · accionamiento 240 × 140 × 90 mm · muesca de flecha"
+      },
+      "values": {
+        "inner_w": 240.0,
+        "inner_d": 140.0,
+        "inner_h": 90.0,
+        "vent_count": 10,
+        "vent_w": 6.0,
+        "notch": true,
+        "notch_w": 30.0,
+        "notch_h": 50.0,
+        "wall": 3.0,
+        "foot_w": 16.0,
+        "foot_t": 4.0,
+        "bolt_d": 5.5
+      }
+    },
+    {
+      "id": "hot_part_cover_120",
+      "mode": "box_cover",
+      "label": {
+        "en": "Touch cover · 120 × 50 × 40 mm hot part · vented",
+        "es": "Cubierta de contacto · pieza caliente 120 × 50 × 40 mm · ventilada"
+      },
+      "values": {
+        "inner_w": 120.0,
+        "inner_d": 50.0,
+        "inner_h": 40.0,
+        "vent_count": 12,
+        "vent_w": 4.0,
+        "notch": true,
+        "notch_w": 12.0,
+        "notch_h": 8.0,
+        "wall": 2.5,
+        "foot_w": 12.0,
+        "foot_t": 3.0,
+        "bolt_d": 4.5
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "gap < 9.5",
+      "severity": "error",
+      "message": {
+        "en": "A fixed gap beside a rotating drum must stay under 9.5 mm so a fingertip cannot enter",
+        "es": "Una holgura fija junto a un tambor giratorio debe quedar bajo 9.5 mm para que no entre la yema de un dedo"
+      }
+    },
+    {
+      "expression": "slot_w < 9.5",
+      "severity": "error",
+      "message": {
+        "en": "The cable slot is an opening in a guard: it must stay under 9.5 mm",
+        "es": "La ranura del cable es una abertura en una guarda: debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "expression": "vent_w < 9.5",
+      "severity": "error",
+      "message": {
+        "en": "A vent slot is an opening in a guard: it must stay under 9.5 mm",
+        "es": "Una ranura de ventilación es una abertura en una guarda: debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "expression": "axis_h >= drum_d / 2 + 1",
+      "severity": "error",
+      "message": {
+        "en": "The axis must sit at least 1 mm higher than the drum radius, or the drum cuts into the mounting face",
+        "es": "El eje debe quedar al menos 1 mm más alto que el radio del tambor, o el tambor corta la cara de montaje"
+      }
+    },
+    {
+      "expression": "slot_len <= drum_w",
+      "severity": "error",
+      "message": {
+        "en": "The cable slot cannot be longer than the drum is wide",
+        "es": "La ranura del cable no puede ser más larga que el ancho del tambor"
+      }
+    },
+    {
+      "expression": "bolt_d + 4 <= foot_w",
+      "severity": "error",
+      "message": {
+        "en": "The foot must leave at least 2 mm of material on each side of the bolt hole",
+        "es": "La pata debe dejar al menos 2 mm de material a cada lado del barreno"
+      }
+    },
+    {
+      "expression": "vent_count * (vent_w + 2) <= inner_w",
+      "severity": "error",
+      "message": {
+        "en": "The vent slots need at least 2 mm of solid top between them to fit the length",
+        "es": "Las ranuras de ventilación necesitan al menos 2 mm de material entre ellas para caber en el largo"
+      }
+    },
+    {
+      "expression": "notch_w + 8 <= inner_d",
+      "severity": "error",
+      "message": {
+        "en": "The notch must leave at least 4 mm of end wall on each side",
+        "es": "La muesca debe dejar al menos 4 mm de pared a cada lado"
+      }
+    },
+    {
+      "expression": "notch_h + 4 <= inner_h",
+      "severity": "error",
+      "message": {
+        "en": "The notch must leave at least 4 mm of end wall above it",
+        "es": "La muesca debe dejar al menos 4 mm de pared encima"
+      }
+    },
+    {
+      "expression": "gap >= 2",
+      "severity": "warning",
+      "message": {
+        "en": "Under 2 mm a drum that runs slightly out of true can rub the hood",
+        "es": "Con menos de 2 mm, un tambor ligeramente descentrado puede rozar la cubierta"
+      }
+    },
+    {
+      "expression": "foot_t * 2 >= bolt_d",
+      "severity": "warning",
+      "message": {
+        "en": "A foot thinner than half the bolt diameter gives the bolt head little to bear on",
+        "es": "Una pata más delgada que la mitad del diámetro del tornillo da poco apoyo a su cabeza"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        -220,
+        180
+      ]
+    },
+    {
+      "id": "end",
+      "label": {
+        "en": "End",
+        "es": "Extremo"
+      },
+      "position": [
+        360,
+        0,
+        60
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        420
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 6,
+    "per_unit": 1,
+    "per_part": 6,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "drum_envelope",
+        "label": {
+          "en": "Drum Envelope & Rim Gap",
+          "es": "Envolvente del Tambor y Holgura"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "drum_d",
+          "drum_w",
+          "axis_h",
+          "gap",
+          "end_clear"
+        ],
+        "compatible_with": [
+          "cable-spool",
+          "hose-reel"
+        ]
+      },
+      {
+        "id": "hood_feet",
+        "label": {
+          "en": "Hood Feet Bolt Pattern",
+          "es": "Patrón de Tornillos de las Patas de la Cubierta"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "drum_d",
+          "drum_w",
+          "gap",
+          "end_clear",
+          "wall",
+          "foot_w",
+          "foot_t",
+          "bolt_d"
+        ],
+        "frame": {
+          "part": "drum_hood",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "cover_space",
+        "label": {
+          "en": "Covered Space",
+          "es": "Espacio Cubierto"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "inner_w",
+          "inner_d",
+          "inner_h"
+        ]
+      },
+      {
+        "id": "cover_feet",
+        "label": {
+          "en": "Cover Feet Bolt Pattern",
+          "es": "Patrón de Tornillos de las Patas de la Caja"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "inner_w",
+          "inner_d",
+          "wall",
+          "foot_w",
+          "foot_t",
+          "bolt_d"
+        ],
+        "frame": {
+          "part": "box_cover",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Most hand injuries on small machines happen at a part nobody bothered to cover: a winch drum, a belt, a coupling, a resistor that runs hot. A guard is rarely bought because it has to fit the machine at hand. A guard generated to the drum or the drive in front of you, with every opening too small for a fingertip, lets a workshop, a school lab or a repair bench close that gap the same day.",
+      "es": "La mayoría de las lesiones de mano en máquinas pequeñas ocurren en una parte que nadie cubrió: el tambor de un malacate, una banda, un cople, una resistencia que trabaja caliente. Una guarda casi nunca se compra, porque tiene que ajustarse a la máquina que se tiene. Una guarda generada para el tambor o el accionamiento que está enfrente, con cada abertura demasiado pequeña para la yema de un dedo, permite a un taller, un laboratorio escolar o un banco de reparación cerrar ese hueco el mismo día."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "machine-guard",
+    "guard",
+    "safety",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
