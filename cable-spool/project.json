@@ -1,0 +1,609 @@
+{
+  "project": {
+    "name": "Cable Spool",
+    "slug": "cable-spool",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric flanged drum that winds a cable, cord or rope and mounts on a shaft: the working end of a winch, a cable-driven actuator, a tensioner or a hoist. Set the drum diameter (the torque arm, and the bend the cable must survive), the winding width, the flange height and the shaft bore; add a keyway, an anchor hole for the cable end, or a hub with two set screws.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un tambor paramétrico con bridas que enrolla un cable, cordón o cuerda y se monta en un eje: el extremo de trabajo de un malacate, un actuador por cable, un tensor o un polipasto. Define el diámetro del tambor (el brazo de palanca, y la curvatura que el cable debe soportar), el ancho de enrollado, la altura de las bridas y el barreno del eje; agrega un cuñero, un barreno de anclaje para el extremo del cable, o un cubo con dos prisioneros.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/cable-spool.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "cable-spool",
+      "drum",
+      "winch",
+      "cable",
+      "rope",
+      "capstan",
+      "actuator",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "spool",
+      "label": {
+        "en": "Plain Spool",
+        "es": "Carrete Liso"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "spool"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "spool_hub",
+      "label": {
+        "en": "Spool with Set-Screw Hub",
+        "es": "Carrete con Cubo de Prisioneros"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "spool_hub"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "spool",
+      "label": {
+        "en": "Plain Spool",
+        "es": "Carrete Liso"
+      },
+      "render_mode": 0,
+      "color": "#c9ccd1"
+    },
+    {
+      "id": "spool_hub",
+      "label": {
+        "en": "Spool with Hub",
+        "es": "Carrete con Cubo"
+      },
+      "render_mode": 0,
+      "color": "#a9aeb6"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "drum",
+      "label": {
+        "en": "Drum",
+        "es": "Tambor"
+      }
+    },
+    {
+      "id": "shaft",
+      "label": {
+        "en": "Shaft",
+        "es": "Eje"
+      }
+    },
+    {
+      "id": "cable",
+      "label": {
+        "en": "Cable",
+        "es": "Cable"
+      }
+    },
+    {
+      "id": "hub",
+      "label": {
+        "en": "Hub",
+        "es": "Cubo"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "drum_d",
+      "type": "slider",
+      "default": 70.0,
+      "min": 20.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Drum Diameter (mm)",
+        "es": "Diámetro del Tambor (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter the cable winds on; half of it is the torque arm",
+        "es": "Diámetro donde se enrolla el cable; la mitad es el brazo de palanca"
+      }
+    },
+    {
+      "id": "drum_w",
+      "type": "slider",
+      "default": 60.0,
+      "min": 8.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Winding Width (mm)",
+        "es": "Ancho de Enrollado (mm)"
+      },
+      "tooltip": {
+        "en": "Clear width between the two flanges",
+        "es": "Ancho libre entre las dos bridas"
+      }
+    },
+    {
+      "id": "flange_h",
+      "type": "slider",
+      "default": 15.0,
+      "min": 3.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "drum",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Flange Height (mm)",
+        "es": "Altura de Brida (mm)"
+      },
+      "tooltip": {
+        "en": "How far each flange stands above the drum; it bounds the layers of cable",
+        "es": "Cuánto sobresale cada brida del tambor; limita las capas de cable"
+      }
+    },
+    {
+      "id": "flange_t",
+      "type": "slider",
+      "default": 5.0,
+      "min": 2.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "drum",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Flange Thickness (mm)",
+        "es": "Espesor de Brida (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of each flange",
+        "es": "Espesor de cada brida"
+      }
+    },
+    {
+      "id": "bore",
+      "type": "slider",
+      "default": 19.0,
+      "min": 3.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Shaft Bore (mm)",
+        "es": "Barreno de Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Shaft hole diameter; it is kept inside the drum wall",
+        "es": "Diámetro del agujero del eje; se mantiene dentro de la pared del tambor"
+      }
+    },
+    {
+      "id": "keyway",
+      "type": "checkbox",
+      "default": false,
+      "group": "shaft",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Keyway",
+        "es": "Cuñero"
+      },
+      "tooltip": {
+        "en": "Cut a square keyway along the bore",
+        "es": "Corta un cuñero cuadrado a lo largo del barreno"
+      }
+    },
+    {
+      "id": "key_w",
+      "type": "slider",
+      "default": 6.0,
+      "min": 2.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Key Width (mm)",
+        "es": "Ancho de Cuña (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the square key; the keyway is half as deep",
+        "es": "Ancho de la cuña cuadrada; el cuñero tiene la mitad de profundidad"
+      }
+    },
+    {
+      "id": "cable_d",
+      "type": "slider",
+      "default": 5.0,
+      "min": 1.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "cable",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Cable Diameter (mm)",
+        "es": "Diámetro del Cable (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the cable, cord or rope",
+        "es": "Diámetro del cable, cordón o cuerda"
+      }
+    },
+    {
+      "id": "anchor",
+      "type": "checkbox",
+      "default": true,
+      "group": "cable",
+      "modes": [
+        "spool",
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Anchor Hole",
+        "es": "Barreno de Anclaje"
+      },
+      "tooltip": {
+        "en": "A hole through one flange to knot or crimp the cable end",
+        "es": "Un barreno en una brida para anudar o prensar el extremo del cable"
+      }
+    },
+    {
+      "id": "hub_d",
+      "type": "slider",
+      "default": 40.0,
+      "min": 10.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "hub",
+      "modes": [
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Hub Diameter (mm)",
+        "es": "Diámetro del Cubo (mm)"
+      },
+      "tooltip": {
+        "en": "Outer diameter of the set-screw hub",
+        "es": "Diámetro exterior del cubo de prisioneros"
+      }
+    },
+    {
+      "id": "hub_l",
+      "type": "slider",
+      "default": 16.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "hub",
+      "modes": [
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Hub Length (mm)",
+        "es": "Largo del Cubo (mm)"
+      },
+      "tooltip": {
+        "en": "How far the hub stands beyond the flange",
+        "es": "Cuánto sobresale el cubo de la brida"
+      }
+    },
+    {
+      "id": "setscrew_dia",
+      "type": "slider",
+      "default": 5.0,
+      "min": 2.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "hub",
+      "modes": [
+        "spool_hub"
+      ],
+      "label": {
+        "en": "Set-Screw Hole (mm)",
+        "es": "Barreno de Prisionero (mm)"
+      },
+      "tooltip": {
+        "en": "Tap-drill diameter of the two radial set-screw holes",
+        "es": "Diámetro de broca para machuelo de los dos barrenos radiales"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "winch_5mm",
+      "mode": "spool",
+      "label": {
+        "en": "Winch drum · 5 mm cable · 19 mm keyed shaft",
+        "es": "Tambor de malacate · cable 5 mm · eje 19 mm con cuña"
+      },
+      "values": {
+        "drum_d": 70.0,
+        "drum_w": 60.0,
+        "flange_h": 15.0,
+        "flange_t": 5.0,
+        "bore": 19.0,
+        "keyway": true,
+        "key_w": 6.0,
+        "cable_d": 5.0,
+        "anchor": true
+      }
+    },
+    {
+      "id": "cord_actuator",
+      "mode": "spool_hub",
+      "label": {
+        "en": "Cord actuator · 1.5 mm cord · 8 mm shaft",
+        "es": "Actuador de cordón · cordón 1.5 mm · eje 8 mm"
+      },
+      "values": {
+        "drum_d": 30.0,
+        "drum_w": 16.0,
+        "flange_h": 6.0,
+        "flange_t": 3.0,
+        "bore": 8.0,
+        "keyway": false,
+        "cable_d": 1.5,
+        "anchor": true,
+        "hub_d": 20.0,
+        "hub_l": 10.0,
+        "setscrew_dia": 3.0
+      }
+    },
+    {
+      "id": "rope_hoist",
+      "mode": "spool_hub",
+      "label": {
+        "en": "Rope hoist · 8 mm rope · 25 mm shaft",
+        "es": "Polipasto de cuerda · cuerda 8 mm · eje 25 mm"
+      },
+      "values": {
+        "drum_d": 120.0,
+        "drum_w": 90.0,
+        "flange_h": 28.0,
+        "flange_t": 8.0,
+        "bore": 25.0,
+        "keyway": true,
+        "key_w": 8.0,
+        "cable_d": 8.0,
+        "anchor": true,
+        "hub_d": 56.0,
+        "hub_l": 24.0,
+        "setscrew_dia": 6.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "drum_d - bore >= 8",
+      "severity": "error",
+      "message": {
+        "en": "The drum needs at least 4 mm of wall around the bore",
+        "es": "El tambor necesita al menos 4 mm de pared alrededor del barreno"
+      }
+    },
+    {
+      "expression": "flange_h >= cable_d + 3",
+      "severity": "error",
+      "message": {
+        "en": "The flanges must stand a cable diameter plus 3 mm above the drum, so the cable is retained and the anchor hole keeps its walls",
+        "es": "Las bridas deben sobresalir del tambor un diámetro de cable más 3 mm, para retener el cable y conservar las paredes del barreno de anclaje"
+      }
+    },
+    {
+      "expression": "key_w < bore",
+      "severity": "error",
+      "message": {
+        "en": "The key must be narrower than the shaft",
+        "es": "La cuña debe ser más angosta que el eje"
+      }
+    },
+    {
+      "expression": "hub_d - bore >= 6",
+      "severity": "error",
+      "message": {
+        "en": "The hub needs at least 3 mm of wall around the bore",
+        "es": "El cubo necesita al menos 3 mm de pared alrededor del barreno"
+      }
+    },
+    {
+      "expression": "hub_d <= drum_d + 2 * flange_h",
+      "severity": "error",
+      "message": {
+        "en": "The hub cannot be wider than the flange",
+        "es": "El cubo no puede ser más ancho que la brida"
+      }
+    },
+    {
+      "expression": "setscrew_dia < hub_l - 2",
+      "severity": "error",
+      "message": {
+        "en": "The set-screw hole must fit inside the hub length",
+        "es": "El barreno del prisionero debe caber en el largo del cubo"
+      }
+    },
+    {
+      "expression": "drum_d >= 8 * cable_d",
+      "severity": "warning",
+      "message": {
+        "en": "A drum under 8 cable diameters bends the cable hard; check the cable maker's minimum",
+        "es": "Un tambor menor a 8 diámetros de cable lo dobla demasiado; revisa el mínimo del fabricante del cable"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        160,
+        160,
+        140
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        260
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -260,
+        40
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "shaft_bore",
+        "label": {
+          "en": "Shaft Bore, Keyway & Set Screws",
+          "es": "Barreno de Eje, Cuñero y Prisioneros"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "bore",
+          "keyway",
+          "key_w",
+          "setscrew_dia"
+        ]
+      },
+      {
+        "id": "cable_drum",
+        "label": {
+          "en": "Cable Drum",
+          "es": "Tambor de Cable"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "drum_d",
+          "drum_w",
+          "flange_h",
+          "cable_d"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A winding drum is the part that turns a motor or a crank into a pull. Making one to the shaft and the cable at hand, instead of adapting a mismatched catalogue part, keeps winches, cable-driven mechanisms and stage, farm and workshop rigging repairable.",
+      "es": "Un tambor de enrollado es la pieza que convierte un motor o una manivela en un tirón. Fabricarlo para el eje y el cable disponibles, en lugar de adaptar una pieza de catálogo que no coincide, mantiene reparables malacates, mecanismos por cable y aparejos de escenario, campo y taller."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "cable-spool",
+    "winch",
+    "drum",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
