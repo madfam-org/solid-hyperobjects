@@ -1,0 +1,595 @@
+{
+  "project": {
+    "name": "Index Carriage",
+    "slug": "index-carriage",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric sleeve that slides on a rectangular column and locks at a height with an index pin: the pin passes through a guide boss into one of a row of holes in the column. It is the moving part of a height-adjustable stand, rack, jig or cable machine. Set the column section, the sliding clearance and the pin; the yoke of two ears below the pin hangs a block, a hook or an arm from a pivot pin.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una corredera paramétrica que se desliza sobre una columna rectangular y se fija a una altura con un perno de posición: el perno pasa por un buje guía y entra en uno de una fila de barrenos de la columna. Es la parte móvil de un soporte, estante, plantilla o máquina de cable de altura ajustable. Define la sección de la columna, la holgura de deslizamiento y el perno; la horquilla de dos orejas bajo el perno cuelga una garrucha, un gancho o un brazo de un perno de pivote.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/index-carriage.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "index-carriage",
+      "carriage",
+      "sleeve",
+      "index-pin",
+      "column",
+      "height-adjustable",
+      "yoke",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "carriage",
+      "label": {
+        "en": "Carriage with Yoke",
+        "es": "Corredera con Horquilla"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "carriage"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "carriage",
+      "label": {
+        "en": "Carriage with Yoke",
+        "es": "Corredera con Horquilla"
+      },
+      "render_mode": 0,
+      "color": "#c9ccd1"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "column",
+      "label": {
+        "en": "Column",
+        "es": "Columna"
+      }
+    },
+    {
+      "id": "sleeve",
+      "label": {
+        "en": "Sleeve",
+        "es": "Camisa"
+      }
+    },
+    {
+      "id": "pin",
+      "label": {
+        "en": "Index Pin",
+        "es": "Perno de Posición"
+      }
+    },
+    {
+      "id": "yoke",
+      "label": {
+        "en": "Yoke",
+        "es": "Horquilla"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "column_w",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "column",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Column Width (mm)",
+        "es": "Ancho de la Columna (mm)"
+      },
+      "tooltip": {
+        "en": "Outside width of the column, across the face that carries the index holes",
+        "es": "Ancho exterior de la columna, a lo ancho de la cara que lleva los barrenos de posición"
+      }
+    },
+    {
+      "id": "column_d",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "column",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Column Depth (mm)",
+        "es": "Fondo de la Columna (mm)"
+      },
+      "tooltip": {
+        "en": "Outside depth of the column, front to back",
+        "es": "Fondo exterior de la columna, de frente a atrás"
+      }
+    },
+    {
+      "id": "slide_clr",
+      "type": "slider",
+      "default": 0.5,
+      "min": 0.2,
+      "max": 2.0,
+      "step": 0.1,
+      "group": "sleeve",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Sliding Clearance (mm)",
+        "es": "Holgura de Deslizamiento (mm)"
+      },
+      "tooltip": {
+        "en": "Gap between the column and the sleeve on each side",
+        "es": "Holgura entre la columna y la camisa por cada lado"
+      }
+    },
+    {
+      "id": "sleeve_wall",
+      "type": "slider",
+      "default": 6.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "sleeve",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Sleeve Wall (mm)",
+        "es": "Pared de la Camisa (mm)"
+      },
+      "tooltip": {
+        "en": "Wall thickness of the sleeve",
+        "es": "Espesor de pared de la camisa"
+      }
+    },
+    {
+      "id": "sleeve_h",
+      "type": "slider",
+      "default": 100.0,
+      "min": 30.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "sleeve",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Sleeve Height (mm)",
+        "es": "Altura de la Camisa (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the sleeve along the column; a longer sleeve tilts and binds less",
+        "es": "Largo de la camisa a lo largo de la columna; una camisa más larga se ladea y se atora menos"
+      }
+    },
+    {
+      "id": "pin_d",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "pin",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Index Pin Diameter (mm)",
+        "es": "Diámetro del Perno de Posición (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the index pin; the bore is 0.4 mm larger",
+        "es": "Diámetro del perno de posición; el barreno es 0.4 mm mayor"
+      }
+    },
+    {
+      "id": "boss_l",
+      "type": "slider",
+      "default": 18.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "pin",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Pin Boss Length (mm)",
+        "es": "Largo del Buje del Perno (mm)"
+      },
+      "tooltip": {
+        "en": "How far the guide boss stands out from the sleeve; it keeps the pin square to the column",
+        "es": "Cuánto sobresale el buje guía de la camisa; mantiene el perno a escuadra con la columna"
+      }
+    },
+    {
+      "id": "ear_h",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 100.0,
+      "step": 1.0,
+      "group": "yoke",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Ear Height (mm)",
+        "es": "Altura de las Orejas (mm)"
+      },
+      "tooltip": {
+        "en": "Height of each yoke ear where it meets the sleeve",
+        "es": "Altura de cada oreja de la horquilla donde se une a la camisa"
+      }
+    },
+    {
+      "id": "ear_t",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "yoke",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Ear Thickness (mm)",
+        "es": "Espesor de las Orejas (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of each yoke ear",
+        "es": "Espesor de cada oreja de la horquilla"
+      }
+    },
+    {
+      "id": "yoke_gap",
+      "type": "slider",
+      "default": 28.0,
+      "min": 8.0,
+      "max": 80.0,
+      "step": 0.5,
+      "group": "yoke",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Yoke Opening (mm)",
+        "es": "Abertura de la Horquilla (mm)"
+      },
+      "tooltip": {
+        "en": "Clear width between the two ears",
+        "es": "Ancho libre entre las dos orejas"
+      }
+    },
+    {
+      "id": "ear_reach",
+      "type": "slider",
+      "default": 34.0,
+      "min": 10.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "yoke",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Pivot Reach (mm)",
+        "es": "Alcance del Pivote (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the sleeve face to the centre of the pivot bore",
+        "es": "Distancia de la cara de la camisa al centro del barreno de pivote"
+      }
+    },
+    {
+      "id": "pivot_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "yoke",
+      "modes": [
+        "carriage"
+      ],
+      "label": {
+        "en": "Pivot Bore (mm)",
+        "es": "Barreno de Pivote (mm)"
+      },
+      "tooltip": {
+        "en": "Bore through both ears for the pivot pin",
+        "es": "Barreno a través de ambas orejas para el perno de pivote"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "yoke_50_square",
+      "mode": "carriage",
+      "label": {
+        "en": "50 mm square column · 10 mm pin",
+        "es": "Columna cuadrada 50 mm · perno 10 mm"
+      },
+      "values": {
+        "column_w": 50.0,
+        "column_d": 50.0,
+        "slide_clr": 0.5,
+        "sleeve_wall": 6.0,
+        "sleeve_h": 100.0,
+        "pin_d": 10.0,
+        "boss_l": 18.0,
+        "ear_h": 50.0,
+        "ear_t": 8.0,
+        "yoke_gap": 28.0,
+        "ear_reach": 34.0,
+        "pivot_d": 8.0
+      }
+    },
+    {
+      "id": "yoke_80_square",
+      "mode": "carriage",
+      "label": {
+        "en": "80 mm square column · 10 mm pin",
+        "es": "Columna cuadrada 80 mm · perno 10 mm"
+      },
+      "values": {
+        "column_w": 80.0,
+        "column_d": 80.0,
+        "slide_clr": 1.0,
+        "sleeve_wall": 8.0,
+        "sleeve_h": 140.0,
+        "pin_d": 10.0,
+        "boss_l": 18.0,
+        "ear_h": 56.0,
+        "ear_t": 8.0,
+        "yoke_gap": 28.0,
+        "ear_reach": 34.0,
+        "pivot_d": 8.0
+      }
+    },
+    {
+      "id": "yoke_40x60",
+      "mode": "carriage",
+      "label": {
+        "en": "40 × 60 mm column · 8 mm pin",
+        "es": "Columna 40 × 60 mm · perno 8 mm"
+      },
+      "values": {
+        "column_w": 40.0,
+        "column_d": 60.0,
+        "slide_clr": 0.5,
+        "sleeve_wall": 5.0,
+        "sleeve_h": 80.0,
+        "pin_d": 8.0,
+        "boss_l": 14.0,
+        "ear_h": 36.0,
+        "ear_t": 6.0,
+        "yoke_gap": 20.0,
+        "ear_reach": 26.0,
+        "pivot_d": 6.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "sleeve_h >= ear_h + pin_d + 22",
+      "severity": "error",
+      "message": {
+        "en": "The sleeve must be tall enough to stack the pin boss above the yoke",
+        "es": "La camisa debe ser lo bastante alta para alojar el buje del perno arriba de la horquilla"
+      }
+    },
+    {
+      "expression": "pin_d + 12 <= column_w + 2 * slide_clr + 2 * sleeve_wall",
+      "severity": "error",
+      "message": {
+        "en": "The pin boss cannot be wider than the sleeve",
+        "es": "El buje del perno no puede ser más ancho que la camisa"
+      }
+    },
+    {
+      "expression": "yoke_gap + 2 * ear_t <= column_w + 2 * slide_clr + 2 * sleeve_wall",
+      "severity": "error",
+      "message": {
+        "en": "The yoke cannot be wider than the sleeve",
+        "es": "La horquilla no puede ser más ancha que la camisa"
+      }
+    },
+    {
+      "expression": "ear_h >= pivot_d + 12",
+      "severity": "error",
+      "message": {
+        "en": "The ears must be at least as tall as the eye around the pivot bore",
+        "es": "Las orejas deben ser al menos tan altas como el ojo alrededor del barreno de pivote"
+      }
+    },
+    {
+      "expression": "ear_reach >= pivot_d / 2 + 6",
+      "severity": "error",
+      "message": {
+        "en": "The pivot must stand far enough out for its eye to clear the sleeve face",
+        "es": "El pivote debe quedar lo bastante afuera para que su ojo libre la cara de la camisa"
+      }
+    },
+    {
+      "expression": "slide_clr >= 0.3",
+      "severity": "warning",
+      "message": {
+        "en": "Under 0.3 mm per side a printed sleeve can bind on the column",
+        "es": "Con menos de 0.3 mm por lado, una camisa impresa puede atorarse en la columna"
+      }
+    },
+    {
+      "expression": "sleeve_h >= column_d",
+      "severity": "warning",
+      "message": {
+        "en": "A sleeve shorter than the column is deep tilts under an offset load and binds",
+        "es": "Una camisa más corta que el fondo de la columna se ladea con carga excéntrica y se atora"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        190,
+        210,
+        130
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        300,
+        0
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        300,
+        30,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "column_sleeve",
+        "label": {
+          "en": "Column Section & Sliding Fit",
+          "es": "Sección de Columna y Ajuste Deslizante"
+        },
+        "geometry_type": "rail",
+        "standard": "internal",
+        "parameters": [
+          "column_w",
+          "column_d",
+          "slide_clr"
+        ]
+      },
+      {
+        "id": "index_pin",
+        "label": {
+          "en": "Index Pin Bore",
+          "es": "Barreno del Perno de Posición"
+        },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": [
+          "pin_d",
+          "boss_l"
+        ]
+      },
+      {
+        "id": "yoke_pivot",
+        "label": {
+          "en": "Yoke Pivot",
+          "es": "Pivote de la Horquilla"
+        },
+        "geometry_type": "hinge",
+        "standard": "internal",
+        "parameters": [
+          "yoke_gap",
+          "pivot_d",
+          "ear_reach"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A pin in a row of holes is the simplest height adjustment there is: no thread to strip, no clamp to slip, and the position is visible at a glance. A carriage made to the tube at hand turns ordinary rectangular stock into an adjustable stand, rack or workstation that a workshop, a clinic or a home can build and repair.",
+      "es": "Un perno en una fila de barrenos es el ajuste de altura más simple que existe: sin rosca que se barra, sin abrazadera que se resbale, y la posición se ve de un vistazo. Una corredera hecha para el tubo disponible convierte perfil rectangular común en un soporte, estante o estación de trabajo ajustable que un taller, una clínica o un hogar puede construir y reparar."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "index-carriage",
+    "carriage",
+    "index-pin",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
