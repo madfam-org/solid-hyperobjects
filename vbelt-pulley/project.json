@@ -263,6 +263,17 @@
         "geometry_type": "socket",
         "standard": "internal",
         "parameters": ["bore", "setscrew", "setscrew_dia"]
+      },
+      {
+        "id": "sheave_bore",
+        "label": { "en": "Rope Sheave Bearing Bore", "es": "Barreno de Rodamiento de la Roldana" },
+        "geometry_type": "socket",
+        "standard": "internal",
+        "parameters": ["bore"],
+        "frame": { "part": "rope_sheave", "origin": [0, 0, 0], "normal": [0, 0, -1], "x_axis": [1, 0, 0] },
+        "polarity": "female",
+        "size_key": { "param": "bore", "map": { "22": "bearing-608" } },
+        "symmetry": 0
       }
     ],
     "material_awareness": {
