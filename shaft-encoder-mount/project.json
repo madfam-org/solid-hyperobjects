@@ -1,0 +1,905 @@
+{
+  "project": {
+    "name": "Shaft Encoder Mount",
+    "slug": "shaft-encoder-mount",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "The two parts that turn the end of a shaft into an angle sensor. A magnetic angle sensor reads one small magnet turning on the axis in front of it. Magnet Cap slips onto the shaft end and holds a disc magnet centred in its outer face. Sensor Bridge stands on two feet over the shaft end and carries the sensor board on top, its chip looking down through a window at the magnet. Use it to close the loop on a motor, to read a joint, a valve, a dial or a wind vane. Set the shaft, the magnet and the board's hole pattern; the gap between magnet and chip is set by the height of the bridge.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Las dos piezas que convierten el extremo de una flecha en un sensor de ángulo. Un sensor magnético de ángulo lee un imán pequeño que gira sobre el eje frente a él. La Tapa de Imán entra en el extremo de la flecha y sostiene un imán de disco centrado en su cara exterior. El Puente del Sensor se apoya en dos patas sobre el extremo de la flecha y lleva encima la tarjeta del sensor, con el chip mirando hacia abajo por una ventana hacia el imán. Sirve para cerrar el lazo de un motor, leer una articulación, una válvula, una perilla o una veleta. Define la flecha, el imán y el patrón de barrenos de la tarjeta; la separación entre imán y chip la fija la altura del puente.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/shaft-encoder-mount.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "shaft-encoder-mount",
+      "encoder",
+      "magnet",
+      "sensor",
+      "motor",
+      "robotics",
+      "electronics",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "magnet_cap",
+      "label": {
+        "en": "Magnet Cap",
+        "es": "Tapa de Imán"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "magnet_cap"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_unit": 1,
+        "per_part": 4
+      }
+    },
+    {
+      "id": "sensor_bridge",
+      "label": {
+        "en": "Sensor Bridge",
+        "es": "Puente del Sensor"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "sensor_bridge"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "magnet_cap",
+      "label": {
+        "en": "Magnet Cap",
+        "es": "Tapa de Imán"
+      },
+      "render_mode": 0,
+      "color": "#3c4148"
+    },
+    {
+      "id": "sensor_bridge",
+      "label": {
+        "en": "Sensor Bridge",
+        "es": "Puente del Sensor"
+      },
+      "render_mode": 0,
+      "color": "#8c96a3"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "shaft",
+      "label": {
+        "en": "Shaft",
+        "es": "Flecha"
+      }
+    },
+    {
+      "id": "magnet",
+      "label": {
+        "en": "Magnet",
+        "es": "Imán"
+      }
+    },
+    {
+      "id": "board",
+      "label": {
+        "en": "Sensor Board",
+        "es": "Tarjeta del Sensor"
+      }
+    },
+    {
+      "id": "bridge",
+      "label": {
+        "en": "Bridge",
+        "es": "Puente"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "shaft_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 3.0,
+      "max": 25.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Shaft Diameter (mm)",
+        "es": "Diámetro de la Flecha (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the shaft end the cap slips onto",
+        "es": "Diámetro del extremo de flecha donde entra la tapa"
+      }
+    },
+    {
+      "id": "shaft_fit",
+      "type": "slider",
+      "default": 0.1,
+      "min": 0.0,
+      "max": 0.5,
+      "step": 0.05,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Shaft Fit (mm)",
+        "es": "Ajuste de la Flecha (mm)"
+      },
+      "tooltip": {
+        "en": "How much larger than the shaft the bore is, on the diameter",
+        "es": "Cuánto más grande que la flecha es el barreno, en diámetro"
+      }
+    },
+    {
+      "id": "bore_depth",
+      "type": "slider",
+      "default": 10.0,
+      "min": 6.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Bore Depth (mm)",
+        "es": "Profundidad del Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "How far the cap slips onto the shaft",
+        "es": "Cuánto entra la tapa en la flecha"
+      }
+    },
+    {
+      "id": "setscrew",
+      "type": "checkbox",
+      "default": true,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Set Screw",
+        "es": "Opresor"
+      },
+      "tooltip": {
+        "en": "Cut a radial hole for a set screw that holds the cap on the shaft",
+        "es": "Corta un barreno radial para un opresor que sujeta la tapa a la flecha"
+      }
+    },
+    {
+      "id": "set_d",
+      "type": "slider",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 5.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Set Screw Hole (mm)",
+        "es": "Barreno del Opresor (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the set screw hole (tap it, or size it for a self-tapping screw)",
+        "es": "Diámetro del barreno del opresor (machuélalo, o ajústalo para un tornillo autorroscante)"
+      }
+    },
+    {
+      "id": "cap_wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "shaft",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Cap Wall (mm)",
+        "es": "Pared de la Tapa (mm)"
+      },
+      "tooltip": {
+        "en": "Wall round the shaft or the magnet, whichever is larger",
+        "es": "Pared alrededor de la flecha o del imán, el que sea mayor"
+      }
+    },
+    {
+      "id": "magnet_d",
+      "type": "slider",
+      "default": 6.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "magnet",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Magnet Diameter (mm)",
+        "es": "Diámetro del Imán (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the disc magnet",
+        "es": "Diámetro del imán de disco"
+      }
+    },
+    {
+      "id": "magnet_h",
+      "type": "slider",
+      "default": 2.5,
+      "min": 1.0,
+      "max": 6.0,
+      "step": 0.5,
+      "group": "magnet",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Magnet Height (mm)",
+        "es": "Altura del Imán (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the disc magnet; the pocket is this deep, so the magnet sits flush",
+        "es": "Espesor del imán de disco; la caja tiene esta profundidad, así el imán queda al ras"
+      }
+    },
+    {
+      "id": "magnet_fit",
+      "type": "slider",
+      "default": 0.1,
+      "min": 0.0,
+      "max": 0.4,
+      "step": 0.05,
+      "group": "magnet",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Magnet Fit (mm)",
+        "es": "Ajuste del Imán (mm)"
+      },
+      "tooltip": {
+        "en": "How much larger than the magnet the pocket is, on the diameter",
+        "es": "Cuánto más grande que el imán es la caja, en diámetro"
+      }
+    },
+    {
+      "id": "web_t",
+      "type": "slider",
+      "default": 1.5,
+      "min": 0.8,
+      "max": 5.0,
+      "step": 0.1,
+      "group": "magnet",
+      "modes": [
+        "magnet_cap"
+      ],
+      "label": {
+        "en": "Web (mm)",
+        "es": "Alma (mm)"
+      },
+      "tooltip": {
+        "en": "Solid layer between the end of the shaft and the magnet",
+        "es": "Capa maciza entre el extremo de la flecha y el imán"
+      }
+    },
+    {
+      "id": "board_px",
+      "type": "slider",
+      "default": 20.0,
+      "min": 8.0,
+      "max": 80.0,
+      "step": 0.1,
+      "group": "board",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Board Hole Pitch X (mm)",
+        "es": "Paso de Barrenos X (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the board's mounting holes along the feet",
+        "es": "Distancia entre los barrenos de montaje de la tarjeta a lo largo de las patas"
+      }
+    },
+    {
+      "id": "board_py",
+      "type": "slider",
+      "default": 14.0,
+      "min": 0.0,
+      "max": 60.0,
+      "step": 0.1,
+      "group": "board",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Board Hole Pitch Y (mm)",
+        "es": "Paso de Barrenos Y (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the board's mounting holes across the bridge; 0 for a board with two holes in a line",
+        "es": "Distancia entre los barrenos de montaje de la tarjeta a través del puente; 0 para una tarjeta con dos barrenos en línea"
+      }
+    },
+    {
+      "id": "board_hole_d",
+      "type": "slider",
+      "default": 2.7,
+      "min": 1.8,
+      "max": 4.5,
+      "step": 0.1,
+      "group": "board",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Board Hole (mm)",
+        "es": "Barreno de Tarjeta (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each board mounting hole in the bridge",
+        "es": "Diámetro de cada barreno de montaje de la tarjeta en el puente"
+      }
+    },
+    {
+      "id": "window_d",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "board",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Window (mm)",
+        "es": "Ventana (mm)"
+      },
+      "tooltip": {
+        "en": "Hole on the axis that the chip looks through",
+        "es": "Barreno sobre el eje por donde mira el chip"
+      }
+    },
+    {
+      "id": "stand_h",
+      "type": "slider",
+      "default": 25.0,
+      "min": 8.0,
+      "max": 120.0,
+      "step": 0.5,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Clear Height (mm)",
+        "es": "Altura Libre (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the underside of the bridge above the mounting face; it sets the gap to the magnet",
+        "es": "Altura de la cara inferior del puente sobre la cara de montaje; fija la separación al imán"
+      }
+    },
+    {
+      "id": "leg_span",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Leg Span (mm)",
+        "es": "Claro entre Patas (mm)"
+      },
+      "tooltip": {
+        "en": "Clear width between the two legs",
+        "es": "Ancho libre entre las dos patas"
+      }
+    },
+    {
+      "id": "bridge_d",
+      "type": "slider",
+      "default": 24.0,
+      "min": 10.0,
+      "max": 100.0,
+      "step": 1.0,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Bridge Depth (mm)",
+        "es": "Fondo del Puente (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the bridge across the feet",
+        "es": "Fondo del puente a través de las patas"
+      }
+    },
+    {
+      "id": "plate_t",
+      "type": "slider",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Thickness (mm)",
+        "es": "Espesor (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the top, the legs and the feet",
+        "es": "Espesor de la parte superior, las patas y los pies"
+      }
+    },
+    {
+      "id": "foot_w",
+      "type": "slider",
+      "default": 12.0,
+      "min": 8.0,
+      "max": 30.0,
+      "step": 1.0,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Foot Width (mm)",
+        "es": "Ancho del Pie (mm)"
+      },
+      "tooltip": {
+        "en": "How far each foot reaches out from its leg",
+        "es": "Cuánto sobresale cada pie de su pata"
+      }
+    },
+    {
+      "id": "mount_bolt_d",
+      "type": "slider",
+      "default": 3.4,
+      "min": 2.4,
+      "max": 6.5,
+      "step": 0.1,
+      "group": "bridge",
+      "modes": [
+        "sensor_bridge"
+      ],
+      "label": {
+        "en": "Foot Hole (mm)",
+        "es": "Barreno del Pie (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole in each foot (3.4 for M3)",
+        "es": "Barreno pasado en cada pie (3.4 para M3)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "cap_8mm_6x2_5",
+      "mode": "magnet_cap",
+      "label": {
+        "en": "Cap · 8 mm shaft · 6 × 2.5 mm magnet",
+        "es": "Tapa · flecha de 8 mm · imán de 6 × 2.5 mm"
+      },
+      "values": {
+        "shaft_d": 8.0,
+        "shaft_fit": 0.1,
+        "bore_depth": 10.0,
+        "setscrew": true,
+        "set_d": 3.0,
+        "cap_wall": 3.0,
+        "magnet_d": 6.0,
+        "magnet_h": 2.5,
+        "magnet_fit": 0.1,
+        "web_t": 1.5
+      }
+    },
+    {
+      "id": "cap_19mm_8x3",
+      "mode": "magnet_cap",
+      "label": {
+        "en": "Cap · 19 mm shaft · 8 × 3 mm magnet",
+        "es": "Tapa · flecha de 19 mm · imán de 8 × 3 mm"
+      },
+      "values": {
+        "shaft_d": 19.0,
+        "shaft_fit": 0.1,
+        "bore_depth": 14.0,
+        "setscrew": true,
+        "set_d": 4.0,
+        "cap_wall": 4.0,
+        "magnet_d": 8.0,
+        "magnet_h": 3.0,
+        "magnet_fit": 0.1,
+        "web_t": 2.0
+      }
+    },
+    {
+      "id": "bridge_20x14_h25",
+      "mode": "sensor_bridge",
+      "label": {
+        "en": "Bridge · 20 × 14 mm board holes · 25 mm clear",
+        "es": "Puente · barrenos de tarjeta 20 × 14 mm · 25 mm libres"
+      },
+      "values": {
+        "board_px": 20.0,
+        "board_py": 14.0,
+        "board_hole_d": 2.7,
+        "window_d": 10.0,
+        "stand_h": 25.0,
+        "leg_span": 50.0,
+        "bridge_d": 24.0,
+        "plate_t": 3.0,
+        "foot_w": 12.0,
+        "mount_bolt_d": 3.4
+      }
+    },
+    {
+      "id": "bridge_two_hole_h40",
+      "mode": "sensor_bridge",
+      "label": {
+        "en": "Bridge · two holes 24 mm apart · 40 mm clear",
+        "es": "Puente · dos barrenos a 24 mm · 40 mm libres"
+      },
+      "values": {
+        "board_px": 24.0,
+        "board_py": 0.0,
+        "board_hole_d": 3.2,
+        "window_d": 12.0,
+        "stand_h": 40.0,
+        "leg_span": 70.0,
+        "bridge_d": 20.0,
+        "plate_t": 4.0,
+        "foot_w": 14.0,
+        "mount_bolt_d": 4.5
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "set_d + 2 <= bore_depth",
+      "severity": "error",
+      "message": {
+        "en": "The set screw must sit inside the depth of the bore, with 1 mm above and below",
+        "es": "El opresor debe quedar dentro de la profundidad del barreno, con 1 mm arriba y abajo"
+      }
+    },
+    {
+      "expression": "board_px + board_hole_d + 4 <= leg_span",
+      "severity": "error",
+      "message": {
+        "en": "The board holes must sit inside the legs, with at least 2 mm to spare on each side",
+        "es": "Los barrenos de la tarjeta deben quedar dentro de las patas, con al menos 2 mm libres por lado"
+      }
+    },
+    {
+      "expression": "board_py + board_hole_d + 4 <= bridge_d",
+      "severity": "error",
+      "message": {
+        "en": "The bridge is not deep enough for the board holes",
+        "es": "El puente no tiene fondo suficiente para los barrenos de la tarjeta"
+      }
+    },
+    {
+      "expression": "window_d + board_hole_d + 2 <= board_px",
+      "severity": "error",
+      "message": {
+        "en": "The window must leave at least 1 mm of plate before the board holes",
+        "es": "La ventana debe dejar al menos 1 mm de placa antes de los barrenos de la tarjeta"
+      }
+    },
+    {
+      "expression": "window_d + 4 <= bridge_d",
+      "severity": "error",
+      "message": {
+        "en": "The window must leave at least 2 mm of plate at the front and the back of the bridge",
+        "es": "La ventana debe dejar al menos 2 mm de placa al frente y atrás del puente"
+      }
+    },
+    {
+      "expression": "mount_bolt_d + 4 <= foot_w",
+      "severity": "error",
+      "message": {
+        "en": "Each foot must leave at least 2 mm of material on both sides of its hole",
+        "es": "Cada pie debe dejar al menos 2 mm de material a ambos lados de su barreno"
+      }
+    },
+    {
+      "expression": "web_t <= 3",
+      "severity": "warning",
+      "message": {
+        "en": "A web over 3 mm makes the cap longer without holding the magnet any better",
+        "es": "Un alma de más de 3 mm alarga la tapa sin sujetar mejor el imán"
+      }
+    },
+    {
+      "expression": "magnet_fit <= 0.2",
+      "severity": "warning",
+      "message": {
+        "en": "A loose pocket lets the magnet sit off the axis, which shows up as an error that repeats every turn",
+        "es": "Una caja holgada deja el imán fuera del eje, lo que aparece como un error que se repite en cada vuelta"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        -90,
+        70
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -160,
+        20
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        180
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 4,
+    "per_unit": 1,
+    "per_part": 4,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "shaft_bore",
+        "label": {
+          "en": "Shaft Bore Floor",
+          "es": "Fondo del Barreno de la Flecha"
+        },
+        "geometry_type": "pocket",
+        "standard": "plain shaft end seated on the bore floor; 8 mm ground shaft (shaft-8mm) at shaft_d 8",
+        "parameters": [
+          "shaft_d",
+          "shaft_fit",
+          "bore_depth"
+        ],
+        "frame": {
+          "part": "magnet_cap",
+          "origin": [
+            0,
+            0,
+            "bore_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "shaft_d",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "magnet_pocket",
+        "label": {
+          "en": "Magnet Pocket",
+          "es": "Caja del Imán"
+        },
+        "geometry_type": "pocket",
+        "standard": "disc magnet magnet_d x magnet_h, seated on the pocket floor",
+        "parameters": [
+          "magnet_d",
+          "magnet_h",
+          "magnet_fit",
+          "web_t",
+          "bore_depth"
+        ],
+        "compatible_with": [
+          "magnetic-coupling"
+        ],
+        "frame": {
+          "part": "magnet_cap",
+          "origin": [
+            0,
+            0,
+            "bore_depth + web_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "female",
+        "symmetry": 0
+      },
+      {
+        "id": "board_seat",
+        "label": {
+          "en": "Sensor Board Seat",
+          "es": "Asiento de la Tarjeta del Sensor"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "sensor board hole pattern board_px x board_py",
+        "parameters": [
+          "board_px",
+          "board_py",
+          "board_hole_d",
+          "window_d",
+          "stand_h",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "sensor_bridge",
+          "origin": [
+            0,
+            0,
+            "stand_h + plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "symmetry": 2
+      },
+      {
+        "id": "bridge_feet",
+        "label": {
+          "en": "Bridge Feet",
+          "es": "Pies del Puente"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M3 screw joint at a 3.4 mm hole",
+        "parameters": [
+          "leg_span",
+          "plate_t",
+          "foot_w",
+          "mount_bolt_d"
+        ],
+        "frame": {
+          "part": "sensor_bridge",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "mount_bolt_d",
+          "map": {
+            "3.4": "m3-screw-joint"
+          }
+        },
+        "symmetry": 2
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A magnetic angle sensor is cheap and resolves a turn into thousands of steps, but only if a magnet sits on the axis and the chip sits square to it a millimetre or two away. That alignment is the whole difficulty, and it is a mounting problem. Two small parts generated to the shaft, the magnet and the board at hand let a student, a repair shop or a small farm put feedback on a motor, a valve or a gate that had none.",
+      "es": "Un sensor magnético de ángulo es barato y resuelve una vuelta en miles de pasos, pero solo si un imán queda sobre el eje y el chip queda a escuadra frente a él a uno o dos milímetros. Esa alineación es toda la dificultad, y es un problema de montaje. Dos piezas pequeñas generadas para la flecha, el imán y la tarjeta disponibles permiten a una estudiante, un taller de reparación o una granja pequeña poner retroalimentación en un motor, una válvula o un portón que no la tenía."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "shaft-encoder-mount",
+    "encoder",
+    "sensor",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
