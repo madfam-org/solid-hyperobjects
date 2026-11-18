@@ -1,0 +1,943 @@
+{
+  "project": {
+    "name": "Twin-Post Frame",
+    "slug": "twin-post-frame",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "The two fixed members that hold a pair of parallel posts standing: a floor base with a socket for each post, and a crossbar that ties their tops. With two posts they make a freestanding portal: a storage rack, a display stand, a clothes rail, a small gantry or a workshop frame that needs no wall. Set the post section and the distance between the posts once and both members follow; the base adds its depth, where the posts stand along it, and holes for levelling feet.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Los dos miembros fijos que sostienen erguido un par de postes paralelos: una base de piso con un alojamiento para cada poste y un travesaño que une sus extremos superiores. Con dos postes forman un pórtico autoportante: un rack de almacenaje, un exhibidor, un perchero, un pequeño pórtico o un bastidor de taller que no necesita pared. Define una vez la sección del poste y la distancia entre postes y ambos miembros la siguen; la base agrega su fondo, la posición de los postes a lo largo de ella y barrenos para patas niveladoras.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/twin-post-frame.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "twin-post-frame",
+      "frame",
+      "base",
+      "crossbar",
+      "post",
+      "rack",
+      "stand",
+      "structure",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "base"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    },
+    {
+      "id": "crossbar",
+      "label": {
+        "en": "Crossbar",
+        "es": "Travesaño"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "crossbar"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      },
+      "render_mode": 0,
+      "color": "#7d8794"
+    },
+    {
+      "id": "crossbar",
+      "label": {
+        "en": "Crossbar",
+        "es": "Travesaño"
+      },
+      "render_mode": 0,
+      "color": "#a9aeb6"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "posts",
+      "label": {
+        "en": "Posts",
+        "es": "Postes"
+      }
+    },
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      }
+    },
+    {
+      "id": "bar",
+      "label": {
+        "en": "Crossbar",
+        "es": "Travesaño"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "spacing",
+      "type": "slider",
+      "default": 600.0,
+      "min": 200.0,
+      "max": 1500.0,
+      "step": 5.0,
+      "group": "posts",
+      "modes": [
+        "base",
+        "crossbar"
+      ],
+      "label": {
+        "en": "Post Spacing (mm)",
+        "es": "Separación de Postes (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the centres of the two posts",
+        "es": "Distancia entre los centros de los dos postes"
+      }
+    },
+    {
+      "id": "post_w",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "posts",
+      "modes": [
+        "base",
+        "crossbar"
+      ],
+      "label": {
+        "en": "Post Width (mm)",
+        "es": "Ancho del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "Outside width of the post section, along the line between the posts",
+        "es": "Ancho exterior de la sección del poste, sobre la línea entre postes"
+      }
+    },
+    {
+      "id": "post_d",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "posts",
+      "modes": [
+        "base",
+        "crossbar"
+      ],
+      "label": {
+        "en": "Post Depth (mm)",
+        "es": "Fondo del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "Outside depth of the post section, front to back",
+        "es": "Fondo exterior de la sección del poste, de frente a atrás"
+      }
+    },
+    {
+      "id": "fit",
+      "type": "slider",
+      "default": 0.6,
+      "min": 0.2,
+      "max": 2.0,
+      "step": 0.1,
+      "group": "posts",
+      "modes": [
+        "base",
+        "crossbar"
+      ],
+      "label": {
+        "en": "Socket Fit (mm)",
+        "es": "Ajuste del Alojamiento (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance on each side between a post and its socket or cap",
+        "es": "Holgura por lado entre un poste y su alojamiento o tapa"
+      }
+    },
+    {
+      "id": "bolt_d",
+      "type": "slider",
+      "default": 8.5,
+      "min": 4.5,
+      "max": 12.5,
+      "step": 0.5,
+      "group": "posts",
+      "modes": [
+        "base",
+        "crossbar"
+      ],
+      "label": {
+        "en": "Post Bolt Hole (mm)",
+        "es": "Barreno del Tornillo del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole on each post axis, for the bolt into the end of the post",
+        "es": "Barreno pasado sobre el eje de cada poste, para el tornillo al extremo del poste"
+      }
+    },
+    {
+      "id": "base_depth",
+      "type": "slider",
+      "default": 500.0,
+      "min": 200.0,
+      "max": 1000.0,
+      "step": 5.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Base Depth (mm)",
+        "es": "Fondo de la Base (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the rails, front to back",
+        "es": "Largo de los largueros, de frente a atrás"
+      }
+    },
+    {
+      "id": "post_y",
+      "type": "slider",
+      "default": 200.0,
+      "min": 40.0,
+      "max": 800.0,
+      "step": 5.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Post Setback (mm)",
+        "es": "Retranqueo del Poste (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the rear edge of the base to the post axis",
+        "es": "Distancia del borde trasero de la base al eje del poste"
+      }
+    },
+    {
+      "id": "rail_margin",
+      "type": "slider",
+      "default": 20.0,
+      "min": 8.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Rail Margin (mm)",
+        "es": "Margen del Larguero (mm)"
+      },
+      "tooltip": {
+        "en": "How much wider than the post the rail is, on each side",
+        "es": "Cuánto más ancho que el poste es el larguero, por lado"
+      }
+    },
+    {
+      "id": "rail_h",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Rail Height (mm)",
+        "es": "Altura del Larguero (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the base off the floor",
+        "es": "Altura de la base sobre el piso"
+      }
+    },
+    {
+      "id": "rear_d",
+      "type": "slider",
+      "default": 100.0,
+      "min": 40.0,
+      "max": 300.0,
+      "step": 5.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Rear Member (mm)",
+        "es": "Miembro Trasero (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the member that joins the rails at the rear",
+        "es": "Fondo del miembro que une los largueros atrás"
+      }
+    },
+    {
+      "id": "front_d",
+      "type": "slider",
+      "default": 60.0,
+      "min": 40.0,
+      "max": 300.0,
+      "step": 5.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Front Member (mm)",
+        "es": "Miembro Delantero (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the member that joins the rails at the front",
+        "es": "Fondo del miembro que une los largueros al frente"
+      }
+    },
+    {
+      "id": "socket_depth",
+      "type": "slider",
+      "default": 10.0,
+      "min": 3.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Socket Depth (mm)",
+        "es": "Profundidad del Alojamiento (mm)"
+      },
+      "tooltip": {
+        "en": "How deep each post sits in the base",
+        "es": "Cuánto entra cada poste en la base"
+      }
+    },
+    {
+      "id": "foot_bolt_d",
+      "type": "slider",
+      "default": 8.5,
+      "min": 4.5,
+      "max": 12.5,
+      "step": 0.5,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Foot Hole (mm)",
+        "es": "Barreno de Pata (mm)"
+      },
+      "tooltip": {
+        "en": "Hole at each corner for the stud of a levelling foot",
+        "es": "Barreno en cada esquina para el espárrago de una pata niveladora"
+      }
+    },
+    {
+      "id": "bar_h",
+      "type": "slider",
+      "default": 50.0,
+      "min": 15.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "bar",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Bar Height (mm)",
+        "es": "Altura del Travesaño (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the crossbar",
+        "es": "Altura del travesaño"
+      }
+    },
+    {
+      "id": "bar_margin",
+      "type": "slider",
+      "default": 6.0,
+      "min": 0.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "bar",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Bar Margin (mm)",
+        "es": "Margen del Travesaño (mm)"
+      },
+      "tooltip": {
+        "en": "How far the crossbar reaches past the post section on every side",
+        "es": "Cuánto sobresale el travesaño de la sección del poste por cada lado"
+      }
+    },
+    {
+      "id": "cap_depth",
+      "type": "slider",
+      "default": 5.0,
+      "min": 0.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "bar",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Cap Depth (mm)",
+        "es": "Profundidad de la Tapa (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the pocket that caps each post top; 0 leaves the underside flat",
+        "es": "Profundidad de la caja que tapa cada extremo de poste; 0 deja plana la cara inferior"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "rack_base_600",
+      "mode": "base",
+      "label": {
+        "en": "Base · 50 mm posts 600 apart · 500 deep",
+        "es": "Base · postes de 50 mm a 600 · 500 de fondo"
+      },
+      "values": {
+        "spacing": 600.0,
+        "post_w": 50.0,
+        "post_d": 50.0,
+        "fit": 0.6,
+        "bolt_d": 8.5,
+        "base_depth": 500.0,
+        "post_y": 200.0,
+        "rail_margin": 20.0,
+        "rail_h": 50.0,
+        "rear_d": 100.0,
+        "front_d": 60.0,
+        "socket_depth": 10.0,
+        "foot_bolt_d": 8.5
+      }
+    },
+    {
+      "id": "rack_crossbar_600",
+      "mode": "crossbar",
+      "label": {
+        "en": "Crossbar · 50 mm posts 600 apart · capped",
+        "es": "Travesaño · postes de 50 mm a 600 · con tapa"
+      },
+      "values": {
+        "spacing": 600.0,
+        "post_w": 50.0,
+        "post_d": 50.0,
+        "fit": 0.6,
+        "bolt_d": 8.5,
+        "bar_h": 50.0,
+        "bar_margin": 6.0,
+        "cap_depth": 5.0
+      }
+    },
+    {
+      "id": "portal_base_720",
+      "mode": "base",
+      "label": {
+        "en": "Base · 80 mm posts 720 apart · 600 deep",
+        "es": "Base · postes de 80 mm a 720 · 600 de fondo"
+      },
+      "values": {
+        "spacing": 720.0,
+        "post_w": 80.0,
+        "post_d": 80.0,
+        "fit": 0.3,
+        "bolt_d": 10.5,
+        "base_depth": 600.0,
+        "post_y": 240.0,
+        "rail_margin": 20.0,
+        "rail_h": 60.0,
+        "rear_d": 150.0,
+        "front_d": 80.0,
+        "socket_depth": 10.0,
+        "foot_bolt_d": 10.5
+      }
+    },
+    {
+      "id": "portal_crossbar_720_flat",
+      "mode": "crossbar",
+      "label": {
+        "en": "Crossbar · 80 mm posts 720 apart · flat",
+        "es": "Travesaño · postes de 80 mm a 720 · plano"
+      },
+      "values": {
+        "spacing": 720.0,
+        "post_w": 80.0,
+        "post_d": 80.0,
+        "fit": 0.3,
+        "bolt_d": 10.5,
+        "bar_h": 60.0,
+        "bar_margin": 0.0,
+        "cap_depth": 0.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "spacing >= post_w + 2 * rail_margin + 20",
+      "severity": "error",
+      "message": {
+        "en": "The posts are too close: the rails need at least 20 mm of window between them",
+        "es": "Los postes están demasiado juntos: los largueros necesitan al menos 20 mm de ventana entre ellos"
+      }
+    },
+    {
+      "expression": "rear_d + front_d + 20 <= base_depth",
+      "severity": "error",
+      "message": {
+        "en": "The rear and front members must leave at least 20 mm of window between them",
+        "es": "Los miembros trasero y delantero deben dejar al menos 20 mm de ventana entre ellos"
+      }
+    },
+    {
+      "expression": "post_y - post_d / 2 >= 2 * foot_bolt_d + 14",
+      "severity": "error",
+      "message": {
+        "en": "The post stands too close to the rear edge: its socket would meet the foot hole",
+        "es": "El poste queda demasiado cerca del borde trasero: su alojamiento tocaría el barreno de la pata"
+      }
+    },
+    {
+      "expression": "base_depth - post_y - post_d / 2 >= 2 * foot_bolt_d + 14",
+      "severity": "error",
+      "message": {
+        "en": "The post stands too close to the front edge: its socket would meet the foot hole",
+        "es": "El poste queda demasiado cerca del borde delantero: su alojamiento tocaría el barreno de la pata"
+      }
+    },
+    {
+      "expression": "socket_depth + 5 <= rail_h",
+      "severity": "error",
+      "message": {
+        "en": "The socket must leave at least 5 mm of floor under the post",
+        "es": "El alojamiento debe dejar al menos 5 mm de piso bajo el poste"
+      }
+    },
+    {
+      "expression": "cap_depth + 5 <= bar_h",
+      "severity": "error",
+      "message": {
+        "en": "The cap must leave at least 5 mm of crossbar above the post",
+        "es": "La tapa debe dejar al menos 5 mm de travesaño sobre el poste"
+      }
+    },
+    {
+      "expression": "cap_depth == 0 || bar_margin >= 3",
+      "severity": "error",
+      "message": {
+        "en": "A cap needs at least 3 mm of wall round the post: widen the margin or set the cap depth to 0",
+        "es": "Una tapa necesita al menos 3 mm de pared alrededor del poste: amplía el margen o pon la profundidad de la tapa en 0"
+      }
+    },
+    {
+      "expression": "socket_depth >= 8",
+      "severity": "warning",
+      "message": {
+        "en": "A socket under 8 mm locates the post but barely braces it: rely on the bolt",
+        "es": "Un alojamiento de menos de 8 mm ubica el poste pero apenas lo arriostra: depende del tornillo"
+      }
+    },
+    {
+      "expression": "post_y * 5 >= base_depth && (base_depth - post_y) * 5 >= base_depth",
+      "severity": "warning",
+      "message": {
+        "en": "The posts stand within a fifth of the depth from an edge: a load hung on that side can tip the base",
+        "es": "Los postes quedan a menos de un quinto del fondo de un borde: una carga colgada de ese lado puede volcar la base"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        800,
+        -800,
+        500
+      ]
+    },
+    {
+      "id": "front",
+      "label": {
+        "en": "Front",
+        "es": "Frontal"
+      },
+      "position": [
+        0,
+        -1200,
+        150
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        1400
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "socket_a",
+        "label": {
+          "en": "Post Socket A",
+          "es": "Alojamiento de Poste A"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "rail_h",
+          "socket_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            "-spacing / 2",
+            0,
+            "rail_h - socket_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "socket_b",
+        "label": {
+          "en": "Post Socket B",
+          "es": "Alojamiento de Poste B"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "rail_h",
+          "socket_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            "spacing / 2",
+            0,
+            "rail_h - socket_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "floor",
+        "label": {
+          "en": "Floor Face & Foot Holes",
+          "es": "Cara de Piso y Barrenos de Patas"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "spacing",
+          "base_depth",
+          "post_y",
+          "foot_bolt_d"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 1
+      },
+      {
+        "id": "cap_a",
+        "label": {
+          "en": "Post Cap A",
+          "es": "Tapa de Poste A"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "cap_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "crossbar",
+          "origin": [
+            "-spacing / 2",
+            0,
+            "cap_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "cap_b",
+        "label": {
+          "en": "Post Cap B",
+          "es": "Tapa de Poste B"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "cap_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "crossbar",
+          "origin": [
+            "spacing / 2",
+            0,
+            "cap_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "bar_top",
+        "label": {
+          "en": "Crossbar Top Face",
+          "es": "Cara Superior del Travesaño"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "bar_margin",
+          "bar_h"
+        ],
+        "frame": {
+          "part": "crossbar",
+          "origin": [
+            0,
+            0,
+            "bar_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 2
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A freestanding frame is what a renter, a market stall, a classroom or a shared workshop needs: something that carries a load without a single hole in the wall, and that comes apart to move. The posts are stock tube anyone can buy; the two members that make them stand are the hard part. Generated to the tube at hand and the width wanted, they turn two lengths of tube into a rack, a rail or a gantry.",
+      "es": "Un bastidor autoportante es lo que necesita quien renta, un puesto de mercado, un salón de clases o un taller compartido: algo que cargue sin un solo barreno en la pared, y que se desarme para moverlo. Los postes son tubo comercial que cualquiera compra; los dos miembros que los hacen pararse son la parte difícil. Generados para el tubo disponible y el ancho deseado, convierten dos tramos de tubo en un rack, un perchero o un pórtico."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "twin-post-frame",
+    "frame",
+    "structure",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
