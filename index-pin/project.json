@@ -2,7 +2,7 @@
   "project": {
     "name": "Index Pin",
     "slug": "index-pin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -656,7 +656,7 @@
           "es": "Vástago (perno de perilla)"
         },
         "geometry_type": "socket",
-        "standard": "plain pin in a round hole of pin_d",
+        "standard": "plain pin in a round hole of pin_d; 10 mm plain pin (pin-10mm) at pin_d 10",
         "parameters": [
           "pin_d",
           "fit",
@@ -681,6 +681,12 @@
           ]
         },
         "polarity": "male",
+        "size_key": {
+          "param": "pin_d",
+          "map": {
+            "10": "pin-10mm"
+          }
+        },
         "symmetry": 0
       },
       {
@@ -690,7 +696,7 @@
           "es": "Vástago (perno de mango en T)"
         },
         "geometry_type": "socket",
-        "standard": "plain pin in a round hole of pin_d",
+        "standard": "plain pin in a round hole of pin_d; 10 mm plain pin (pin-10mm) at pin_d 10",
         "parameters": [
           "pin_d",
           "fit",
@@ -715,6 +721,12 @@
           ]
         },
         "polarity": "male",
+        "size_key": {
+          "param": "pin_d",
+          "map": {
+            "10": "pin-10mm"
+          }
+        },
         "symmetry": 0
       }
     ],
