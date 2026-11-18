@@ -2,7 +2,7 @@
   "project": {
     "name": "VESA Arm Extender",
     "slug": "vesa-arm-extender",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -706,7 +706,7 @@
           "es": "Tornillos de Viga del Brazo Colgante"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "internal",
+        "standard": "two bolts in a line; M8 screw joint at an 8.5 mm hole, M5 at 5.5 mm",
         "parameters": [
           "arm_len",
           "arm_thick",
@@ -720,6 +720,13 @@
           "x_axis": [1, 0, 0]
         },
         "polarity": "male",
+        "size_key": {
+          "param": "beam_bolt_d",
+          "map": {
+            "8.5": "m8-screw-joint",
+            "5.5": "m5-screw-joint"
+          }
+        },
         "symmetry": 2
       },
       {
