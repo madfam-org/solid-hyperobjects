@@ -1,0 +1,644 @@
+{
+  "project": {
+    "name": "Tube End Plug",
+    "slug": "tube-end-plug",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A plug for the open end of a square or rectangular tube: a flange that covers the end and an insert that enters the tube. It closes a cut tube on a rack, a railing, a trailer, a table leg or a frame against water, dirt and a careless hand. With the bolt seat on, the insert is solid, drilled on the axis and pocketed for a hex nut, so the end of the tube becomes a place to bolt on a crossbar, a levelling foot, a caster or a bracket. Set the tube's outside, its wall and the fit.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un tapón para el extremo abierto de un tubo cuadrado o rectangular (PTR): una brida que cubre el extremo y un inserto que entra en el tubo. Cierra un tubo cortado en un rack, un barandal, un remolque, una pata de mesa o un bastidor contra el agua, la suciedad y una mano descuidada. Con el asiento de tornillo activado, el inserto es macizo, barrenado sobre el eje y con caja para una tuerca hexagonal, de modo que el extremo del tubo se vuelve un lugar para atornillar un travesaño, una pata niveladora, una rodaja o un soporte. Define el exterior del tubo, su pared y el ajuste.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/tube-end-plug.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "tube-end-plug",
+      "end-cap",
+      "plug",
+      "tube",
+      "frame",
+      "furniture",
+      "hardware",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "plug",
+      "label": {
+        "en": "Plug",
+        "es": "Tapón"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "plug"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_unit": 1,
+        "per_part": 4
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "plug",
+      "label": {
+        "en": "Plug",
+        "es": "Tapón"
+      },
+      "render_mode": 0,
+      "color": "#2f3338"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "tube",
+      "label": {
+        "en": "Tube",
+        "es": "Tubo"
+      }
+    },
+    {
+      "id": "plug",
+      "label": {
+        "en": "Plug",
+        "es": "Tapón"
+      }
+    },
+    {
+      "id": "bolt",
+      "label": {
+        "en": "Bolt Seat",
+        "es": "Asiento de Tornillo"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "tube_w",
+      "type": "slider",
+      "default": 50.0,
+      "min": 15.0,
+      "max": 120.0,
+      "step": 0.5,
+      "group": "tube",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Tube Width (mm)",
+        "es": "Ancho del Tubo (mm)"
+      },
+      "tooltip": {
+        "en": "Outside width of the tube",
+        "es": "Ancho exterior del tubo"
+      }
+    },
+    {
+      "id": "tube_d",
+      "type": "slider",
+      "default": 50.0,
+      "min": 15.0,
+      "max": 120.0,
+      "step": 0.5,
+      "group": "tube",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Tube Depth (mm)",
+        "es": "Fondo del Tubo (mm)"
+      },
+      "tooltip": {
+        "en": "Outside depth of the tube",
+        "es": "Fondo exterior del tubo"
+      }
+    },
+    {
+      "id": "tube_wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.0,
+      "max": 10.0,
+      "step": 0.1,
+      "group": "tube",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Tube Wall (mm)",
+        "es": "Pared del Tubo (mm)"
+      },
+      "tooltip": {
+        "en": "Wall thickness of the tube",
+        "es": "Espesor de pared del tubo"
+      }
+    },
+    {
+      "id": "fit",
+      "type": "slider",
+      "default": 0.3,
+      "min": 0.0,
+      "max": 1.5,
+      "step": 0.05,
+      "group": "tube",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Fit (mm)",
+        "es": "Ajuste (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance per side between the insert and the inside of the tube; 0 for a press fit",
+        "es": "Holgura por lado entre el inserto y el interior del tubo; 0 para un ajuste a presión"
+      }
+    },
+    {
+      "id": "corner_c",
+      "type": "slider",
+      "default": 3.0,
+      "min": 0.0,
+      "max": 10.0,
+      "step": 0.5,
+      "group": "tube",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Corner Relief (mm)",
+        "es": "Alivio de Esquina (mm)"
+      },
+      "tooltip": {
+        "en": "Chamfer on the corners of the insert, to clear the rounded inside corners of the tube",
+        "es": "Chaflán en las esquinas del inserto, para librar las esquinas interiores redondeadas del tubo"
+      }
+    },
+    {
+      "id": "flange_t",
+      "type": "slider",
+      "default": 4.0,
+      "min": 1.5,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "plug",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Flange Thickness (mm)",
+        "es": "Espesor de la Brida (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the flange that covers the end of the tube",
+        "es": "Espesor de la brida que cubre el extremo del tubo"
+      }
+    },
+    {
+      "id": "insert_l",
+      "type": "slider",
+      "default": 20.0,
+      "min": 6.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "plug",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Insert Length (mm)",
+        "es": "Largo del Inserto (mm)"
+      },
+      "tooltip": {
+        "en": "How far the insert goes into the tube",
+        "es": "Cuánto entra el inserto en el tubo"
+      }
+    },
+    {
+      "id": "skirt_wall",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.5,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "plug",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Skirt Wall (mm)",
+        "es": "Pared de la Falda (mm)"
+      },
+      "tooltip": {
+        "en": "Wall of the hollow insert (plain plug)",
+        "es": "Pared del inserto hueco (tapón liso)"
+      }
+    },
+    {
+      "id": "bolt_seat",
+      "type": "checkbox",
+      "default": false,
+      "group": "bolt",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Bolt Seat",
+        "es": "Asiento de Tornillo"
+      },
+      "tooltip": {
+        "en": "Make the insert solid, drill it on the axis and pocket its inner end for a hex nut",
+        "es": "Hace macizo el inserto, lo barrena sobre el eje y le hace una caja para tuerca hexagonal en su extremo interior"
+      }
+    },
+    {
+      "id": "bolt_d",
+      "type": "slider",
+      "default": 8.5,
+      "min": 3.4,
+      "max": 12.5,
+      "step": 0.1,
+      "group": "bolt",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Bolt Hole (mm)",
+        "es": "Barreno de Tornillo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole on the axis (8.5 for M8)",
+        "es": "Barreno pasado sobre el eje (8.5 para M8)"
+      }
+    },
+    {
+      "id": "nut_af",
+      "type": "slider",
+      "default": 13.0,
+      "min": 5.5,
+      "max": 19.0,
+      "step": 0.1,
+      "group": "bolt",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Nut Across Flats (mm)",
+        "es": "Tuerca entre Caras (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the hex nut across its flats (13 for M8); add what your process needs",
+        "es": "Ancho de la tuerca hexagonal entre caras (13 para M8); agrega lo que tu proceso necesite"
+      }
+    },
+    {
+      "id": "nut_h",
+      "type": "slider",
+      "default": 6.5,
+      "min": 2.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "bolt",
+      "modes": [
+        "plug"
+      ],
+      "label": {
+        "en": "Nut Pocket Depth (mm)",
+        "es": "Profundidad de la Caja de Tuerca (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the nut pocket",
+        "es": "Profundidad de la caja de la tuerca"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "square_50_cap",
+      "mode": "plug",
+      "label": {
+        "en": "Cap · 50 × 50 × 3 mm tube",
+        "es": "Tapa · tubo de 50 × 50 × 3 mm"
+      },
+      "values": {
+        "tube_w": 50.0,
+        "tube_d": 50.0,
+        "tube_wall": 3.0,
+        "fit": 0.3,
+        "corner_c": 3.0,
+        "flange_t": 4.0,
+        "insert_l": 20.0,
+        "skirt_wall": 3.0,
+        "bolt_seat": false,
+        "bolt_d": 8.5,
+        "nut_af": 13.0,
+        "nut_h": 6.5
+      }
+    },
+    {
+      "id": "square_80_m8_seat",
+      "mode": "plug",
+      "label": {
+        "en": "Bolt seat · 80 × 80 × 4 mm tube · M8",
+        "es": "Asiento de tornillo · tubo de 80 × 80 × 4 mm · M8"
+      },
+      "values": {
+        "tube_w": 80.0,
+        "tube_d": 80.0,
+        "tube_wall": 4.0,
+        "fit": 0.3,
+        "corner_c": 4.0,
+        "flange_t": 6.0,
+        "insert_l": 30.0,
+        "skirt_wall": 3.0,
+        "bolt_seat": true,
+        "bolt_d": 8.5,
+        "nut_af": 13.2,
+        "nut_h": 7.0
+      }
+    },
+    {
+      "id": "rect_40x20_cap",
+      "mode": "plug",
+      "label": {
+        "en": "Cap · 40 × 20 × 2 mm tube",
+        "es": "Tapa · tubo de 40 × 20 × 2 mm"
+      },
+      "values": {
+        "tube_w": 40.0,
+        "tube_d": 20.0,
+        "tube_wall": 2.0,
+        "fit": 0.2,
+        "corner_c": 2.0,
+        "flange_t": 3.0,
+        "insert_l": 15.0,
+        "skirt_wall": 2.0,
+        "bolt_seat": false,
+        "bolt_d": 5.5,
+        "nut_af": 8.0,
+        "nut_h": 4.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "tube_w - 2 * tube_wall - 2 * fit >= 6 && tube_d - 2 * tube_wall - 2 * fit >= 6",
+      "severity": "error",
+      "message": {
+        "en": "The tube is too small or its wall too thick: the insert would be under 6 mm across",
+        "es": "El tubo es demasiado chico o su pared demasiado gruesa: el inserto mediría menos de 6 mm"
+      }
+    },
+    {
+      "expression": "2 * corner_c + 2 <= tube_w - 2 * tube_wall - 2 * fit && 2 * corner_c + 2 <= tube_d - 2 * tube_wall - 2 * fit",
+      "severity": "error",
+      "message": {
+        "en": "The corner relief is too large for the insert",
+        "es": "El alivio de esquina es demasiado grande para el inserto"
+      }
+    },
+    {
+      "expression": "!bolt_seat || (nut_af * 1.16 + 4 <= tube_w - 2 * tube_wall - 2 * fit && nut_af * 1.16 + 4 <= tube_d - 2 * tube_wall - 2 * fit)",
+      "severity": "error",
+      "message": {
+        "en": "The nut does not fit inside the insert with 2 mm of wall round it",
+        "es": "La tuerca no cabe dentro del inserto con 2 mm de pared alrededor"
+      }
+    },
+    {
+      "expression": "!bolt_seat || nut_h + 3 <= insert_l",
+      "severity": "error",
+      "message": {
+        "en": "The insert must leave at least 3 mm of solid above the nut pocket",
+        "es": "El inserto debe dejar al menos 3 mm macizos sobre la caja de la tuerca"
+      }
+    },
+    {
+      "expression": "!bolt_seat || bolt_d + 2 <= nut_af",
+      "severity": "error",
+      "message": {
+        "en": "The nut must be wider than the bolt hole, or it has nothing to bear on",
+        "es": "La tuerca debe ser más ancha que el barreno del tornillo, o no tiene dónde apoyar"
+      }
+    },
+    {
+      "expression": "fit <= 0.6",
+      "severity": "warning",
+      "message": {
+        "en": "With more than 0.6 mm of clearance per side the plug is loose: glue it, or rely on the bolt",
+        "es": "Con más de 0.6 mm de holgura por lado el tapón queda suelto: pégalo, o confía en el tornillo"
+      }
+    },
+    {
+      "expression": "insert_l * 2 >= tube_wall * 5",
+      "severity": "warning",
+      "message": {
+        "en": "An insert this short barely enters the tube and can rock out",
+        "es": "Un inserto tan corto apenas entra en el tubo y puede salirse al ladearse"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        -90,
+        70
+      ]
+    },
+    {
+      "id": "under",
+      "label": {
+        "en": "Underside",
+        "es": "Inferior"
+      },
+      "position": [
+        80,
+        -80,
+        -90
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -160,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 4,
+    "per_unit": 1,
+    "per_part": 4,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "tube_end",
+        "label": {
+          "en": "Tube End Seat",
+          "es": "Asiento sobre el Extremo del Tubo"
+        },
+        "geometry_type": "profile",
+        "standard": "square or rectangular tube tube_w x tube_d, wall tube_wall, entered endwise",
+        "parameters": [
+          "tube_w",
+          "tube_d",
+          "tube_wall",
+          "fit",
+          "corner_c",
+          "insert_l"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "plug",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "tube_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "outer_face",
+        "label": {
+          "en": "Outer Face",
+          "es": "Cara Exterior"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "tube_w",
+          "tube_d",
+          "flange_t",
+          "bolt_seat",
+          "bolt_d"
+        ],
+        "frame": {
+          "part": "plug",
+          "origin": [
+            0,
+            0,
+            "flange_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 2
+      },
+      {
+        "id": "nut_seat",
+        "label": {
+          "en": "Captive Nut Seat",
+          "es": "Asiento de Tuerca Cautiva"
+        },
+        "geometry_type": "pocket",
+        "standard": "ISO hex nut by across-flats width",
+        "parameters": [
+          "bolt_seat",
+          "bolt_d",
+          "nut_af",
+          "nut_h"
+        ],
+        "compatible_with": [
+          "captive-nut",
+          "fasteners"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Square tube is a staple of small welded and bolted structures, and every cut leaves a sharp open end that fills with water and rusts from inside. Shop-bought caps exist for a handful of sizes and one wall thickness. A plug generated to the tube actually in hand, at the fit the process needs, closes the end the day it is cut; with a nut in it, it also saves welding a plate on just to attach a foot.",
+      "es": "El tubo cuadrado (PTR) es un básico de las estructuras pequeñas soldadas y atornilladas, y cada corte deja un extremo abierto y filoso que se llena de agua y se oxida por dentro. Las tapas comerciales existen para unas cuantas medidas y un solo espesor de pared. Un tapón generado para el tubo que realmente se tiene, con el ajuste que el proceso necesita, cierra el extremo el día que se corta; con una tuerca dentro, además ahorra soldar una placa solo para fijar una pata."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "tube-end-plug",
+    "end-cap",
+    "tube",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
