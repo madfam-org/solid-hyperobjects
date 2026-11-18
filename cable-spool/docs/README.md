@@ -69,6 +69,32 @@ whoever builds and uses it.
 - **Shaft bore, keyway and set screws** (`shaft_bore`): `bore`, `keyway`, `key_w`, `setscrew_dia`.
 - **Cable drum** (`cable_drum`): `drum_d`, `drum_w`, `flange_h`, `cable_d`.
 
+## Mating frames (assemblies)
+
+`shaft_bore` carries a SEM-1 frame on the plain `spool` part, so the drum can be
+placed on a shaft in an assembly:
+
+- **Origin and normal:** origin `(0, 0, 0)`, the centre of the bore where it
+  opens in the drum's lower face. Normal `-z`, out of the bore.
+- **Orientation:** `x_axis` `+x`. Symmetry 0.
+- **Polarity and size key:** polarity female (the bore takes the shaft); size key
+  `{param: bore, map: {"19": shaft-19mm-key-6mm}}`: a 19 mm shaft end with a 6 mm
+  parallel key.
+
+The frame is verified against the rendered part at the defaults and every preset
+(`y4d-spec check --render`).
+
+Limits:
+
+- **One shaft size.** At any `bore` other than 19 mm the interface has no size
+  key, so a mate that needs one fails and names the slider value.
+- **The key assumes the keyway.** The size key says "keyed 19 mm shaft"; the part
+  only matches it with `keyway` on and `key_w` at 6 mm, and nothing in the frame
+  checks that.
+- **Where the drum sits along the shaft** is the partner's frame to state: this
+  frame only says the shaft enters at the lower face.
+- **`spool_hub` has no frame yet.**
+
 ## Licence
 
 CERN-OHL-W-2.0. See `LICENSE`.
