@@ -1,0 +1,668 @@
+{
+  "project": {
+    "name": "Pull Handle",
+    "slug": "pull-handle",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "The part of a cable or a cord that a hand holds. Grip is a tube with a flange at each end and a bore along its axis for the cord, strap or tie rod it hangs by: the handle of a starter cord, a resistance band, a tow line, a blind or a cable machine. An optional pocket in its side takes a small module such as a switch, a sensor or a tag. Bar is a solid two-hand bar with flanged ends and cross holes for the eye bolts or the pin it is pulled by. Set the diameter a hand closes round and the length it needs.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "La parte de un cable o un cordón que sostiene la mano. La Empuñadura es un tubo con una brida en cada extremo y un barreno a lo largo de su eje para el cordón, la correa o el tirante del que cuelga: la manija de un cordón de arranque, una banda de resistencia, una línea de remolque, una persiana o una máquina de cable. Una caja opcional en su costado aloja un módulo pequeño como un interruptor, un sensor o una etiqueta. La Barra es una barra maciza para dos manos con extremos con brida y barrenos transversales para las armellas o el perno del que se jala. Define el diámetro que cierra la mano y el largo que necesita.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/pull-handle.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "pull-handle",
+      "handle",
+      "grip",
+      "cable",
+      "cord",
+      "bar",
+      "fitness",
+      "tools",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "grip",
+      "label": {
+        "en": "Grip",
+        "es": "Empuñadura"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "grip"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    },
+    {
+      "id": "bar",
+      "label": {
+        "en": "Bar",
+        "es": "Barra"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "bar"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "grip",
+      "label": {
+        "en": "Grip",
+        "es": "Empuñadura"
+      },
+      "render_mode": 0,
+      "color": "#3c4148"
+    },
+    {
+      "id": "bar",
+      "label": {
+        "en": "Bar",
+        "es": "Barra"
+      },
+      "render_mode": 0,
+      "color": "#5a6068"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "hand",
+      "label": {
+        "en": "Hand",
+        "es": "Mano"
+      }
+    },
+    {
+      "id": "grip",
+      "label": {
+        "en": "Grip",
+        "es": "Empuñadura"
+      }
+    },
+    {
+      "id": "pocket",
+      "label": {
+        "en": "Module Pocket",
+        "es": "Caja del Módulo"
+      }
+    },
+    {
+      "id": "bar",
+      "label": {
+        "en": "Bar",
+        "es": "Barra"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "grip_d",
+      "type": "slider",
+      "default": 32.0,
+      "min": 20.0,
+      "max": 45.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "grip",
+        "bar"
+      ],
+      "label": {
+        "en": "Grip Diameter (mm)",
+        "es": "Diámetro de Empuñadura (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter the hand closes round",
+        "es": "Diámetro que cierra la mano"
+      }
+    },
+    {
+      "id": "flange_h",
+      "type": "slider",
+      "default": 6.0,
+      "min": 0.0,
+      "max": 15.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "grip",
+        "bar"
+      ],
+      "label": {
+        "en": "Flange Height (mm)",
+        "es": "Altura de Brida (mm)"
+      },
+      "tooltip": {
+        "en": "How far each end flange stands proud of the grip; 0 leaves a plain cylinder",
+        "es": "Cuánto sobresale de la empuñadura cada brida de extremo; 0 deja un cilindro liso"
+      }
+    },
+    {
+      "id": "flange_t",
+      "type": "slider",
+      "default": 6.0,
+      "min": 2.0,
+      "max": 15.0,
+      "step": 0.5,
+      "group": "hand",
+      "modes": [
+        "grip",
+        "bar"
+      ],
+      "label": {
+        "en": "Flange Thickness (mm)",
+        "es": "Espesor de Brida (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of each end flange",
+        "es": "Espesor de cada brida de extremo"
+      }
+    },
+    {
+      "id": "grip_l",
+      "type": "slider",
+      "default": 130.0,
+      "min": 80.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "grip",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Grip Length (mm)",
+        "es": "Largo de Empuñadura (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the grip between the flanges: the width of the hand plus room to move",
+        "es": "Largo de la empuñadura entre bridas: el ancho de la mano más espacio para moverse"
+      }
+    },
+    {
+      "id": "cord_d",
+      "type": "slider",
+      "default": 10.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "grip",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Cord Bore (mm)",
+        "es": "Barreno del Cordón (mm)"
+      },
+      "tooltip": {
+        "en": "Bore along the axis for the cord, strap or tie rod",
+        "es": "Barreno a lo largo del eje para el cordón, la correa o el tirante"
+      }
+    },
+    {
+      "id": "pocket",
+      "type": "checkbox",
+      "default": false,
+      "group": "pocket",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Module Pocket",
+        "es": "Caja del Módulo"
+      },
+      "tooltip": {
+        "en": "Cut a pocket in the side of the grip for a small module",
+        "es": "Corta una caja en el costado de la empuñadura para un módulo pequeño"
+      }
+    },
+    {
+      "id": "pocket_l",
+      "type": "slider",
+      "default": 30.0,
+      "min": 10.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "pocket",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Pocket Length (mm)",
+        "es": "Largo de la Caja (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the pocket along the grip",
+        "es": "Largo de la caja a lo largo de la empuñadura"
+      }
+    },
+    {
+      "id": "pocket_w",
+      "type": "slider",
+      "default": 14.0,
+      "min": 6.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "pocket",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Pocket Width (mm)",
+        "es": "Ancho de la Caja (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the pocket across the grip",
+        "es": "Ancho de la caja a través de la empuñadura"
+      }
+    },
+    {
+      "id": "pocket_depth",
+      "type": "slider",
+      "default": 3.0,
+      "min": 1.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "pocket",
+      "modes": [
+        "grip"
+      ],
+      "label": {
+        "en": "Pocket Depth (mm)",
+        "es": "Profundidad de la Caja (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the pocket below the surface of the grip",
+        "es": "Profundidad de la caja bajo la superficie de la empuñadura"
+      }
+    },
+    {
+      "id": "bar_l",
+      "type": "slider",
+      "default": 500.0,
+      "min": 250.0,
+      "max": 1300.0,
+      "step": 5.0,
+      "group": "bar",
+      "modes": [
+        "bar"
+      ],
+      "label": {
+        "en": "Bar Length (mm)",
+        "es": "Largo de la Barra (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the bar between the flanges",
+        "es": "Largo de la barra entre bridas"
+      }
+    },
+    {
+      "id": "eye_d",
+      "type": "slider",
+      "default": 8.5,
+      "min": 4.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "bar",
+      "modes": [
+        "bar"
+      ],
+      "label": {
+        "en": "Eye Hole (mm)",
+        "es": "Barreno de Armella (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each cross hole for an eye bolt or a pin",
+        "es": "Diámetro de cada barreno transversal para una armella o un perno"
+      }
+    },
+    {
+      "id": "eye_spacing",
+      "type": "slider",
+      "default": 100.0,
+      "min": 0.0,
+      "max": 1200.0,
+      "step": 5.0,
+      "group": "bar",
+      "modes": [
+        "bar"
+      ],
+      "label": {
+        "en": "Eye Spacing (mm)",
+        "es": "Separación de Armellas (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two cross holes, centred on the bar; 0 gives one hole in the middle",
+        "es": "Distancia entre los dos barrenos transversales, centrados en la barra; 0 da un solo barreno al centro"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "grip_32_x130",
+      "mode": "grip",
+      "label": {
+        "en": "Grip · 32 × 130 mm · 10 mm cord",
+        "es": "Empuñadura · 32 × 130 mm · cordón de 10 mm"
+      },
+      "values": {
+        "grip_d": 32.0,
+        "flange_h": 6.0,
+        "flange_t": 6.0,
+        "grip_l": 130.0,
+        "cord_d": 10.0,
+        "pocket": false,
+        "pocket_l": 30.0,
+        "pocket_w": 14.0,
+        "pocket_depth": 3.0
+      }
+    },
+    {
+      "id": "grip_34_pocket",
+      "mode": "grip",
+      "label": {
+        "en": "Grip · 34 × 140 mm · module pocket 30 × 14 × 5",
+        "es": "Empuñadura · 34 × 140 mm · caja de módulo 30 × 14 × 5"
+      },
+      "values": {
+        "grip_d": 34.0,
+        "flange_h": 6.0,
+        "flange_t": 6.0,
+        "grip_l": 140.0,
+        "cord_d": 8.0,
+        "pocket": true,
+        "pocket_l": 30.0,
+        "pocket_w": 14.0,
+        "pocket_depth": 5.0
+      }
+    },
+    {
+      "id": "starter_grip_25",
+      "mode": "grip",
+      "label": {
+        "en": "Small grip · 25 × 90 mm · 5 mm cord",
+        "es": "Empuñadura chica · 25 × 90 mm · cordón de 5 mm"
+      },
+      "values": {
+        "grip_d": 25.0,
+        "flange_h": 4.0,
+        "flange_t": 4.0,
+        "grip_l": 90.0,
+        "cord_d": 5.0,
+        "pocket": false,
+        "pocket_l": 20.0,
+        "pocket_w": 10.0,
+        "pocket_depth": 3.0
+      }
+    },
+    {
+      "id": "bar_30_x600",
+      "mode": "bar",
+      "label": {
+        "en": "Bar · 30 × 600 mm · eyes 100 mm apart",
+        "es": "Barra · 30 × 600 mm · armellas a 100 mm"
+      },
+      "values": {
+        "grip_d": 30.0,
+        "flange_h": 5.0,
+        "flange_t": 8.0,
+        "bar_l": 600.0,
+        "eye_d": 8.5,
+        "eye_spacing": 100.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "cord_d + 8 <= grip_d",
+      "severity": "error",
+      "message": {
+        "en": "The grip must keep at least 4 mm of wall round the cord bore",
+        "es": "La empuñadura debe conservar al menos 4 mm de pared alrededor del barreno del cordón"
+      }
+    },
+    {
+      "expression": "!pocket || 2 * pocket_depth + 4 <= grip_d - cord_d",
+      "severity": "error",
+      "message": {
+        "en": "The pocket is too deep: it must leave at least 2 mm of wall above the cord bore",
+        "es": "La caja es demasiado profunda: debe dejar al menos 2 mm de pared sobre el barreno del cordón"
+      }
+    },
+    {
+      "expression": "!pocket || pocket_w + 4 <= grip_d",
+      "severity": "error",
+      "message": {
+        "en": "The pocket is too wide for the grip",
+        "es": "La caja es demasiado ancha para la empuñadura"
+      }
+    },
+    {
+      "expression": "!pocket || pocket_l + 20 <= grip_l",
+      "severity": "error",
+      "message": {
+        "en": "The pocket must leave at least 10 mm of grip at each end",
+        "es": "La caja debe dejar al menos 10 mm de empuñadura en cada extremo"
+      }
+    },
+    {
+      "expression": "eye_d + 8 <= grip_d",
+      "severity": "error",
+      "message": {
+        "en": "The bar must keep at least 4 mm of material on each side of a cross hole",
+        "es": "La barra debe conservar al menos 4 mm de material a cada lado de un barreno transversal"
+      }
+    },
+    {
+      "expression": "eye_spacing + eye_d + 20 <= bar_l",
+      "severity": "error",
+      "message": {
+        "en": "The cross holes must sit at least 10 mm inside the ends of the bar",
+        "es": "Los barrenos transversales deben quedar al menos 10 mm dentro de los extremos de la barra"
+      }
+    },
+    {
+      "expression": "grip_d <= 40",
+      "severity": "warning",
+      "message": {
+        "en": "Over 40 mm many hands cannot close round the grip",
+        "es": "Con más de 40 mm, muchas manos no logran cerrar alrededor de la empuñadura"
+      }
+    },
+    {
+      "expression": "flange_h >= 3",
+      "severity": "warning",
+      "message": {
+        "en": "A flange under 3 mm does little to keep a hand from sliding off the end",
+        "es": "Una brida de menos de 3 mm hace poco para evitar que la mano se deslice por el extremo"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        160,
+        -160,
+        110
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -280,
+        0
+      ]
+    },
+    {
+      "id": "end",
+      "label": {
+        "en": "End",
+        "es": "Extremo"
+      },
+      "position": [
+        280,
+        0,
+        0
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 5,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "household",
+    "cdg_interfaces": [
+      {
+        "id": "cord_bore",
+        "label": {
+          "en": "Cord Bore",
+          "es": "Barreno del Cordón"
+        },
+        "geometry_type": "socket",
+        "standard": "plain bore along the grip axis",
+        "parameters": [
+          "cord_d",
+          "grip_l",
+          "flange_t"
+        ],
+        "frame": {
+          "part": "grip",
+          "origin": [
+            "-(grip_l / 2 + flange_t)",
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "symmetry": 0
+      },
+      {
+        "id": "grip_surface",
+        "label": {
+          "en": "Grip Surface",
+          "es": "Superficie de Agarre"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "grip_d",
+          "grip_l",
+          "flange_h",
+          "flange_t"
+        ]
+      },
+      {
+        "id": "module_pocket",
+        "label": {
+          "en": "Module Pocket",
+          "es": "Caja del Módulo"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "pocket",
+          "pocket_l",
+          "pocket_w",
+          "pocket_depth"
+        ]
+      },
+      {
+        "id": "bar_eyes",
+        "label": {
+          "en": "Bar Eye Holes",
+          "es": "Barrenos de Armella de la Barra"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal",
+        "parameters": [
+          "eye_d",
+          "eye_spacing",
+          "grip_d"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A handle is where a tool meets a body, and stock handles come in one size. A grip generated to the hand that will hold it (smaller for a child or a narrow palm, thicker for a hand that cannot close fully, longer for a glove) makes a pull cord, a therapy band or a cable machine usable by the person in front of it, and replaces the broken handle that would otherwise retire the whole machine.",
+      "es": "Una manija es donde una herramienta toca un cuerpo, y las manijas comerciales vienen en una sola medida. Una empuñadura generada para la mano que la va a sostener (más chica para una niña o una palma angosta, más gruesa para una mano que no cierra del todo, más larga para un guante) vuelve utilizable un cordón de arranque, una banda de terapia o una máquina de cable para la persona que está enfrente, y repone la manija rota que de otro modo retiraría toda la máquina."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "pull-handle",
+    "handle",
+    "grip",
+    "household",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
