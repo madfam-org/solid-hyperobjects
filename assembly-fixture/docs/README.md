@@ -16,6 +16,7 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | **Pin Plate** | `pin_plate` | Base plate + array of locating pins (corners / grid / linear). |
 | **Stop Fixture** | `stop_fixture` | Base plate + two perpendicular edge fences forming an L / corner reference. |
 | **V-Block** | `v_block` | A block with a V-groove that cradles round stock. |
+| **Saddle** | `saddle` | A channel between two cheeks that nests rectangular stock: a tube, a bar or a post. Two saddles screwed to a bar hold two posts parallel at a set distance while they are fastened. |
 
 ## Parameters
 
@@ -29,6 +30,12 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 | Stops & Fences | `stop_h` / `stop_t` | 15 / 8 mm | Fence height and thickness. |
 | V-Groove | `v_angle` / `v_stock_dia` | 90° / 25 mm | Included angle and nominal round-stock diameter. |
 | Mounting | `mount_dia` / `mount_inset` | 6.5 / 10 mm | Bolt-down hole size and edge inset. |
+| Saddle | `saddle_stock_w` / `saddle_clear` | 50 / 0.3 mm | Outside width of the rectangular stock, and clearance per side. |
+| Saddle | `cheek_h` / `cheek_t` | 25 / 8 mm | Height and thickness of the two cheeks. |
+| Saddle | `saddle_len` / `saddle_flange` | 60 / 20 mm | Length along the stock, and base reach beside each cheek (the mounting holes sit in it). |
+
+The Saddle has its own size parameters and reads `base_t`, `mount_holes` and
+`mount_dia` only: it is as wide as the stock, its cheeks and its flanges make it.
 
 ## Presets
 
@@ -36,6 +43,8 @@ configurator: [Yantra4D](https://app.yantra4d.com).
 - **Grid Locating Bed (4×3)** — 200×150 bed with a 4×3 pin grid.
 - **Welding Corner Jig** — 150×150 with tall corner fences.
 - **Pipe V-Block (Ø25)** — a V-block for Ø25 round stock.
+- **Saddle for 50 mm Square Tube** — a 60 mm long saddle with 25 mm cheeks.
+- **Saddle for 80 mm Square Tube** — an 80 mm long saddle with 40 mm cheeks.
 
 ## Hyperobject Profile
 
@@ -48,6 +57,11 @@ configurator: [Yantra4D](https://app.yantra4d.com).
   - **Bench Mounting Pattern** (`bolt_pattern`, internal) — `mount_dia`,
     `mount_inset`; a repeatable four-corner bolt-down.
   - **Round-Stock V-Seat** (`profile`, internal) — `v_angle`, `v_stock_dia`.
+  - **Rectangular-Stock Seat** (`pocket`) — the floor of the Saddle's channel,
+    with a mating frame; it carries the size key `square-tube-80mm` when
+    `saddle_stock_w` is 80.
+  - **Saddle Mounting Holes** (`bolt_pattern`, internal) — the underside of the
+    Saddle, with a mating frame.
 - **Material awareness:** `tolerance_by_material` is declared so pin/stop fits can
   be tuned per material and printer.
 - **Societal benefit:** repeatable workholding for makers and small shops —
