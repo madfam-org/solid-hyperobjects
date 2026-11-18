@@ -1,0 +1,883 @@
+{
+  "project": {
+    "name": "Load Cell Mount",
+    "slug": "load-cell-mount",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "The two parts a bar load cell needs to become a measuring point: a scale, a hopper weigher, a thrust stand or a cable tension sensor. A bar (bending beam) load cell is a short metal bar with two bolt holes at each end; one end is fixed, the load goes on the other, and the bar must be free to bend in between. Base is a plate with a riser for the fixed end and an overload stop under the live end. Load Bracket is a yoke that bolts onto the live end and carries a cross axle for a sheave, a roller, a rod end or a hook. Everything is sized from the bar's own interface: its width, and the pitch and end distance of the holes at each end.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Las dos piezas que una celda de carga de barra necesita para volverse un punto de medición: una báscula, un pesador de tolva, un banco de empuje o un sensor de tensión de cable. Una celda de carga de barra (viga de flexión) es una barra metálica corta con dos barrenos en cada extremo; un extremo se fija, la carga va en el otro, y la barra debe quedar libre para flexionarse entre ambos. La Base es una placa con un realce para el extremo fijo y un tope de sobrecarga bajo el extremo vivo. El Soporte de Carga es una horquilla que se atornilla al extremo vivo y lleva un eje transversal para una roldana, un rodillo, una rótula o un gancho. Todo se dimensiona desde la interfaz de la propia barra: su ancho, y el paso y la distancia al extremo de los barrenos de cada lado.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/load-cell-mount.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "load-cell-mount",
+      "load-cell",
+      "sensor",
+      "scale",
+      "force",
+      "measurement",
+      "robotics",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "base"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    },
+    {
+      "id": "load_bracket",
+      "label": {
+        "en": "Load Bracket",
+        "es": "Soporte de Carga"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "load_bracket"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      },
+      "render_mode": 0,
+      "color": "#8c96a3"
+    },
+    {
+      "id": "load_bracket",
+      "label": {
+        "en": "Load Bracket",
+        "es": "Soporte de Carga"
+      },
+      "render_mode": 0,
+      "color": "#b6bec9"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "cell",
+      "label": {
+        "en": "Load Cell",
+        "es": "Celda de Carga"
+      }
+    },
+    {
+      "id": "base",
+      "label": {
+        "en": "Base",
+        "es": "Base"
+      }
+    },
+    {
+      "id": "bracket",
+      "label": {
+        "en": "Load Bracket",
+        "es": "Soporte de Carga"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "beam_l",
+      "type": "slider",
+      "default": 80.0,
+      "min": 40.0,
+      "max": 250.0,
+      "step": 1.0,
+      "group": "cell",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Bar Length (mm)",
+        "es": "Largo de la Barra (mm)"
+      },
+      "tooltip": {
+        "en": "Overall length of the load cell bar",
+        "es": "Largo total de la barra de la celda de carga"
+      }
+    },
+    {
+      "id": "beam_w",
+      "type": "slider",
+      "default": 12.7,
+      "min": 8.0,
+      "max": 60.0,
+      "step": 0.1,
+      "group": "cell",
+      "modes": [
+        "base",
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Bar Width (mm)",
+        "es": "Ancho de la Barra (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the bar, across its bolt holes",
+        "es": "Ancho de la barra, transversal a sus barrenos"
+      }
+    },
+    {
+      "id": "hole_pitch",
+      "type": "slider",
+      "default": 15.0,
+      "min": 8.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "cell",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Fixed-End Hole Pitch (mm)",
+        "es": "Paso de Barrenos del Extremo Fijo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two holes at the fixed end of the bar",
+        "es": "Distancia entre los dos barrenos del extremo fijo de la barra"
+      }
+    },
+    {
+      "id": "end_margin",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "cell",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Fixed-End Margin (mm)",
+        "es": "Margen del Extremo Fijo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the fixed end of the bar to its first hole",
+        "es": "Distancia del extremo fijo de la barra a su primer barreno"
+      }
+    },
+    {
+      "id": "fixed_bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.4,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Fixed-End Bolt Hole (mm)",
+        "es": "Barreno del Extremo Fijo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each bolt that comes up through the riser into the bar (5.5 for M5)",
+        "es": "Barreno pasado para cada tornillo que sube por el realce hacia la barra (5.5 para M5)"
+      }
+    },
+    {
+      "id": "riser_h",
+      "type": "slider",
+      "default": 6.0,
+      "min": 2.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Riser Height (mm)",
+        "es": "Altura del Realce (mm)"
+      },
+      "tooltip": {
+        "en": "How far the bar stands above the plate, so it is free to bend",
+        "es": "Cuánto queda la barra sobre la placa, para que pueda flexionarse"
+      }
+    },
+    {
+      "id": "stop_gap",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.2,
+      "max": 5.0,
+      "step": 0.1,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Overload Stop Gap (mm)",
+        "es": "Holgura del Tope de Sobrecarga (mm)"
+      },
+      "tooltip": {
+        "en": "Gap between the unloaded bar and the stop under its live end; set it just above the deflection at full load",
+        "es": "Holgura entre la barra sin carga y el tope bajo su extremo vivo; ajústala apenas por encima de la deflexión a plena carga"
+      }
+    },
+    {
+      "id": "base_t",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Espesor de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the base plate",
+        "es": "Espesor de la placa base"
+      }
+    },
+    {
+      "id": "base_margin",
+      "type": "slider",
+      "default": 14.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Plate Margin (mm)",
+        "es": "Margen de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "How far the plate reaches past the bar on every side; the mounting holes sit in it",
+        "es": "Cuánto sobresale la placa de la barra por cada lado; ahí van los barrenos de montaje"
+      }
+    },
+    {
+      "id": "mount_bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.4,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "base",
+      "modes": [
+        "base"
+      ],
+      "label": {
+        "en": "Mounting Hole (mm)",
+        "es": "Barreno de Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each of the four bolts that hold the plate down (5.5 for M5)",
+        "es": "Barreno pasado para cada uno de los cuatro tornillos que sujetan la placa (5.5 para M5)"
+      }
+    },
+    {
+      "id": "live_pitch",
+      "type": "slider",
+      "default": 15.0,
+      "min": 8.0,
+      "max": 60.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Live-End Hole Pitch (mm)",
+        "es": "Paso de Barrenos del Extremo Vivo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two holes at the live end of the bar",
+        "es": "Distancia entre los dos barrenos del extremo vivo de la barra"
+      }
+    },
+    {
+      "id": "live_margin",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Live-End Margin (mm)",
+        "es": "Margen del Extremo Vivo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the live end of the bar to its first hole; the pad is this much longer than the pitch at each end",
+        "es": "Distancia del extremo vivo de la barra a su primer barreno; la zapata es así de más larga que el paso en cada extremo"
+      }
+    },
+    {
+      "id": "live_bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.4,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Live-End Bolt Hole (mm)",
+        "es": "Barreno del Extremo Vivo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each bolt that goes down through the bracket into the bar (5.5 for M5)",
+        "es": "Barreno pasado para cada tornillo que baja por el soporte hacia la barra (5.5 para M5)"
+      }
+    },
+    {
+      "id": "pad_t",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Pad Thickness (mm)",
+        "es": "Espesor de la Zapata (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the pad that sits on the bar",
+        "es": "Espesor de la zapata que asienta sobre la barra"
+      }
+    },
+    {
+      "id": "yoke_gap",
+      "type": "slider",
+      "default": 18.0,
+      "min": 6.0,
+      "max": 80.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Yoke Gap (mm)",
+        "es": "Abertura de la Horquilla (mm)"
+      },
+      "tooltip": {
+        "en": "Clear width between the two ears",
+        "es": "Ancho libre entre las dos orejas"
+      }
+    },
+    {
+      "id": "ear_t",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Ear Thickness (mm)",
+        "es": "Espesor de Oreja (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of each ear",
+        "es": "Espesor de cada oreja"
+      }
+    },
+    {
+      "id": "axle_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 3.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Axle Bore (mm)",
+        "es": "Barreno del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Bore through both ears for the cross axle",
+        "es": "Barreno a través de ambas orejas para el eje transversal"
+      }
+    },
+    {
+      "id": "axle_h",
+      "type": "slider",
+      "default": 22.0,
+      "min": 8.0,
+      "max": 80.0,
+      "step": 0.5,
+      "group": "bracket",
+      "modes": [
+        "load_bracket"
+      ],
+      "label": {
+        "en": "Axle Height (mm)",
+        "es": "Altura del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the axle above the top of the bar",
+        "es": "Altura del eje sobre la cara superior de la barra"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "bar_80_base",
+      "mode": "base",
+      "label": {
+        "en": "Base · 80 mm bar · 15 mm hole pitch",
+        "es": "Base · barra de 80 mm · paso de 15 mm"
+      },
+      "values": {
+        "beam_l": 80.0,
+        "beam_w": 12.7,
+        "hole_pitch": 15.0,
+        "end_margin": 5.0,
+        "fixed_bolt_d": 5.5,
+        "riser_h": 6.0,
+        "stop_gap": 1.0,
+        "base_t": 8.0,
+        "base_margin": 14.0,
+        "mount_bolt_d": 5.5
+      }
+    },
+    {
+      "id": "bar_80_sheave_yoke",
+      "mode": "load_bracket",
+      "label": {
+        "en": "Bracket · 18 mm yoke · 8 mm axle",
+        "es": "Soporte · horquilla de 18 mm · eje de 8 mm"
+      },
+      "values": {
+        "beam_w": 12.7,
+        "live_pitch": 15.0,
+        "live_margin": 5.0,
+        "live_bolt_d": 5.5,
+        "pad_t": 5.0,
+        "yoke_gap": 18.0,
+        "ear_t": 5.0,
+        "axle_d": 8.0,
+        "axle_h": 22.0
+      }
+    },
+    {
+      "id": "bar_130_base",
+      "mode": "base",
+      "label": {
+        "en": "Base · 130 mm bar · 19 mm hole pitch",
+        "es": "Base · barra de 130 mm · paso de 19 mm"
+      },
+      "values": {
+        "beam_l": 130.0,
+        "beam_w": 22.0,
+        "hole_pitch": 19.0,
+        "end_margin": 9.5,
+        "fixed_bolt_d": 6.6,
+        "riser_h": 8.0,
+        "stop_gap": 0.8,
+        "base_t": 10.0,
+        "base_margin": 18.0,
+        "mount_bolt_d": 6.6
+      }
+    },
+    {
+      "id": "bar_130_roller_yoke",
+      "mode": "load_bracket",
+      "label": {
+        "en": "Bracket · 40 mm yoke · 12 mm axle",
+        "es": "Soporte · horquilla de 40 mm · eje de 12 mm"
+      },
+      "values": {
+        "beam_w": 22.0,
+        "live_pitch": 19.0,
+        "live_margin": 9.5,
+        "live_bolt_d": 6.6,
+        "pad_t": 6.0,
+        "yoke_gap": 40.0,
+        "ear_t": 6.0,
+        "axle_d": 12.0,
+        "axle_h": 32.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "stop_gap < riser_h",
+      "severity": "error",
+      "message": {
+        "en": "The overload stop gap must be smaller than the riser, or there is no stop",
+        "es": "La holgura del tope de sobrecarga debe ser menor que el realce, o no hay tope"
+      }
+    },
+    {
+      "expression": "4 * end_margin + 2 * hole_pitch <= beam_l - 10",
+      "severity": "error",
+      "message": {
+        "en": "The two bolted ends must leave at least 10 mm of free bar between them",
+        "es": "Los dos extremos atornillados deben dejar al menos 10 mm de barra libre entre ellos"
+      }
+    },
+    {
+      "expression": "fixed_bolt_d + 2 <= hole_pitch && fixed_bolt_d + 2 <= beam_w",
+      "severity": "error",
+      "message": {
+        "en": "The fixed-end holes need at least 2 mm between them and inside the bar width",
+        "es": "Los barrenos del extremo fijo necesitan al menos 2 mm entre ellos y dentro del ancho de la barra"
+      }
+    },
+    {
+      "expression": "live_bolt_d + 2 <= live_pitch && live_bolt_d + 2 <= beam_w",
+      "severity": "error",
+      "message": {
+        "en": "The live-end holes need at least 2 mm between them and inside the bar width",
+        "es": "Los barrenos del extremo vivo necesitan al menos 2 mm entre ellos y dentro del ancho de la barra"
+      }
+    },
+    {
+      "expression": "mount_bolt_d + 4 <= base_margin",
+      "severity": "error",
+      "message": {
+        "en": "The plate margin must leave at least 2 mm of material on each side of a mounting hole",
+        "es": "El margen de la placa debe dejar al menos 2 mm de material a cada lado de un barreno de montaje"
+      }
+    },
+    {
+      "expression": "yoke_gap >= 2 * live_bolt_d",
+      "severity": "error",
+      "message": {
+        "en": "The yoke must be wide enough for the bolt heads between the ears",
+        "es": "La horquilla debe ser lo bastante ancha para las cabezas de los tornillos entre las orejas"
+      }
+    },
+    {
+      "expression": "axle_h >= pad_t + live_bolt_d + axle_d / 2 + 1",
+      "severity": "error",
+      "message": {
+        "en": "The axle must pass above the bolt heads",
+        "es": "El eje debe pasar por encima de las cabezas de los tornillos"
+      }
+    },
+    {
+      "expression": "riser_h >= 3",
+      "severity": "warning",
+      "message": {
+        "en": "Under 3 mm of riser, dirt under the bar can carry part of the load and falsify the reading",
+        "es": "Con menos de 3 mm de realce, la suciedad bajo la barra puede cargar parte del peso y falsear la lectura"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        150,
+        -150,
+        110
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -240,
+        30
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        260
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 6,
+    "per_unit": 1,
+    "per_part": 6,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "fixed_seat",
+        "label": {
+          "en": "Fixed-End Seat",
+          "es": "Asiento del Extremo Fijo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "bar load cell, two holes in line; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "beam_l",
+          "beam_w",
+          "hole_pitch",
+          "end_margin",
+          "fixed_bolt_d",
+          "riser_h",
+          "base_t"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            "-beam_l / 2 + end_margin + hole_pitch / 2",
+            0,
+            "base_t + riser_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "fixed_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 1
+      },
+      {
+        "id": "base_mount",
+        "label": {
+          "en": "Base Mounting Holes",
+          "es": "Barrenos de Montaje de la Base"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "beam_l",
+          "beam_w",
+          "base_margin",
+          "mount_bolt_d",
+          "base_t"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "mount_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "live_seat",
+        "label": {
+          "en": "Live-End Seat",
+          "es": "Asiento del Extremo Vivo"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "bar load cell, two holes in line; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "beam_w",
+          "live_pitch",
+          "live_margin",
+          "live_bolt_d",
+          "pad_t"
+        ],
+        "frame": {
+          "part": "load_bracket",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "live_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "load_axle",
+        "label": {
+          "en": "Load Axle Bore",
+          "es": "Barreno del Eje de Carga"
+        },
+        "geometry_type": "hinge",
+        "standard": "plain axle bore; 8 mm ground shaft (shaft-8mm) at axle_d 8",
+        "parameters": [
+          "axle_d",
+          "axle_h",
+          "yoke_gap",
+          "ear_t"
+        ],
+        "compatible_with": [
+          "vbelt-pulley",
+          "idler-608",
+          "pulley-block"
+        ],
+        "frame": {
+          "part": "load_bracket",
+          "origin": [
+            0,
+            "yoke_gap / 2 + ear_t",
+            "axle_h"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": {
+          "param": "axle_d",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A bar load cell costs little and measures well, but it arrives as a bare bar: the mount decides whether it reads true. A bar bolted flat to a plate cannot bend and reads nothing; one with no stop under it is destroyed by the first overload. A mount generated from the bar's own dimensions, with the clearance and the stop already in it, lets a school lab, a farm, a workshop or a clinic weigh, dose or measure a pull with a sensor they can afford.",
+      "es": "Una celda de carga de barra cuesta poco y mide bien, pero llega como una barra desnuda: el montaje decide si lee bien. Una barra atornillada plana a una placa no puede flexionarse y no lee nada; una sin tope debajo se destruye con la primera sobrecarga. Un montaje generado desde las dimensiones de la propia barra, con el claro y el tope ya incluidos, permite a un laboratorio escolar, una granja, un taller o una clínica pesar, dosificar o medir un tirón con un sensor que pueden pagar."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "load-cell-mount",
+    "load-cell",
+    "sensor",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
