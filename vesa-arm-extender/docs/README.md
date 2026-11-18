@@ -58,8 +58,10 @@ the value the code dispatches on, so the four modes render as distinct geometry.
     `offset`.
   - **Cable Pass-Through Slot** (`pocket`, internal) — routing channel from
     `cable_slot`, `slot_w`.
-  - **Drop Arm Beam Bolts** (`bolt_pattern`, internal) — the two holes that
-    hang the Drop Arm; frame on the underside between them, facing the beam.
+  - **Drop Arm Beam Bolts** (`bolt_pattern`) — the two holes that hang the
+    Drop Arm; frame on the underside between them, facing the beam. Size key
+    `m8-screw-joint` when `beam_bolt_d` is 8.5 and `m5-screw-joint` at 5.5, so
+    it mates a beam whose mount carries the same key.
   - **Drop Arm Display Face** (`bolt_pattern`, standard **VESA MIS-D**) — the
     top face of the Drop Arm at the centre of its VESA square.
 - **Material awareness:** the M4 clearance holes are printable clearance values
