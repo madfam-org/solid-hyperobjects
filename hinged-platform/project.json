@@ -1,0 +1,858 @@
+{
+  "project": {
+    "name": "Hinged Platform",
+    "slug": "hinged-platform",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A load-bearing panel that folds on a pin along one edge, and the block it turns on: a fold-down platform, a step, a bench seat, a table leaf, a ramp or a tailgate. The hinge edge of the panel is rounded about the pin and notched for each fixed block; a skid under the free edge carries it to the floor when it is down. With the lock on, a second small hole lines up through the panel and the blocks only when the panel stands at 90 degrees, so a pull pin pushed in from the side holds it folded.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un panel de carga que se pliega sobre un perno a lo largo de un borde, y el bloque sobre el que gira: una plataforma abatible, un escalón, un asiento de banca, una hoja de mesa, una rampa o una compuerta. El borde de bisagra del panel se redondea alrededor del perno y lleva una muesca para cada bloque fijo; un patín bajo el borde libre lo lleva al piso cuando está abajo. Con el seguro activado, un segundo barreno pequeño se alinea a través del panel y los bloques solo cuando el panel queda a 90 grados, de modo que un perno de tiro metido por el costado lo mantiene plegado.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/hinged-platform.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "hinged-platform",
+      "platform",
+      "folding",
+      "hinge",
+      "deck",
+      "step",
+      "ramp",
+      "furniture",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "panel",
+      "label": {
+        "en": "Panel",
+        "es": "Panel"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "panel"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
+    },
+    {
+      "id": "hinge_block",
+      "label": {
+        "en": "Hinge Block",
+        "es": "Bloque de Bisagra"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "hinge_block"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "panel",
+      "label": {
+        "en": "Panel",
+        "es": "Panel"
+      },
+      "render_mode": 0,
+      "color": "#b9a27a"
+    },
+    {
+      "id": "hinge_block",
+      "label": {
+        "en": "Hinge Block",
+        "es": "Bloque de Bisagra"
+      },
+      "render_mode": 0,
+      "color": "#8c96a3"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "hinge",
+      "label": {
+        "en": "Hinge Line",
+        "es": "Línea de Bisagra"
+      }
+    },
+    {
+      "id": "panel",
+      "label": {
+        "en": "Panel",
+        "es": "Panel"
+      }
+    },
+    {
+      "id": "block",
+      "label": {
+        "en": "Hinge Block",
+        "es": "Bloque de Bisagra"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "panel_t",
+      "type": "slider",
+      "default": 30.0,
+      "min": 12.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "hinge",
+      "modes": [
+        "panel",
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Panel Thickness (mm)",
+        "es": "Espesor del Panel (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the panel; the barrel of each block has the same diameter",
+        "es": "Espesor del panel; el barril de cada bloque tiene el mismo diámetro"
+      }
+    },
+    {
+      "id": "pin_d",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "hinge",
+      "modes": [
+        "panel",
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Hinge Pin (mm)",
+        "es": "Perno de Bisagra (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the hinge pin; the bores are made 0.4 mm larger",
+        "es": "Diámetro del perno de bisagra; los barrenos se hacen 0.4 mm más grandes"
+      }
+    },
+    {
+      "id": "block_w",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "hinge",
+      "modes": [
+        "panel",
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Block Width (mm)",
+        "es": "Ancho del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Width of each hinge block along the pin",
+        "es": "Ancho de cada bloque de bisagra a lo largo del perno"
+      }
+    },
+    {
+      "id": "lock",
+      "type": "checkbox",
+      "default": false,
+      "group": "hinge",
+      "modes": [
+        "panel",
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Fold Lock",
+        "es": "Seguro de Plegado"
+      },
+      "tooltip": {
+        "en": "Add a lock hole beside the pin that lines up when the panel stands at 90 degrees",
+        "es": "Agrega un barreno de seguro junto al perno que se alinea cuando el panel queda a 90 grados"
+      }
+    },
+    {
+      "id": "lock_d",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.0,
+      "max": 8.0,
+      "step": 0.5,
+      "group": "hinge",
+      "modes": [
+        "panel",
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Lock Pin (mm)",
+        "es": "Perno del Seguro (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the lock pin",
+        "es": "Diámetro del perno del seguro"
+      }
+    },
+    {
+      "id": "panel_w",
+      "type": "slider",
+      "default": 600.0,
+      "min": 150.0,
+      "max": 1200.0,
+      "step": 5.0,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Panel Width (mm)",
+        "es": "Ancho del Panel (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the panel along the hinge",
+        "es": "Ancho del panel a lo largo de la bisagra"
+      }
+    },
+    {
+      "id": "panel_l",
+      "type": "slider",
+      "default": 800.0,
+      "min": 150.0,
+      "max": 1500.0,
+      "step": 5.0,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Panel Length (mm)",
+        "es": "Largo del Panel (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the panel from the hinge axis to the free edge",
+        "es": "Largo del panel del eje de la bisagra al borde libre"
+      }
+    },
+    {
+      "id": "blocks",
+      "type": "slider",
+      "default": 2,
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Hinge Blocks",
+        "es": "Bloques de Bisagra"
+      },
+      "tooltip": {
+        "en": "How many blocks the panel is notched for",
+        "es": "Para cuántos bloques lleva muesca el panel"
+      }
+    },
+    {
+      "id": "block_inset",
+      "type": "slider",
+      "default": 80.0,
+      "min": 30.0,
+      "max": 400.0,
+      "step": 5.0,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Block Inset (mm)",
+        "es": "Retranqueo del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from each side edge to the centre of the nearest block",
+        "es": "Distancia de cada borde lateral al centro del bloque más cercano"
+      }
+    },
+    {
+      "id": "side_gap",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.3,
+      "max": 3.0,
+      "step": 0.1,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Side Gap (mm)",
+        "es": "Holgura Lateral (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance between a block and each wall of its notch",
+        "es": "Holgura entre un bloque y cada pared de su muesca"
+      }
+    },
+    {
+      "id": "skid_h",
+      "type": "slider",
+      "default": 30.0,
+      "min": 0.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Skid Height (mm)",
+        "es": "Altura del Patín (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the skid under the free edge; 0 leaves the underside flat",
+        "es": "Altura del patín bajo el borde libre; 0 deja plana la cara inferior"
+      }
+    },
+    {
+      "id": "skid_d",
+      "type": "slider",
+      "default": 40.0,
+      "min": 15.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "panel",
+      "modes": [
+        "panel"
+      ],
+      "label": {
+        "en": "Skid Depth (mm)",
+        "es": "Fondo del Patín (mm)"
+      },
+      "tooltip": {
+        "en": "How far the skid reaches in from the free edge",
+        "es": "Cuánto entra el patín desde el borde libre"
+      }
+    },
+    {
+      "id": "axis_h",
+      "type": "slider",
+      "default": 30.0,
+      "min": 10.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "block",
+      "modes": [
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Axis Height (mm)",
+        "es": "Altura del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the hinge axis above the face the block is bolted to",
+        "es": "Altura del eje de la bisagra sobre la cara donde se atornilla el bloque"
+      }
+    },
+    {
+      "id": "flange_l",
+      "type": "slider",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "block",
+      "modes": [
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Flange Reach (mm)",
+        "es": "Alcance de la Brida (mm)"
+      },
+      "tooltip": {
+        "en": "How far the bolted flange reaches behind the hinge axis",
+        "es": "Cuánto se extiende la brida atornillada detrás del eje de la bisagra"
+      }
+    },
+    {
+      "id": "flange_t",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "block",
+      "modes": [
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Flange Thickness (mm)",
+        "es": "Espesor de la Brida (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the flange",
+        "es": "Espesor de la brida"
+      }
+    },
+    {
+      "id": "bolt_d",
+      "type": "slider",
+      "default": 6.5,
+      "min": 3.4,
+      "max": 12.5,
+      "step": 0.1,
+      "group": "block",
+      "modes": [
+        "hinge_block"
+      ],
+      "label": {
+        "en": "Bolt Hole (mm)",
+        "es": "Barreno de Tornillo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each flange bolt (5.5 for M5, 6.5 for M6)",
+        "es": "Barreno pasado para cada tornillo de la brida (5.5 para M5, 6.5 para M6)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "platform_600x800",
+      "mode": "panel",
+      "label": {
+        "en": "Panel · 600 × 800 × 30 mm · two blocks",
+        "es": "Panel · 600 × 800 × 30 mm · dos bloques"
+      },
+      "values": {
+        "panel_t": 30.0,
+        "pin_d": 8.0,
+        "block_w": 50.0,
+        "lock": false,
+        "lock_d": 5.0,
+        "panel_w": 600.0,
+        "panel_l": 800.0,
+        "blocks": 2,
+        "block_inset": 80.0,
+        "side_gap": 1.0,
+        "skid_h": 30.0,
+        "skid_d": 40.0
+      }
+    },
+    {
+      "id": "block_30_m6",
+      "mode": "hinge_block",
+      "label": {
+        "en": "Block · 30 mm barrel · 8 mm pin · M6",
+        "es": "Bloque · barril de 30 mm · perno de 8 mm · M6"
+      },
+      "values": {
+        "panel_t": 30.0,
+        "pin_d": 8.0,
+        "block_w": 50.0,
+        "lock": false,
+        "lock_d": 5.0,
+        "axis_h": 30.0,
+        "flange_l": 50.0,
+        "flange_t": 8.0,
+        "bolt_d": 6.5
+      }
+    },
+    {
+      "id": "deck_720x1000_lock",
+      "mode": "panel",
+      "label": {
+        "en": "Panel · 720 × 1000 × 30 mm · three blocks · fold lock",
+        "es": "Panel · 720 × 1000 × 30 mm · tres bloques · seguro de plegado"
+      },
+      "values": {
+        "panel_t": 30.0,
+        "pin_d": 8.0,
+        "block_w": 60.0,
+        "lock": true,
+        "lock_d": 5.0,
+        "panel_w": 720.0,
+        "panel_l": 1000.0,
+        "blocks": 3,
+        "block_inset": 90.0,
+        "side_gap": 1.0,
+        "skid_h": 30.0,
+        "skid_d": 60.0
+      }
+    },
+    {
+      "id": "block_30_lock",
+      "mode": "hinge_block",
+      "label": {
+        "en": "Block · 30 mm barrel · fold lock",
+        "es": "Bloque · barril de 30 mm · seguro de plegado"
+      },
+      "values": {
+        "panel_t": 30.0,
+        "pin_d": 8.0,
+        "block_w": 60.0,
+        "lock": true,
+        "lock_d": 5.0,
+        "axis_h": 45.0,
+        "flange_l": 60.0,
+        "flange_t": 10.0,
+        "bolt_d": 8.5
+      }
+    },
+    {
+      "id": "leaf_300x250_flat",
+      "mode": "panel",
+      "label": {
+        "en": "Leaf · 300 × 250 × 18 mm · no skid",
+        "es": "Hoja · 300 × 250 × 18 mm · sin patín"
+      },
+      "values": {
+        "panel_t": 18.0,
+        "pin_d": 5.0,
+        "block_w": 30.0,
+        "lock": false,
+        "lock_d": 3.0,
+        "panel_w": 300.0,
+        "panel_l": 250.0,
+        "blocks": 2,
+        "block_inset": 50.0,
+        "side_gap": 0.6,
+        "skid_h": 0.0,
+        "skid_d": 20.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "pin_d + 6 <= panel_t",
+      "severity": "error",
+      "message": {
+        "en": "The panel must leave at least 3 mm of material round the hinge pin",
+        "es": "El panel debe dejar al menos 3 mm de material alrededor del perno de bisagra"
+      }
+    },
+    {
+      "expression": "!lock || panel_t - pin_d >= 2 * lock_d + 6",
+      "severity": "error",
+      "message": {
+        "en": "The lock hole does not fit between the pin and the surface of the barrel: use a thicker panel or thinner pins",
+        "es": "El barreno del seguro no cabe entre el perno y la superficie del barril: usa un panel más grueso o pernos más delgados"
+      }
+    },
+    {
+      "expression": "block_inset >= block_w / 2 + 12",
+      "severity": "error",
+      "message": {
+        "en": "The outer blocks must leave at least 12 mm of panel between their notch and the side edge",
+        "es": "Los bloques exteriores deben dejar al menos 12 mm de panel entre su muesca y el borde lateral"
+      }
+    },
+    {
+      "expression": "panel_w - 2 * block_inset >= (blocks - 1) * (block_w + 26)",
+      "severity": "error",
+      "message": {
+        "en": "The blocks do not fit along the hinge: the notches need at least 20 mm of panel between them",
+        "es": "Los bloques no caben a lo largo de la bisagra: las muescas necesitan al menos 20 mm de panel entre ellas"
+      }
+    },
+    {
+      "expression": "panel_l >= skid_d + panel_t + 20",
+      "severity": "error",
+      "message": {
+        "en": "The panel is too short for its skid and its hinge edge",
+        "es": "El panel es demasiado corto para su patín y su borde de bisagra"
+      }
+    },
+    {
+      "expression": "axis_h >= flange_t + 4",
+      "severity": "error",
+      "message": {
+        "en": "The hinge axis must stand at least 4 mm above the top of the flange",
+        "es": "El eje de la bisagra debe quedar al menos 4 mm sobre la cara superior de la brida"
+      }
+    },
+    {
+      "expression": "flange_l >= panel_t / 2 + 2 * bolt_d + 4",
+      "severity": "error",
+      "message": {
+        "en": "The flange must reach far enough behind the barrel for its bolts",
+        "es": "La brida debe extenderse lo suficiente detrás del barril para sus tornillos"
+      }
+    },
+    {
+      "expression": "!lock || block_inset <= 150",
+      "severity": "warning",
+      "message": {
+        "en": "The lock pin is pushed in from the side edge and has to reach the first block: over 150 mm it is hard to find one long enough",
+        "es": "El perno del seguro entra por el borde lateral y debe llegar al primer bloque: a más de 150 mm es difícil conseguir uno tan largo"
+      }
+    },
+    {
+      "expression": "axis_h * 2 >= panel_t",
+      "severity": "warning",
+      "message": {
+        "en": "The axis sits lower than half the panel thickness: the panel only lies flat if it overhangs the edge the block is bolted to",
+        "es": "El eje queda más bajo que la mitad del espesor del panel: el panel solo queda plano si sobresale del borde donde se atornilla el bloque"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        900,
+        -700,
+        600
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        1400,
+        400,
+        60
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        400,
+        1600
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 8,
+    "per_unit": 1,
+    "per_part": 8,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "household",
+    "cdg_interfaces": [
+      {
+        "id": "panel_hinge",
+        "label": {
+          "en": "Panel Hinge Bore",
+          "es": "Barreno de Bisagra del Panel"
+        },
+        "geometry_type": "hinge",
+        "standard": "plain pin bore; 8 mm ground shaft (shaft-8mm) at pin_d 8",
+        "parameters": [
+          "pin_d",
+          "panel_t",
+          "panel_w"
+        ],
+        "frame": {
+          "part": "panel",
+          "origin": [
+            "-panel_w / 2",
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": {
+          "param": "pin_d",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "deck_face",
+        "label": {
+          "en": "Deck Face",
+          "es": "Cara de Uso"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "panel_w",
+          "panel_l",
+          "panel_t"
+        ],
+        "frame": {
+          "part": "panel",
+          "origin": [
+            0,
+            "panel_l / 2",
+            "panel_t / 2"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 1
+      },
+      {
+        "id": "block_hinge",
+        "label": {
+          "en": "Block Hinge Bore",
+          "es": "Barreno de Bisagra del Bloque"
+        },
+        "geometry_type": "hinge",
+        "standard": "plain pin bore; 8 mm ground shaft (shaft-8mm) at pin_d 8",
+        "parameters": [
+          "pin_d",
+          "panel_t",
+          "block_w"
+        ],
+        "frame": {
+          "part": "hinge_block",
+          "origin": [
+            "-block_w / 2",
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": {
+          "param": "pin_d",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "block_mount",
+        "label": {
+          "en": "Block Flange Bolts",
+          "es": "Tornillos de la Brida del Bloque"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "axis_h",
+          "flange_l",
+          "flange_t",
+          "bolt_d",
+          "block_w"
+        ],
+        "let": {
+          "axis": "max(axis_h, flange_t + 2)"
+        },
+        "frame": {
+          "part": "hinge_block",
+          "origin": [
+            0,
+            0,
+            "-axis"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 1
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Floor is the scarcest thing in a small home, a van, a stall or a clinic room. A surface that is there when it is needed and flat against the wall when it is not gives the room back. Folding hardware is sold for one thickness and one width; a panel and its blocks generated to the board at hand and the space it has to fill let anyone with a router or a printer add a step, a seat, a work surface or a ramp that folds away.",
+      "es": "El piso es lo más escaso en una casa pequeña, una camioneta, un puesto o un consultorio. Una superficie que está cuando se necesita y queda plana contra el muro cuando no, devuelve el espacio. Los herrajes plegables se venden para un espesor y un ancho; un panel y sus bloques generados para la tabla disponible y el espacio a llenar permiten a cualquiera con un router o una impresora agregar un escalón, un asiento, una superficie de trabajo o una rampa que se pliega."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "hinged-platform",
+    "platform",
+    "folding",
+    "furniture",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
