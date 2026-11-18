@@ -2,7 +2,7 @@
   "project": {
     "name": "Twin-Post Frame",
     "slug": "twin-post-frame",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -107,6 +107,13 @@
       "label": {
         "en": "Crossbar",
         "es": "Travesaño"
+      }
+    },
+    {
+      "id": "arm",
+      "label": {
+        "en": "Arm Mount",
+        "es": "Montaje de Brazo"
       }
     }
   ],
@@ -435,6 +442,83 @@
         "en": "Depth of the pocket that caps each post top; 0 leaves the underside flat",
         "es": "Profundidad de la caja que tapa cada extremo de poste; 0 deja plana la cara inferior"
       }
+    },
+    {
+      "id": "arm_mount",
+      "type": "checkbox",
+      "default": false,
+      "group": "arm",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Arm Mount",
+        "es": "Montaje de Brazo"
+      },
+      "tooltip": {
+        "en": "Drill two blind holes in the front face for the bolts of a hanging accessory",
+        "es": "Barrena dos agujeros ciegos en la cara frontal para los tornillos de un accesorio colgante"
+      }
+    },
+    {
+      "id": "arm_bolt_span",
+      "type": "slider",
+      "default": 60.0,
+      "min": 20.0,
+      "max": 200.0,
+      "step": 1.0,
+      "group": "arm",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Arm Bolt Spacing (mm)",
+        "es": "Separación de Tornillos del Brazo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two holes, centred on the crossbar",
+        "es": "Distancia entre los dos agujeros, centrados en el travesaño"
+      }
+    },
+    {
+      "id": "arm_hole_d",
+      "type": "slider",
+      "default": 6.8,
+      "min": 3.3,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "arm",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Arm Hole (mm)",
+        "es": "Barreno del Brazo (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each hole: the tap drill of its thread (6.8 for M8, 4.2 for M5)",
+        "es": "Diámetro de cada agujero: la broca de machuelo de su rosca (6.8 para M8, 4.2 para M5)"
+      }
+    },
+    {
+      "id": "arm_mount_drop",
+      "type": "slider",
+      "default": 30.0,
+      "min": 8.0,
+      "max": 100.0,
+      "step": 1.0,
+      "group": "arm",
+      "modes": [
+        "crossbar"
+      ],
+      "label": {
+        "en": "Arm Hole Drop (mm)",
+        "es": "Caída del Barreno del Brazo (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the top face of the crossbar down to the line of the two holes",
+        "es": "Distancia de la cara superior del travesaño a la línea de los dos agujeros"
+      }
     }
   ],
   "presets": [
@@ -519,6 +603,28 @@
         "bar_margin": 0.0,
         "cap_depth": 0.0
       }
+    },
+    {
+      "id": "portal_crossbar_720_arm_mount",
+      "mode": "crossbar",
+      "label": {
+        "en": "Crossbar · 80 mm posts 720 apart · M8 arm mount",
+        "es": "Travesaño · postes de 80 mm a 720 · montaje de brazo M8"
+      },
+      "values": {
+        "spacing": 720.0,
+        "post_w": 80.0,
+        "post_d": 80.0,
+        "fit": 0.3,
+        "bolt_d": 10.5,
+        "bar_h": 60.0,
+        "bar_margin": 0.0,
+        "cap_depth": 0.0,
+        "arm_mount": true,
+        "arm_bolt_span": 60.0,
+        "arm_hole_d": 6.8,
+        "arm_mount_drop": 30.0
+      }
     }
   ],
   "constraints": [
@@ -576,6 +682,22 @@
       "message": {
         "en": "A cap needs at least 3 mm of wall round the post: widen the margin or set the cap depth to 0",
         "es": "Una tapa necesita al menos 3 mm de pared alrededor del poste: amplía el margen o pon la profundidad de la tapa en 0"
+      }
+    },
+    {
+      "expression": "arm_bolt_span + arm_hole_d + 6 <= spacing - post_w - 2 * fit",
+      "severity": "error",
+      "message": {
+        "en": "The arm holes must stay between the two posts, at least 3 mm clear of each",
+        "es": "Los barrenos del brazo deben quedar entre los dos postes, al menos a 3 mm de cada uno"
+      }
+    },
+    {
+      "expression": "arm_mount_drop >= arm_hole_d / 2 + 3 && arm_mount_drop + arm_hole_d / 2 + 3 <= bar_h",
+      "severity": "error",
+      "message": {
+        "en": "The arm holes must sit inside the height of the crossbar, with 3 mm above and below",
+        "es": "Los barrenos del brazo deben quedar dentro de la altura del travesaño, con 3 mm arriba y abajo"
       }
     },
     {
@@ -865,6 +987,54 @@
           "param": "post_w",
           "map": {
             "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "arm_mount",
+        "label": {
+          "en": "Crossbar Arm Mount",
+          "es": "Montaje de Brazo del Travesaño"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "two tapped holes in the front face; M8 screw joint at a 6.8 mm tap drill, M5 at 4.2 mm",
+        "parameters": [
+          "arm_mount",
+          "arm_bolt_span",
+          "arm_hole_d",
+          "arm_mount_drop",
+          "post_d",
+          "bar_margin",
+          "bar_h"
+        ],
+        "compatible_with": [
+          "vesa-arm-extender"
+        ],
+        "frame": {
+          "part": "crossbar",
+          "origin": [
+            0,
+            "post_d / 2 + bar_margin",
+            "bar_h - arm_mount_drop"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "arm_hole_d",
+          "map": {
+            "6.8": "m8-screw-joint",
+            "4.2": "m5-screw-joint"
           }
         },
         "symmetry": 2

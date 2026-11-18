@@ -30,7 +30,7 @@ an edge.
 | Mode | Part | Description |
 | :--- | :--- | :--- |
 | **Base** | `base` | Two rails joined by a rear and a front member, open in the middle. Each rail has a socket the post stands in, a bolt hole up through the socket floor, and a hole near each end for the stud of a levelling foot. |
-| **Crossbar** | `crossbar` | A bar across the two post tops with a bolt hole down into each. With `cap_depth` above 0 a pocket caps each post; at 0 the underside is flat. |
+| **Crossbar** | `crossbar` | A bar across the two post tops with a bolt hole down into each. With `cap_depth` above 0 a pocket caps each post; at 0 the underside is flat. With `arm_mount` on, two blind holes in the front face take the bolts of a hanging accessory. |
 
 ## Parameters
 
@@ -46,6 +46,7 @@ an edge.
 | `socket_depth` | 3–40 mm | How deep each post sits in the base |
 | `foot_bolt_d` | 4.5–12.5 mm | Hole for each levelling-foot stud |
 | `bar_h`, `bar_margin`, `cap_depth` | 15–120 mm, 0–20 mm, 0–30 mm | Crossbar height, its margin round the post section, and the depth of the caps |
+| `arm_mount`, `arm_bolt_span`, `arm_hole_d`, `arm_mount_drop` | on / off, 20–200 mm, 3.3–10.5 mm, 8–100 mm | Two blind holes in the crossbar's front face: their spacing, their diameter (the tap drill: 6.8 for M8, 4.2 for M5) and how far below the top face they sit |
 
 ## Constraints
 
@@ -55,6 +56,7 @@ an edge.
 - The socket leaves 5 mm of floor under the post, and the cap 5 mm of bar
   above it.
 - A cap needs 3 mm of wall round the post; with no margin, set the cap to 0.
+- The arm holes stay between the two posts and inside the height of the bar.
 - A socket under 8 mm is flagged: it locates the post but barely braces it.
 
 ## Making it
@@ -78,6 +80,10 @@ it is not.
 - **Floor face and foot holes** (`floor`): the underside of the base.
 - **Post caps** (`cap_a`, `cap_b`): the seats under the crossbar, facing down.
 - **Crossbar top face** (`bar_top`): where an accessory bolts on.
+- **Crossbar arm mount** (`arm_mount`): the front face at the line of the two
+  holes, facing forward. Polarity female (the thread side). It carries the
+  size key `m8-screw-joint` when `arm_hole_d` is 6.8 and `m5-screw-joint` at
+  4.2, so an arm whose beam bolts carry the same key mates here.
 
 The sockets and caps carry the size key `square-tube-80mm` when `post_w` is
 80. The key reads the width only: a square 80 mm post is covered, and a

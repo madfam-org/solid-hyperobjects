@@ -13,6 +13,8 @@ Parts (dispatched via `target_part`):
                  four holes at the corners take levelling feet.
   * "crossbar" — a bar across the two post tops, with a bolt hole down into
                  each and, optionally, a shallow pocket that caps the post.
+                 With the arm mount on, two blind holes in its front face take
+                 the bolts of a hanging accessory: an arm, a sign, a hook rail.
 
 Frame, base: the floor is Z = 0, the two posts stand at X = -spacing/2 and
 +spacing/2 on the line Y = 0, the rear of the base is toward -Y. Frame,
@@ -44,6 +46,10 @@ def PARAM(getter, default):
         return default
 
 
+def as_bool(v):
+    return str(v).strip().lower() in ("1", "true", "yes", "on")
+
+
 SPACING = float(PARAM(lambda: spacing, 600.0))
 POST_W = float(PARAM(lambda: post_w, 50.0))
 POST_D = float(PARAM(lambda: post_d, 50.0))
@@ -60,6 +66,10 @@ FOOT_BOLT_D = float(PARAM(lambda: foot_bolt_d, 8.5))
 BAR_H = float(PARAM(lambda: bar_h, 50.0))
 BAR_MARGIN = float(PARAM(lambda: bar_margin, 6.0))
 CAP_DEPTH = float(PARAM(lambda: cap_depth, 5.0))
+ARM_MOUNT = as_bool(PARAM(lambda: arm_mount, False))
+ARM_BOLT_SPAN = float(PARAM(lambda: arm_bolt_span, 60.0))
+ARM_HOLE_D = float(PARAM(lambda: arm_hole_d, 6.8))
+ARM_MOUNT_DROP = float(PARAM(lambda: arm_mount_drop, 30.0))
 PART = str(PARAM(lambda: target_part, "base"))
 
 EPS = 1.0                                   # through-cut overshoot
@@ -113,7 +123,15 @@ def build_crossbar():
     cap = min(CAP_DEPTH, BAR_H - 2.0)
     if cap > 0.2 and BAR_MARGIN >= 1.0:
         bar = bar.cut(post_pockets(-EPS, cap))
-    return bar.cut(holes_z([(px, 0.0) for px in POSTS], BOLT_D, -EPS, BAR_H + EPS))
+    bar = bar.cut(holes_z([(px, 0.0) for px in POSTS], BOLT_D, -EPS, BAR_H + EPS))
+    if ARM_MOUNT:                            # two blind holes in the front face (+Y), open to it
+        reach = min(20.0, depth - 3.0)
+        z = BAR_H - ARM_MOUNT_DROP
+        for sx in (-1.0, 1.0):
+            hole = (cq.Workplane("XZ").circle(ARM_HOLE_D / 2.0).extrude(reach + EPS)     # XZ extrudes toward -Y
+                    .translate((sx * ARM_BOLT_SPAN / 2.0, depth / 2.0 + EPS, z)))
+            bar = bar.cut(hole)
+    return bar
 
 
 BUILDERS = {"base": build_base, "crossbar": build_crossbar}
