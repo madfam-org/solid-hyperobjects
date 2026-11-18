@@ -85,8 +85,8 @@ has to be established by whoever builds and uses it.
 
 ## Mating frames (assemblies)
 
-Two interfaces carry a SEM-1 frame, so the carriage can be placed in an
-assembly: riding a column, with a block hung in its yoke.
+Three interfaces carry a SEM-1 frame, so the carriage can be placed in an
+assembly: riding a column, with a block hung in its yoke and a pin in its boss.
 
 - **`column_sleeve`**: the inner face of the sleeve's rear wall, the face that
   bears on the column when the yoke is loaded. Origin
@@ -103,20 +103,29 @@ assembly: riding a column, with a block hung in its yoke.
   normal from 0 to `yoke_gap`, so a mate can state where between the ears the
   partner sits.
 
-Both frames are verified against the rendered part at the defaults and every
-preset (`y4d-spec check --render`).
+- **`index_pin`**: the pin bore, framed where it opens in the front face of the
+  boss. Origin
+  `(0, column_d/2 + slide_clr + sleeve_wall + boss_l, sleeve_h/2 - 3 - (pin_d + 12)/2)`,
+  normal `+y`, out of the boss toward the hand that holds the pin. Symmetry 0.
+  Polarity female: the partner is the pin. Size key
+  `{param: pin_d, map: {"10": pin-10mm}}`.
+
+All three frames are verified against the rendered part at the defaults and
+every preset (`y4d-spec check --render`).
 
 Limits:
 
 - **The sleeve sits against one face.** Mated on `column_sleeve`, the carriage
   bears on the column's rear face and the whole sliding clearance is at the front.
-- **Sizes.** Each size key resolves at one value (`column_w` = 80, `pivot_d` = 8).
+- **Sizes.** Each size key resolves at one value (`column_w` = 80, `pivot_d` = 8,
+  `pin_d` = 10).
   Elsewhere the interface has no size key.
 - **The key reads the width.** As on the column, a sleeve 80 mm wide and another
   depth would still resolve to the square's key.
-- **The index pin has no frame.** `index_pin` stays a descriptive interface: a
-  sliding mate is continuous, and that the pin drops only at a hole is not
-  something a frame states.
+- **The pin frame says where the pin enters, not where it locks.** A mate on
+  `index_pin` puts a pin in the boss. That the pin drops only when the carriage
+  stands at a hole of the column is not something a frame states: the sliding
+  mate on `column_sleeve` is continuous.
 
 ## Licence
 

@@ -563,11 +563,40 @@
           "es": "Barreno del Perno de Posición"
         },
         "geometry_type": "socket",
-        "standard": "internal",
+        "standard": "plain pin in a round bore; 10 mm plain pin (pin-10mm) at pin_d 10",
         "parameters": [
           "pin_d",
-          "boss_l"
-        ]
+          "boss_l",
+          "column_d",
+          "slide_clr",
+          "sleeve_wall",
+          "sleeve_h"
+        ],
+        "compatible_with": [
+          "index-pin",
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "carriage",
+          "origin": [
+            0,
+            "column_d / 2 + slide_clr + sleeve_wall + boss_l",
+            "sleeve_h / 2 - 3 - (pin_d + 12) / 2"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "pin_d",
+          "map": {
+            "10": "pin-10mm"
+          }
+        },
+        "symmetry": 0
       },
       {
         "id": "yoke_pivot",
