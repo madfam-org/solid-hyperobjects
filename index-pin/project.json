@@ -1,0 +1,755 @@
+{
+  "project": {
+    "name": "Index Pin",
+    "slug": "index-pin",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A parametric pull pin: the loose half of a pin-and-hole adjustment. The shank passes through a guide and into one of a row of holes, a collar stops it at the right depth, and a grip lets a hand pull it out again. It sets the height of a stand, a rack or a seat post, locks a folding leg or a hinged panel, and holds a telescoping tube at length. Choose a round knob with a waist for the fingers or a T-handle, and add a cross hole near the tip for a spring clip or one in the knob for a lanyard.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un perno de tiro paramétrico: la mitad suelta de un ajuste de perno y barreno. El vástago pasa por una guía y entra en uno de una hilera de barrenos, un collarín lo detiene a la profundidad correcta y una empuñadura permite sacarlo con la mano. Fija la altura de un soporte, un rack o un poste de asiento, bloquea una pata plegable o un panel abatible, y sostiene un tubo telescópico a su largo. Elige una perilla redonda con cintura para los dedos o un mango en T, y agrega un barreno transversal cerca de la punta para un seguro de resorte o uno en la perilla para un cordón.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/index-pin.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "index-pin",
+      "pull-pin",
+      "pin",
+      "adjustment",
+      "locking",
+      "hardware",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "pull_pin",
+      "label": {
+        "en": "Knob Pin",
+        "es": "Perno de Perilla"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "pull_pin"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    },
+    {
+      "id": "tee_pin",
+      "label": {
+        "en": "T-Handle Pin",
+        "es": "Perno de Mango en T"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "tee_pin"
+      ],
+      "estimate": {
+        "base_time": 5,
+        "per_unit": 1,
+        "per_part": 5
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "pull_pin",
+      "label": {
+        "en": "Knob Pin",
+        "es": "Perno de Perilla"
+      },
+      "render_mode": 0,
+      "color": "#c9ccd1"
+    },
+    {
+      "id": "tee_pin",
+      "label": {
+        "en": "T-Handle Pin",
+        "es": "Perno de Mango en T"
+      },
+      "render_mode": 0,
+      "color": "#a9aeb6"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "shank",
+      "label": {
+        "en": "Shank",
+        "es": "Vástago"
+      }
+    },
+    {
+      "id": "collar",
+      "label": {
+        "en": "Collar",
+        "es": "Collarín"
+      }
+    },
+    {
+      "id": "knob",
+      "label": {
+        "en": "Knob",
+        "es": "Perilla"
+      }
+    },
+    {
+      "id": "handle",
+      "label": {
+        "en": "T-Handle",
+        "es": "Mango en T"
+      }
+    },
+    {
+      "id": "clip",
+      "label": {
+        "en": "Clip Hole",
+        "es": "Barreno de Seguro"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "pin_d",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "shank",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Hole Diameter (mm)",
+        "es": "Diámetro del Barreno (mm)"
+      },
+      "tooltip": {
+        "en": "Nominal diameter of the hole the pin enters; the shank is made smaller by the fit",
+        "es": "Diámetro nominal del barreno donde entra el perno; el vástago se hace más chico por el ajuste"
+      }
+    },
+    {
+      "id": "fit",
+      "type": "slider",
+      "default": 0.2,
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "group": "shank",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Fit (mm)",
+        "es": "Ajuste (mm)"
+      },
+      "tooltip": {
+        "en": "How much smaller than the hole the shank is, on the diameter",
+        "es": "Cuánto más chico que el barreno es el vástago, en diámetro"
+      }
+    },
+    {
+      "id": "engage_l",
+      "type": "slider",
+      "default": 30.0,
+      "min": 12.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "shank",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Shank Length (mm)",
+        "es": "Largo del Vástago (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the shank under the collar: through the guide and into the hole",
+        "es": "Largo del vástago bajo el collarín: a través de la guía y dentro del barreno"
+      }
+    },
+    {
+      "id": "tip_chamfer",
+      "type": "slider",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 1.5,
+      "step": 0.25,
+      "group": "shank",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Tip Chamfer (mm)",
+        "es": "Chaflán de Punta (mm)"
+      },
+      "tooltip": {
+        "en": "Lead-in chamfer on the tip, so the pin finds the hole",
+        "es": "Chaflán de entrada en la punta, para que el perno encuentre el barreno"
+      }
+    },
+    {
+      "id": "collar_d",
+      "type": "slider",
+      "default": 18.0,
+      "min": 8.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "collar",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Collar Diameter (mm)",
+        "es": "Diámetro del Collarín (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the collar that stops the pin against the guide",
+        "es": "Diámetro del collarín que detiene el perno contra la guía"
+      }
+    },
+    {
+      "id": "collar_t",
+      "type": "slider",
+      "default": 4.0,
+      "min": 2.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "collar",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Collar Thickness (mm)",
+        "es": "Espesor del Collarín (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the collar",
+        "es": "Espesor del collarín"
+      }
+    },
+    {
+      "id": "grip_d",
+      "type": "slider",
+      "default": 26.0,
+      "min": 24.0,
+      "max": 50.0,
+      "step": 1.0,
+      "group": "knob",
+      "modes": [
+        "pull_pin"
+      ],
+      "label": {
+        "en": "Knob Diameter (mm)",
+        "es": "Diámetro de la Perilla (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the knob",
+        "es": "Diámetro de la perilla"
+      }
+    },
+    {
+      "id": "grip_h",
+      "type": "slider",
+      "default": 22.0,
+      "min": 15.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "knob",
+      "modes": [
+        "pull_pin"
+      ],
+      "label": {
+        "en": "Knob Height (mm)",
+        "es": "Altura de la Perilla (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the knob above the collar, waist included",
+        "es": "Altura de la perilla sobre el collarín, cintura incluida"
+      }
+    },
+    {
+      "id": "lanyard",
+      "type": "checkbox",
+      "default": false,
+      "group": "knob",
+      "modes": [
+        "pull_pin"
+      ],
+      "label": {
+        "en": "Lanyard Hole",
+        "es": "Barreno para Cordón"
+      },
+      "tooltip": {
+        "en": "Cut a cross hole through the knob for a lanyard or a ring, so the pin is not lost",
+        "es": "Corta un barreno transversal en la perilla para un cordón o una argolla, para no perder el perno"
+      }
+    },
+    {
+      "id": "lanyard_d",
+      "type": "slider",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 4.0,
+      "step": 0.5,
+      "group": "knob",
+      "modes": [
+        "pull_pin"
+      ],
+      "label": {
+        "en": "Lanyard Hole (mm)",
+        "es": "Barreno del Cordón (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the lanyard hole",
+        "es": "Diámetro del barreno del cordón"
+      }
+    },
+    {
+      "id": "handle_l",
+      "type": "slider",
+      "default": 60.0,
+      "min": 50.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "handle",
+      "modes": [
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Handle Length (mm)",
+        "es": "Largo del Mango (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the T-handle bar",
+        "es": "Largo de la barra del mango en T"
+      }
+    },
+    {
+      "id": "handle_d",
+      "type": "slider",
+      "default": 12.0,
+      "min": 8.0,
+      "max": 25.0,
+      "step": 0.5,
+      "group": "handle",
+      "modes": [
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Handle Diameter (mm)",
+        "es": "Diámetro del Mango (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the T-handle bar",
+        "es": "Diámetro de la barra del mango en T"
+      }
+    },
+    {
+      "id": "handle_rise",
+      "type": "slider",
+      "default": 16.0,
+      "min": 14.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "handle",
+      "modes": [
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Handle Rise (mm)",
+        "es": "Altura del Mango (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the handle axis above the collar: the room for the fingers",
+        "es": "Altura del eje del mango sobre el collarín: el espacio para los dedos"
+      }
+    },
+    {
+      "id": "clip_hole",
+      "type": "checkbox",
+      "default": false,
+      "group": "clip",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Clip Hole",
+        "es": "Barreno de Seguro"
+      },
+      "tooltip": {
+        "en": "Cut a cross hole near the tip for a spring clip, for a pin that passes right through",
+        "es": "Corta un barreno transversal cerca de la punta para un seguro de resorte, para un perno que atraviesa por completo"
+      }
+    },
+    {
+      "id": "clip_d",
+      "type": "slider",
+      "default": 2.0,
+      "min": 1.5,
+      "max": 6.0,
+      "step": 0.5,
+      "group": "clip",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Clip Hole (mm)",
+        "es": "Barreno del Seguro (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the clip hole",
+        "es": "Diámetro del barreno del seguro"
+      }
+    },
+    {
+      "id": "clip_offset",
+      "type": "slider",
+      "default": 6.0,
+      "min": 3.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "clip",
+      "modes": [
+        "pull_pin",
+        "tee_pin"
+      ],
+      "label": {
+        "en": "Clip Offset (mm)",
+        "es": "Distancia del Seguro (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the tip to the centre of the clip hole",
+        "es": "Distancia de la punta al centro del barreno del seguro"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "knob_10_x30",
+      "mode": "pull_pin",
+      "label": {
+        "en": "Knob pin · 10 mm hole · 30 mm shank",
+        "es": "Perno de perilla · barreno 10 mm · vástago 30 mm"
+      },
+      "values": {
+        "pin_d": 10.0,
+        "fit": 0.2,
+        "engage_l": 30.0,
+        "tip_chamfer": 1.0,
+        "collar_d": 18.0,
+        "collar_t": 4.0,
+        "grip_d": 26.0,
+        "grip_h": 22.0,
+        "lanyard": false,
+        "lanyard_d": 3.0,
+        "clip_hole": false,
+        "clip_d": 2.0,
+        "clip_offset": 6.0
+      }
+    },
+    {
+      "id": "tee_12_x70_clip",
+      "mode": "tee_pin",
+      "label": {
+        "en": "T-handle pin · 12 mm hole · 70 mm shank · clip hole",
+        "es": "Perno de mango en T · barreno 12 mm · vástago 70 mm · barreno de seguro"
+      },
+      "values": {
+        "pin_d": 12.0,
+        "fit": 0.3,
+        "engage_l": 70.0,
+        "tip_chamfer": 1.5,
+        "collar_d": 22.0,
+        "collar_t": 5.0,
+        "handle_l": 70.0,
+        "handle_d": 14.0,
+        "handle_rise": 20.0,
+        "clip_hole": true,
+        "clip_d": 3.0,
+        "clip_offset": 7.0
+      }
+    },
+    {
+      "id": "knob_6_x20_lanyard",
+      "mode": "pull_pin",
+      "label": {
+        "en": "Knob pin · 6 mm hole · 20 mm shank · lanyard hole",
+        "es": "Perno de perilla · barreno 6 mm · vástago 20 mm · barreno para cordón"
+      },
+      "values": {
+        "pin_d": 6.0,
+        "fit": 0.2,
+        "engage_l": 20.0,
+        "tip_chamfer": 0.5,
+        "collar_d": 12.0,
+        "collar_t": 3.0,
+        "grip_d": 24.0,
+        "grip_h": 18.0,
+        "lanyard": true,
+        "lanyard_d": 3.0,
+        "clip_hole": false,
+        "clip_d": 2.0,
+        "clip_offset": 6.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "collar_d >= pin_d + 4",
+      "severity": "error",
+      "message": {
+        "en": "The collar must stand at least 2 mm proud of the shank all round, or it does not stop the pin",
+        "es": "El collarín debe sobresalir al menos 2 mm del vástago en todo su contorno, o no detiene el perno"
+      }
+    },
+    {
+      "expression": "fit < pin_d / 4",
+      "severity": "error",
+      "message": {
+        "en": "The fit cannot take more than a quarter of the hole diameter",
+        "es": "El ajuste no puede quitar más de un cuarto del diámetro del barreno"
+      }
+    },
+    {
+      "expression": "tip_chamfer * 4 <= pin_d - fit",
+      "severity": "error",
+      "message": {
+        "en": "The chamfer must leave at least half of the tip flat",
+        "es": "El chaflán debe dejar plana al menos la mitad de la punta"
+      }
+    },
+    {
+      "expression": "clip_d + 1.5 <= pin_d - fit",
+      "severity": "error",
+      "message": {
+        "en": "The clip hole must leave at least 0.75 mm of shank on each side",
+        "es": "El barreno del seguro debe dejar al menos 0.75 mm de vástago a cada lado"
+      }
+    },
+    {
+      "expression": "clip_offset >= clip_d && clip_offset + clip_d <= engage_l",
+      "severity": "error",
+      "message": {
+        "en": "The clip hole must sit inside the shank, at least its own diameter from the tip and from the collar",
+        "es": "El barreno del seguro debe quedar dentro del vástago, al menos a su propio diámetro de la punta y del collarín"
+      }
+    },
+    {
+      "expression": "lanyard_d + 2 <= 0.4 * grip_h",
+      "severity": "error",
+      "message": {
+        "en": "The lanyard hole must fit inside the head of the knob",
+        "es": "El barreno del cordón debe caber dentro de la cabeza de la perilla"
+      }
+    },
+    {
+      "expression": "handle_rise >= handle_d / 2 + 10",
+      "severity": "error",
+      "message": {
+        "en": "The handle must leave at least 10 mm for the fingers above the collar",
+        "es": "El mango debe dejar al menos 10 mm para los dedos sobre el collarín"
+      }
+    },
+    {
+      "expression": "handle_l >= collar_d + 10",
+      "severity": "error",
+      "message": {
+        "en": "The handle must reach past the collar on both sides to be gripped",
+        "es": "El mango debe sobresalir del collarín por ambos lados para poder tomarse"
+      }
+    },
+    {
+      "expression": "fit >= 0.1",
+      "severity": "warning",
+      "message": {
+        "en": "Under 0.1 mm of fit a printed or painted pin may not enter its hole",
+        "es": "Con menos de 0.1 mm de ajuste, un perno impreso o pintado puede no entrar en su barreno"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        90,
+        -90,
+        60
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -160,
+        0
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        180
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 5,
+    "per_unit": 1,
+    "per_part": 5,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "knob_pin_shank",
+        "label": {
+          "en": "Shank (knob pin)",
+          "es": "Vástago (perno de perilla)"
+        },
+        "geometry_type": "socket",
+        "standard": "plain pin in a round hole of pin_d",
+        "parameters": [
+          "pin_d",
+          "fit",
+          "engage_l",
+          "collar_d"
+        ],
+        "compatible_with": [
+          "index-carriage",
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "pull_pin",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "male",
+        "symmetry": 0
+      },
+      {
+        "id": "tee_pin_shank",
+        "label": {
+          "en": "Shank (T-handle pin)",
+          "es": "Vástago (perno de mango en T)"
+        },
+        "geometry_type": "socket",
+        "standard": "plain pin in a round hole of pin_d",
+        "parameters": [
+          "pin_d",
+          "fit",
+          "engage_l",
+          "collar_d"
+        ],
+        "compatible_with": [
+          "index-carriage",
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "tee_pin",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "male",
+        "symmetry": 0
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "The pin is the part of an adjustable stand that gets lost. Without it a height-adjustable walker, a workshop stand or a folding table is held by a nail, a screwdriver or nothing, and the adjustment that made it fit one person becomes a hazard. A pin generated to the hole it has to enter, with a grip a weak or gloved hand can pull and a place to tie it on, puts the machine back in use for the cost of a small print or a few minutes at a lathe.",
+      "es": "El perno es la pieza de un soporte ajustable que se pierde. Sin él, una andadera de altura ajustable, un soporte de taller o una mesa plegable se sostienen con un clavo, un desarmador o nada, y el ajuste que los hacía servir a una persona se vuelve un riesgo. Un perno generado para el barreno donde debe entrar, con una empuñadura que una mano débil o enguantada puede jalar y un lugar donde amarrarlo, devuelve el equipo al uso por el costo de una impresión pequeña o unos minutos de torno."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "index-pin",
+    "pull-pin",
+    "hardware",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
