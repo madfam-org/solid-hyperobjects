@@ -79,6 +79,37 @@ uses it.
 - **Column section** (`column_section`): `column_w`, `column_d`, `wall`.
 - **Index hole row** (`index_holes`): `hole_d`, `hole_pitch`, `first_hole`, `hole_count`, `through`.
 
+## Mating frames (assemblies)
+
+Three interfaces carry a SEM-1 frame, so the column can be placed in an
+assembly: stood in a socket, capped, and ridden by a sleeve.
+
+- **`end_a`** and **`end_b`**: the two end faces of the tube. Origins `(0, 0, 0)`
+  and `(0, 0, length)`, on the axis; normals `-z` and `+z`, out of each end;
+  `x_axis` `+x`. Symmetry 2: the row of holes is on one face, so the section is
+  the same again only after a half turn. Polarity male.
+- **`column_section`**: the face a sleeve bears on, opposite the holes. Origin
+  `(0, -column_d/2, first_hole)`, at the height of the first hole; normal `-y`,
+  out of the rear face; `x_axis` `+z`, along the column. Symmetry 1. Polarity
+  male. It declares `travel` along its `x` axis from 0 to
+  `(hole_count - 1) * hole_pitch`: the span of the hole row.
+
+All three share one size key, `{param: column_w, map: {"80": square-tube-80mm}}`.
+The frames are verified against the rendered part at the defaults and every
+preset (`y4d-spec check --render`).
+
+Limits:
+
+- **One section size.** The key resolves only at `column_w` = 80 mm. At any other
+  width the interfaces have no size key, so a mate that needs one fails and names
+  the slider value.
+- **The key reads the width.** A size key follows one parameter, so a column
+  80 mm wide and another depth would still resolve to the square's key. Keep
+  `column_d` equal to `column_w` when you rely on it.
+- **The holes are not a mating frame.** A sleeve slides continuously on
+  `column_section`; that it locks only at a hole is not something a frame states.
+  `index_holes` stays a descriptive interface.
+
 ## Licence
 
 CERN-OHL-W-2.0. See `LICENSE`.

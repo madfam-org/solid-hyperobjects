@@ -434,7 +434,40 @@
           "column_w",
           "column_d",
           "wall"
-        ]
+        ],
+        "frame": {
+          "part": "column",
+          "origin": [
+            0,
+            "-column_d / 2",
+            "first_hole"
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "column_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 1,
+        "travel": {
+          "axis": "x",
+          "range": [
+            0,
+            "(hole_count - 1) * hole_pitch"
+          ]
+        }
       },
       {
         "id": "index_holes",
@@ -451,6 +484,87 @@
           "hole_count",
           "through"
         ]
+      },
+      {
+        "id": "end_a",
+        "label": {
+          "en": "Lower End",
+          "es": "Extremo Inferior"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "column_w",
+          "column_d",
+          "wall"
+        ],
+        "frame": {
+          "part": "column",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "column_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "end_b",
+        "label": {
+          "en": "Upper End",
+          "es": "Extremo Superior"
+        },
+        "geometry_type": "profile",
+        "standard": "internal",
+        "parameters": [
+          "column_w",
+          "column_d",
+          "wall",
+          "length"
+        ],
+        "frame": {
+          "part": "column",
+          "origin": [
+            0,
+            0,
+            "length"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "column_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
       }
     ],
     "material_awareness": {
