@@ -2,15 +2,15 @@
   "project": {
     "name": "VESA Arm Extender",
     "slug": "vesa-arm-extender",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
     },
     "engine": "cadquery",
     "description": {
-      "en": "Extends or offsets a VESA display mount for extra reach, wall clearance, or to bridge two pattern sizes. Every part carries a real VESA MIS-D bolt square (75×75 or 100×100, M4) on both a mount-side face and a display-side face, so it drops transparently into a VESA screw chain. Spacer mode is a straight standoff; Offset Arm is an L/Z crank that brings the pattern out and over an obstruction; Combo Adapter offsets while converting 75 ↔ 100. Optional cable-management slot.\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Extiende o desplaza un soporte VESA para ganar alcance, separación de la pared o para unir dos tamaños de patrón. Cada pieza lleva un cuadrado de tornillos VESA MIS-D real (75×75 o 100×100, M4) en la cara de montaje y en la cara de pantalla, integrándose de forma transparente en una cadena de tornillos VESA. El modo Separador es un espaciador recto; el Brazo Desplazado es una manivela en L/Z que lleva el patrón hacia afuera y por encima de un obstáculo; el Adaptador Combo desplaza mientras convierte 75 ↔ 100. Ranura de gestión de cables opcional.\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "Extends or offsets a VESA display mount for extra reach, wall clearance, or to bridge two pattern sizes. Every part carries a real VESA MIS-D bolt square (75×75 or 100×100, M4) on both a mount-side face and a display-side face, so it drops transparently into a VESA screw chain. Spacer mode is a straight standoff; Offset Arm is an L/Z crank that brings the pattern out and over an obstruction; Combo Adapter offsets while converting 75 ↔ 100; Drop Arm is a flat pendant bar that hangs a display below a beam, a shelf or a crossbar by two bolts. Optional cable-management slot.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Extiende o desplaza un soporte VESA para ganar alcance, separación de la pared o para unir dos tamaños de patrón. Cada pieza lleva un cuadrado de tornillos VESA MIS-D real (75×75 o 100×100, M4) en la cara de montaje y en la cara de pantalla, integrándose de forma transparente en una cadena de tornillos VESA. El modo Separador es un espaciador recto; el Brazo Desplazado es una manivela en L/Z que lleva el patrón hacia afuera y por encima de un obstáculo; el Adaptador Combo desplaza mientras convierte 75 ↔ 100; el Brazo Colgante es una barra plana que cuelga una pantalla bajo una viga, una repisa o un travesaño con dos tornillos. Ranura de gestión de cables opcional.\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/vesa-arm-extender.webp",
     "difficulty": "intermediate",
@@ -82,6 +82,23 @@
         "per_unit": 2,
         "per_part": 12
       }
+    },
+    {
+      "id": "drop_arm",
+      "label": {
+        "en": "Drop Arm (pendant)",
+        "es": "Brazo Colgante"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "drop_arm"
+      ],
+      "estimate": {
+        "base_time": 9,
+        "per_unit": 2,
+        "per_part": 10
+      }
     }
   ],
   "parts": [
@@ -111,6 +128,15 @@
       },
       "render_mode": 0,
       "color": "#8bb5cc"
+    },
+    {
+      "id": "drop_arm",
+      "label": {
+        "en": "Drop Arm",
+        "es": "Brazo Colgante"
+      },
+      "render_mode": 0,
+      "color": "#3f6f8f"
     }
   ],
   "parameter_groups": [
@@ -134,6 +160,13 @@
         "en": "Cable Management",
         "es": "Gestión de Cables"
       }
+    },
+    {
+      "id": "drop",
+      "label": {
+        "en": "Drop Arm",
+        "es": "Brazo Colgante"
+      }
     }
   ],
   "parameters": [
@@ -145,7 +178,8 @@
       "modes": [
         "spacer",
         "offset_arm",
-        "combo_adapter"
+        "combo_adapter",
+        "drop_arm"
       ],
       "label": {
         "en": "VESA Size (mount side)",
@@ -285,7 +319,8 @@
       "modes": [
         "spacer",
         "offset_arm",
-        "combo_adapter"
+        "combo_adapter",
+        "drop_arm"
       ],
       "label": {
         "en": "Plate Margin (mm)",
@@ -307,7 +342,8 @@
       "modes": [
         "spacer",
         "offset_arm",
-        "combo_adapter"
+        "combo_adapter",
+        "drop_arm"
       ],
       "label": {
         "en": "Corner Radius (mm)",
@@ -326,7 +362,8 @@
       "modes": [
         "spacer",
         "offset_arm",
-        "combo_adapter"
+        "combo_adapter",
+        "drop_arm"
       ],
       "label": {
         "en": "Cable Slot",
@@ -348,7 +385,8 @@
       "modes": [
         "spacer",
         "offset_arm",
-        "combo_adapter"
+        "combo_adapter",
+        "drop_arm"
       ],
       "advanced": true,
       "label": {
@@ -358,6 +396,86 @@
       "tooltip": {
         "en": "Width of the cable pass-through channel",
         "es": "Ancho del canal de paso de cables"
+      }
+    },
+    {
+      "id": "arm_len",
+      "type": "slider",
+      "default": 400.0,
+      "min": 120.0,
+      "max": 800.0,
+      "step": 5.0,
+      "group": "drop",
+      "modes": [
+        "drop_arm"
+      ],
+      "label": {
+        "en": "Drop Length (mm)",
+        "es": "Largo de Caída (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the line of the two beam bolts down to the centre of the VESA square",
+        "es": "Distancia de la línea de los dos tornillos de la viga al centro del cuadrado VESA"
+      }
+    },
+    {
+      "id": "arm_thick",
+      "type": "slider",
+      "default": 12.0,
+      "min": 6.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "drop",
+      "modes": [
+        "drop_arm"
+      ],
+      "label": {
+        "en": "Arm Thickness (mm)",
+        "es": "Espesor del Brazo (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the pendant bar",
+        "es": "Espesor de la barra colgante"
+      }
+    },
+    {
+      "id": "beam_bolt_span",
+      "type": "slider",
+      "default": 60.0,
+      "min": 20.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "drop",
+      "modes": [
+        "drop_arm"
+      ],
+      "label": {
+        "en": "Beam Bolt Spacing (mm)",
+        "es": "Separación de Tornillos de la Viga (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two bolts that hang the arm from the beam",
+        "es": "Distancia entre los dos tornillos que cuelgan el brazo de la viga"
+      }
+    },
+    {
+      "id": "beam_bolt_d",
+      "type": "slider",
+      "default": 8.5,
+      "min": 4.5,
+      "max": 12.5,
+      "step": 0.5,
+      "group": "drop",
+      "modes": [
+        "drop_arm"
+      ],
+      "label": {
+        "en": "Beam Bolt Hole (mm)",
+        "es": "Barreno de Tornillo de la Viga (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each beam bolt (8.5 for M8)",
+        "es": "Barreno pasado para cada tornillo de la viga (8.5 para M8)"
       }
     }
   ],
@@ -409,6 +527,43 @@
         "plate_margin": 12,
         "cable_slot": true
       }
+    },
+    {
+      "id": "drop_400_100",
+      "mode": "drop_arm",
+      "label": {
+        "en": "Drop Arm 400 mm (100×100)",
+        "es": "Brazo Colgante 400 mm (100×100)"
+      },
+      "values": {
+        "vesa": "100",
+        "plate_margin": 10,
+        "corner_r": 6,
+        "cable_slot": true,
+        "slot_w": 16,
+        "arm_len": 400,
+        "arm_thick": 12,
+        "beam_bolt_span": 60,
+        "beam_bolt_d": 8.5
+      }
+    },
+    {
+      "id": "drop_200_75",
+      "mode": "drop_arm",
+      "label": {
+        "en": "Short Drop Arm 200 mm (75×75)",
+        "es": "Brazo Colgante Corto 200 mm (75×75)"
+      },
+      "values": {
+        "vesa": "75",
+        "plate_margin": 8,
+        "corner_r": 4,
+        "cable_slot": false,
+        "arm_len": 200,
+        "arm_thick": 8,
+        "beam_bolt_span": 40,
+        "beam_bolt_d": 6.5
+      }
     }
   ],
   "constraints": [
@@ -426,6 +581,14 @@
       "message": {
         "en": "Offset is small relative to the plate thickness",
         "es": "El desplazamiento es pequeño respecto al grosor de la placa"
+      }
+    },
+    {
+      "expression": "arm_thick * 40 >= arm_len",
+      "severity": "warning",
+      "message": {
+        "en": "The drop arm is long for its thickness: a display hung on it will sway",
+        "es": "El brazo colgante es largo para su espesor: una pantalla colgada de él se balanceará"
       }
     }
   ],
@@ -535,6 +698,55 @@
           "cable_slot",
           "slot_w"
         ]
+      },
+      {
+        "id": "drop_beam_mount",
+        "label": {
+          "en": "Drop Arm Beam Bolts",
+          "es": "Tornillos de Viga del Brazo Colgante"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal",
+        "parameters": [
+          "arm_len",
+          "arm_thick",
+          "beam_bolt_span",
+          "beam_bolt_d"
+        ],
+        "frame": {
+          "part": "drop_arm",
+          "origin": [0, "arm_len", 0],
+          "normal": [0, 0, -1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "symmetry": 2
+      },
+      {
+        "id": "drop_display_face",
+        "label": {
+          "en": "Drop Arm Display Face (VESA MIS-D)",
+          "es": "Cara de Pantalla del Brazo Colgante (VESA MIS-D)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "VESA MIS-D",
+        "parameters": [
+          "vesa",
+          "plate_margin",
+          "arm_thick"
+        ],
+        "compatible_with": [
+          "framing-hyperobject",
+          "vesa-mount"
+        ],
+        "frame": {
+          "part": "drop_arm",
+          "origin": [0, 0, "arm_thick"],
+          "normal": [0, 0, 1],
+          "x_axis": [1, 0, 0]
+        },
+        "polarity": "male",
+        "symmetry": 4
       }
     ],
     "material_awareness": {

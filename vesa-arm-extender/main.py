@@ -6,7 +6,7 @@ bridge two pattern sizes. Every part carries a real VESA MIS-D bolt square on
 BOTH a mount-side face (bolts to the arm / wall bracket) and a display-side face
 (the monitor bolts to it), so it drops transparently into a VESA screw chain.
 
-Three modes (rendered per-part via `target_part`):
+Four modes (rendered per-part via `target_part`):
 
   * "spacer"       — a flat standoff / riser: the same VESA square on the mount
                      face and the display face, separated by `offset` of solid
@@ -18,6 +18,12 @@ Three modes (rendered per-part via `target_part`):
                      DIFFERENT VESA squares (75 ↔ 100) while still offsetting,
                      so a 75 monitor mounts to a 100 arm (or vice-versa) with
                      clearance in one part.
+
+  * "drop_arm"     — a flat pendant bar: the VESA square at its lower end, and
+                     two bolt holes `arm_len` above it that hang the bar from a
+                     beam, a shelf or a crossbar. The display bolts to the top
+                     face (+Z) and the beam meets the underside. It is ONE
+                     plate, drilled; nothing is fused.
 
 VESA MIS-D per the FDMI standard: 75×75 and 100×100 hole squares, M4 screws
 (≈4.5 mm printable clearance).
@@ -65,7 +71,7 @@ def vesa_spec(key):
 
 
 # ── Parameters ───────────────────────────────────────────────────────────────
-target_part = str(PARAM(lambda: target_part, "spacer"))  # spacer|offset_arm|combo_adapter
+target_part = str(PARAM(lambda: target_part, "spacer"))  # spacer|offset_arm|combo_adapter|drop_arm
 
 vesa = str(PARAM(lambda: vesa, "100"))            # mount-side VESA square
 dest_vesa = str(PARAM(lambda: dest_vesa, "75"))   # display-side square (combo only)
@@ -79,9 +85,14 @@ corner_r = float(PARAM(lambda: corner_r, 6.0))          # plate corner radius (m
 cable_slot = bool(PARAM(lambda: cable_slot, True))      # cable-management pass slot
 slot_w = float(PARAM(lambda: slot_w, 16.0))             # cable slot width (mm)
 
+arm_len = float(PARAM(lambda: arm_len, 400.0))          # drop arm: beam bolt line to VESA centre (mm)
+arm_thick = float(PARAM(lambda: arm_thick, 12.0))       # drop arm: bar thickness (mm)
+beam_bolt_span = float(PARAM(lambda: beam_bolt_span, 60.0))  # drop arm: distance between the beam bolts (mm)
+beam_bolt_d = float(PARAM(lambda: beam_bolt_d, 8.5))    # drop arm: beam bolt clearance hole (mm)
+
 
 # ── Active part ──────────────────────────────────────────────────────────────
-_parts = ("spacer", "offset_arm", "combo_adapter")
+_parts = ("spacer", "offset_arm", "combo_adapter", "drop_arm")
 active = target_part if target_part in _parts else "spacer"
 
 # ── Safe clamps ──────────────────────────────────────────────────────────────
@@ -90,6 +101,8 @@ web_thick = max(3.0, web_thick)
 plate_margin = max(4.0, plate_margin)
 offset = max(12.0, offset)
 slot_w = max(4.0, slot_w)
+arm_len = max(120.0, arm_len)
+arm_thick = max(6.0, arm_thick)
 
 src = vesa_spec(vesa)
 dst = vesa_spec(dest_vesa) if active == "combo_adapter" else src
@@ -239,10 +252,37 @@ def build_offset_arm():
     return body.clean()
 
 
+def build_drop_arm():
+    """Flat pendant bar on XY. The VESA square is centred on the origin and the
+    bar runs toward +Y to the two beam bolts at y = arm_len, then a little past
+    them. One plate, drilled in Z: the display seats on the top face, the beam
+    on the underside."""
+    past = max(2.0 * beam_bolt_d, 16.0)        # material beyond the beam bolts
+    y_lo = -plate_d / 2.0
+    y_hi = arm_len + past
+    body = (
+        cq.Workplane("XY")
+        .box(plate_w, y_hi - y_lo, arm_thick, centered=(True, True, False))
+        .translate((0, (y_lo + y_hi) / 2.0, 0))
+    )
+    if corner_r > 0.05:
+        try:
+            body = body.edges("|Z").fillet(corner_r)
+        except Exception:
+            pass  # degenerate radius — leave square (non-fatal)
+    body = drill_z(body, vesa_points(src["span"]), src["screw_clear"], 0.0, arm_thick)
+    half = min(beam_bolt_span, plate_w - beam_bolt_d - 8.0) / 2.0
+    body = drill_z(body, [(-half, arm_len), (half, arm_len)], beam_bolt_d, 0.0, arm_thick)
+    body = cut_cable_slot_z(body, 0.0, arm_thick)
+    return body
+
+
 # ── Dispatch ─────────────────────────────────────────────────────────────────
 if active == "offset_arm":
     result = build_offset_arm()
 elif active == "combo_adapter":
     result = build_combo_adapter()
+elif active == "drop_arm":
+    result = build_drop_arm()
 else:
     result = build_spacer()
