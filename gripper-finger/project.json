@@ -1,0 +1,661 @@
+{
+  "project": {
+    "name": "Gripper Finger",
+    "slug": "gripper-finger",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "A finger for a parallel-jaw gripper: the part that bolts onto the moving jaw of a robot gripper, a pneumatic clamp or a bench fixture and actually touches the workpiece. The gripper is bought once; its fingers are made again for every part it has to hold. Set the jaw's two-bolt pattern and how far the finger reaches, then choose the gripping face: flat, or with a V notch that centres a round body such as a motor, a tube or a bottle. Two holes near the tip can take a bolted-on soft pad.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Un dedo para una pinza de mordazas paralelas: la pieza que se atornilla a la mordaza móvil de una pinza de robot, una prensa neumática o un dispositivo de banco y que realmente toca la pieza de trabajo. La pinza se compra una vez; sus dedos se hacen de nuevo para cada pieza que debe sujetar. Define el patrón de dos tornillos de la mordaza y cuánto alcanza el dedo, y elige la cara de agarre: plana, o con una muesca en V que centra un cuerpo redondo como un motor, un tubo o una botella. Dos barrenos cerca de la punta pueden recibir una almohadilla blanda atornillada.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/gripper-finger.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "gripper-finger",
+      "gripper",
+      "jaw",
+      "robot",
+      "end-effector",
+      "fixture",
+      "automation",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "finger",
+      "label": {
+        "en": "Finger",
+        "es": "Dedo"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "finger"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_unit": 1,
+        "per_part": 4
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "finger",
+      "label": {
+        "en": "Finger",
+        "es": "Dedo"
+      },
+      "render_mode": 0,
+      "color": "#8c96a3"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "body",
+      "label": {
+        "en": "Finger",
+        "es": "Dedo"
+      }
+    },
+    {
+      "id": "jaw",
+      "label": {
+        "en": "Jaw Mount",
+        "es": "Montaje a la Mordaza"
+      }
+    },
+    {
+      "id": "vee",
+      "label": {
+        "en": "V Notch",
+        "es": "Muesca en V"
+      }
+    },
+    {
+      "id": "pad",
+      "label": {
+        "en": "Pad Holes",
+        "es": "Barrenos de Almohadilla"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "reach",
+      "type": "slider",
+      "default": 80.0,
+      "min": 30.0,
+      "max": 250.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Reach (mm)",
+        "es": "Alcance (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the finger from its root to its tip",
+        "es": "Largo del dedo de su raíz a su punta"
+      }
+    },
+    {
+      "id": "finger_t",
+      "type": "slider",
+      "default": 16.0,
+      "min": 6.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "body",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Thickness (mm)",
+        "es": "Espesor (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the finger, from the gripping face to the back that seats on the jaw",
+        "es": "Espesor del dedo, de la cara de agarre al respaldo que asienta en la mordaza"
+      }
+    },
+    {
+      "id": "finger_h",
+      "type": "slider",
+      "default": 30.0,
+      "min": 10.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "body",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Height (mm)",
+        "es": "Altura (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the finger, along the V notch",
+        "es": "Altura del dedo, a lo largo de la muesca en V"
+      }
+    },
+    {
+      "id": "jaw_pitch",
+      "type": "slider",
+      "default": 20.0,
+      "min": 8.0,
+      "max": 80.0,
+      "step": 0.5,
+      "group": "jaw",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Jaw Bolt Pitch (mm)",
+        "es": "Paso de Tornillos de la Mordaza (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the jaw's two mounting bolts, along the finger",
+        "es": "Distancia entre los dos tornillos de montaje de la mordaza, a lo largo del dedo"
+      }
+    },
+    {
+      "id": "jaw_bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.4,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "jaw",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Jaw Bolt Hole (mm)",
+        "es": "Barreno de Tornillo de la Mordaza (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each jaw bolt (5.5 for M5)",
+        "es": "Barreno pasado para cada tornillo de la mordaza (5.5 para M5)"
+      }
+    },
+    {
+      "id": "root_margin",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "jaw",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Root Margin (mm)",
+        "es": "Margen de Raíz (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the root of the finger to the first bolt",
+        "es": "Distancia de la raíz del dedo al primer tornillo"
+      }
+    },
+    {
+      "id": "vee",
+      "type": "checkbox",
+      "default": true,
+      "group": "vee",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "V Notch",
+        "es": "Muesca en V"
+      },
+      "tooltip": {
+        "en": "Cut a V notch in the gripping face to centre a round body",
+        "es": "Corta una muesca en V en la cara de agarre para centrar un cuerpo redondo"
+      }
+    },
+    {
+      "id": "vee_x",
+      "type": "slider",
+      "default": 58.0,
+      "min": 20.0,
+      "max": 240.0,
+      "step": 1.0,
+      "group": "vee",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Notch Position (mm)",
+        "es": "Posición de la Muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the root to the centre of the notch",
+        "es": "Distancia de la raíz al centro de la muesca"
+      }
+    },
+    {
+      "id": "vee_w",
+      "type": "slider",
+      "default": 24.0,
+      "min": 6.0,
+      "max": 160.0,
+      "step": 1.0,
+      "group": "vee",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Notch Width (mm)",
+        "es": "Ancho de la Muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the notch at the gripping face",
+        "es": "Ancho de la muesca en la cara de agarre"
+      }
+    },
+    {
+      "id": "vee_depth",
+      "type": "slider",
+      "default": 8.0,
+      "min": 2.0,
+      "max": 30.0,
+      "step": 0.5,
+      "group": "vee",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Notch Depth (mm)",
+        "es": "Profundidad de la Muesca (mm)"
+      },
+      "tooltip": {
+        "en": "Depth of the notch; equal to half the width it gives a 90 degree V",
+        "es": "Profundidad de la muesca; igual a la mitad del ancho da una V de 90 grados"
+      }
+    },
+    {
+      "id": "pad_holes",
+      "type": "checkbox",
+      "default": false,
+      "group": "pad",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Pad Holes",
+        "es": "Barrenos de Almohadilla"
+      },
+      "tooltip": {
+        "en": "Add two holes near the tip for a bolted-on pad",
+        "es": "Agrega dos barrenos cerca de la punta para una almohadilla atornillada"
+      }
+    },
+    {
+      "id": "pad_span",
+      "type": "slider",
+      "default": 16.0,
+      "min": 6.0,
+      "max": 100.0,
+      "step": 0.5,
+      "group": "pad",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Pad Bolt Span (mm)",
+        "es": "Separación de Tornillos de la Almohadilla (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two pad holes, across the height",
+        "es": "Distancia entre los dos barrenos de la almohadilla, a lo alto"
+      }
+    },
+    {
+      "id": "pad_bolt_d",
+      "type": "slider",
+      "default": 3.4,
+      "min": 2.4,
+      "max": 6.5,
+      "step": 0.1,
+      "group": "pad",
+      "modes": [
+        "finger"
+      ],
+      "label": {
+        "en": "Pad Bolt Hole (mm)",
+        "es": "Barreno de Tornillo de la Almohadilla (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each pad hole",
+        "es": "Diámetro de cada barreno de la almohadilla"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "vee_80_for_24",
+      "mode": "finger",
+      "label": {
+        "en": "V finger · 80 mm reach · 24 mm notch",
+        "es": "Dedo en V · alcance 80 mm · muesca de 24 mm"
+      },
+      "values": {
+        "reach": 80.0,
+        "finger_t": 16.0,
+        "finger_h": 30.0,
+        "jaw_pitch": 20.0,
+        "jaw_bolt_d": 5.5,
+        "root_margin": 8.0,
+        "vee": true,
+        "vee_x": 58.0,
+        "vee_w": 24.0,
+        "vee_depth": 8.0,
+        "pad_holes": false,
+        "pad_span": 16.0,
+        "pad_bolt_d": 3.4
+      }
+    },
+    {
+      "id": "flat_60_pad",
+      "mode": "finger",
+      "label": {
+        "en": "Flat finger · 60 mm reach · pad holes",
+        "es": "Dedo plano · alcance 60 mm · barrenos de almohadilla"
+      },
+      "values": {
+        "reach": 60.0,
+        "finger_t": 10.0,
+        "finger_h": 24.0,
+        "jaw_pitch": 16.0,
+        "jaw_bolt_d": 4.5,
+        "root_margin": 6.0,
+        "vee": false,
+        "vee_x": 40.0,
+        "vee_w": 12.0,
+        "vee_depth": 4.0,
+        "pad_holes": true,
+        "pad_span": 12.0,
+        "pad_bolt_d": 3.4
+      }
+    },
+    {
+      "id": "vee_180_for_120",
+      "mode": "finger",
+      "label": {
+        "en": "V finger · 180 mm reach · 120 mm notch",
+        "es": "Dedo en V · alcance 180 mm · muesca de 120 mm"
+      },
+      "values": {
+        "reach": 180.0,
+        "finger_t": 36.0,
+        "finger_h": 60.0,
+        "jaw_pitch": 30.0,
+        "jaw_bolt_d": 8.5,
+        "root_margin": 10.0,
+        "vee": true,
+        "vee_x": 115.0,
+        "vee_w": 120.0,
+        "vee_depth": 28.0,
+        "pad_holes": false,
+        "pad_span": 30.0,
+        "pad_bolt_d": 4.5
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "2 * root_margin + jaw_pitch <= reach",
+      "severity": "error",
+      "message": {
+        "en": "The jaw bolts do not fit along the finger",
+        "es": "Los tornillos de la mordaza no caben a lo largo del dedo"
+      }
+    },
+    {
+      "expression": "jaw_bolt_d + 2 <= jaw_pitch && jaw_bolt_d + 4 <= finger_h",
+      "severity": "error",
+      "message": {
+        "en": "The jaw bolt holes need at least 2 mm between them and 2 mm of finger above and below",
+        "es": "Los barrenos de la mordaza necesitan al menos 2 mm entre ellos y 2 mm de dedo arriba y abajo"
+      }
+    },
+    {
+      "expression": "!vee || vee_x - vee_w / 2 >= root_margin + jaw_pitch + jaw_bolt_d / 2 + 2",
+      "severity": "error",
+      "message": {
+        "en": "The notch runs into the jaw bolts: move it toward the tip or make it narrower",
+        "es": "La muesca invade los tornillos de la mordaza: muévela hacia la punta o hazla más angosta"
+      }
+    },
+    {
+      "expression": "!vee || vee_x + vee_w / 2 + 3 <= reach",
+      "severity": "error",
+      "message": {
+        "en": "The notch must leave at least 3 mm of finger at the tip",
+        "es": "La muesca debe dejar al menos 3 mm de dedo en la punta"
+      }
+    },
+    {
+      "expression": "!vee || vee_depth + 3 <= finger_t",
+      "severity": "error",
+      "message": {
+        "en": "The notch must leave at least 3 mm of finger behind it",
+        "es": "La muesca debe dejar al menos 3 mm de dedo detrás"
+      }
+    },
+    {
+      "expression": "!pad_holes || pad_span + pad_bolt_d + 4 <= finger_h",
+      "severity": "error",
+      "message": {
+        "en": "The pad holes do not fit in the height of the finger",
+        "es": "Los barrenos de la almohadilla no caben en la altura del dedo"
+      }
+    },
+    {
+      "expression": "!vee || !pad_holes",
+      "severity": "error",
+      "message": {
+        "en": "The pad holes sit at the tip, where the notch is: use one or the other",
+        "es": "Los barrenos de la almohadilla quedan en la punta, donde está la muesca: usa uno u otro"
+      }
+    },
+    {
+      "expression": "reach <= 8 * finger_t",
+      "severity": "warning",
+      "message": {
+        "en": "A finger this long for its thickness bends under the grip and opens at the tip",
+        "es": "Un dedo tan largo para su espesor se flexiona con el agarre y se abre en la punta"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        140,
+        -160,
+        120
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        40,
+        0,
+        260
+      ]
+    },
+    {
+      "id": "grip",
+      "label": {
+        "en": "Gripping Face",
+        "es": "Cara de Agarre"
+      },
+      "position": [
+        40,
+        -260,
+        15
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 4,
+    "per_unit": 1,
+    "per_part": 4,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "jaw_mount",
+        "label": {
+          "en": "Jaw Mount",
+          "es": "Montaje a la Mordaza"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "two bolts in a line along the finger; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "jaw_pitch",
+          "jaw_bolt_d",
+          "root_margin",
+          "finger_t",
+          "finger_h"
+        ],
+        "frame": {
+          "part": "finger",
+          "origin": [
+            "root_margin + jaw_pitch / 2",
+            "finger_t",
+            "finger_h / 2"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "jaw_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "grip_face",
+        "label": {
+          "en": "Gripping Face",
+          "es": "Cara de Agarre"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "reach",
+          "finger_h",
+          "vee",
+          "vee_x",
+          "vee_w",
+          "vee_depth"
+        ],
+        "compatible_with": [
+          "soft-gripper-pad"
+        ],
+        "frame": {
+          "part": "finger",
+          "origin": [
+            "root_margin",
+            0,
+            "finger_h / 2"
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 1
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Automation reaches a small shop the day one of its own parts can be picked up reliably, and that depends on a finger nobody sells, because it is shaped by the part. A finger generated from the gripper's bolt pattern and the part's size can be printed, tried and corrected the same afternoon, so a shop with one robot or one pneumatic clamp can change what it handles without waiting on a toolmaker.",
+      "es": "La automatización llega a un taller pequeño el día que una de sus propias piezas puede tomarse de forma confiable, y eso depende de un dedo que nadie vende, porque la pieza le da forma. Un dedo generado desde el patrón de tornillos de la pinza y el tamaño de la pieza puede imprimirse, probarse y corregirse la misma tarde, así un taller con un robot o una prensa neumática puede cambiar lo que maneja sin esperar a un herramentista."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "gripper-finger",
+    "gripper",
+    "robot",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
