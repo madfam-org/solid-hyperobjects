@@ -1,0 +1,643 @@
+{
+  "project": {
+    "name": "Cord Cut Jig",
+    "slug": "cord-cut-jig",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "Two blocks that screw to a bench and cut cord, rope, cable, webbing core or soft tube to the same length every time. Anchor Peg holds the end: a loop, a knot or a fitting hooks over its peg, so every piece starts at the same point. Cut Block guides the blade: the cord lies in a channel across its top and a slot across the channel takes a knife or a hot knife straight down through it. The length is the distance between the two on the bench, set once with a tape. Set the cord diameter and the blade.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Dos bloques que se atornillan a un banco y cortan cordón, cuerda, cable, alma de cinta o tubo blando al mismo largo cada vez. La Clavija de Anclaje sostiene el extremo: una gaza, un nudo o un herraje se engancha en su clavija, así cada tramo empieza en el mismo punto. El Bloque de Corte guía la navaja: el cordón descansa en un canal en su cara superior y una ranura que cruza el canal recibe una navaja o un cortador caliente que baja recto a través de él. El largo es la distancia entre ambos sobre el banco, fijada una vez con un flexómetro. Define el diámetro del cordón y la navaja.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/cord-cut-jig.webp",
+    "difficulty": "beginner",
+    "tags": [
+      "cord-cut-jig",
+      "jig",
+      "cutting",
+      "cord",
+      "rope",
+      "cable",
+      "workshop",
+      "tools",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "anchor_peg",
+      "label": {
+        "en": "Anchor Peg",
+        "es": "Clavija de Anclaje"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "anchor_peg"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_unit": 1,
+        "per_part": 4
+      }
+    },
+    {
+      "id": "cut_block",
+      "label": {
+        "en": "Cut Block",
+        "es": "Bloque de Corte"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "cut_block"
+      ],
+      "estimate": {
+        "base_time": 4,
+        "per_unit": 1,
+        "per_part": 4
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "anchor_peg",
+      "label": {
+        "en": "Anchor Peg",
+        "es": "Clavija de Anclaje"
+      },
+      "render_mode": 0,
+      "color": "#d9932b"
+    },
+    {
+      "id": "cut_block",
+      "label": {
+        "en": "Cut Block",
+        "es": "Bloque de Corte"
+      },
+      "render_mode": 0,
+      "color": "#e0a526"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "cord",
+      "label": {
+        "en": "Cord & Screws",
+        "es": "Cordón y Tornillos"
+      }
+    },
+    {
+      "id": "peg",
+      "label": {
+        "en": "Anchor Peg",
+        "es": "Clavija de Anclaje"
+      }
+    },
+    {
+      "id": "block",
+      "label": {
+        "en": "Cut Block",
+        "es": "Bloque de Corte"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "cord_d",
+      "type": "slider",
+      "default": 5.0,
+      "min": 1.0,
+      "max": 16.0,
+      "step": 0.5,
+      "group": "cord",
+      "modes": [
+        "cut_block"
+      ],
+      "label": {
+        "en": "Cord Diameter (mm)",
+        "es": "Diámetro del Cordón (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the cord, rope, cable or tube to cut",
+        "es": "Diámetro del cordón, cuerda, cable o tubo a cortar"
+      }
+    },
+    {
+      "id": "screw_d",
+      "type": "slider",
+      "default": 4.5,
+      "min": 3.0,
+      "max": 6.5,
+      "step": 0.5,
+      "group": "cord",
+      "modes": [
+        "anchor_peg",
+        "cut_block"
+      ],
+      "label": {
+        "en": "Screw Hole (mm)",
+        "es": "Barreno de Tornillo (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each bench screw",
+        "es": "Barreno pasado para cada tornillo al banco"
+      }
+    },
+    {
+      "id": "base_t",
+      "type": "slider",
+      "default": 10.0,
+      "min": 6.0,
+      "max": 30.0,
+      "step": 1.0,
+      "group": "peg",
+      "modes": [
+        "anchor_peg"
+      ],
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Espesor de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the plate under the peg",
+        "es": "Espesor de la placa bajo la clavija"
+      }
+    },
+    {
+      "id": "peg_d",
+      "type": "slider",
+      "default": 10.0,
+      "min": 4.0,
+      "max": 25.0,
+      "step": 0.5,
+      "group": "peg",
+      "modes": [
+        "anchor_peg"
+      ],
+      "label": {
+        "en": "Peg Diameter (mm)",
+        "es": "Diámetro de la Clavija (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the peg the end of the cord hooks over",
+        "es": "Diámetro de la clavija donde se engancha el extremo del cordón"
+      }
+    },
+    {
+      "id": "peg_h",
+      "type": "slider",
+      "default": 25.0,
+      "min": 8.0,
+      "max": 80.0,
+      "step": 1.0,
+      "group": "peg",
+      "modes": [
+        "anchor_peg"
+      ],
+      "label": {
+        "en": "Peg Height (mm)",
+        "es": "Altura de la Clavija (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the peg above the plate",
+        "es": "Altura de la clavija sobre la placa"
+      }
+    },
+    {
+      "id": "base_l",
+      "type": "slider",
+      "default": 70.0,
+      "min": 40.0,
+      "max": 160.0,
+      "step": 1.0,
+      "group": "peg",
+      "modes": [
+        "anchor_peg"
+      ],
+      "label": {
+        "en": "Plate Length (mm)",
+        "es": "Largo de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the plate along the cord",
+        "es": "Largo de la placa a lo largo del cordón"
+      }
+    },
+    {
+      "id": "base_w",
+      "type": "slider",
+      "default": 40.0,
+      "min": 20.0,
+      "max": 100.0,
+      "step": 1.0,
+      "group": "peg",
+      "modes": [
+        "anchor_peg"
+      ],
+      "label": {
+        "en": "Plate Width (mm)",
+        "es": "Ancho de la Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the plate",
+        "es": "Ancho de la placa"
+      }
+    },
+    {
+      "id": "block_l",
+      "type": "slider",
+      "default": 60.0,
+      "min": 40.0,
+      "max": 150.0,
+      "step": 1.0,
+      "group": "block",
+      "modes": [
+        "cut_block"
+      ],
+      "label": {
+        "en": "Block Length (mm)",
+        "es": "Largo del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the block along the cord",
+        "es": "Largo del bloque a lo largo del cordón"
+      }
+    },
+    {
+      "id": "block_w",
+      "type": "slider",
+      "default": 60.0,
+      "min": 40.0,
+      "max": 120.0,
+      "step": 1.0,
+      "group": "block",
+      "modes": [
+        "cut_block"
+      ],
+      "label": {
+        "en": "Block Width (mm)",
+        "es": "Ancho del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the block across the cord",
+        "es": "Ancho del bloque a través del cordón"
+      }
+    },
+    {
+      "id": "block_h",
+      "type": "slider",
+      "default": 25.0,
+      "min": 12.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "block",
+      "modes": [
+        "cut_block"
+      ],
+      "label": {
+        "en": "Block Height (mm)",
+        "es": "Altura del Bloque (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the block; it lifts the cord to the height of the peg's plate or above",
+        "es": "Altura del bloque; levanta el cordón a la altura de la placa de la clavija o más"
+      }
+    },
+    {
+      "id": "blade_w",
+      "type": "slider",
+      "default": 1.2,
+      "min": 0.4,
+      "max": 4.0,
+      "step": 0.1,
+      "group": "block",
+      "modes": [
+        "cut_block"
+      ],
+      "label": {
+        "en": "Blade Slot (mm)",
+        "es": "Ranura de la Navaja (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the slot that guides the blade: the blade thickness plus a little",
+        "es": "Ancho de la ranura que guía la navaja: el espesor de la navaja más un poco"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "peg_10_bench",
+      "mode": "anchor_peg",
+      "label": {
+        "en": "Anchor · 10 mm peg, 25 high",
+        "es": "Anclaje · clavija de 10 mm, 25 de alto"
+      },
+      "values": {
+        "screw_d": 4.5,
+        "base_t": 10.0,
+        "peg_d": 10.0,
+        "peg_h": 25.0,
+        "base_l": 70.0,
+        "base_w": 40.0
+      }
+    },
+    {
+      "id": "cut_5mm_cord",
+      "mode": "cut_block",
+      "label": {
+        "en": "Cut block · 5 mm cord · 1.2 mm blade",
+        "es": "Bloque de corte · cordón de 5 mm · navaja de 1.2 mm"
+      },
+      "values": {
+        "cord_d": 5.0,
+        "screw_d": 4.5,
+        "block_l": 60.0,
+        "block_w": 60.0,
+        "block_h": 25.0,
+        "blade_w": 1.2
+      }
+    },
+    {
+      "id": "cut_12mm_rope_hot_knife",
+      "mode": "cut_block",
+      "label": {
+        "en": "Cut block · 12 mm rope · 3 mm hot knife",
+        "es": "Bloque de corte · cuerda de 12 mm · cortador caliente de 3 mm"
+      },
+      "values": {
+        "cord_d": 12.0,
+        "screw_d": 5.0,
+        "block_l": 80.0,
+        "block_w": 70.0,
+        "block_h": 35.0,
+        "blade_w": 3.0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "peg_d + 3 * screw_d + 14 <= base_l",
+      "severity": "error",
+      "message": {
+        "en": "The plate is too short for the peg and a screw on each side of it",
+        "es": "La placa es demasiado corta para la clavija y un tornillo a cada lado"
+      }
+    },
+    {
+      "expression": "peg_d + 8 <= base_w && screw_d + 8 <= base_w",
+      "severity": "error",
+      "message": {
+        "en": "The plate must be at least 8 mm wider than the peg and than a screw hole",
+        "es": "La placa debe ser al menos 8 mm más ancha que la clavija y que un barreno de tornillo"
+      }
+    },
+    {
+      "expression": "cord_d + 3 * screw_d + 15 <= block_w",
+      "severity": "error",
+      "message": {
+        "en": "The block is too narrow for the channel and a screw on each side of it",
+        "es": "El bloque es demasiado angosto para el canal y un tornillo a cada lado"
+      }
+    },
+    {
+      "expression": "cord_d * 0.75 + 6 <= block_h",
+      "severity": "error",
+      "message": {
+        "en": "The block must leave at least 4 mm of solid under the blade slot",
+        "es": "El bloque debe dejar al menos 4 mm macizos bajo la ranura de la navaja"
+      }
+    },
+    {
+      "expression": "4 * screw_d + 18 <= block_l",
+      "severity": "error",
+      "message": {
+        "en": "The block is too short for its two screws and the blade slot between them",
+        "es": "El bloque es demasiado corto para sus dos tornillos y la ranura de la navaja entre ellos"
+      }
+    },
+    {
+      "expression": "peg_h >= peg_d",
+      "severity": "warning",
+      "message": {
+        "en": "A peg shorter than its own diameter lets a loop ride off the top",
+        "es": "Una clavija más baja que su propio diámetro deja que una gaza se salga por arriba"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        120,
+        -120,
+        90
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -200,
+        20
+      ]
+    },
+    {
+      "id": "top",
+      "label": {
+        "en": "Top",
+        "es": "Superior"
+      },
+      "position": [
+        0,
+        0,
+        220
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 4,
+    "per_unit": 1,
+    "per_part": 4,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "peg_bench_face",
+        "label": {
+          "en": "Bench Face (anchor)",
+          "es": "Cara de Banco (anclaje)"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "base_l",
+          "base_w",
+          "screw_d"
+        ],
+        "frame": {
+          "part": "anchor_peg",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 2
+      },
+      {
+        "id": "peg",
+        "label": {
+          "en": "Anchor Peg",
+          "es": "Clavija de Anclaje"
+        },
+        "geometry_type": "socket",
+        "standard": "plain round peg of peg_d",
+        "parameters": [
+          "peg_d",
+          "peg_h",
+          "base_t"
+        ],
+        "frame": {
+          "part": "anchor_peg",
+          "origin": [
+            0,
+            0,
+            "base_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "male",
+        "symmetry": 0
+      },
+      {
+        "id": "block_bench_face",
+        "label": {
+          "en": "Bench Face (cut block)",
+          "es": "Cara de Banco (bloque de corte)"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "block_l",
+          "block_w",
+          "screw_d"
+        ],
+        "frame": {
+          "part": "cut_block",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 2
+      },
+      {
+        "id": "cord_channel",
+        "label": {
+          "en": "Cord Channel & Blade Slot",
+          "es": "Canal del Cordón y Ranura de la Navaja"
+        },
+        "geometry_type": "custom",
+        "standard": "internal",
+        "parameters": [
+          "cord_d",
+          "blade_w",
+          "block_h"
+        ],
+        "compatible_with": [
+          "paracord-jig",
+          "cable-spool"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "Cutting twenty cords to the same length with a tape and a knife gives twenty lengths. Two blocks on a bench give one: a net maker, a sail loft, a harness shop, a school workshop or anyone assembling kits cuts every piece the same without measuring twice, and the blade always comes down in a slot instead of toward a hand.",
+      "es": "Cortar veinte cordones al mismo largo con un flexómetro y una navaja da veinte largos. Dos bloques en un banco dan uno: una tejedora de redes, una velería, un taller de arneses, un taller escolar o quien arma kits corta cada tramo igual sin medir dos veces, y la navaja siempre baja dentro de una ranura en vez de hacia una mano."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "cord-cut-jig",
+    "jig",
+    "cutting",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
