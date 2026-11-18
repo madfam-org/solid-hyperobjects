@@ -1,0 +1,809 @@
+{
+  "project": {
+    "name": "Winch Cradle",
+    "slug": "winch-cradle",
+    "version": "1.0.0",
+    "attribution": {
+      "author": "Innovaciones MADFAM",
+      "license": "CERN-OHL-W-2.0"
+    },
+    "engine": "cadquery",
+    "description": {
+      "en": "The frame of a direct-drive winch: a base, a plate the motor bolts onto by its face, and room for a drum on the shaft. It is the body of a small hoist, a cable-driven actuator, a spooler, a reel winder or a test rig. The motor face is declared by what every flange-mount motor has (a centring pilot, a bolt circle, a bolt size and a bolt count), so the cradle fits a servo, a gearmotor or a stepper alike. Cradle carries the far end of the shaft in a second plate; Overhung Cradle leaves the drum on the motor's own bearings.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "El bastidor de un malacate de accionamiento directo: una base, una placa donde el motor se atornilla por su cara, y espacio para un tambor sobre la flecha. Es el cuerpo de un polipasto pequeño, un actuador por cable, una bobinadora, una enrolladora o un banco de pruebas. La cara del motor se declara con lo que tiene todo motor de brida (un piloto de centrado, un círculo de tornillos, una medida y un número de tornillos), así que la cuna sirve igual para un servomotor, un motorreductor o un motor a pasos. La Cuna sostiene el extremo lejano de la flecha en una segunda placa; la Cuna en Voladizo deja el tambor sobre los rodamientos del propio motor.\n\nVisualizador y configurador oficial: Yantra4D"
+    },
+    "thumbnail": "/projects/winch-cradle.webp",
+    "difficulty": "intermediate",
+    "tags": [
+      "winch-cradle",
+      "winch",
+      "motor-mount",
+      "drum",
+      "hoist",
+      "cable",
+      "robotics",
+      "industrial",
+      "hyperobject",
+      "commons"
+    ],
+    "hyperobject": {
+      "is_hyperobject": true
+    },
+    "force_backend": true
+  },
+  "modes": [
+    {
+      "id": "cradle",
+      "label": {
+        "en": "Cradle",
+        "es": "Cuna"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "cradle"
+      ],
+      "estimate": {
+        "base_time": 7,
+        "per_unit": 1,
+        "per_part": 7
+      }
+    },
+    {
+      "id": "cradle_overhung",
+      "label": {
+        "en": "Overhung Cradle",
+        "es": "Cuna en Voladizo"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "cradle_overhung"
+      ],
+      "estimate": {
+        "base_time": 6,
+        "per_unit": 1,
+        "per_part": 6
+      }
+    }
+  ],
+  "parts": [
+    {
+      "id": "cradle",
+      "label": {
+        "en": "Cradle",
+        "es": "Cuna"
+      },
+      "render_mode": 0,
+      "color": "#8c96a3"
+    },
+    {
+      "id": "cradle_overhung",
+      "label": {
+        "en": "Overhung Cradle",
+        "es": "Cuna en Voladizo"
+      },
+      "render_mode": 0,
+      "color": "#a9aeb6"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "motor",
+      "label": {
+        "en": "Motor Face",
+        "es": "Cara del Motor"
+      }
+    },
+    {
+      "id": "drum",
+      "label": {
+        "en": "Drum",
+        "es": "Tambor"
+      }
+    },
+    {
+      "id": "frame",
+      "label": {
+        "en": "Frame",
+        "es": "Bastidor"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "pilot_d",
+      "type": "slider",
+      "default": 60.0,
+      "min": 10.0,
+      "max": 150.0,
+      "step": 0.5,
+      "group": "motor",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Pilot Bore (mm)",
+        "es": "Barreno Piloto (mm)"
+      },
+      "tooltip": {
+        "en": "Bore that clears the motor's centring pilot and its shaft",
+        "es": "Barreno que libra el piloto de centrado del motor y su flecha"
+      }
+    },
+    {
+      "id": "bolt_circle",
+      "type": "slider",
+      "default": 75.0,
+      "min": 25.0,
+      "max": 200.0,
+      "step": 0.1,
+      "group": "motor",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Bolt Circle (mm)",
+        "es": "Círculo de Tornillos (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of the circle the motor's face bolts lie on (a square pattern of side s lies on a circle of 1.414 s)",
+        "es": "Diámetro del círculo donde están los tornillos de la cara del motor (un patrón cuadrado de lado s cae en un círculo de 1.414 s)"
+      }
+    },
+    {
+      "id": "bolt_d",
+      "type": "slider",
+      "default": 5.5,
+      "min": 3.4,
+      "max": 12.5,
+      "step": 0.1,
+      "group": "motor",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Face Bolt Hole (mm)",
+        "es": "Barreno de Tornillo de Cara (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each motor face bolt",
+        "es": "Barreno pasado para cada tornillo de la cara del motor"
+      }
+    },
+    {
+      "id": "bolt_count",
+      "type": "slider",
+      "default": 4,
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "group": "motor",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Face Bolts",
+        "es": "Tornillos de Cara"
+      },
+      "tooltip": {
+        "en": "Number of bolts on the circle, evenly spaced, none at the very bottom",
+        "es": "Número de tornillos en el círculo, equidistantes, ninguno justo abajo"
+      }
+    },
+    {
+      "id": "drum_d",
+      "type": "slider",
+      "default": 100.0,
+      "min": 30.0,
+      "max": 400.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Drum Diameter (mm)",
+        "es": "Diámetro del Tambor (mm)"
+      },
+      "tooltip": {
+        "en": "Largest rotating diameter on the shaft: the rim of the drum's flanges",
+        "es": "El mayor diámetro giratorio sobre la flecha: el borde de las bridas del tambor"
+      }
+    },
+    {
+      "id": "drum_w",
+      "type": "slider",
+      "default": 70.0,
+      "min": 10.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "drum",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Drum Width (mm)",
+        "es": "Ancho del Tambor (mm)"
+      },
+      "tooltip": {
+        "en": "Overall width of the drum along the shaft",
+        "es": "Ancho total del tambor a lo largo de la flecha"
+      }
+    },
+    {
+      "id": "end_gap",
+      "type": "slider",
+      "default": 10.0,
+      "min": 2.0,
+      "max": 40.0,
+      "step": 0.5,
+      "group": "drum",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "End Gap (mm)",
+        "es": "Holgura de Extremo (mm)"
+      },
+      "tooltip": {
+        "en": "Space between each face of the drum and the plate beside it",
+        "es": "Espacio entre cada cara del tambor y la placa de al lado"
+      }
+    },
+    {
+      "id": "axis_h",
+      "type": "slider",
+      "default": 75.0,
+      "min": 20.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "frame",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Axis Height (mm)",
+        "es": "Altura del Eje (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the shaft axis above the mounting face",
+        "es": "Altura del eje de la flecha sobre la cara de montaje"
+      }
+    },
+    {
+      "id": "plate_t",
+      "type": "slider",
+      "default": 8.0,
+      "min": 4.0,
+      "max": 20.0,
+      "step": 0.5,
+      "group": "frame",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Plate Thickness (mm)",
+        "es": "Espesor de Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Thickness of the base and of each plate",
+        "es": "Espesor de la base y de cada placa"
+      }
+    },
+    {
+      "id": "plate_margin",
+      "type": "slider",
+      "default": 10.0,
+      "min": 5.0,
+      "max": 40.0,
+      "step": 1.0,
+      "group": "frame",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Plate Margin (mm)",
+        "es": "Margen de Placa (mm)"
+      },
+      "tooltip": {
+        "en": "Material left outside the bolt holes; it sets the size of the square plates",
+        "es": "Material que queda fuera de los barrenos; define el tamaño de las placas cuadradas"
+      }
+    },
+    {
+      "id": "mount_bolt_d",
+      "type": "slider",
+      "default": 6.5,
+      "min": 3.4,
+      "max": 12.5,
+      "step": 0.1,
+      "group": "frame",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Mounting Hole (mm)",
+        "es": "Barreno de Montaje (mm)"
+      },
+      "tooltip": {
+        "en": "Clearance hole for each bolt through the base (5.5 for M5, 6.5 for M6)",
+        "es": "Barreno pasado para cada tornillo de la base (5.5 para M5, 6.5 para M6)"
+      }
+    },
+    {
+      "id": "bearing_d",
+      "type": "slider",
+      "default": 22.0,
+      "min": 8.0,
+      "max": 120.0,
+      "step": 0.5,
+      "group": "frame",
+      "modes": [
+        "cradle"
+      ],
+      "label": {
+        "en": "Outboard Bore (mm)",
+        "es": "Barreno Exterior (mm)"
+      },
+      "tooltip": {
+        "en": "Bore in the outboard plate: the seat of the bearing that carries the far end of the shaft (22 for a 608)",
+        "es": "Barreno en la placa exterior: el asiento del rodamiento que sostiene el extremo lejano de la flecha (22 para un 608)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "face_75_drum_100",
+      "mode": "cradle",
+      "label": {
+        "en": "Cradle · 60 mm pilot, 4 on 75 mm · 100 mm drum",
+        "es": "Cuna · piloto de 60 mm, 4 en 75 mm · tambor de 100 mm"
+      },
+      "values": {
+        "pilot_d": 60.0,
+        "bolt_circle": 75.0,
+        "bolt_d": 5.5,
+        "bolt_count": 4,
+        "drum_d": 100.0,
+        "drum_w": 70.0,
+        "end_gap": 10.0,
+        "axis_h": 75.0,
+        "plate_t": 8.0,
+        "plate_margin": 10.0,
+        "mount_bolt_d": 6.5,
+        "bearing_d": 22.0
+      }
+    },
+    {
+      "id": "face_145_drum_100",
+      "mode": "cradle",
+      "label": {
+        "en": "Cradle · 110 mm pilot, 4 on 145 mm · 100 mm drum",
+        "es": "Cuna · piloto de 110 mm, 4 en 145 mm · tambor de 100 mm"
+      },
+      "values": {
+        "pilot_d": 110.0,
+        "bolt_circle": 145.0,
+        "bolt_d": 9.0,
+        "bolt_count": 4,
+        "drum_d": 100.0,
+        "drum_w": 70.0,
+        "end_gap": 15.0,
+        "axis_h": 95.0,
+        "plate_t": 10.0,
+        "plate_margin": 12.0,
+        "mount_bolt_d": 8.5,
+        "bearing_d": 35.0
+      }
+    },
+    {
+      "id": "overhung_face_44_drum_40",
+      "mode": "cradle_overhung",
+      "label": {
+        "en": "Overhung · 22 mm pilot, 4 on 43.8 mm · 40 mm drum",
+        "es": "En voladizo · piloto de 22 mm, 4 en 43.8 mm · tambor de 40 mm"
+      },
+      "values": {
+        "pilot_d": 22.0,
+        "bolt_circle": 43.8,
+        "bolt_d": 3.4,
+        "bolt_count": 4,
+        "drum_d": 40.0,
+        "drum_w": 20.0,
+        "end_gap": 5.0,
+        "axis_h": 36.0,
+        "plate_t": 5.0,
+        "plate_margin": 6.0,
+        "mount_bolt_d": 4.5
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "expression": "pilot_d + 2 * bolt_d + 4 <= bolt_circle",
+      "severity": "error",
+      "message": {
+        "en": "The pilot bore must leave at least 2 mm of plate before the bolt holes",
+        "es": "El barreno piloto debe dejar al menos 2 mm de placa antes de los barrenos de los tornillos"
+      }
+    },
+    {
+      "expression": "(bolt_count <= 4 && bolt_circle * 0.7 >= bolt_d + 2) || (bolt_count > 4 && bolt_count <= 6 && bolt_circle * 0.5 >= bolt_d + 2) || (bolt_count > 6 && bolt_circle * 0.38 >= bolt_d + 2)",
+      "severity": "error",
+      "message": {
+        "en": "Too many bolts for this circle: neighbouring holes need at least 2 mm between them",
+        "es": "Demasiados tornillos para este círculo: los barrenos vecinos necesitan al menos 2 mm entre ellos"
+      }
+    },
+    {
+      "expression": "axis_h >= bolt_circle / 2 + bolt_d / 2 + plate_t + 2",
+      "severity": "error",
+      "message": {
+        "en": "The axis is too low: the face bolts would run into the base",
+        "es": "El eje está demasiado bajo: los tornillos de la cara entrarían en la base"
+      }
+    },
+    {
+      "expression": "axis_h >= drum_d / 2 + plate_t + 3",
+      "severity": "error",
+      "message": {
+        "en": "The axis is too low: the drum needs at least 3 mm above the base",
+        "es": "El eje está demasiado bajo: el tambor necesita al menos 3 mm sobre la base"
+      }
+    },
+    {
+      "expression": "bearing_d + 8 <= bolt_circle + bolt_d + 2 * plate_margin",
+      "severity": "error",
+      "message": {
+        "en": "The outboard bore must leave at least 4 mm of plate on each side",
+        "es": "El barreno exterior debe dejar al menos 4 mm de placa a cada lado"
+      }
+    },
+    {
+      "expression": "drum_w + 2 * end_gap >= 3 * mount_bolt_d + 10",
+      "severity": "error",
+      "message": {
+        "en": "The base between the plates is too short for its mounting holes",
+        "es": "La base entre las placas es demasiado corta para sus barrenos de montaje"
+      }
+    },
+    {
+      "expression": "plate_t * 2 >= bolt_d",
+      "severity": "warning",
+      "message": {
+        "en": "A plate thinner than half the bolt diameter gives the motor little to seat on",
+        "es": "Una placa más delgada que la mitad del diámetro del tornillo da poco asiento al motor"
+      }
+    },
+    {
+      "expression": "end_gap >= 3",
+      "severity": "warning",
+      "message": {
+        "en": "Under 3 mm beside the drum, a flange that runs out of true can rub the plate",
+        "es": "Con menos de 3 mm junto al tambor, una brida descentrada puede rozar la placa"
+      }
+    }
+  ],
+  "camera_views": [
+    {
+      "id": "iso",
+      "label": {
+        "en": "Isometric",
+        "es": "Isométrico"
+      },
+      "position": [
+        220,
+        -260,
+        200
+      ]
+    },
+    {
+      "id": "motor",
+      "label": {
+        "en": "Motor Face",
+        "es": "Cara del Motor"
+      },
+      "position": [
+        -380,
+        0,
+        80
+      ]
+    },
+    {
+      "id": "side",
+      "label": {
+        "en": "Side",
+        "es": "Lateral"
+      },
+      "position": [
+        0,
+        -380,
+        80
+      ]
+    }
+  ],
+  "export_formats": [
+    "stl",
+    "3mf",
+    "step",
+    "glb",
+    "gltf",
+    "obj"
+  ],
+  "estimate_constants": {
+    "base_time": 7,
+    "per_unit": 1,
+    "per_part": 7,
+    "fn_factor": 32,
+    "wasm_multiplier": 4,
+    "warning_threshold_seconds": 90
+  },
+  "hyperobject": {
+    "domain": "industrial",
+    "cdg_interfaces": [
+      {
+        "id": "motor_face",
+        "label": {
+          "en": "Motor Face",
+          "es": "Cara del Motor"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "motor face: centring pilot and bolt circle, declared by pilot_d, bolt_circle, bolt_d, bolt_count",
+        "parameters": [
+          "pilot_d",
+          "bolt_circle",
+          "bolt_d",
+          "bolt_count",
+          "axis_h",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "cradle",
+          "origin": [
+            "-(drum_w + 2 * end_gap + 2 * plate_t) / 2",
+            0,
+            "axis_h"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "symmetry": 1
+      },
+      {
+        "id": "outboard_bore",
+        "label": {
+          "en": "Outboard Bearing Bore",
+          "es": "Barreno del Rodamiento Exterior"
+        },
+        "geometry_type": "socket",
+        "standard": "bearing outer-ring seat; 608 (8 x 22 x 7) at bearing_d 22",
+        "parameters": [
+          "bearing_d",
+          "axis_h",
+          "plate_t"
+        ],
+        "compatible_with": [
+          "bearing-housing",
+          "idler-608"
+        ],
+        "frame": {
+          "part": "cradle",
+          "origin": [
+            "(drum_w + 2 * end_gap + 2 * plate_t) / 2",
+            0,
+            "axis_h"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "bearing_d",
+          "map": {
+            "22": "bearing-608"
+          }
+        },
+        "symmetry": 0
+      },
+      {
+        "id": "base_mount",
+        "label": {
+          "en": "Base Mounting Holes",
+          "es": "Barrenos de Montaje de la Base"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "drum_w",
+          "end_gap",
+          "bolt_circle",
+          "plate_margin",
+          "mount_bolt_d",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "cradle",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "mount_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "overhung_motor_face",
+        "label": {
+          "en": "Motor Face (overhung)",
+          "es": "Cara del Motor (voladizo)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "motor face: centring pilot and bolt circle, declared by pilot_d, bolt_circle, bolt_d, bolt_count",
+        "parameters": [
+          "pilot_d",
+          "bolt_circle",
+          "bolt_d",
+          "bolt_count",
+          "axis_h",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "cradle_overhung",
+          "origin": [
+            "-(drum_w + 2 * end_gap + 2 * plate_t) / 2",
+            0,
+            "axis_h"
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            1,
+            0
+          ]
+        },
+        "polarity": "male",
+        "symmetry": 1
+      },
+      {
+        "id": "overhung_base_mount",
+        "label": {
+          "en": "Base Mounting Holes (overhung)",
+          "es": "Barrenos de Montaje de la Base (voladizo)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "parameters": [
+          "drum_w",
+          "end_gap",
+          "bolt_circle",
+          "plate_margin",
+          "mount_bolt_d",
+          "plate_t"
+        ],
+        "frame": {
+          "part": "cradle_overhung",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "male",
+        "size_key": {
+          "param": "mount_bolt_d",
+          "map": {
+            "5.5": "m5-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "drum_space",
+        "label": {
+          "en": "Drum Space",
+          "es": "Espacio del Tambor"
+        },
+        "geometry_type": "pocket",
+        "standard": "internal",
+        "parameters": [
+          "drum_d",
+          "drum_w",
+          "end_gap",
+          "axis_h"
+        ],
+        "compatible_with": [
+          "cable-spool",
+          "hose-reel"
+        ]
+      }
+    ],
+    "material_awareness": {
+      "shrinkage_compensation": false,
+      "recycled_material_toggle": false,
+      "tolerance_by_material": true
+    },
+    "societal_benefit": {
+      "en": "A motor and a drum are easy to find; the frame that holds one to the other is what a small project has to make. A cradle generated from the motor's own data sheet and the drum at hand turns a salvaged gearmotor into a gate opener, a boat winch, a stage hoist for light scenery or a rig that tests a cable, without a machine shop having to design the bracket first.",
+      "es": "Un motor y un tambor se consiguen con facilidad; el bastidor que une uno con el otro es lo que un proyecto pequeño tiene que fabricar. Una cuna generada desde la hoja de datos del propio motor y el tambor disponible convierte un motorreductor recuperado en un abrepuertas, un malacate de lancha, un polipasto de escenografía ligera o un banco que prueba un cable, sin que un taller tenga que diseñar primero el soporte."
+    },
+    "commons_license": "CERN-OHL-W-2.0"
+  },
+  "tags": [
+    "winch-cradle",
+    "winch",
+    "motor-mount",
+    "industrial",
+    "hyperobject",
+    "commons"
+  ],
+  "verification": {
+    "stages": {
+      "geometry": {
+        "checks": {
+          "watertight": {
+            "enabled": true
+          },
+          "body_count": {
+            "enabled": true,
+            "expected": 1
+          }
+        }
+      }
+    }
+  }
+}
