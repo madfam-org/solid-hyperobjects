@@ -75,8 +75,9 @@ be established by whoever builds and uses it.
 
 - **Shank** (`knob_pin_shank`, `tee_pin_shank`): a plain pin in a round hole
   of `pin_d`. The frame sits on the axis at the underside of the collar and
-  points down the shank. No size key is declared: the interface-sizes
-  vocabulary has no entry for a plain index pin yet.
+  points down the shank. Polarity male. It carries the size key `pin-10mm`
+  when `pin_d` is 10, the key the bore of `index-carriage` carries, so the two
+  mate in an assembly. At other diameters it has no key.
 
 ## Licence
 
