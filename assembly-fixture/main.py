@@ -6,10 +6,15 @@ welding, gluing, or drilling. One base plate carries locating pins (in a
 selectable pattern), optional raised stops/fences, or a V-groove, plus mounting
 holes to bolt the fixture to a bench.
 
-Three build targets are dispatched by `target_part`:
+Four build targets are dispatched by `target_part`:
   - "pin_plate"    : base plate + array of locating pins (corners / grid / linear)
   - "stop_fixture" : base plate + edge stops forming an L / corner reference
   - "v_block"      : a V-groove block that cradles round stock
+  - "saddle"       : a channel between two cheeks that nests rectangular stock
+                     (a tube, a bar, a post). Two saddles screwed to a bar hold
+                     two posts parallel at a set distance. It has its own size
+                     parameters and reads none of the plate's. ONE outline
+                     extruded along the stock, then drilled; nothing is fused.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -59,6 +64,13 @@ v_stock_dia  = float(PARAM(lambda: v_stock_dia,   25.0))   # nominal round stock
 mount_holes  = bool( PARAM(lambda: mount_holes,   True))   # corner bolt-down holes
 mount_dia    = float(PARAM(lambda: mount_dia,      6.5))   # mounting hole diameter
 mount_inset  = float(PARAM(lambda: mount_inset,   10.0))   # hole distance from edge
+
+saddle_stock_w = float(PARAM(lambda: saddle_stock_w, 50.0))  # outside width of the rectangular stock
+saddle_clear   = float(PARAM(lambda: saddle_clear,    0.3))  # clearance per side to each cheek
+cheek_h        = float(PARAM(lambda: cheek_h,        25.0))  # cheek height above the seat
+cheek_t        = float(PARAM(lambda: cheek_t,         8.0))  # cheek thickness
+saddle_len     = float(PARAM(lambda: saddle_len,     60.0))  # saddle length along the stock (Y)
+saddle_flange  = float(PARAM(lambda: saddle_flange,  20.0))  # base reach beside each cheek
 
 target_part  = str(  PARAM(lambda: target_part, "pin_plate"))
 
@@ -242,11 +254,42 @@ def build_v_block():
     return body
 
 
+# ── saddle ──────────────────────────────────────────────
+def build_saddle():
+    """A channel for rectangular stock running along Y: base, two cheeks. The seat is
+    the top of the base (z = base_t); the stock drops in from above. One closed outline
+    in XZ, extruded along Y, so the cheeks are never fused onto the base."""
+    xi = saddle_stock_w / 2.0 + saddle_clear       # inner face of a cheek
+    xo = xi + cheek_t                              # outer face of a cheek
+    half = xo + saddle_flange                      # half-width of the base
+    top = base_t + cheek_h
+    pts = [(-half, 0.0), (half, 0.0), (half, base_t), (xo, base_t), (xo, top), (xi, top),
+           (xi, base_t), (-xi, base_t), (-xi, top), (-xo, top), (-xo, base_t), (-half, base_t)]
+    body = (
+        cq.Workplane("XZ").polyline(pts).close().extrude(saddle_len)   # XZ extrudes toward -Y
+        .translate((0.0, saddle_len / 2.0, 0.0))
+    )
+    if mount_holes:
+        hx = xo + saddle_flange / 2.0
+        hy = saddle_len / 2.0 - max(mount_dia, 8.0)
+        ys = [-hy, hy] if hy >= mount_dia else [0.0]
+        cutter = (
+            cq.Workplane("XY")
+            .pushPoints([(sx * hx, y) for sx in (-1.0, 1.0) for y in ys])
+            .circle(mount_dia / 2.0)
+            .extrude(base_t + 2.0)
+            .translate((0.0, 0.0, -1.0))
+        )
+        body = body.cut(cutter)
+    return body
+
+
 # ── Dispatch ─────────────────────────────────────────────────────────────────
 _dispatch = {
     "pin_plate":    build_pin_plate,
     "stop_fixture": build_stop_fixture,
     "v_block":      build_v_block,
+    "saddle":       build_saddle,
 }
 
 result = _dispatch.get(target_part, build_pin_plate)()
