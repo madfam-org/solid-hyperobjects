@@ -528,7 +528,33 @@
           "column_w",
           "column_d",
           "slide_clr"
-        ]
+        ],
+        "frame": {
+          "part": "carriage",
+          "origin": [
+            0,
+            "-(column_d / 2 + slide_clr)",
+            "sleeve_h / 2 - 3 - (pin_d + 12) / 2"
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            1
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "column_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 1
       },
       {
         "id": "index_pin",
@@ -555,7 +581,40 @@
           "yoke_gap",
           "pivot_d",
           "ear_reach"
-        ]
+        ],
+        "frame": {
+          "part": "carriage",
+          "origin": [
+            "-yoke_gap / 2",
+            "column_d / 2 + slide_clr + sleeve_wall + ear_reach",
+            "-sleeve_h / 2 + 3 + ear_h / 2"
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "x_axis": [
+            0,
+            0,
+            -1
+          ]
+        },
+        "polarity": "neutral",
+        "size_key": {
+          "param": "pivot_d",
+          "map": {
+            "8": "shaft-8mm"
+          }
+        },
+        "symmetry": 0,
+        "travel": {
+          "axis": "z",
+          "range": [
+            0,
+            "yoke_gap"
+          ]
+        }
       }
     ],
     "material_awareness": {

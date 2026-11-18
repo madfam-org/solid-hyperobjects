@@ -83,6 +83,41 @@ has to be established by whoever builds and uses it.
 - **Index pin bore** (`index_pin`): `pin_d`, `boss_l`.
 - **Yoke pivot** (`yoke_pivot`): `yoke_gap`, `pivot_d`, `ear_reach`.
 
+## Mating frames (assemblies)
+
+Two interfaces carry a SEM-1 frame, so the carriage can be placed in an
+assembly: riding a column, with a block hung in its yoke.
+
+- **`column_sleeve`**: the inner face of the sleeve's rear wall, the face that
+  bears on the column when the yoke is loaded. Origin
+  `(0, -(column_d/2 + slide_clr), sleeve_h/2 - 3 - (pin_d + 12)/2)`, at the height
+  of the index pin; normal `+y`, out of the wall into the opening; `x_axis` `+z`,
+  along the column. Symmetry 1. Polarity female. Size key
+  `{param: column_w, map: {"80": square-tube-80mm}}`.
+- **`yoke_pivot`**: the pivot bore, framed where it opens in the inner face of
+  one ear. Origin
+  `(-yoke_gap/2, column_d/2 + slide_clr + sleeve_wall + ear_reach, -sleeve_h/2 + 3 + ear_h/2)`,
+  normal `+x`, into the gap; `x_axis` `-z`, the way a block hangs. Symmetry 0.
+  Polarity neutral, because the partner is another bore on the same pin. Size
+  key `{param: pivot_d, map: {"8": shaft-8mm}}`. It declares `travel` along its
+  normal from 0 to `yoke_gap`, so a mate can state where between the ears the
+  partner sits.
+
+Both frames are verified against the rendered part at the defaults and every
+preset (`y4d-spec check --render`).
+
+Limits:
+
+- **The sleeve sits against one face.** Mated on `column_sleeve`, the carriage
+  bears on the column's rear face and the whole sliding clearance is at the front.
+- **Sizes.** Each size key resolves at one value (`column_w` = 80, `pivot_d` = 8).
+  Elsewhere the interface has no size key.
+- **The key reads the width.** As on the column, a sleeve 80 mm wide and another
+  depth would still resolve to the square's key.
+- **The index pin has no frame.** `index_pin` stays a descriptive interface: a
+  sliding mate is continuous, and that the pin drops only at a hole is not
+  something a frame states.
+
 ## Licence
 
 CERN-OHL-W-2.0. See `LICENSE`.
