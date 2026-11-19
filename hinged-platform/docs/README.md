@@ -93,8 +93,9 @@ enough and guard the gap at the hinge.
 - **Panel hinge bore** (`panel_hinge`) and **block hinge bore**
   (`block_hinge`): the pin bore, an 8 mm ground shaft when `pin_d` is 8.
 - **Deck face** (`deck_face`): the top of the panel.
-- **Block flange bolts** (`block_mount`): the underside of the block; an M5
-  screw joint when `bolt_d` is 5.5.
+- **Block flange bolts** (`block_mount`): the underside of the block. Its
+  size key follows `bolt_d`: an M5 screw joint at 5.5, M6 at 6.5 (the default),
+  M8 at 8.5.
 
 ## Licence
 

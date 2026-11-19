@@ -2,7 +2,7 @@
   "project": {
     "name": "Hinged Platform",
     "slug": "hinged-platform",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -429,8 +429,8 @@
         "es": "Barreno de Tornillo (mm)"
       },
       "tooltip": {
-        "en": "Clearance hole for each flange bolt (5.5 for M5, 6.5 for M6)",
-        "es": "Barreno pasado para cada tornillo de la brida (5.5 para M5, 6.5 para M6)"
+        "en": "Clearance hole for each flange bolt (5.5 for M5, 6.5 for M6, 8.5 for M8)",
+        "es": "Barreno pasado para cada tornillo de la brida (5.5 para M5, 6.5 para M6, 8.5 para M8)"
       }
     }
   ],
@@ -815,7 +815,9 @@
         "size_key": {
           "param": "bolt_d",
           "map": {
-            "5.5": "m5-screw-joint"
+            "5.5": "m5-screw-joint",
+            "6.5": "m6-screw-joint",
+            "8.5": "m8-screw-joint"
           }
         },
         "symmetry": 1
