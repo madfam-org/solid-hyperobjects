@@ -31,6 +31,16 @@ half the rim gap on each side, which is what two parallel legs of cable leaving
 the sheave need (a wrap of 180° or more). With the default 90 mm sheave and 4 mm
 gap the mouth spans 147° and the guard covers the other 213°.
 
+A block that turns the cable less than a half turn needs a wider mouth, because
+its legs no longer leave parallel. `flare_a` and `flare_b` state how far the leg
+on the +Y side and on the −Y side leans outward from parallel, up to 45° each,
+and the mouth opens by exactly that angle on that side: a leg that leans by an
+angle is tangent to the sheave that much further round. With both at 45° the two
+legs meet at a right angle (a quarter turn), the default block's mouth spans 237°
+and the guard covers the other 123°. Both default to 0, which is the half-turn
+mouth above. The guard that remains is still what keeps a hand off the rim, so
+state the flare the cable needs and no more.
+
 ## Modes
 
 | Mode | Part | Description |
@@ -48,6 +58,8 @@ gap the mouth spans 147° and the guard covers the other 213°.
 | `rim_gap` | 1–12 mm | Fixed gap between the sheave rim and the guard (must stay under 9.5 mm) |
 | `side_gap` | 0.5–3 mm | Clearance between each face of the sheave and its cheek |
 | `wall` | 2.5–8 mm | Thickness of the cheeks and of the rim guard |
+| `flare_a` | 0–45° | How far the leg on the +Y side leans outward from parallel; opens the mouth on that side |
+| `flare_b` | 0–45° | The same for the leg on the −Y side |
 | `pivot_d`, `lug_rise` | 4–16 mm, 6–40 mm | Pivot bore, and its height above the outside of the guard (hanging mode) |
 | `mount_bolt_d`, `plate_t` | 3.5–10.5 mm, 3–12 mm | Bolt clearance hole and plate thickness (fixed mode) |
 
@@ -79,7 +91,7 @@ builds and uses it.
 
 ## Interfaces
 
-- **Sheave pocket and axle** (`sheave_pocket`): `sheave_d`, `sheave_w`, `rim_gap`, `side_gap`, `axle_d`.
+- **Sheave pocket and axle** (`sheave_pocket`): `sheave_d`, `sheave_w`, `rim_gap`, `side_gap`, `axle_d`, `flare_a`, `flare_b`.
 - **Hanging pivot** (`hang_pivot`): `pivot_d`, `lug_rise`, `wall`.
 - **Mounting plate bolts** (`mount_plate`): `mount_bolt_d`, `plate_t`.
 
