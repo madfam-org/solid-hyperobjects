@@ -17,8 +17,11 @@ Frame: the axle is on X, the mouth opens toward -Z and the attachment is at +Z.
 The body is a prism along X, so it prints lying on one cheek.
 
 The guard covers the rim wherever the cable does not have to pass. The mouth is
-derived, not chosen: it is just wide enough for two parallel legs leaving a
-sheave of the declared diameter (a wrap of 180 degrees or more).
+derived, not chosen: with no flare it is just wide enough for two parallel legs
+leaving a sheave of the declared diameter (a wrap of 180 degrees or more). A
+block that turns the cable less than that (a redirect, a quarter turn) states how
+far each leg leans outward from parallel, `flare_a` on the +Y side and `flare_b`
+on the -Y side, and the mouth opens by exactly that angle on that side.
 
 Construction: each part is ONE outline (guard circle plus attachment) extruded
 across the block width, then cut. Nothing is unioned, so no two faces ever share
@@ -55,6 +58,8 @@ PIVOT_D = float(PARAM(lambda: pivot_d, 8.0))
 LUG_RISE = float(PARAM(lambda: lug_rise, 12.0))
 MOUNT_BOLT_D = float(PARAM(lambda: mount_bolt_d, 5.5))
 PLATE_T = float(PARAM(lambda: plate_t, 6.0))
+FLARE_A = float(PARAM(lambda: flare_a, 0.0))
+FLARE_B = float(PARAM(lambda: flare_b, 0.0))
 PART = str(PARAM(lambda: target_part, "block"))
 
 EPS = 1.0                                   # through-cut overshoot
@@ -63,9 +68,13 @@ IN_R = SHEAVE_R + RIM_GAP                   # guard inner radius: the rim gap al
 OUT_R = IN_R + WALL
 IN_W = SHEAVE_W + 2.0 * SIDE_GAP            # pocket width between the cheeks
 OUT_W = IN_W + 2.0 * WALL
-# Half-angle of the mouth, measured from -Z. The chord it opens at the guard's
-# inner surface is the sheave diameter plus half the rim gap on each side.
+# Half-angle of the mouth for two parallel legs, measured from -Z. The chord it
+# opens at the guard's inner surface is the sheave diameter plus half the rim gap
+# on each side. A leg that leans outward by an angle is tangent to the sheave that
+# much further round, so its side of the mouth opens by the same angle.
 MOUTH_HALF = math.asin(min(0.999, (SHEAVE_R + RIM_GAP / 2.0) / IN_R))
+MOUTH_A = MOUTH_HALF + math.radians(FLARE_A)        # +Y side
+MOUTH_B = MOUTH_HALF + math.radians(FLARE_B)        # -Y side
 
 
 def on_circle(radius, angle):
@@ -89,10 +98,12 @@ def outline(points_up):
 def cut_pocket(body):
     """Cut the sheave pocket and the mouth in one tool, between the cheeks only."""
     far = OUT_R + 2.0 * EPS
-    tool = (cq.Workplane("YZ").moveTo(*on_circle(IN_R, MOUTH_HALF))
-            .threePointArc((0.0, IN_R), on_circle(IN_R, -MOUTH_HALF))
-            .lineTo(*on_circle(far, -MOUTH_HALF))
-            .threePointArc((0.0, -far), on_circle(far, MOUTH_HALF))
+    top = math.pi + (MOUTH_A - MOUTH_B) / 2.0                 # middle of the guarded arc
+    low = (MOUTH_A - MOUTH_B) / 2.0                           # middle of the mouth
+    tool = (cq.Workplane("YZ").moveTo(*on_circle(IN_R, MOUTH_A))
+            .threePointArc(on_circle(IN_R, top), on_circle(IN_R, -MOUTH_B))
+            .lineTo(*on_circle(far, -MOUTH_B))
+            .threePointArc(on_circle(far, low), on_circle(far, MOUTH_A))
             .close().extrude(IN_W / 2.0, both=True))
     return body.cut(tool)
 
