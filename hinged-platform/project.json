@@ -2,7 +2,7 @@
   "project": {
     "name": "Hinged Platform",
     "slug": "hinged-platform",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -429,8 +429,8 @@
         "es": "Barreno de Tornillo (mm)"
       },
       "tooltip": {
-        "en": "Clearance hole for each flange bolt (5.5 for M5, 6.5 for M6)",
-        "es": "Barreno pasado para cada tornillo de la brida (5.5 para M5, 6.5 para M6)"
+        "en": "Clearance hole for each flange bolt (5.5 for M5, 6.5 for M6, 8.5 for M8)",
+        "es": "Barreno pasado para cada tornillo de la brida (5.5 para M5, 6.5 para M6, 8.5 para M8)"
       }
     }
   ],
@@ -782,13 +782,14 @@
           "es": "Tornillos de la Brida del Bloque"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole, M6 at 6.5 mm, M8 at 8.5 mm",
         "parameters": [
           "axis_h",
           "flange_l",
           "flange_t",
           "bolt_d",
-          "block_w"
+          "block_w",
+          "panel_t"
         ],
         "let": {
           "axis": "max(axis_h, flange_t + 2)"
@@ -797,8 +798,8 @@
           "part": "hinge_block",
           "origin": [
             0,
-            0,
-            "-axis"
+            "-(panel_t / 2 + flange_l) / 2",
+            "-axis_h"
           ],
           "normal": [
             0,
@@ -815,7 +816,9 @@
         "size_key": {
           "param": "bolt_d",
           "map": {
-            "5.5": "m5-screw-joint"
+            "5.5": "m5-screw-joint",
+            "6.5": "m6-screw-joint",
+            "8.5": "m8-screw-joint"
           }
         },
         "symmetry": 1
