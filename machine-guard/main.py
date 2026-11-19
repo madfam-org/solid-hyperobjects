@@ -11,8 +11,11 @@ Parts (dispatched via `target_part`):
                   follows the rim at a fixed gap and comes straight down to two
                   bolted feet. One end can be closed by a wall (a drum overhung
                   on a shaft); left open, the hood is a tunnel between the two
-                  supports that carry the drum. A slot lets a cable or a belt
-                  leave the drum.
+                  supports that carry the drum. A slot in the arch lets a
+                  cable or a belt leave over the top of the drum; a second,
+                  optional slot low in one straight wall lets it leave the
+                  underside. The end wall is solid across the shaft line: a
+                  drum carried between two supports takes the tunnel.
   * "box_cover" — a five-sided cover over a drive, a coupling, a resistor or a
                   terminal row, with vent slots in the top and a notch in one
                   end wall for a shaft or a cable.
@@ -22,7 +25,8 @@ on X at height `axis_h`, centred on the origin; the box cover is centred on the
 origin too. The feet run along X on both sides (+Y and -Y).
 
 Every opening the guard leaves is held under a finger gap by the manifest: the
-gap to the drum, the cable slot and the vent slots.
+gap to the drum, both cable slots and the vent slots. The two cable slots
+never join: on the same wall the low one stays a land below the arch one.
 
 Construction: each part is ONE outline (feet, walls and top in a single closed
 wire) extruded along X, then cut: the cavity, the slot, the vents, the notch
@@ -64,6 +68,11 @@ CABLE_SLOT = as_bool(PARAM(lambda: cable_slot, True))
 SLOT_W = float(PARAM(lambda: slot_w, 8.0))
 SLOT_LEN = float(PARAM(lambda: slot_len, 60.0))
 SLOT_ANGLE = float(PARAM(lambda: slot_angle, 50.0))
+WALL_SLOT = as_bool(PARAM(lambda: wall_slot, False))
+WALL_SLOT_FAR = as_bool(PARAM(lambda: wall_slot_far, False))
+WALL_SLOT_H = float(PARAM(lambda: wall_slot_h, 25.0))
+WALL_SLOT_W = float(PARAM(lambda: wall_slot_w, 8.0))
+WALL_SLOT_LEN = float(PARAM(lambda: wall_slot_len, 60.0))
 INNER_W = float(PARAM(lambda: inner_w, 160.0))
 INNER_D = float(PARAM(lambda: inner_d, 120.0))
 INNER_H = float(PARAM(lambda: inner_h, 60.0))
@@ -81,6 +90,7 @@ PART = str(PARAM(lambda: target_part, "drum_hood"))
 EPS = 1.0                                   # through-cut overshoot
 VENT_MARGIN = 8.0                           # solid top left at each end of a vent slot
 VENT_LAND = 2.0                             # least solid between two vent slots
+SLOT_LAND = 2.0                             # least wall between the low slot and the foot or the arch slot
 
 
 def extrude_x(points, arc, x0, x1):
@@ -136,6 +146,15 @@ def build_drum_hood():
         slot = box(length, SLOT_W, WALL + 6.0, cz=r_in + WALL / 2.0)
         slot = slot.rotate((0, 0, 0), (1, 0, 0), -angle).translate((0, 0, axis))
         hood = hood.cut(slot)
+    if WALL_SLOT:                            # a slot through one straight wall, between the foot and the axis
+        lo = FOOT_T + SLOT_LAND + WALL_SLOT_W / 2.0
+        hi = axis - WALL_SLOT_W / 2.0
+        if CABLE_SLOT and not WALL_SLOT_FAR:  # the arch slot reaches at most SLOT_W / 2 below the axis on +Y
+            hi -= SLOT_W / 2.0 + SLOT_LAND
+        if hi >= lo:                         # a wall too low to hold the slot is left whole
+            side = -1.0 if WALL_SLOT_FAR else 1.0
+            hood = hood.cut(box(min(WALL_SLOT_LEN, DRUM_W), WALL + 2.0 * EPS, WALL_SLOT_W,
+                                cy=side * (r_in + WALL / 2.0), cz=min(max(WALL_SLOT_H, lo), hi)))
     return foot_holes(hood, half, r_out + FOOT_W / 2.0)
 
 
