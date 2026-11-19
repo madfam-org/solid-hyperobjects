@@ -18,6 +18,12 @@ base, in two rows along the shaft: the seat of a fixed guard that stands over
 the drum on the base and is bolted down by two feet. A pitch of 0 along the
 shaft gives one hole per row.
 
+The plates are square. By default their side is the bolt circle plus the bolt
+hole plus the margin on both sides. With the compact plate on, the side follows
+the bolts where they actually are (they sit half a step off the vertical, so
+four of them reach 0.707 of the circle's radius sideways and upward, eight
+reach 0.924), and is never less than the pilot bore plus the margin.
+
 Frame: the mounting face is Z = 0. The shaft axis is on X at height `axis_h`.
 The motor sits outside the plate at -X and its shaft enters through the pilot
 bore; the outboard plate is at +X. The cradle is centred on the origin in X
@@ -68,11 +74,19 @@ HOOD_SEATS = as_bool(PARAM(lambda: hood_seats, False))
 HOOD_SEAT_PX = float(PARAM(lambda: hood_seat_px, 60.0))
 HOOD_SEAT_PY = float(PARAM(lambda: hood_seat_py, 130.0))
 HOOD_HOLE_D = float(PARAM(lambda: hood_hole_d, 4.2))
+COMPACT = as_bool(PARAM(lambda: compact_plate, False))
 PART = str(PARAM(lambda: target_part, "cradle"))
 OUTBOARD = PART != "cradle_overhung"
 
 EPS = 1.0                                   # through-cut overshoot
-SIDE = BOLT_CIRCLE + BOLT_D + 2.0 * PLATE_MARGIN      # the plates are square on the bolt circle
+N_BOLTS = max(3, BOLT_COUNT)
+# half a step off the vertical: no bolt at the very bottom, where the base is
+BOLT_ANGLES = [math.radians(360.0 * (i + 0.5) / N_BOLTS - 90.0) for i in range(N_BOLTS)]
+if COMPACT:                                 # square on the bolts themselves: their reach sideways and upward
+    REACH = max(max(abs(math.cos(a)), math.sin(a)) for a in BOLT_ANGLES)
+    SIDE = max(BOLT_CIRCLE * REACH + BOLT_D, PILOT_D) + 2.0 * PLATE_MARGIN
+else:                                       # square on the whole bolt circle
+    SIDE = BOLT_CIRCLE + BOLT_D + 2.0 * PLATE_MARGIN
 INNER = DRUM_W + 2.0 * END_GAP              # clear length between the plates
 LENGTH = INNER + 2.0 * PLATE_T
 TOP = AXIS_H + SIDE / 2.0
@@ -93,9 +107,7 @@ def build_cradle():
               .translate((0, SIDE / 2.0, 0)))
     x0, x1 = -h - EPS, -h + t + EPS
     cradle = cradle.cut(hole_x(PILOT_D, 0.0, AXIS_H, x0, x1))
-    n = max(3, BOLT_COUNT)
-    for i in range(n):                       # half a step off the vertical: no bolt at the very bottom
-        a = math.radians(360.0 * (i + 0.5) / n - 90.0)
+    for a in BOLT_ANGLES:
         cradle = cradle.cut(hole_x(BOLT_D, BOLT_CIRCLE / 2.0 * math.cos(a),
                                    AXIS_H + BOLT_CIRCLE / 2.0 * math.sin(a), x0, x1))
     if OUTBOARD:

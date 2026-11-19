@@ -22,13 +22,36 @@ frame-size name, so one family fits a servo, a gearmotor or a stepper.
 | A square bolt pattern of side *s* | `bolt_circle` = 1.414 × *s*, `bolt_count` = 4 |
 | Bolt size | `bolt_d`, the clearance hole for it |
 
-The plates are square on the bolt circle with `plate_margin` of material
-outside the holes. The bolts are spaced evenly and turned half a step, so no
-bolt sits at the very bottom where the base is.
+The bolts are spaced evenly and turned half a step, so no bolt sits at the
+very bottom where the base is. The plates are square, and the base is as wide
+as they are. Their side is
+
+| `compact_plate` | Plate side |
+| :--- | :--- |
+| off (default) | `bolt_circle` + `bolt_d` + 2 × `plate_margin`: square on the whole circle |
+| on | *k* × `bolt_circle` + `bolt_d` + 2 × `plate_margin`: square on the bolts where they are |
+
+Turned half a step, four bolts reach only 0.707 of the circle's radius
+sideways and upward, and eight reach 0.924, so *k* is 0.707 for 4 bolts and
+0.924 for 8. Every other count has a bolt at the very top or on the
+horizontal, *k* is 1 and the plate does not change. A compact plate is never
+narrower than `pilot_d` + 2 × `plate_margin`. For a 145 mm circle of four
+9 mm holes with a 10 mm margin the side is 174 mm, or 131.5 mm compact.
 
 The shaft axis stands `axis_h` above the mounting face. It has to be high
-enough for two things, and the manifest checks both: the lowest face bolt must
-clear the base, and the drum must turn above it.
+enough for four things, and the manifest checks each: the lowest face bolts,
+the pilot bore and the outboard bore must each keep 2 mm of plate above the
+base, and the drum must turn 3 mm above it. The lowest bolts are not a full
+radius below the axis but the radius times this factor:
+
+| Face bolts | 3 | 4 | 5 | 6 | 7 | 8 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Lowest bolt below the axis, × radius | 0.500 | 0.707 | 0.809 | 0.866 | 0.901 | 0.924 |
+
+So the lowest axis is the largest of `plate_t` + 2 + `bolt_d` / 2 + factor ×
+`bolt_circle` / 2, `plate_t` + 2 + `pilot_d` / 2, `plate_t` + 2 +
+`bearing_d` / 2 and `plate_t` + 3 + `drum_d` / 2. For a 110 mm pilot and four
+9 mm holes on 145 mm in a 10 mm plate that is 67.8 mm, set by the bolts.
 
 ## Modes
 
@@ -51,6 +74,7 @@ fixed guard that stands on the base over the drum. It is off by default.
 | `end_gap` | 2–40 mm | Space between each face of the drum and the plate beside it |
 | `axis_h` | 20–300 mm | Height of the shaft axis above the mounting face |
 | `plate_t`, `plate_margin` | 4–20 mm, 5–40 mm | Thickness of base and plates, and material outside the bolt holes |
+| `compact_plate` | on / off | Size the plates on the bolts where they are instead of on the whole circle (smaller with 4 or 8 bolts) |
 | `mount_bolt_d` | 3.4–12.5 mm | Holes through the base: the clearance hole of the bolt (5.5 for M5, 6.5 for M6, 8.5 for M8, 10.5 for M10) |
 | `bearing_d` | 8–120 mm | Bore in the outboard plate (Cradle only; 22 seats a 608) |
 | `hood_seats`, `hood_seat_px`, `hood_seat_py`, `hood_hole_d` | on / off, 0–340 mm, 20–480 mm, 2.5–6.8 mm | Tapped holes through the base for the feet of a hood over the drum: the pitch of the two holes of each row along the shaft (0 gives one hole per row), the spacing of the two rows, and the hole diameter (the tap drill: 4.2 for M5, 5 for M6, 6.8 for M8) |
@@ -59,8 +83,9 @@ fixed guard that stands on the base over the drum. It is off by default.
 
 - The pilot bore leaves 2 mm of plate before the bolt holes, and neighbouring
   bolt holes keep 2 mm between them.
-- The axis is high enough for the face bolts and for the drum.
-- The outboard bore leaves 4 mm of plate on each side.
+- The axis is high enough for the lowest face bolts (by bolt count), the pilot
+  bore, the outboard bore and the drum.
+- The outboard bore leaves 4 mm of plate on each side, compact plate or not.
 - The base between the plates is long enough for its mounting holes.
 - A gap under 3 mm beside the drum is flagged.
 - The hood seat holes stay on the base between the plates, 3 mm clear of each,
@@ -92,10 +117,11 @@ Three things the manifest cannot check, because they depend on the hood:
 
 - **The base must be as wide as the hood.** Each foot reaches `foot_w` / 2
   beyond its row of holes, and the base is only as wide as the plates
-  (`bolt_circle` + `bolt_d` + 2 × `plate_margin`). A small motor face under a
-  wide drum gives a base narrower than the hood: at this cartridge's defaults
-  the base is 100.5 mm wide and the hood for its drum is 146 mm. Widen
-  `plate_margin`, or the seats do not fit.
+  (the plate side above). A small motor face under a wide drum gives a base
+  narrower than the hood: at this cartridge's defaults the base is 100.5 mm
+  wide and the hood for its drum is 146 mm. Widen `plate_margin`, or the seats
+  do not fit. A compact plate narrows the base, so under a hood it needs the
+  margin back: the hood sets the width, not the motor.
 - **The heads of the mounting bolts must clear the feet.** The mounting holes
   are `mount_bolt_d` + 4 in from each edge of the base. Leave the head or the
   washer of that bolt room outside the foot.

@@ -324,8 +324,26 @@
         "es": "Margen de Placa (mm)"
       },
       "tooltip": {
-        "en": "Material left outside the bolt holes; it sets the size of the square plates",
-        "es": "Material que queda fuera de los barrenos; define el tamaño de las placas cuadradas"
+        "en": "Material left outside the bolt holes; it sets the size of the square plates and the width of the base",
+        "es": "Material que queda fuera de los barrenos; define el tamaño de las placas cuadradas y el ancho de la base"
+      }
+    },
+    {
+      "id": "compact_plate",
+      "type": "checkbox",
+      "default": false,
+      "group": "frame",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Compact Plate",
+        "es": "Placa Compacta"
+      },
+      "tooltip": {
+        "en": "Size the square plates on the bolts where they actually are instead of on the whole bolt circle: smaller with 4 or 8 bolts, the same with any other count",
+        "es": "Dimensiona las placas cuadradas sobre los tornillos donde realmente están y no sobre todo el círculo: más chicas con 4 u 8 tornillos, iguales con cualquier otro número"
       }
     },
     {
@@ -521,8 +539,8 @@
       "id": "face_145_drum_100_m8_hooded",
       "mode": "cradle",
       "label": {
-        "en": "Cradle · 110 mm pilot, 4 on 145 mm · 100 mm drum · M8 feet, hood seats",
-        "es": "Cuna · piloto de 110 mm, 4 en 145 mm · tambor de 100 mm · patas M8, asientos de cubierta"
+        "en": "Cradle · 110 mm pilot, 4 on 145 mm · 100 mm drum · compact plate, M8 feet, hood seats",
+        "es": "Cuna · piloto de 110 mm, 4 en 145 mm · tambor de 100 mm · placa compacta, patas M8, asientos de cubierta"
       },
       "values": {
         "pilot_d": 110.0,
@@ -532,9 +550,10 @@
         "drum_d": 100.0,
         "drum_w": 70.0,
         "end_gap": 15.0,
-        "axis_h": 95.0,
+        "axis_h": 68.0,
         "plate_t": 10.0,
-        "plate_margin": 20.0,
+        "plate_margin": 40.0,
+        "compact_plate": true,
         "mount_bolt_d": 8.5,
         "bearing_d": 35.0,
         "hood_seats": true,
@@ -562,11 +581,27 @@
       }
     },
     {
-      "expression": "axis_h >= bolt_circle / 2 + bolt_d / 2 + plate_t + 2",
+      "expression": "axis_h - bolt_d / 2 - plate_t - 2 >= bolt_circle * (bolt_count <= 3 ? 0.25 : bolt_count == 4 ? 0.3536 : bolt_count == 5 ? 0.4046 : bolt_count == 6 ? 0.4331 : bolt_count == 7 ? 0.4505 : 0.462)",
       "severity": "error",
       "message": {
-        "en": "The axis is too low: the face bolts would run into the base",
-        "es": "El eje está demasiado bajo: los tornillos de la cara entrarían en la base"
+        "en": "The axis is too low: the lowest face bolts need 2 mm of plate above the base",
+        "es": "El eje está demasiado bajo: los tornillos de cara más bajos necesitan 2 mm de placa sobre la base"
+      }
+    },
+    {
+      "expression": "axis_h >= pilot_d / 2 + plate_t + 2",
+      "severity": "error",
+      "message": {
+        "en": "The axis is too low: the pilot bore needs 2 mm of plate above the base",
+        "es": "El eje está demasiado bajo: el barreno piloto necesita 2 mm de placa sobre la base"
+      }
+    },
+    {
+      "expression": "axis_h >= bearing_d / 2 + plate_t + 2",
+      "severity": "error",
+      "message": {
+        "en": "The axis is too low: the outboard bore needs 2 mm of plate above the base",
+        "es": "El eje está demasiado bajo: el barreno exterior necesita 2 mm de placa sobre la base"
       }
     },
     {
@@ -578,7 +613,7 @@
       }
     },
     {
-      "expression": "bearing_d + 8 <= bolt_circle + bolt_d + 2 * plate_margin",
+      "expression": "bearing_d + 8 <= bolt_circle * (compact_plate ? (bolt_count == 4 ? 0.7071 : bolt_count == 8 ? 0.9238 : 1) : 1) + bolt_d + 2 * plate_margin",
       "severity": "error",
       "message": {
         "en": "The outboard bore must leave at least 4 mm of plate on each side",
@@ -602,7 +637,7 @@
       }
     },
     {
-      "expression": "!hood_seats || hood_seat_py + hood_hole_d + 6 <= bolt_circle + bolt_d + 2 * plate_margin - 3 * mount_bolt_d - 8",
+      "expression": "!hood_seats || hood_seat_py + hood_hole_d + 6 <= bolt_circle * (compact_plate ? (bolt_count == 4 ? 0.7071 : bolt_count == 8 ? 0.9238 : 1) : 1) + bolt_d + 2 * plate_margin - 3 * mount_bolt_d - 8",
       "severity": "error",
       "message": {
         "en": "The hood seat rows must lie between the two rows of mounting holes with 3 mm of base between the holes: widen the plate margin or narrow the rows",
@@ -721,7 +756,8 @@
           "bolt_d",
           "bolt_count",
           "axis_h",
-          "plate_t"
+          "plate_t",
+          "compact_plate"
         ],
         "frame": {
           "part": "cradle",
@@ -797,7 +833,8 @@
           "bolt_circle",
           "plate_margin",
           "mount_bolt_d",
-          "plate_t"
+          "plate_t",
+          "compact_plate"
         ],
         "frame": {
           "part": "cradle",
@@ -890,7 +927,8 @@
           "bolt_d",
           "bolt_count",
           "axis_h",
-          "plate_t"
+          "plate_t",
+          "compact_plate"
         ],
         "frame": {
           "part": "cradle_overhung",
@@ -927,7 +965,8 @@
           "bolt_circle",
           "plate_margin",
           "mount_bolt_d",
-          "plate_t"
+          "plate_t",
+          "compact_plate"
         ],
         "frame": {
           "part": "cradle_overhung",
