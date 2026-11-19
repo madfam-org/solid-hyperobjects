@@ -788,7 +788,8 @@
           "flange_l",
           "flange_t",
           "bolt_d",
-          "block_w"
+          "block_w",
+          "panel_t"
         ],
         "let": {
           "axis": "max(axis_h, flange_t + 2)"
@@ -797,8 +798,8 @@
           "part": "hinge_block",
           "origin": [
             0,
-            0,
-            "-axis"
+            "-(panel_t / 2 + flange_l) / 2",
+            "-axis_h"
           ],
           "normal": [
             0,
