@@ -2,7 +2,7 @@
   "project": {
     "name": "Twin-Post Frame",
     "slug": "twin-post-frame",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -65,6 +65,23 @@
         "per_unit": 1,
         "per_part": 5
       }
+    },
+    {
+      "id": "base_ledged",
+      "label": {
+        "en": "Base with Front Ledge",
+        "es": "Base con Repisa Frontal"
+      },
+      "scad_file": "main.py",
+      "cq_file": "main.py",
+      "parts": [
+        "base_ledged"
+      ],
+      "estimate": {
+        "base_time": 8,
+        "per_unit": 1,
+        "per_part": 8
+      }
     }
   ],
   "parts": [
@@ -85,6 +102,15 @@
       },
       "render_mode": 0,
       "color": "#a9aeb6"
+    },
+    {
+      "id": "base_ledged",
+      "label": {
+        "en": "Base with Front Ledge",
+        "es": "Base con Repisa Frontal"
+      },
+      "render_mode": 0,
+      "color": "#7d8794"
     }
   ],
   "parameter_groups": [
@@ -115,6 +141,20 @@
         "en": "Arm Mount",
         "es": "Montaje de Brazo"
       }
+    },
+    {
+      "id": "ledge",
+      "label": {
+        "en": "Front Ledge",
+        "es": "Repisa Frontal"
+      }
+    },
+    {
+      "id": "seats",
+      "label": {
+        "en": "Rear Seats",
+        "es": "Asientos Traseros"
+      }
     }
   ],
   "parameters": [
@@ -128,7 +168,8 @@
       "group": "posts",
       "modes": [
         "base",
-        "crossbar"
+        "crossbar",
+        "base_ledged"
       ],
       "label": {
         "en": "Post Spacing (mm)",
@@ -149,7 +190,8 @@
       "group": "posts",
       "modes": [
         "base",
-        "crossbar"
+        "crossbar",
+        "base_ledged"
       ],
       "label": {
         "en": "Post Width (mm)",
@@ -170,7 +212,8 @@
       "group": "posts",
       "modes": [
         "base",
-        "crossbar"
+        "crossbar",
+        "base_ledged"
       ],
       "label": {
         "en": "Post Depth (mm)",
@@ -191,7 +234,8 @@
       "group": "posts",
       "modes": [
         "base",
-        "crossbar"
+        "crossbar",
+        "base_ledged"
       ],
       "label": {
         "en": "Socket Fit (mm)",
@@ -212,7 +256,8 @@
       "group": "posts",
       "modes": [
         "base",
-        "crossbar"
+        "crossbar",
+        "base_ledged"
       ],
       "label": {
         "en": "Post Bolt Hole (mm)",
@@ -232,7 +277,8 @@
       "step": 5.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Base Depth (mm)",
@@ -252,7 +298,8 @@
       "step": 5.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Post Setback (mm)",
@@ -272,7 +319,8 @@
       "step": 1.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Rail Margin (mm)",
@@ -292,7 +340,8 @@
       "step": 1.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Rail Height (mm)",
@@ -312,7 +361,8 @@
       "step": 5.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Rear Member (mm)",
@@ -332,7 +382,8 @@
       "step": 5.0,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Front Member (mm)",
@@ -352,7 +403,8 @@
       "step": 0.5,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Socket Depth (mm)",
@@ -372,7 +424,8 @@
       "step": 0.5,
       "group": "base",
       "modes": [
-        "base"
+        "base",
+        "base_ledged"
       ],
       "label": {
         "en": "Foot Hole (mm)",
@@ -519,6 +572,228 @@
         "en": "Distance from the top face of the crossbar down to the line of the two holes",
         "es": "Distancia de la cara superior del travesaño a la línea de los dos agujeros"
       }
+    },
+    {
+      "id": "ledge_h",
+      "type": "slider",
+      "default": 15.0,
+      "min": 5.0,
+      "max": 60.0,
+      "step": 1.0,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Ledge Height (mm)",
+        "es": "Altura de la Repisa (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the ledge above the floor; it stays below the top of the rails",
+        "es": "Altura de la repisa sobre el piso; queda por debajo de la cara superior de los largueros"
+      }
+    },
+    {
+      "id": "ledge_d",
+      "type": "slider",
+      "default": 70.0,
+      "min": 20.0,
+      "max": 200.0,
+      "step": 5.0,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Ledge Depth (mm)",
+        "es": "Fondo de la Repisa (mm)"
+      },
+      "tooltip": {
+        "en": "How far the ledge reaches in front of the base",
+        "es": "Cuánto sale la repisa al frente de la base"
+      }
+    },
+    {
+      "id": "ledge_seat_span",
+      "type": "slider",
+      "default": 400.0,
+      "min": 50.0,
+      "max": 1400.0,
+      "step": 5.0,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Span (mm)",
+        "es": "Separación de Asientos (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the centres of the two seats on the ledge",
+        "es": "Distancia entre los centros de los dos asientos de la repisa"
+      }
+    },
+    {
+      "id": "ledge_seat_pitch",
+      "type": "slider",
+      "default": 25.0,
+      "min": 10.0,
+      "max": 100.0,
+      "step": 1.0,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Hole Pitch (mm)",
+        "es": "Paso de Barrenos del Asiento (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two holes of each seat",
+        "es": "Distancia entre los dos barrenos de cada asiento"
+      }
+    },
+    {
+      "id": "ledge_seat_y",
+      "type": "slider",
+      "default": 50.0,
+      "min": 8.0,
+      "max": 190.0,
+      "step": 0.5,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Line (mm)",
+        "es": "Línea de Asientos (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the front face of the base to the line of the seat holes",
+        "es": "Distancia de la cara frontal de la base a la línea de barrenos de los asientos"
+      }
+    },
+    {
+      "id": "ledge_hole_d",
+      "type": "slider",
+      "default": 5.0,
+      "min": 3.3,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "ledge",
+      "modes": [
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Hole (mm)",
+        "es": "Barreno del Asiento (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each seat hole: the tap drill of its thread (5 for M6, 4.2 for M5, 6.8 for M8)",
+        "es": "Diámetro de cada barreno: la broca de machuelo de su rosca (5 para M6, 4.2 para M5, 6.8 para M8)"
+      }
+    },
+    {
+      "id": "rear_seats",
+      "type": "checkbox",
+      "default": false,
+      "group": "seats",
+      "modes": [
+        "base",
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Rear Seats",
+        "es": "Asientos Traseros"
+      },
+      "tooltip": {
+        "en": "Drill a rectangle of four blind holes in the top of the rear member for each thing that bolts down there",
+        "es": "Barrena un rectángulo de cuatro agujeros ciegos en la cara superior del miembro trasero por cada cosa que se atornilla ahí"
+      }
+    },
+    {
+      "id": "rear_seat_x",
+      "type": "slider",
+      "default": 150.0,
+      "min": 0.0,
+      "max": 700.0,
+      "step": 5.0,
+      "group": "seats",
+      "modes": [
+        "base",
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Offset (mm)",
+        "es": "Desplazamiento del Asiento (mm)"
+      },
+      "tooltip": {
+        "en": "Distance from the centre line to the centre of each of the two seats; 0 gives one seat on the centre line",
+        "es": "Distancia del eje central al centro de cada uno de los dos asientos; 0 da un solo asiento al centro"
+      }
+    },
+    {
+      "id": "rear_seat_px",
+      "type": "slider",
+      "default": 60.0,
+      "min": 10.0,
+      "max": 300.0,
+      "step": 0.5,
+      "group": "seats",
+      "modes": [
+        "base",
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Pattern, Across (mm)",
+        "es": "Patrón del Asiento, Ancho (mm)"
+      },
+      "tooltip": {
+        "en": "Hole spacing of each seat across the base",
+        "es": "Separación de barrenos de cada asiento a lo ancho de la base"
+      }
+    },
+    {
+      "id": "rear_seat_py",
+      "type": "slider",
+      "default": 60.0,
+      "min": 10.0,
+      "max": 280.0,
+      "step": 0.5,
+      "group": "seats",
+      "modes": [
+        "base",
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Seat Pattern, Front to Back (mm)",
+        "es": "Patrón del Asiento, Fondo (mm)"
+      },
+      "tooltip": {
+        "en": "Hole spacing of each seat front to back",
+        "es": "Separación de barrenos de cada asiento de frente a fondo"
+      }
+    },
+    {
+      "id": "rear_hole_d",
+      "type": "slider",
+      "default": 6.8,
+      "min": 3.3,
+      "max": 10.5,
+      "step": 0.1,
+      "group": "seats",
+      "modes": [
+        "base",
+        "base_ledged"
+      ],
+      "label": {
+        "en": "Rear Seat Hole (mm)",
+        "es": "Barreno del Asiento Trasero (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each hole: the tap drill of its thread (6.8 for M8, 5 for M6, 4.2 for M5, 8.5 for M10)",
+        "es": "Diámetro de cada barreno: la broca de machuelo de su rosca (6.8 para M8, 5 para M6, 4.2 para M5, 8.5 para M10)"
+      }
     }
   ],
   "presets": [
@@ -625,6 +900,40 @@
         "arm_hole_d": 6.8,
         "arm_mount_drop": 30.0
       }
+    },
+    {
+      "id": "portal_base_720_ledged_seated",
+      "mode": "base_ledged",
+      "label": {
+        "en": "Ledged base · 80 mm posts 720 apart · two rear seats",
+        "es": "Base con repisa · postes de 80 mm a 720 · dos asientos traseros"
+      },
+      "values": {
+        "spacing": 720.0,
+        "post_w": 80.0,
+        "post_d": 80.0,
+        "fit": 0.3,
+        "bolt_d": 10.5,
+        "base_depth": 600.0,
+        "post_y": 240.0,
+        "rail_margin": 20.0,
+        "rail_h": 60.0,
+        "rear_d": 180.0,
+        "front_d": 80.0,
+        "socket_depth": 10.0,
+        "foot_bolt_d": 10.5,
+        "ledge_h": 15.0,
+        "ledge_d": 70.0,
+        "ledge_seat_span": 560.0,
+        "ledge_seat_pitch": 25.0,
+        "ledge_seat_y": 50.0,
+        "ledge_hole_d": 5.0,
+        "rear_seats": true,
+        "rear_seat_x": 180.0,
+        "rear_seat_px": 64.0,
+        "rear_seat_py": 148.0,
+        "rear_hole_d": 6.8
+      }
     }
   ],
   "constraints": [
@@ -714,6 +1023,62 @@
       "message": {
         "en": "The posts stand within a fifth of the depth from an edge: a load hung on that side can tip the base",
         "es": "Los postes quedan a menos de un quinto del fondo de un borde: una carga colgada de ese lado puede volcar la base"
+      }
+    },
+    {
+      "expression": "ledge_h + 5 <= rail_h",
+      "severity": "error",
+      "message": {
+        "en": "The ledge must stay at least 5 mm below the top of the rails, or it is not a ledge",
+        "es": "La repisa debe quedar al menos 5 mm bajo la cara superior de los largueros, o deja de ser repisa"
+      }
+    },
+    {
+      "expression": "ledge_seat_y >= ledge_hole_d / 2 + 3 && ledge_seat_y + ledge_hole_d / 2 + 3 <= ledge_d",
+      "severity": "error",
+      "message": {
+        "en": "The seat holes must sit on the ledge with 3 mm of material to each edge",
+        "es": "Los barrenos de los asientos deben quedar sobre la repisa con 3 mm de material a cada borde"
+      }
+    },
+    {
+      "expression": "ledge_seat_span + ledge_seat_pitch + ledge_hole_d + 6 <= spacing + post_w + 2 * rail_margin",
+      "severity": "error",
+      "message": {
+        "en": "The two ledge seats must fit within the width of the base",
+        "es": "Los dos asientos de la repisa deben caber en el ancho de la base"
+      }
+    },
+    {
+      "expression": "ledge_seat_span >= ledge_seat_pitch + ledge_hole_d + 6",
+      "severity": "error",
+      "message": {
+        "en": "The two ledge seats overlap",
+        "es": "Los dos asientos de la repisa se enciman"
+      }
+    },
+    {
+      "expression": "!rear_seats || rear_seat_py + rear_hole_d + 6 <= rear_d",
+      "severity": "error",
+      "message": {
+        "en": "The rear seat pattern is deeper than the rear member",
+        "es": "El patrón del asiento trasero es más profundo que el miembro trasero"
+      }
+    },
+    {
+      "expression": "!rear_seats || 2 * rear_seat_x + rear_seat_px + rear_hole_d + 6 <= spacing - post_w - 2 * rail_margin",
+      "severity": "error",
+      "message": {
+        "en": "The rear seats must stay between the rails, clear of the post sockets and the foot holes",
+        "es": "Los asientos traseros deben quedar entre los largueros, libres de los alojamientos de poste y de los barrenos de patas"
+      }
+    },
+    {
+      "expression": "!rear_seats || rear_seat_x == 0 || 2 * rear_seat_x >= rear_seat_px + rear_hole_d + 6",
+      "severity": "error",
+      "message": {
+        "en": "The two rear seats overlap",
+        "es": "Los dos asientos traseros se enciman"
       }
     }
   ],
@@ -1073,6 +1438,445 @@
           ]
         },
         "polarity": "neutral",
+        "symmetry": 2
+      },
+      {
+        "id": "ledged_socket_a",
+        "label": {
+          "en": "Post Socket A (Ledged Base)",
+          "es": "Alojamiento de Poste A (Base con Repisa)"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "rail_h",
+          "socket_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "-spacing / 2",
+            0,
+            "rail_h - socket_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledged_socket_b",
+        "label": {
+          "en": "Post Socket B (Ledged Base)",
+          "es": "Alojamiento de Poste B (Base con Repisa)"
+        },
+        "geometry_type": "pocket",
+        "standard": "rectangular post section post_w x post_d, entered endwise",
+        "parameters": [
+          "spacing",
+          "post_w",
+          "post_d",
+          "fit",
+          "rail_h",
+          "socket_depth"
+        ],
+        "compatible_with": [
+          "indexed-column"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "spacing / 2",
+            0,
+            "rail_h - socket_depth"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "post_w",
+          "map": {
+            "80": "square-tube-80mm"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledged_floor",
+        "label": {
+          "en": "Floor Face & Foot Holes (Ledged Base)",
+          "es": "Cara de Piso y Barrenos de Patas (Base con Repisa)"
+        },
+        "geometry_type": "surface",
+        "standard": "internal",
+        "parameters": [
+          "spacing",
+          "base_depth",
+          "post_y",
+          "foot_bolt_d"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "neutral",
+        "symmetry": 1
+      },
+      {
+        "id": "rear_seat_a",
+        "label": {
+          "en": "Rear Seat A",
+          "es": "Asiento Trasero A"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes in the top of the rear member; M8 screw joint at a 6.8 mm tap drill, M6 at 5 mm, M5 at 4.2 mm, M10 at 8.5 mm",
+        "parameters": [
+          "rear_seats",
+          "rear_seat_x",
+          "rear_seat_px",
+          "rear_seat_py",
+          "rear_hole_d",
+          "rear_d",
+          "post_y",
+          "rail_h"
+        ],
+        "compatible_with": [
+          "winch-cradle",
+          "machine-guard",
+          "load-cell-mount"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            "-rear_seat_x",
+            "-post_y + rear_d / 2",
+            "rail_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "rear_hole_d",
+          "map": {
+            "6.8": "m8-screw-joint",
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "8.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "rear_seat_b",
+        "label": {
+          "en": "Rear Seat B",
+          "es": "Asiento Trasero B"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes in the top of the rear member; M8 screw joint at a 6.8 mm tap drill, M6 at 5 mm, M5 at 4.2 mm, M10 at 8.5 mm",
+        "parameters": [
+          "rear_seats",
+          "rear_seat_x",
+          "rear_seat_px",
+          "rear_seat_py",
+          "rear_hole_d",
+          "rear_d",
+          "post_y",
+          "rail_h"
+        ],
+        "compatible_with": [
+          "winch-cradle",
+          "machine-guard",
+          "load-cell-mount"
+        ],
+        "frame": {
+          "part": "base",
+          "origin": [
+            "rear_seat_x",
+            "-post_y + rear_d / 2",
+            "rail_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "rear_hole_d",
+          "map": {
+            "6.8": "m8-screw-joint",
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "8.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledged_rear_seat_a",
+        "label": {
+          "en": "Rear Seat A (Ledged Base)",
+          "es": "Asiento Trasero A (Base con Repisa)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes in the top of the rear member; M8 screw joint at a 6.8 mm tap drill, M6 at 5 mm, M5 at 4.2 mm, M10 at 8.5 mm",
+        "parameters": [
+          "rear_seats",
+          "rear_seat_x",
+          "rear_seat_px",
+          "rear_seat_py",
+          "rear_hole_d",
+          "rear_d",
+          "post_y",
+          "rail_h"
+        ],
+        "compatible_with": [
+          "winch-cradle",
+          "machine-guard",
+          "load-cell-mount"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "-rear_seat_x",
+            "-post_y + rear_d / 2",
+            "rail_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "rear_hole_d",
+          "map": {
+            "6.8": "m8-screw-joint",
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "8.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledged_rear_seat_b",
+        "label": {
+          "en": "Rear Seat B (Ledged Base)",
+          "es": "Asiento Trasero B (Base con Repisa)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes in the top of the rear member; M8 screw joint at a 6.8 mm tap drill, M6 at 5 mm, M5 at 4.2 mm, M10 at 8.5 mm",
+        "parameters": [
+          "rear_seats",
+          "rear_seat_x",
+          "rear_seat_px",
+          "rear_seat_py",
+          "rear_hole_d",
+          "rear_d",
+          "post_y",
+          "rail_h"
+        ],
+        "compatible_with": [
+          "winch-cradle",
+          "machine-guard",
+          "load-cell-mount"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "rear_seat_x",
+            "-post_y + rear_d / 2",
+            "rail_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "rear_hole_d",
+          "map": {
+            "6.8": "m8-screw-joint",
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "8.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledge_seat_a",
+        "label": {
+          "en": "Ledge Seat A",
+          "es": "Asiento de Repisa A"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "two tapped holes in the top of the ledge; M6 screw joint at a 5 mm tap drill, M5 at 4.2 mm, M8 at 6.8 mm",
+        "parameters": [
+          "ledge_h",
+          "ledge_d",
+          "ledge_seat_span",
+          "ledge_seat_pitch",
+          "ledge_seat_y",
+          "ledge_hole_d",
+          "base_depth",
+          "post_y"
+        ],
+        "compatible_with": [
+          "hinged-platform"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "-ledge_seat_span / 2",
+            "base_depth - post_y + ledge_seat_y",
+            "ledge_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "ledge_hole_d",
+          "map": {
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "6.8": "m8-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "ledge_seat_b",
+        "label": {
+          "en": "Ledge Seat B",
+          "es": "Asiento de Repisa B"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "two tapped holes in the top of the ledge; M6 screw joint at a 5 mm tap drill, M5 at 4.2 mm, M8 at 6.8 mm",
+        "parameters": [
+          "ledge_h",
+          "ledge_d",
+          "ledge_seat_span",
+          "ledge_seat_pitch",
+          "ledge_seat_y",
+          "ledge_hole_d",
+          "base_depth",
+          "post_y"
+        ],
+        "compatible_with": [
+          "hinged-platform"
+        ],
+        "frame": {
+          "part": "base_ledged",
+          "origin": [
+            "ledge_seat_span / 2",
+            "base_depth - post_y + ledge_seat_y",
+            "ledge_h"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "ledge_hole_d",
+          "map": {
+            "5": "m6-screw-joint",
+            "4.2": "m5-screw-joint",
+            "6.8": "m8-screw-joint"
+          }
+        },
         "symmetry": 2
       }
     ],

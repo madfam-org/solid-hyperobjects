@@ -30,6 +30,7 @@ an edge.
 | Mode | Part | Description |
 | :--- | :--- | :--- |
 | **Base** | `base` | Two rails joined by a rear and a front member, open in the middle. Each rail has a socket the post stands in, a bolt hole up through the socket floor, and a hole near each end for the stud of a levelling foot. |
+| **Base with Front Ledge** | `base_ledged` | The same base with a low ledge along its front, below the top of the rails, for what must stand lower than the base and just in front of it: the hinge blocks of a folding platform, a kick plate. Two seats on the ledge, each a pair of holes, sit symmetric about the centre. |
 | **Crossbar** | `crossbar` | A bar across the two post tops with a bolt hole down into each. With `cap_depth` above 0 a pocket caps each post; at 0 the underside is flat. With `arm_mount` on, two blind holes in the front face take the bolts of a hanging accessory. |
 
 ## Parameters
@@ -47,6 +48,9 @@ an edge.
 | `foot_bolt_d` | 4.5–12.5 mm | Hole for each levelling-foot stud |
 | `bar_h`, `bar_margin`, `cap_depth` | 15–120 mm, 0–20 mm, 0–30 mm | Crossbar height, its margin round the post section, and the depth of the caps |
 | `arm_mount`, `arm_bolt_span`, `arm_hole_d`, `arm_mount_drop` | on / off, 20–200 mm, 3.3–10.5 mm, 8–100 mm | Two blind holes in the crossbar's front face: their spacing, their diameter (the tap drill: 6.8 for M8, 4.2 for M5) and how far below the top face they sit |
+| `ledge_h`, `ledge_d` | 5–60 mm, 20–200 mm | Height of the ledge above the floor and how far it reaches in front of the base (ledged base only) |
+| `ledge_seat_span`, `ledge_seat_pitch`, `ledge_seat_y`, `ledge_hole_d` | 50–1400 mm, 10–100 mm, 8–190 mm, 3.3–10.5 mm | The two ledge seats: distance between their centres, spacing of the two holes of each, distance of the hole line from the front face of the base, and the hole diameter (the tap drill: 5 for M6) |
+| `rear_seats`, `rear_seat_x`, `rear_seat_px`, `rear_seat_py`, `rear_hole_d` | on / off, 0–700 mm, 10–300 mm, 10–280 mm, 3.3–10.5 mm | Rectangles of four blind holes in the top of the rear member, on either base: the offset of each of the two seats from the centre line (0 gives one seat), the pattern across and front to back, and the hole diameter (the tap drill: 6.8 for M8) |
 
 ## Constraints
 
@@ -58,6 +62,10 @@ an edge.
 - A cap needs 3 mm of wall round the post; with no margin, set the cap to 0.
 - The arm holes stay between the two posts and inside the height of the bar.
 - A socket under 8 mm is flagged: it locates the post but barely braces it.
+- The ledge stays at least 5 mm below the top of the rails; its seat holes keep
+  3 mm of material to each edge, fit the width of the base and do not overlap.
+- The rear seats fit the depth of the rear member, stay between the rails
+  (clear of the sockets and the foot holes) and do not overlap.
 
 ## Making it
 
@@ -84,6 +92,22 @@ it is not.
   holes, facing forward. Polarity female (the thread side). It carries the
   size key `m8-screw-joint` when `arm_hole_d` is 6.8 and `m5-screw-joint` at
   4.2, so an arm whose beam bolts carry the same key mates here.
+
+- **Rear seats** (`rear_seat_a`, `rear_seat_b`): the top of the rear member at
+  the centre of each hole rectangle, facing up. Polarity female. The key
+  follows `rear_hole_d`: `m8-screw-joint` at 6.8, `m6-screw-joint` at 5,
+  `m5-screw-joint` at 4.2, `m10-screw-joint` at 8.5. The frame is on the face
+  whether or not the holes are drilled; turn `rear_seats` on to drill them.
+- **Ledge seats** (`ledge_seat_a`, `ledge_seat_b`): the top of the ledge between
+  the two holes of each seat, facing up. Polarity female; `m6-screw-joint` at a
+  5 mm hole, `m5-screw-joint` at 4.2, `m8-screw-joint` at 6.8.
+- The ledged base repeats the base's own interfaces under its part:
+  `ledged_socket_a`, `ledged_socket_b`, `ledged_floor`, `ledged_rear_seat_a`,
+  `ledged_rear_seat_b`.
+
+The hole patterns are parameters, not a standard: a seat mates a partner only if
+the partner's own bolt pattern has the same pitches, which the size key does not
+check.
 
 The sockets and caps carry the size key `square-tube-80mm` when `post_w` is
 80. The key reads the width only: a square 80 mm post is covered, and a
