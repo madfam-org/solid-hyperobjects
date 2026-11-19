@@ -97,7 +97,12 @@ enough and guard the gap at the hinge.
   centre of its bolt pair (mid-way along the flange, behind the barrel), so a
   seat framed on its own hole pair puts the holes in line. Its
   size key follows `bolt_d`: an M5 screw joint at 5.5, M6 at 6.5 (the default),
-  M8 at 8.5.
+  M8 at 8.5. Symmetry 2: the bolt pair reads the same after a half turn about
+  the frame's normal, so the block bolts to a two-hole seat either way round,
+  with the barrel on one side of the seat or on the other. An assembly's mate
+  states which with `rotation_index` 0 or 1. The block itself is not
+  symmetric; the number describes the bolt pattern, as it does on the other
+  bolt-down feet in this commons.
 
 ## Licence
 
