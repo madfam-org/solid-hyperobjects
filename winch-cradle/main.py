@@ -13,14 +13,19 @@ Parts (dispatched via `target_part`):
   * "cradle_overhung" — base and motor plate only: an L. The drum hangs on the
                         motor's own bearings.
 
+With the hood seats on, either cradle carries four tapped holes through its
+base, in two rows along the shaft: the seat of a fixed guard that stands over
+the drum on the base and is bolted down by two feet. A pitch of 0 along the
+shaft gives one hole per row.
+
 Frame: the mounting face is Z = 0. The shaft axis is on X at height `axis_h`.
 The motor sits outside the plate at -X and its shaft enters through the pilot
 bore; the outboard plate is at +X. The cradle is centred on the origin in X
 and Y.
 
 Construction: ONE outline (the U or the L, seen from the side) extruded across
-the width, then cut: the pilot, the bolt circle, the outboard bore and the
-mounting holes. Nothing is unioned.
+the width, then cut: the pilot, the bolt circle, the outboard bore, the
+mounting holes and, when asked for, the hood seats. Nothing is unioned.
 
 Sandbox contract (apps/api/services/engine/cq_runner.py):
   - `cq` and `math` are pre-injected globals.
@@ -43,6 +48,10 @@ def PARAM(getter, default):
         return default
 
 
+def as_bool(v):
+    return str(v).strip().lower() in ("1", "true", "yes", "on")
+
+
 PILOT_D = float(PARAM(lambda: pilot_d, 60.0))
 BOLT_CIRCLE = float(PARAM(lambda: bolt_circle, 75.0))
 BOLT_D = float(PARAM(lambda: bolt_d, 5.5))
@@ -55,6 +64,10 @@ PLATE_T = float(PARAM(lambda: plate_t, 8.0))
 PLATE_MARGIN = float(PARAM(lambda: plate_margin, 10.0))
 BEARING_D = float(PARAM(lambda: bearing_d, 22.0))
 MOUNT_BOLT_D = float(PARAM(lambda: mount_bolt_d, 6.5))
+HOOD_SEATS = as_bool(PARAM(lambda: hood_seats, False))
+HOOD_SEAT_PX = float(PARAM(lambda: hood_seat_px, 60.0))
+HOOD_SEAT_PY = float(PARAM(lambda: hood_seat_py, 130.0))
+HOOD_HOLE_D = float(PARAM(lambda: hood_hole_d, 4.2))
 PART = str(PARAM(lambda: target_part, "cradle"))
 OUTBOARD = PART != "cradle_overhung"
 
@@ -93,7 +106,13 @@ def build_cradle():
     pts = [(x, sy * my) for x in xs for sy in (-1.0, 1.0)]
     mounts = (cq.Workplane("XY").pushPoints(pts).circle(MOUNT_BOLT_D / 2.0)
               .extrude(t + 2.0 * EPS).translate((0, 0, -EPS)))
-    return cradle.cut(mounts)
+    cradle = cradle.cut(mounts)
+    if HOOD_SEATS:                           # tapped through the base, centred under the drum
+        sx = [-HOOD_SEAT_PX / 2.0, HOOD_SEAT_PX / 2.0] if HOOD_SEAT_PX > 0.5 else [0.0]
+        seats = [(x, sy * HOOD_SEAT_PY / 2.0) for x in sx for sy in (-1.0, 1.0)]
+        cradle = cradle.cut(cq.Workplane("XY").pushPoints(seats).circle(HOOD_HOLE_D / 2.0)
+                            .extrude(t + 2.0 * EPS).translate((0, 0, -EPS)))
+    return cradle
 
 
 result = build_cradle()

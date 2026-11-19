@@ -2,7 +2,7 @@
   "project": {
     "name": "Winch Cradle",
     "slug": "winch-cradle",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -107,6 +107,13 @@
       "label": {
         "en": "Frame",
         "es": "Bastidor"
+      }
+    },
+    {
+      "id": "hood",
+      "label": {
+        "en": "Hood Seats",
+        "es": "Asientos de Cubierta"
       }
     }
   ],
@@ -338,8 +345,8 @@
         "es": "Barreno de Montaje (mm)"
       },
       "tooltip": {
-        "en": "Clearance hole for each bolt through the base (5.5 for M5, 6.5 for M6)",
-        "es": "Barreno pasado para cada tornillo de la base (5.5 para M5, 6.5 para M6)"
+        "en": "Clearance hole for each bolt through the base (5.5 for M5, 6.5 for M6, 8.5 for M8, 10.5 for M10)",
+        "es": "Barreno pasado para cada tornillo de la base (5.5 para M5, 6.5 para M6, 8.5 para M8, 10.5 para M10)"
       }
     },
     {
@@ -360,6 +367,87 @@
       "tooltip": {
         "en": "Bore in the outboard plate: the seat of the bearing that carries the far end of the shaft (22 for a 608)",
         "es": "Barreno en la placa exterior: el asiento del rodamiento que sostiene el extremo lejano de la flecha (22 para un 608)"
+      }
+    },
+    {
+      "id": "hood_seats",
+      "type": "checkbox",
+      "default": false,
+      "group": "hood",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Hood Seats",
+        "es": "Asientos de Cubierta"
+      },
+      "tooltip": {
+        "en": "Drill four tapped holes through the base, in two rows along the shaft, where the feet of a guard hood over the drum bolt down",
+        "es": "Barrena cuatro agujeros roscados a través de la base, en dos filas a lo largo de la flecha, donde se atornillan las patas de una cubierta de guarda sobre el tambor"
+      }
+    },
+    {
+      "id": "hood_seat_px",
+      "type": "slider",
+      "default": 60.0,
+      "min": 0.0,
+      "max": 340.0,
+      "step": 0.5,
+      "group": "hood",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Seat Pitch, Along the Shaft (mm)",
+        "es": "Paso de Asientos, a lo Largo de la Flecha (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two holes of each row, centred on the drum; 0 gives one hole per row",
+        "es": "Distancia entre los dos barrenos de cada fila, centrados en el tambor; 0 da un barreno por fila"
+      }
+    },
+    {
+      "id": "hood_seat_py",
+      "type": "slider",
+      "default": 130.0,
+      "min": 20.0,
+      "max": 480.0,
+      "step": 0.5,
+      "group": "hood",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Seat Row Spacing (mm)",
+        "es": "Separación de Filas de Asientos (mm)"
+      },
+      "tooltip": {
+        "en": "Distance between the two rows, one on each side of the drum: the spacing of the hood's two feet",
+        "es": "Distancia entre las dos filas, una a cada lado del tambor: la separación de las dos patas de la cubierta"
+      }
+    },
+    {
+      "id": "hood_hole_d",
+      "type": "slider",
+      "default": 4.2,
+      "min": 2.5,
+      "max": 6.8,
+      "step": 0.1,
+      "group": "hood",
+      "modes": [
+        "cradle",
+        "cradle_overhung"
+      ],
+      "label": {
+        "en": "Seat Hole (mm)",
+        "es": "Barreno del Asiento (mm)"
+      },
+      "tooltip": {
+        "en": "Diameter of each seat hole: the tap drill of its thread (4.2 for M5, 5 for M6, 6.8 for M8)",
+        "es": "Diámetro de cada barreno: la broca de machuelo de su rosca (4.2 para M5, 5 para M6, 6.8 para M8)"
       }
     }
   ],
@@ -428,6 +516,32 @@
         "plate_margin": 6.0,
         "mount_bolt_d": 4.5
       }
+    },
+    {
+      "id": "face_145_drum_100_m8_hooded",
+      "mode": "cradle",
+      "label": {
+        "en": "Cradle · 110 mm pilot, 4 on 145 mm · 100 mm drum · M8 feet, hood seats",
+        "es": "Cuna · piloto de 110 mm, 4 en 145 mm · tambor de 100 mm · patas M8, asientos de cubierta"
+      },
+      "values": {
+        "pilot_d": 110.0,
+        "bolt_circle": 145.0,
+        "bolt_d": 9.0,
+        "bolt_count": 4,
+        "drum_d": 100.0,
+        "drum_w": 70.0,
+        "end_gap": 15.0,
+        "axis_h": 95.0,
+        "plate_t": 10.0,
+        "plate_margin": 20.0,
+        "mount_bolt_d": 8.5,
+        "bearing_d": 35.0,
+        "hood_seats": true,
+        "hood_seat_px": 60.0,
+        "hood_seat_py": 130.0,
+        "hood_hole_d": 4.2
+      }
     }
   ],
   "constraints": [
@@ -480,6 +594,30 @@
       }
     },
     {
+      "expression": "!hood_seats || hood_seat_px + hood_hole_d + 6 <= drum_w + 2 * end_gap",
+      "severity": "error",
+      "message": {
+        "en": "The hood seat holes must stay on the base between the plates, 3 mm clear of each",
+        "es": "Los barrenos de los asientos de cubierta deben quedar sobre la base entre las placas, a 3 mm de cada una"
+      }
+    },
+    {
+      "expression": "!hood_seats || hood_seat_py + hood_hole_d + 6 <= bolt_circle + bolt_d + 2 * plate_margin - 3 * mount_bolt_d - 8",
+      "severity": "error",
+      "message": {
+        "en": "The hood seat rows must lie between the two rows of mounting holes with 3 mm of base between the holes: widen the plate margin or narrow the rows",
+        "es": "Las filas de asientos de cubierta deben quedar entre las dos filas de barrenos de montaje con 3 mm de base entre barrenos: aumenta el margen de placa o acerca las filas"
+      }
+    },
+    {
+      "expression": "!hood_seats || hood_seat_px == 0 || hood_seat_px >= hood_hole_d + 3",
+      "severity": "error",
+      "message": {
+        "en": "The two holes of each hood seat row need 3 mm between them; set the pitch to 0 for one hole per row",
+        "es": "Los dos barrenos de cada fila de asientos necesitan 3 mm entre ellos; pon el paso en 0 para un barreno por fila"
+      }
+    },
+    {
       "expression": "plate_t * 2 >= bolt_d",
       "severity": "warning",
       "message": {
@@ -493,6 +631,22 @@
       "message": {
         "en": "Under 3 mm beside the drum, a flange that runs out of true can rub the plate",
         "es": "Con menos de 3 mm junto al tambor, una brida descentrada puede rozar la placa"
+      }
+    },
+    {
+      "expression": "!hood_seats || hood_seat_py >= drum_d + hood_hole_d",
+      "severity": "warning",
+      "message": {
+        "en": "The hood seat rows are closer together than the drum is wide: no hood that clears the drum has its feet there",
+        "es": "Las filas de asientos están más juntas que el ancho del tambor: ninguna cubierta que libre el tambor tiene ahí sus patas"
+      }
+    },
+    {
+      "expression": "!hood_seats || plate_t >= hood_hole_d",
+      "severity": "warning",
+      "message": {
+        "en": "A base thinner than the seat hole gives its thread less than one diameter to hold",
+        "es": "Una base más delgada que el barreno del asiento da a su rosca menos de un diámetro de agarre"
       }
     }
   ],
@@ -636,7 +790,7 @@
           "es": "Barrenos de Montaje de la Base"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole, M6 at 6.5 mm, M8 at 8.5 mm, M10 at 10.5 mm",
         "parameters": [
           "drum_w",
           "end_gap",
@@ -667,7 +821,57 @@
         "size_key": {
           "param": "mount_bolt_d",
           "map": {
-            "5.5": "m5-screw-joint"
+            "5.5": "m5-screw-joint",
+            "6.5": "m6-screw-joint",
+            "8.5": "m8-screw-joint",
+            "10.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "hood_seat",
+        "label": {
+          "en": "Hood Seats",
+          "es": "Asientos de Cubierta"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes through the base, two rows along the shaft; M5 screw joint at a 4.2 mm tap drill, M6 at 5 mm, M8 at 6.8 mm",
+        "parameters": [
+          "hood_seats",
+          "hood_seat_px",
+          "hood_seat_py",
+          "hood_hole_d",
+          "plate_t"
+        ],
+        "compatible_with": [
+          "machine-guard"
+        ],
+        "frame": {
+          "part": "cradle",
+          "origin": [
+            0,
+            0,
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "hood_hole_d",
+          "map": {
+            "4.2": "m5-screw-joint",
+            "5": "m6-screw-joint",
+            "6.8": "m8-screw-joint"
           }
         },
         "symmetry": 2
@@ -716,7 +920,7 @@
           "es": "Barrenos de Montaje de la Base (voladizo)"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole, M6 at 6.5 mm, M8 at 8.5 mm, M10 at 10.5 mm",
         "parameters": [
           "drum_w",
           "end_gap",
@@ -747,7 +951,57 @@
         "size_key": {
           "param": "mount_bolt_d",
           "map": {
-            "5.5": "m5-screw-joint"
+            "5.5": "m5-screw-joint",
+            "6.5": "m6-screw-joint",
+            "8.5": "m8-screw-joint",
+            "10.5": "m10-screw-joint"
+          }
+        },
+        "symmetry": 2
+      },
+      {
+        "id": "overhung_hood_seat",
+        "label": {
+          "en": "Hood Seats (overhung)",
+          "es": "Asientos de Cubierta (voladizo)"
+        },
+        "geometry_type": "bolt_pattern",
+        "standard": "four tapped holes through the base, two rows along the shaft; M5 screw joint at a 4.2 mm tap drill, M6 at 5 mm, M8 at 6.8 mm",
+        "parameters": [
+          "hood_seats",
+          "hood_seat_px",
+          "hood_seat_py",
+          "hood_hole_d",
+          "plate_t"
+        ],
+        "compatible_with": [
+          "machine-guard"
+        ],
+        "frame": {
+          "part": "cradle_overhung",
+          "origin": [
+            0,
+            0,
+            "plate_t"
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "x_axis": [
+            1,
+            0,
+            0
+          ]
+        },
+        "polarity": "female",
+        "size_key": {
+          "param": "hood_hole_d",
+          "map": {
+            "4.2": "m5-screw-joint",
+            "5": "m6-screw-joint",
+            "6.8": "m8-screw-joint"
           }
         },
         "symmetry": 2
