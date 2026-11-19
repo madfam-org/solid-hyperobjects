@@ -782,7 +782,7 @@
           "es": "Tornillos de la Brida del Bloque"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "internal; M5 screw joint at a 5.5 mm hole",
+        "standard": "internal; M5 screw joint at a 5.5 mm hole, M6 at 6.5 mm, M8 at 8.5 mm",
         "parameters": [
           "axis_h",
           "flange_l",
