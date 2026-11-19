@@ -2,7 +2,7 @@
   "project": {
     "name": "VESA Arm Extender",
     "slug": "vesa-arm-extender",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
@@ -736,7 +736,7 @@
           "es": "Cara de Pantalla del Brazo Colgante (VESA MIS-D)"
         },
         "geometry_type": "bolt_pattern",
-        "standard": "VESA MIS-D",
+        "standard": "VESA MIS-D; four M4 screws on a 100 mm square at vesa 100, on a 75 mm square at vesa 75",
         "parameters": [
           "vesa",
           "plate_margin",
@@ -753,6 +753,13 @@
           "x_axis": [1, 0, 0]
         },
         "polarity": "male",
+        "size_key": {
+          "param": "vesa",
+          "map": {
+            "75": "vesa-mis-d-75",
+            "100": "vesa-mis-d-100"
+          }
+        },
         "symmetry": 4
       }
     ],

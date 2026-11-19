@@ -63,7 +63,12 @@ the value the code dispatches on, so the four modes render as distinct geometry.
     `m8-screw-joint` when `beam_bolt_d` is 8.5 and `m5-screw-joint` at 5.5, so
     it mates a beam whose mount carries the same key.
   - **Drop Arm Display Face** (`bolt_pattern`, standard **VESA MIS-D**) — the
-    top face of the Drop Arm at the centre of its VESA square.
+    top face of the Drop Arm at the centre of its VESA square, facing the
+    display. Polarity male (the arm carries the clearance holes, the display
+    the M4 threads), symmetry 4. Size key `vesa-mis-d-100` when `vesa` is 100
+    and `vesa-mis-d-75` at 75, so it mates a display whose back carries the
+    same key. The other parts' VESA faces declare the standard by name only:
+    they have no frame yet, so nothing can be placed on them by key.
 - **Material awareness:** the M4 clearance holes are printable clearance values
   tunable per material/printer; `tolerance_by_material` is declared.
 - **Societal benefit:** a commercial monitor arm ships with one reach and one
