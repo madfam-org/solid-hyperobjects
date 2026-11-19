@@ -2,15 +2,15 @@
   "project": {
     "name": "Machine Guard",
     "slug": "machine-guard",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "attribution": {
       "author": "Innovaciones MADFAM",
       "license": "CERN-OHL-W-2.0"
     },
     "engine": "cadquery",
     "description": {
-      "en": "A parametric fixed guard that bolts over a moving or hot part of a machine and keeps hands out. Drum Hood is an arch over a rotating drum, spool, pulley or roller: it follows the rim at a fixed gap, comes down to two bolted feet, can close one end, and leaves a slot for the cable or belt. Box Cover is a five-sided cover for a drive, a coupling, a braking resistor or a terminal row, with vent slots in the top and a notch for a shaft or a cable. Every opening the guard leaves (the gap to the drum, the cable slot, the vents) is held under 9.5 mm so a fingertip cannot pass.\n\nOfficial Visualizer and Configurator: Yantra4D",
-      "es": "Una guarda fija paramétrica que se atornilla sobre una parte móvil o caliente de una máquina y mantiene las manos fuera. La Cubierta de Tambor es un arco sobre un tambor, carrete, polea o rodillo giratorio: sigue el borde con una holgura fija, baja a dos patas atornilladas, puede cerrar un extremo y deja una ranura para el cable o la banda. La Cubierta de Caja es una tapa de cinco caras para un accionamiento, un cople, una resistencia de frenado o una hilera de terminales, con ranuras de ventilación arriba y una muesca para una flecha o un cable. Cada abertura que deja la guarda (la holgura al tambor, la ranura del cable, las ventilas) se mantiene bajo 9.5 mm para que no pase la yema de un dedo.\n\nVisualizador y configurador oficial: Yantra4D"
+      "en": "A parametric fixed guard that bolts over a moving or hot part of a machine and keeps hands out. Drum Hood is an arch over a rotating drum, spool, pulley or roller: it follows the rim at a fixed gap, comes down to two bolted feet, can close one end, and leaves a slot for the cable or belt, over the top of the drum or low in a side wall. Box Cover is a five-sided cover for a drive, a coupling, a braking resistor or a terminal row, with vent slots in the top and a notch for a shaft or a cable. Every opening the guard leaves (the gap to the drum, the cable slots, the vents) is held under 9.5 mm so a fingertip cannot pass.\n\nOfficial Visualizer and Configurator: Yantra4D",
+      "es": "Una guarda fija paramétrica que se atornilla sobre una parte móvil o caliente de una máquina y mantiene las manos fuera. La Cubierta de Tambor es un arco sobre un tambor, carrete, polea o rodillo giratorio: sigue el borde con una holgura fija, baja a dos patas atornilladas, puede cerrar un extremo y deja una ranura para el cable o la banda, por encima del tambor o abajo en una pared lateral. La Cubierta de Caja es una tapa de cinco caras para un accionamiento, un cople, una resistencia de frenado o una hilera de terminales, con ranuras de ventilación arriba y una muesca para una flecha o un cable. Cada abertura que deja la guarda (la holgura al tambor, las ranuras del cable, las ventilas) se mantiene bajo 9.5 mm para que no pase la yema de un dedo.\n\nVisualizador y configurador oficial: Yantra4D"
     },
     "thumbnail": "/projects/machine-guard.webp",
     "difficulty": "beginner",
@@ -320,6 +320,100 @@
       }
     },
     {
+      "id": "wall_slot",
+      "type": "checkbox",
+      "default": false,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Low Cable Slot",
+        "es": "Ranura Baja del Cable"
+      },
+      "tooltip": {
+        "en": "Cut a second slot through a straight side wall, below the axis, for a cable or belt that leaves the underside of the drum",
+        "es": "Corta una segunda ranura en una pared lateral recta, bajo el eje, para un cable o una banda que sale por debajo del tambor"
+      }
+    },
+    {
+      "id": "wall_slot_far",
+      "type": "checkbox",
+      "default": false,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Low Slot on the -Y Side",
+        "es": "Ranura Baja del Lado -Y"
+      },
+      "tooltip": {
+        "en": "Off, the low slot is in the +Y wall, the side the arch slot leans toward; on, it is in the -Y wall",
+        "es": "Apagado, la ranura baja queda en la pared +Y, el lado hacia el que se inclina la ranura del arco; encendido, queda en la pared -Y"
+      }
+    },
+    {
+      "id": "wall_slot_h",
+      "type": "slider",
+      "default": 25.0,
+      "min": 5.0,
+      "max": 290.0,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Low Slot Height (mm)",
+        "es": "Altura de la Ranura Baja (mm)"
+      },
+      "tooltip": {
+        "en": "Height of the centre of the low slot above the face the hood is bolted to: the height at which the cable crosses the wall",
+        "es": "Altura del centro de la ranura baja sobre la cara donde se atornilla la cubierta: la altura a la que el cable cruza la pared"
+      }
+    },
+    {
+      "id": "wall_slot_w",
+      "type": "slider",
+      "default": 8.0,
+      "min": 3.0,
+      "max": 12.0,
+      "step": 0.5,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Low Slot Width (mm)",
+        "es": "Ancho de la Ranura Baja (mm)"
+      },
+      "tooltip": {
+        "en": "Width of the low slot, measured up the wall; it must stay under 9.5 mm",
+        "es": "Ancho de la ranura baja, medido a lo alto de la pared; debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "id": "wall_slot_len",
+      "type": "slider",
+      "default": 60.0,
+      "min": 5.0,
+      "max": 300.0,
+      "step": 1.0,
+      "group": "slot",
+      "modes": [
+        "drum_hood"
+      ],
+      "label": {
+        "en": "Low Slot Length (mm)",
+        "es": "Largo de la Ranura Baja (mm)"
+      },
+      "tooltip": {
+        "en": "Length of the low slot along the axis: the width the cable travels across as it winds",
+        "es": "Largo de la ranura baja a lo largo del eje: el ancho que recorre el cable al enrollarse"
+      }
+    },
+    {
       "id": "inner_w",
       "type": "slider",
       "default": 160.0,
@@ -580,6 +674,11 @@
         "slot_w": 8.0,
         "slot_len": 60.0,
         "slot_angle": 50.0,
+        "wall_slot": false,
+        "wall_slot_far": false,
+        "wall_slot_h": 25.0,
+        "wall_slot_w": 8.0,
+        "wall_slot_len": 60.0,
         "wall": 3.0,
         "foot_w": 16.0,
         "foot_t": 4.0,
@@ -604,10 +703,44 @@
         "slot_w": 6.0,
         "slot_len": 60.0,
         "slot_angle": 0.0,
+        "wall_slot": false,
+        "wall_slot_far": false,
+        "wall_slot_h": 25.0,
+        "wall_slot_w": 8.0,
+        "wall_slot_len": 60.0,
         "wall": 2.5,
         "foot_w": 14.0,
         "foot_t": 3.0,
         "bolt_d": 4.5
+      }
+    },
+    {
+      "id": "winch_drum_100_low_exit",
+      "mode": "drum_hood",
+      "label": {
+        "en": "Tunnel · 100 mm drum between two plates · low cable exit",
+        "es": "Túnel · tambor de 100 mm entre dos placas · salida baja del cable"
+      },
+      "values": {
+        "drum_d": 100.0,
+        "drum_w": 70.0,
+        "axis_h": 75.0,
+        "gap": 4.0,
+        "end_clear": 3.0,
+        "end_wall": false,
+        "cable_slot": false,
+        "slot_w": 8.0,
+        "slot_len": 60.0,
+        "slot_angle": 50.0,
+        "wall_slot": true,
+        "wall_slot_far": false,
+        "wall_slot_h": 30.0,
+        "wall_slot_w": 8.0,
+        "wall_slot_len": 60.0,
+        "wall": 3.0,
+        "foot_w": 16.0,
+        "foot_t": 4.0,
+        "bolt_d": 5.5
       }
     },
     {
@@ -694,6 +827,46 @@
       "message": {
         "en": "The cable slot cannot be longer than the drum is wide",
         "es": "La ranura del cable no puede ser más larga que el ancho del tambor"
+      }
+    },
+    {
+      "expression": "!wall_slot || wall_slot_w < 9.5",
+      "severity": "error",
+      "message": {
+        "en": "The low cable slot is an opening in a guard: it must stay under 9.5 mm",
+        "es": "La ranura baja del cable es una abertura en una guarda: debe quedar bajo 9.5 mm"
+      }
+    },
+    {
+      "expression": "!wall_slot || wall_slot_len <= drum_w",
+      "severity": "error",
+      "message": {
+        "en": "The low cable slot cannot be longer than the drum is wide, so it stays clear of the ends of the hood and of the end wall",
+        "es": "La ranura baja del cable no puede ser más larga que el ancho del tambor, para quedar libre de los extremos de la cubierta y de la pared de extremo"
+      }
+    },
+    {
+      "expression": "!wall_slot || wall_slot_h - wall_slot_w / 2 >= foot_t + 2",
+      "severity": "error",
+      "message": {
+        "en": "The low cable slot must leave at least 2 mm of wall above the foot: raise the slot or the axis",
+        "es": "La ranura baja del cable debe dejar al menos 2 mm de pared sobre la pata: sube la ranura o el eje"
+      }
+    },
+    {
+      "expression": "!wall_slot || wall_slot_h + wall_slot_w / 2 <= axis_h",
+      "severity": "error",
+      "message": {
+        "en": "The low cable slot must stay in the straight wall, below the axis; above it, use the arch slot",
+        "es": "La ranura baja del cable debe quedar en la pared recta, bajo el eje; por encima, usa la ranura del arco"
+      }
+    },
+    {
+      "expression": "!wall_slot || !cable_slot || wall_slot_far || wall_slot_h + wall_slot_w / 2 + slot_w / 2 + 2 <= axis_h",
+      "severity": "error",
+      "message": {
+        "en": "On the same side as the arch slot, the low slot must stay at least 2 mm below it, or the two join into one opening: lower it or move it to the -Y side",
+        "es": "Del mismo lado que la ranura del arco, la ranura baja debe quedar al menos 2 mm debajo de ella, o las dos se unen en una sola abertura: bájala o pásala al lado -Y"
       }
     },
     {
