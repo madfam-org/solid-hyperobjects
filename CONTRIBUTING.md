@@ -47,7 +47,7 @@ Never ship a `LICENSE` that contradicts your manifest's declared licence:
 ## The bar your PR has to clear
 
 ```bash
-pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@a0a42be0cfdaa5380f18f2310c0cb637c3137139"
+pip install "hyperobjects-spec[geometry] @ git+https://github.com/madfam-org/hyperobjects-spec@5516b052f5f98b5d89e87a97be16f73d0e1d293d"
 
 y4d-spec check ./<slug>            # manifest + files
 y4d-spec check ./<slug> --render --require-openscad --parity \
@@ -58,9 +58,8 @@ y4d-spec check ./<slug> --render --require-openscad --parity \
 free of inverted bodies, **valid as a B-Rep before tessellation**, distinct per
 part, and in agreement with the other kernel. A preset that raises or produces
 broken geometry is a failure, not a note. The declared body count is **not**
-part of that bar yet: the keystone compares it note-first from hyperobjects-spec
-0.16.0 (`body-count`), which `SPEC_PIN` does not include yet (see *Declaring
-body counts*).
+part of that bar yet: the keystone compares it note-first (`body-count`, since
+hyperobjects-spec 0.16.0, which `SPEC_PIN` includes; see *Declaring body counts*).
 Printability findings (thin walls, overhangs, build volume) are measurements,
 never failures.
 
@@ -111,7 +110,7 @@ keystone counted bodies but never compared them with the declaration. From 0.16.
 `y4d-spec check --render` compares them and prints a `body-count:` **note** per
 mismatch (a part with `part_quantities` may render one copy or all of them). It
 becomes a failure only after a whole-commons nightly at that pin explains every
-note. Until `SPEC_PIN` reaches it, CI says nothing about a wrong count.
+note; until then a wrong count is a note in CI, never a failure.
 
 - Never leave a cut ending exactly on a face, a pocket wholly inside a solid, or a decorative plate unioned
   after the `difference()` that vents a cavity — all three export as inverted shells and fail the bar.

@@ -22,7 +22,7 @@ found five cartridges with reasoned parity exemptions or widened tolerances. The
 counts, not proof that every geometry is currently valid. Read current CI for
 its checked revision, render scope, failures, notes and skips.
 
-[CI](.github/workflows/ci.yml) pins verifier `a0a42be0cfdaa5380f18f2310c0cb637c3137139` at this checkpoint;
+[CI](.github/workflows/ci.yml) pins verifier `5516b052f5f98b5d89e87a97be16f73d0e1d293d` at this checkpoint;
 read `SPEC_PIN` there before installing. Its per-PR lane renders changed
 cartridges; its nightly lane checks the whole commons and validates completeness.
 The [contributor verification command](CONTRIBUTING.md) supplies both `libs` and
@@ -31,8 +31,8 @@ status through `tee`; a successful pipeline consumer is not the checker verdict.
 
 Validate B-Rep geometry before exporting, then require watertight meshes,
 positive volume and applicable cross-kernel parity. Declared body counts are
-declared, not yet enforced: the keystone compares them note-first from
-hyperobjects-spec 0.16.0 (`body-count`), a version `SPEC_PIN` does not include yet.
+declared, not yet enforced: the keystone compares them note-first (`body-count`,
+since hyperobjects-spec 0.16.0, which `SPEC_PIN` includes).
 A local macOS pass cannot replace Linux CI. A schema pass, import success or
 skipped kernel check cannot establish modeling correctness. Never widen a
 tolerance, alter the declared body count, or add an exemption to conceal a defect.
