@@ -156,8 +156,8 @@ The volume is about 267 cm³.
 - **Engine:** CadQuery (`main.py`), one body.
 - **Sandbox-safe:** it reads `PARAM(lambda: name, default)`, dispatches on `target_part`, and
   assigns the solid to `result`.
-- **Keystone needed:** a keystone with the key `toolhead-mount-20x20-m3` (hyperobjects-spec#53,
-  lane P6-XCAR). Until `SPEC_PIN` moves past it, `y4d-spec check` reports that key as unknown.
+- **Keystone:** the key `toolhead-mount-20x20-m3` (hyperobjects-spec#53, lane P6-XCAR) is in
+  the keystone at `SPEC_PIN`, so `y4d-spec check` resolves it.
 
 ## Resumen (es)
 

@@ -122,9 +122,8 @@ That closure is the assembly A's top corner should use.
 - **Engine:** CadQuery (`main.py`), one body.
 - **Sandbox-safe:** it reads `PARAM(lambda: name, default)`, dispatches on `target_part`, and
   assigns the solid to `result`.
-- **Keystone needed:** a keystone with the M5 idler catalog (`m5-screw-joint`,
-  `m5-clearance-hole`). Until `SPEC_PIN` moves past it, `y4d-spec check` reports those size keys
-  as unknown.
+- **Keystone:** the M5 idler catalog (`m5-screw-joint`, `m5-clearance-hole`) is in the
+  keystone at `SPEC_PIN`, so `y4d-spec check` resolves those size keys.
 
 ## Resumen (es)
 

@@ -171,11 +171,10 @@ Z idler and the Z pulley share one belt plane and one vertical.
 - **Engine:** CadQuery (`main.py`), one body.
 - **Sandbox-safe:** it reads `PARAM(lambda: name, default)`, dispatches on `target_part`, and
   assigns the solid to `result`.
-- **Keystone needed:** a keystone with the Z drive catalog (`bearing-625`, `shaft-5mm`, the GT2
-  pulleys; lane P6-ZBED). Until `SPEC_PIN` moves past it, `y4d-spec check` passes, because
-  this housing's own size keys (`bearing-625`, `nema-17-face`, `m5-screw-joint`,
-  `m5-clearance-hole`, `tslot-2020-6mm`) already exist. Only the closure test needs the new
-  keystone.
+- **Keystone:** the Z drive catalog (`bearing-625`, `shaft-5mm`, the GT2 pulleys; lane
+  P6-ZBED) is in the keystone at `SPEC_PIN`, as are this housing's own size keys
+  (`bearing-625`, `nema-17-face`, `m5-screw-joint`, `m5-clearance-hole`, `tslot-2020-6mm`),
+  so `y4d-spec check` and the closure test both run against it.
 
 ## Resumen (es)
 
