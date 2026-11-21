@@ -31,8 +31,8 @@ status through `tee`; a successful pipeline consumer is not the checker verdict.
 
 Validate B-Rep geometry before exporting, then require watertight meshes,
 positive volume and applicable cross-kernel parity. Declared body counts are
-declared, not yet enforced: the keystone compares them note-first from
-hyperobjects-spec 0.16.0 (`body-count`), a version `SPEC_PIN` does not include yet.
+declared, not yet enforced: the keystone compares them note-first (`body-count`,
+since hyperobjects-spec 0.16.0, which `SPEC_PIN` includes).
 A local macOS pass cannot replace Linux CI. A schema pass, import success or
 skipped kernel check cannot establish modeling correctness. Never widen a
 tolerance, alter the declared body count, or add an exemption to conceal a defect.
