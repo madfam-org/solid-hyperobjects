@@ -123,8 +123,8 @@ by B − T − U; U is not cited in the catalog yet.
 - **Engine:** CadQuery (`main.py`), one body.
 - **Sandbox-safe:** it reads `PARAM(lambda: name, default)`, dispatches on `target_part`, and
   assigns the solid to `result`.
-- **Keystone needed:** a keystone with the Z belt key `z-belt-gt2-9mm-clamp` (lane P6-ZBED).
-  Until `SPEC_PIN` moves past it, `y4d-spec check` reports that size key as unknown.
+- **Keystone:** the Z belt key `z-belt-gt2-9mm-clamp` (lane P6-ZBED) is in the keystone
+  at `SPEC_PIN`, so `y4d-spec check` resolves it.
 
 ## Resumen (es)
 

@@ -154,8 +154,8 @@ sweep.
 - **Engine:** CadQuery (`main.py`), one body.
 - **Sandbox-safe:** it reads `PARAM(lambda: name, default)`, dispatches on `target_part`, and
   assigns the solid to `result`.
-- **Keystone needed:** a keystone with the gantry catalog (`mgn9-carriage`, hyperobjects-spec
-  PR #47). Until `SPEC_PIN` moves past it, `y4d-spec check` reports that size key as unknown.
+- **Keystone:** the gantry catalog (`mgn9-carriage`, hyperobjects-spec PR #47) is in the
+  keystone at `SPEC_PIN`, so `y4d-spec check` resolves that size key.
 
 ## Resumen (es)
 
