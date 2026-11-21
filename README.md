@@ -215,8 +215,8 @@ nonblocking until whole-commons false-positive analysis supports a stronger rule
   expressions over parameter ids. **Declared, not yet enforced:** the keystone
   compares rendered bodies with the declaration note-first from hyperobjects-spec
   0.16.0 (`body-count`), and only after a clean whole-commons nightly at that pin
-  does a mismatch become a failure. `SPEC_PIN` includes 0.16.0, so CI reports a
-  wrong count as a note today, never as a failure.
+  does a mismatch become a failure. `SPEC_PIN` includes 0.16.0, so the render lane
+  reports a wrong count as a note on the cartridges it renders, never as a failure.
 
 ## Layout
 
