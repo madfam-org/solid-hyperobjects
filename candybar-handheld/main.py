@@ -42,7 +42,7 @@ def PARAM(getter, default):
 
 def count_value(value, name, top):
     """A count arrives as a float from the configurator; refuse a fraction, never round."""
-    if (type(value) not in (int, float) or not math.isfinite(value)
+    if (not isinstance(value, (int, float)) or not math.isfinite(value)
             or value != int(value) or not 0 <= value <= top):
         raise ValueError(f"{name} must be a whole number from 0 to {top}")
     return int(value)
