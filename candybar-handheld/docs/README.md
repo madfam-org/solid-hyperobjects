@@ -85,9 +85,9 @@ hide the others.
 
 `project.json` carries a `device` block in the **device-control vocabulary** of the
 hyperobjects keystone (`device-controls/1.0`; contract in hyperobjects-spec,
-`docs/DEVICE_CONTROLS.md`). It lists `body` and `rear_mount` as structure and
-declares each of the thirty-one controls: its role, the Linux input event it sends,
-how it travels, and where it is present.
+`docs/DEVICE_CONTROLS.md`). It lists `body` and `rear_mount` as structure, the mount
+with `present_when: rear_mount_present`, and declares each of the thirty-one controls:
+its role, the Linux input event it sends, how it travels, and where it is present.
 
 | Parts | Role | Sends | Travel |
 | :-- | :-- | :-- | :-- |
@@ -137,11 +137,34 @@ Both are illustrative: round numbers that show two corners of the parameter spac
 
 ## Constraints
 
-Four errors and three warnings. The errors: the corner radius is under half the
-width and half the height; the screen is narrower than the body; the D-pad span
-leaves an arm at least 2 mm long; the D-pad and the face buttons stay on the body.
-The warnings: face buttons that overlap, shoulders that reach into the rounded
-corners, and a body too thin for a shoulder and a trigger one behind the other.
+Forty-two, all errors: the configurator refuses a parameter set that breaks one, and
+both presets satisfy every one. Together they hold one layout. Top to bottom on the
+face: the screen, the function buttons, the D-pad (left) and the face buttons (right)
+in one row, the sticks, the menu row.
+
+- **Face.** Every face control stays 3 mm inside the outline and out of the rounded
+  corners. Neighbouring clusters keep 2 mm apart: the screen from everything below it,
+  the D-pad from the face buttons, the sticks from each other, the rows from each other.
+  Within a cluster, the face buttons and the menu buttons do not overlap, and the D-pad
+  span leaves an arm at least 2 mm long.
+- **Top edge.** The shoulders and triggers stay on the straight part of the edge
+  (`shoulder_inset` at least `corner_radius`), clear of each other and of the top port
+  by 1.5 mm, so their seats never share a face with the port's seat. A shoulder and a
+  trigger fit one behind the other (`body_depth` at least `2 × shoulder_thickness + 3`).
+  The edge ports stay on the straight part of the top and bottom edges.
+- **Sides.** The side buttons and the slide switch stay on the straight part of the
+  sides, 3 mm or the corner radius from its ends, whichever is more.
+- **Rear.** The light bars, the rear port and the rear mount stay 3 mm inside the rear
+  and out of its corners, and 2 mm apart.
+- **Body.** The corner radius is under half the width and half the height.
+
+A rule applies only where its control is present (`stick_count < 1 || …`). The
+configurator's evaluator has no square root, absolute value or tangent, so three
+bounds stand in, each on the safe side: a screen's half-height is taken as
+`17.97 × screen_diagonal × screen_aspect_h / (screen_aspect_w + screen_aspect_h)` (at
+most 4 % over the true value from 1:1 to 16:9), a stick's dish as widening by
+`stick_tilt / 51.9` per millimetre of height (tan 30° is 0.577, and tan is convex), and
+`(y < 0 ? -y : y)` for the distance from the centre line.
 
 ## Interfaces
 
