@@ -1034,7 +1034,7 @@
     {
       "id": "BoxPolygonStyle",
       "type": "select",
-      "default": 2,
+      "default": 3,
       "options": [
         {
           "value": 1,
@@ -1117,7 +1117,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1158,7 +1158,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1199,7 +1199,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1240,7 +1240,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1281,7 +1281,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1322,7 +1322,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1364,7 +1364,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1405,7 +1405,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1446,7 +1446,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1487,7 +1487,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1528,7 +1528,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1569,7 +1569,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1610,7 +1610,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1651,7 +1651,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
@@ -1692,7 +1692,7 @@
         "feetwidthMm": 4,
         "feetLengthMm": 10,
         "boxGapMm": 1.5,
-        "BoxPolygonStyle": 2
+        "BoxPolygonStyle": 3
       }
     },
     {
