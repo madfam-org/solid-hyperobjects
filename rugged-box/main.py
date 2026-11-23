@@ -109,13 +109,11 @@ OVER = 2.0      # cutter overshoot
 
 
 # ── Quality → tessellation ───────────────────────────────────────────────────
-# BoxPolygonStyle is a real geometric choice, not a label: at the two low-poly
-# settings the cylindrical features become inscribed prisms with 8 or 16 sides,
-# and only "Curved" emits a true circular profile. "Curved" is the default
-# (Yantra4D mesh-gate ruling M5, 2026-11-22): a printed hole is round unless the
-# low-poly look is chosen on purpose. Every cylinder in the
-# cartridge goes through round_profile(), so changing this parameter changes the
-# mesh — which the manifest promises and a declared-but-inert parameter breaks.
+# BoxPolygonStyle is a real geometric choice, not a label: the two low-poly
+# settings make every cylindrical feature an inscribed 8- or 16-sided prism; the
+# default, "Curved", emits a true circle (Yantra4D mesh-gate ruling M5). Every
+# cylinder goes through round_profile(), so this parameter changes the mesh, which
+# the manifest promises and a declared-but-inert parameter breaks.
 def arc_segments():
     if BoxPolygonStyle <= 1:
         return 8
