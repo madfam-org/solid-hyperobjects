@@ -78,9 +78,10 @@ Every one of the 32 declared parameters reaches the geometry.
 - **`isFeetAdded`, `feetwidthMm`, `feetLengthMm`, `boxGapMm`** — stacking feet
   and their pockets.
 - **`BoxPolygonStyle`** — faceting of the cylindrical features (hinge knuckles,
-  latch pivots, corner pilasters): 8 flats, 16 flats, or a true curve. The
-  knuckle polygon is inscribed, so the hinge interface diameter is unchanged at
-  every setting.
+  latch pivots, corner pilasters): 8 flats, 16 flats, or a true curve. The true
+  curve (`Curved`) is the default, so holes and pivots print round; the two
+  low-poly styles stay available for the faceted look. The knuckle polygon is
+  inscribed, so the hinge interface diameter is unchanged at every setting.
 
 ## Printing
 

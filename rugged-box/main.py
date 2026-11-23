@@ -87,7 +87,7 @@ feetwidthMm              = float(PARAM(lambda: feetwidthMm,                4.0))
 feetLengthMm             = float(PARAM(lambda: feetLengthMm,              10.0))
 boxGapMm                 = float(PARAM(lambda: boxGapMm,                   1.5))
 # quality
-BoxPolygonStyle          = int(  PARAM(lambda: BoxPolygonStyle,              2))
+BoxPolygonStyle          = int(  PARAM(lambda: BoxPolygonStyle,              3))
 
 target_part = str(PARAM(lambda: target_part, "bottom"))
 mode        = str(PARAM(lambda: mode,        ""))
@@ -111,7 +111,9 @@ OVER = 2.0      # cutter overshoot
 # ── Quality → tessellation ───────────────────────────────────────────────────
 # BoxPolygonStyle is a real geometric choice, not a label: at the two low-poly
 # settings the cylindrical features become inscribed prisms with 8 or 16 sides,
-# and only "Curved" emits a true circular profile. Every cylinder in the
+# and only "Curved" emits a true circular profile. "Curved" is the default
+# (Yantra4D mesh-gate ruling M5, 2026-11-22): a printed hole is round unless the
+# low-poly look is chosen on purpose. Every cylinder in the
 # cartridge goes through round_profile(), so changing this parameter changes the
 # mesh — which the manifest promises and a declared-but-inert parameter breaks.
 def arc_segments():
