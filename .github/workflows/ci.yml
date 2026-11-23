@@ -635,6 +635,11 @@ jobs:
             echo "\`groups=$found cartridges=$scope failures=$fails\`"
             echo ""
             grep -E '^[[:space:]]*FAIL ' sweep-report.txt | head -40 || true
+            echo ""
+            # The keystone's mesh gate (report-only, Yantra4D rulings M4-M7): the
+            # cartridges that WOULD fail each check, summed over the per-cartridge
+            # summary lines. A count, never a verdict; it cannot turn this step red.
+            python3 .github/scripts/mesh_gate_counts.py sweep-report.txt || true
           } >> "$GITHUB_STEP_SUMMARY"
 
       # The verdict, in one place. THREE independent conditions now, all
